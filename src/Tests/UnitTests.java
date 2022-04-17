@@ -186,7 +186,29 @@ class UnitTests {
     /**
      *  System requirement - I.3
      **/
-    
+    @Test
+    void payment_success_case_test() {
+        System.out.println("Check that the payment service connection is valid");
+        System.out.println("Check payment details");
+        System.out.println("Check payment service answer");
+        fail();
+    }
+    @Test
+    void payment_fail_case_test1() {
+        // payment service connection lost
+        System.out.println("Check that the payment service connection is valid");
+        System.out.println("Check payment details");
+        System.out.println("Check payment service answer");
+        fail();
+    }
+    @Test
+    void payment_fail_case_test2() {
+        // payment service returns an invalid answer (= the payment can't be done)
+        System.out.println("Check that all the external services connection are valid");
+        System.out.println("Check payment details");
+        System.out.println("Check that there is a system manager");
+        fail();
+    }
 //endregion Functional Requirements
 
 }
