@@ -1,4 +1,4 @@
-package Mine;
+package ShoppingCart;
 
 import CustomExceptions.CantPurchaseException;
 
@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class ShoppingCart {
 
-    //private HashMap<Integer, List<ProductAmount>> basketCases;
+    //storeID, and the basket
     private HashMap<Integer, ShoppingBasket> basketCases;
 
 
@@ -30,15 +30,30 @@ public class ShoppingCart {
 
     }
 
+
+    // to use when we already have an instance of the store
     public int addProduct(int productID, int storeID, int amount) {
+
+        if (basketCases.containsKey(storeID))
+            basketCases.get(storeID).addProduct(productID, amount);
+         else
+            return -1;
+
+
+        return 1;
+
+
+    }
+
+    // to use when we do not have an instance of the store, and need an inventory protector
+    public int addProduct(int productID, int storeID, int amount, InventoryProtector inventoryProtector) {
 
         if (basketCases.containsKey(storeID)) {
             basketCases.get(storeID).addProduct(productID, amount);
 
         } else {
-            // todo how to get the inventory manager
 
-            ShoppingBasket sb = new ShoppingBasket(storeID);
+            ShoppingBasket sb = new ShoppingBasket(storeID,inventoryProtector);
             sb.addProduct(productID, amount);
             basketCases.put(storeID, sb);
 
@@ -62,6 +77,8 @@ public class ShoppingCart {
     public int purchaseCart() {
         int total=0;
 
+
+        //check if we cant purchase from store, that items are in inventory and store policies are complied
         try {
             for (Map.Entry<Integer, ShoppingBasket> basket : basketCases.entrySet()) {
                 total += basket.getValue().purchase();
@@ -71,6 +88,8 @@ public class ShoppingCart {
             return -1;
 
         }
+
+        //check if the order complies with Purchase and Delivery selected.
         return total;
     }
 }

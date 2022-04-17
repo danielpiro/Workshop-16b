@@ -1,4 +1,4 @@
-package NotMine;
+package Temporary;
 
 public class Product {
 

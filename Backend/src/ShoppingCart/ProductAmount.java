@@ -1,4 +1,4 @@
-package Mine;
+package ShoppingCart;
 
 public class ProductAmount {
 

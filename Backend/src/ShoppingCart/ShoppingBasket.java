@@ -1,7 +1,6 @@
-package Mine;
+package ShoppingCart;
 
 import CustomExceptions.CantPurchaseException;
-import NotMine.InventoryProtector;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +10,7 @@ public class ShoppingBasket {
     private int Store;
     private HashMap<Integer, Integer> productAmount;
     private InventoryProtector iProtector;
+    private Purchase myPurchase;
 
     public int addProduct(int productID, int amount) {
         if (productAmount.containsKey(productID)) {
@@ -22,8 +22,10 @@ public class ShoppingBasket {
         return 1;
     }
 
-    public ShoppingBasket(int store) {
+    public ShoppingBasket(int store , InventoryProtector inventoryProtector, Purchase myPurchase) {
         Store = store;
+        this.iProtector = inventoryProtector;
+        this.myPurchase = myPurchase;
         this.productAmount = new HashMap<>();
     }
 
