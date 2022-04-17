@@ -16,9 +16,46 @@ public class IntegrationTests {
     void tearDown() {
     }
 
-    @Test
-    void first_test() {
-        assertTrue(1 == 1);
+    private void pass() {
+        assertTrue(true);
     }
+
+    @Test
+    void sanity_test_success_case() {
+        pass();
+    }
+
+    @Test
+    void sanity_test_fail_case() {
+        int expected = 1;
+        int gotten = 2;
+        if(expected != gotten){
+            pass();
+        }
+        else{
+            fail();
+        }
+    }
+
+//region Functional Requirements
+    // Functional Requirements
+    // ==========================
+
+    /**
+     *
+     **/
+    @Test
+    void test1() {
+        pass();
+    }
+
+    /**
+     *
+     **/
+    @Test
+    void test2() {
+        pass();
+    }
+//endregion Functional Requirements
 
 }
