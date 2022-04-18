@@ -20,22 +20,15 @@ class UnitTests {
         assertTrue(true);
     }
 
-    @Test
-    void sanity_test_success_case() {
-        pass();
-    }
-
-    @Test
-    void sanity_test_fail_case() {
-        int expected = 1;
-        int gotten = 2;
-        if(expected != gotten){
-            pass();
-        }
-        else{
-            fail();
-        }
-    }
+//    @Test
+//    void sanity_test_success_case() {
+//        pass();
+//    }
+//
+//    @Test
+//    void sanity_test_fail_case() {
+//        assertTrue(false);
+//    }
 
 //region Service-Level Requirements
 
@@ -821,18 +814,18 @@ class UnitTests {
         fail();
     }
 
-    /**
-     *  User requirement - II.4.1
-     **/
-    @Test
-    void purchase_shopping_cart_success_case_test() {
-        System.out.println("""
-                - Perform purchase of the shopping cart.
-                - Check all external services returns required answers.
-                - Show success message to the user (later on - will need to update quantity in the system).
-                """);
-        fail();
-    }
+//    /**
+//     *  User requirement - II.4.1
+//     **/
+//    @Test
+//    void purchase_shopping_cart_success_case_test() {
+//        System.out.println("""
+//                - Perform purchase of the shopping cart.
+//                - Check all external services returns required answers.
+//                - Show success message to the user (later on - will need to update quantity in the system).
+//                """);
+//        fail();
+//    }
 
 //endregion User requirements
 
