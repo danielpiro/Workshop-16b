@@ -252,7 +252,7 @@ class UnitTests {
     /**
      *  System requirement - I.5
      **/
-    // A costumer bought a product from a store
+    // A user bought a product from a store
     @Test
     void realtime_notification_product_bought_success_case_test() {
         System.out.println("""
@@ -313,7 +313,7 @@ class UnitTests {
         fail();
     }
 
-    // A costumer's permissions was removed
+    // A user's permissions was removed
     @Test
     void realtime_notification_user_permission_update_success_case_test() {
         System.out.println("""
@@ -337,7 +337,7 @@ class UnitTests {
     /**
      *  System requirement - I.6
      **/
-    // A costumer bought a product from a store
+    // A user bought a product from a store
     @Test
     void offline_notification_product_bought_success_case_test() {
         System.out.println("""
@@ -398,7 +398,7 @@ class UnitTests {
         fail();
     }
 
-    // A costumer's permissions was removed
+    // A user's permissions was removed
     @Test
     void offline_notification_user_permission_update_success_case_test() {
         System.out.println("""
@@ -419,7 +419,157 @@ class UnitTests {
         fail();
     }
 
+    /**
+     *  System requirement - II.1.1
+     **/
+    @Test
+    void get_in_to_the_system_success_case_test() {
+        System.out.println("""
+                - Check that the user was "visitor" before get in to the system.
+                - Perform getting in to the visitor (include shopping cart).
+                - Check that the "visitor" became "buyer" after getting in to the system.
+                """);
+        fail();
+    }
+    @Test
+    void get_in_to_the_system_fail_case_test1() {
+        System.out.println("""
+                - Check that the user was "visitor" before get in to the system
+                    -> this user is not a "visitor".
+                """);
+        fail();
+    }
+    @Test
+    void get_in_to_the_system_fail_case_test2() {
+        System.out.println("""
+                - Check that the user was "visitor" before get in to the system.
+                - Perform getting in to the visitor (include shopping cart)
+                    -> this user did not get a shopping cart.
+                """);
+        fail();
+    }
 
+    /**
+     *  System requirement - II.1.2
+     **/
+    @Test
+    void get_out_of_the_system_success_case_test() {
+        System.out.println("""
+                - Check that the user was a "buyer" before get out of the system.
+                - Perform getting out of the system (include emptying the shopping cart and not "buyer" anymore).
+                - Send success message...
+                """);
+        fail();
+    }
+    @Test
+    void get_out_of_the_system_fail_case_test1() {
+        System.out.println("""
+                - Check that the user was a "buyer" before get out of the system.
+                    -> this user was already out.
+                - Send proper fail message...
+                """);
+        fail();
+    }
+    @Test
+    void get_out_of_the_system_fail_case_test2() {
+        System.out.println("""
+                - Check that the user was a "buyer" before get out of the system.
+                - Perform getting out of the system (include emptying the shopping cart and not "buyer" anymore).
+                    -> the shopping cart did not got empty.
+                - Send proper fail message...
+                """);
+        fail();
+    }
+    @Test
+    void get_out_of_the_system_fail_case_test3() {
+        System.out.println("""
+                - Check that the user was a "buyer" before get out of the system.
+                - Perform getting out of the system (include emptying the shopping cart and not "buyer" anymore).
+                    -> the user stayed as "buyer".
+                - Send proper fail message...
+                """);
+        fail();
+    }
+
+    /**
+     *  System requirement - II.1.3
+     **/
+    @Test
+    void register_success_case_test() {
+        System.out.println("""
+                - Perform Register (entering username and password) & validate registration details (will return TRUE)
+                - Check that the user is still "visitor/buyer" (and not a logged-in user - until he performs login).
+                - Send success message...
+                """);
+        fail();
+    }
+    @Test
+    void register_fail_case_test1() {
+        System.out.println("""
+                - Perform Register (entering username and password) & validate registration details 
+                    -> username already exists in system.
+                - Send failure message...
+                """);
+        fail();
+    }
+    @Test
+    void register_fail_case_test2() {
+        System.out.println("""
+                - Perform Register (entering username and password) & validate registration details 
+                    -> username is not match the requirements for proper username in the system.
+                - Send failure message...
+                """);
+        fail();
+    }
+    @Test
+    void register_fail_case_test3() {
+        System.out.println("""
+                - Perform Register (entering username and password) & validate registration details 
+                    -> password is not match the requirements for proper username in the system.
+                - Send failure message...
+                """);
+        fail();
+    }
+
+    /**
+     *  System requirement - II.1.4
+     **/
+    @Test
+    void login_success_case_test() {
+        System.out.println("""
+                - Perform Login (entering username and password) & validate login details (will return TRUE)
+                - Check that the user is logged-in (shopping cart, permissions...).
+                - Send success message...
+                """);
+        fail();
+    }
+    @Test
+    void login_fail_case_test1() {
+        System.out.println("""
+                - Perform Login (entering username and password) & validate login details
+                    -> username does not exists in system.
+                - Send failure message...
+                """);
+        fail();
+    }
+    @Test
+    void login_fail_case_test2() {
+        System.out.println("""
+                - Perform Login (entering username and password) & validate login details
+                    -> password does not match the username's user in system.
+                - Send failure message...
+                """);
+        fail();
+    }
+
+    /**
+     *  System requirement - II.2.1
+     **/
+    @Test
+    void receive_system_info_success_case_test() {
+
+        fail();
+    }
 //endregion Functional Requirements
 
 }
