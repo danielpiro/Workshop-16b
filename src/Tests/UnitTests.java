@@ -778,7 +778,7 @@ class UnitTests {
         System.out.println("""
                 - User inserting new store details.
                 - The system checks these details (will be valid) & check user is registered/logged in.
-                - Opening store will be activated.
+                - Opening store will be activated & check that new permissions were given to the user (as store owner).
                 - Show success message...
                 """);
         fail();
@@ -813,19 +813,28 @@ class UnitTests {
                 """);
         fail();
     }
+    @Test
+    void open_store_fail_case_test4() {
+        System.out.println("""
+                - User inserting new store details.
+                - The system checks these details (will be valid) & check user is registered/logged in.
+                - Opening store will be activated & check that new permissions were given to the user (as store owner)
+                    -> new permission were not given
+                - Show fail message...
+                """);
+        fail();
+    }
 
-//    /**
-//     *  User requirement - II.4.1
-//     **/
-//    @Test
-//    void purchase_shopping_cart_success_case_test() {
-//        System.out.println("""
-//                - Perform purchase of the shopping cart.
-//                - Check all external services returns required answers.
-//                - Show success message to the user (later on - will need to update quantity in the system).
-//                """);
-//        fail();
-//    }
+    /**
+     *  User requirement - II.4.1
+     **/
+    @Test
+    void store_products_management_success_case_test() {
+        System.out.println("""
+                - ...
+                """);
+        fail();
+    }
 
 //endregion User requirements
 
