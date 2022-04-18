@@ -38,6 +38,7 @@ class UnitTests {
     }
 
 //region Service-Level Requirements
+
     // Service-Level Requirements
     // ==========================
 
@@ -70,11 +71,16 @@ class UnitTests {
         System.out.println("Need to create log file - contains error logs");
         fail();
     }
+
 //endregion Service-Level Requirements
 
+
 //region Functional Requirements
+
     // Functional Requirements
     // ==========================
+
+//region System requirements
 
     /**
      *  System requirement - I.1
@@ -419,8 +425,12 @@ class UnitTests {
         fail();
     }
 
+//endregion System requirements
+
+//region User requirements
+
     /**
-     *  System requirement - II.1.1
+     *  User requirement - II.1.1
      **/
     @Test
     void get_in_to_the_system_success_case_test() {
@@ -450,7 +460,7 @@ class UnitTests {
     }
 
     /**
-     *  System requirement - II.1.2
+     *  User requirement - II.1.2
      **/
     @Test
     void get_out_of_the_system_success_case_test() {
@@ -492,7 +502,7 @@ class UnitTests {
     }
 
     /**
-     *  System requirement - II.1.3
+     *  User requirement - II.1.3
      **/
     @Test
     void register_success_case_test() {
@@ -506,7 +516,7 @@ class UnitTests {
     @Test
     void register_fail_case_test1() {
         System.out.println("""
-                - Perform Register (entering username and password) & validate registration details 
+                - Perform Register (entering username and password) & validate registration details
                     -> username already exists in system.
                 - Send failure message...
                 """);
@@ -515,7 +525,7 @@ class UnitTests {
     @Test
     void register_fail_case_test2() {
         System.out.println("""
-                - Perform Register (entering username and password) & validate registration details 
+                - Perform Register (entering username and password) & validate registration details
                     -> username is not match the requirements for proper username in the system.
                 - Send failure message...
                 """);
@@ -524,7 +534,7 @@ class UnitTests {
     @Test
     void register_fail_case_test3() {
         System.out.println("""
-                - Perform Register (entering username and password) & validate registration details 
+                - Perform Register (entering username and password) & validate registration details
                     -> password is not match the requirements for proper username in the system.
                 - Send failure message...
                 """);
@@ -532,7 +542,7 @@ class UnitTests {
     }
 
     /**
-     *  System requirement - II.1.4
+     *  User requirement - II.1.4
      **/
     @Test
     void login_success_case_test() {
@@ -563,13 +573,269 @@ class UnitTests {
     }
 
     /**
-     *  System requirement - II.2.1
+     *  User requirement - II.2.1
      **/
     @Test
     void receive_system_info_success_case_test() {
-
+        System.out.println("""
+                - Check all stores and products are presented to the costumer (will be successful).
+                """);
         fail();
     }
+    @Test
+    void receive_system_info_fail_case_test() {
+        System.out.println("""
+                - Check all stores and products are presented to the costumer
+                    -> will be empty/missing product/missing store.
+                - Send failure message...
+                """);
+        fail();
+    }
+
+    /**
+     *  User requirement - II.2.2
+     **/
+    @Test
+    void search_product_success_case_test() {
+        System.out.println("""
+                - User inserting the product he is looking for...
+                - System shows all the same products (from all stores).
+                - Check all the same products are presented to the costumer (will be successful).
+                """);
+        fail();
+    }
+    @Test
+    void search_product_fail_case_test() {
+        System.out.println("""
+                - User inserting the product he is looking for...
+                - System shows all the same products (from all stores).
+                - Check all the same products are presented to the costumer
+                    -> will be empty/missing product/missing store.
+                """);
+        fail();
+    }
+
+    /**
+     *  User requirement - II.2.3
+     **/
+    @Test
+    void save_products_from_store_success_case_test() {
+        System.out.println("""
+                - User selecting products from specific store.
+                - User perform save to these products.
+                - Check that all the saved products are in the user's shopping cart (will be successful).
+                """);
+        fail();
+    }
+    @Test
+    void save_products_from_store_fail_case_test() {
+        System.out.println("""
+                - User selecting products from specific store.
+                - User perform save to these products.
+                - Check that all the saved products are in the user's shopping cart
+                    -> the shopping cart will be empty/missing product.
+                """);
+        fail();
+    }
+
+    /**
+     *  User requirement - II.2.4
+     **/
+    @Test
+    void show_shopping_cart_success_case_test() {
+        System.out.println("""
+                - Check all shopping cart info presented to the costumer (will be successful).
+                """);
+        fail();
+    }
+    @Test
+    void show_shopping_cart_fail_case_test() {
+        System.out.println("""
+                - Check all shopping cart info presented to the costumer (will be successful).
+                    -> will be empty/missing product/missing store.
+                - Send failure message...
+                """);
+        fail();
+    }
+    @Test
+    void increase_product_quantity_in_shopping_cart_success_case_test() {
+        System.out.println("""
+                - User selecting product from his shopping cart and increase its quantity.
+                - Check that the product's quantity has increased (will be successful).
+                """);
+        fail();
+    }
+    @Test
+    void increase_product_quantity_in_shopping_cart_fail_case_test() {
+        System.out.println("""
+                - User selecting product from his shopping cart and increase its quantity.
+                - Check that the product's quantity has increased
+                    ->  the product's quantity did not increased
+                """);
+        fail();
+    }
+    @Test
+    void decrease_product_quantity_in_shopping_cart_success_case_test() {
+        System.out.println("""
+                - User selecting product from his shopping cart and decrease its quantity.
+                - Check that the product's quantity has decreased (will be successful).
+                """);
+        fail();
+    }
+    @Test
+    void decrease_product_quantity_in_shopping_cart_fail_case_test() {
+        System.out.println("""
+                - User selecting product from his shopping cart and decrease its quantity.
+                - Check that the product's quantity has decreased
+                    ->  the product's quantity did not decreased
+                """);
+        fail();
+    }
+    @Test
+    void remove_product_from_shopping_cart_success_case_test() {
+        System.out.println("""
+                - User selecting product from his shopping cart and remove it from cart.
+                - Check that the product isn't in the cart (will be successful).
+                """);
+        fail();
+    }
+    @Test
+    void remove_product_from_shopping_cart_fail_case_test() {
+        System.out.println("""
+                - User selecting product from his shopping cart and remove it from cart.
+                - Check that the product isn't in the cart
+                    ->  the product is still in the cart
+                """);
+        fail();
+    }
+
+    /**
+     *  User requirement - II.2.5
+     **/
+    @Test
+    void purchase_shopping_cart_success_case_test() {
+        System.out.println("""
+                - Perform purchase of the shopping cart.
+                - Check all external services returns required answers.
+                - Show success message to the user (later on - will need to update quantity in the system).
+                """);
+        fail();
+    }
+    @Test
+    void purchase_shopping_cart_fail_case_test() {
+        System.out.println("""
+                - Perform purchase of the shopping cart.
+                - Check all external services returns required answers -> will return error message.
+                - Show failure message to the user.
+                """);
+        fail();
+    }
+
+    /**
+     *  User requirement - II.3.1
+     **/
+    @Test
+    void logout_success_case_test() {
+        System.out.println("""
+                - Perform logout.
+                - Check that user was logged-in.
+                - The system saving the user's shopping cart.
+                - The user is now a visitor (when login again, he will get his cart).
+                """);
+        fail();
+    }
+    @Test
+    void logout_fail_case_test1() {
+        System.out.println("""
+                - Perform logout.
+                - Check that user was logged-in
+                    -> the user is not logged in.
+                - Show fail massage...
+                """);
+        fail();
+    }
+    @Test
+    void logout_fail_case_test2() {
+        System.out.println("""
+                - Perform logout.
+                - Check that user was logged-in (in this case the user was logged in).
+                - The system saving the user's shopping cart.
+                    -> saving cart has failed.
+                - Show fail massage...
+                """);
+        fail();
+    }
+    @Test
+    void logout_success_case_test3() {
+        System.out.println("""
+                - Perform logout.
+                - Check that user was logged-in.
+                - The system saving the user's shopping cart.
+                - Check that the user is now a visitor
+                    -> But, he isn't...
+                """);
+        fail();
+    }
+
+    /**
+     *  User requirement - II.3.2
+     **/
+    @Test
+    void open_store_success_case_test() {
+        System.out.println("""
+                - User inserting new store details.
+                - The system checks these details (will be valid) & check user is registered/logged in.
+                - Opening store will be activated.
+                - Show success message...
+                """);
+        fail();
+    }
+    @Test
+    void open_store_fail_case_test1() {
+        System.out.println("""
+                - User inserting new store details.
+                - The system checks these details (will be valid) & check user is registered/logged in ->
+                    store name is already exists.
+                - Show fail message...
+                """);
+        fail();
+    }
+    @Test
+    void open_store_fail_case_test2() {
+        System.out.println("""
+                - User inserting new store details.
+                - The system checks these details (will be valid) & check user is registered/logged in ->
+                    user is not registered/logged-in to his user.
+                - Show fail message...
+                """);
+        fail();
+    }
+    @Test
+    void open_store_fail_case_test3() {
+        System.out.println("""
+                - User inserting new store details.
+                - The system checks these details (will be valid) & check user is registered/logged in ->
+                    store details are invalid (not matching the store details required in the system).
+                - Show fail message...
+                """);
+        fail();
+    }
+
+    /**
+     *  User requirement - II.4.1
+     **/
+    @Test
+    void purchase_shopping_cart_success_case_test() {
+        System.out.println("""
+                - Perform purchase of the shopping cart.
+                - Check all external services returns required answers.
+                - Show success message to the user (later on - will need to update quantity in the system).
+                """);
+        fail();
+    }
+
+//endregion User requirements
+
 //endregion Functional Requirements
 
 }
