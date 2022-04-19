@@ -1,5 +1,7 @@
 package Tests;
 
+import com.company.BridgeInterface;
+import com.company.Proxy;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,8 +10,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UnitTests {
 
+    BridgeInterface proxy;
+
     @BeforeEach
     void setUp() {
+        proxy = new Proxy();
     }
 
     @AfterEach
@@ -20,15 +25,12 @@ class UnitTests {
         assertTrue(true);
     }
 
-//    @Test
-//    void sanity_test_success_case() {
-//        pass();
-//    }
-//
-//    @Test
-//    void sanity_test_fail_case() {
-//        assertTrue(false);
-//    }
+    @Test
+    void sanity_test_success_case() {
+        pass(); //success case
+        // assertTrue(false); //fail case
+    }
+
 
 //region Service-Level Requirements
 
@@ -1146,14 +1148,92 @@ class UnitTests {
         fail();
     }
     /**
-     *  User requirement - II.4.8
+     *  User requirement - II.4.9
      **/
     @Test
     void close_store_success_case_test() {
         System.out.println("""
-                - Check that the user (changing the store manager permissions) is logged in as store owner.
-                - User changing the store manager permissions.
-                - Check that the manager's permissions has been updated (will be true).
+                - Check that the user is logged in as store owner.
+                - User closing the store.
+                - Check that the store is closed (will be true).
+                """);
+        fail();
+    }
+    @Test
+    void close_store_fail_case_test1() {
+        System.out.println("""
+                - Check that the user is logged in as store owner.
+                    -> the user isn't a store owner.
+                - Show fail message...
+                """);
+        fail();
+    }
+    @Test
+    void close_store_fail_case_test2() {
+        System.out.println("""
+                - Check that the user is logged in as store owner.
+                - User closing the store.
+                - Check that the store is closed (will be FALSE).
+                """);
+        fail();
+    }
+
+    /**
+     *  User requirement - II.4.11
+     **/
+    @Test
+    void show_store_officials_success_case_test() { //officials = store owners/store managers
+        System.out.println("""
+                - Check that the user is logged in as store owner.
+                - Activate presenting all store's official (will show all the officials correctly).
+                """);
+        fail();
+    }
+    @Test
+    void show_store_officials_fail_case_test1() { //officials = store owners/store managers
+        System.out.println("""
+                - Check that the user is logged in as store owner.
+                    -> the user isn't a store owner.
+                - Show fail message...
+                """);
+        fail();
+    }
+    @Test
+    void show_store_officials_fail_case_test2() { //officials = store owners/store managers
+        System.out.println("""
+                - Check that the user is logged in as store owner.
+                - Activate presenting all store's official
+                    -> will not show the officials / will miss at least one of them
+                """);
+        fail();
+    }
+
+    /**
+     *  User requirement - II.4.13
+     **/
+    @Test
+    void show_store_purchase_history_success_case_test() {
+        System.out.println("""
+                - Check that the user is logged in as store owner.
+                - Activate presenting all store's purchase history (will show it all correctly).
+                """);
+        fail();
+    }
+    @Test
+    void show_store_purchase_history_fail_case_test1() {
+        System.out.println("""
+                - Check that the user is logged in as store owner.
+                    -> the user isn't a store owner.
+                - Show fail message...
+                """);
+        fail();
+    }
+    @Test
+    void show_store_purchase_history_fail_case_test2() {
+        System.out.println("""
+                 - Check that the user is logged in as store owner.
+                - Activate presenting all store's purchase history (will show it all correctly)
+                    -> will not show all purchase history / will miss at least one of the purchases
                 """);
         fail();
     }
