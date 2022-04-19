@@ -629,7 +629,7 @@ class UnitTests {
      *  User requirement - II.2.3
      **/
     @Test
-    void save_products_from_store_success_case_test() {
+    void save_products_from_store_to_shopping_cart_success_case_test() {
         System.out.println("""
                 - User selecting products from specific store.
                 - User perform save to these products.
@@ -638,7 +638,7 @@ class UnitTests {
         fail();
     }
     @Test
-    void save_products_from_store_fail_case_test() {
+    void save_products_from_store_to_shopping_cart_fail_case_test() {
         System.out.println("""
                 - User selecting products from specific store.
                 - User perform save to these products.

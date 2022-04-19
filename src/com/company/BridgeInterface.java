@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.ArrayList;
+
 public interface BridgeInterface {
     /** requirement 1.b in V1 */
     String parallelUse(); //Need to implement thread-base system
@@ -49,12 +51,42 @@ public interface BridgeInterface {
     /** System requirement - I.6 */
     String offlineNotificationUserPermissionUpdate();
 
+    /** User requirement - II.1.1 */
+    String getInToTheSystem();
 
+    /** User requirement - II.1.2 */
+    String getOutFromTheSystem();
 
+    /** User requirement - II.1.3 */
+    String register(String username, String password);
 
-
-
-
-
+    /** User requirement - II.1.4 */
     String login(String username, String password);
+
+    /** User requirement - II.2.1 */
+    String receiveSystemInfo();
+
+    /** User requirement - II.2.2 */
+    String searchProduct(String productName);
+
+    /** User requirement - II.2.3 */
+    String saveProductFromStoreToShoppingCart();
+
+    /** User requirement - II.2.4 */
+    String showShoppingCart();
+    String increaseProductQuantityInShoppingCart(String productName); //inc. by 1!
+    String decreaseProductQuantityInShoppingCart(String productName); //dec. by 1!
+    String removeProductFromShoppingCart(String productName);
+
+    /** User requirement - II.2.5 */
+    String purchaseShoppingCart();
+
+    /** User requirement - II.3.1 */
+    String logout();
+
+    /** User requirement - II.3.2 */
+    String openStore(String storeName, ArrayList<String> product);
+
+    /** User requirement - II.4.1 */
+    String addProductToStore(String productName);
 }

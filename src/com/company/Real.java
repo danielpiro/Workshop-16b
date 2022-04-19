@@ -8,8 +8,7 @@ public class Real implements BridgeInterface{
         this.msApp = msApp;
     }
 
-    @Override
-    public String login(String username, String password) {
-        throw new UnsupportedOperationException("Not Implemented Yet!");
-    }
+//    public String example(String username, String password) {
+//        throw new UnsupportedOperationException("Not Implemented Yet!");
+//    }
 }

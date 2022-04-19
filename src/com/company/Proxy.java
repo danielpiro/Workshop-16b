@@ -7,10 +7,10 @@ public class Proxy implements BridgeInterface {
         this.real = real;
     }
 
-    @Override
-    public String login(String username, String password) {
-        if(real!=null)
-            return real.login(username, password);
-        return "logged in successfully as "+username;
-    }
+//    public String example(String username, String password) {
+//        if(real!=null)
+//            return real.login(username, password);
+//        return "logged in successfully as "+username;
+//    }
+
 }
