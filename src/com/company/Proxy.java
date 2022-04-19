@@ -20,14 +20,14 @@ public class Proxy implements BridgeInterface {
     public String parallelUse() { //Need to implement thread-base system
         if(real!=null)
             return real.parallelUse();
-        throw new UnsupportedOperationException("Not Implemented Yet");
+        throw new UnsupportedOperationException("Not Implemented Yet - Ask Backend Group");
     }
 
     /** requirement 1.c in V1 */
     public String systemLogging() { //Need to create log file (containing error logs)
         if(real!=null)
             return real.parallelUse();
-        throw new UnsupportedOperationException("Not Implemented Yet");
+        throw new UnsupportedOperationException("Not Implemented Yet - Ask Backend Group");
     }
 
     /** System requirement - I.1 */
