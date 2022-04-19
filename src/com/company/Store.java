@@ -1,14 +1,23 @@
 package com.company;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Store {
     private String storeName;
-    private ArrayList<String> products;
+    private HashMap<Product, Integer> products; // <ProductName+ProductPrice, Quantity>
+    private String policy;
+    private boolean isOpen;
+    private HashMap<String, User.permission> storeOfficials;
 
-    public Store(String storeName, ArrayList<String> products) {
+    private HashMap<Product, Integer> purchaseHistory;
+
+    public Store(String storeName, HashMap<Product, Integer> products) {
         this.storeName = storeName;
         this.products = products;
+        this.policy = "Regular policy";
+        this.isOpen = true;
+        this.storeOfficials = new HashMap<>();
+        this.purchaseHistory = new HashMap<>();
     }
 
     public String getStoreName() {
@@ -19,11 +28,43 @@ public class Store {
         this.storeName = storeName;
     }
 
-    public ArrayList<String> getProducts() {
+    public HashMap<Product, Integer> getProducts() {
         return products;
     }
 
-    public void setProducts(ArrayList<String> products) {
+    public void setProducts(HashMap<Product, Integer> products) {
         this.products = products;
+    }
+
+    public String getPolicy() {
+        return policy;
+    }
+
+    public void setPolicy(String policy) {
+        this.policy = policy;
+    }
+
+    public boolean isOpen() {
+        return isOpen;
+    }
+
+    public void setOpen(boolean open) {
+        isOpen = open;
+    }
+
+    public HashMap<String, User.permission> getStoreOfficials() {
+        return storeOfficials;
+    }
+
+    public void setStoreOfficials(HashMap<String, User.permission> storeOfficials) {
+        this.storeOfficials = storeOfficials;
+    }
+
+    public HashMap<Product, Integer> getPurchaseHistory() {
+        return purchaseHistory;
+    }
+
+    public void setPurchaseHistory(HashMap<Product, Integer> purchaseHistory) {
+        this.purchaseHistory = purchaseHistory;
     }
 }

@@ -74,8 +74,11 @@ public interface BridgeInterface {
 
     /** User requirement - II.2.4 */
     String showShoppingCart();
+    /** User requirement - II.2.4 */
     String increaseProductQuantityInShoppingCart(String productName); //inc. by 1!
+    /** User requirement - II.2.4 */
     String decreaseProductQuantityInShoppingCart(String productName); //dec. by 1!
+    /** User requirement - II.2.4 */
     String removeProductFromShoppingCart(String productName);
 
     /** User requirement - II.2.5 */
@@ -88,5 +91,30 @@ public interface BridgeInterface {
     String openStore(String storeName, ArrayList<String> product);
 
     /** User requirement - II.4.1 */
-    String addProductToStore(String productName);
+    String addProductToStore(String productName, int productQuantity);
+    /** User requirement - II.4.1 */
+    String removeProductFromStore(String productName);
+    /** User requirement - II.4.1 */
+    String editProductInStore(String productName, String newProductName, int newProductQuantity);
+
+    /** User requirement - II.4.2 */
+    String changeStorePolicy(String newStorePolicy);
+
+    /** User requirement - II.4.4 */
+    String addNewStoreOwner(String newStoreOwnerUserName);
+
+    /** User requirement - II.4.6 */
+    String addNewStoreManager(String newStoreManagerUserName);
+
+    /** User requirement - II.4.7 */
+    String changeStoreManagerPermissions(String storeManagerUserName, User.permission newPermission);
+
+    /** User requirement - II.4.9 */
+    String closeStoreOwner(String storeName);
+
+    /** User requirement - II.4.11 */
+    String showStoreOfficials(String storeName);
+
+    /** User requirement - II.4.13 */
+    String showStorePurchaseHistory(String storeName);
 }
