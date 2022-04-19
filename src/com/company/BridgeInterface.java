@@ -1,7 +1,5 @@
 package com.company;
 
-import org.junit.jupiter.api.Test;
-
 public interface BridgeInterface {
     /** requirement 1.b in V1 */
     String parallelUse(); //Need to implement thread-base system
