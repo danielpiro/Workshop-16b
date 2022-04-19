@@ -829,9 +829,189 @@ class UnitTests {
      *  User requirement - II.4.1
      **/
     @Test
-    void store_products_management_success_case_test() {
+    void store_management_add_product_success_case_test() {
         System.out.println("""
-                - ...
+                - Check that the user is logged in as store owner.
+                - User inserting new product details.
+                - Adding product to store activated.
+                - Check that the product is now in the store (will be true).
+                """);
+        fail();
+    }
+    @Test
+    void store_management_add_product_fail_case_test1() {
+        System.out.println("""
+                - Check that the user is logged in as store owner.
+                    -> user isn't logged in as store owner.
+                - Show fail message...
+                """);
+        fail();
+    }
+    @Test
+    void store_management_add_product_fail_case_test2() {
+        System.out.println("""
+                - Check that the user is logged in as store owner.
+                - User inserting new product details.
+                    -> the details inserted isn't match details info in the system.
+                - Show fail message...
+                """);
+        fail();
+    }
+    @Test
+    void store_management_add_product_fail_case_test3() {
+        System.out.println("""
+                - Check that the user is logged in as store owner.
+                - User inserting new product details.
+                - Adding product to store activated.
+                - Check that the product is now in the store (will be FALSE).
+                """);
+        fail();
+    }
+
+    @Test
+    void store_management_remove_product_success_case_test() {
+        System.out.println("""
+                - Check that the user is logged in as store owner.
+                - User inserting an existing product details.
+                - Removing product from store activated.
+                - Check that the product is now not in the store (will be true).
+                """);
+        fail();
+    }
+    @Test
+    void store_management_remove_product_fail_case_test1() {
+        System.out.println("""
+                - Check that the user is logged in as store owner.
+                    -> user isn't logged in as store owner.
+                - Show fail message...
+                """);
+        fail();
+    }
+    @Test
+    void store_management_remove_product_fail_case_test2() {
+        System.out.println("""
+                - Check that the user is logged in as store owner.
+                - User inserting existing product details.
+                    -> there is no product in the store with these details.
+                - Show fail message...
+                """);
+        fail();
+    }
+    @Test
+    void store_management_remove_product_fail_case_test3() {
+        System.out.println("""
+                - Check that the user is logged in as store owner.
+                - User inserting existing product details.
+                - Removing product from store activated.
+                - Check that the product is now not in the store (will be FALSE).
+                """);
+        fail();
+    }
+
+    @Test
+    void store_management_edit_product_success_case_test() {
+        System.out.println("""
+                - Check that the user is logged in as store owner.
+                - User inserting an existing product details & updated details to that product.
+                - Editing product in store activated.
+                - Check that the product is now updated (will be true).
+                """);
+        fail();
+    }
+    @Test
+    void store_management_edit_product_fail_case_test1() {
+        System.out.println("""
+                - Check that the user is logged in as store owner.
+                    -> user isn't logged in as store owner.
+                - Show fail message...
+                """);
+        fail();
+    }
+    @Test
+    void store_management_edit_product_fail_case_test2() {
+        System.out.println("""
+                - Check that the user is logged in as store owner.
+                - User inserting an existing product details & updated details to that product.
+                    -> there is no product in the store with these details.
+                - Show fail message...
+                """);
+        fail();
+    }
+    @Test
+    void store_management_edit_product_fail_case_test3() {
+        System.out.println("""
+                - Check that the user is logged in as store owner.
+                - User inserting an existing product details & updated details to that product.
+                    -> the new product details doesn't match the system required details for product.
+                - Show fail message...
+                """);
+        fail();
+    }
+    @Test
+    void store_management_edit_product_fail_case_test4() {
+        System.out.println("""
+                - Check that the user is logged in as store owner.
+                - User inserting existing product details & updated details to that product.
+                - Editing product in store activated.
+                - Check that the product is now updated (will be FALSE).
+                """);
+        fail();
+    }
+
+    /**
+     *  User requirement - II.4.2
+     **/
+    @Test
+    void change_store_policy_success_case_test() {
+        System.out.println("""
+                - Check that the user is logged in as store owner.
+                - User inserting the new policy details.
+                - Changing store policy is activated.
+                - Check that the store policy is now updated (will be true).
+                """);
+        fail();
+    }
+    @Test
+    void change_store_policy_fail_case_test1() {
+        System.out.println("""
+                - Check that the user is logged in as store owner.
+                    -> User isn't logged in as a store owner.
+                - Show fail message...
+                """);
+        fail();
+    }
+    @Test
+    void change_store_policy_fail_case_test2() {
+        System.out.println("""
+                - Check that the user is logged in as store owner.
+                - User inserting the new policy details.
+                    -> details doesn't match to a policy in the system
+                - Show fail message...
+                """);
+        fail();
+    }
+    @Test
+    void change_store_policy_fail_case_test3() {
+        System.out.println("""
+                - Check that the user is logged in as store owner.
+                - User inserting the new policy details.
+                - Changing store policy is activated.
+                - Check that the store policy is now updated (will be FALSE).
+                """);
+        fail();
+    }
+
+    /**
+     *  User requirement - II.4.4
+     **/
+    @Test
+    void adding_store_owner_success_case_test() {
+        System.out.println("""
+                - Check that the user (adding the new store owner) is logged in as store owner.
+                - User inserting the new store owner details.
+                - Check that the new owner is registered to the system and not already a store owner.
+                - Adding store owner to the store is activated.
+                - Check that the new owner has been added (will be true).
                 """);
         fail();
     }
