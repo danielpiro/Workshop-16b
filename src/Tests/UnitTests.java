@@ -2,15 +2,33 @@ package Tests;
 
 import com.company.BridgeInterface;
 import com.company.Proxy;
+import com.company.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class UnitTests {
 
-    BridgeInterface proxy;
+    BridgeInterface proxy = new Proxy();
+    ArrayList<User> users = new ArrayList<>();
+
+    private void pass() {
+        assertTrue(true);
+    }
+
+    private void setAllUsers(){
+        users.add(new User("user1", "11111", User.permission.SystemFounder));
+        users.add(new User("user2", "22222", User.permission.SystemManager));
+        users.add(new User("user3", "33333", User.permission.ShopOwner));
+        users.add(new User("user4", "44444", User.permission.ShopManager));
+        users.add(new User("user5", "55555", User.permission.Registered));
+        users.add(new User("user6", "66666", User.permission.Buyer));
+        users.add(new User("user7", "77777", User.permission.Visitor));
+    }
 
     @BeforeEach
     void setUp() {
@@ -19,10 +37,7 @@ class UnitTests {
 
     @AfterEach
     void tearDown() {
-    }
-
-    private void pass() {
-        assertTrue(true);
+        users.clear();
     }
 
     @Test
