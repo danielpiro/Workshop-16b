@@ -1,19 +1,97 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Proxy implements BridgeInterface {
     private BridgeInterface real;
 
+    ArrayList<User> users;
+    ArrayList<Store> stores;
+
     public Proxy() {
         this.real = null;
+        users = new ArrayList<>();
+        stores = new ArrayList<>();
     }
     public Proxy(BridgeInterface real) {
         this.real = real;
+        users = new ArrayList<>();
+        stores = new ArrayList<>();
+    }
+
+    public BridgeInterface getReal() {
+        return real;
     }
 
     public void setReal(BridgeInterface real) {
         this.real = real;
+    }
+
+    public ArrayList<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(ArrayList<User> users) {
+        this.users = users;
+    }
+
+    public ArrayList<Store> getStores() {
+        return stores;
+    }
+
+    public void setStores(ArrayList<Store> stores) {
+        this.stores = stores;
+    }
+
+    public void uploadUsersAndStores(){
+        users.add(new User("user1", "11111", User.permission.SystemFounder));
+        users.add(new User("user2", "22222", User.permission.SystemManager));
+        users.add(new User("user3", "33333", User.permission.ShopOwner));
+        users.add(new User("user4", "44444", User.permission.ShopManager));
+        users.add(new User("user5", "55555", User.permission.Registered));
+        users.add(new User("user6", "66666", User.permission.Buyer));
+        users.add(new User("user7", "77777", User.permission.Visitor));
+
+        Product p1 = new Product("p1", 1);
+        Product p2 = new Product("p2", 2);
+        Product p3 = new Product("p3", 3);
+        HashMap<Product, Integer> products = new HashMap<>();
+        products.put(p1, 5); products.put(p2, 15); products.put(p3, 25);
+        stores.add(new Store("store1", products));
+    }
+
+    public void uploadUsersAndStores_FailTest1(){
+        users.add(new User("user1", "11111", User.permission.SystemManager));
+        users.add(new User("user2", "22222", User.permission.SystemManager));
+        users.add(new User("user3", "33333", User.permission.ShopOwner));
+        users.add(new User("user4", "44444", User.permission.ShopManager));
+        users.add(new User("user5", "55555", User.permission.Registered));
+        users.add(new User("user6", "66666", User.permission.Buyer));
+        users.add(new User("user7", "77777", User.permission.Visitor));
+
+        Product p1 = new Product("p1", 1);
+        Product p2 = new Product("p2", 2);
+        Product p3 = new Product("p3", 3);
+        HashMap<Product, Integer> products = new HashMap<>();
+        products.put(p1, 5); products.put(p2, 15); products.put(p3, 25);
+        stores.add(new Store("store1", products));
+    }
+
+    public void uploadUsersAndStores_FailTest2(){
+        users.add(new User("user1", "11111", User.permission.SystemFounder));
+        users.add(new User("user2", "22222", User.permission.SystemManager));
+        users.add(new User("user3", "33333", User.permission.ShopOwner));
+        users.add(new User("user4", "44444", User.permission.ShopManager));
+        users.add(new User("user5", "55555", User.permission.Registered));
+        users.add(new User("user6", "66666", User.permission.Buyer));
+
+        Product p1 = new Product("p1", 1);
+        Product p2 = new Product("p2", 2);
+        Product p3 = new Product("p3", 3);
+        HashMap<Product, Integer> products = new HashMap<>();
+        products.put(p1, 5); products.put(p2, 15); products.put(p3, 25);
+        stores.add(new Store("store1", products));
     }
 
     /** requirement 1.b in V1 */
@@ -32,73 +110,125 @@ public class Proxy implements BridgeInterface {
 
     /** System requirement - I.1 */
     public String openingMarket(){
-//        if(real!=null)
-//            return real.openingMarket();
-        return "TODO!";
+        if(real!=null)
+            return real.openingMarket();
+
+        if(users.isEmpty() && stores.isEmpty()) // just for tests
+            uploadUsersAndStores();
+
+        boolean extServices = true; //TODO
+        if(!extServices)
+            return "fail - connection with external services has failed";
+
+        if(users.size() == 7 && stores.size() == 1){
+            for (User u : users){
+                if(u.getPermissionLevel() == User.permission.SystemFounder){
+                    return "system opened successfully";
+                }
+            }
+            return "fail - system doesn't have a founder";
+        }
+        return "fail - system didn't upload all the users or stores";
     }
 
     /** System requirement - I.2 */
     public String changeExternalService(int currServiceCode, String currServiceName,
                                  int newServiceCode, String newServiceName){
-//        if(real!=null)
-//            return real.changeExternalService();
-        return "TODO!";
+        //Valid ServiceCode includes only positive numbers
+        //Valid ServiceName includes only letters
+        if(real!=null)
+            return real.changeExternalService(currServiceCode, currServiceName, newServiceCode, newServiceName);
+
+        if(newServiceCode <= 0 || !newServiceName.matches("[a-zA-Z]+"))
+            return "fail - invalid service code or name";
+        else { //TODO: Make a proper service change
+            currServiceCode = newServiceCode;
+            currServiceName = newServiceName;
+            return "change services done successfully";
+        }
     }
 
     /** System requirement - I.2 */
     public String switchExternalService(int currServiceCode, String currServiceName,
                                  int newServiceCode, String newServiceName){
-//        if(real!=null)
-//            return real.switchExternalService();
-        return "TODO!";
+        //Valid ServiceCode includes only positive numbers
+        //Valid ServiceName includes only letters
+        if(real!=null)
+            return real.switchExternalService(currServiceCode, currServiceName, newServiceCode, newServiceName);
+
+        if(newServiceCode <= 0 || !newServiceName.matches("[a-zA-Z]+"))
+            return "fail - invalid service code or name";
+        else { //TODO: Make a proper service switch
+            currServiceCode = newServiceCode;
+            currServiceName = newServiceName;
+            return "switch services done successfully";
+        }
     }
 
     /** System requirement - I.2 */
     public String addExternalService(int serviceCode, String serviceName){
-//        if(real!=null)
-//            return real.addExternalService();
-        return "TODO!";
+        //Valid ServiceCode includes only positive numbers
+        //Valid ServiceName includes only letters
+        if(real!=null)
+            return real.addExternalService(serviceCode, serviceName);
+
+        if(serviceCode <= 0 || !serviceName.matches("[a-zA-Z]+"))
+            return "fail - invalid service code or name";
+        else //TODO: Make a proper service adding
+            return "adding services done successfully";
     }
 
     /** System requirement - I.3 */
     public String payment(){
-//        if(real!=null)
-//            return real.payment();
-        return "TODO!";
+        if(real!=null)
+            return real.payment();
+
+        //TODO: Make sure there is a payment service in the system
+        return "Payment done successfully";
     }
 
     /** System requirement - I.4 */
     public String delivery(){
-//        if(real!=null)
-//            return real.delivery();
-        return "TODO!";
+        if(real!=null)
+            return real.delivery();
+
+        //TODO: Make sure there is a delivery service in the system
+        return "Delivery done successfully";
     }
 
     /** System requirement - I.5 */
     public String realtimeNotificationProductBought(){
-//        if(real!=null)
-//            return real.realtimeNotificationProductBought();
+        if(real!=null)
+            return real.realtimeNotificationProductBought();
+
+        //TODO: Make sure there is a realtime notifications in the system
         return "TODO!";
     }
 
     /** System requirement - I.5 */
     public String realtimeNotificationStoreClosed(){
-//        if(real!=null)
-//            return real.realtimeNotificationStoreClosed();
+        if(real!=null)
+            return real.realtimeNotificationStoreClosed();
+
+        //TODO: Make sure there is a realtime notifications in the system
         return "TODO!";
     }
 
     /** System requirement - I.5 */
     public String realtimeNotificationStoreReopened(){
-//        if(real!=null)
-//            return real.realtimeNotificationStoreReopened();
+        if(real!=null)
+            return real.realtimeNotificationStoreReopened();
+
+        //TODO: Make sure there is a realtime notifications in the system
         return "TODO!";
     }
 
     /** System requirement - I.5 */
     public String realtimeNotificationUserPermissionUpdate(){
-//        if(real!=null)
-//            return real.realtimeNotificationUserPermissionUpdate();
+        if(real!=null)
+            return real.realtimeNotificationUserPermissionUpdate();
+
+        //TODO: Make sure there is a realtime notifications in the system
         return "TODO!";
     }
 

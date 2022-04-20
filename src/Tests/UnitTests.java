@@ -1,43 +1,39 @@
 package Tests;
 
-import com.company.BridgeInterface;
-import com.company.Proxy;
-import com.company.User;
+import com.company.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class UnitTests {
 
-    BridgeInterface proxy = new Proxy();
-    ArrayList<User> users = new ArrayList<>();
+    /*TODO: (Tagged with fail() in the tests)
+     * 1) Parallel Use.
+     * 2) Logging.
+     * 3) External Services.
+     * 4)...
+     */
+
+    Proxy proxy = new Proxy();
 
     private void pass() {
         assertTrue(true);
     }
 
-    private void setAllUsers(){
-        users.add(new User("user1", "11111", User.permission.SystemFounder));
-        users.add(new User("user2", "22222", User.permission.SystemManager));
-        users.add(new User("user3", "33333", User.permission.ShopOwner));
-        users.add(new User("user4", "44444", User.permission.ShopManager));
-        users.add(new User("user5", "55555", User.permission.Registered));
-        users.add(new User("user6", "66666", User.permission.Buyer));
-        users.add(new User("user7", "77777", User.permission.Visitor));
-    }
-
     @BeforeEach
     void setUp() {
-        proxy = new Proxy();
+        proxy.openingMarket();
     }
 
     @AfterEach
     void tearDown() {
-        users.clear();
+        proxy.setUsers(new ArrayList<>());
+        proxy.setStores(new ArrayList<>());
     }
 
     @Test
@@ -97,36 +93,52 @@ class UnitTests {
      **/
     @Test
     void opening_market_system_success_case_test() {
-        System.out.println("-Check that all the external services connection are valid\n" +
-                           "-Check that there is a system manager");
-        fail();
+//        -Check that all the external services' connection are valid
+//        -Check that there is a system founder
+//        -Check that all users and stores uploaded successfully
+
+        tearDown(); // Because set-up method is the openMarket
+        assertEquals(proxy.openingMarket(), "system opened successfully");
     }
     @Test
     void opening_market_system_fail_case_test1() {
-        // No system manager is exists in the system.
-        System.out.println("-Check that all the external services connection are valid\n" +
-                           "-Check that there is a system manager");
-        fail();
+        //-Check that all the external services' connection are valid
+        //-Check that there is a system manager
+        //  -> there is no system founder.
+
+        tearDown(); // Because set-up method is the openMarket
+        proxy.uploadUsersAndStores_FailTest1();
+        assertEquals(proxy.openingMarket(), "fail - system doesn't have a founder");
     }
     @Test
     void opening_market_system_fail_case_test2() {
-        // No payment system is exists in the system.
-        System.out.println("-Check that all the external services connection are valid\n" +
-                           "-Check that there is a system manager");
-        fail();
+        //-Check that all the external services' connection are valid
+        //-Check that there is a system manager
+        //-Check that all users and stores uploaded successfully
+        //  -> users/stores didn't upload successfully.
+        tearDown(); // Because set-up method is the openMarket
+        proxy.uploadUsersAndStores_FailTest2();
+        assertEquals(proxy.openingMarket(), "fail - system didn't upload all the users or stores");
     }
     @Test
     void opening_market_system_fail_case_test3() {
-        // No delivery system is exists in the system.
-        System.out.println("-Check that all the external services connection are valid\n" +
-                           "-Check that there is a system manager");
+        //TODO
+        //-Check that all the external services connection are valid
+        //  -> No payment system is exists in the system.
         fail();
     }
     @Test
     void opening_market_system_fail_case_test4() {
-        // No security system is exists in the system.
-        System.out.println("-Check that all the external services connection are valid\n" +
-                           "-Check that there is a system manager");
+        //TODO
+        //-Check that all the external services connection are valid
+        //  -> No delivery system is exists in the system.
+        fail();
+    }
+    @Test
+    void opening_market_system_fail_case_test5() {
+        //TODO
+        //-Check that all the external services connection are valid
+        //  -> No security system is exists in the system.
         fail();
     }
 
@@ -136,66 +148,105 @@ class UnitTests {
     // testing change/edit external service connection
     @Test
     void change_external_service_success_case_test() {
-        System.out.println("-Check that all actions in the system work well\n" +
-                           "-Check that the change done successfully");
-        fail();
+        //TODO
+        //-Check that all actions in the system work well
+        //-Check that the new service is valid
+        //-Check that the change done successfully
+        assertEquals(proxy.changeExternalService(1, "aaa",
+                2, "bbb"), "change services done successfully");
     }
     @Test
     void change_external_service_fail_case_test1() {
-        // the change itself failed
-        System.out.println("-Check that all actions in the system work well\n" +
-                           "-Check that the change done successfully");
-        fail();
+        //-Check that all actions in the system work well
+        //-Check that the new service is valid
+        //  -> invalid service code
+        assertEquals(proxy.changeExternalService(1, "aaa",
+                -2, "bbb"), "fail - invalid service code or name");
     }
     @Test
     void change_external_service_fail_case_test2() {
-        // the change caused an issue in the system actions
-        System.out.println("-Check that all actions in the system work well\n" +
-                           "-Check that the change done successfully");
+        //-Check that all actions in the system work well
+        //-Check that the new service is valid
+        //  -> invalid service name
+        assertEquals(proxy.changeExternalService(1, "aaa",
+                2, "bbb222"), "fail - invalid service code or name");
+    }
+    @Test
+    void change_external_service_fail_case_test3() {
+        //TODO
+        //-Check that all actions in the system work well
+        //-Check that the switch done successfully
+        //  -> the change itself failed / cause issues in system
         fail();
     }
 
     // testing switch external service connection
     @Test
     void switch_external_service_success_case_test() {
-        System.out.println("-Check that all actions in the system work well\n" +
-                           "-Check that the switch done successfully");
-        fail();
+        //TODO
+        //-Check that all actions in the system work well
+        //-Check that the new service is valid
+        //-Check that the switch done successfully
+        assertEquals(proxy.switchExternalService(1, "aaa",
+                2, "bbb"), "switch services done successfully");
     }
     @Test
     void switch_external_service_fail_case_test1() {
-        // the change itself failed
-        System.out.println("-Check that all actions in the system work well\n" +
-                           "-Check that the switch done successfully");
-        fail();
+        //-Check that all actions in the system work well
+        //-Check that the new service is valid
+        //  -> invalid service code
+        assertEquals(proxy.switchExternalService(1, "aaa",
+                -2, "bbb"), "fail - invalid service code or name");
     }
     @Test
     void switch_external_service_fail_case_test2() {
-        // the change caused an issue in the system actions
-        System.out.println("-Check that all actions in the system work well\n" +
-                           "-Check that the switch done successfully");
+        //-Check that all actions in the system work well
+        //-Check that the new service is valid
+        //  -> invalid service name
+        assertEquals(proxy.switchExternalService(1, "aaa",
+                2, "bbb222"), "fail - invalid service code or name");
+    }
+    @Test
+    void switch_external_service_fail_case_test3() {
+        //TODO
+        //-Check that all actions in the system work well
+        //-Check that the switch done successfully
+        //  -> the switch itself failed / cause issues in system
         fail();
     }
 
     // testing add external service connection
     @Test
     void add_external_service_success_case_test() {
-        System.out.println("-Check that all actions in the system work well\n" +
-                           "-Check that the adding done successfully");
-        fail();
+        //TODO
+        //-Check that all actions in the system work well
+        //-Check that the new service is valid
+        //-Check that the switch done successfully
+        assertEquals(proxy.addExternalService(1, "aaa"),
+                "adding services done successfully");
     }
     @Test
     void add_external_service_fail_case_test1() {
-        // the change itself failed
-        System.out.println("-Check that all actions in the system work well\n" +
-                           "-Check that the adding done successfully");
-        fail();
+        //-Check that all actions in the system work well
+        //-Check that the new service is valid
+        //  -> invalid service code
+        assertEquals(proxy.addExternalService(-1, "aaa"),
+                "fail - invalid service code or name");
     }
     @Test
     void add_external_service_fail_case_test2() {
-        // the change caused an issue in the system actions
-        System.out.println("-Check that all actions in the system work well\n" +
-                           "-Check that the adding done successfully");
+        //-Check that all actions in the system work well
+        //-Check that the new service is valid
+        //  -> invalid service name
+        assertEquals(proxy.addExternalService(1, "aaa111"),
+                "fail - invalid service code or name");
+    }
+    @Test
+    void add_external_service_fail_case_test3() {
+        //TODO
+        //-Check that all actions in the system work well
+        //-Check that the switch done successfully
+        //  -> the add itself failed / cause issues in system
         fail();
     }
 
@@ -204,32 +255,32 @@ class UnitTests {
      **/
     @Test
     void payment_success_case_test() {
-        System.out.println("""
-                -Check that the payment service connection is valid
-                -Check payment details
-                -Check payment service answer
-                """);
-        fail();
+        //TODO
+        //-Check that the payment service connection is valid
+        //-Check payment details
+        //-Check payment service answer
+
+        assertEquals(proxy.payment(), "Payment done successfully");
     }
     @Test
     void payment_fail_case_test1() {
-        // payment service connection lost
-        System.out.println("""
-                -Check that the payment service connection is valid");
-                -Check payment details
-                -Check payment service answer
-                """);
-        fail();
+        //TODO
+        //-Check that the payment service connection is valid
+        //-Check payment details
+        //-Check payment service answer
+        //  -> payment service connection lost
+
+        fail(); //assertNotEquals(proxy.payment(), "Payment done successfully");
     }
     @Test
     void payment_fail_case_test2() {
-        // payment service returns an invalid answer (= the payment can't be done)
-        System.out.println("""
-                -Check that the payment services connection is valid
-                -Check payment details
-                -Check payment service answer
-                """);
-        fail();
+        //TODO
+        //-Check that the payment service connection is valid
+        //-Check payment details
+        //-Check payment service answer
+        //  -> payment service returns an invalid answer (= the payment can't be done)
+
+        fail(); //assertNotEquals(proxy.payment(), "Payment done successfully");
     }
 
     /**
@@ -237,32 +288,32 @@ class UnitTests {
      **/
     @Test
     void delivery_success_case_test() {
-        System.out.println("""
-                -Check that the delivery service connection is valid
-                -Check delivery details
-                -Check delivery service answer
-                """);
-        fail();
+        //TODO
+        //-Check that the delivery service connection is valid
+        //-Check delivery details
+        //-Check delivery service answer
+
+        assertEquals(proxy.delivery(), "Delivery done successfully");
     }
     @Test
     void delivery_fail_case_test1() {
-        // payment service connection lost
-        System.out.println("""
-                -Check that the delivery service connection is valid
-                -Check delivery details
-                -Check delivery service answer
-                """);
-        fail();
+        //TODO
+        //-Check that the delivery service connection is valid
+        //-Check delivery details
+        //-Check delivery service answer
+        //  -> delivery service connection lost
+
+        fail(); //assertNotEquals(proxy.delivery(), "Delivery done successfully");
     }
     @Test
     void delivery_fail_case_test2() {
-        // payment service returns an invalid answer (= the payment can't be done)
-        System.out.println("""
-                -Check that the delivery service connection is valid
-                -Check delivery details
-                -Check delivery service answer
-                """);
-        fail();
+        //TODO
+        //-Check that the delivery service connection is valid
+        //-Check delivery details
+        //-Check delivery service answer
+        //  -> payment service returns an invalid answer (= the payment can't be done)
+
+        fail(); //assertNotEquals(proxy.delivery(), "Delivery done successfully");
     }
 
     /**
