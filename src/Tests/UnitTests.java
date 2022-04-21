@@ -98,7 +98,7 @@ class UnitTests {
 //        -Check that all users and stores uploaded successfully
 
         tearDown(); // Because set-up method is the openMarket
-        assertEquals(proxy.openingMarket(), "system opened successfully");
+        assertEquals("system opened successfully", proxy.openingMarket());
     }
     @Test
     void opening_market_system_fail_case_test1() {
@@ -108,7 +108,7 @@ class UnitTests {
 
         tearDown(); // Because set-up method is the openMarket
         proxy.uploadUsersAndStores_FailTest1();
-        assertEquals(proxy.openingMarket(), "fail - system doesn't have a founder");
+        assertEquals("fail - system doesn't have a founder", proxy.openingMarket());
     }
     @Test
     void opening_market_system_fail_case_test2() {
@@ -118,7 +118,7 @@ class UnitTests {
         //  -> users/stores didn't upload successfully.
         tearDown(); // Because set-up method is the openMarket
         proxy.uploadUsersAndStores_FailTest2();
-        assertEquals(proxy.openingMarket(), "fail - system didn't upload all the users or stores");
+        assertEquals("fail - system didn't upload all the users or stores", proxy.openingMarket());
     }
     @Test
     void opening_market_system_fail_case_test3() {
@@ -152,24 +152,27 @@ class UnitTests {
         //-Check that all actions in the system work well
         //-Check that the new service is valid
         //-Check that the change done successfully
-        assertEquals(proxy.changeExternalService(1, "aaa",
-                2, "bbb"), "change services done successfully");
+        assertEquals("change services done successfully",
+                proxy.changeExternalService(1, "aaa",
+                2, "bbb"));
     }
     @Test
     void change_external_service_fail_case_test1() {
         //-Check that all actions in the system work well
         //-Check that the new service is valid
         //  -> invalid service code
-        assertEquals(proxy.changeExternalService(1, "aaa",
-                -2, "bbb"), "fail - invalid service code or name");
+        assertEquals("fail - invalid service code or name",
+                proxy.changeExternalService(1, "aaa",
+                        -2, "bbb"));
     }
     @Test
     void change_external_service_fail_case_test2() {
         //-Check that all actions in the system work well
         //-Check that the new service is valid
         //  -> invalid service name
-        assertEquals(proxy.changeExternalService(1, "aaa",
-                2, "bbb222"), "fail - invalid service code or name");
+        assertEquals("fail - invalid service code or name",
+                proxy.changeExternalService(1, "aaa",
+                        2, "bbb222"));
     }
     @Test
     void change_external_service_fail_case_test3() {
@@ -187,24 +190,27 @@ class UnitTests {
         //-Check that all actions in the system work well
         //-Check that the new service is valid
         //-Check that the switch done successfully
-        assertEquals(proxy.switchExternalService(1, "aaa",
-                2, "bbb"), "switch services done successfully");
+        assertEquals("switch services done successfully",
+                proxy.switchExternalService(1, "aaa",
+                        2, "bbb"));
     }
     @Test
     void switch_external_service_fail_case_test1() {
         //-Check that all actions in the system work well
         //-Check that the new service is valid
         //  -> invalid service code
-        assertEquals(proxy.switchExternalService(1, "aaa",
-                -2, "bbb"), "fail - invalid service code or name");
+        assertEquals("fail - invalid service code or name",
+                proxy.switchExternalService(1, "aaa",
+                        -2, "bbb"));
     }
     @Test
     void switch_external_service_fail_case_test2() {
         //-Check that all actions in the system work well
         //-Check that the new service is valid
         //  -> invalid service name
-        assertEquals(proxy.switchExternalService(1, "aaa",
-                2, "bbb222"), "fail - invalid service code or name");
+        assertEquals("fail - invalid service code or name",
+                proxy.switchExternalService(1, "aaa",
+                        2, "bbb222"));
     }
     @Test
     void switch_external_service_fail_case_test3() {
@@ -222,24 +228,24 @@ class UnitTests {
         //-Check that all actions in the system work well
         //-Check that the new service is valid
         //-Check that the switch done successfully
-        assertEquals(proxy.addExternalService(1, "aaa"),
-                "adding services done successfully");
+        assertEquals("adding services done successfully",
+                proxy.addExternalService(1, "aaa"));
     }
     @Test
     void add_external_service_fail_case_test1() {
         //-Check that all actions in the system work well
         //-Check that the new service is valid
         //  -> invalid service code
-        assertEquals(proxy.addExternalService(-1, "aaa"),
-                "fail - invalid service code or name");
+        assertEquals("fail - invalid service code or name",
+                proxy.addExternalService(-1, "aaa"));
     }
     @Test
     void add_external_service_fail_case_test2() {
         //-Check that all actions in the system work well
         //-Check that the new service is valid
         //  -> invalid service name
-        assertEquals(proxy.addExternalService(1, "aaa111"),
-                "fail - invalid service code or name");
+        assertEquals("fail - invalid service code or name",
+                proxy.addExternalService(1, "aaa111"));
     }
     @Test
     void add_external_service_fail_case_test3() {
@@ -260,7 +266,7 @@ class UnitTests {
         //-Check payment details
         //-Check payment service answer
 
-        assertEquals(proxy.payment(), "Payment done successfully");
+        assertEquals("Payment done successfully", proxy.payment());
     }
     @Test
     void payment_fail_case_test1() {
@@ -293,7 +299,7 @@ class UnitTests {
         //-Check delivery details
         //-Check delivery service answer
 
-        assertEquals(proxy.delivery(), "Delivery done successfully");
+        assertEquals("Delivery done successfully", proxy.delivery());
     }
     @Test
     void delivery_fail_case_test1() {
@@ -498,25 +504,33 @@ class UnitTests {
         //- Check that the user was "visitor" before get in to the system.
         //- Perform getting in to the visitor (include shopping cart).
         //- Check that the "visitor" became "buyer" after getting in to the system.
-                
-        fail();
+
+        if(proxy.getReal() == null) {
+            proxy.setCurrentUserInSystem(new User("user0", "", User.permission.Visitor));
+        }
+        assertEquals("user got-in successfully", proxy.getInToTheSystem());
     }
     @Test
     void get_in_to_the_system_fail_case_test1() {
-        System.out.println("""
-                - Check that the user was "visitor" before get in to the system
-                    -> this user is not a "visitor".
-                """);
-        fail();
+        //- Check that the user was "visitor" before get in to the system
+        //    -> this user is not a "visitor".
+
+        if(proxy.getReal() == null) {
+            proxy.setCurrentUserInSystem(new User("user0", "", User.permission.Buyer));
+        }
+        assertEquals("fail - the user that got in is not a visitor", proxy.getInToTheSystem());
     }
     @Test
     void get_in_to_the_system_fail_case_test2() {
-        System.out.println("""
-                - Check that the user was "visitor" before get in to the system.
-                - Perform getting in to the visitor (include shopping cart)
-                    -> this user did not get a shopping cart.
-                """);
-        fail();
+        //- Check that the user was "visitor" before get in to the system.
+        //- Perform getting in to the visitor (include shopping cart)
+        //    -> this user did not get a shopping cart.
+
+        if(proxy.getReal() == null) {
+            proxy.setCurrentUserInSystem(new User("user0", "", User.permission.Visitor));
+            proxy.getCurrentUserInSystem().setShoppingCart(null);
+        }
+        assertEquals("fail - user failed to get-in", proxy.getInToTheSystem());
     }
 
     /**
@@ -524,41 +538,51 @@ class UnitTests {
      **/
     @Test
     void get_out_of_the_system_success_case_test() {
-        System.out.println("""
-                - Check that the user was a "buyer" before get out of the system.
-                - Perform getting out of the system (include emptying the shopping cart and not "buyer" anymore).
-                - Send success message...
-                """);
-        fail();
+        //- Check that the user was a "buyer" before get out of the system.
+        //- Perform getting out of the system (include emptying the shopping cart and not "buyer" anymore).
+        //- Send success message...
+
+        if(proxy.getReal() == null) {
+            proxy.setCurrentUserInSystem(new User("user0", "", User.permission.Buyer));
+        }
+        assertEquals("user got out successfully", proxy.getOutFromTheSystem());
     }
     @Test
     void get_out_of_the_system_fail_case_test1() {
-        System.out.println("""
-                - Check that the user was a "buyer" before get out of the system.
-                    -> this user was already out.
-                - Send proper fail message...
-                """);
-        fail();
+        //- Check that the user was a "buyer" before get out of the system.
+        //    -> this user was already out.
+        //- Send proper fail message...
+
+        if(proxy.getReal() == null) {
+            proxy.setCurrentUserInSystem(new User("user0", "", User.permission.Visitor));
+            proxy.getCurrentUserInSystem().setShoppingCart(null);
+        }
+        assertEquals("fail - the user already got out of the system (as buyer)", proxy.getOutFromTheSystem());
     }
     @Test
     void get_out_of_the_system_fail_case_test2() {
-        System.out.println("""
-                - Check that the user was a "buyer" before get out of the system.
-                - Perform getting out of the system (include emptying the shopping cart and not "buyer" anymore).
-                    -> the shopping cart did not got empty.
-                - Send proper fail message...
-                """);
-        fail();
+        //- Check that the user was a "buyer" before get out of the system.
+        //- Perform getting out of the system (include emptying the shopping cart and not "buyer" anymore).
+        //    -> the shopping cart did not get empty.
+        //- Send proper fail message...
+
+        if(proxy.getReal() == null) {
+            proxy.setCurrentUserInSystem(new User("user0", "", User.permission.Buyer));
+        }
+        assertEquals("fail - empty user's shopping cart failed", proxy.getOutFromTheSystem_FailTest2());
     }
     @Test
     void get_out_of_the_system_fail_case_test3() {
-        System.out.println("""
-                - Check that the user was a "buyer" before get out of the system.
-                - Perform getting out of the system (include emptying the shopping cart and not "buyer" anymore).
-                    -> the user stayed as "buyer".
-                - Send proper fail message...
-                """);
-        fail();
+        //- Check that the user was a "buyer" before get out of the system.
+        //- Perform getting out of the system (include emptying the shopping cart and not "buyer" anymore).
+        //    -> the user stayed as "buyer".
+        //- Send proper fail message...
+
+        if(proxy.getReal() == null) {
+            proxy.setCurrentUserInSystem(new User("user0", "", User.permission.Buyer));
+        }
+        assertEquals("fail - user's permission didn't change to visitor",
+                    proxy.getOutFromTheSystem_FailTest3());
     }
 
     /**
@@ -566,39 +590,36 @@ class UnitTests {
      **/
     @Test
     void register_success_case_test() {
-        System.out.println("""
-                - Perform Register (entering username and password) & validate registration details (will return TRUE)
-                - Check that the user is still "visitor/buyer" (and not a logged-in user - until he performs login).
-                - Send success message...
-                """);
-        fail();
+        //- Perform Register (entering username and password) & validate registration details (will return TRUE)
+        //- Check that the user is still "visitor/buyer" (and not a logged-in user - until he performs login).
+        //- Send success message...
+
+        assertEquals("the user registered successfully", proxy.register("user8", "88888"));
     }
     @Test
     void register_fail_case_test1() {
-        System.out.println("""
-                - Perform Register (entering username and password) & validate registration details
-                    -> username already exists in system.
-                - Send failure message...
-                """);
-        fail();
+        //- Perform Register (entering username and password) & validate registration details
+        //    -> username already exists in system.
+        //- Send failure message...
+
+        assertEquals("fail - this username already exists in the system",
+                    proxy.register("user1", "11111"));
     }
     @Test
     void register_fail_case_test2() {
-        System.out.println("""
-                - Perform Register (entering username and password) & validate registration details
-                    -> username is not match the requirements for proper username in the system.
-                - Send failure message...
-                """);
-        fail();
+        //- Perform Register (entering username and password) & validate registration details
+        //    -> username is not match the requirements for proper username in the system.
+        //- Send failure message...
+
+        assertEquals("fail - invalid username", proxy.register("u1", "11111"));
     }
     @Test
     void register_fail_case_test3() {
-        System.out.println("""
-                - Perform Register (entering username and password) & validate registration details
-                    -> password is not match the requirements for proper username in the system.
-                - Send failure message...
-                """);
-        fail();
+        //- Perform Register (entering username and password) & validate registration details
+        //    -> password is not match the requirements for proper password in the system.
+        //- Send failure message...
+
+        assertEquals("fail - invalid password", proxy.register("user0", "000"));
     }
 
     /**
@@ -606,30 +627,28 @@ class UnitTests {
      **/
     @Test
     void login_success_case_test() {
-        System.out.println("""
-                - Perform Login (entering username and password) & validate login details (will return TRUE)
-                - Check that the user is logged-in (shopping cart, permissions...).
-                - Send success message...
-                """);
-        fail();
+        //- Perform Login (entering username and password) & validate login details (will return TRUE)
+        //- Check that the user is logged-in (shopping cart, permissions...).
+        //- Send success message...
+
+        assertEquals("user logged in successfully", proxy.login("user1", "11111"));
     }
     @Test
     void login_fail_case_test1() {
-        System.out.println("""
-                - Perform Login (entering username and password) & validate login details
-                    -> username does not exists in system.
-                - Send failure message...
-                """);
-        fail();
+        //- Perform Login (entering username and password) & validate login details
+        //    -> username does not exists in system.
+        //- Send failure message...
+
+        assertEquals("fail - wrong username / no such username in the system",
+                proxy.login("user10", "11111"));
     }
     @Test
     void login_fail_case_test2() {
-        System.out.println("""
-                - Perform Login (entering username and password) & validate login details
-                    -> password does not match the username's user in system.
-                - Send failure message...
-                """);
-        fail();
+        //- Perform Login (entering username and password) & validate login details
+        //    -> password does not match the username's user in system.
+        //- Send failure message...
+
+        assertEquals("fail - wrong password", proxy.login("user1", "111111"));
     }
 
     /**
@@ -637,19 +656,30 @@ class UnitTests {
      **/
     @Test
     void receive_system_info_success_case_test() {
-        System.out.println("""
-                - Check all stores and products are presented to the costumer (will be successful).
-                """);
-        fail();
+        //- Check all stores and products are presented to the costumer (will be successful).
+        String str = "";
+        str += "Users:\n";
+        for (User u : proxy.getUsers()){
+            str = str.concat(u.getUsername() + "\n");
+        }
+        str += "\nStores:\n";
+        for (Store s : proxy.getStores()){
+            str = str.concat(s.getStoreName() + "\n");
+        }
+        assertEquals(str, proxy.receiveSystemInfo());
     }
     @Test
     void receive_system_info_fail_case_test() {
-        System.out.println("""
-                - Check all stores and products are presented to the costumer
-                    -> will be empty/missing product/missing store.
-                - Send failure message...
-                """);
-        fail();
+        //- Check all stores and products are presented to the costumer
+        //    -> will be empty/missing product/missing store.
+        //- Send failure message...
+
+        String str = "";
+        str += "Users:\n";
+        for (User u : proxy.getUsers()){
+            str = str.concat(u.getUsername() + "\n");
+        }
+        assertNotEquals(str, proxy.receiveSystemInfo());
     }
 
     /**
@@ -657,22 +687,22 @@ class UnitTests {
      **/
     @Test
     void search_product_success_case_test() {
-        System.out.println("""
-                - User inserting the product he is looking for...
-                - System shows all the same products (from all stores).
-                - Check all the same products are presented to the costumer (will be successful).
-                """);
-        fail();
+        //- User inserting the product he is looking for...
+        //- System shows all the same products (from all stores).
+        //- Check all the same products are presented to the costumer (will be successful).
+
+        assertEquals("showing all the products that were searched by the user",
+                proxy.searchProduct("p1"));
     }
     @Test
     void search_product_fail_case_test() {
-        System.out.println("""
-                - User inserting the product he is looking for...
-                - System shows all the same products (from all stores).
-                - Check all the same products are presented to the costumer
-                    -> will be empty/missing product/missing store.
-                """);
-        fail();
+        //- User inserting the product he is looking for...
+        //- System shows all the same products (from all stores).
+        //- Check all the same products are presented to the costumer
+        //    -> will be empty/missing product/missing store.
+
+        assertEquals("there's no such product in the system (in any store)",
+                proxy.searchProduct("p10"));
     }
 
     /**
@@ -680,22 +710,43 @@ class UnitTests {
      **/
     @Test
     void save_products_from_store_to_shopping_cart_success_case_test() {
-        System.out.println("""
-                - User selecting products from specific store.
-                - User perform save to these products.
-                - Check that all the saved products are in the user's shopping cart (will be successful).
-                """);
-        fail();
+        //- User selecting products from specific store.
+        //- User perform save to these products.
+        //- Check that the user is not a visitor.
+        //- Check that all the saved products are in the user's shopping cart (will be successful).
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(3));
+        }
+        assertEquals("product saved to shopping cart successfully",
+                    proxy.saveProductFromStoreToShoppingCart("store1", "p1"));
     }
     @Test
-    void save_products_from_store_to_shopping_cart_fail_case_test() {
-        System.out.println("""
-                - User selecting products from specific store.
-                - User perform save to these products.
-                - Check that all the saved products are in the user's shopping cart
-                    -> the shopping cart will be empty/missing product.
-                """);
-        fail();
+    void save_products_from_store_to_shopping_cart_fail_case_test1() {
+        //- User selecting products from specific store.
+        //- User perform save to these products.
+        //- Check that the user is not a visitor.
+        //- Check that all the saved products are in the user's shopping cart
+        //    -> the shopping cart will be empty/missing product.
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(3));
+        }
+        assertEquals("there's no such product in the store / there's no quantity left to this product",
+                proxy.saveProductFromStoreToShoppingCart("store1", "p0"));
+    }
+    @Test
+    void save_products_from_store_to_shopping_cart_fail_case_test2() {
+        //- User selecting products from specific store.
+        //- User perform save to these products.
+        //- Check that the user is not a visitor.
+        //    -> user is a visitor..
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(6));
+        }
+        assertEquals("fail - visitor user can't use shopping cart (need to be at least buyer)",
+                proxy.saveProductFromStoreToShoppingCart("store1", "p2"));
     }
 
     /**
@@ -703,61 +754,96 @@ class UnitTests {
      **/
     @Test
     void show_shopping_cart_success_case_test() {
-        System.out.println("""
-                - Check all shopping cart info presented to the costumer (will be successful).
-                """);
-        fail();
+        //- Check all shopping cart info presented to the costumer (will be successful).
+
+        if (proxy.getReal() == null) {
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(2));
+        }
+        assertEquals("showing user's shopping cart", proxy.showShoppingCart());
     }
     @Test
     void show_shopping_cart_fail_case_test() {
-        System.out.println("""
-                - Check all shopping cart info presented to the costumer (will be successful).
-                    -> will be empty/missing product/missing store.
-                - Send failure message...
-                """);
-        fail();
+        //- Check all shopping cart info presented to the costumer (will be successful).
+        //    -> will be empty/missing product/missing store.
+        //- Send failure message...
+
+        if (proxy.getReal() == null) {
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(2));
+            proxy.getCurrentUserInSystem().setShoppingCart(null);
+        }
+        assertEquals("fail - shopping cart can't be displayed", proxy.showShoppingCart());
     }
     @Test
     void increase_product_quantity_in_shopping_cart_success_case_test() {
-        System.out.println("""
-                - User selecting product from his shopping cart and increase its quantity.
-                - Check that the product's quantity has increased (will be successful).
-                """);
-        fail();
+        //- User selecting product from his shopping cart and increase its quantity.
+        //- Check that the product's quantity has increased (will be successful).
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(4));
+            HashMap<String, Integer> currUserShoppingCart = new HashMap<>();
+            currUserShoppingCart.put("p4", 4);
+            proxy.getCurrentUserInSystem().setShoppingCart(currUserShoppingCart);
+        }
+        assertEquals("the product quantity increased successfully",
+                proxy.increaseProductQuantityInShoppingCart("p4"));
     }
     @Test
     void increase_product_quantity_in_shopping_cart_fail_case_test() {
-        System.out.println("""
-                - User selecting product from his shopping cart and increase its quantity.
-                - Check that the product's quantity has increased
-                    ->  the product's quantity did not increased
-                """);
-        fail();
+        //- User selecting product from his shopping cart and increase its quantity.
+        //- Check that the product's quantity has increased
+        //    ->  the product's quantity did not increase
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(6));
+            HashMap<String, Integer> currUserShoppingCart = new HashMap<>();
+            currUserShoppingCart.put("p4", 4);
+            proxy.getCurrentUserInSystem().setShoppingCart(currUserShoppingCart);
+        }
+        assertEquals("fail - visitor user can't use shopping cart (need to be at least buyer)",
+                proxy.increaseProductQuantityInShoppingCart("p4"));
     }
     @Test
     void decrease_product_quantity_in_shopping_cart_success_case_test() {
-        System.out.println("""
-                - User selecting product from his shopping cart and decrease its quantity.
-                - Check that the product's quantity has decreased (will be successful).
-                """);
-        fail();
+        //- User selecting product from his shopping cart and decrease its quantity.
+        //- Check that the product's quantity has decreased (will be successful).
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(4));
+            HashMap<String, Integer> currUserShoppingCart = new HashMap<>();
+            currUserShoppingCart.put("p4", 4);
+            proxy.getCurrentUserInSystem().setShoppingCart(currUserShoppingCart);
+        }
+        assertEquals("the product quantity decreased successfully",
+                proxy.decreaseProductQuantityInShoppingCart("p4"));
     }
     @Test
     void decrease_product_quantity_in_shopping_cart_fail_case_test() {
-        System.out.println("""
-                - User selecting product from his shopping cart and decrease its quantity.
-                - Check that the product's quantity has decreased
-                    ->  the product's quantity did not decreased
-                """);
-        fail();
+        //- User selecting product from his shopping cart and decrease its quantity.
+        //- Check that the product's quantity has decreased
+        //    ->  the product's quantity did not decreased
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(6));
+            HashMap<String, Integer> currUserShoppingCart = new HashMap<>();
+            currUserShoppingCart.put("p4", 4);
+            proxy.getCurrentUserInSystem().setShoppingCart(currUserShoppingCart);
+        }
+        assertEquals("fail - visitor user can't use shopping cart (need to be at least buyer)",
+                proxy.decreaseProductQuantityInShoppingCart("p4"));
     }
     @Test
     void remove_product_from_shopping_cart_success_case_test() {
-        System.out.println("""
-                - User selecting product from his shopping cart and remove it from cart.
-                - Check that the product isn't in the cart (will be successful).
-                """);
-        fail();
+        //- User selecting product from his shopping cart and remove it from cart.
+        //- Check that the product isn't in the cart (will be successful).
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(2));
+            HashMap<String, Integer> currUserShoppingCart = new HashMap<>();
+            currUserShoppingCart.put("p4", 4);
+            proxy.getCurrentUserInSystem().setShoppingCart(currUserShoppingCart);
+        }
+        assertEquals("the product removed successfully",
+                proxy.removeProductFromShoppingCart("p4"));
     }
     @Test
     void remove_product_from_shopping_cart_fail_case_test() {
@@ -766,7 +852,15 @@ class UnitTests {
                 - Check that the product isn't in the cart
                     ->  the product is still in the cart
                 """);
-        fail();
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(6));
+            HashMap<String, Integer> currUserShoppingCart = new HashMap<>();
+            currUserShoppingCart.put("p4", 4);
+            proxy.getCurrentUserInSystem().setShoppingCart(currUserShoppingCart);
+        }
+        assertEquals("fail - visitor user can't use shopping cart (need to be at least buyer)",
+                proxy.removeProductFromShoppingCart("p4"));
     }
 
     /**

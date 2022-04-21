@@ -134,7 +134,7 @@ public class Real implements BridgeInterface{
     }
 
     /** User requirement - II.2.3 */
-    public String saveProductFromStoreToShoppingCart(){
+    public String saveProductFromStoreToShoppingCart(String storeName, String productName){
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
 

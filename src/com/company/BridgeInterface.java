@@ -70,7 +70,7 @@ public interface BridgeInterface {
     String searchProduct(String productName);
 
     /** User requirement - II.2.3 */
-    String saveProductFromStoreToShoppingCart();
+    String saveProductFromStoreToShoppingCart(String storeName, String productName);
 
     /** User requirement - II.2.4 */
     String showShoppingCart();

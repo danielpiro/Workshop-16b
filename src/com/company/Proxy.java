@@ -1,23 +1,28 @@
 package com.company;
 
+import javax.print.attribute.HashAttributeSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Proxy implements BridgeInterface {
     private BridgeInterface real;
 
-    ArrayList<User> users;
-    ArrayList<Store> stores;
+    private ArrayList<User> users;
+    private ArrayList<Store> stores;
+    private User currentUserInSystem;
+
 
     public Proxy() {
         this.real = null;
         users = new ArrayList<>();
         stores = new ArrayList<>();
+        currentUserInSystem = null;
     }
     public Proxy(BridgeInterface real) {
         this.real = real;
         users = new ArrayList<>();
         stores = new ArrayList<>();
+        currentUserInSystem = null;
     }
 
     public BridgeInterface getReal() {
@@ -44,6 +49,14 @@ public class Proxy implements BridgeInterface {
         this.stores = stores;
     }
 
+    public User getCurrentUserInSystem() {
+        return currentUserInSystem;
+    }
+
+    public void setCurrentUserInSystem(User currentUserInSystem) {
+        this.currentUserInSystem = currentUserInSystem;
+    }
+
     public void uploadUsersAndStores(){
         users.add(new User("user1", "11111", User.permission.SystemFounder));
         users.add(new User("user2", "22222", User.permission.SystemManager));
@@ -53,6 +66,7 @@ public class Proxy implements BridgeInterface {
         users.add(new User("user6", "66666", User.permission.Buyer));
         users.add(new User("user7", "77777", User.permission.Visitor));
 
+        Product p0 = new Product("p1", 0);
         Product p1 = new Product("p1", 1);
         Product p2 = new Product("p2", 2);
         Product p3 = new Product("p3", 3);
@@ -270,168 +284,326 @@ public class Proxy implements BridgeInterface {
 
     /** User requirement - II.1.1 */
     public String getInToTheSystem(){
-//        if(real!=null)
-//            return real.getInToTheSystem();
+        if(real!=null)
+            return real.getInToTheSystem();
 
-
-        return "TODO!";
+        if(currentUserInSystem.getPermissionLevel() != User.permission.Visitor)
+            return "fail - the user that got in is not a visitor";
+        //after get-in
+        currentUserInSystem.setPermissionLevel(User.permission.Buyer);
+        if(currentUserInSystem.getPermissionLevel() == User.permission.Buyer &&
+            currentUserInSystem.getShoppingCart() != null){
+            return "user got-in successfully";
+        }
+        return "fail - user failed to get-in";
     }
 
     /** User requirement - II.1.2 */
     public String getOutFromTheSystem(){
-//        if(real!=null)
-//            return real.getOutFromTheSystem();
-        return "TODO!";
+        if(real!=null)
+            return real.getOutFromTheSystem();
+
+        if(currentUserInSystem.getPermissionLevel() == User.permission.Visitor)
+            return "fail - the user already got out of the system (as buyer)";
+
+        currentUserInSystem.setPermissionLevel(User.permission.Visitor);
+        currentUserInSystem.setShoppingCart(null);
+        if(currentUserInSystem.getShoppingCart() != null)
+            return "fail - empty user's shopping cart failed";
+        if(currentUserInSystem.getPermissionLevel() != User.permission.Visitor)
+            return "fail - user's permission didn't change to visitor";
+
+        return "user got out successfully";
+    }
+    public String getOutFromTheSystem_FailTest2(){
+        if(real!=null)
+            return real.getOutFromTheSystem();
+
+        if(currentUserInSystem.getPermissionLevel() == User.permission.Visitor)
+            return "fail - the user already got out of the system (as buyer)";
+
+        currentUserInSystem.setPermissionLevel(User.permission.Visitor);
+        if(currentUserInSystem.getShoppingCart() != null)
+            return "fail - empty user's shopping cart failed";
+        if(currentUserInSystem.getPermissionLevel() != User.permission.Visitor)
+            return "fail - user's permission didn't change to visitor";
+
+        return "user got out successfully";
+    }
+    public String getOutFromTheSystem_FailTest3(){
+        if(real!=null)
+            return real.getOutFromTheSystem();
+
+        if(currentUserInSystem.getPermissionLevel() == User.permission.Visitor)
+            return "fail - the user already got out of the system (as buyer)";
+
+        currentUserInSystem.setShoppingCart(null);
+        if(currentUserInSystem.getShoppingCart() != null)
+            return "fail - empty user's shopping cart failed";
+        if(currentUserInSystem.getPermissionLevel() != User.permission.Visitor)
+            return "fail - user's permission didn't change to visitor";
+
+        return "user got out successfully";
     }
 
     /** User requirement - II.1.3 */
     public String register(String username, String password){
-//        if(real!=null)
-//            return real.register();
-        return "TODO!";
+        //username has to contain at least 3 characters
+        //password has to contain at least 4 characters
+        if(real!=null)
+            return real.register(username, password);
+
+        for(User u : users){
+            if(u.getUsername().equals(username)){
+                return "fail - this username already exists in the system";
+            }
+        }
+        if(username.length() < 3)
+            return "fail - invalid username";
+        if(password.length() < 4)
+            return "fail - invalid password";
+
+        users.add(new User(username, password, User.permission.Visitor));
+        return "the user registered successfully";
     }
 
     /** User requirement - II.1.4 */
     public String login(String username, String password){
-//        if(real!=null)
-//            return real.login();
-        return "TODO!";
+        //username has to contain at least 3 characters
+        //password has to contain at least 4 characters
+        if(real!=null)
+            return real.login(username, password);
+
+        for(User u : users){
+            if(u.getUsername().equals(username)){
+                if(u.getPassword().equals(password)){
+                    currentUserInSystem = u;
+                    currentUserInSystem.setIsLoggedIn(true);
+                    currentUserInSystem.setPermissionLevel(User.permission.Registered);
+                    return "user logged in successfully";
+                }
+                else{
+                    return "fail - wrong password";
+                }
+            }
+        }
+        return "fail - wrong username / no such username in the system";
     }
 
     /** User requirement - II.2.1 */
     public String receiveSystemInfo(){
-//        if(real!=null)
-//            return real.receiveSystemInfo();
-        return "TODO!";
+        if(real!=null)
+            return real.receiveSystemInfo();
+
+        String str = "";
+        str += "Users:\n";
+        for (User u : users){
+            str = str.concat(u.getUsername() + "\n");
+        }
+        str += "\nStores:\n";
+        for (Store s : stores){
+            str = str.concat(s.getStoreName() + "\n");
+        }
+        return str;
     }
 
     /** User requirement - II.2.2 */
     public String searchProduct(String productName){
-//        if(real!=null)
-//            return real.searchProduct();
-        return "TODO!";
+        if(real!=null)
+            return real.searchProduct(productName);
+
+        int productCount = 0;
+        for (Store s : stores){
+            for(Product p : s.getProducts().keySet()){
+                if(p.getProductName().equals(productName) && s.getProducts().get(p) > 0){
+                    productCount++;
+                }
+            }
+        }
+        if(productCount > 0)
+            return "showing all the products that were searched by the user";
+        else
+            return "there's no such product in the system (in any store)";
     }
 
     /** User requirement - II.2.3 */
-    public String saveProductFromStoreToShoppingCart(){
-//        if(real!=null)
-//            return real.saveProductFromStoreToShoppingCart();
-        return "TODO!";
+    public String saveProductFromStoreToShoppingCart(String storeName, String productName){
+        if(real!=null)
+            return real.saveProductFromStoreToShoppingCart(storeName, productName);
+
+        if(currentUserInSystem.getPermissionLevel() == User.permission.Visitor)
+            return "fail - visitor user can't use shopping cart (need to be at least buyer)";
+        for (Store s : stores){
+             if(s.getStoreName().equals(storeName)){
+                 for (Product p : s.getProducts().keySet()){
+                     if(p.getProductName().equals(productName) && s.getProducts().get(p) > 0){
+                         HashMap<String, Integer> shoppingCart = currentUserInSystem.getShoppingCart();
+                         shoppingCart.put(p.getProductName(), 1);
+                         currentUserInSystem.setShoppingCart(shoppingCart);
+                         return "product saved to shopping cart successfully";
+                     }
+                 }
+                 return "there's no such product in the store / there's no quantity left to this product";
+             }
+        }
+        return "fail - wrong store name";
     }
 
     /** User requirement - II.2.4 */
     public String showShoppingCart(){
-//        if(real!=null)
-//            return real.showShoppingCart();
-        return "TODO!";
+        if(real!=null)
+            return real.showShoppingCart();
+
+        if(currentUserInSystem.getShoppingCart() == null)
+            return "fail - shopping cart can't be displayed";
+
+        //currentUserInSystem.getShoppingCart();
+        return "showing user's shopping cart";
     }
     /** User requirement - II.2.4 */
     //inc. by 1!
     public String increaseProductQuantityInShoppingCart(String productName){
-//        if(real!=null)
-//            return real.increaseProductQuantityInShoppingCart();
-        return "TODO!";
+        if(real!=null)
+            return real.increaseProductQuantityInShoppingCart(productName);
+
+        if(currentUserInSystem.getPermissionLevel() == User.permission.Visitor)
+            return "fail - visitor user can't use shopping cart (need to be at least buyer)";
+        HashMap<String, Integer> shoppingCart = currentUserInSystem.getShoppingCart();
+        for (String pName : shoppingCart.keySet()){
+            if(pName.equals(productName)){
+                int quantity = shoppingCart.get(productName) + 1;
+                shoppingCart.put(productName, quantity);
+                currentUserInSystem.setShoppingCart(shoppingCart);
+                return "the product quantity increased successfully";
+            }
+        }
+        return "failed to increase product quantity";
     }
     /** User requirement - II.2.4 */
     //dec. by 1!
     public String decreaseProductQuantityInShoppingCart(String productName){
-//        if(real!=null)
-//            return real.decreaseProductQuantityInShoppingCart();
-        return "TODO!";
+        if(real!=null)
+            return real.decreaseProductQuantityInShoppingCart(productName);
+
+        if(currentUserInSystem.getPermissionLevel() == User.permission.Visitor)
+            return "fail - visitor user can't use shopping cart (need to be at least buyer)";
+        HashMap<String, Integer> shoppingCart = currentUserInSystem.getShoppingCart();
+        for (String pName : shoppingCart.keySet()){
+            if(pName.equals(productName)){
+                int quantity = shoppingCart.get(productName) - 1;
+                if(quantity < 0)
+                    quantity = 0;
+                shoppingCart.put(productName, quantity);
+                currentUserInSystem.setShoppingCart(shoppingCart);
+                return "the product quantity decreased successfully";
+            }
+        }
+        return "failed to decrease product quantity";
     }
     /** User requirement - II.2.4 */
     public String removeProductFromShoppingCart(String productName){
-//        if(real!=null)
-//            return real.removeProductFromShoppingCart();
-        return "TODO!";
+        if(real!=null)
+            return real.removeProductFromShoppingCart(productName);
+
+        if(currentUserInSystem.getPermissionLevel() == User.permission.Visitor)
+            return "fail - visitor user can't use shopping cart (need to be at least buyer)";
+        HashMap<String, Integer> shoppingCart = currentUserInSystem.getShoppingCart();
+        for (String pName : shoppingCart.keySet()){
+            if(pName.equals(productName)){
+                shoppingCart.remove(productName);
+                currentUserInSystem.setShoppingCart(shoppingCart);
+                return "the product removed successfully";
+            }
+        }
+        return "failed to remove product quantity";
     }
 
     /** User requirement - II.2.5 */
     public String purchaseShoppingCart(){
-//        if(real!=null)
-//            return real.purchaseShoppingCart();
+        if(real!=null)
+            return real.purchaseShoppingCart();
         return "TODO!";
     }
 
     /** User requirement - II.3.1 */
     public String logout(){
-//        if(real!=null)
-//            return real.logout();
+        if(real!=null)
+            return real.logout();
         return "TODO!";
     }
 
     /** User requirement - II.3.2 */
     public String openStore(String storeName, ArrayList<String> product){
-//        if(real!=null)
-//            return real.openStore();
+        if(real!=null)
+            return real.openStore(storeName, product);
         return "TODO!";
     }
 
     /** User requirement - II.4.1 */
     public String addProductToStore(String productName, int productQuantity){
-//        if(real!=null)
-//            return real.addProductToStore();
+        if(real!=null)
+            return real.addProductToStore(productName, productQuantity);
         return "TODO!";
     }
     /** User requirement - II.4.1 */
     public String removeProductFromStore(String productName){
-//        if(real!=null)
-//            return real.removeProductFromStore();
+        if(real!=null)
+            return real.removeProductFromStore(productName);
         return "TODO!";
     }
     /** User requirement - II.4.1 */
     public String editProductInStore(String productName, String newProductName, int newProductQuantity){
-//        if(real!=null)
-//            return real.editProductInStore();
+        if(real!=null)
+            return real.editProductInStore(productName, newProductName, newProductQuantity);
         return "TODO!";
     }
 
     /** User requirement - II.4.2 */
     public String changeStorePolicy(String newStorePolicy){
-//        if(real!=null)
-//            return real.changeStorePolicy();
+        if(real!=null)
+            return real.changeStorePolicy(newStorePolicy);
         return "TODO!";
     }
 
     /** User requirement - II.4.4 */
     public String addNewStoreOwner(String newStoreOwnerUserName){
-//        if(real!=null)
-//            return real.addNewStoreOwner();
+        if(real!=null)
+            return real.addNewStoreOwner(newStoreOwnerUserName);
         return "TODO!";
     }
 
     /** User requirement - II.4.6 */
     public String addNewStoreManager(String newStoreManagerUserName){
-//        if(real!=null)
-//            return real.addNewStoreManager();
+        if(real!=null)
+            return real.addNewStoreManager(newStoreManagerUserName);
         return "TODO!";
     }
 
     /** User requirement - II.4.7 */
     public String changeStoreManagerPermissions(String storeManagerUserName, User.permission newPermission){
-//        if(real!=null)
-//            return real.changeStoreManagerPermissions();
+        if(real!=null)
+            return real.changeStoreManagerPermissions(storeManagerUserName, newPermission);
         return "TODO!";
     }
 
     /** User requirement - II.4.9 */
     public String closeStoreOwner(String storeName){
-//        if(real!=null)
-//            return real.closeStoreOwner();
+        if(real!=null)
+            return real.closeStoreOwner(storeName);
         return "TODO!";
     }
 
     /** User requirement - II.4.11 */
     public String showStoreOfficials(String storeName){
-//        if(real!=null)
-//            return real.showStoreOfficials();
+        if(real!=null)
+            return real.showStoreOfficials(storeName);
         return "TODO!";
     }
 
     /** User requirement - II.4.13 */
     public String showStorePurchaseHistory(String storeName){
-//        if(real!=null)
-//            return real.showStorePurchaseHistory();
+        if(real!=null)
+            return real.showStorePurchaseHistory(storeName);
         return "TODO!";
     }
 }

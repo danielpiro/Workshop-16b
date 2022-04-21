@@ -44,7 +44,7 @@ public class User {
         return isLoggedIn;
     }
 
-    public void setLoggedIn(boolean loggedIn) {
+    public void setIsLoggedIn(boolean loggedIn) {
         isLoggedIn = loggedIn;
     }
 
