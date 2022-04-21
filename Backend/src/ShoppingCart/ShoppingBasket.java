@@ -10,7 +10,6 @@ public class ShoppingBasket {
     private int Store;
     private HashMap<Integer, Integer> productAmount;
     private InventoryProtector iProtector;
-    private Purchase myPurchase;
 
     public int addProduct(int productID, int amount) {
         if (productAmount.containsKey(productID)) {
@@ -22,10 +21,9 @@ public class ShoppingBasket {
         return 1;
     }
 
-    public ShoppingBasket(int store , InventoryProtector inventoryProtector, Purchase myPurchase) {
+    public ShoppingBasket(int store , InventoryProtector inventoryProtector) {
         Store = store;
         this.iProtector = inventoryProtector;
-        this.myPurchase = myPurchase;
         this.productAmount = new HashMap<>();
     }
 
@@ -51,8 +49,9 @@ public class ShoppingBasket {
         return sb.toString();
     }
 
-    public int purchase() throws CantPurchaseException {
-        int answer = iProtector.purchase(productAmount);
+    public int purchase(PurchasePolicies purchasePolicies) throws CantPurchaseException {
+
+        int answer = iProtector.purchase(productAmount , purchasePolicies);
         if(answer < 0 )
              return -1;
         else

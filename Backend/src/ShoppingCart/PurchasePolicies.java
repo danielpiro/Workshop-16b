@@ -3,11 +3,11 @@ package ShoppingCart;
 import ExternalConnections.Delivery.Delivery;
 import ExternalConnections.Payment.Payment;
 
-public class Purchase {
+public class PurchasePolicies {
     private Delivery delivery;
     private Payment payment;
 
-    public Purchase(Delivery delivery, Payment payment) {
+    public PurchasePolicies(Delivery delivery, Payment payment) {
         this.delivery = delivery;
         this.payment = payment;
     }
@@ -15,6 +15,7 @@ public class Purchase {
     public int tryToPurchase (int total,int deliveryDetails){
         int answer =0;
 
+        System.out.println("trying to purchase with total:" + total +" and delivery weight is" +deliveryDetails );
         if(delivery.isConnected() & payment.isConnected())
         {
             answer = delivery.Delivery(deliveryDetails);

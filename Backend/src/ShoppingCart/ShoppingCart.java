@@ -11,10 +11,12 @@ public class ShoppingCart {
 
     //storeID, and the basket
     private HashMap<Integer, ShoppingBasket> basketCases;
+    private PurchasePolicies purchasePolicies;
 
 
     public ShoppingCart() {
         this.basketCases = new HashMap<>();
+
     }
 
     public boolean containsStore(int storeID) {
@@ -74,20 +76,22 @@ public class ShoppingCart {
     }
 
 
-    public int purchaseCart() {
+    public int purchaseCart(PurchasePolicies purchasePolicies) {
         int total=0;
+        int weight = 10;
 
 
         //check if we cant purchase from store, that items are in inventory and store policies are complied
         try {
             for (Map.Entry<Integer, ShoppingBasket> basket : basketCases.entrySet()) {
-                total += basket.getValue().purchase();
+                total += basket.getValue().purchase(purchasePolicies);
             }
         }
         catch ( CantPurchaseException e){
             return -1;
 
         }
+        purchasePolicies.tryToPurchase(total,weight);
 
         //check if the order complies with Purchase and Delivery selected.
         return total;
