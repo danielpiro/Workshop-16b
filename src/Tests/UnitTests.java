@@ -322,82 +322,82 @@ class UnitTests {
     // A user bought a product from a store
     @Test
     void realtime_notification_product_bought_success_case_test() {
-        System.out.println("""
-                - Product purchase was activated - a user logged in and bought a product
-                - Check that the store manager is logged in (will be true in this case)
-                - Check the message that just sent (will simulate the realtime message sent)
-                """);
+        //TODO
+        //- Product purchase was activated - a user logged in and bought a product
+        //- Check that the store manager is logged in (will be true in this case)
+        //- Check the message that just sent (will simulate the realtime message sent)
+
         fail();
     }
     @Test
     void realtime_notification_product_bought_fail_case_test() {
-        System.out.println("""
-                - Product purchase was activated - a user logged in and bought a product
-                - Check that the store manager is logged in (will be true in this case)
-                - Check the message that just sent (will simulate the realtime message sent)
-                    -> MESSAGE DIDN'T ARRIVE
-                """);
+        //TODO
+        //- Product purchase was activated - a user logged in and bought a product
+        //- Check that the store manager is logged in (will be true in this case)
+        //- Check the message that just sent (will simulate the realtime message sent)
+        //    -> MESSAGE DIDN'T ARRIVE
+
         fail();
     }
 
     // A store was closed, then re-opened
     @Test
     void realtime_notification_store_closed_and_opened_success_case_test() {
-        System.out.println("""
-                - Store owner closed his store (after logged in as store owner)
-                - Check that another store manager (of the same store) is logged in (will be true in this case)
-                - The store owner close the store
-                - Check the message that just sent (will simulate the realtime message sent)
-                - The store owner open the store
-                - Check that the store manager is logged in (will be true in this case)
-                - Check the message that just sent (will simulate the realtime message sent)
-                """);
+        //TODO
+        //- Store owner closed his store (after logged in as store owner)
+        //- Check that another store manager (of the same store) is logged in (will be true in this case)
+        //- The store owner close the store
+        //- Check the message that just sent (will simulate the realtime message sent)
+        //- The store owner open the store
+        //- Check that the store manager is logged in (will be true in this case)
+        //- Check the message that just sent (will simulate the realtime message sent)
+
         fail();
     }
     @Test
     void realtime_notification_store_closed_and_opened_fail_case_test1() {
-        System.out.println("""
-                - Store owner closed his store (after logged in as store owner)
-                - Check that another store manager (of the same store) is logged in (will be true in this case)
-                - The store owner close the store
-                - Check the message that just sent (will simulate the realtime message sent)
-                    -> MESSAGE DIDN'T ARRIVE
-                """);
+        //TODO
+        //- Store owner closed his store (after logged in as store owner)
+        //- Check that another store manager (of the same store) is logged in (will be true in this case)
+        //- The store owner close the store
+        //- Check the message that just sent (will simulate the realtime message sent)
+        //    -> MESSAGE DIDN'T ARRIVE
+
         fail();
     }
     @Test
     void realtime_notification_store_closed_and_opened_fail_case_test2() {
-        System.out.println("""
-                - Store owner closed his store (after logged in as store owner)
-                - Check that another store manager (of the same store) is logged in (will be true in this case)
-                - The store owner close the store
-                - Check the message that just sent (will simulate the realtime message sent)
-                - The store owner open the store
-                - Check that the store manager is logged in (will be true in this case)
-                - Check the message that just sent (will simulate the realtime message sent)
-                    -> MESSAGE DIDN'T ARRIVE
-                """);
+        //TODO
+        //- Store owner closed his store (after logged in as store owner)
+        //- Check that another store manager (of the same store) is logged in (will be true in this case)
+        //- The store owner close the store
+        //- Check the message that just sent (will simulate the realtime message sent)
+        //- The store owner open the store
+        //- Check that the store manager is logged in (will be true in this case)
+        //- Check the message that just sent (will simulate the realtime message sent)
+        //    -> MESSAGE DIDN'T ARRIVE
+
         fail();
     }
 
     // A user's permissions was removed
     @Test
     void realtime_notification_user_permission_update_success_case_test() {
-        System.out.println("""
-                - Store owner update one of the store manager permissions (after logged in as store owner)
-                - Check that the store manager is logged in (will be true in this case)
-                - Check the message that just sent (will simulate the realtime message sent)
-                """);
+        //TODO
+        //- Store owner update one of the store manager permissions (after logged in as store owner)
+        //- Check that the store manager is logged in (will be true in this case)
+        //- Check the message that just sent (will simulate the realtime message sent)
+
         fail();
     }
     @Test
     void realtime_notification_user_permission_update_fail_case_test() {
-        System.out.println("""
-                - Store owner update one of the store manager permissions (after logged in as store owner)
-                - Check that the store manager is logged in (will be true in this case)
-                - Check the message that just sent (will simulate the realtime message sent)
-                    -> MESSAGE DIDN'T ARRIVE
-                """);
+        //TODO
+        //- Store owner update one of the store manager permissions (after logged in as store owner)
+        //- Check that the store manager is logged in (will be true in this case)
+        //- Check the message that just sent (will simulate the realtime message sent)
+        //    -> MESSAGE DIDN'T ARRIVE
+
         fail();
     }
 
@@ -407,82 +407,82 @@ class UnitTests {
     // A user bought a product from a store
     @Test
     void offline_notification_product_bought_success_case_test() {
-        System.out.println("""
-                - Product purchase was activated - a user logged in and bought a product
-                - Check that the store manager is logged in (will be true in this case)
-                - Check the message that just sent (will simulate the offline message sent)
-                """);
+        //TODO
+        //- Product purchase was activated - a user logged in and bought a product
+        //- Check that the store manager is logged in (will be true in this case)
+        //- Check the message that just sent (will simulate the offline message sent)
+
         fail();
     }
     @Test
     void offline_notification_product_bought_fail_case_test() {
-        System.out.println("""
-                - Product purchase was activated - a user logged in and bought a product
-                - Check that the store manager is logged in (will be true in this case)
-                - Check the message that just sent (will simulate the offline message sent)
-                    -> MESSAGE DIDN'T ARRIVE
-                """);
+        //TODO
+        //- Product purchase was activated - a user logged in and bought a product
+        //- Check that the store manager is logged in (will be true in this case)
+        //- Check the message that just sent (will simulate the offline message sent)
+        //    -> MESSAGE DIDN'T ARRIVE
+
         fail();
     }
 
     // A store was closed, then re-opened
     @Test
     void offline_notification_store_closed_and_opened_success_case_test() {
-        System.out.println("""
-                - Store owner closed his store (after logged in as store owner)
-                - Check that another store manager (of the same store) is logged in (will be true in this case)
-                - The store owner close the store
-                - Check the message that just sent (will simulate the offline message sent)
-                - The store owner open the store
-                - Check that the store manager is logged in (will be true in this case)
-                - Check the message that just sent (will simulate the offline message sent)
-                """);
+        //TODO
+        //- Store owner closed his store (after logged in as store owner)
+        //- Check that another store manager (of the same store) is logged in (will be true in this case)
+        //- The store owner close the store
+        //- Check the message that just sent (will simulate the offline message sent)
+        //- The store owner open the store
+        //- Check that the store manager is logged in (will be true in this case)
+        //- Check the message that just sent (will simulate the offline message sent)
+
         fail();
     }
     @Test
     void offline_notification_store_closed_and_opened_fail_case_test1() {
-        System.out.println("""
-                - Store owner closed his store (after logged in as store owner)
-                - Check that another store manager (of the same store) is logged in (will be true in this case)
-                - The store owner close the store
-                - Check the message that just sent (will simulate the offline message sent)
-                    -> MESSAGE DIDN'T ARRIVE
-                """);
+        //TODO
+        //- Store owner closed his store (after logged in as store owner)
+        //- Check that another store manager (of the same store) is logged in (will be true in this case)
+        //- The store owner close the store
+        //- Check the message that just sent (will simulate the offline message sent)
+        //    -> MESSAGE DIDN'T ARRIVE
+
         fail();
     }
     @Test
     void offline_notification_store_closed_and_opened_fail_case_test2() {
-        System.out.println("""
-                - Store owner closed his store (after logged in as store owner)
-                - Check that another store manager (of the same store) is logged in (will be true in this case)
-                - The store owner close the store
-                - Check the message that just sent (will simulate the offline message sent)
-                - The store owner open the store
-                - Check that the store manager is logged in (will be true in this case)
-                - Check the message that just sent (will simulate the offline message sent)
-                    -> MESSAGE DIDN'T ARRIVE
-                """);
+        //TODO
+        //- Store owner closed his store (after logged in as store owner)
+        //- Check that another store manager (of the same store) is logged in (will be true in this case)
+        //- The store owner close the store
+        //- Check the message that just sent (will simulate the offline message sent)
+        //- The store owner open the store
+        //- Check that the store manager is logged in (will be true in this case)
+        //- Check the message that just sent (will simulate the offline message sent)
+        //    -> MESSAGE DIDN'T ARRIVE
+
         fail();
     }
 
     // A user's permissions was removed
     @Test
     void offline_notification_user_permission_update_success_case_test() {
-        System.out.println("""
-                - Store owner update one of the store manager permissions (after logged in as store owner)
-                - Check that the store manager is logged in (will be true in this case)
-                - Check the message that just sent (will simulate the offline message sent)
-                """);
+        //TODO
+        //- Store owner update one of the store manager permissions (after logged in as store owner)
+        //- Check that the store manager is logged in (will be true in this case)
+        //- Check the message that just sent (will simulate the offline message sent)
+
         fail();
     }
     @Test
     void offline_notification_user_permission_update_fail_case_test() {
-        System.out.println("""
-                - Store owner update one of the store manager permissions (after logged in as store owner)
-                - Check that the store manager is logged in (will be true in this case)
-                - Check the message that just sent (will simulate the offline message sent)
-                    -> MESSAGE DIDN'T ARRIVE
-                """);
+        //TODO
+        //- Store owner update one of the store manager permissions (after logged in as store owner)
+        //- Check that the store manager is logged in (will be true in this case)
+        //- Check the message that just sent (will simulate the offline message sent)
+        //    -> MESSAGE DIDN'T ARRIVE
+
         fail();
     }
 
@@ -495,11 +495,10 @@ class UnitTests {
      **/
     @Test
     void get_in_to_the_system_success_case_test() {
-        System.out.println("""
-                - Check that the user was "visitor" before get in to the system.
-                - Perform getting in to the visitor (include shopping cart).
-                - Check that the "visitor" became "buyer" after getting in to the system.
-                """);
+        //- Check that the user was "visitor" before get in to the system.
+        //- Perform getting in to the visitor (include shopping cart).
+        //- Check that the "visitor" became "buyer" after getting in to the system.
+                
         fail();
     }
     @Test

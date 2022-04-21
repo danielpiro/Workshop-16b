@@ -234,29 +234,37 @@ public class Proxy implements BridgeInterface {
 
     /** System requirement - I.6 */
     public String offlineNotificationProductBought(){
-//        if(real!=null)
-//            return real.offlineNotificationProductBought();
+        if(real!=null)
+            return real.offlineNotificationProductBought();
+
+        //TODO: Make sure there is a offline notifications in the system
         return "TODO!";
     }
 
     /** System requirement - I.6 */
     public String offlineNotificationStoreClosed(){
-//        if(real!=null)
-//            return real.offlineNotificationStoreClosed();
+        if(real!=null)
+            return real.offlineNotificationStoreClosed();
+
+        //TODO: Make sure there is a offline notifications in the system
         return "TODO!";
     }
 
     /** System requirement - I.6 */
     public String offlineNotificationStoreReopened(){
-//        if(real!=null)
-//            return real.offlineNotificationStoreReopened();
+        if(real!=null)
+            return real.offlineNotificationStoreReopened();
+
+        //TODO: Make sure there is a offline notifications in the system
         return "TODO!";
     }
 
     /** System requirement - I.6 */
     public String offlineNotificationUserPermissionUpdate(){
-//        if(real!=null)
-//            return real.offlineNotificationUserPermissionUpdate();
+        if(real!=null)
+            return real.offlineNotificationUserPermissionUpdate();
+
+        //TODO: Make sure there is a offline notifications in the system
         return "TODO!";
     }
 
@@ -264,6 +272,8 @@ public class Proxy implements BridgeInterface {
     public String getInToTheSystem(){
 //        if(real!=null)
 //            return real.getInToTheSystem();
+
+
         return "TODO!";
     }
 
