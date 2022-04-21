@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Real implements BridgeInterface{
 
@@ -168,40 +169,41 @@ public class Real implements BridgeInterface{
     }
 
     /** User requirement - II.3.2 */
-    public String openStore(String storeName, ArrayList<String> product){
+    public String openStore(String storeName, HashMap<Product, Integer> products){
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
 
     /** User requirement - II.4.1 */
-    public String addProductToStore(String productName, int productQuantity){
+    public String addProductToStore(String storeName, String productName, int productPrice, int productQuantity){
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
     /** User requirement - II.4.1 */
-    public String removeProductFromStore(String productName){
+    public String removeProductFromStore(String storeName, String productName){
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
     /** User requirement - II.4.1 */
-    public String editProductInStore(String productName, String newProductName, int newProductQuantity){
+    public String editProductInStore(String storeName, String productName, String newProductName,
+                                     int newProductPrice, int newProductQuantity){
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
 
     /** User requirement - II.4.2 */
-    public String changeStorePolicy(String newStorePolicy){
+    public String changeStorePolicy(String storeName, String newStorePolicy){
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
 
     /** User requirement - II.4.4 */
-    public String addNewStoreOwner(String newStoreOwnerUserName){
+    public String addNewStoreOwner(String storeName, String newStoreOwnerUserName){
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
 
     /** User requirement - II.4.6 */
-    public String addNewStoreManager(String newStoreManagerUserName){
+    public String addNewStoreManager(String storeName, String newStoreManagerUserName){
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
 
     /** User requirement - II.4.7 */
-    public String changeStoreManagerPermissions(String storeManagerUserName, User.permission newPermission){
+    public String changeStoreManagerPermissions(String storeName, String storeManagerUserName, User.permission newPermission){
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
 

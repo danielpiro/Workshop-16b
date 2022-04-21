@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public interface BridgeInterface {
     /** requirement 1.b in V1 */
@@ -88,26 +89,27 @@ public interface BridgeInterface {
     String logout();
 
     /** User requirement - II.3.2 */
-    String openStore(String storeName, ArrayList<String> product);
+    String openStore(String storeName, HashMap<Product, Integer> products);
 
     /** User requirement - II.4.1 */
-    String addProductToStore(String productName, int productQuantity);
+    String addProductToStore(String storeName, String productName, int productPrice, int productQuantity);
     /** User requirement - II.4.1 */
-    String removeProductFromStore(String productName);
+    String removeProductFromStore(String storeName, String productName);
     /** User requirement - II.4.1 */
-    String editProductInStore(String productName, String newProductName, int newProductQuantity);
+    String editProductInStore(String storeName, String productName, String newProductName,
+                              int newProductPrice, int newProductQuantity);
 
     /** User requirement - II.4.2 */
-    String changeStorePolicy(String newStorePolicy);
+    String changeStorePolicy(String storeName, String newStorePolicy);
 
     /** User requirement - II.4.4 */
-    String addNewStoreOwner(String newStoreOwnerUserName);
+    String addNewStoreOwner(String storeName, String newStoreOwnerUserName);
 
     /** User requirement - II.4.6 */
-    String addNewStoreManager(String newStoreManagerUserName);
+    String addNewStoreManager(String storeName, String newStoreManagerUserName);
 
     /** User requirement - II.4.7 */
-    String changeStoreManagerPermissions(String storeManagerUserName, User.permission newPermission);
+    String changeStoreManagerPermissions(String storeName, String storeManagerUserName, User.permission newPermission);
 
     /** User requirement - II.4.9 */
     String closeStoreOwner(String storeName);

@@ -522,6 +522,8 @@ public class Proxy implements BridgeInterface {
     public String purchaseShoppingCart(){
         if(real!=null)
             return real.purchaseShoppingCart();
+
+        //TODO: Need to add external services...
         return "TODO!";
     }
 
@@ -529,60 +531,169 @@ public class Proxy implements BridgeInterface {
     public String logout(){
         if(real!=null)
             return real.logout();
-        return "TODO!";
+
+        if(currentUserInSystem == null || !currentUserInSystem.getIsLoggedIn()){
+            return "fail - this user isn't logged in";
+        }
+
+        currentUserInSystem.setIsLoggedIn(false);
+        //TODO: Need to save the registered user's shopping cart
+        currentUserInSystem.setShoppingCart(new HashMap<>());
+        currentUserInSystem.setPermissionLevel(User.permission.Visitor);
+        return "logout done successfully";
     }
 
     /** User requirement - II.3.2 */
-    public String openStore(String storeName, ArrayList<String> product){
+    public String openStore(String storeName, HashMap<Product, Integer> products){
+        //storeName has to have at least 5 characters
         if(real!=null)
-            return real.openStore(storeName, product);
-        return "TODO!";
+            return real.openStore(storeName, products);
+
+        if(storeName.length() < 5){
+            return "fail - store name is not valid";
+        }
+        if(currentUserInSystem.getPermissionLevel() == User.permission.Visitor ||
+            currentUserInSystem.getPermissionLevel() == User.permission.Buyer ||
+                !currentUserInSystem.getIsLoggedIn()){
+            return "fail - registration & login are required in order to open a store";
+        }
+        for(Store s : stores){
+            if(s.getStoreName().equals(storeName)){
+                return "fail - this store name is already taken";
+            }
+        }
+        stores.add(new Store(storeName, products));
+        currentUserInSystem.setStoreOwnedByMe(storeName);
+        if(currentUserInSystem.getPermissionLevel() == User.permission.Registered ||
+                currentUserInSystem.getPermissionLevel() == User.permission.ShopManager) {
+            currentUserInSystem.setPermissionLevel(User.permission.ShopOwner);
+        }
+        return "store was opened successfully";
     }
 
     /** User requirement - II.4.1 */
-    public String addProductToStore(String productName, int productQuantity){
+    public String addProductToStore(String storeName, String productName, int productPrice, int productQuantity){
+        //productName has to have at least 2 characters
         if(real!=null)
-            return real.addProductToStore(productName, productQuantity);
-        return "TODO!";
+            return real.addProductToStore(storeName, productName, productPrice, productQuantity);
+
+        if(productName.length() < 2 || productPrice <= 0 || productQuantity < 0){
+            return "fail - product name/price/quantity is not valid";
+        }
+        if((currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+        currentUserInSystem.getPermissionLevel() != User.permission.SystemManager &&
+        currentUserInSystem.getPermissionLevel() != User.permission.SystemFounder)
+                || !currentUserInSystem.getIsLoggedIn()){
+            return "fail - user has to be at least shop owner and to be logged in";
+        }
+        if(currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+                !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
+            return "fail - the user is not owner on that store";
+        }
+        for(Store s : stores){
+            if(s.getStoreName().equals(storeName)){
+                for(Product p : s.getProducts().keySet()){
+                    if(p.getProductName().equals(productName)){
+                        return "this exact same product is already in the store";
+                    }
+                }
+                HashMap<Product, Integer> prods = s.getProducts();
+                prods.put(new Product(productName, productPrice), productQuantity);
+                s.setProducts(prods);
+                return "product was added to the store successfully";
+            }
+        }
+        return "fail - should never happen!";
     }
     /** User requirement - II.4.1 */
-    public String removeProductFromStore(String productName){
+    public String removeProductFromStore(String storeName, String productName){
         if(real!=null)
-            return real.removeProductFromStore(productName);
-        return "TODO!";
+            return real.removeProductFromStore(storeName, productName);
+
+        if((currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+                currentUserInSystem.getPermissionLevel() != User.permission.SystemManager &&
+                currentUserInSystem.getPermissionLevel() != User.permission.SystemFounder)
+                || !currentUserInSystem.getIsLoggedIn()){
+            return "fail - user has to be at least shop owner and to be logged in";
+        }
+        if(currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+                !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
+            return "fail - the user is not owner on that store";
+        }
+        for(Store s : stores){
+            if(s.getStoreName().equals(storeName)){
+                for(Product p : s.getProducts().keySet()){
+                    if(p.getProductName().equals(productName)){
+                        HashMap<Product, Integer> prods = s.getProducts();
+                        prods.remove(p);
+                        s.setProducts(prods);
+                        return "product was removed from the store successfully";
+                    }
+                }
+            }
+        }
+        return "failed to remove product (check storeName or productName)";
     }
     /** User requirement - II.4.1 */
-    public String editProductInStore(String productName, String newProductName, int newProductQuantity){
+    public String editProductInStore(String storeName, String productName, String newProductName,
+                                     int newProductPrice, int newProductQuantity){
         if(real!=null)
-            return real.editProductInStore(productName, newProductName, newProductQuantity);
-        return "TODO!";
+            return real.editProductInStore(storeName, productName, newProductName, newProductPrice, newProductQuantity);
+
+        if(newProductName.length() < 2 || newProductPrice <= 0 || newProductQuantity < 0){
+            return "fail - new product name/price/quantity is not valid";
+        }
+        if((currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+                currentUserInSystem.getPermissionLevel() != User.permission.SystemManager &&
+                currentUserInSystem.getPermissionLevel() != User.permission.SystemFounder)
+                || !currentUserInSystem.getIsLoggedIn()){
+            return "fail - user has to be at least shop owner and to be logged in";
+        }
+        if(currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+                !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
+            return "fail - the user is not owner on that store";
+        }
+        for(Store s : stores){
+            if(s.getStoreName().equals(storeName)){
+                for(Product p : s.getProducts().keySet()){
+                    if(p.getProductName().equals(productName)){
+                        HashMap<Product, Integer> prods = s.getProducts();
+                        prods.remove(p);
+                        prods.put(new Product(newProductName, newProductPrice), newProductQuantity);
+                        s.setProducts(prods);
+                        return "product was edited in the store successfully";
+                    }
+                }
+            }
+        }
+        return "failed to edit product (check storeName or productName)";
     }
 
     /** User requirement - II.4.2 */
-    public String changeStorePolicy(String newStorePolicy){
+    public String changeStorePolicy(String storeName, String newStorePolicy){
         if(real!=null)
-            return real.changeStorePolicy(newStorePolicy);
+            return real.changeStorePolicy(storeName, newStorePolicy);
         return "TODO!";
     }
 
     /** User requirement - II.4.4 */
-    public String addNewStoreOwner(String newStoreOwnerUserName){
+    public String addNewStoreOwner(String storeName, String newStoreOwnerUserName){
         if(real!=null)
-            return real.addNewStoreOwner(newStoreOwnerUserName);
+            return real.addNewStoreOwner(storeName, newStoreOwnerUserName);
         return "TODO!";
     }
 
     /** User requirement - II.4.6 */
-    public String addNewStoreManager(String newStoreManagerUserName){
+    public String addNewStoreManager(String storeName, String newStoreManagerUserName){
         if(real!=null)
-            return real.addNewStoreManager(newStoreManagerUserName);
+            return real.addNewStoreManager(storeName, newStoreManagerUserName);
         return "TODO!";
     }
 
     /** User requirement - II.4.7 */
-    public String changeStoreManagerPermissions(String storeManagerUserName, User.permission newPermission){
+    public String changeStoreManagerPermissions(String storeName, String storeManagerUserName, User.permission newPermission){
         if(real!=null)
-            return real.changeStoreManagerPermissions(storeManagerUserName, newPermission);
+            return real.changeStoreManagerPermissions(storeName, storeManagerUserName, newPermission);
         return "TODO!";
     }
 

@@ -890,44 +890,38 @@ class UnitTests {
      **/
     @Test
     void logout_success_case_test() {
-        System.out.println("""
-                - Perform logout.
-                - Check that user was logged-in.
-                - The system saving the user's shopping cart.
-                - The user is now a visitor (when login again, he will get his cart).
-                """);
-        fail();
+        //- Perform logout.
+        //- Check that user was logged-in.
+        //- The system saving the user's shopping cart.
+        //- The user is now a visitor (when login again, he will get his cart).
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(1));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+        }
+        assertEquals("logout done successfully", proxy.logout());
     }
     @Test
     void logout_fail_case_test1() {
-        System.out.println("""
-                - Perform logout.
-                - Check that user was logged-in
-                    -> the user is not logged in.
-                - Show fail massage...
-                """);
-        fail();
+        //- Perform logout.
+        //- Check that user was logged-in
+        //    -> the user is not logged in.
+        //- Show fail massage...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(1));
+        }
+        assertEquals("fail - this user isn't logged in", proxy.logout());
     }
     @Test
     void logout_fail_case_test2() {
-        System.out.println("""
-                - Perform logout.
-                - Check that user was logged-in (in this case the user was logged in).
-                - The system saving the user's shopping cart.
-                    -> saving cart has failed.
-                - Show fail massage...
-                """);
-        fail();
-    }
-    @Test
-    void logout_success_case_test3() {
-        System.out.println("""
-                - Perform logout.
-                - Check that user was logged-in.
-                - The system saving the user's shopping cart.
-                - Check that the user is now a visitor
-                    -> But, he isn't...
-                """);
+        //TODO
+        //- Perform logout.
+        //- Check that user was logged-in (in this case the user was logged in).
+        //- The system saving the user's shopping cart.
+        //    -> saving cart has failed.
+        //- Show fail massage...
+
         fail();
     }
 
@@ -936,54 +930,71 @@ class UnitTests {
      **/
     @Test
     void open_store_success_case_test() {
-        System.out.println("""
-                - User inserting new store details.
-                - The system checks these details (will be valid) & check user is registered/logged in.
-                - Opening store will be activated & check that new permissions were given to the user (as store owner).
-                - Show success message...
-                """);
-        fail();
+        //- User inserting new store details.
+        //- The system checks these details (will be valid) & check user is registered/logged in.
+        //- Opening store will be activated & check that new permissions were given to the user (as store owner).
+        //- Show success message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(4));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+        }
+        HashMap<Product, Integer> prods = new HashMap<>();
+        assertEquals("store was opened successfully", proxy.openStore("store2", prods));
     }
     @Test
     void open_store_fail_case_test1() {
-        System.out.println("""
-                - User inserting new store details.
-                - The system checks these details (will be valid) & check user is registered/logged in ->
-                    store name is already exists.
-                - Show fail message...
-                """);
-        fail();
+        //- User inserting new store details.
+        //- The system checks these details (will be valid) & check user is registered/logged in ->
+        //    store name is already exists.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(4));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+        }
+        HashMap<Product, Integer> prods = new HashMap<>();
+        assertEquals("fail - this store name is already taken", proxy.openStore("store1", prods));
     }
     @Test
     void open_store_fail_case_test2() {
-        System.out.println("""
-                - User inserting new store details.
-                - The system checks these details (will be valid) & check user is registered/logged in ->
-                    user is not registered/logged-in to his user.
-                - Show fail message...
-                """);
-        fail();
+        //- User inserting new store details.
+        //- The system checks these details (will be valid) & check user is registered/logged in ->
+        //    user is not registered/logged-in to his user.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(4));
+        }
+        HashMap<Product, Integer> prods = new HashMap<>();
+        assertEquals("fail - registration & login are required in order to open a store", proxy.openStore("store2", prods));
     }
     @Test
     void open_store_fail_case_test3() {
-        System.out.println("""
-                - User inserting new store details.
-                - The system checks these details (will be valid) & check user is registered/logged in ->
-                    store details are invalid (not matching the store details required in the system).
-                - Show fail message...
-                """);
-        fail();
+        //- User inserting new store details.
+        //- The system checks these details (will be valid) & check user is registered/logged in ->
+        //    user is not registered/logged-in to his user.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(6));
+        }
+        HashMap<Product, Integer> prods = new HashMap<>();
+        assertEquals("fail - registration & login are required in order to open a store", proxy.openStore("store2", prods));
     }
     @Test
     void open_store_fail_case_test4() {
-        System.out.println("""
-                - User inserting new store details.
-                - The system checks these details (will be valid) & check user is registered/logged in.
-                - Opening store will be activated & check that new permissions were given to the user (as store owner)
-                    -> new permission were not given
-                - Show fail message...
-                """);
-        fail();
+        //- User inserting new store details.
+        //- The system checks these details (will be valid) & check user is registered/logged in ->
+        //    store details are invalid (not matching the store details required in the system).
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+        }
+        HashMap<Product, Integer> prods = new HashMap<>();
+        assertEquals("fail - store name is not valid", proxy.openStore("st2", prods));
     }
 
     /**
@@ -991,132 +1002,255 @@ class UnitTests {
      **/
     @Test
     void store_management_add_product_success_case_test() {
-        System.out.println("""
-                - Check that the user is logged in as store owner.
-                - User inserting new product details.
-                - Adding product to store activated.
-                - Check that the product is now in the store (will be true).
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //- User inserting new product details.
+        //- Adding product to store activated.
+        //- Check that the product is now in the store (will be true).
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("product was added to the store successfully",
+                proxy.addProductToStore("store1", "newProd", 5, 10));
     }
     @Test
     void store_management_add_product_fail_case_test1() {
-        System.out.println("""
-                - Check that the user is logged in as store owner.
-                    -> user isn't logged in as store owner.
-                - Show fail message...
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //    -> user isn't logged in as store owner.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - user has to be at least shop owner and to be logged in",
+                proxy.addProductToStore("store1", "newProd", 5, 10));
     }
     @Test
     void store_management_add_product_fail_case_test2() {
-        System.out.println("""
-                - Check that the user is logged in as store owner.
-                - User inserting new product details.
-                    -> the details inserted isn't match details info in the system.
-                - Show fail message...
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //    -> user isn't registered in as store owner.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(4));
+            //proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - user has to be at least shop owner and to be logged in",
+                proxy.addProductToStore("store1", "newProd", 5, 10));
     }
     @Test
     void store_management_add_product_fail_case_test3() {
-        System.out.println("""
-                - Check that the user is logged in as store owner.
-                - User inserting new product details.
-                - Adding product to store activated.
-                - Check that the product is now in the store (will be FALSE).
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //- User inserting new product details.
+        //    -> the details inserted isn't match details info in the system.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - product name/price/quantity is not valid",
+                proxy.addProductToStore("store1", "p", 5, 10));
+    }
+    @Test
+    void store_management_add_product_fail_case_test4() {
+        //- Check that the user is logged in as store owner.
+        //- User inserting new product details.
+        //    -> the details inserted isn't match details info in the system.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - product name/price/quantity is not valid",
+                proxy.addProductToStore("store1", "newProd", -5, 10));
+    }
+    @Test
+    void store_management_add_product_fail_case_test5() {
+        //- Check that the user is logged in as store owner.
+        //- User inserting new product details.
+        //    -> the details inserted isn't match details info in the system.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - product name/price/quantity is not valid",
+                proxy.addProductToStore("store1", "p", 5, -10));
     }
 
     @Test
     void store_management_remove_product_success_case_test() {
-        System.out.println("""
-                - Check that the user is logged in as store owner.
-                - User inserting an existing product details.
-                - Removing product from store activated.
-                - Check that the product is now not in the store (will be true).
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //- User inserting an existing product details.
+        //- Removing product from store activated.
+        //- Check that the product is now not in the store (will be true).
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("product was removed from the store successfully",
+                proxy.removeProductFromStore("store1", "p1"));
     }
     @Test
     void store_management_remove_product_fail_case_test1() {
-        System.out.println("""
-                - Check that the user is logged in as store owner.
-                    -> user isn't logged in as store owner.
-                - Show fail message...
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //    -> user isn't logged in as store owner.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - user has to be at least shop owner and to be logged in",
+                proxy.removeProductFromStore("store1", "p1"));
     }
     @Test
     void store_management_remove_product_fail_case_test2() {
-        System.out.println("""
-                - Check that the user is logged in as store owner.
-                - User inserting existing product details.
-                    -> there is no product in the store with these details.
-                - Show fail message...
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //    -> user isn't registered in as store owner.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(5));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+        }
+        assertEquals("fail - user has to be at least shop owner and to be logged in",
+                proxy.removeProductFromStore("store1", "p1"));
     }
     @Test
     void store_management_remove_product_fail_case_test3() {
-        System.out.println("""
-                - Check that the user is logged in as store owner.
-                - User inserting existing product details.
-                - Removing product from store activated.
-                - Check that the product is now not in the store (will be FALSE).
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //- User inserting existing product details.
+        //    -> there is no product in the store with these details.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("failed to remove product (check storeName or productName)",
+                proxy.removeProductFromStore("store1", "p"));
     }
 
     @Test
     void store_management_edit_product_success_case_test() {
-        System.out.println("""
-                - Check that the user is logged in as store owner.
-                - User inserting an existing product details & updated details to that product.
-                - Editing product in store activated.
-                - Check that the product is now updated (will be true).
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //- User inserting an existing product details & updated details to that product.
+        //- Editing product in store activated.
+        //- Check that the product is now updated (will be true).
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("product was edited in the store successfully",
+                proxy.editProductInStore("store1", "p1",
+                        "pp1", 11, 11));
     }
     @Test
     void store_management_edit_product_fail_case_test1() {
-        System.out.println("""
-                - Check that the user is logged in as store owner.
-                    -> user isn't logged in as store owner.
-                - Show fail message...
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //    -> user isn't logged in as store owner.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - user has to be at least shop owner and to be logged in",
+                proxy.editProductInStore("store1", "p1",
+                        "pp1", 11, 11));
     }
     @Test
     void store_management_edit_product_fail_case_test2() {
-        System.out.println("""
-                - Check that the user is logged in as store owner.
-                - User inserting an existing product details & updated details to that product.
-                    -> there is no product in the store with these details.
-                - Show fail message...
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //    -> user isn't registered as store owner.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(6));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+        }
+        assertEquals("fail - user has to be at least shop owner and to be logged in",
+                proxy.editProductInStore("store1", "p1",
+                        "pp1", 11, 11));
     }
     @Test
     void store_management_edit_product_fail_case_test3() {
-        System.out.println("""
-                - Check that the user is logged in as store owner.
-                - User inserting an existing product details & updated details to that product.
-                    -> the new product details doesn't match the system required details for product.
-                - Show fail message...
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //- User inserting an existing product details & updated details to that product.
+        //    -> there is no product in the store with these details.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - new product name/price/quantity is not valid",
+                proxy.editProductInStore("store1", "p1",
+                        "p", 11, 11));
     }
     @Test
     void store_management_edit_product_fail_case_test4() {
-        System.out.println("""
-                - Check that the user is logged in as store owner.
-                - User inserting existing product details & updated details to that product.
-                - Editing product in store activated.
-                - Check that the product is now updated (will be FALSE).
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //- User inserting an existing product details & updated details to that product.
+        //    -> there is no product in the store with these details.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - new product name/price/quantity is not valid",
+                proxy.editProductInStore("store1", "p1",
+                        "pp1", -11, 11));
+    }
+    @Test
+    void store_management_edit_product_fail_case_test5() {
+        //- Check that the user is logged in as store owner.
+        //- User inserting an existing product details & updated details to that product.
+        //    -> there is no product in the store with these details.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - new product name/price/quantity is not valid",
+                proxy.editProductInStore("store1", "p1",
+                        "p", 11, -11));
+    }
+    @Test
+    void store_management_edit_product_fail_case_test6() {
+        //- Check that the user is logged in as store owner.
+        //- User inserting an existing product details & updated details to that product.
+        //    -> there is no product in the store with these details.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("failed to edit product (check storeName or productName)",
+                proxy.editProductInStore("store1", "p",
+                        "pp1", 11, 11));
     }
 
     /**
