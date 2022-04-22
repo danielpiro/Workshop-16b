@@ -1,6 +1,5 @@
 package com.company;
 
-import javax.print.attribute.HashAttributeSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,20 +17,20 @@ public class Proxy implements BridgeInterface {
         stores = new ArrayList<>();
         currentUserInSystem = null;
     }
-    public Proxy(BridgeInterface real) {
-        this.real = real;
-        users = new ArrayList<>();
-        stores = new ArrayList<>();
-        currentUserInSystem = null;
-    }
+//    public Proxy(BridgeInterface real) {
+//        this.real = real;
+//        users = new ArrayList<>();
+//        stores = new ArrayList<>();
+//        currentUserInSystem = null;
+//    }
 
     public BridgeInterface getReal() {
         return real;
     }
 
-    public void setReal(BridgeInterface real) {
-        this.real = real;
-    }
+//    public void setReal(BridgeInterface real) {
+//        this.real = real;
+//    }
 
     public ArrayList<User> getUsers() {
         return users;
@@ -58,21 +57,28 @@ public class Proxy implements BridgeInterface {
     }
 
     public void uploadUsersAndStores(){
-        users.add(new User("user1", "11111", User.permission.SystemFounder));
-        users.add(new User("user2", "22222", User.permission.SystemManager));
-        users.add(new User("user3", "33333", User.permission.ShopOwner));
-        users.add(new User("user4", "44444", User.permission.ShopManager));
-        users.add(new User("user5", "55555", User.permission.Registered));
-        users.add(new User("user6", "66666", User.permission.Buyer));
-        users.add(new User("user7", "77777", User.permission.Visitor));
+        User user1 = new User("user1", "11111", User.permission.SystemFounder);
+        User user2 = new User("user2", "22222", User.permission.SystemManager);
+        User user3 = new User("user3", "33333", User.permission.ShopOwner);
+        User user4 = new User("user4", "44444", User.permission.ShopManager);
+        User user5 = new User("user5", "55555", User.permission.Registered);
+        User user6 = new User("user6", "66666", User.permission.Buyer);
+        User user7 = new User("user7", "77777", User.permission.Visitor);
+        users.add(user1); users.add(user2); users.add(user3); users.add(user4);
+        users.add(user5); users.add(user6); users.add(user7);
 
-        Product p0 = new Product("p1", 0);
+        Product p0 = new Product("p0", 0);
         Product p1 = new Product("p1", 1);
         Product p2 = new Product("p2", 2);
         Product p3 = new Product("p3", 3);
         HashMap<Product, Integer> products = new HashMap<>();
-        products.put(p1, 5); products.put(p2, 15); products.put(p3, 25);
-        stores.add(new Store("store1", products));
+        products.put(p0,0); products.put(p1, 5); products.put(p2, 15); products.put(p3, 25);
+        Store store1 = new Store("store1", products);
+        stores.add(store1);
+        user3.setStoreOwnedByMe("store1");
+        HashMap<String, User.permission> officials = new HashMap<>();
+        officials.put(user3.getUsername(), user3.getPermissionLevel());
+        store1.setStoreOfficials(officials);
     }
 
     public void uploadUsersAndStores_FailTest1(){
@@ -671,50 +677,218 @@ public class Proxy implements BridgeInterface {
 
     /** User requirement - II.4.2 */
     public String changeStorePolicy(String storeName, String newStorePolicy){
+        //policy should contain at least 10 characters;
         if(real!=null)
             return real.changeStorePolicy(storeName, newStorePolicy);
-        return "TODO!";
+
+        if(newStorePolicy.length() < 10){
+            return "fail - new policy is not valid";
+        }
+        if((currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+                currentUserInSystem.getPermissionLevel() != User.permission.SystemManager &&
+                currentUserInSystem.getPermissionLevel() != User.permission.SystemFounder)
+                || !currentUserInSystem.getIsLoggedIn()){
+            return "fail - user has to be at least shop owner and to be logged in";
+        }
+        if(currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+                !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
+            return "fail - the user is not owner on that store (Check store name)";
+        }
+        for(Store s : stores){
+            if(s.getStoreName().equals(storeName)){
+                s.setPolicy(newStorePolicy);
+                return "changed policy successfully";
+            }
+        }
+        return "failed to change policy (Check store name)";
     }
 
     /** User requirement - II.4.4 */
     public String addNewStoreOwner(String storeName, String newStoreOwnerUserName){
         if(real!=null)
             return real.addNewStoreOwner(storeName, newStoreOwnerUserName);
-        return "TODO!";
+
+        if((currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+                currentUserInSystem.getPermissionLevel() != User.permission.SystemManager &&
+                currentUserInSystem.getPermissionLevel() != User.permission.SystemFounder)
+                || !currentUserInSystem.getIsLoggedIn()){
+            return "fail - user has to be at least shop owner and to be logged in";
+        }
+        if(currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+                !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
+            return "fail - the user is not owner on that store (Check store name)";
+        }
+        Store store = null;
+        User user = null;
+        for (Store s : stores){
+            if(s.getStoreName().equals(storeName))
+                store = s;
+        }
+        for (User u : users){
+            if(u.getUsername().equals(newStoreOwnerUserName))
+                user = u;
+        }
+        if(store == null || user == null)
+            return "fail - store name or username is invalid";
+        else if (user.getStoreOwnedByMe()!=null || user.getStoreManagedByMe()!=null)
+            return "fail - this user is already managing/owning a store in the system";
+        else{
+            user.setPermissionLevel(User.permission.ShopOwner);
+            user.setStoreOwnedByMe(storeName);
+            HashMap<String, User.permission> officials = store.getStoreOfficials();
+            officials.put(user.getUsername(), user.getPermissionLevel());
+            store.setStoreOfficials(officials);
+        }
+        return "the user is now store owner";
     }
 
     /** User requirement - II.4.6 */
     public String addNewStoreManager(String storeName, String newStoreManagerUserName){
         if(real!=null)
             return real.addNewStoreManager(storeName, newStoreManagerUserName);
-        return "TODO!";
+
+        if((currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+                currentUserInSystem.getPermissionLevel() != User.permission.SystemManager &&
+                currentUserInSystem.getPermissionLevel() != User.permission.SystemFounder)
+                || !currentUserInSystem.getIsLoggedIn()){
+            return "fail - user has to be at least shop owner and to be logged in";
+        }
+        if(currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+                !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
+            return "fail - the user is not owner on that store (Check store name)";
+        }
+        Store store = null;
+        User user = null;
+        for (Store s : stores){
+            if(s.getStoreName().equals(storeName))
+                store = s;
+        }
+        for (User u : users){
+            if(u.getUsername().equals(newStoreManagerUserName))
+                user = u;
+        }
+        if(store == null || user == null)
+            return "fail - store name or username is invalid";
+        else if (user.getStoreOwnedByMe()!=null || user.getStoreManagedByMe()!=null)
+            return "fail - this user is already managing/owning a store in the system";
+        else{
+            user.setPermissionLevel(User.permission.ShopManager);
+            user.setStoreOwnedByMe(storeName);
+            HashMap<String, User.permission> officials = store.getStoreOfficials();
+            officials.put(user.getUsername(), user.getPermissionLevel());
+            store.setStoreOfficials(officials);
+        }
+        return "the user is now store manager";
     }
 
     /** User requirement - II.4.7 */
     public String changeStoreManagerPermissions(String storeName, String storeManagerUserName, User.permission newPermission){
         if(real!=null)
             return real.changeStoreManagerPermissions(storeName, storeManagerUserName, newPermission);
-        return "TODO!";
+
+        if((currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+                currentUserInSystem.getPermissionLevel() != User.permission.SystemManager &&
+                currentUserInSystem.getPermissionLevel() != User.permission.SystemFounder)
+                || !currentUserInSystem.getIsLoggedIn()){
+            return "fail - user has to be at least shop owner and to be logged in";
+        }
+        if(currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+                !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
+            return "fail - the user is not owner on that store (Check store name)";
+        }
+        for (Store s : stores){
+            if(s.getStoreName().equals(storeName)){
+                for(String uName : s.getStoreOfficials().keySet()){
+                    if(uName.equals(storeManagerUserName)){
+                        for (User u : users){
+                            if(u.getUsername().equals(storeManagerUserName)){
+                                u.setPermissionLevel(newPermission);
+                                if(newPermission == User.permission.ShopOwner)
+                                    u.setStoreOwnedByMe(storeName);
+                                else
+                                    u.setStoreManagedByMe(storeName);
+                                HashMap<String, User.permission> officials = s.getStoreOfficials();
+                                officials.put(u.getUsername(), u.getPermissionLevel());
+                                return "store manager permission has changed successfully";
+                            }
+                        }
+                    }
+                }
+                return "fail - this user is not a manager in that store";
+            }
+        }
+        return "fail - there's no such store in the system";
     }
 
     /** User requirement - II.4.9 */
-    public String closeStoreOwner(String storeName){
+    public String closeStoreByOwner(String storeName){
         if(real!=null)
-            return real.closeStoreOwner(storeName);
-        return "TODO!";
+            return real.closeStoreByOwner(storeName);
+
+        if((currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+                currentUserInSystem.getPermissionLevel() != User.permission.SystemManager &&
+                currentUserInSystem.getPermissionLevel() != User.permission.SystemFounder)
+                || !currentUserInSystem.getIsLoggedIn()){
+            return "fail - user has to be at least shop owner and to be logged in";
+        }
+        if(currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+                !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
+            return "fail - the user is not owner on that store (Check store name)";
+        }
+        for (Store s : stores) {
+            if (s.getStoreName().equals(storeName)) {
+                if(!s.isOpen())
+                    return "the store was already closed";
+                s.setOpen(false);
+                return "the store has closed successfully";
+            }
+        }
+        return "failed to close store (Check store name)";
     }
 
     /** User requirement - II.4.11 */
     public String showStoreOfficials(String storeName){
         if(real!=null)
             return real.showStoreOfficials(storeName);
-        return "TODO!";
+
+        if((currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+                currentUserInSystem.getPermissionLevel() != User.permission.SystemManager &&
+                currentUserInSystem.getPermissionLevel() != User.permission.SystemFounder)
+                || !currentUserInSystem.getIsLoggedIn()){
+            return "fail - user has to be at least shop owner and to be logged in";
+        }
+        if(currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+                !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
+            return "fail - the user is not owner on that store (Check store name)";
+        }
+        for (Store s : stores) {
+            if (s.getStoreName().equals(storeName)) {
+                return "showing all the officials...";
+            }
+        }
+        return "failed to show the store's officials";
     }
 
     /** User requirement - II.4.13 */
     public String showStorePurchaseHistory(String storeName){
         if(real!=null)
             return real.showStorePurchaseHistory(storeName);
-        return "TODO!";
+
+        if((currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+                currentUserInSystem.getPermissionLevel() != User.permission.SystemManager &&
+                currentUserInSystem.getPermissionLevel() != User.permission.SystemFounder)
+                || !currentUserInSystem.getIsLoggedIn()){
+            return "fail - user has to be at least shop owner and to be logged in";
+        }
+        if(currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+                !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
+            return "fail - the user is not owner on that store (Check store name)";
+        }
+        for (Store s : stores) {
+            if (s.getStoreName().equals(storeName)) {
+                return "showing all the purchase history...";
+            }
+        }
+        return "failed to show the store's purchase history";
     }
 }

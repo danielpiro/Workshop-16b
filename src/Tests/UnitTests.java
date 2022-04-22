@@ -16,7 +16,6 @@ class UnitTests {
      * 1) Parallel Use.
      * 2) Logging.
      * 3) External Services.
-     * 4)...
      */
 
     Proxy proxy = new Proxy();
@@ -847,11 +846,9 @@ class UnitTests {
     }
     @Test
     void remove_product_from_shopping_cart_fail_case_test() {
-        System.out.println("""
-                - User selecting product from his shopping cart and remove it from cart.
-                - Check that the product isn't in the cart
-                    ->  the product is still in the cart
-                """);
+        //- User selecting product from his shopping cart and remove it from cart.
+        //- Check that the product isn't in the cart
+        //    ->  the product is still in the cart
 
         if(proxy.getReal() == null){
             proxy.setCurrentUserInSystem(proxy.getUsers().get(6));
@@ -1258,42 +1255,75 @@ class UnitTests {
      **/
     @Test
     void change_store_policy_success_case_test() {
-        System.out.println("""
-                - Check that the user is logged in as store owner.
-                - User inserting the new policy details.
-                - Changing store policy is activated.
-                - Check that the store policy is now updated (will be true).
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //- User inserting the new policy details.
+        //- Changing store policy is activated.
+        //- Check that the store policy is now updated (will be true).
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(1));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("changed policy successfully",
+                proxy.changeStorePolicy("store1", "20% discount policy"));
     }
     @Test
     void change_store_policy_fail_case_test1() {
-        System.out.println("""
-                - Check that the user is logged in as store owner.
-                    -> User isn't logged in as a store owner.
-                - Show fail message...
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //    -> User isn't logged in as a store owner.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(1));
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - user has to be at least shop owner and to be logged in",
+                proxy.changeStorePolicy("store1", "20% discount policy"));
     }
     @Test
     void change_store_policy_fail_case_test2() {
-        System.out.println("""
-                - Check that the user is logged in as store owner.
-                - User inserting the new policy details.
-                    -> details doesn't match to a policy in the system
-                - Show fail message...
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //    -> User isn't registered as a store owner.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(5));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - user has to be at least shop owner and to be logged in",
+                proxy.changeStorePolicy("store1", "20% discount policy"));
     }
     @Test
     void change_store_policy_fail_case_test3() {
-        System.out.println("""
-                - Check that the user is logged in as store owner.
-                - User inserting the new policy details.
-                - Changing store policy is activated.
-                - Check that the store policy is now updated (will be FALSE).
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //- User inserting the new policy details.
+        //    -> details doesn't match to a policy in the system
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(1));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - new policy is not valid",
+                proxy.changeStorePolicy("store1", "policy"));
+    }
+    @Test
+    void change_store_policy_fail_case_test4() {
+        //- Check that the user is logged in as store owner.
+        //- User inserting the new policy details.
+        //- Changing store policy is activated.
+        //- Check that the store policy is now updated (will be FALSE).
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(1));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("s1");
+        }
+        assertEquals("fail - the user is not owner on that store (Check store name)",
+                proxy.changeStorePolicy("store1", "irregular policy"));
     }
 
     /**
@@ -1301,56 +1331,77 @@ class UnitTests {
      **/
     @Test
     void adding_store_owner_success_case_test() {
-        System.out.println("""
-                - Check that the user (adding the new store owner) is logged in as store owner.
-                - User inserting the new store owner details.
-                - Check that the new owner is registered to the system and not already a store owner.
-                - Adding store owner to the store is activated.
-                - Check that the new owner has been added (will be true).
-                """);
-        fail();
+        //- Check that the user (adding the new store owner) is logged in as store owner.
+        //- User inserting the new store owner details.
+        //- Check that the new owner is registered to the system and not already a store owner.
+        //- Adding store owner to the store is activated.
+        //- Check that the new owner has been added (will be true).
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(2));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("the user is now store owner",
+                proxy.addNewStoreOwner("store1", "user5"));
     }
     @Test
     void adding_store_owner_fail_case_test1() {
-        System.out.println("""
-                - Check that the user (adding the new store owner) is logged in as store owner.
-                    -> the user isn't logged in as a store owner.
-                - Show fail message...
-                """);
-        fail();
+        //- Check that the user (adding the new store owner) is logged in as store owner.
+        //    -> the user isn't logged in as a store owner.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(2));
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - user has to be at least shop owner and to be logged in",
+                proxy.addNewStoreOwner("store1", "user5"));
     }
     @Test
     void adding_store_owner_fail_case_test2() {
-        System.out.println("""
-                - Check that the user (adding the new store owner) is logged in as store owner.
-                - User inserting the new store owner details.
-                - Check that the new owner is registered to the system and not already a store owner
-                    -> the new owner inserted isn't a user in the system
-                - Show fail message...
-                """);
-        fail();
+        //- Check that the user (adding the new store owner) is logged in as store owner.
+        //    -> the user isn't registered as a store owner.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(6));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+        }
+        assertEquals("fail - user has to be at least shop owner and to be logged in",
+                proxy.addNewStoreOwner("store1", "user5"));
     }
     @Test
     void adding_store_owner_fail_case_test3() {
-        System.out.println("""
-                - Check that the user (adding the new store owner) is logged in as store owner.
-                - User inserting the new store owner details.
-                - Check that the new owner is registered to the system and not already a store owner
-                    -> the new owner inserted is already a store owner
-                - Show fail message...
-                """);
-        fail();
+        //- Check that the user (adding the new store owner) is logged in as store owner.
+        //- User inserting the new store owner details.
+        //- Check that the new owner is registered to the system and not already a store owner
+        //    -> the new owner inserted isn't a user in the system
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(2));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - store name or username is invalid",
+                proxy.addNewStoreOwner("store1", "user55"));
     }
     @Test
-    void adding_store_owner_success_case_test4() {
-        System.out.println("""
-                - Check that the user (adding the new store owner) is logged in as store owner.
-                - User inserting the new store owner details.
-                - Check that the new owner is registered to the system and not already a store owner.
-                - Adding store owner to the store is activated.
-                - Check that the new owner has been added (will be FALSE).
-                """);
-        fail();
+    void adding_store_owner_fail_case_test4() {
+        //- Check that the user (adding the new store owner) is logged in as store owner.
+        //- User inserting the new store owner details.
+        //- Check that the new owner is registered to the system and not already a store owner
+        //    -> the new owner inserted is already a store owner
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(2));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - this user is already managing/owning a store in the system",
+                proxy.addNewStoreOwner("store1", "user3"));
     }
 
     /**
@@ -1358,56 +1409,77 @@ class UnitTests {
      **/
     @Test
     void adding_store_manager_success_case_test() {
-        System.out.println("""
-                - Check that the user (adding the new store manager) is logged in as store owner.
-                - User inserting the new store manager details.
-                - Check that the new owner is registered to the system and not already a store owner or store manager.
-                - Adding store manager to the store is activated.
-                - Check that the new manager has been added (will be true).
-                """);
-        fail();
+        //- Check that the user (adding the new store manager) is logged in as store owner.
+        //- User inserting the new store manager details.
+        //- Check that the new owner is registered to the system and not already a store owner or store manager.
+        //- Adding store manager to the store is activated.
+        //- Check that the new manager has been added (will be true).
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(2));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("the user is now store manager",
+                proxy.addNewStoreManager("store1", "user5"));
     }
     @Test
     void adding_store_manager_fail_case_test1() {
-        System.out.println("""
-                - Check that the user (adding the new store owner) is logged in as store owner.
-                    -> the user isn't logged in as a store owner.
-                - Show fail message...
-                """);
-        fail();
+        //- Check that the user (adding the new store owner) is logged in as store owner.
+        //    -> the user isn't logged in as a store owner.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(2));
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - user has to be at least shop owner and to be logged in",
+                proxy.addNewStoreManager("store1", "user5"));
     }
     @Test
     void adding_store_manager_fail_case_test2() {
-        System.out.println("""
-                - Check that the user (adding the new store manager) is logged in as store owner.
-                - User inserting the new store manager details.
-                - Check that the new owner is registered to the system and not already a store owner or store manager
-                    -> the new manager inserted isn't a user in the system
-                - Show fail message...
-                """);
-        fail();
+        //- Check that the user (adding the new store owner) is logged in as store owner.
+        //    -> the user isn't registered as a store owner.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(6));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+        }
+        assertEquals("fail - user has to be at least shop owner and to be logged in",
+                proxy.addNewStoreManager("store1", "user5"));
     }
     @Test
     void adding_store_manager_fail_case_test3() {
-        System.out.println("""
-                - Check that the user (adding the new store manager) is logged in as store owner.
-                - User inserting the new store manager details.
-                - Check that the new manager is registered to the system and not already a store owner or store manager
-                    -> the new owner inserted is already a store owner or store manager
-                - Show fail message...
-                """);
-        fail();
+        //- Check that the user (adding the new store manager) is logged in as store owner.
+        //- User inserting the new store manager details.
+        //- Check that the new owner is registered to the system and not already a store owner or store manager
+        //    -> the new manager inserted isn't a user in the system
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(2));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - store name or username is invalid",
+                proxy.addNewStoreManager("store1", "user55"));
     }
     @Test
-    void adding_store_manager_success_case_test4() {
-        System.out.println("""
-                - Check that the user (adding the new store manager) is logged in as store owner.
-                - User inserting the new store manager details.
-                - Check that the new manager is registered to the system and not already a store owner or store manager.
-                - Adding store manager to the store is activated.
-                - Check that the new manager has been added (will be FALSE).
-                """);
-        fail();
+    void adding_store_manager_fail_case_test4() {
+        //- Check that the user (adding the new store manager) is logged in as store owner.
+        //- User inserting the new store manager details.
+        //- Check that the new manager is registered to the system and not already a store owner or store manager
+        //    -> the new owner inserted is already a store owner or store manager
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(2));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - this user is already managing/owning a store in the system",
+                proxy.addNewStoreManager("store1", "user3"));
     }
 
     /**
@@ -1415,60 +1487,120 @@ class UnitTests {
      **/
     @Test
     void change_store_manager_permissions_success_case_test() {
-        System.out.println("""
-                - Check that the user (changing the store manager permissions) is logged in as store owner.
-                - User changing the store manager permissions.
-                - Check that the manager's permissions has been updated (will be true).
-                """);
-        fail();
+        //- Check that the user (changing the store manager permissions) is logged in as store owner.
+        //- User changing the store manager permissions.
+        //- Check that the manager's permissions has been updated (will be true).
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("store manager permission has changed successfully",
+                proxy.changeStoreManagerPermissions("store1", "user3", User.permission.ShopOwner));
     }
     @Test
     void change_store_manager_permissions_fail_case_test1() {
-        System.out.println("""
-                - Check that the user (changing the store manager permissions) is logged in as store owner.
-                    -> the user isn't logged in as a store owner.
-                - Show fail message...
-                """);
-        fail();
+        //- Check that the user (changing the store manager permissions) is logged in as store owner.
+        //    -> the user isn't logged/registered in as a store owner.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - user has to be at least shop owner and to be logged in",
+                proxy.changeStoreManagerPermissions("store1", "user3", User.permission.ShopOwner));
     }
     @Test
     void change_store_manager_permissions_fail_case_test2() {
-        System.out.println("""
-                - Check that the user (changing the store manager permissions) is logged in as store owner.
-                - User changing the store manager permissions.
-                - Check that the manager's permissions has been updated (will be FALSE).
-                """);
-        fail();
+        //- Check that the user (changing the store manager permissions) is logged in as store owner.
+        //    -> the user isn't registered as a store owner.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(5));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - user has to be at least shop owner and to be logged in",
+                proxy.changeStoreManagerPermissions("store1", "user3", User.permission.ShopOwner));
+    }
+    @Test
+    void change_store_manager_permissions_fail_case_test3() {
+        //- Check that the user (changing the store manager permissions) is logged in as store owner.
+        //- User changing the store manager permissions.
+        //- Check that the manager's permissions has been updated (will be FALSE).
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - this user is not a manager in that store",
+                proxy.changeStoreManagerPermissions("store1", "user5", User.permission.ShopOwner));
     }
     /**
      *  User requirement - II.4.9
      **/
     @Test
     void close_store_success_case_test() {
-        System.out.println("""
-                - Check that the user is logged in as store owner.
-                - User closing the store.
-                - Check that the store is closed (will be true).
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //- User closing the store.
+        //- Check that the store is closed (will be true).
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("the store has closed successfully",
+                proxy.closeStoreByOwner("store1"));
     }
     @Test
     void close_store_fail_case_test1() {
-        System.out.println("""
-                - Check that the user is logged in as store owner.
-                    -> the user isn't a store owner.
-                - Show fail message...
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //    -> the user isn't a store owner.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(6));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - user has to be at least shop owner and to be logged in",
+                proxy.closeStoreByOwner("store1"));
     }
     @Test
     void close_store_fail_case_test2() {
-        System.out.println("""
-                - Check that the user is logged in as store owner.
-                - User closing the store.
-                - Check that the store is closed (will be FALSE).
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //    -> the user isn't logged in.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - user has to be at least shop owner and to be logged in",
+                proxy.closeStoreByOwner("store1"));
+    }
+    @Test
+    void close_store_fail_case_test3() {
+        //- Check that the user is logged in as store owner.
+        //- User closing the store.
+        //- Check that the store is closed (store was already closed).
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+            for (Store s : proxy.getStores()) {
+                if(s.getStoreName().equals("store1")){
+                    s.setOpen(false);
+                }
+            }
+        }
+        assertEquals("the store was already closed",proxy.closeStoreByOwner("store1"));
     }
 
     /**
@@ -1476,29 +1608,57 @@ class UnitTests {
      **/
     @Test
     void show_store_officials_success_case_test() { //officials = store owners/store managers
-        System.out.println("""
-                - Check that the user is logged in as store owner.
-                - Activate presenting all store's official (will show all the officials correctly).
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //- Activate presenting all store's official (will show all the officials correctly).
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("showing all the officials...",
+                proxy.showStoreOfficials("store1"));
     }
     @Test
     void show_store_officials_fail_case_test1() { //officials = store owners/store managers
-        System.out.println("""
-                - Check that the user is logged in as store owner.
-                    -> the user isn't a store owner.
-                - Show fail message...
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //    -> the user isn't a store owner.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(5));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - user has to be at least shop owner and to be logged in",
+                proxy.showStoreOfficials("store1"));
     }
     @Test
     void show_store_officials_fail_case_test2() { //officials = store owners/store managers
-        System.out.println("""
-                - Check that the user is logged in as store owner.
-                - Activate presenting all store's official
-                    -> will not show the officials / will miss at least one of them
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //    -> the user isn't logged in as store owner.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(1));
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - user has to be at least shop owner and to be logged in",
+                proxy.showStoreOfficials("store1"));
+    }
+    @Test
+    void show_store_officials_fail_case_test3() { //officials = store owners/store managers
+        //- Check that the user is logged in as store owner.
+        //- Activate presenting all store's official
+        //    -> will fail to show the officials / will miss at least one of them
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - the user is not owner on that store (Check store name)",
+                proxy.showStoreOfficials("s1"));
     }
 
     /**
@@ -1506,29 +1666,57 @@ class UnitTests {
      **/
     @Test
     void show_store_purchase_history_success_case_test() {
-        System.out.println("""
-                - Check that the user is logged in as store owner.
-                - Activate presenting all store's purchase history (will show it all correctly).
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //- Activate presenting all store's purchase history (will show it all correctly).
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("showing all the purchase history...",
+                proxy.showStorePurchaseHistory("store1"));
     }
     @Test
     void show_store_purchase_history_fail_case_test1() {
-        System.out.println("""
-                - Check that the user is logged in as store owner.
-                    -> the user isn't a store owner.
-                - Show fail message...
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //    -> the user isn't a store owner.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(5));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - user has to be at least shop owner and to be logged in",
+                proxy.showStorePurchaseHistory("store1"));
     }
     @Test
     void show_store_purchase_history_fail_case_test2() {
-        System.out.println("""
-                 - Check that the user is logged in as store owner.
-                - Activate presenting all store's purchase history (will show it all correctly)
-                    -> will not show all purchase history / will miss at least one of the purchases
-                """);
-        fail();
+        //- Check that the user is logged in as store owner.
+        //    -> the user isn't a store owner.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - user has to be at least shop owner and to be logged in",
+                proxy.showStorePurchaseHistory("store1"));
+    }
+    @Test
+    void show_store_purchase_history_fail_case_test3() {
+        //- Check that the user is logged in as store owner.
+        //- Activate presenting all store's purchase history (will show it all correctly)
+        //    -> will not show all purchase history / will miss at least one of the purchases
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - the user is not owner on that store (Check store name)",
+                proxy.showStorePurchaseHistory("s1"));
     }
 
 

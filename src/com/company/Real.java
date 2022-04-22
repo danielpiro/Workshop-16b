@@ -1,6 +1,5 @@
 package com.company;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Real implements BridgeInterface{
@@ -10,17 +9,17 @@ public class Real implements BridgeInterface{
     public Real() {
         this.msApp = null;
     }
-    public Real(MarketSystem msApp) {
-        this.msApp = msApp;
-    }
+//    public Real(MarketSystem msApp) {
+//        this.msApp = msApp;
+//    }
 
-    public MarketSystem getMsApp() {
-        return msApp;
-    }
-
-    public void setMsApp(MarketSystem msApp) {
-        this.msApp = msApp;
-    }
+//    public MarketSystem getMsApp() {
+//        return msApp;
+//    }
+//
+//    public void setMsApp(MarketSystem msApp) {
+//        this.msApp = msApp;
+//    }
 
     /** requirement 1.b in V1 */
     public String parallelUse() { //Need to implement thread-base system
@@ -208,7 +207,7 @@ public class Real implements BridgeInterface{
     }
 
     /** User requirement - II.4.9 */
-    public String closeStoreOwner(String storeName){
+    public String closeStoreByOwner(String storeName){
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
 

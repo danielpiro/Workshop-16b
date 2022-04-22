@@ -1,6 +1,5 @@
 package com.company;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface BridgeInterface {
@@ -112,7 +111,7 @@ public interface BridgeInterface {
     String changeStoreManagerPermissions(String storeName, String storeManagerUserName, User.permission newPermission);
 
     /** User requirement - II.4.9 */
-    String closeStoreOwner(String storeName);
+    String closeStoreByOwner(String storeName);
 
     /** User requirement - II.4.11 */
     String showStoreOfficials(String storeName);
