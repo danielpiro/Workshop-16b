@@ -38,14 +38,20 @@ public class IntegrationTests {
 
     /**
      *  Scenario 1:
-     *  1) Register
-     *  2) Login
-     *  3) Logout
+     *  1) Register new user
+     *  2) Login with this user
+     *  3) Logout from that user
      **/
     @Test
     void scenario1_test() {
-
-        assertTrue(true);
+        String str = proxy.register("user0", "00000");
+        str = str.concat("\n");
+        str = str.concat(proxy.login("user0", "00000"));
+        str = str.concat("\n");
+        str = str.concat(proxy.logout());
+        assertEquals("the user registered successfully\n" +
+                             "user logged in successfully\n" +
+                             "logout done successfully", str);
     }
 
     /**
@@ -57,8 +63,39 @@ public class IntegrationTests {
      **/
     @Test
     void scenario2_test() {
+        String str = proxy.login("user3", "33333");
+        str = str.concat("\n");
+        str = str.concat(proxy.showStorePurchaseHistory("store1"));
+        str = str.concat("\n");
+        str = str.concat(proxy.showStoreOfficials("store1"));
+        str = str.concat("\n");
+        str = str.concat(proxy.logout());
+        assertEquals("user logged in successfully\n" +
+                             "showing all the purchase history...\n" +
+                             "showing all the officials...\n" +
+                             "logout done successfully",str);
+    }
 
-        assertTrue(true);
+    /**
+     *  Scenario 3:
+     *  1) Login - as StoreOwner
+     *  2) Add store manager to a store.
+     *  3) Add store owner to a store -> we'll fail this one with user that is already a manager/owner.
+     *  4) Logout
+     **/
+    @Test
+    void scenario3_test() {
+        String str = proxy.login("user3", "33333");
+        str = str.concat("\n");
+        str = str.concat(proxy.addNewStoreManager("store1", "user5"));
+        str = str.concat("\n");
+        str = str.concat(proxy.addNewStoreOwner("store1", "user4"));
+        str = str.concat("\n");
+        str = str.concat(proxy.logout());
+        assertEquals("user logged in successfully\n" +
+                             "the user is now store manager\n" +
+                             "fail - this user is already managing/owning a store in the system\n" +
+                             "logout done successfully", str);
     }
 
 }

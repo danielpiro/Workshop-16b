@@ -389,7 +389,7 @@ public class Proxy implements BridgeInterface {
                 if(u.getPassword().equals(password)){
                     currentUserInSystem = u;
                     currentUserInSystem.setIsLoggedIn(true);
-                    currentUserInSystem.setPermissionLevel(User.permission.Registered);
+                    currentUserInSystem.setPermissionLevel(u.getPermissionLevel());
                     return "user logged in successfully";
                 }
                 else{
@@ -549,7 +549,7 @@ public class Proxy implements BridgeInterface {
         currentUserInSystem.setIsLoggedIn(false);
         //TODO: Need to save the registered user's shopping cart
         currentUserInSystem.setShoppingCart(new HashMap<>());
-        currentUserInSystem.setPermissionLevel(User.permission.Visitor);
+        //currentUserInSystem.setPermissionLevel(User.permission.Visitor);
         return "logout done successfully";
     }
 
