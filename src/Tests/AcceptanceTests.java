@@ -25,22 +25,6 @@ public class AcceptanceTests {
         pass();
     }
 
-    @Test
-    void sanity_test_fail_case() {
-        int expected = 1;
-        int gotten = 2;
-        if(expected != gotten){
-            pass();
-        }
-        else{
-            fail();
-        }
-    }
-
-//region Functional Requirements
-    // Functional Requirements
-    // ==========================
-
     /**
      *
      **/
@@ -56,6 +40,5 @@ public class AcceptanceTests {
     void test2() {
         pass();
     }
-//endregion Functional Requirements
 
 }
