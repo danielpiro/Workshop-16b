@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 
 public class Store {
     private String storeName;
-    private String storeId;
+    private final String storeId;
     private List<StoreRoles> StoreRoles;
 
     private InventoryManager inventoryManager;
     private Forum forum;
-
+    private StoreState storeState;
 
 
     public Store(String storeName, String storeId, List<User> storeOriginalManager) {
@@ -25,6 +25,7 @@ public class Store {
         StoreRoles = storeOriginalManager.stream().map(OriginalStoreManagerRole::new).collect(Collectors.toList());
         inventoryManager = new InventoryManager();
         forum =new Forum();
+        storeState = StoreState.ACTIVE;
     }
 
     private boolean checkPermission(User user, Permission action){
@@ -37,11 +38,19 @@ public class Store {
         return false;
     }
 
-    public void addToExistingProduct(User user,int productId, int howMach) throws NoPermissionException {
+    public void addToExistingProduct(User user,String productId, int howMach) throws NoPermissionException {
         if(!checkPermission(user, Permission.ADD_EXISTING_PRODUCT)){
             throw new NoPermissionException("the user don't have this permission");
         }
         inventoryManager.addToExistingProduct(productId, howMach);
+    }
+
+    public void addNewProduct(User user, String productName, float price, int howMuch) throws NoPermissionException {
+        if(!checkPermission(user, Permission.ADD_NEW_PRODUCT)){
+            throw new NoPermissionException("the user don't have this permission");
+        }
+        inventoryManager.addNewProduct(productName, price, howMuch);
+
     }
 
 
