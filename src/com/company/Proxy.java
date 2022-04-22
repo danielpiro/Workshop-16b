@@ -75,9 +75,13 @@ public class Proxy implements BridgeInterface {
         products.put(p0,0); products.put(p1, 5); products.put(p2, 15); products.put(p3, 25);
         Store store1 = new Store("store1", products);
         stores.add(store1);
-        user3.setStoreOwnedByMe("store1");
+        user1.setStoreOwnedByMe("store1"); user2.setStoreOwnedByMe("store1"); user3.setStoreOwnedByMe("store1");
+        user4.setStoreManagedByMe("store1");
         HashMap<String, User.permission> officials = new HashMap<>();
+        officials.put(user1.getUsername(), user1.getPermissionLevel());
+        officials.put(user2.getUsername(), user2.getPermissionLevel());
         officials.put(user3.getUsername(), user3.getPermissionLevel());
+        officials.put(user4.getUsername(), user4.getPermissionLevel());
         store1.setStoreOfficials(officials);
     }
 
