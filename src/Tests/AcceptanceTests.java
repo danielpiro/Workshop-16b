@@ -1,28 +1,38 @@
 package Tests;
 
+import com.company.Proxy;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AcceptanceTests {
 
+    /*TODO: (Tagged with fail() in the tests)
+     * 1) Parallel Use.
+     * 2) Logging.
+     * 3) External Services.
+     */
+
+    Proxy proxy = new Proxy();
+
     @BeforeEach
     void setUp() {
+        proxy.openingMarket();
     }
 
     @AfterEach
     void tearDown() {
-    }
-
-    private void pass() {
-        assertTrue(true);
+        proxy.setUsers(new ArrayList<>());
+        proxy.setStores(new ArrayList<>());
     }
 
     @Test
-    void sanity_test_success_case() {
-        pass();
+    void pass_sanity_test_success_case() {
+        assertTrue(true);
     }
 
     /**
@@ -30,7 +40,7 @@ public class AcceptanceTests {
      **/
     @Test
     void test1() {
-        pass();
+        assertTrue(true);
     }
 
     /**
@@ -38,7 +48,7 @@ public class AcceptanceTests {
      **/
     @Test
     void test2() {
-        pass();
+        assertTrue(true);
     }
 
 }

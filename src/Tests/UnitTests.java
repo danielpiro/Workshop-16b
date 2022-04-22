@@ -20,10 +20,6 @@ class UnitTests {
 
     Proxy proxy = new Proxy();
 
-    private void pass() {
-        assertTrue(true);
-    }
-
     @BeforeEach
     void setUp() {
         proxy.openingMarket();
@@ -36,9 +32,8 @@ class UnitTests {
     }
 
     @Test
-    void sanity_test_success_case() {
-        pass(); //success case
-        // assertTrue(false); //fail case
+    void pass_sanity_test_success_case() {
+        assertTrue(true);
     }
 
 
