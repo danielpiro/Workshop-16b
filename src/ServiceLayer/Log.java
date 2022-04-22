@@ -11,7 +11,7 @@ public class Log {
     public Logger logger;
     FileHandler fh;
 
-    private Log(String file_name) throws SecurityException, IOException{
+    private Log(String file_name) throws SecurityException, IOException {
         File f = new File(file_name);
         if(!f.exists()) f.createNewFile();
         fh = new FileHandler(file_name,true);
