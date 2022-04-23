@@ -6,6 +6,7 @@ import StorePermissin.User;
 import Views.ProductView;
 import Views.StoreView;
 
+import javax.naming.NoPermissionException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,14 +23,14 @@ public class StoreController {
         stores = new HashMap<String, Store>();
     }
 
-    public void openNewStore(String name,List<User> managers){
+    public void openNewStore(String name,List<String> managers){
         String newId = IdGenerator.getInstance().getStoreId();
         Store newStore= new Store(name, newId, managers);
         stores.put(newId, newStore);
     }
 
 
-    private HashMap<String,List<ProductView>> getAllProductsAndStores(){
+    public HashMap<String,List<ProductView>> getAllProductsAndStores(){
         HashMap<String,List<ProductView>> ProductsAndStores = new HashMap<>();
         for (Store store :
                 stores.values()) {
@@ -37,6 +38,26 @@ public class StoreController {
         }
         return ProductsAndStores;
     }
+
+    public void addNewProduct(String storeId, String userId, String productName, float price, int howMuch) throws NoPermissionException {
+        Store relevantStore = stores.get(storeId);
+        relevantStore.addNewProduct(userId, productName, price, howMuch);
+
+    }
+
+    public void addSupplyToProduct(String storeId, String userId, String productId, int howMuch) throws NoPermissionException {
+        Store relevantStore = stores.get(storeId);
+        relevantStore.addToExistingProduct(userId, productId, howMuch);
+    }
+
+    public void addReviewToProduct(String storeId, String userId, String productId, String Title, String Body, float rating){
+        Store relevantStore = stores.get(storeId);
+        relevantStore.addProductReview( userId, productId, Title, Body, rating);
+    }
+
+
+
+
 //    public List<ProductView> SearchProductsAccordingName(String productName){
 //        return new ArrayList<>();
 //

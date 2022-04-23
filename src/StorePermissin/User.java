@@ -1,5 +1,5 @@
 package StorePermissin;
 
 public interface User {
-    int getUserId();
+    String getUserId();
 }

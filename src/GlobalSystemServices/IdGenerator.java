@@ -10,14 +10,19 @@ public class IdGenerator {
     private String storePrefix = "StoreID_";
     private Long storeSuffix;
 
+    private String ForumThreadPrefix = "ForumThreadID_";
+    private Long ForumThreadSuffix;
+
     private IdGenerator(){
         productSuffix = 0L;
         storeSuffix = 0L;
+        ForumThreadSuffix = 0L;
     }
 
-    private IdGenerator(Long productSuffix, Long storeSuffix) {
+    private IdGenerator(Long productSuffix, Long storeSuffix, Long ForumThreadSuffix) {
         this.productSuffix = productSuffix;
         this.storeSuffix = storeSuffix;
+        this.ForumThreadSuffix = ForumThreadSuffix;
     }
 
     public static IdGenerator getInstance()
@@ -26,10 +31,10 @@ public class IdGenerator {
             single_instance = new IdGenerator();
         return single_instance;
     }
-    public static IdGenerator getInstance(Long productSuffix, Long storeSuffix)
+    public static IdGenerator getInstance(Long productSuffix, Long storeSuffix, Long ForumThreadSuffix)
     {
         if (single_instance == null)
-            single_instance = new IdGenerator(productSuffix, storeSuffix);
+            single_instance = new IdGenerator(productSuffix, storeSuffix, ForumThreadSuffix);
         return single_instance;
     }
 
@@ -41,6 +46,11 @@ public class IdGenerator {
     public String getStoreId(){
         storeSuffix++;
         return storePrefix+(storeSuffix-1L);
+    }
+
+    public String getForumThreadId(){
+        ForumThreadSuffix++;
+        return ForumThreadPrefix+(ForumThreadSuffix-1L);
     }
 
     public boolean isIdEqual(String Id1, String Id2){

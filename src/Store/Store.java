@@ -1,11 +1,11 @@
 package Store;
 
+import GlobalSystemServices.IdGenerator;
+import Store.Forum.Forum;
 import StorePermissin.OriginalStoreManagerRole;
 import StorePermissin.Permission;
 import StorePermissin.StoreRoles;
-import StorePermissin.User;
 import Views.ProductView;
-import Views.StoreView;
 
 import javax.naming.NoPermissionException;
 import java.util.List;
@@ -19,39 +19,41 @@ public class Store {
     private InventoryManager inventoryManager;
     private Forum forum;
     private StoreState storeState;
+    private float storeRating; //rating between 1 - 5
+    private List<Review> reviews;
 
-
-    public Store(String storeName, String storeId, List<User> storeOriginalManager) {
+    public Store(String storeName, String storeId, List<String> storeOriginalManager) {
         this.storeName = storeName;
         this.storeId = storeId;
         StoreRoles = storeOriginalManager.stream().map(OriginalStoreManagerRole::new).collect(Collectors.toList());
         inventoryManager = new InventoryManager();
         forum =new Forum();
         storeState = StoreState.ACTIVE;
+        storeRating = 0;
     }
 
-    private boolean checkPermission(User user, Permission action){
+    private boolean checkPermission(String userId, Permission action){
         for (StoreRoles roleUser :
                 StoreRoles) {
-            if (roleUser.getUserId() == user.getUserId() && roleUser.getPermissions().contains(action)) {
+            if (roleUser.getUserId().equals(userId) && roleUser.getPermissions().contains(action)) {
                 return true;
             }
         }
         return false;
     }
 
-    public void addToExistingProduct(User user,String productId, int howMach) throws NoPermissionException {
-        if(!checkPermission(user, Permission.ADD_EXISTING_PRODUCT)){
+    public void addToExistingProduct(String userId,String productId, int howMach) throws NoPermissionException {
+        if(!checkPermission(userId, Permission.ADD_EXISTING_PRODUCT)){
             throw new NoPermissionException("the user don't have this permission");
         }
         inventoryManager.addToExistingProduct(productId, howMach);
     }
 
-    public void addNewProduct(User user, String productName, float price, int howMuch) throws NoPermissionException {
-        if(!checkPermission(user, Permission.ADD_NEW_PRODUCT)){
+    public String addNewProduct(String userId, String productName, float price, int howMuch) throws NoPermissionException {
+        if(!checkPermission(userId, Permission.ADD_NEW_PRODUCT)){
             throw new NoPermissionException("the user don't have this permission");
         }
-        inventoryManager.addNewProduct(productName, price, howMuch);
+        return inventoryManager.addNewProduct(productName, price, howMuch);
 
     }
 
@@ -65,4 +67,37 @@ public class Store {
     public String getId() {
         return storeId;
     }
+
+    public void addProductReview(String userId, String productId, String title, String body, float rating) {
+        //TODO: check if user Bought this product
+        inventoryManager.addProductReview(productId, userId, title, body, rating);
+
+        //updateRating();
+    }
+
+    public void addReviewToStore(float rating, String userId, String title, String body){
+        reviews.add(new Review(rating, userId, title, body));
+        float sum = 0;
+        for (Review rev :
+                reviews) {
+            sum = rev.getRating()+sum;
+        }
+        this.storeRating = sum / (reviews.size());
+    }
+
+    public String addNewThreadToForum(String title, String userId){
+        return forum.addNewThread(title, userId);
+    }
+    public void postMessageToForum(String threadId, String userId, String message) throws NoPermissionException {
+        if(!checkPermission(userId, Permission.REPLY_TO_FORUM)){
+            throw new NoPermissionException("the user don't have this permission");
+        }
+        String threadUser =  forum.getUserIdOfTread(threadId);
+        if(!IdGenerator.getInstance().isIdEqual(threadUser, userId)){
+            throw new NoPermissionException("only user that created the forum thread can post messages");
+        }
+        forum.postMessage(threadId, userId, message);
+    }
+
+
 }

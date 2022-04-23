@@ -5,17 +5,17 @@ import java.util.Collections;
 import java.util.List;
 
 public abstract class  StoreRoles {
-    private User user ;
+    private String userId ;
     protected List<Permission> storePermissions;
     protected List<StoreRoles> createPermissionsTo; //all the users the object gave permissions
 
-    public StoreRoles(User user,List<Permission> permissions){
-        this.user = user;
+    public StoreRoles(String userId,List<Permission> permissions){
+        this.userId = userId;
         this.storePermissions = permissions;
     }
 
-    public int getUserId() {
-        return user.getUserId();
+    public String getUserId() {
+        return userId;
     }
 
     public List<Permission> getPermissions(){
