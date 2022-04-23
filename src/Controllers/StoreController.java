@@ -3,9 +3,11 @@ package Controllers;
 import GlobalSystemServices.IdGenerator;
 import Store.Store;
 import StorePermissin.Permission;
+import StorePermissin.StoreRoles;
 import Views.ProductView;
 
 import javax.naming.NoPermissionException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -40,6 +42,21 @@ public class StoreController {
         Store relevantStore = stores.get(storeId);
         relevantStore.addNewProduct(userId, productName, price, supply);
 
+    }
+
+    public void closeStore(String storeId, String userId) throws NoPermissionException {
+        Store relevantStore = stores.get(storeId);
+        relevantStore.closeStore(userId);
+    }
+
+    public void openStore(String storeId, String userId) throws NoPermissionException {
+        Store relevantStore = stores.get(storeId);
+        relevantStore.openStore(userId);
+    }
+
+    public List<StoreRoles> getInfoOnManagers(String storeId, String userId) throws NoPermissionException {
+        Store relevantStore = stores.get(storeId);
+        return relevantStore.getInfoOnManagers(userId);
     }
 
 

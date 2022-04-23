@@ -12,5 +12,11 @@ public enum Permission {
     REMOVE_STORE_MANAGER,
     ADD_REVIEW_TO_PRODUCT,
     REPLY_TO_FORUM,
+    CLOSE_STORE,
+    OPEN_STORE,
+    INFO_OF_MANAGERS,
+    ;
+
+
 
 }

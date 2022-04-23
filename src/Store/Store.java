@@ -9,6 +9,7 @@ import Views.ProductView;
 
 import javax.naming.NoPermissionException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,6 +45,11 @@ public class Store {
     }
 
     public void givePermissionTo(String userIdGiving,String UserGettingPermission,List<Permission> permissions) throws NoPermissionException {
+        for (StoreRoles roleUser : StoreRoles) {
+            if (roleUser.getUserId().equals(UserGettingPermission) ) {
+                throw new NoPermissionException("cant give permissions to user who is already manager");
+            }
+        }
         for (StoreRoles roleUser :
                 StoreRoles) {
             if (roleUser.getUserId().equals(userIdGiving) ) {
@@ -144,4 +150,27 @@ public class Store {
         inventoryManager.deleteProduct(productId);
 
     }
+
+    public void closeStore(String userId) throws NoPermissionException {
+        if(!checkPermission(userId, Permission.CLOSE_STORE)){
+            throw new NoPermissionException("the user don't have this permission");
+        }
+        storeState = StoreState.CLOSED;
+    }
+
+    public void openStore(String userId) throws NoPermissionException {
+        if(!checkPermission(userId, Permission.OPEN_STORE)){
+            throw new NoPermissionException("the user don't have this permission");
+        }
+        storeState = StoreState.ACTIVE;
+    }
+
+    public List<StoreRoles> getInfoOnManagers(String userId) throws NoPermissionException {
+        if(!checkPermission(userId, Permission.INFO_OF_MANAGERS)){
+            throw new NoPermissionException("the user don't have this permission");
+        }
+        return  Collections.unmodifiableList(StoreRoles);
+    }
+
+
 }
