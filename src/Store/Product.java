@@ -1,5 +1,7 @@
 package Store;
 
+import Views.ProductView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,4 +67,14 @@ public class Product {
     }
 
 
+    public ProductView getProductView() {
+        ProductView newProduct = new ProductView();
+        newProduct.id = id;
+        newProduct.name = name;
+        newProduct.price = price;
+        newProduct.reviews = reviews;
+        newProduct.supply = supply;
+        newProduct.rating = rating;
+        return newProduct;
+    }
 }

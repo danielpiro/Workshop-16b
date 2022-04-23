@@ -4,6 +4,8 @@ import StorePermissin.OriginalStoreManagerRole;
 import StorePermissin.Permission;
 import StorePermissin.StoreRoles;
 import StorePermissin.User;
+import Views.ProductView;
+import Views.StoreView;
 
 import javax.naming.NoPermissionException;
 import java.util.List;
@@ -54,4 +56,13 @@ public class Store {
     }
 
 
+    public List<ProductView> getAllProducts() {
+        return inventoryManager.getAllProducts();
+    }
+
+
+
+    public String getId() {
+        return storeId;
+    }
 }

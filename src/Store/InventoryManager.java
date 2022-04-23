@@ -2,6 +2,7 @@ package Store;
 
 import GlobalSystemServices.IdGenerator;
 import StorePermissin.User;
+import Views.ProductView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,4 +35,12 @@ public class InventoryManager {
     }
 
 
+    public List<ProductView> getAllProducts() {
+        List<ProductView> PV= new ArrayList<>();
+        for (Product p :
+                products) {
+            PV.add(p.getProductView());
+        }
+        return PV;
+    }
 }
