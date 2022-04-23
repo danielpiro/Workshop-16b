@@ -29,13 +29,14 @@ public class StoreController {
     }
 
 
-    public HashMap<String,List<ProductView>> getAllProductsAndStores(){
+    private HashMap<String,List<ProductView>> getAllProductsAndStores(){
         HashMap<String,List<ProductView>> ProductsAndStores = new HashMap<>();
         for (Store store :
                 stores.values()) {
             ProductsAndStores.put(store.getId(),store.getAllProducts());
         }
         return ProductsAndStores;
+        //TODO add search
     }
 
     public void addNewProduct(String storeId, String userId, String productName, float price, int supply) throws NoPermissionException {
@@ -57,6 +58,10 @@ public class StoreController {
     public List<StoreRoles> getInfoOnManagers(String storeId, String userId) throws NoPermissionException {
         Store relevantStore = stores.get(storeId);
         return relevantStore.getInfoOnManagers(userId);
+    }
+
+    public void deleteStore(){
+        //TODO only the system admin can do this op
     }
 
 
