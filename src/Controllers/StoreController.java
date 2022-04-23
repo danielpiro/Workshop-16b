@@ -2,15 +2,12 @@ package Controllers;
 
 import GlobalSystemServices.IdGenerator;
 import Store.Store;
-import StorePermissin.User;
+import StorePermissin.Permission;
 import Views.ProductView;
-import Views.StoreView;
 
 import javax.naming.NoPermissionException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class StoreController {
     private HashMap<String,Store> stores; // storeId and the store
@@ -39,20 +36,46 @@ public class StoreController {
         return ProductsAndStores;
     }
 
-    public void addNewProduct(String storeId, String userId, String productName, float price, int howMuch) throws NoPermissionException {
+    public void addNewProduct(String storeId, String userId, String productName, float price, int supply) throws NoPermissionException {
         Store relevantStore = stores.get(storeId);
-        relevantStore.addNewProduct(userId, productName, price, howMuch);
+        relevantStore.addNewProduct(userId, productName, price, supply);
 
     }
 
-    public void addSupplyToProduct(String storeId, String userId, String productId, int howMuch) throws NoPermissionException {
+
+
+    public void editProduct(String storeId, String userId, String productId, int newSupply, String newName, float newPrice) throws NoPermissionException {
         Store relevantStore = stores.get(storeId);
-        relevantStore.addToExistingProduct(userId, productId, howMuch);
+        relevantStore.editProductSupply(userId, productId,  newSupply, newName, newPrice);
     }
+    public void deleteProduct(String storeId, String userId, String productId) throws NoPermissionException {
+        Store relevantStore = stores.get(storeId);
+        relevantStore.deleteProduct(userId, productId);
+    }
+
+    public void removePermissionTo(String storeId, String userIdRemoving,String UserAffectedId) throws NoPermissionException{
+        Store relevantStore = stores.get(storeId);
+        relevantStore.removePermissionTo(userIdRemoving, UserAffectedId);
+    }
+    public void givePermissionTo(String storeId, String userIdGiving,String UserGettingPermissionId,List<Permission> permissions) throws NoPermissionException {
+        Store relevantStore = stores.get(storeId);
+        relevantStore.givePermissionTo(userIdGiving, UserGettingPermissionId, permissions);
+    }
+
+
+
 
     public void addReviewToProduct(String storeId, String userId, String productId, String Title, String Body, float rating){
         Store relevantStore = stores.get(storeId);
         relevantStore.addProductReview( userId, productId, Title, Body, rating);
+    }
+
+    public String addNewThreadToForum(String storeId,String title, String userId){
+        return stores.get(storeId).addNewThreadToForum(title, userId);
+    }
+
+    public void postMessageToForum(String storeId, String threadId, String userId, String message) throws NoPermissionException {
+        stores.get(storeId).postMessageToForum(threadId, userId, message);
     }
 
 

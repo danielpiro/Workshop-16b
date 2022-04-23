@@ -18,9 +18,9 @@ public class Product {
     public Product(String id, String name, float price, int supply) {
         this.id = id;
         this.name = name;
-        this.price = price;
+        editPrice(price);
         this.reviews = new ArrayList<Review>();
-        this.supply = supply;
+        editSupply(supply);
         this.rating = 0;
     }
 
@@ -42,8 +42,20 @@ public class Product {
         return supply;
     }
 
-    public void addToSupply(int howMach) {
-        supply += howMach;
+    public void editSupply(int newSupply) {
+        if(supply >=0)
+            this.supply = newSupply;
+        else
+            throw new RuntimeException("supply cant be negative");
+    }
+    public void editPrice(float newPrice) {
+        if(price >=0)
+            this.price = newPrice;
+        else
+            throw new RuntimeException("price cant be negative");
+    }
+    public void editName(String newName) {
+        this.name = newName;
     }
 
     public String getName() {

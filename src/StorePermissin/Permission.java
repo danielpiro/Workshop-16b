@@ -3,7 +3,7 @@ package StorePermissin;
 public enum Permission {
     VIEW_AND_RESPOND_TO_USERS,
     VIEW_STORE_HISTORY,
-    ADD_EXISTING_PRODUCT,
+    EDIT_EXISTING_PRODUCT,
     ADD_NEW_PRODUCT,
     EDIT_PRODUCT,
     REMOVE_PRODUCT,

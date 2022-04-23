@@ -20,12 +20,14 @@ public class InventoryManager {
 
 
 
-    public void addToExistingProduct(String productId, int howMach) {
+    public void editProductSupply(String productId, int newSupply, String newName, float newPrice) {
         Product Op = products.get(productId);
         if(Op == null){
             throw new RuntimeException("no product with this id");
         }
-        Op.addToSupply(howMach);
+        Op.editSupply(newSupply);
+        Op.editPrice(newPrice);
+        Op.editName(newName);
     }
 
     public String addNewProduct(String productName, float price, int howMuch){
@@ -54,5 +56,9 @@ public class InventoryManager {
             throw new RuntimeException("no product with this id");
         }
         Op.addReview(rating, userId, title, body);
+    }
+
+    public void deleteProduct(String productId) {
+        products.remove(productId);
     }
 }

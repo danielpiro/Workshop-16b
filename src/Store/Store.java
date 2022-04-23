@@ -8,6 +8,7 @@ import StorePermissin.StoreRoles;
 import Views.ProductView;
 
 import javax.naming.NoPermissionException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,11 +43,47 @@ public class Store {
         return false;
     }
 
-    public void addToExistingProduct(String userId,String productId, int howMach) throws NoPermissionException {
-        if(!checkPermission(userId, Permission.ADD_EXISTING_PRODUCT)){
+    public void givePermissionTo(String userIdGiving,String UserGettingPermission,List<Permission> permissions) throws NoPermissionException {
+        for (StoreRoles roleUser :
+                StoreRoles) {
+            if (roleUser.getUserId().equals(userIdGiving) ) {
+                roleUser.createAnotherManager(UserGettingPermission,permissions);
+                return;
+            }
+        }
+        throw new NoPermissionException("the user is not manager");
+    }
+    private void removePermissionTo(List<String> RolesToRemove){
+        for (String id :
+                RolesToRemove) {
+            for (int i = 0; i < StoreRoles.size(); i++) {
+                if(IdGenerator.getInstance().isIdEqual(
+                        StoreRoles.get(i).getUserId(),
+                        id)
+                ){
+                    StoreRoles.remove(i);
+                    break;
+                }
+            }
+
+
+        }
+    }
+    public void removePermissionTo(String userIdRemoving,String UserAffectedId) throws NoPermissionException {
+        for (StoreRoles roleUser : StoreRoles) {
+            if (roleUser.getUserId().equals(userIdRemoving) ) {
+                removePermissionTo( roleUser.removeManager(UserAffectedId));
+                return;
+            }
+        }
+        throw new NoPermissionException("the user is not manager");
+    }
+
+    public void editProductSupply( String userId, String productId, int newSupply, String newName, float newPrice ) throws NoPermissionException {
+        if(!checkPermission(userId, Permission.EDIT_EXISTING_PRODUCT)){
             throw new NoPermissionException("the user don't have this permission");
         }
-        inventoryManager.addToExistingProduct(productId, howMach);
+        inventoryManager.editProductSupply(productId, newSupply, newName, newPrice);
     }
 
     public String addNewProduct(String userId, String productName, float price, int howMuch) throws NoPermissionException {
@@ -100,4 +137,11 @@ public class Store {
     }
 
 
+    public void deleteProduct(String userId, String productId) throws NoPermissionException {
+        if(!checkPermission(userId, Permission.ADD_NEW_PRODUCT)){
+            throw new NoPermissionException("the user don't have this permission");
+        }
+        inventoryManager.deleteProduct(productId);
+
+    }
 }
