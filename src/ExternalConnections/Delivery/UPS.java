@@ -13,14 +13,13 @@ public class UPS implements Delivery{
         name = "UPS";
     }
 
+
     @Override
-    public int Delivery(int delivery) {
+    public int Delivery(float delivery) {
         synchronized (lock) {
 
             return 0;
-        }
-    }
-
+        }    }
 
     @Override
     public boolean connect(int key) {

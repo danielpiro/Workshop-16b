@@ -34,7 +34,7 @@ public class History {
     }
 
 
-    public boolean insertRecord(int userID, int storeID, int transcationId, String itemName, int itemPrice,int amount, Date timeOfTransaction) {
+    public boolean insertRecord(int userID, int storeID, int transcationId, String itemName, float itemPrice,int amount, Date timeOfTransaction) {
 
         //synchronized because we dont want the same index to be used twice
         synchronized (History.class) {

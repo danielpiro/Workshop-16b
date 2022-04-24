@@ -26,7 +26,7 @@ public class ShoppingCart {
         return basketCases.containsKey(storeID);
     }
 
-    public int removeProduct(int productID, int storeID, int amount) {
+    public int removeProduct(String productID, int storeID, int amount) {
         if (basketCases.containsKey(storeID)) {
             basketCases.get(storeID).removeProduct(productID, amount);
         } else
@@ -37,7 +37,7 @@ public class ShoppingCart {
 
 
     // to use when we already have an instance of the store
-    public int addProduct(int productID, int storeID, int amount,boolean auctionOrBid) {
+    public int addProduct(String productID, int storeID, int amount,boolean auctionOrBid) {
 
         if (basketCases.containsKey(storeID) && auctionOrBid == false)
             basketCases.get(storeID).addProduct(productID, amount);
@@ -55,7 +55,7 @@ public class ShoppingCart {
 
 
     // to use when we do not have an instance of the store, and need an inventory protector
-    public int addProduct(int productID, int storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
+    public int addProduct(String productID, int storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
 
         if (basketCases.containsKey(storeID) && auctionOrBid == false)
             basketCases.get(storeID).addProduct(productID, amount);
@@ -132,11 +132,11 @@ public class ShoppingCart {
 
         Date date = new Date();
         date.getTime();
-        List<ThreeGenerics<String,Integer,Integer>> namePriceAmount = new LinkedList<>();
+        List<ThreeGenerics<String,Float,Integer>> namePriceAmount = new LinkedList<>();
 
             for (Map.Entry<Integer, ShoppingBasket> basket : basketCases.entrySet()) {
                 namePriceAmount = basket.getValue().recordPurchase();
-                for (ThreeGenerics<String, Integer,Integer> singleNamePriceAmount : namePriceAmount) {
+                for (ThreeGenerics<String, Float,Integer> singleNamePriceAmount : namePriceAmount) {
                     history.insertRecord(userId, basket.getValue().getStore(), indexPurchase, singleNamePriceAmount.getOb1(),
                             singleNamePriceAmount.getOb2(), singleNamePriceAmount.getOb3(), date);
                 }

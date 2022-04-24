@@ -14,7 +14,7 @@ public class FedEx implements Delivery{
     }
 
     @Override
-    public int Delivery(int delivery) {
+    public int Delivery(float delivery) {
         synchronized (lock) {
 
             return 0;

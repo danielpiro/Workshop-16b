@@ -8,7 +8,7 @@ public class PurchaseHistory {
     private int storeID;
     private int purchaseID;
     private String itemName;
-    private int itemPrice;
+    private float itemPrice;
     private int itemAmount;
     private Date timeOfTransaction;
 
@@ -23,7 +23,7 @@ public class PurchaseHistory {
                 ", timeOfTransaction=" + timeOfTransaction;
     }
 
-    public PurchaseHistory(int userID, int storeID, int transactionId, String itemName, int itemPrice, int amount, Date timeOfTransaction) {
+    public PurchaseHistory(int userID, int storeID, int transactionId, String itemName, float itemPrice, int amount, Date timeOfTransaction) {
         this.userID = userID;
         this.storeID = storeID;
         this.itemName = itemName;
@@ -48,7 +48,7 @@ public class PurchaseHistory {
         return itemName;
     }
 
-    public int getItemPrice() {
+    public float getItemPrice() {
         return itemPrice;
     }
 
