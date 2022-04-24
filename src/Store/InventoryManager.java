@@ -5,10 +5,7 @@ import GlobalSystemServices.IdGenerator;
 import ShoppingCart.InventoryProtector;
 import Views.ProductView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Predicate;
 
 public class InventoryManager  implements InventoryProtector {
@@ -72,26 +69,29 @@ public class InventoryManager  implements InventoryProtector {
     }
 
     @Override
-    public String getProductName(int productID) {
+    public String getProductName(String productID) {
         return products.get(productID).getName();
-        //todo product id is String not integer
+
     }
 
     @Override
-    public int getProductPrice(int productID) {
+    public float getProductPrice(String productID) {
         return products.get(productID).getPrice();
-        //todo ask price is float
-        //todo ask cant give prices with discount
-        //todo product id is String not integer
     }
 
     @Override
-    public void purchaseSuccessful(HashMap<Integer, Integer> ProductAmount, boolean success) {
+    public void purchaseSuccessful(HashMap<String, Integer> ProductAmount, boolean success) {
 
     }
 
     @Override
-    public float purchase(HashMap<Integer, Integer> ProductAmount, PurchasePolicies purchasePolicies) {
-        return 0;
+    public float reserve(HashMap<String, Integer> ProductAmount, PurchasePolicies purchasePolicies) {
+        float sumPrice = 0;
+        for (Product p :
+                products.values()) {
+
+
+        }
+        return 0L;
     }
 }
