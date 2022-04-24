@@ -12,7 +12,8 @@ public class PurchasePolicies {
         this.payment = payment;
     }
 
-    public int tryToPurchase (float total, int deliveryDetails){
+
+    public int tryToPurchase (float total,float deliveryDetails){
         int answer =0;
 
         System.out.println("trying to purchase with total:" + total +" and delivery weight is" +deliveryDetails );

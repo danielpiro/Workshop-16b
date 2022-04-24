@@ -12,11 +12,11 @@ import java.util.Map;
 public class ShoppingBasket {
 
     private int Store;
-    private HashMap<Integer, Integer> productAmount;
-    private HashMap<Integer, Integer> productAmountAuctionOrBid;
+    private HashMap<String, Integer> productAmount;
+    private HashMap<String, Integer> productAmountAuctionOrBid;
     private InventoryProtector iProtector;
 
-    public int addProduct(int productID, int amount) {
+    public int addProduct(String productID, int amount) {
         if (productAmount.containsKey(productID)) {
             int currentAmount = productAmount.get(productID);
             productAmount.replace(productID, currentAmount + amount);
@@ -26,7 +26,7 @@ public class ShoppingBasket {
         return 1;
     }
 
-    public int addProductAuction(int productID, int amount) {
+    public int addProductAuction(String productID, int amount) {
         if (productAmountAuctionOrBid.containsKey(productID)) {
             int currentAmount = productAmountAuctionOrBid.get(productID);
             productAmountAuctionOrBid.replace(productID, currentAmount + amount);
@@ -42,7 +42,7 @@ public class ShoppingBasket {
         this.productAmount = new HashMap<>();
     }
 
-    public int removeProduct(int productID, int amount) {
+    public int removeProduct(String productID, int amount) {
         if (productAmount.containsKey(productID)) {
             int currentAmount = productAmount.get(productID);
             if (currentAmount - amount <= 0)
@@ -58,7 +58,7 @@ public class ShoppingBasket {
 
     public String getInventory (){
         StringBuilder sb = new StringBuilder();
-        for (Map.Entry<Integer, Integer> pAmount : productAmount.entrySet()){
+        for (Map.Entry<String, Integer> pAmount : productAmount.entrySet()){
             sb.append("id: " + pAmount.getKey() +"    name: "+iProtector.getProductName(pAmount.getKey()) + "    amount: " + pAmount.getValue()+ "\n");
         }
         return sb.toString();
@@ -67,7 +67,6 @@ public class ShoppingBasket {
     public float purchase(PurchasePolicies purchasePolicies) throws CantPurchaseException {
 
         float answer = iProtector.purchase(productAmount , purchasePolicies);
-        answer += iProtector.purchase(productAmountAuctionOrBid,purchasePolicies);
         if(answer < 0 )
              return -1;
         else
@@ -77,7 +76,6 @@ public class ShoppingBasket {
     }
     public void purchaseSuccessful (boolean success){
         iProtector.purchaseSuccessful(productAmount,success);
-        iProtector.purchaseSuccessful(productAmountAuctionOrBid,success);
 
     }
 
@@ -87,14 +85,14 @@ public class ShoppingBasket {
     }
 
     //name, price, amount
-    public List<ThreeGenerics<String,Integer,Integer>> recordPurchase (){
-        List<ThreeGenerics<String,Integer,Integer>> namePriceAmount = new LinkedList<>();
-        for (Map.Entry<Integer, Integer> pAmount : productAmount.entrySet()){
+    public List<ThreeGenerics<String,Float,Integer>> recordPurchase (){
+        List<ThreeGenerics<String,Float,Integer>> namePriceAmount = new LinkedList<>();
+        for (Map.Entry<String, Integer> pAmount : productAmount.entrySet()){
 
             String name = iProtector.getProductName(pAmount.getKey());
-            int price = iProtector.getProductPrice(pAmount.getKey());
+            float price = iProtector.getProductPrice(pAmount.getKey());
 
-            ThreeGenerics<String, Integer,Integer> threeGenerics = new ThreeGenerics<>(name,price,pAmount.getValue());
+            ThreeGenerics<String, Float,Integer> threeGenerics = new ThreeGenerics<>(name,price,pAmount.getValue());
             namePriceAmount.add(threeGenerics);
 
         }
