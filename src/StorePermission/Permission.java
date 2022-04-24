@@ -1,4 +1,4 @@
-package StorePermissin;
+package StorePermission;
 
 public enum Permission {
     VIEW_AND_RESPOND_TO_USERS,

@@ -1,6 +1,6 @@
 import Controllers.StoreController;
-import StorePermissin.User;
-import StorePermissin.fakeUser;
+import StorePermission.User;
+import StorePermission.fakeUser;
 
 import javax.naming.NoPermissionException;
 import java.util.ArrayList;

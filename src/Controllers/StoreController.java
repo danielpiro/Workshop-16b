@@ -2,17 +2,14 @@ package Controllers;
 
 import GlobalSystemServices.IdGenerator;
 import Store.Store;
-import StorePermissin.Permission;
-import StorePermissin.StoreRoles;
+import StorePermission.Permission;
+import StorePermission.StoreRoles;
 import Views.ProductView;
-import Views.StoreView;
 
 import javax.naming.NoPermissionException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.function.Predicate;
 
 public class StoreController {
     private HashMap<String,Store> stores; // storeId and the store

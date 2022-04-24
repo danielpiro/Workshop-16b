@@ -1,4 +1,4 @@
-package StorePermissin;
+package StorePermission;
 
 public class fakeUser implements User {
     @Override

@@ -2,17 +2,15 @@ package Store;
 
 import GlobalSystemServices.IdGenerator;
 import Store.Forum.Forum;
-import StorePermissin.OriginalStoreManagerRole;
-import StorePermissin.Permission;
-import StorePermissin.StoreRoles;
+import StorePermission.OriginalStoreManagerRole;
+import StorePermission.Permission;
+import StorePermission.StoreRoles;
 import Views.ProductView;
-import org.junit.platform.engine.support.hierarchical.ThrowableCollector;
+//import org.junit.platform.engine.support.hierarchical.ThrowableCollector;
 
 import javax.naming.NoPermissionException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Store {

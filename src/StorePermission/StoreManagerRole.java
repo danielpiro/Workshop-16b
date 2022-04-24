@@ -1,4 +1,4 @@
-package StorePermissin;
+package StorePermission;
 
 import java.util.List;
 
