@@ -4,6 +4,7 @@ import ExternalConnections.PurchasePolicies;
 import History.History;
 import ShoppingCart.ShoppingCart;
 import ShoppingCart.FakeInventoryManager;
+import Store.InventoryManager;
 
 
 public class Main {
@@ -19,11 +20,17 @@ public class Main {
         PurchasePolicies purchasePolicies = new PurchasePolicies(fedEx,visa);
         ShoppingCart shoppingCart = new ShoppingCart(1);
 
-        FakeInventoryManager fakeInventory = new FakeInventoryManager();
+        InventoryManager inventoryManager = new InventoryManager();
 
-        shoppingCart.addProduct(1,1,10,fakeInventory,false);
-        shoppingCart.addProduct(2,1,5,false);
-        shoppingCart.addProduct(3,2,10,fakeInventory,false);
+        //FakeInventoryManager fakeInventory = new FakeInventoryManager();
+        inventoryManager.addNewProduct("fanta",12,20,"Other");
+        inventoryManager.addNewProduct("coca cola",4,20,"Other");
+        inventoryManager.addNewProduct("magnum",1,20,"Other");
+
+
+        shoppingCart.addProduct("ProductID_0",1,10,inventoryManager,false);
+        shoppingCart.addProduct("ProductID_1",1,5,false);
+        shoppingCart.addProduct("ProductID_2",2,10,inventoryManager,false);
 
         System.out.println(shoppingCart.getCartInventory());
 

@@ -66,7 +66,7 @@ public class ShoppingBasket {
 
     public float purchase(PurchasePolicies purchasePolicies) throws CantPurchaseException {
 
-        float answer = iProtector.purchase(productAmount , purchasePolicies);
+        float answer = iProtector.reserve(productAmount , purchasePolicies);
         if(answer < 0 )
              return -1;
         else

@@ -4,12 +4,11 @@ import ExternalConnections.PurchasePolicies;
 
 import java.util.HashMap;
 
-public class FakeInventoryManager implements InventoryProtector {
+public class FakeInventoryManager  {
 
 
 
 
-    @Override
     public String getProductName(String productID) {
         if(productID=="1")
             return "dan";
@@ -19,7 +18,6 @@ public class FakeInventoryManager implements InventoryProtector {
             return "amit";
     }
 
-    @Override
     public float getProductPrice(String productID) {
         if(productID=="1")
             return 1;
@@ -29,12 +27,12 @@ public class FakeInventoryManager implements InventoryProtector {
             return 10;
     }
 
-    @Override
+
     public void purchaseSuccessful(HashMap<String, Integer> ProductAmount, boolean success) {
 
     }
 
-    @Override
+    
     public float purchase(HashMap<String, Integer> ProductAmount, PurchasePolicies purchasePolicies) {
         return 0;
     }
