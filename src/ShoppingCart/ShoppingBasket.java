@@ -64,9 +64,9 @@ public class ShoppingBasket {
         return sb.toString();
     }
 
-    public int purchase(PurchasePolicies purchasePolicies) throws CantPurchaseException {
+    public float purchase(PurchasePolicies purchasePolicies) throws CantPurchaseException {
 
-        int answer = iProtector.purchase(productAmount , purchasePolicies);
+        float answer = iProtector.purchase(productAmount , purchasePolicies);
         answer += iProtector.purchase(productAmountAuctionOrBid,purchasePolicies);
         if(answer < 0 )
              return -1;

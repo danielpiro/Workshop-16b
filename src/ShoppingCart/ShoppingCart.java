@@ -5,7 +5,6 @@ import ExternalConnections.PurchasePolicies;
 import Generic.ThreeGenerics;
 import History.History;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ShoppingCart {
@@ -88,8 +87,8 @@ public class ShoppingCart {
     }
 
 
-    public int purchaseCart(PurchasePolicies purchasePolicies) {
-        int total=0;
+    public float purchaseCart(PurchasePolicies purchasePolicies) {
+        float total=0;
         int weight = 10;
         int ans =0;
 

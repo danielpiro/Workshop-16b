@@ -14,9 +14,17 @@ public class Product {
     private List<Review> reviews;
     private int supply = 0;
 
+    public int getReservedSupply() {
+        return reservedSupply;
+    }
+
+    public void setReservedSupply(int reservedSupply) {
+        this.reservedSupply = reservedSupply;
+    }
+
+    private int reservedSupply = 0;
+
     private ProductsCategories category;
-
-
 
     public Product(String id, String name, float price, int supply ,String category) {
         this.id = id;
@@ -38,6 +46,7 @@ public class Product {
         this.rating = sum / (reviews.size());
     }
 
+
     public String getId() {
         return id;
     }
@@ -47,10 +56,13 @@ public class Product {
     }
 
     public void editSupply(int newSupply) {
-        if(supply >=0)
-            this.supply = newSupply;
-        else
+        if(newSupply < 0)
             throw new RuntimeException("supply cant be negative");
+        else if(newSupply < reservedSupply){
+            throw new RuntimeException("cant be less supply then reserved supply");
+        }
+        else
+            this.supply = newSupply;
     }
     public void editPrice(float newPrice) {
         if(price >=0)

@@ -1,6 +1,8 @@
 package Store;
 
+import ExternalConnections.PurchasePolicies;
 import GlobalSystemServices.IdGenerator;
+import ShoppingCart.InventoryProtector;
 import Views.ProductView;
 
 import java.util.ArrayList;
@@ -9,8 +11,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class InventoryManager {
+public class InventoryManager  implements InventoryProtector {
     private HashMap<String, Product> products;
+
+
 
     public InventoryManager(HashMap<String, Product> products) {
         this.products = products;
@@ -65,5 +69,29 @@ public class InventoryManager {
 
     public void deleteProduct(String productId) {
         products.remove(productId);
+    }
+
+    @Override
+    public String getProductName(int productID) {
+        return products.get(productID).getName();
+        //todo product id is String not integer
+    }
+
+    @Override
+    public int getProductPrice(int productID) {
+        return products.get(productID).getPrice();
+        //todo ask price is float
+        //todo ask cant give prices with discount
+        //todo product id is String not integer
+    }
+
+    @Override
+    public void purchaseSuccessful(HashMap<Integer, Integer> ProductAmount, boolean success) {
+
+    }
+
+    @Override
+    public float purchase(HashMap<Integer, Integer> ProductAmount, PurchasePolicies purchasePolicies) {
+        return 0;
     }
 }

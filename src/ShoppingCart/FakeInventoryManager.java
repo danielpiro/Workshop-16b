@@ -31,7 +31,7 @@ public class FakeInventoryManager implements InventoryProtector {
     }
 
     @Override
-    public int purchase(HashMap<Integer, Integer> ProductAmount, PurchasePolicies purchasePolicies) {
+    public float purchase(HashMap<Integer, Integer> ProductAmount, PurchasePolicies purchasePolicies) {
         return 0;
     }
 

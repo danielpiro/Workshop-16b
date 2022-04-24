@@ -18,5 +18,5 @@ public interface InventoryProtector {
 
     //return total price of items, if cant purchase return negative number. also send user payment and delivery
     //also will ask with auction items, if any are available, return the price. doesnt need to be great just for this version.
-    public int purchase (HashMap<Integer,Integer> ProductAmount , PurchasePolicies purchasePolicies);
+    public float purchase (HashMap<Integer,Integer> ProductAmount , PurchasePolicies purchasePolicies);
 }

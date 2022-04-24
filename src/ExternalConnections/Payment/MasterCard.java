@@ -15,7 +15,7 @@ public class MasterCard implements Payment {
     }
 
     @Override
-    public int payment(int total) {
+    public int payment(float total) {
         synchronized (lock) {
 
             return 0;
