@@ -13,7 +13,7 @@ public class Product {
     private float rating;//star system changing according to reviews
     private List<Review> reviews;
     private int supply = 0;
-
+    //todo add buying options
     public int getReservedSupply() {
         return reservedSupply;
     }
