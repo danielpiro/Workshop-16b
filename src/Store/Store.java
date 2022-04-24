@@ -6,11 +6,13 @@ import StorePermissin.OriginalStoreManagerRole;
 import StorePermissin.Permission;
 import StorePermissin.StoreRoles;
 import Views.ProductView;
+import org.junit.platform.engine.support.hierarchical.ThrowableCollector;
 
 import javax.naming.NoPermissionException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Store {
@@ -85,25 +87,46 @@ public class Store {
         throw new NoPermissionException("the user is not manager");
     }
 
-    public void editProductSupply( String userId, String productId, int newSupply, String newName, float newPrice ) throws NoPermissionException {
+    public void editProductSupply( String userId, String productId, int newSupply, String newName, float newPrice ,String category) throws NoPermissionException {
         if(!checkPermission(userId, Permission.EDIT_EXISTING_PRODUCT)){
             throw new NoPermissionException("the user don't have this permission");
         }
-        inventoryManager.editProductSupply(productId, newSupply, newName, newPrice);
+        inventoryManager.editProductSupply(productId, newSupply, newName, newPrice, category);
     }
 
-    public String addNewProduct(String userId, String productName, float price, int howMuch) throws NoPermissionException {
+    public String addNewProduct(String userId, String productName, float price, int howMuch, String category) throws NoPermissionException {
         if(!checkPermission(userId, Permission.ADD_NEW_PRODUCT)){
             throw new NoPermissionException("the user don't have this permission");
         }
-        return inventoryManager.addNewProduct(productName, price, howMuch);
+        return inventoryManager.addNewProduct(productName, price, howMuch, category);
 
     }
 
 
     public List<ProductView> getAllProducts() {
-        return inventoryManager.getAllProducts();
+        return inventoryManager.getAllProducts((x)->true);
     }
+    public List<ProductView> getProductsNameContains(String PartialName) {
+        return inventoryManager.getAllProducts(
+                (p)->p.getName().toUpperCase().contains(PartialName.toUpperCase())
+        );
+    }
+    public List<ProductView> getProductsPriceContains(float lowerRange, float upperRange) {
+        return inventoryManager.getAllProducts(
+                (p)->(p.getPrice() >= lowerRange && p.getPrice() <= upperRange)
+        );
+    }
+    public List<ProductView> getAllProductsCategory(List<String> category) {
+        return inventoryManager.getAllProducts(
+                (p)->category.stream().anyMatch(cat ->p.getCategory().toString().equals(cat))
+        );
+    }
+    public List<ProductView> getAllProductsRating(float lower, float upper) {
+        return inventoryManager.getAllProducts(
+                (p)->p.getRating() >= lower && p.getRating() <=upper
+        );
+    }
+
 
 
 

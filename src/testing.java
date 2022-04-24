@@ -16,7 +16,7 @@ public class testing {
             managers.add(guy.getUserId());
             con.openNewStore("guys store", managers);
 
-            con.addNewProduct("StoreID_0", guy.getUserId(), "firstProduct", 2f, 4);
+            con.addNewProduct("StoreID_0", guy.getUserId(), "firstProduct", 2f, 4, "Other");
         } catch (NoPermissionException e) {
             e.printStackTrace();
         }

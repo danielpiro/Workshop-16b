@@ -5,11 +5,14 @@ import Store.Store;
 import StorePermissin.Permission;
 import StorePermissin.StoreRoles;
 import Views.ProductView;
+import Views.StoreView;
 
 import javax.naming.NoPermissionException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class StoreController {
     private HashMap<String,Store> stores; // storeId and the store
@@ -29,19 +32,13 @@ public class StoreController {
     }
 
 
-    private HashMap<String,List<ProductView>> getAllProductsAndStores(){
-        HashMap<String,List<ProductView>> ProductsAndStores = new HashMap<>();
-        for (Store store :
-                stores.values()) {
-            ProductsAndStores.put(store.getId(),store.getAllProducts());
-        }
-        return ProductsAndStores;
-        //TODO add search
-    }
 
-    public void addNewProduct(String storeId, String userId, String productName, float price, int supply) throws NoPermissionException {
+
+
+
+    public void addNewProduct(String storeId, String userId, String productName, float price, int supply, String category) throws NoPermissionException {
         Store relevantStore = stores.get(storeId);
-        relevantStore.addNewProduct(userId, productName, price, supply);
+        relevantStore.addNewProduct(userId, productName, price, supply, category);
 
     }
 
@@ -66,9 +63,9 @@ public class StoreController {
 
 
 
-    public void editProduct(String storeId, String userId, String productId, int newSupply, String newName, float newPrice) throws NoPermissionException {
+    public void editProduct(String storeId, String userId, String productId, int newSupply, String newName, float newPrice, String category) throws NoPermissionException {
         Store relevantStore = stores.get(storeId);
-        relevantStore.editProductSupply(userId, productId,  newSupply, newName, newPrice);
+        relevantStore.editProductSupply(userId, productId,  newSupply, newName, newPrice, category);
     }
     public void deleteProduct(String storeId, String userId, String productId) throws NoPermissionException {
         Store relevantStore = stores.get(storeId);
@@ -101,29 +98,47 @@ public class StoreController {
     }
 
 
+    private HashMap<String,List<ProductView>> getAllProductsAndStores(){
+        HashMap<String,List<ProductView>> ProductsAndStores = new HashMap<>();
+        for (Store store : stores.values()) {
+            ProductsAndStores.put(store.getId(),store.getAllProducts());
+        }
+        return ProductsAndStores;
+    }
+
+    public List<ProductView> SearchProductsAccordingName(String productName){
+        List<ProductView> filtered=  new ArrayList<>();
+        for (Store store : stores.values()) {
+            filtered.addAll(store.getProductsNameContains(productName));
+        }
+        return filtered;
+    }
+
+    public List<ProductView> SearchProductsAccordingCategory(List<String> categories ){
+        List<ProductView> filtered=  new ArrayList<>();
+        for (Store store : stores.values()) {
+            filtered.addAll(store.getAllProductsCategory(categories));
+        }
+        return filtered;
+
+    }
+    public List<ProductView> SearchProductsAccordingPrice( float fromPrice, float toPrice ){
+        List<ProductView> filtered=  new ArrayList<>();
+        for (Store store : stores.values()) {
+            filtered.addAll(store.getProductsPriceContains(fromPrice, toPrice));
+        }
+        return filtered;
 
 
-//    public List<ProductView> SearchProductsAccordingName(String productName){
-//        return new ArrayList<>();
-//
-//    }
-//    public List<ProductView> SearchProductsAccordingCategory(List<ProductsCategories> categories ){
-//        return new ArrayList<>();
-//
-//    }
-//    public List<ProductView> SearchProductsAccordingKeyword( String keyword){
-//        return new ArrayList<>();
-//
-//    }
-//    public List<ProductView> SearchProductsAccordingPrice( float fromPrice, float toPrice ){
-//        return new ArrayList<>();
-//
-//    }
-//    public List<ProductView> SearchProductsAccordingRating(float productRating){
-//        return new ArrayList<>();
-//
-//    }
-//
-//
+    }
+    public List<ProductView> SearchProductsAccordingRating(float productRating){
+        List<ProductView> filtered=  new ArrayList<>();
+        for (Store store : stores.values()) {
+            filtered.addAll(store.getAllProductsRating(productRating, 5f));
+        }
+        return filtered;
+    }
+
+
 
 }

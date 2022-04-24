@@ -1,5 +1,6 @@
 package Views;
 
+import Store.ProductsCategories;
 import Store.Review;
 
 import java.util.List;
@@ -11,4 +12,5 @@ public class ProductView {
     public float rating;//star system changing according to reviews
     public List<Review> reviews;
     public int supply = 0;
+    public ProductsCategories category  ;
 }

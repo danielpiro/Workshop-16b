@@ -3,6 +3,7 @@ package Store;
 import Views.ProductView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Product {
@@ -13,15 +14,18 @@ public class Product {
     private List<Review> reviews;
     private int supply = 0;
 
+    private ProductsCategories category;
 
 
-    public Product(String id, String name, float price, int supply) {
+
+    public Product(String id, String name, float price, int supply ,String category) {
         this.id = id;
         this.name = name;
         editPrice(price);
         this.reviews = new ArrayList<Review>();
         editSupply(supply);
         this.rating = 0;
+        this.category = ProductsCategories.valueOf(category);
     }
 
     public void addReview(float rating, String userId, String title, String body){
@@ -79,6 +83,14 @@ public class Product {
     }
 
 
+    public ProductsCategories getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = ProductsCategories.valueOf(category);
+    }
+
     public ProductView getProductView() {
         ProductView newProduct = new ProductView();
         newProduct.id = id;
@@ -87,6 +99,7 @@ public class Product {
         newProduct.reviews = reviews;
         newProduct.supply = supply;
         newProduct.rating = rating;
+        newProduct.category = category;
         return newProduct;
     }
 }

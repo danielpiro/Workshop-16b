@@ -1,7 +1,7 @@
 package Store;
 
 public enum ProductsCategories {
-
+    Other,
     Appliances,
     Apps$Games,
     Arts$Crafts$Sewing,

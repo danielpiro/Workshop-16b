@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class InventoryManager {
     private HashMap<String, Product> products;
@@ -20,7 +21,7 @@ public class InventoryManager {
 
 
 
-    public void editProductSupply(String productId, int newSupply, String newName, float newPrice) {
+    public void editProductSupply(String productId, int newSupply, String newName, float newPrice, String category) {
         Product Op = products.get(productId);
         if(Op == null){
             throw new RuntimeException("no product with this id");
@@ -28,24 +29,28 @@ public class InventoryManager {
         Op.editSupply(newSupply);
         Op.editPrice(newPrice);
         Op.editName(newName);
+        Op.setCategory(category);
     }
 
-    public String addNewProduct(String productName, float price, int howMuch){
+    public String addNewProduct(String productName, float price, int howMuch, String category){
         Optional<Product> Op = products.values().stream().filter(np-> productName.equals(np.getName())).findAny();
         if(Op.isPresent()){
             throw new RuntimeException("product with this name already exist");
         }
         String newId = IdGenerator.getInstance().getProductId();
-        products.put(newId,new Product(newId,productName,price,howMuch));
+        products.put(newId,new Product(newId,productName,price,howMuch,category));
         return newId;
     }
 
 
-    public List<ProductView> getAllProducts() {
+    public List<ProductView> getAllProducts(Predicate<Product> filter) {
         List<ProductView> PV= new ArrayList<>();
         for (Product p :
                 products.values()) {
-            PV.add(p.getProductView());
+            if(filter.test(p)){
+                PV.add(p.getProductView());
+            }
+
         }
         return PV;
     }
