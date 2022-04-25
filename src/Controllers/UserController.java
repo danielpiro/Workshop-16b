@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import GlobalSystemServices.IdGenerator;
 import GlobalSystemServices.Log;
 import User.*;
 
@@ -18,7 +19,6 @@ public class UserController {
     public UserController() throws IOException {
         user_list = new ArrayList<>();
         guest_list=new ArrayList<>();
-        nextGuestId = 0;
         admin = new Subscriber("Admin_1","BigBoss");
         add_subscriber(admin);
     }
@@ -78,7 +78,7 @@ public class UserController {
         return subscriber;
     }
 
-    public Guest getGuest(int id){
+    public Guest getGuest(String id){
         for(Guest g : getGuest_list()){
             if(g.getId()==id)
                 return g;
@@ -87,9 +87,8 @@ public class UserController {
     }
 
     public Guest addGuest(){
-        Guest guest=new Guest(getNextGuestId());
+        Guest guest=new Guest(IdGenerator.getInstance().getGuestId());
         getGuest_list().add(guest);
-        increaseGuestId();
         return guest;
     }
 
@@ -110,9 +109,7 @@ public class UserController {
         return nextGuestId;
     }
 
-    public void increaseGuestId(){
-        this.nextGuestId++;
-    }
+
 
     public List<Subscriber> getUser_list() {
         return user_list;

@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Guest extends User {
-    private int id;
+    private String id;
 
-    public Guest(int id) {
+    public Guest(String id) {
         super();
         this.id=id;
 
     }
-    public int getId() {
+    public String getId() {
         return id;
     }
 }
