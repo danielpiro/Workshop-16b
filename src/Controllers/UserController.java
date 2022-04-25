@@ -1,6 +1,7 @@
 package Controllers;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,26 +12,34 @@ public class UserController {
     private List<Subscriber> user_list;
     private List<Guest> guest_list;
     private int nextGuestId;
-    Subscriber admin;
+    private Subscriber admin;
     Log my_log = Log.getLogger();
 
     public UserController() throws IOException {
         user_list = new ArrayList<>();
         guest_list=new ArrayList<>();
         nextGuestId = 0;
-         admin = new Subscriber("Admin","BigBoss");
-         add_subscriber(admin);
+        admin = new Subscriber("Admin_1","BigBoss");
+        add_subscriber(admin);
+    }
+    //String sender_id, String message, LocalDate date,String storeName
+    public void sendComplaint(String userId, String StoreName,String complaint ){
+        if(get_subscriber(userId)!=null&&userId!="Admin_1")
+            admin.getBuffer().add(new Message(userId,complaint, LocalDate.now(),StoreName));
+        else{
+            throw new IllegalArgumentException("system admin can't send a complaint to himself or sending user doesn't exist");
+        }
     }
 
     public void sign_up(String user_name, String password) {
         my_log.logger.info("Sign Up");
         if(get_subscriber(user_name)==null){
-      Subscriber s = new Subscriber(user_name,password);
-      add_subscriber(s);
-     }
+            Subscriber s = new Subscriber(user_name,password);
+            add_subscriber(s);
+        }
         else{
-         throw new IllegalArgumentException("user already exists");
-     }
+            throw new IllegalArgumentException("user already exists");
+        }
     }
 
     public void login(String user_name, String password) {
@@ -53,7 +62,7 @@ public class UserController {
             throw new IllegalArgumentException("user is already logged out");
         }
     }
-
+    // 1234   // **1234**
     public  boolean check_password(String user_name, String password) {
         Subscriber subscriber = get_subscriber(user_name);
         Encrypt enc= subscriber.getEncryption();
@@ -120,4 +129,4 @@ public class UserController {
     }
 
 
-    }
+}

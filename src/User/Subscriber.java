@@ -9,6 +9,7 @@ public class Subscriber extends User {
     private String password;
     private boolean logged_in = false;
     private List<String> Queries; //3.5
+    private List<Message> buffer;
     Encrypt enc = new Encrypt();;
 
     public Subscriber(String user_name, String password) {
@@ -16,6 +17,7 @@ public class Subscriber extends User {
         this.password = enc.encrypt(password);
         this.name = user_name;
         Queries= new ArrayList<>();
+        buffer = new ArrayList<>();
     }
 
     public String getName()
@@ -40,4 +42,6 @@ public class Subscriber extends User {
     }
 
     public Encrypt getEncryption(){return enc;}
+
+    public List<Message> getBuffer(){return buffer;}
 }
