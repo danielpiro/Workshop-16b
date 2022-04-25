@@ -17,7 +17,7 @@ public class Store {
     private String storeName;
     private final String storeId;
     private List<StoreRoles> StoreRoles;
-
+    //TODO ADD guest cant use the forum
     private InventoryManager inventoryManager;
     private Forum forum;
     private StoreState storeState;
