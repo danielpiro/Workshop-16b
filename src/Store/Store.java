@@ -35,8 +35,7 @@ public class Store {
     }
 
     private boolean checkPermission(String userId, Permission action){
-        for (StoreRoles roleUser :
-                StoreRoles) {
+        for (StoreRoles roleUser : StoreRoles) {
             if (roleUser.getUserId().equals(userId) && roleUser.getPermissions().contains(action)) {
                 return true;
             }

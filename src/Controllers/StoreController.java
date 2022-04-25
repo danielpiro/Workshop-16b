@@ -56,6 +56,7 @@ public class StoreController {
 
     public void deleteStore(){
         //TODO only the system admin can do this op
+        //Admin_(num 1..2..3..4...)
     }
 
 
