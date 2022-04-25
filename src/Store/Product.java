@@ -1,5 +1,7 @@
 package Store;
 
+import Store.BuyinfOptions.BuyOption;
+import Store.BuyinfOptions.ImmediateBuy;
 import Views.ProductView;
 
 import java.util.ArrayList;
@@ -13,15 +15,7 @@ public class Product {
     private float rating;//star system changing according to reviews
     private List<Review> reviews;
     private int supply = 0;
-    //todo add buying options
-    public int getReservedSupply() {
-        return reservedSupply;
-    }
-
-    public void setReservedSupply(int reservedSupply) {
-        this.reservedSupply = reservedSupply;
-    }
-
+    private BuyOption buyOption;
     private int reservedSupply = 0;
 
     private ProductsCategories category;
@@ -34,6 +28,7 @@ public class Product {
         editSupply(supply);
         this.rating = 0;
         this.category = ProductsCategories.valueOf(category);
+        buyOption = new ImmediateBuy();
     }
 
     public void addReview(float rating, String userId, String title, String body){
@@ -46,6 +41,9 @@ public class Product {
         this.rating = sum / (reviews.size());
     }
 
+    public BuyOption getBuyOption() {
+        return buyOption;
+    }
 
     public String getId() {
         return id;
@@ -103,6 +101,13 @@ public class Product {
         this.category = ProductsCategories.valueOf(category);
     }
 
+    public int getReservedSupply() {
+        return reservedSupply;
+    }
+
+    public void setReservedSupply(int reservedSupply) {
+        this.reservedSupply = reservedSupply;
+    }
     public ProductView getProductView() {
         ProductView newProduct = new ProductView();
         newProduct.id = id;

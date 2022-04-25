@@ -103,7 +103,7 @@ public class InventoryManager  implements InventoryProtector {
     }
 
     @Override
-    public void purchaseSuccessful(HashMap<String, Integer> ProductAmount, boolean success) {
+    public void purchaseSuccessful(HashMap<String, Integer> ProductAmount, boolean success ,String userId) {
         if(success){
             for (String Id : ProductAmount.keySet()) {
                 int newReservedSupply = products.get(Id).getReservedSupply() - ProductAmount.get(Id);
@@ -122,11 +122,13 @@ public class InventoryManager  implements InventoryProtector {
     }
 
     @Override
-    public float reserve(HashMap<String, Integer> ProductAmount, PurchasePolicies purchasePolicies) {
+    public float reserve(HashMap<String, Integer> ProductAmount, PurchasePolicies purchasePolicies, String userId) {
         for (String Id : ProductAmount.keySet()) {
-            int newSupply = products.get(Id).getSupply() - ProductAmount.get(Id);
-            products.get(Id).editSupply(newSupply);
-            products.get(Id).setReservedSupply(products.get(Id).getSupply());
+            if(products.get(Id).getBuyOption().checkIfCanBuy(userId)) {
+                int newSupply = products.get(Id).getSupply() - ProductAmount.get(Id);
+                products.get(Id).editSupply(newSupply);
+                products.get(Id).setReservedSupply(products.get(Id).getSupply());
+            }
         }
         return calculatePriceWithDiscount(ProductAmount);
     }
