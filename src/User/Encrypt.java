@@ -3,10 +3,21 @@ package User;
 public class Encrypt {
 
     public String encrypt(String to_encrypt) {
-        return "**".concat(to_encrypt).concat("**");
+        char[] chars = to_encrypt.toCharArray();
+        String str ="";
+        for(char c: chars){
+            str += (char)(c+5);
+        }
+        return str;
     }
 
     public String decrypt(String to_decrypt) {
-        return to_decrypt.substring(2,to_decrypt.length()-2);
+        char[] chars1 = to_decrypt.toCharArray();
+        String str = "";
+        for (char c : chars1) {
+            str += (char)(c - 5);
+        }
+        return str;
     }
-}
+
+    }

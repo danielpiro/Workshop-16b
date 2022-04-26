@@ -17,6 +17,7 @@ public abstract class User {
     public ShoppingCart getShoppingCart() {
         return shoppingCart;
     }
+
     public boolean containsStore(int storeID){
      return shoppingCart.containsStore(storeID);
  }

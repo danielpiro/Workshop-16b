@@ -5,14 +5,16 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import ExternalConnections.PurchasePolicies;
+import ShoppingCart.InventoryProtector;
 import GlobalSystemServices.IdGenerator;
 import GlobalSystemServices.Log;
+import ShoppingCart.ShoppingCart;
 import User.*;
 
 public class UserController {
     private List<Subscriber> user_list;
     private List<Guest> guest_list;
-    private int nextGuestId;
     private Subscriber admin;
     Log my_log = Log.getLogger();
 
@@ -22,7 +24,33 @@ public class UserController {
         admin = new Subscriber("Admin_1","BigBoss");
         add_subscriber(admin);
     }
-    //String sender_id, String message, LocalDate date,String storeName
+
+    public ShoppingCart getShoppingCart(String user_Id){
+        return get_subscriber(user_Id).getShoppingCart();
+    }
+    public boolean containsStore(String user_id,int storeID) {
+    return get_subscriber(user_id).containsStore(storeID);
+    }
+    public int removeProduct(String user_id,String productID, int storeID, int amount) {
+    return get_subscriber(user_id).removeProduct(productID,storeID,amount);
+    }
+    public int addProduct(String user_id,String productID, int storeID, int amount,boolean auctionOrBid) {
+     return get_subscriber(user_id).addProduct(productID,storeID,amount,auctionOrBid);
+    }
+    public int addProduct(String user_id, String productID, int storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
+     return get_subscriber(user_id).addProduct(productID,storeID,amount,inventoryProtector,auctionOrBid);
+    }
+    public String getCartInventory(String user_id) {
+    return get_subscriber(user_id).getCartInventory();
+    }
+    public float purchaseCart(String user_id,PurchasePolicies purchasePolicies) {
+     return get_subscriber(user_id).purchaseCart(purchasePolicies);
+    }
+    public boolean recordPurchase (String user_id) {
+     return get_subscriber(user_id).recordPurchase();
+    }
+
+        //String sender_id, String message, LocalDate date,String storeName
     public void sendComplaint(String userId, String StoreName,String complaint ){
         if(get_subscriber(userId)!=null&&userId!="Admin_1")
             admin.getBuffer().add(new Message(userId,complaint, LocalDate.now(),StoreName));
@@ -107,11 +135,6 @@ public class UserController {
     public List<Guest> getGuest_list() {
         return guest_list;
     }
-
-    public int getNextGuestId() {
-        return nextGuestId;
-    }
-
 
 
     public List<Subscriber> getUser_list() {
