@@ -16,7 +16,7 @@ public class UserController {
     private List<Subscriber> user_list;
     private List<Guest> guest_list;
     private Subscriber admin;
-    Log my_log = Log.getLogger();
+   Log my_log = Log.getLogger();
 
     public UserController() throws IOException {
         user_list = new ArrayList<>();
@@ -26,32 +26,80 @@ public class UserController {
     }
 
     public ShoppingCart getShoppingCart(String user_Id){
+        if(get_subscriber(user_Id)==null){
+            throw new IllegalArgumentException("User doesn't exist");
+        }
+        if(checkIfUserIsLoggedIn(user_Id)){
+            throw new IllegalArgumentException("User is not logged in");
+        }
         return get_subscriber(user_Id).getShoppingCart();
     }
     public boolean containsStore(String user_id,int storeID) {
-    return get_subscriber(user_id).containsStore(storeID);
+        if(get_subscriber(user_id)==null){
+            throw new IllegalArgumentException("User doesn't exist");
+        }
+        if(checkIfUserIsLoggedIn(user_id)){
+            throw new IllegalArgumentException("User is not logged in");
+        }
+        return get_subscriber(user_id).containsStore(storeID);
     }
     public int removeProduct(String user_id,String productID, int storeID, int amount) {
+        if(get_subscriber(user_id)==null){
+            throw new IllegalArgumentException("User doesn't exist");
+        }
     return get_subscriber(user_id).removeProduct(productID,storeID,amount);
     }
     public int addProduct(String user_id,String productID, int storeID, int amount,boolean auctionOrBid) {
+        if(get_subscriber(user_id)==null){
+            throw new IllegalArgumentException("User doesn't exist");
+        }
+        if(checkIfUserIsLoggedIn(user_id)){
+            throw new IllegalArgumentException("User is not logged in");
+        }
      return get_subscriber(user_id).addProduct(productID,storeID,amount,auctionOrBid);
     }
     public int addProduct(String user_id, String productID, int storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
-     return get_subscriber(user_id).addProduct(productID,storeID,amount,inventoryProtector,auctionOrBid);
+        if(get_subscriber(user_id)==null){
+            throw new IllegalArgumentException("User doesn't exist");
+        }
+        if(checkIfUserIsLoggedIn(user_id)){
+            throw new IllegalArgumentException("User is not logged in");
+        }
+        return get_subscriber(user_id).addProduct(productID,storeID,amount,inventoryProtector,auctionOrBid);
     }
     public String getCartInventory(String user_id) {
+        if(get_subscriber(user_id)==null){
+            throw new IllegalArgumentException("User doesn't exist");
+        }
+        if(checkIfUserIsLoggedIn(user_id)){
+            throw new IllegalArgumentException("User is not logged in");
+        }
     return get_subscriber(user_id).getCartInventory();
     }
     public float purchaseCart(String user_id,PurchasePolicies purchasePolicies) {
+        if(get_subscriber(user_id)==null){
+            throw new IllegalArgumentException("User doesn't exist");
+        }
+        if(checkIfUserIsLoggedIn(user_id)){
+            throw new IllegalArgumentException("User is not logged in");
+        }
      return get_subscriber(user_id).purchaseCart(purchasePolicies);
     }
     public boolean recordPurchase (String user_id) {
-     return get_subscriber(user_id).recordPurchase();
+        if(get_subscriber(user_id)==null){
+            throw new IllegalArgumentException("User doesn't exist");
+        }
+        if(checkIfUserIsLoggedIn(user_id)){
+            throw new IllegalArgumentException("User is not logged in");
+        }
+        return get_subscriber(user_id).recordPurchase();
     }
 
         //String sender_id, String message, LocalDate date,String storeName
     public void sendComplaint(String userId, String StoreName,String complaint ){
+        if(get_subscriber(userId)==null){
+            throw new IllegalArgumentException("User doesn't exist");
+        }
         if(get_subscriber(userId)!=null&&userId!="Admin_1")
             admin.getBuffer().add(new Message(userId,complaint, LocalDate.now(),StoreName));
         else{
@@ -72,7 +120,10 @@ public class UserController {
 
     public void login(String user_name, String password) {
         my_log.logger.info("login");
-        if(!get_subscriber(user_name).isLogged_in()&&check_password(user_name,password)) {
+        if(get_subscriber(user_name)==null){
+            throw new IllegalArgumentException("User doesn't exist");
+        }
+       else if(!get_subscriber(user_name).isLogged_in()&&check_password(user_name,password)) {
             get_subscriber(user_name).setLogged_in(true);
         }
         else{
@@ -83,15 +134,20 @@ public class UserController {
 
     public void logout(String user_name) {
         my_log.logger.info("logout");
-        if(get_subscriber(user_name).isLogged_in()) {
+        if(get_subscriber(user_name)==null){
+            throw new IllegalArgumentException("User doesn't exist");
+        }
+        else if(get_subscriber(user_name).isLogged_in()) {
             get_subscriber(user_name).setLogged_in(false);
         }
         else{
             throw new IllegalArgumentException("user is already logged out");
         }
     }
-    // 1234   // **1234**
     public  boolean check_password(String user_name, String password) {
+        if(get_subscriber(user_name)==null){
+            throw new IllegalArgumentException("User doesn't exist");
+        }
         if(password.length()>2) {
             Subscriber subscriber = get_subscriber(user_name);
             Encrypt enc = subscriber.getEncryption();
@@ -103,10 +159,17 @@ public class UserController {
 
     public Subscriber get_subscriber(String user_name){
         Subscriber subscriber = null;
-        for (Subscriber user : user_list){
-            if(user.getName().equals(user_name)) subscriber = user;
+        for (Subscriber user : user_list) {
+            if (user.getName().equals(user_name)) {
+                subscriber = user;
+            }
         }
         return subscriber;
+    }
+    public boolean checkIfUserExists(String userID){
+        if (get_subscriber(userID)==null)
+            return false;
+        return true;
     }
 
     public Guest getGuest(String id){
@@ -124,6 +187,9 @@ public class UserController {
     }
 
     public void Add_Query(String user_name,String query) { //3.5
+        if(get_subscriber(user_name)==null){
+            throw new IllegalArgumentException("User doesn't exist");
+        }
         if(user_name==null||user_name.isEmpty()){
             throw new IllegalArgumentException("invalid user name");
         }
@@ -149,6 +215,10 @@ public class UserController {
 
     public Subscriber getSystemAdmin(){
         return admin;
+    }
+
+    public boolean checkIfUserIsLoggedIn(String id){
+        return get_subscriber(id).isLogged_in();
     }
 
 

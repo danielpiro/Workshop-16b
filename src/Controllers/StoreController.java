@@ -28,7 +28,7 @@ public class StoreController {
         stores.put(newId, newStore);
     }
 
-
+//
 
 
 
@@ -96,7 +96,7 @@ public class StoreController {
     }
 
 
-    private HashMap<String,List<ProductView>> getAllProductsAndStores(){
+    public HashMap<String,List<ProductView>> getAllProductsAndStores(){
         HashMap<String,List<ProductView>> ProductsAndStores = new HashMap<>();
         for (Store store : stores.values()) {
             ProductsAndStores.put(store.getId(),store.getAllProducts());
