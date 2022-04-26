@@ -27,45 +27,70 @@ public class StoreController {
         Store newStore= new Store(name, newId, managers);
         stores.put(newId, newStore);
     }
-
+    private boolean checkIfGuest(String userId){
+        return userId.startsWith("GuestID");
+    }
+    private boolean checkIfAdmin(String userId){
+        return userId.startsWith("Admin");
+    }
 
 
 
 
 
     public void addNewProduct(String storeId, String userId, String productName, float price, int supply, String category) throws NoPermissionException {
+        if(checkIfGuest(userId)){
+            throw new RuntimeException("guest cant do this action");
+        }
         Store relevantStore = stores.get(storeId);
         relevantStore.addNewProduct(userId, productName, price, supply, category);
 
     }
 
     public void closeStore(String storeId, String userId) throws NoPermissionException {
+        if(checkIfGuest(userId)){
+            throw new RuntimeException("guest cant do this action");
+        }
         Store relevantStore = stores.get(storeId);
         relevantStore.closeStore(userId);
     }
 
     public void openStore(String storeId, String userId) throws NoPermissionException {
+        if(checkIfGuest(userId)){
+            throw new RuntimeException("guest cant do this action");
+        }
         Store relevantStore = stores.get(storeId);
         relevantStore.openStore(userId);
     }
 
     public List<StoreRoles> getInfoOnManagers(String storeId, String userId) throws NoPermissionException {
+        if(checkIfGuest(userId)){
+            throw new RuntimeException("guest cant do this action");
+        }
         Store relevantStore = stores.get(storeId);
         return relevantStore.getInfoOnManagers(userId);
     }
 
-    public void deleteStore(){
-        //TODO only the system admin can do this op
-        //Admin_(num 1..2..3..4...)
+    public void deleteStore(String userId, String storeId){
+        if(!checkIfAdmin(userId)){
+            throw new RuntimeException("only admin can do this action");
+        }
+        stores.remove(storeId);
     }
 
 
 
     public void editProduct(String storeId, String userId, String productId, int newSupply, String newName, float newPrice, String category) throws NoPermissionException {
+        if(checkIfGuest(userId)){
+            throw new RuntimeException("guest cant do this action");
+        }
         Store relevantStore = stores.get(storeId);
         relevantStore.editProductSupply(userId, productId,  newSupply, newName, newPrice, category);
     }
     public void deleteProduct(String storeId, String userId, String productId) throws NoPermissionException {
+        if(checkIfGuest(userId)){
+            throw new RuntimeException("guest cant do this action");
+        }
         Store relevantStore = stores.get(storeId);
         relevantStore.deleteProduct(userId, productId);
     }
@@ -83,15 +108,24 @@ public class StoreController {
 
 
     public void addReviewToProduct(String storeId, String userId, String productId, String Title, String Body, float rating){
+        if(checkIfGuest(userId)){
+            throw new RuntimeException("guest cant do this action");
+        }
         Store relevantStore = stores.get(storeId);
         relevantStore.addProductReview( userId, productId, Title, Body, rating);
     }
 
     public String addNewThreadToForum(String storeId,String title, String userId){
+        if(checkIfGuest(userId)){
+            throw new RuntimeException("guest cant do this action");
+        }
         return stores.get(storeId).addNewThreadToForum(title, userId);
     }
 
     public void postMessageToForum(String storeId, String threadId, String userId, String message) throws NoPermissionException {
+        if(checkIfGuest(userId)){
+            throw new RuntimeException("guest cant do this action");
+        }
         stores.get(storeId).postMessageToForum(threadId, userId, message);
     }
 
