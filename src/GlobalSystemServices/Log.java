@@ -23,7 +23,8 @@ public class Log {
     }
 
     public static Log getLogger() throws IOException {
-        if(log_instance == null) log_instance = new Log("log.txt");
+        if(log_instance == null)
+            log_instance = new Log("log.txt");
         return log_instance;
 
 

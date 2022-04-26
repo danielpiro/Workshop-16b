@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class ShoppingBasket {
 
-    private int Store;
+    private String Store;
     private HashMap<String, Integer> productAmount;
     private HashMap<String, Integer> productAmountAuctionOrBid;
     private InventoryProtector iProtector;
@@ -36,7 +36,7 @@ public class ShoppingBasket {
         return 1;
     }
 
-    public ShoppingBasket(int store , InventoryProtector inventoryProtector) {
+    public ShoppingBasket(String store , InventoryProtector inventoryProtector) {
         Store = store;
         this.iProtector = inventoryProtector;
         this.productAmount = new HashMap<>();
@@ -64,9 +64,9 @@ public class ShoppingBasket {
         return sb.toString();
     }
 
-    public float purchase(PurchasePolicies purchasePolicies) throws CantPurchaseException {
+    public float purchase(PurchasePolicies purchasePolicies,String userID) throws CantPurchaseException {
 
-        float answer = iProtector.reserve(productAmount , purchasePolicies);
+        float answer = iProtector.reserve(productAmount , purchasePolicies, userID);
         if(answer < 0 )
              return -1;
         else
@@ -80,7 +80,7 @@ public class ShoppingBasket {
     }
 
 
-    public int getStore() {
+    public String getStore() {
         return Store;
     }
 

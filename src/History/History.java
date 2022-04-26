@@ -1,7 +1,5 @@
 package History;
 
-import ShoppingCart.ShoppingBasket;
-
 import java.util.*;
 
 public class History {
@@ -34,7 +32,7 @@ public class History {
     }
 
 
-    public boolean insertRecord(int userID, int storeID, int transcationId, String itemName, float itemPrice,int amount, Date timeOfTransaction) {
+    public boolean insertRecord(String userID, String storeID, int transcationId, String itemName, float itemPrice, int amount, Date timeOfTransaction) {
 
         //synchronized because we dont want the same index to be used twice
         synchronized (History.class) {
@@ -60,22 +58,22 @@ public class History {
         }
     }
 
-    public List<PurchaseHistory> getUserHistory (int userID) {
+    public List<PurchaseHistory> getUserHistory (String userID) {
 
         List<PurchaseHistory> phList = new LinkedList<PurchaseHistory>();
         for (Map.Entry<Integer, PurchaseHistory> ph : purchaseHistoryHashMap.entrySet()) {
-            if (ph.getValue().getUserID() == userID)
+            if (ph.getValue().getUserID().equals(userID))
                 phList.add(ph.getValue());
         }
 
         return phList;
     }
 
-    public List<PurchaseHistory> getStoreHistory (int storeId) {
+    public List<PurchaseHistory> getStoreHistory (String storeId) {
 
         List<PurchaseHistory> phList = new LinkedList<PurchaseHistory>();
         for (Map.Entry<Integer, PurchaseHistory> ph : purchaseHistoryHashMap.entrySet()) {
-            if (ph.getValue().getStoreID() == storeId)
+            if (ph.getValue().getStoreID().equals( storeId))
                 phList.add(ph.getValue());
         }
 

@@ -103,7 +103,7 @@ public class InventoryManager  implements InventoryProtector {
     }
 
     @Override
-    public void purchaseSuccessful(HashMap<String, Integer> ProductAmount, boolean success ,String userId) {
+    public void purchaseSuccessful(HashMap<String, Integer> ProductAmount, boolean success) {
         if(success){
             for (String Id : ProductAmount.keySet()) {
                 int newReservedSupply = products.get(Id).getReservedSupply() - ProductAmount.get(Id);

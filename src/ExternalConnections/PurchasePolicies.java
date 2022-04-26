@@ -2,21 +2,28 @@ package ExternalConnections;
 
 import ExternalConnections.Delivery.Delivery;
 import ExternalConnections.Payment.Payment;
+import GlobalSystemServices.Log;
 
 public class PurchasePolicies {
     private Delivery delivery;
     private Payment payment;
+    private Log my_log ;
+
 
     public PurchasePolicies(Delivery delivery, Payment payment) {
         this.delivery = delivery;
         this.payment = payment;
+        try {
+            my_log = Log.getLogger();
+        }catch (Exception e)
+        {}
     }
 
 
     public int tryToPurchase (float total,float deliveryDetails){
         int answer =0;
 
-        System.out.println("trying to purchase with total:" + total +" and delivery weight is" +deliveryDetails );
+        my_log.logger.info("trying to purchase with total:" + total +" and delivery weight is" +deliveryDetails );
         if(delivery.isConnected() & payment.isConnected())
         {
             answer = delivery.Delivery(deliveryDetails);
@@ -40,4 +47,5 @@ public class PurchasePolicies {
     public void setPayment(Payment payment) {
         this.payment = payment;
     }
+
 }

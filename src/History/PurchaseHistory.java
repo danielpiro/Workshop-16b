@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class PurchaseHistory {
 
-    private int userID;
-    private int storeID;
+    private String userID;
+    private String storeID;
     private int purchaseID;
     private String itemName;
     private float itemPrice;
@@ -23,7 +23,7 @@ public class PurchaseHistory {
                 ", timeOfTransaction=" + timeOfTransaction;
     }
 
-    public PurchaseHistory(int userID, int storeID, int transactionId, String itemName, float itemPrice, int amount, Date timeOfTransaction) {
+    public PurchaseHistory(String userID, String storeID, int transactionId, String itemName, float itemPrice, int amount, Date timeOfTransaction) {
         this.userID = userID;
         this.storeID = storeID;
         this.itemName = itemName;
@@ -32,11 +32,11 @@ public class PurchaseHistory {
         this.timeOfTransaction = timeOfTransaction;
     }
 
-    public int getUserID() {
+    public String getUserID() {
         return userID;
     }
 
-    public int getStoreID() {
+    public String getStoreID() {
         return storeID;
     }
 

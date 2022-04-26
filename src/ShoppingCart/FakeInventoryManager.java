@@ -4,7 +4,7 @@ import ExternalConnections.PurchasePolicies;
 
 import java.util.HashMap;
 
-public class FakeInventoryManager  {
+public class FakeInventoryManager implements InventoryProtector  {
 
 
 
@@ -32,7 +32,12 @@ public class FakeInventoryManager  {
 
     }
 
-    
+    @Override
+    public float reserve(HashMap<String, Integer> ProductAmount, PurchasePolicies purchasePolicies, String userId) {
+        return 0;
+    }
+
+
     public float purchase(HashMap<String, Integer> ProductAmount, PurchasePolicies purchasePolicies) {
         return 0;
     }
