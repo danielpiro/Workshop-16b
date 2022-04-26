@@ -64,10 +64,13 @@ public class UserController {
     }
     // 1234   // **1234**
     public  boolean check_password(String user_name, String password) {
-        Subscriber subscriber = get_subscriber(user_name);
-        Encrypt enc= subscriber.getEncryption();
-        String password_dyc = enc.decrypt(subscriber.getPassword());
-        return password_dyc.equals(password);
+        if(password.length()>2) {
+            Subscriber subscriber = get_subscriber(user_name);
+            Encrypt enc = subscriber.getEncryption();
+            String password_dyc = enc.decrypt(subscriber.getPassword());
+            return password_dyc.equals(password);
+        }
+        return false;
     }
 
     public Subscriber get_subscriber(String user_name){

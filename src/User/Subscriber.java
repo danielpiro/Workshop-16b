@@ -5,7 +5,6 @@ import java.util.List;
 
 
 public class Subscriber extends User {
-    private String name;
     private String password;
     private boolean logged_in = false;
     private List<String> Queries; //3.5
