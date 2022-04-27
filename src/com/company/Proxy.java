@@ -895,4 +895,23 @@ public class Proxy implements BridgeInterface {
         }
         return "failed to show the store's purchase history";
     }
+
+    /** User requirement - II.6.4 */
+    public String showPurchaseHistoryForSystemFounder(String storeOrUser, String name){
+        if(real!=null)
+            return real.showPurchaseHistoryForSystemFounder(storeOrUser, name);
+
+        if(currentUserInSystem.getPermissionLevel() != User.permission.SystemFounder ||
+                !currentUserInSystem.getIsLoggedIn()){
+            return "fail - user has to be system founder and to be logged in";
+        }
+        if(storeOrUser.equals("store")){
+            return showStorePurchaseHistory(name);
+        }
+        else if(storeOrUser.equals("user")){
+            return "Show user history purchase...";
+        }
+        else
+            return "fail - user have to ask user/store only";
+    }
 }

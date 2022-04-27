@@ -220,4 +220,9 @@ public class Real implements BridgeInterface{
     public String showStorePurchaseHistory(String storeName){
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
+
+    /** User requirement - II.6.4 */
+    public String showPurchaseHistoryForSystemFounder(String storeOrUser, String name) {
+        throw new UnsupportedOperationException("Not Implemented Yet");
+    }
 }

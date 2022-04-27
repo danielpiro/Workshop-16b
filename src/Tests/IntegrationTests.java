@@ -170,23 +170,14 @@ public class IntegrationTests {
                             "logout done successfully", str);
     }
 
-
-
-
-
-
-
-
-
     /**
-     *  Scenario 2:
-     *  1) Login - as StoreOwner
-     *  2) ShowStorePurchaseHistory
-     *  3) ShowStoreOfficials
-     *  4) Logout
+     *  1) Login - as StoreOwner -> Requirement II.1.4
+     *  2) ShowStorePurchaseHistory -> Requirement II.4.11
+     *  3) ShowStoreOfficials -> Requirement II.4.13
+     *  4) Logout -> Requirement II.3.1
      **/
     @Test
-    void scenario2_test() {
+    void login_showStorePurchaseHistory_showStoreOfficials_and_logout_test() {
         String str = proxy.login("user3", "33333");
         str = str.concat("\n");
         str = str.concat(proxy.showStorePurchaseHistory("store1"));

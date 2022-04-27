@@ -118,4 +118,7 @@ public interface BridgeInterface {
 
     /** User requirement - II.4.13 */
     String showStorePurchaseHistory(String storeName);
+
+    /** User requirement - II.6.4 */
+    String showPurchaseHistoryForSystemFounder(String storeOrUser, String name);
 }

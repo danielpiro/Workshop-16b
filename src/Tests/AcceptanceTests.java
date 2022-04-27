@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AcceptanceTests {
 
     /**
-     * Version 1 tests status: 99 passed, 31 failed (due to requirement that not yet implemented).
+     * Version 1 tests status: 104 passed, 31 failed (due to requirement that not yet implemented).
      */
 
     /*TODO: (Tagged with fail() in the tests)
@@ -1700,6 +1700,77 @@ public class AcceptanceTests {
         }
         assertEquals("fail - the user is not owner on that store (Check store name)",
                 proxy.showStorePurchaseHistory("s1"));
+    }
+
+    /**
+     *  User requirement - II.6.4
+     **/
+    @Test
+    void show_purchase_history_to_system_founder_success_case_test1() {
+        //- Check that the user is logged in as store owner.
+        //- Activate presenting required purchase history (will show it all correctly).
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("showing all the purchase history...",
+                proxy.showPurchaseHistoryForSystemFounder("store", "store1"));
+    }
+    @Test
+    void show_purchase_history_to_system_founder_success_case_test2() {
+        //- Check that the user is logged in as store owner.
+        //- Activate presenting required purchase history (will show it all correctly).
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("Show user history purchase...",
+                proxy.showPurchaseHistoryForSystemFounder("user", "user2"));
+    }
+    @Test
+    void show_purchase_history_to_system_founder_fail_case_test1() {
+        //- Check that the user is logged in as store owner.
+        //    -> the user isn't a system founder owner.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(5));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - user has to be system founder and to be logged in",
+                proxy.showPurchaseHistoryForSystemFounder("store", "store1"));
+    }
+    @Test
+    void show_purchase_history_to_system_founder_fail_case_test2() {
+        //- Check that the user is logged in as store owner.
+        //    -> the user isn't logged in.
+        //- Show fail message...
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - user has to be system founder and to be logged in",
+                proxy.showPurchaseHistoryForSystemFounder("store", "store1"));
+    }
+    @Test
+    void show_purchase_history_to_system_founder_fail_case_test3() {
+        //- Check that the user is logged in as store owner.
+        //- Activate presenting all store's purchase history
+        //    -> will not show all purchase history / will miss at least one of the purchases
+
+        if(proxy.getReal() == null){
+            proxy.setCurrentUserInSystem(proxy.getUsers().get(0));
+            proxy.getCurrentUserInSystem().setIsLoggedIn(true);
+            proxy.getCurrentUserInSystem().setStoreOwnedByMe("store1");
+        }
+        assertEquals("fail - user have to ask user/store only",
+                proxy.showPurchaseHistoryForSystemFounder("st", "store1"));
     }
 
 }
