@@ -33,7 +33,10 @@ public class BigController {
     }
 
     public void login(String user_name, String password) {
-        getUserController().login(user_name, password);
+        try {
+            getUserController().login(user_name, password);
+        }catch (Exception e)
+        {}
     }
 
     public void logout(String user_name) {

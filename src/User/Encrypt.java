@@ -3,6 +3,8 @@ package User;
 public class Encrypt {
 
     public String encrypt(String to_encrypt) {
+        //todo StringBuilder
+
         char[] chars = to_encrypt.toCharArray();
         String str ="";
         for(char c: chars){

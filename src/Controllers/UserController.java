@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import CustomExceptions.UserDeleted;
 import ExternalConnections.PurchasePolicies;
 import ShoppingCart.InventoryProtector;
 import GlobalSystemServices.IdGenerator;
@@ -118,16 +119,25 @@ public class UserController {
         }
     }
 
-    public void login(String user_name, String password) {
-        my_log.logger.info("login");
-        if(get_subscriber(user_name)==null){
-            throw new IllegalArgumentException("User doesn't exist");
-        }
-       else if(!get_subscriber(user_name).isLogged_in()&&check_password(user_name,password)) {
-            get_subscriber(user_name).setLogged_in(true);
-        }
-        else{
-            throw new IllegalArgumentException("user is already logged in");
+    public void login(String user_name, String password) throws UserDeleted {
+        if (checkIfUserExists(user_name)) {
+            synchronized (get_subscriber(user_name).getLock()) {
+                if (checkIfUserExists(user_name)) {
+
+                my_log.logger.info("login");
+                if (get_subscriber(user_name) == null) {
+                    throw new IllegalArgumentException("User doesn't exist");
+                } else if (!get_subscriber(user_name).isLogged_in() && check_password(user_name, password)) {
+                    get_subscriber(user_name).setLogged_in(true);
+                } else {
+                    throw new IllegalArgumentException("user is already logged in");
+                }
+            }
+                else {
+                    throw new UserDeleted("user has been deleted");
+                }
+            }
+
         }
 
     }
@@ -195,6 +205,25 @@ public class UserController {
         }
         Subscriber subscriber = get_subscriber(user_name);
         subscriber.getQueries().add(query);
+    }
+
+    public boolean deleteUser(String whosDeleting,String whosBeingDeleted) {
+
+        if (checkIfUserExists(whosBeingDeleted)) {
+            synchronized (get_subscriber(whosBeingDeleted).getLock()) {
+                if (checkIfUserExists(whosBeingDeleted) &&
+                        checkIfUserIsLoggedIn(whosDeleting) && whosDeleting.equals("Admin_1") && !whosBeingDeleted.equals("Admin_1")) {
+
+                    for (Subscriber s : getUser_list()) {
+                        if (s.getName().equals(whosBeingDeleted)) {
+                            getUser_list().remove(s);
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 
 
