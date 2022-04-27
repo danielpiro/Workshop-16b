@@ -1,12 +1,14 @@
 package Controllers;
 
 import GlobalSystemServices.IdGenerator;
+import GlobalSystemServices.Log;
 import Store.Store;
 import StorePermission.Permission;
 import StorePermission.StoreRoles;
 import Views.ProductView;
 
 import javax.naming.NoPermissionException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -127,6 +129,16 @@ public class StoreController {
         stores.get(storeId).postMessageToForum(threadId, userId, message);
     }
 
+    public boolean checkIfProductExists(String storeId, String productId) throws IOException {
+        Store relevantStore =  stores.get(storeId);
+        try {
+            relevantStore.getProduct(productId);
+            return true;
+        } catch (Exception e) {
+            Log.getLogger().logger.severe(e.getMessage());
+            return false;
+        }
+    }
 
     public HashMap<String,List<ProductView>> getAllProductsAndStores(){
         HashMap<String,List<ProductView>> ProductsAndStores = new HashMap<>();
