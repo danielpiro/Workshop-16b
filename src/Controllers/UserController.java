@@ -16,14 +16,33 @@ import User.*;
 public class UserController {
     private List<Subscriber> user_list;
     private List<Guest> guest_list;
+    private List<Subscriber> system_admins;
     private Subscriber admin;
    Log my_log = Log.getLogger();
 
     public UserController() throws IOException {
         user_list = new ArrayList<>();
         guest_list=new ArrayList<>();
+        system_admins = new ArrayList<>();
         admin = new Subscriber("Admin_1","BigBoss");
         add_subscriber(admin);
+        add_admin(admin);
+    }
+
+    //WE DECIDED THAT ALL THE SYSTEM ADMINS WILL HAVE A SIMILAR USERNAME AS FOLLOWS:
+    // Admin_1 Admin_2 Admin_3 and so on
+    public void addSystemAdmin(String whoIsAdding,String user_toMakeAdmin){
+        if(!getUser_list().contains(get_subscriber(whoIsAdding)))
+            throw new IllegalArgumentException("the user that we treated as admin is not a user at all!!");
+        else if(!getSystemAdmins().contains(get_subscriber(whoIsAdding)))
+            throw new IllegalArgumentException("the user that is trying to add in not an admin");
+        else if(getSystemAdmins().contains(get_subscriber(user_toMakeAdmin)))
+            throw new IllegalArgumentException("this user we are trying to add is already a system admin");
+        else if(!getUser_list().contains(get_subscriber(user_toMakeAdmin)))
+            throw new IllegalArgumentException("the given user name is not a valid name for an existing user in the system");
+        else if(!checkIfUserIsLoggedIn(whoIsAdding))
+            throw new IllegalArgumentException("the admin that is trying to add another admin is not logged in");
+        getSystemAdmins().add(get_subscriber(user_toMakeAdmin));
     }
 
     public ShoppingCart getShoppingCart(String user_Id){
@@ -241,6 +260,11 @@ public class UserController {
         user_list.add(s);
     }
 
+    public void add_admin(Subscriber s){
+        system_admins.add(s);
+    }
+
+    public List<Subscriber> getSystemAdmins(){return system_admins;}
 
     public Subscriber getSystemAdmin(){
         return admin;

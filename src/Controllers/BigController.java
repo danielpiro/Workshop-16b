@@ -27,7 +27,12 @@ public class BigController {
         this.sc = new StoreController();
     }
     //// user controller
-
+    public void addSystemAdmin(String whoIsAdding,String user_toMakeAdmin) {
+       getUserController().addSystemAdmin(whoIsAdding,user_toMakeAdmin);
+    }
+    public boolean deleteUser(String whosDeleting,String whosBeingDeleted) {
+        return getUserController().deleteUser(whosDeleting,whosBeingDeleted);
+    }
     public void sign_up(String user_name, String password) {
         getUserController().sign_up(user_name, password);
     }
