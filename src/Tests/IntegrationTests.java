@@ -1,12 +1,15 @@
 package Tests;
 
+import com.company.Product;
 import com.company.Proxy;
+import com.company.Store;
 import com.company.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -61,6 +64,7 @@ public class IntegrationTests {
      */
     @Test
     void get_in_and_get_out_test() {
+        //setting up a visitor in the system
         if(proxy.getReal() == null) {
             proxy.setCurrentUserInSystem(new User("user0", "", User.permission.Visitor));
         }
@@ -90,6 +94,81 @@ public class IntegrationTests {
                              "logout done successfully", str);
     }
 
+    /**
+     *  1) Receive Info in the system -> Requirement II.1.1
+     *  2) Search product -> Requirement II.1.2
+     **/
+    @Test
+    void receiveSystemInfo_and_searchProduct_test() {
+        String str = "";
+//        String expShowInfoStr = "";
+//        str += "Users:\n";
+//        for (User u : proxy.getUsers()){
+//            str = str.concat(u.getUsername() + "\n");
+//        }
+//        str += "\nStores:\n";
+//        for (Store s : proxy.getStores()){
+//            str = str.concat(s.getStoreName() + "\n");
+//        }
+        str += proxy.receiveSystemInfo();
+        str = str.concat("\n");
+        str = str.concat(proxy.searchProduct("p1"));
+        str = str.concat("\n");
+        assertEquals("Users:\n" + "user1\n" + "user2\n" + "user3\n" +
+                            "user4\n" + "user5\n" + "user6\n" + "user7\n\n" +
+                            "Stores:\n" + "store1\n\n" +
+                            "showing all the products that were searched by the user\n", str);
+    }
+
+    /**
+     *  1) User in the system (by Login) -> Requirement II.1.4
+     *  2) Search product -> Requirement II.1.2
+     *  3) Save Product to the shopping cart -> Requirement II.2.3
+     *  4) Check shopping cart content -> Requirement II.2.4
+     *  5) Purchase shopping cart -> Requirement II.2.5
+     *  6) Logout from that user -> Requirement II.3.1
+     **/
+    @Test
+    void login_searchProduct_saveProduct_checkShoppingCart_and_purchaseShoppingCart_test() {
+        String str = "";
+        str += proxy.login("user3", "33333");
+        str = str.concat("\n");
+        str = str.concat(proxy.searchProduct("p1"));
+        str = str.concat("\n");
+        str = str.concat(proxy.saveProductFromStoreToShoppingCart("store1", "p1"));
+        str = str.concat("\n");
+        str = str.concat(proxy.showShoppingCart());
+        str = str.concat("\n");
+//        str = str.concat(proxy.purchaseShoppingCart());
+//        str = str.concat("\n");
+        str = str.concat(proxy.logout());
+        assertEquals("user logged in successfully\n" +
+                            "showing all the products that were searched by the user\n" +
+                            "product saved to shopping cart successfully\n" +
+                            "showing user's shopping cart\n" +
+                            "logout done successfully", str);
+    }
+
+    /**
+     *  1) Login -> Requirement II.1.4
+     *  2) Open store -> Requirement II.3.2
+     *  3) Logout -> Requirement II.3.1
+     **/
+    @Test
+    void login_openStore_and_logout(){
+        String str = "";
+        str += proxy.login("user5", "55555");
+        str = str.concat("\n");
+        Product newProd = new Product("newProd", 200);
+        HashMap<Product, Integer> map = new HashMap<>();
+        map.put(newProd, 100);
+        str = str.concat(proxy.openStore("store2", map));
+        str = str.concat("\n");
+        str = str.concat(proxy.logout());
+        assertEquals("user logged in successfully\n" +
+                            "store was opened successfully\n" +
+                            "logout done successfully", str);
+    }
 
 
 
@@ -99,10 +178,6 @@ public class IntegrationTests {
 
 
 
-
-
-
-    
     /**
      *  Scenario 2:
      *  1) Login - as StoreOwner
