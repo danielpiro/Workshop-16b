@@ -17,7 +17,6 @@ public class Store {
     private String storeName;
     private final String storeId;
     private List<StoreRoles> StoreRoles;
-    //TODO ADD guest cant use the forum
     private InventoryManager inventoryManager;
     private Forum forum;
     private StoreState storeState;
@@ -35,8 +34,10 @@ public class Store {
     }
 
     private boolean checkPermission(String userId, Permission action){
+
         for (StoreRoles roleUser : StoreRoles) {
-            if (roleUser.getUserId().equals(userId) && roleUser.getPermissions().contains(action)) {
+            if (roleUser.getUserId().equals(userId) &&
+                    roleUser.getPermissions().contains(action) ) {
                 return true;
             }
         }
@@ -59,8 +60,7 @@ public class Store {
         throw new NoPermissionException("the user is not manager");
     }
     private void removePermissionTo(List<String> RolesToRemove){
-        for (String id :
-                RolesToRemove) {
+        for (String id : RolesToRemove) {
             for (int i = 0; i < StoreRoles.size(); i++) {
                 if(IdGenerator.getInstance().isIdEqual(
                         StoreRoles.get(i).getUserId(),
