@@ -74,16 +74,16 @@ public class BigController {
     public ShoppingCart getShoppingCart(String user_Id){
         return getUserController().getShoppingCart(user_Id);
     }
-    public boolean containsStore(String user_id,int storeID) {
+    public boolean containsStore(String user_id,String storeID) {
         return getUserController().containsStore(user_id,storeID);
     }
-    public int removeProduct(String user_id,String productID, int storeID, int amount) {
+    public int removeProduct(String user_id,String productID, String storeID, int amount) {
         return getUserController().removeProduct(user_id,productID,storeID,amount);
     }
-    public int addProduct(String user_id,String productID, int storeID, int amount,boolean auctionOrBid) {
+    public int addProduct(String user_id,String productID, String storeID, int amount,boolean auctionOrBid) {
         return getUserController().addProduct(user_id,productID,storeID,amount,auctionOrBid);
     }
-    public int addProduct(String user_id, String productID, int storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
+    public int addProduct(String user_id, String productID, String storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
         return getUserController().addProduct(user_id,productID,storeID,amount,inventoryProtector,auctionOrBid);
     }
     public String getCartInventory(String user_id) {

@@ -34,7 +34,7 @@ public class UserController {
         }
         return get_subscriber(user_Id).getShoppingCart();
     }
-    public boolean containsStore(String user_id,int storeID) {
+    public boolean containsStore(String user_id,String storeID) {
         if(get_subscriber(user_id)==null){
             throw new IllegalArgumentException("User doesn't exist");
         }
@@ -43,13 +43,13 @@ public class UserController {
         }
         return get_subscriber(user_id).containsStore(storeID);
     }
-    public int removeProduct(String user_id,String productID, int storeID, int amount) {
+    public int removeProduct(String user_id,String productID, String storeID, int amount) {
         if(get_subscriber(user_id)==null){
             throw new IllegalArgumentException("User doesn't exist");
         }
     return get_subscriber(user_id).removeProduct(productID,storeID,amount);
     }
-    public int addProduct(String user_id,String productID, int storeID, int amount,boolean auctionOrBid) {
+    public int addProduct(String user_id,String productID, String storeID, int amount,boolean auctionOrBid) {
         if(get_subscriber(user_id)==null){
             throw new IllegalArgumentException("User doesn't exist");
         }
@@ -58,7 +58,7 @@ public class UserController {
         }
      return get_subscriber(user_id).addProduct(productID,storeID,amount,auctionOrBid);
     }
-    public int addProduct(String user_id, String productID, int storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
+    public int addProduct(String user_id, String productID, String storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
         if(get_subscriber(user_id)==null){
             throw new IllegalArgumentException("User doesn't exist");
         }

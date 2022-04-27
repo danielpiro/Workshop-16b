@@ -10,7 +10,7 @@ public abstract class User {
     private ShoppingCart shoppingCart;
 
  public User(){
-    shoppingCart = new ShoppingCart(Integer.parseInt(name));
+    shoppingCart = new ShoppingCart(name);
 
     }
 
@@ -18,17 +18,17 @@ public abstract class User {
         return shoppingCart;
     }
 
-    public boolean containsStore(int storeID){
+    public boolean containsStore(String storeID){
      return shoppingCart.containsStore(storeID);
  }
 
-    public int removeProduct(String productID, int storeID, int amount){
+    public int removeProduct(String productID, String storeID, int amount){
         return shoppingCart.removeProduct(productID,storeID,amount);
     }
-    public int addProduct(String productID, int storeID, int amount,boolean auctionOrBid) {
+    public int addProduct(String productID, String storeID, int amount,boolean auctionOrBid) {
     return addProduct(productID,storeID,amount,auctionOrBid);
     }
-    public int addProduct(String productID, int storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
+    public int addProduct(String productID, String storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
     return shoppingCart.addProduct(productID,storeID,amount,inventoryProtector,auctionOrBid);
  }
     public String getCartInventory() {
