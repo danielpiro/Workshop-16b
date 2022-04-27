@@ -16,7 +16,7 @@ public class Encrypt {
         char[] chars1 = to_decrypt.toCharArray();
         StringBuilder st = new StringBuilder();
         for (char c : chars1) {
-            st.append((char) (c + 5));
+            st.append((char) (c - 5));
         }
         return st.toString();
     }
