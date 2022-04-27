@@ -193,4 +193,7 @@ public class Store {
     }
 
 
+    public ProductView getProduct(String productId) throws Exception {
+        return inventoryManager.getProduct(productId);
+    }
 }

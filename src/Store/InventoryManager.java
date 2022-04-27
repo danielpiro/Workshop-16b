@@ -49,8 +49,7 @@ public class InventoryManager  implements InventoryProtector {
 
     public List<ProductView> getAllProducts(Predicate<Product> filter) {
         List<ProductView> PV= new ArrayList<>();
-        for (Product p :
-                products.values()) {
+        for (Product p : products.values()) {
             if(filter.test(p)){
                 PV.add(p.getProductView());
             }
@@ -131,5 +130,14 @@ public class InventoryManager  implements InventoryProtector {
             }
         }
         return calculatePriceWithDiscount(ProductAmount);
+    }
+
+    public ProductView getProduct(String productId) throws Exception {
+        ProductView pro =  products.get(productId).getProductView();
+        if(pro == null){
+            throw new Exception("no product with this id");
+        }
+        return pro;
+
     }
 }
