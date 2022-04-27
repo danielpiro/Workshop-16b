@@ -1,6 +1,7 @@
 package Tests;
 
 import com.company.Proxy;
+import com.company.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,12 +20,18 @@ public class IntegrationTests {
 
     Proxy proxy = new Proxy();
 
+    /**
+     * Simulate requirement II.1.1 -> Entering to the system
+     */
     @BeforeEach
     void setUp() {
         //set all system's users, stores & products
         proxy.openingMarket();
     }
 
+    /**
+     * Shutting down
+     */
     @AfterEach
     void tearDown() {
         proxy.setUsers(new ArrayList<>());
@@ -37,13 +44,42 @@ public class IntegrationTests {
     }
 
     /**
-     *  Scenario 1:
-     *  1) Register new user
-     *  2) Login with this user
-     *  3) Logout from that user
+     * Requirements I.3 + I.4
+     */
+    @Test
+    void payment_and_delivery_test() {
+        String str = "";
+        str += proxy.payment();
+        str += "\n";
+        str += proxy.delivery();
+        assertEquals("Payment done successfully\n" +
+                             "Delivery done successfully", str);
+    }
+
+    /**
+     * Requirements II.1.1 + II.1.2
+     */
+    @Test
+    void get_in_and_get_out_test() {
+        if(proxy.getReal() == null) {
+            proxy.setCurrentUserInSystem(new User("user0", "", User.permission.Visitor));
+        }
+
+        String str = "";
+        str += proxy.getInToTheSystem();
+        str += "\n";
+        str += proxy.getOutFromTheSystem();
+        assertEquals("user got-in successfully\n" +
+                             "user got out successfully", str);
+    }
+
+    /**
+     *  1) Register new user -> Requirement II.1.3
+     *  2) Login with this user -> Requirement II.1.4
+     *  3) Logout from that user -> Requirement II.3.1
      **/
     @Test
-    void scenario1_test() {
+    void register_login_and_logout_test() {
         String str = proxy.register("user0", "00000");
         str = str.concat("\n");
         str = str.concat(proxy.login("user0", "00000"));
@@ -54,6 +90,19 @@ public class IntegrationTests {
                              "logout done successfully", str);
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+    
     /**
      *  Scenario 2:
      *  1) Login - as StoreOwner

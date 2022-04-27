@@ -15,6 +15,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AcceptanceTests {
 
+    /**
+     * Version 1 tests status: 99 passed, 31 failed (due to requirement that not yet implemented).
+     */
+
     /*TODO: (Tagged with fail() in the tests)
      * 1) Parallel Use.
      * 2) Logging.
@@ -71,6 +75,7 @@ public class AcceptanceTests {
 
     /**
      *  System requirement - I.1
+     *  Important Note: This test is a must! otherwise all the tests can't have a proper set-up!
      **/
     @Test
     void opening_market_system_success_case_test() {
