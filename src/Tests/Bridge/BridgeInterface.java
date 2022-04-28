@@ -1,6 +1,6 @@
 package Tests.Bridge;
 
-import History.PurchaseHistory;
+import Views.ProductView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -58,19 +58,19 @@ public interface BridgeInterface {
     String getInToTheSystem();
 
     /** User requirement - II.1.2 */
-    String getOutFromTheSystem();
+    String getOutFromTheSystem(String name);
 
     /** User requirement - II.1.3 */
-    String register(String username, String password);
+    boolean register(String username, String password);
 
     /** User requirement - II.1.4 */
-    String login(String username, String password);
+    boolean login(String username, String password);
 
     /** User requirement - II.2.1 */
     String receiveSystemInfo();
 
     /** User requirement - II.2.2 */
-    String searchProduct(String productName);
+    List<ProductView> searchProduct(String userId,String productName);
 
     /** User requirement - II.2.3 */
     String saveProductFromStoreToShoppingCart(String storeName, String productName);
@@ -88,7 +88,7 @@ public interface BridgeInterface {
     String purchaseShoppingCart();
 
     /** User requirement - II.3.1 */
-    String logout();
+    boolean logout(String userid);
 
     /** User requirement - II.3.2 */
     String openStore(String storeName, HashMap<Product, Integer> products);

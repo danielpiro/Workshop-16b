@@ -26,9 +26,9 @@ public class Real implements BridgeInterface{
         this.bigController = msApp;
    }
 
-//    public MarketSystem getMsApp() {
-//        return msApp;
-//    }
+   public BigController getBigController() {
+        return bc;
+  }
 //
 //    public void setMsApp(MarketSystem msApp) {
 //        this.msApp = msApp;
@@ -147,22 +147,22 @@ public class Real implements BridgeInterface{
 
     /** User requirement - II.1.1 */
     public String getInToTheSystem(){
-        throw new UnsupportedOperationException("Not Implemented Yet");
+        return getBigController().addGuest();
     }
 
     /** User requirement - II.1.2 */
-    public String getOutFromTheSystem(){
-        throw new UnsupportedOperationException("Not Implemented Yet");
+    public String getOutFromTheSystem(String name){
+        return getBigController().GuestExitSystem(name);
     }
 
     /** User requirement - II.1.3 */
-    public String register(String username, String password){
-        throw new UnsupportedOperationException("Not Implemented Yet");
+    public boolean register(String username, String password){
+        return getBigController().sign_up(username,password);
     }
 
     /** User requirement - II.1.4 */
-    public String login(String username, String password){
-        throw new UnsupportedOperationException("Not Implemented Yet");
+    public boolean login(String username, String password){
+        return getBigController().login(username,password);
     }
 
     /** User requirement - II.2.1 */
@@ -171,8 +171,8 @@ public class Real implements BridgeInterface{
     }
 
     /** User requirement - II.2.2 */
-    public String searchProduct(String productName){
-        throw new UnsupportedOperationException("Not Implemented Yet");
+    public List<ProductView> searchProduct(String userId,String productName){
+        return getBigController().SearchProductsAccordingName(userId,productName);
     }
 
     /** User requirement - II.2.3  => its the same as II.2.4 */
@@ -217,8 +217,8 @@ public class Real implements BridgeInterface{
     }
 
     /** User requirement - II.3.1 */
-    public String logout(){
-        throw new UnsupportedOperationException("Not Implemented Yet");
+    public boolean logout(String userid){
+        return getBigController().logout(userid);
     }
 
     /** User requirement - II.3.2 */

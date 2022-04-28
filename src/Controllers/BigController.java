@@ -41,6 +41,7 @@ public class BigController {
         externalConnections.addDelivery(new FedEx());
         externalConnections.addDelivery(new UPS());
     }
+
     //// user controller
     public void addSystemAdmin(String whoIsAdding,String user_toMakeAdmin) {
        getUserController().addSystemAdmin(whoIsAdding,user_toMakeAdmin);
@@ -55,24 +56,16 @@ public class BigController {
         //}
         return getUserController().deleteUser(whosDeleting,whosBeingDeleted);
     }
-    public void sign_up(String user_name, String password) {
-        getUserController().sign_up(user_name, password);
+    public boolean sign_up(String user_name, String password) {
+        return getUserController().sign_up(user_name, password);
     }
 
-    public void login(String user_name, String password) {
-        try {
-            getUserController().login(user_name, password);
-
-        }catch (Exception e) {}
+    public boolean login(String user_name, String password) {
+       return getUserController().login(user_name,password);
     }
 
-    public InventoryProtector getInventoryProtector(String storeId) throws Exception {
-
-        throw new UnsupportedOperationException("Not Implemented Yet");
-
-    }
-    public void logout(String user_name) {
-        getUserController().logout(user_name);
+    public boolean logout(String user_name) {
+       return getUserController().logout(user_name);
     }
     public void sendComplaint(String userId, String StoreName,String complaint ) {
         getUserController().sendComplaint(userId,StoreName,complaint);
@@ -82,11 +75,14 @@ public class BigController {
         return getUserController().getGuest(id);
     }
 
-    public Guest addGuest() {
-        return getUserController().addGuest();
+    public String addGuest() {
+        return getUserController().addGuest().name;
+    }
+    public String GuestExitSystem(String name) {
+       return getUserController().GuestExitSystem(name);
     }
 
-    public Subscriber getSystemAdmin() {
+        public Subscriber getSystemAdmin() {
         return getUserController().getSystemAdmin();
     }
 

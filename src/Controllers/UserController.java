@@ -123,53 +123,53 @@ public class UserController {
         }
     }
 
-    public void sign_up(String user_name, String password) {
+    public boolean sign_up(String user_name, String password) {
         my_log.logger.info("Sign Up");
         if(get_subscriber(user_name)==null){
             Subscriber s = new Subscriber(user_name,password);
             add_subscriber(s);
+            return true;
         }
-        else{
-            throw new IllegalArgumentException("user already exists");
-        }
+        return false;
     }
 
-    public void login(String user_name, String password) throws UserDeleted {
+    public boolean login(String user_name, String password) {
         if (checkIfUserExists(user_name)) {
             synchronized (get_subscriber(user_name).getLock()) {
                 if (checkIfUserExists(user_name)) {
-
                 my_log.logger.info("login");
                 if (get_subscriber(user_name) == null) {
-                    throw new IllegalArgumentException("User doesn't exist");
-                } else if (!get_subscriber(user_name).isLogged_in() && check_password(user_name, password)) {
+                    return false;
+                } else if (get_subscriber(user_name).isLogged_in() && check_password(user_name, password)) {
+                    return false;
+                } else if(!get_subscriber(user_name).isLogged_in() && check_password(user_name, password)) {
                     get_subscriber(user_name).setLogged_in(true);
-                } else {
-                    throw new IllegalArgumentException("user is already logged in");
+                    return true;
                 }
             }
                 else {
-                    throw new UserDeleted("user has been deleted");
+                    return false;
+                   // ("user has been deleted") // add logger
                 }
             }
 
         }
-
+      return false;
     }
 
-
-    public void logout(String user_name) {
+    public boolean logout(String user_name) {
         my_log.logger.info("logout");
         if(get_subscriber(user_name)==null){
-            throw new IllegalArgumentException("User doesn't exist");
+            return false;
         }
-        else if(get_subscriber(user_name).isLogged_in()) {
-            get_subscriber(user_name).setLogged_in(false);
+        else if(!get_subscriber(user_name).isLogged_in()) {
+            return false;
         }
         else{
-            throw new IllegalArgumentException("user is already logged out");
+            return true;
         }
     }
+
     public  boolean check_password(String user_name, String password) {
         if(get_subscriber(user_name)==null){
             throw new IllegalArgumentException("User doesn't exist");
@@ -210,6 +210,14 @@ public class UserController {
         Guest guest=new Guest(IdGenerator.getInstance().getGuestId());
         getGuest_list().add(guest);
         return guest;
+    }
+    public String GuestExitSystem(String name){
+        for(Guest g: getGuest_list())
+            if(g.name.equals(name)){
+                getGuest_list().remove(g);
+                return g.name;
+            }
+                return null;
     }
 
     public void Add_Query(String user_name,String query) { //3.5
