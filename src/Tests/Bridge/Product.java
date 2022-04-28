@@ -1,4 +1,4 @@
-package com.company;
+package Tests.Bridge;
 
 public class Product {
     private String productName;

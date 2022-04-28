@@ -1,4 +1,4 @@
-package com.company;
+package Tests.Bridge;
 
 import java.util.HashMap;
 

@@ -1,4 +1,4 @@
-package com.company;
+package Tests.Bridge;
 
 public class MarketSystem {
     // This will simulate the real application for the market service

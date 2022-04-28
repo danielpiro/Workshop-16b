@@ -1,6 +1,9 @@
 package Tests;
 
-import com.company.*;
+import Tests.Bridge.Product;
+import Tests.Bridge.Proxy;
+import Tests.Bridge.Store;
+import Tests.Bridge.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -860,20 +863,20 @@ class UnitTests { //TODO: Need to be adjusted to the real implementation!!!
      **/
     @Test
     void purchase_shopping_cart_success_case_test() {
-        System.out.println("""
-                - Perform purchase of the shopping cart.
-                - Check all external services returns required answers.
-                - Show success message to the user (later on - will need to update quantity in the system).
-                """);
+//        System.out.println("""
+//                - Perform purchase of the shopping cart.
+//                - Check all external services returns required answers.
+//                - Show success message to the user (later on - will need to update quantity in the system).
+//                """);
         fail();
     }
     @Test
     void purchase_shopping_cart_fail_case_test() {
-        System.out.println("""
-                - Perform purchase of the shopping cart.
-                - Check all external services returns required answers -> will return error message.
-                - Show failure message to the user.
-                """);
+//        System.out.println("""
+//                - Perform purchase of the shopping cart.
+//                - Check all external services returns required answers -> will return error message.
+//                - Show failure message to the user.
+//                """);
         fail();
     }
 

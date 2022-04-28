@@ -1,9 +1,8 @@
 package Tests;
 
-import com.company.Product;
-import com.company.Proxy;
-import com.company.Store;
-import com.company.User;
+import Tests.Bridge.Product;
+import Tests.Bridge.Proxy;
+import Tests.Bridge.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
