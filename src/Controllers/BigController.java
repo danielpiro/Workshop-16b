@@ -32,7 +32,7 @@ public class BigController {
     public void addSystemAdmin(String whoIsAdding,String user_toMakeAdmin) {
        getUserController().addSystemAdmin(whoIsAdding,user_toMakeAdmin);
     }
-    public boolean deleteUser(String whosDeleting,String whosBeingDeleted) {
+    public boolean deleteUser(String whosDeleting,String whosBeingDeleted) throws IOException {
         Log.getLogger().logger.info("user- "+ whosDeleting +" try to delete "+whosBeingDeleted);
         try {
             sc.removeAllPermissionTo(whosBeingDeleted);
