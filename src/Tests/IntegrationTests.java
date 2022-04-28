@@ -14,13 +14,6 @@ import java.util.HashMap;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class IntegrationTests {
-
-    /*TODO: (Tagged with fail() in the tests)
-     * 1) Parallel Use.
-     * 2) Logging.
-     * 3) External Services.
-     */
-
     Proxy proxy = new Proxy();
 
     /**
@@ -199,7 +192,7 @@ public class IntegrationTests {
      *  4) Logout
      **/
     @Test
-    void scenario3_test() {
+    void login_addNewManager_notAddingNewOwner_and_logout_test() {
         String str = proxy.login("user3", "33333");
         str = str.concat("\n");
         str = str.concat(proxy.addNewStoreManager("store1", "user5"));
@@ -214,7 +207,6 @@ public class IntegrationTests {
     }
 
     /**
-     *  Scenarios 1, 2, 3 from IntegrationTests:
      *  1) Register new user
      *  2) Login with this user
      *  3) Logout from that user
