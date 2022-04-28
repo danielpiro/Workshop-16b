@@ -83,7 +83,13 @@ public class Store {
         }
         throw new NoPermissionException("the user is not manager");
     }
+    public void removePermissionTo(String userId) {
+        for (StoreRoles roleUser : StoreRoles) {
+            removePermissionTo( roleUser.removeManager(userId));
+        }
 
+
+    }
     public void editProductSupply( String userId, String productId, int newSupply, String newName, float newPrice ,String category) throws NoPermissionException {
         if(!checkPermission(userId, Permission.EDIT_EXISTING_PRODUCT)){
             throw new NoPermissionException("the user don't have this permission");
@@ -196,4 +202,6 @@ public class Store {
     public ProductView getProduct(String productId) throws Exception {
         return inventoryManager.getProduct(productId);
     }
+
+
 }

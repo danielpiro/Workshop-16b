@@ -1,6 +1,7 @@
 package Controllers;
 
 
+import GlobalSystemServices.Log;
 import ShoppingCart.InventoryProtector;
 import ExternalConnections.PurchasePolicies;
 import ShoppingCart.ShoppingCart;
@@ -31,6 +32,13 @@ public class BigController {
        getUserController().addSystemAdmin(whoIsAdding,user_toMakeAdmin);
     }
     public boolean deleteUser(String whosDeleting,String whosBeingDeleted) {
+        Log.getLogger().logger.info("user- "+ whosDeleting +" try to delete "+whosBeingDeleted);
+        try {
+            sc.removeAllPermissionTo(whosBeingDeleted);
+        } catch (NoPermissionException e) {
+            Log.getLogger().logger.warning("cant remove user permission"+ whosBeingDeleted +" by user "+whosDeleting+ "because:  "+ e.getMessage());
+            return false;
+        }
         return getUserController().deleteUser(whosDeleting,whosBeingDeleted);
     }
     public void sign_up(String user_name, String password) {
@@ -40,8 +48,9 @@ public class BigController {
     public void login(String user_name, String password) {
         try {
             getUserController().login(user_name, password);
-        }catch (Exception e)
-        {}
+        }catch (Exception e) {
+
+        }
     }
 
     public void logout(String user_name) {
@@ -158,8 +167,6 @@ public class BigController {
         }
         throw new IllegalArgumentException("couldn't give permission because the given userId doesn't exist or is not logged in");
     }
-
-
 
 
     public void addReviewToProduct(String storeId, String userId, String productId, String Title, String Body, float rating){

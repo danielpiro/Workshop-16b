@@ -33,9 +33,7 @@ public class StoreController {
     private boolean checkIfGuest(String userId){
         return userId.startsWith("GuestID");
     }
-    private boolean checkIfAdmin(String userId){
-        return userId.startsWith("Admin");
-    }
+
 
 
     public void addNewProduct(String storeId, String userId, String productName, float price, int supply, String category) throws NoPermissionException {
@@ -72,7 +70,7 @@ public class StoreController {
     }
 
     public void deleteStore(String userId, String storeId){
-        if(!checkIfAdmin(userId)){
+        if(!IdGenerator.getInstance().checkIfAdmin(userId)){
             throw new RuntimeException("only admin can do this action");
         }
         stores.remove(storeId);
@@ -98,6 +96,11 @@ public class StoreController {
     public void removePermissionTo(String storeId, String userIdRemoving,String UserAffectedId) throws NoPermissionException{
         Store relevantStore = stores.get(storeId);
         relevantStore.removePermissionTo(userIdRemoving, UserAffectedId);
+    }
+    public void removeAllPermissionTo(String UserId) throws NoPermissionException{
+        for (Store store : stores.values()) {
+            store.removePermissionTo(UserId);
+        }
     }
     public void givePermissionTo(String storeId, String userIdGiving,String UserGettingPermissionId,List<Permission> permissions) throws NoPermissionException {
         Store relevantStore = stores.get(storeId);

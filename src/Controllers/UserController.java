@@ -24,7 +24,7 @@ public class UserController {
         user_list = new ArrayList<>();
         guest_list=new ArrayList<>();
         system_admins = new ArrayList<>();
-        admin = new Subscriber("Admin_1","BigBoss");
+        admin = new Subscriber(IdGenerator.getInstance().getAdminId(),"BigBoss");
         add_subscriber(admin);
         add_admin(admin);
     }
@@ -120,7 +120,7 @@ public class UserController {
         if(get_subscriber(userId)==null){
             throw new IllegalArgumentException("User doesn't exist");
         }
-        if(get_subscriber(userId)!=null&&userId!="Admin_1")
+        if(get_subscriber(userId)!=null&&IdGenerator.getInstance().checkIfAdmin(userId))
             admin.getBuffer().add(new Message(userId,complaint, LocalDate.now(),StoreName));
         else{
             throw new IllegalArgumentException("system admin can't send a complaint to himself or sending user doesn't exist");
@@ -231,7 +231,7 @@ public class UserController {
         if (checkIfUserExists(whosBeingDeleted)) {
             synchronized (get_subscriber(whosBeingDeleted).getLock()) {
                 if (checkIfUserExists(whosBeingDeleted) &&
-                        checkIfUserIsLoggedIn(whosDeleting) && whosDeleting.equals("Admin_1") && !whosBeingDeleted.equals("Admin_1")) {
+                        checkIfUserIsLoggedIn(whosDeleting) && IdGenerator.getInstance().checkIfAdmin(whosDeleting)  && !IdGenerator.getInstance().checkIfAdmin(whosDeleting) ) {
 
                     for (Subscriber s : getUser_list()) {
                         if (s.getName().equals(whosBeingDeleted)) {
