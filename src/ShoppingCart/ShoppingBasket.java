@@ -55,6 +55,15 @@ public class ShoppingBasket {
             return -1;
         return -1;
     }
+    public int removeAllProduct(String productID) {
+        if (productAmount.containsKey(productID)) {
+            productAmount.remove(productID);
+            return 0;
+        }
+            else
+               return -1;
+
+    }
 
     public String getInventory (){
         StringBuilder sb = new StringBuilder();

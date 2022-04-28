@@ -25,9 +25,7 @@ public abstract class User {
     public int removeProduct(String productID, String storeID, int amount){
         return shoppingCart.removeProduct(productID,storeID,amount);
     }
-    public int addProduct(String productID, String storeID, int amount,boolean auctionOrBid) {
-    return addProduct(productID,storeID,amount,auctionOrBid);
-    }
+
     public int addProduct(String productID, String storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
     return shoppingCart.addProduct(productID,storeID,amount,inventoryProtector,auctionOrBid);
  }

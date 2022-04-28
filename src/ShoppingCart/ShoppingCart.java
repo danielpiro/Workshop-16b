@@ -47,26 +47,19 @@ public class ShoppingCart {
         return 1;
 
     }
-
-
-    // to use when we already have an instance of the store
-    public int addProduct(String productID, String storeID, int amount,boolean auctionOrBid) {
-
-        if (basketCases.containsKey(storeID) && auctionOrBid == false)
-            basketCases.get(storeID).addProduct(productID, amount);
-        else if(basketCases.containsKey(storeID) && auctionOrBid == true)
-            basketCases.get(storeID).addProductAuction(productID, amount);
-        else {
-            my_log.logger.warning("could not add Product, store Id "+ storeID +" does not exist");
-
+    public int removeAllProduct(String productID, String storeID) {
+        if (basketCases.containsKey(storeID)) {
+            basketCases.get(storeID).removeAllProduct(productID);
+            my_log.logger.info("removed Product");
+        } else {
+            my_log.logger.warning("could not remove Product");
             return -1;
-        }
-        my_log.logger.info("Product added");
 
+        }
         return 1;
 
-
     }
+
 
 
 

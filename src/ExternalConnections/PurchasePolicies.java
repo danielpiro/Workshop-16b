@@ -29,6 +29,11 @@ public class PurchasePolicies {
             answer = delivery.Delivery(deliveryDetails);
             answer +=payment.payment(total);
         }
+
+
+
+
+
         return answer;
 
     }
