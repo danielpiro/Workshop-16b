@@ -2,6 +2,7 @@ package Controllers;
 
 import GlobalSystemServices.IdGenerator;
 import GlobalSystemServices.Log;
+import ShoppingCart.InventoryProtector;
 import Store.Store;
 import StorePermission.Permission;
 import StorePermission.StoreRoles;
@@ -182,5 +183,8 @@ public class StoreController {
     }
 
 
-
+    //todo remove
+    public InventoryProtector getInventoryProtector(String storeID) throws Exception {
+        throw new Exception("LALALA");
+    }
 }

@@ -47,9 +47,9 @@ public class ShoppingCart {
         return 1;
 
     }
-    public int removeAllProduct(String productID, String storeID) {
+    public int removeCompleteyProduct(String productID, String storeID) {
         if (basketCases.containsKey(storeID)) {
-            basketCases.get(storeID).removeAllProduct(productID);
+            basketCases.get(storeID).removeCompleteyProduct(productID);
             my_log.logger.info("removed Product");
         } else {
             my_log.logger.warning("could not remove Product");
@@ -136,7 +136,7 @@ public class ShoppingCart {
 
 
     //Iterate through all baskets, in each basket iterate through each item and add it to history;
-    public boolean recordPurchase (){
+    private boolean recordPurchase (){
 
 
         my_log.logger.info("Recording Purchase from user: " + userId );
@@ -157,6 +157,8 @@ public class ShoppingCart {
 
 
             }
+            basketCases=new HashMap<String, ShoppingBasket>();
+
 
 
         return true;

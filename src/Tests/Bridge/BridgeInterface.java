@@ -1,6 +1,9 @@
 package Tests.Bridge;
 
+import History.PurchaseHistory;
+
 import java.util.HashMap;
+import java.util.List;
 
 public interface BridgeInterface {
     /** requirement 1.b in V1 */
@@ -117,7 +120,7 @@ public interface BridgeInterface {
     String showStoreOfficials(String storeName);
 
     /** User requirement - II.4.13 */
-    String showStorePurchaseHistory(String storeName);
+    List<PurchaseHistory> showStorePurchaseHistory(String storeName);
 
     /** User requirement - II.6.4 */
     String showPurchaseHistoryForSystemFounder(String storeOrUser, String name);

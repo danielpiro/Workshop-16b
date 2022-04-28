@@ -63,6 +63,7 @@ public class UserController {
         }
         return get_subscriber(user_id).containsStore(storeID);
     }
+
     public int removeProduct(String user_id,String productID, String storeID, int amount) {
         if(get_subscriber(user_id)==null){
             throw new IllegalArgumentException("User doesn't exist");
@@ -79,6 +80,9 @@ public class UserController {
         }
         return get_subscriber(user_id).addProduct(productID,storeID,amount,inventoryProtector,auctionOrBid);
     }
+
+
+
     public String getCartInventory(String user_id) {
         if(get_subscriber(user_id)==null){
             throw new IllegalArgumentException("User doesn't exist");
@@ -152,6 +156,7 @@ public class UserController {
         }
 
     }
+
 
     public void logout(String user_name) {
         my_log.logger.info("logout");

@@ -79,4 +79,9 @@ public class History {
 
         return phList;
     }
+    public HashMap<Integer,PurchaseHistory> getAllHistory (String storeId) {
+
+        return purchaseHistoryHashMap;
+    }
+
 }

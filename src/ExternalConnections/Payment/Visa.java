@@ -2,49 +2,25 @@ package ExternalConnections.Payment;
 
 import ExternalConnections.ExternalConnections;
 
-public class Visa implements Payment {
+public class Visa extends Payment {
 
-    private boolean connected;
-    private String name;
-    private boolean taken;
-    private int identifier;
+
 
     public Visa() {
-        connected=false;
-        name = "Visa";
-        identifier = ExternalConnections.getInstance().getId();
+        super(false,"Visa",ExternalConnections.getInstance().getId(),false);
     }
 
 
-
-    private int internalPayment (float total){
-
-
-
-    }
-    
-
-
-
-
-    public synchronized boolean setTakenTrue(){
-        if(taken == false) {
-            taken = true;
-            return true;
-        }
-        return false;
-    }
-    public synchronized boolean setTakenFree(){
-        if(taken == true) {
-            taken = false;
-            return true;
-        }
-        return false;
+    // 0 is
+    @Override
+    protected int internalPayment(float total) {
+        if(total>0)
+            return 0;
+        return -1;
     }
 
     @Override
-    public  synchronized boolean isTaken() {
-        return taken;
+    public boolean connect(int key) {
+        return false;
     }
-
 }
