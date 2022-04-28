@@ -1,7 +1,7 @@
 package ExternalConnections.Payment;
 
 public abstract class Payment {
-    private boolean connected;
+    protected boolean connected;
     private String name;
     private int identifier;
     private boolean taken;

@@ -1,3 +1,4 @@
+/*
 package Tests.Bridge;
 
 import Store.Store;
@@ -120,21 +121,37 @@ public class Proxy implements BridgeInterface {
         stores.add(new Store("store1", products));
     }
 
-    /** requirement 1.b in V1 */
+*/
+/** requirement 1.b in V1 *//*
+*/
+/*
+
     public String parallelUse() { //Need to implement thread-base system
         if(real!=null)
             return real.parallelUse();
         throw new UnsupportedOperationException("Not Implemented Yet - Ask Backend Group");
     }
 
-    /** requirement 1.c in V1 */
+    *//*
+
+*/
+/** requirement 1.c in V1 *//*
+*/
+/*
+
     public String systemLogging() { //Need to create log file (containing error logs)
         if(real!=null)
             return real.parallelUse();
         throw new UnsupportedOperationException("Not Implemented Yet - Ask Backend Group");
     }
 
-    /** System requirement - I.1 */
+    *//*
+
+*/
+/** System requirement - I.1 *//*
+*/
+/*
+
     public String openingMarket(){
         if(real!=null)
             return real.openingMarket();
@@ -157,7 +174,13 @@ public class Proxy implements BridgeInterface {
         return "fail - system didn't upload all the users or stores";
     }
 
-    /** System requirement - I.2 */
+    *//*
+
+*/
+/** System requirement - I.2 *//*
+*/
+/*
+
     public String changeExternalService(int currServiceCode, String currServiceName,
                                  int newServiceCode, String newServiceName){
         //Valid ServiceCode includes only positive numbers
@@ -174,7 +197,13 @@ public class Proxy implements BridgeInterface {
         }
     }
 
-    /** System requirement - I.2 */
+    *//*
+
+*/
+/** System requirement - I.2 *//*
+*/
+/*
+
     public String switchExternalService(int currServiceCode, String currServiceName,
                                  int newServiceCode, String newServiceName){
         //Valid ServiceCode includes only positive numbers
@@ -191,7 +220,13 @@ public class Proxy implements BridgeInterface {
         }
     }
 
-    /** System requirement - I.2 */
+    *//*
+
+*/
+/** System requirement - I.2 *//*
+*/
+/*
+
     public String addExternalService(int serviceCode, String serviceName){
         //Valid ServiceCode includes only positive numbers
         //Valid ServiceName includes only letters
@@ -204,7 +239,13 @@ public class Proxy implements BridgeInterface {
             return "adding services done successfully";
     }
 
-    /** System requirement - I.3 */
+    *//*
+
+*/
+/** System requirement - I.3 *//*
+*/
+/*
+
     public String payment(){
         if(real!=null)
             return real.payment();
@@ -213,7 +254,13 @@ public class Proxy implements BridgeInterface {
         return "Payment done successfully";
     }
 
-    /** System requirement - I.4 */
+    *//*
+
+*/
+/** System requirement - I.4 *//*
+*/
+/*
+
     public String delivery(){
         if(real!=null)
             return real.delivery();
@@ -222,7 +269,13 @@ public class Proxy implements BridgeInterface {
         return "Delivery done successfully";
     }
 
-    /** System requirement - I.5 */
+    *//*
+
+*/
+/** System requirement - I.5 *//*
+*/
+/*
+
     public String realtimeNotificationProductBought(){
         if(real!=null)
             return real.realtimeNotificationProductBought();
@@ -231,7 +284,13 @@ public class Proxy implements BridgeInterface {
         return "TODO!";
     }
 
-    /** System requirement - I.5 */
+    *//*
+
+*/
+/** System requirement - I.5 *//*
+*/
+/*
+
     public String realtimeNotificationStoreClosed(){
         if(real!=null)
             return real.realtimeNotificationStoreClosed();
@@ -240,7 +299,13 @@ public class Proxy implements BridgeInterface {
         return "TODO!";
     }
 
-    /** System requirement - I.5 */
+    *//*
+
+*/
+/** System requirement - I.5 *//*
+*/
+/*
+
     public String realtimeNotificationStoreReopened(){
         if(real!=null)
             return real.realtimeNotificationStoreReopened();
@@ -249,7 +314,13 @@ public class Proxy implements BridgeInterface {
         return "TODO!";
     }
 
-    /** System requirement - I.5 */
+    *//*
+
+*/
+/** System requirement - I.5 *//*
+*/
+/*
+
     public String realtimeNotificationUserPermissionUpdate(){
         if(real!=null)
             return real.realtimeNotificationUserPermissionUpdate();
@@ -258,7 +329,13 @@ public class Proxy implements BridgeInterface {
         return "TODO!";
     }
 
-    /** System requirement - I.6 */
+    *//*
+
+*/
+/** System requirement - I.6 *//*
+*/
+/*
+
     public String offlineNotificationProductBought(){
         if(real!=null)
             return real.offlineNotificationProductBought();
@@ -267,7 +344,13 @@ public class Proxy implements BridgeInterface {
         return "TODO!";
     }
 
-    /** System requirement - I.6 */
+    *//*
+
+*/
+/** System requirement - I.6 *//*
+*/
+/*
+
     public String offlineNotificationStoreClosed(){
         if(real!=null)
             return real.offlineNotificationStoreClosed();
@@ -276,7 +359,13 @@ public class Proxy implements BridgeInterface {
         return "TODO!";
     }
 
-    /** System requirement - I.6 */
+    *//*
+
+*/
+/** System requirement - I.6 *//*
+*/
+/*
+
     public String offlineNotificationStoreReopened(){
         if(real!=null)
             return real.offlineNotificationStoreReopened();
@@ -285,7 +374,13 @@ public class Proxy implements BridgeInterface {
         return "TODO!";
     }
 
-    /** System requirement - I.6 */
+    *//*
+
+*/
+/** System requirement - I.6 *//*
+*/
+/*
+
     public String offlineNotificationUserPermissionUpdate(){
         if(real!=null)
             return real.offlineNotificationUserPermissionUpdate();
@@ -294,7 +389,13 @@ public class Proxy implements BridgeInterface {
         return "TODO!";
     }
 
-    /** User requirement - II.1.1 */
+    *//*
+
+*/
+/** User requirement - II.1.1 *//*
+*/
+/*
+
     public String getInToTheSystem(){
         if(real!=null)
             return real.getInToTheSystem();
@@ -310,7 +411,13 @@ public class Proxy implements BridgeInterface {
         return "fail - user failed to get-in";
     }
 
-    /** User requirement - II.1.2 */
+    *//*
+
+*/
+/** User requirement - II.1.2 *//*
+*/
+/*
+
     public String getOutFromTheSystem(){
         if(real!=null)
             return real.getOutFromTheSystem();
@@ -358,7 +465,13 @@ public class Proxy implements BridgeInterface {
         return "user got out successfully";
     }
 
-    /** User requirement - II.1.3 */
+    *//*
+
+*/
+/** User requirement - II.1.3 *//*
+*/
+/*
+
     public String register(String username, String password){
         //username has to contain at least 3 characters
         //password has to contain at least 4 characters
@@ -379,7 +492,13 @@ public class Proxy implements BridgeInterface {
         return "the user registered successfully";
     }
 
-    /** User requirement - II.1.4 */
+    *//*
+
+*/
+/** User requirement - II.1.4 *//*
+*/
+/*
+
     public String login(String username, String password){
         //username has to contain at least 3 characters
         //password has to contain at least 4 characters
@@ -402,7 +521,13 @@ public class Proxy implements BridgeInterface {
         return "fail - wrong username / no such username in the system";
     }
 
-    /** User requirement - II.2.1 */
+    *//*
+
+*/
+/** User requirement - II.2.1 *//*
+*/
+/*
+
     public String receiveSystemInfo(){
         if(real!=null)
             return real.receiveSystemInfo();
@@ -419,7 +544,13 @@ public class Proxy implements BridgeInterface {
         return str;
     }
 
-    /** User requirement - II.2.2 */
+    *//*
+
+*/
+/** User requirement - II.2.2 *//*
+*/
+/*
+
     public String searchProduct(String productName){
         if(real!=null)
             return real.searchProduct(productName);
@@ -438,7 +569,13 @@ public class Proxy implements BridgeInterface {
             return "there's no such product in the system (in any store)";
     }
 
-    /** User requirement - II.2.3 */
+    *//*
+
+*/
+/** User requirement - II.2.3 *//*
+*/
+/*
+
     public String saveProductFromStoreToShoppingCart(String storeName, String productName){
         if(real!=null)
             return real.saveProductFromStoreToShoppingCart(storeName, productName);
@@ -461,7 +598,13 @@ public class Proxy implements BridgeInterface {
         return "fail - wrong store name";
     }
 
-    /** User requirement - II.2.4 */
+    *//*
+
+*/
+/** User requirement - II.2.4 *//*
+*/
+/*
+
     public String showShoppingCart(){
         if(real!=null)
             return real.showShoppingCart();
@@ -472,7 +615,13 @@ public class Proxy implements BridgeInterface {
         //currentUserInSystem.getShoppingCart();
         return "showing user's shopping cart";
     }
-    /** User requirement - II.2.4 */
+    *//*
+
+*/
+/** User requirement - II.2.4 *//*
+*/
+/*
+
     //inc. by 1!
     public String increaseProductQuantityInShoppingCart(String productName){
         if(real!=null)
@@ -491,7 +640,13 @@ public class Proxy implements BridgeInterface {
         }
         return "failed to increase product quantity";
     }
-    /** User requirement - II.2.4 */
+    *//*
+
+*/
+/** User requirement - II.2.4 *//*
+*/
+/*
+
     //dec. by 1!
     public String decreaseProductQuantityInShoppingCart(String productName){
         if(real!=null)
@@ -512,7 +667,13 @@ public class Proxy implements BridgeInterface {
         }
         return "failed to decrease product quantity";
     }
-    /** User requirement - II.2.4 */
+    *//*
+
+*/
+/** User requirement - II.2.4 *//*
+*/
+/*
+
     public String removeProductFromShoppingCart(String productName){
         if(real!=null)
             return real.removeProductFromShoppingCart(productName);
@@ -530,7 +691,13 @@ public class Proxy implements BridgeInterface {
         return "failed to remove product quantity";
     }
 
-    /** User requirement - II.2.5 */
+    *//*
+
+*/
+/** User requirement - II.2.5 *//*
+*/
+/*
+
     public String purchaseShoppingCart(){
         if(real!=null)
             return real.purchaseShoppingCart();
@@ -539,7 +706,13 @@ public class Proxy implements BridgeInterface {
         return "TODO!";
     }
 
-    /** User requirement - II.3.1 */
+    *//*
+
+*/
+/** User requirement - II.3.1 *//*
+*/
+/*
+
     public String logout(){
         if(real!=null)
             return real.logout();
@@ -555,7 +728,13 @@ public class Proxy implements BridgeInterface {
         return "logout done successfully";
     }
 
-    /** User requirement - II.3.2 */
+    *//*
+
+*/
+/** User requirement - II.3.2 *//*
+*/
+/*
+
     public String openStore(String storeName, HashMap<Product, Integer> products){
         //storeName has to have at least 5 characters
         if(real!=null)
@@ -583,7 +762,13 @@ public class Proxy implements BridgeInterface {
         return "store was opened successfully";
     }
 
-    /** User requirement - II.4.1 */
+    *//*
+
+*/
+/** User requirement - II.4.1 *//*
+*/
+/*
+
     public String addProductToStore(String storeName, String productName, int productPrice, int productQuantity){
         //productName has to have at least 2 characters
         if(real!=null)
@@ -617,7 +802,13 @@ public class Proxy implements BridgeInterface {
         }
         return "fail - should never happen!";
     }
-    /** User requirement - II.4.1 */
+    *//*
+
+*/
+/** User requirement - II.4.1 *//*
+*/
+/*
+
     public String removeProductFromStore(String storeName, String productName){
         if(real!=null)
             return real.removeProductFromStore(storeName, productName);
@@ -646,7 +837,13 @@ public class Proxy implements BridgeInterface {
         }
         return "failed to remove product (check storeName or productName)";
     }
-    /** User requirement - II.4.1 */
+    *//*
+
+*/
+/** User requirement - II.4.1 *//*
+*/
+/*
+
     public String editProductInStore(String storeName, String productName, String newProductName,
                                      int newProductPrice, int newProductQuantity){
         if(real!=null)
@@ -681,7 +878,13 @@ public class Proxy implements BridgeInterface {
         return "failed to edit product (check storeName or productName)";
     }
 
-    /** User requirement - II.4.2 */
+    *//*
+
+*/
+/** User requirement - II.4.2 *//*
+*/
+/*
+
     public String changeStorePolicy(String storeName, String newStorePolicy){
         //policy should contain at least 10 characters;
         if(real!=null)
@@ -709,7 +912,13 @@ public class Proxy implements BridgeInterface {
         return "failed to change policy (Check store name)";
     }
 
-    /** User requirement - II.4.4 */
+    *//*
+
+*/
+/** User requirement - II.4.4 *//*
+*/
+/*
+
     public String addNewStoreOwner(String storeName, String newStoreOwnerUserName){
         if(real!=null)
             return real.addNewStoreOwner(storeName, newStoreOwnerUserName);
@@ -748,7 +957,13 @@ public class Proxy implements BridgeInterface {
         return "the user is now store owner";
     }
 
-    /** User requirement - II.4.6 */
+    *//*
+
+*/
+/** User requirement - II.4.6 *//*
+*/
+/*
+
     public String addNewStoreManager(String storeName, String newStoreManagerUserName){
         if(real!=null)
             return real.addNewStoreManager(storeName, newStoreManagerUserName);
@@ -787,7 +1002,13 @@ public class Proxy implements BridgeInterface {
         return "the user is now store manager";
     }
 
-    /** User requirement - II.4.7 */
+    *//*
+
+*/
+/** User requirement - II.4.7 *//*
+*/
+/*
+
     public String changeStoreManagerPermissions(String storeName, String storeManagerUserName, User.permission newPermission){
         if(real!=null)
             return real.changeStoreManagerPermissions(storeName, storeManagerUserName, newPermission);
@@ -826,7 +1047,13 @@ public class Proxy implements BridgeInterface {
         return "fail - there's no such store in the system";
     }
 
-    /** User requirement - II.4.9 */
+    *//*
+
+*/
+/** User requirement - II.4.9 *//*
+*/
+/*
+
     public String closeStoreByOwner(String storeName){
         if(real!=null)
             return real.closeStoreByOwner(storeName);
@@ -852,7 +1079,13 @@ public class Proxy implements BridgeInterface {
         return "failed to close store (Check store name)";
     }
 
-    /** User requirement - II.4.11 */
+    *//*
+
+*/
+/** User requirement - II.4.11 *//*
+*/
+/*
+
     public String showStoreOfficials(String storeName){
         if(real!=null)
             return real.showStoreOfficials(storeName);
@@ -875,7 +1108,13 @@ public class Proxy implements BridgeInterface {
         return "failed to show the store's officials";
     }
 
-    /** User requirement - II.4.13 */
+    *//*
+
+*/
+/** User requirement - II.4.13 *//*
+*/
+/*
+
     public String showStorePurchaseHistory(String storeName){
         if(real!=null)
             return real.showStorePurchaseHistory(storeName);
@@ -898,7 +1137,13 @@ public class Proxy implements BridgeInterface {
         return "failed to show the store's purchase history";
     }
 
-    /** User requirement - II.6.4 */
+    *//*
+
+*/
+/** User requirement - II.6.4 *//*
+*/
+/*
+
     public String showPurchaseHistoryForSystemFounder(String storeOrUser, String name){
         if(real!=null)
             return real.showPurchaseHistoryForSystemFounder(storeOrUser, name);
@@ -917,3 +1162,5 @@ public class Proxy implements BridgeInterface {
             return "fail - user have to ask user/store only";
     }
 }
+/* */
+

@@ -6,7 +6,7 @@ public class UPS extends Delivery {
 
 
     public UPS() {
-        super(false,"MaserCard",ExternalConnections.getInstance().getId(),false);
+        super(false,"UPS",ExternalConnections.getInstance().getId(),false);
     }
 
     @Override
@@ -18,6 +18,7 @@ public class UPS extends Delivery {
 
     @Override
     public boolean connect(int key) {
+        connected = true;
         return true;
     }
 }

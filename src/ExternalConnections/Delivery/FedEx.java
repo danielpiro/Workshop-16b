@@ -19,6 +19,7 @@ public class FedEx extends Delivery {
 
     @Override
     public boolean connect(int key) {
+        connected =true;
         return true;
     }
 }

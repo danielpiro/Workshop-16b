@@ -101,15 +101,7 @@ public class UserController {
         }
      return get_subscriber(user_id).purchaseCart(purchasePolicies);
     }
-    public boolean recordPurchase (String user_id) {
-        if(get_subscriber(user_id)==null){
-            throw new IllegalArgumentException("User doesn't exist");
-        }
-        if(checkIfUserIsLoggedIn(user_id)){
-            throw new IllegalArgumentException("User is not logged in");
-        }
-        return get_subscriber(user_id).recordPurchase();
-    }
+
 
         //String sender_id, String message, LocalDate date,String storeName
     public void sendComplaint(String userId, String StoreName,String complaint ){

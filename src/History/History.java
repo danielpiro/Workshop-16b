@@ -44,7 +44,7 @@ public class History {
 
     }
 
-    public void PrintHistory() {
+    public void printHistory() {
 
         for (Map.Entry<Integer, PurchaseHistory> ph : purchaseHistoryHashMap.entrySet()) {
             System.out.println(ph.toString().substring(2));

@@ -18,6 +18,7 @@ import Views.ProductView;
 
 import javax.naming.NoPermissionException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -123,9 +124,6 @@ public class BigController {
 
 
         return getUserController().purchaseCart(user_id,new PurchasePolicies(payment,delivery));
-    }
-    public boolean recordPurchase (String user_id) {
-        return getUserController().recordPurchase(user_id);
     }
 
     /// Store controller
