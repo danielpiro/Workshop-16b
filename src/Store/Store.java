@@ -1,6 +1,7 @@
 package Store;
 
 import GlobalSystemServices.IdGenerator;
+import ShoppingCart.InventoryProtector;
 import Store.Forum.Forum;
 import StorePermission.OriginalStoreManagerRole;
 import StorePermission.Permission;
@@ -131,7 +132,10 @@ public class Store {
     }
 
 
-
+    public InventoryProtector getInventoryProtector(){
+        InventoryProtector InProtected = inventoryManager;
+        return InProtected;
+    }
 
     public String getId() {
         return storeId;

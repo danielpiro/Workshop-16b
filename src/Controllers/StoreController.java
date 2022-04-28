@@ -2,6 +2,7 @@ package Controllers;
 
 import GlobalSystemServices.IdGenerator;
 import GlobalSystemServices.Log;
+import ShoppingCart.InventoryProtector;
 import Store.Store;
 import StorePermission.Permission;
 import StorePermission.StoreRoles;
@@ -24,17 +25,16 @@ public class StoreController {
         stores = new HashMap<String, Store>();
     }
 
-    public void openNewStore(String name,List<String> managers){
+    public String openNewStore(String name,List<String> managers){
         String newId = IdGenerator.getInstance().getStoreId();
         Store newStore= new Store(name, newId, managers);
         stores.put(newId, newStore);
+        return newId;
     }
 
     private boolean checkIfGuest(String userId){
         return userId.startsWith("GuestID");
     }
-
-
 
     public void addNewProduct(String storeId, String userId, String productName, float price, int supply, String category) throws NoPermissionException {
         if(checkIfGuest(userId)){
@@ -107,6 +107,10 @@ public class StoreController {
         relevantStore.givePermissionTo(userIdGiving, UserGettingPermissionId, permissions);
     }
 
+    public InventoryProtector getInventoryProtector(String storeId){
+        Store relevantStore = stores.get(storeId);
+        return relevantStore.getInventoryProtector();
+    }
 
 
 
