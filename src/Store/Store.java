@@ -1,9 +1,11 @@
 package Store;
 
 import GlobalSystemServices.IdGenerator;
+import History.History;
+import History.PurchaseHistory;
 import ShoppingCart.InventoryProtector;
 import Store.Forum.Forum;
-import StorePermission.OriginalStoreManagerRole;
+import StorePermission.OriginalStoreOwnerRole;
 import StorePermission.Permission;
 import StorePermission.StoreRoles;
 import Views.ProductView;
@@ -27,7 +29,7 @@ public class Store {
     public Store(String storeName, String storeId, List<String> storeOriginalManager) {
         this.storeName = storeName;
         this.storeId = storeId;
-        StoreRoles = storeOriginalManager.stream().map(OriginalStoreManagerRole::new).collect(Collectors.toList());
+        StoreRoles = storeOriginalManager.stream().map(OriginalStoreOwnerRole::new).collect(Collectors.toList());
         inventoryManager = new InventoryManager();
         forum =new Forum();
         storeState = StoreState.ACTIVE;
@@ -45,20 +47,34 @@ public class Store {
         return false;
     }
 
-    public void givePermissionTo(String userIdGiving,String UserGettingPermission,List<Permission> permissions) throws NoPermissionException {
+    public void createManager(String userIdGiving, String UserGettingPermission) throws NoPermissionException {
         for (StoreRoles roleUser : StoreRoles) {
             if (roleUser.getUserId().equals(UserGettingPermission) ) {
                 throw new NoPermissionException("cant give permissions to user who is already manager");
             }
         }
-        for (StoreRoles roleUser :
-                StoreRoles) {
+        for (StoreRoles roleUser : StoreRoles) {
             if (roleUser.getUserId().equals(userIdGiving) ) {
-                roleUser.createAnotherManager(UserGettingPermission,permissions);
+                roleUser.createManager(UserGettingPermission);
                 return;
             }
         }
-        throw new NoPermissionException("the user is not manager");
+        throw new NoPermissionException("the user is not manager/owner");
+    }
+    public void createOwner(String userIdGiving, String UserGettingPermission, List<Permission> permissions) throws NoPermissionException {
+        for (StoreRoles roleUser : StoreRoles) {
+            if (roleUser.getUserId().equals(UserGettingPermission) ) {
+                throw new NoPermissionException("cant give permissions to user who is already owner");
+            }
+        }
+        for (StoreRoles roleUser :
+                StoreRoles) {
+            if (roleUser.getUserId().equals(userIdGiving) ) {
+                roleUser.createOwner(UserGettingPermission,permissions);
+                return;
+            }
+        }
+        throw new NoPermissionException("the user is not manager/owner");
     }
     private void removePermissionTo(List<String> RolesToRemove){
         for (String id : RolesToRemove) {
@@ -195,7 +211,7 @@ public class Store {
         storeState = StoreState.ACTIVE;
     }
 
-    public List<StoreRoles> getInfoOnManagers(String userId) throws NoPermissionException {
+    public List<StoreRoles> getInfoOnManagersOwners(String userId) throws NoPermissionException {
         if(!checkPermission(userId, Permission.INFO_OF_MANAGERS)){
             throw new NoPermissionException("the user don't have this permission");
         }
@@ -206,6 +222,11 @@ public class Store {
     public ProductView getProduct(String productId) throws Exception {
         return inventoryManager.getProduct(productId);
     }
-
+     public List<PurchaseHistory> getStoreHistory(String userId) throws NoPermissionException {
+         if(!checkPermission(userId, Permission.VIEW_STORE_HISTORY)){
+             throw new NoPermissionException("the user don't have this permission");
+         }
+        return History.getInstance().getStoreHistory(storeId);
+    }
 
 }

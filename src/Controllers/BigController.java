@@ -18,6 +18,7 @@ import Views.ProductView;
 
 import javax.naming.NoPermissionException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -159,10 +160,10 @@ public class BigController {
         else
             throw new IllegalArgumentException("couldn't open store because the given userId doesn't exist or is not logged in");
     }
-    public List<StoreRoles> getInfoOnManagers(String storeId, String userId) throws NoPermissionException {
+    public List<StoreRoles> getInfoOnManagersOwners(String storeId, String userId) throws NoPermissionException {
         if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId))
             throw new IllegalArgumentException("User doesn't exist or is not logged in");
-        getStoreController().getInfoOnManagers(storeId,userId);
+        getStoreController().getInfoOnManagersOwners(storeId,userId);
         return Collections.EMPTY_LIST;
     }
     public void editProduct(String storeId, String userId, String productId, int newSupply, String newName, float newPrice, String category) throws NoPermissionException {
@@ -187,12 +188,20 @@ public class BigController {
             throw new IllegalArgumentException("couldn't remove permission because the given userId doesn't exist or is not logged in");
     }
 
-    public void givePermissionTo(String storeId, String userIdGiving,String UserGettingPermissionId,List<Permission> permissions) throws NoPermissionException {
+    public void createOwner(String storeId, String userIdGiving, String UserGettingPermissionId, List<Permission> permissions) throws NoPermissionException {
         if(getUserController().checkIfUserExists(userIdGiving) && getUserController().checkIfUserExists(UserGettingPermissionId)&&getUserController().checkIfUserIsLoggedIn(userIdGiving)){
-            getStoreController().givePermissionTo(storeId,userIdGiving,UserGettingPermissionId,permissions);
+            getStoreController().createOwner(storeId,userIdGiving,UserGettingPermissionId,permissions);
         }
         throw new IllegalArgumentException("couldn't give permission because the given userId doesn't exist or is not logged in");
     }
+    public void createManager(String storeId, String userIdGiving, String UserGettingPermissionId) throws NoPermissionException {
+        if(getUserController().checkIfUserExists(userIdGiving) && getUserController().checkIfUserExists(UserGettingPermissionId)&&getUserController().checkIfUserIsLoggedIn(userIdGiving)){
+            getStoreController().createManager(storeId,userIdGiving,UserGettingPermissionId);
+        }
+        throw new IllegalArgumentException("couldn't give permission because the given userId doesn't exist or is not logged in");
+    }
+
+
 
 
     public void addReviewToProduct(String storeId, String userId, String productId, String Title, String Body, float rating){

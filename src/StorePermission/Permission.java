@@ -1,7 +1,6 @@
 package StorePermission;
 
 public enum Permission {
-    VIEW_AND_RESPOND_TO_USERS,
     VIEW_STORE_HISTORY,
     EDIT_EXISTING_PRODUCT,
     ADD_NEW_PRODUCT,
@@ -11,6 +10,7 @@ public enum Permission {
     ASSIGN_STORE_MANAGER,
     REMOVE_STORE_MANAGER,
     ADD_REVIEW_TO_PRODUCT,
+    VIEW_FORUM,
     REPLY_TO_FORUM,
     CLOSE_STORE,
     OPEN_STORE,

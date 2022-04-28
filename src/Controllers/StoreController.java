@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+//todo add view history function
 public class StoreController {
     private HashMap<String,Store> stores; // storeId and the store
 
@@ -64,12 +64,12 @@ public class StoreController {
         relevantStore.openStore(userId);
     }
 
-    public List<StoreRoles> getInfoOnManagers(String storeId, String userId) throws NoPermissionException {
+    public List<StoreRoles> getInfoOnManagersOwners(String storeId, String userId) throws NoPermissionException {
         if(checkIfGuest(userId)){
             throw new RuntimeException("guest cant do this action");
         }
         Store relevantStore = stores.get(storeId);
-        return relevantStore.getInfoOnManagers(userId);
+        return relevantStore.getInfoOnManagersOwners(userId);
     }
 
     public void deleteStore(String userId, String storeId){
@@ -105,11 +105,17 @@ public class StoreController {
             store.removePermissionTo(UserId);
         }
     }
-    public void givePermissionTo(String storeId, String userIdGiving,String UserGettingPermissionId,List<Permission> permissions) throws NoPermissionException {
+    public void createOwner(String storeId, String userIdGiving, String UserGettingPermissionId, List<Permission> permissions) throws NoPermissionException {
         Store relevantStore = stores.get(storeId);
-        relevantStore.givePermissionTo(userIdGiving, UserGettingPermissionId, permissions);
+        relevantStore.createOwner(userIdGiving, UserGettingPermissionId, permissions);
     }
-
+    public void createManager(String storeId, String userIdGiving, String UserGettingPermissionId) throws NoPermissionException {
+        Store relevantStore = stores.get(storeId);
+        relevantStore.createManager(userIdGiving, UserGettingPermissionId);
+    }
+    public void editPermitions(){
+        //todo add option to edit permitions
+    }
     public InventoryProtector getInventoryProtector(String storeId){
         Store relevantStore = stores.get(storeId);
         return relevantStore.getInventoryProtector();
@@ -192,8 +198,5 @@ public class StoreController {
     }
 
 
-    //todo remove
-    public InventoryProtector getInventoryProtector(String storeID) throws Exception {
-        throw new Exception("LALALA");
-    }
+
 }

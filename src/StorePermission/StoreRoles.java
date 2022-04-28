@@ -2,6 +2,7 @@ package StorePermission;
 
 import GlobalSystemServices.IdGenerator;
 
+import javax.naming.NoPermissionException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +20,10 @@ public abstract class  StoreRoles {
     public String getUserId() {
         return userId;
     }
-    public abstract StoreManagerRole createAnotherManager(String userId,List<Permission> givePerm);
+
+    public abstract StoreOwnerRole createOwner(String userId, List<Permission> givePerm) throws NoPermissionException;
+    public abstract StoreManager createManager(String userId) throws NoPermissionException;
+
     public List<Permission> getPermissions(){
         return Collections.unmodifiableList(storePermissions);
     }
