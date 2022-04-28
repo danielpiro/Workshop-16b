@@ -2,7 +2,9 @@ package Tests.Bridge;
 
 import Controllers.BigController;
 import ExternalConnections.Payment.Payment;
+import Store.Product;
 
+import javax.naming.NoPermissionException;
 import java.util.HashMap;
 
 public class Real implements BridgeInterface{
@@ -57,7 +59,7 @@ public class Real implements BridgeInterface{
 
     }
     public String AddPayment(Payment payment){
-
+        return "";
 
     }
 
@@ -187,17 +189,48 @@ public class Real implements BridgeInterface{
     }
 
     /** User requirement - II.3.2 */
-    public String openStore(String storeName, HashMap<Product, Integer> products){
-        throw new UnsupportedOperationException("Not Implemented Yet");
+    public boolean openStore(String userID, String storeName, HashMap<Product, Integer> products){
+        try {
+            String storeId = bigController.openNewStore(storeName, userID);
+            for (Product p : products.keySet()) {
+                addProductToStore(storeId, userID , p.getName(), p.getPrice(), products.get(p), p.getCategory().toString());
+            }
+            return true;
+        }
+        catch (Exception e){
+            return false;
+        }
+
+    }
+    public boolean openStore(String userID, String storeName){
+        try {
+            bigController.openNewStore(storeName, userID);
+            return true;
+        }
+        catch (Exception e){
+            return false;
+        }
     }
 
     /** User requirement - II.4.1 */
-    public String addProductToStore(String storeName, String productName, int productPrice, int productQuantity){
-        throw new UnsupportedOperationException("Not Implemented Yet");
+    public boolean addProductToStore(String storeId, String userId, String productName, float price, int supply, String category){
+        try {
+            bigController.addNewProduct(storeId,userId,productName,price,supply,category);
+            return true;
+        } catch (NoPermissionException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
     /** User requirement - II.4.1 */
-    public String removeProductFromStore(String storeName, String productName){
-        throw new UnsupportedOperationException("Not Implemented Yet");
+    public boolean removeProductFromStore(String storeId,String userId,String productId){
+        try {
+            bigController.deleteProduct(storeId,userId, productId);
+            return true;
+        } catch (NoPermissionException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
     /** User requirement - II.4.1 */
     public String editProductInStore(String storeName, String productName, String newProductName,

@@ -1,5 +1,7 @@
 package Tests.Bridge;
 
+import Store.Store;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 

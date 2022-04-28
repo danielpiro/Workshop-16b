@@ -26,6 +26,9 @@ public class StoreController {
     }
 
     public String openNewStore(String name,List<String> managers){
+        if(managers.stream().anyMatch(this::checkIfGuest) ){
+            throw new RuntimeException("guest cant do this action");
+        }
         String newId = IdGenerator.getInstance().getStoreId();
         Store newStore= new Store(name, newId, managers);
         stores.put(newId, newStore);
@@ -45,7 +48,7 @@ public class StoreController {
 
     }
 
-    public void closeStore(String storeId, String userId) throws NoPermissionException {
+    public void unfreezeStore(String storeId, String userId) throws NoPermissionException {
         if(checkIfGuest(userId)){
             throw new RuntimeException("guest cant do this action");
         }
@@ -53,7 +56,7 @@ public class StoreController {
         relevantStore.closeStore(userId);
     }
 
-    public void openStore(String storeId, String userId) throws NoPermissionException {
+    public void freezeStore(String storeId, String userId) throws NoPermissionException {
         if(checkIfGuest(userId)){
             throw new RuntimeException("guest cant do this action");
         }

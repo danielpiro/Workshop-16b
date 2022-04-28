@@ -5,12 +5,11 @@ import ExternalConnections.Delivery.FedEx;
 import ExternalConnections.Delivery.UPS;
 import ExternalConnections.ExternalConnections;
 import ExternalConnections.Payment.MasterCard;
-import ExternalConnections.Payment.Payment;
 import ExternalConnections.Payment.Visa;
+import GlobalSystemServices.Log;
 import ShoppingCart.InventoryProtector;
 import ExternalConnections.PurchasePolicies;
 import ShoppingCart.ShoppingCart;
-import Store.Store;
 import StorePermission.Permission;
 import StorePermission.StoreRoles;
 import User.Guest;
@@ -48,14 +47,14 @@ public class BigController {
     public void addSystemAdmin(String whoIsAdding,String user_toMakeAdmin) {
        getUserController().addSystemAdmin(whoIsAdding,user_toMakeAdmin);
     }
-    public boolean deleteUser(String whosDeleting,String whosBeingDeleted) {
+    public boolean deleteUser(String whosDeleting,String whosBeingDeleted) throws NoPermissionException {
         Log.getLogger().logger.info("user- "+ whosDeleting +" try to delete "+whosBeingDeleted);
-        try {
-            sc.removeAllPermissionTo(whosBeingDeleted);
-        } catch (NoPermissionException e) {
-            Log.getLogger().logger.warning("cant remove user permission"+ whosBeingDeleted +" by user "+whosDeleting+ "because:  "+ e.getMessage());
-            return false;
-        }
+        //try {
+        sc.removeAllPermissionTo(whosBeingDeleted);
+       // } catch (NoPermissionException e) {
+       //     Log.getLogger().logger.warning("cant remove user permission"+ whosBeingDeleted +" by user "+whosDeleting+ "because:  "+ e.getMessage());
+       //     return false;
+        //}
         return getUserController().deleteUser(whosDeleting,whosBeingDeleted);
     }
     public void sign_up(String user_name, String password) {
@@ -66,9 +65,7 @@ public class BigController {
         try {
             getUserController().login(user_name, password);
 
-        }catch (Exception e)
-
-        {}
+        }catch (Exception e) {}
     }
 
     public InventoryProtector getInventoryProtector(String storeId) throws Exception {
@@ -143,15 +140,26 @@ public class BigController {
         else
             throw new IllegalArgumentException("couldn't add new product because the given userId doesn't exist or is not logged in");
     }
-    public void closeStore(String storeId, String userId) throws NoPermissionException {
+
+    public String openNewStore( String userId, String storeName){
+        if(getUserController().checkIfUserExists(userId) && getUserController().checkIfUserIsLoggedIn(userId)) {
+            List<String> managers = new ArrayList<>();
+            managers.add(userId);
+            return getStoreController().openNewStore(storeName, managers);
+        }
+        else
+            throw new IllegalArgumentException("couldn't add new product because the given userId doesn't exist or is not logged in");
+    }
+
+    public void unfreezeStore(String storeId, String userId) throws NoPermissionException {
         if(getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId))
-            getStoreController().closeStore(storeId,userId);
+            getStoreController().unfreezeStore(storeId,userId);
         else
             throw new IllegalArgumentException("couldn't close store because the given userId doesn't exist or is not logged in");
     }
-    public void openStore(String storeId, String userId) throws NoPermissionException {
+    public void freezeStore(String storeId, String userId) throws NoPermissionException {
         if(getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId))
-            getStoreController().openStore(storeId,userId);
+            getStoreController().freezeStore(storeId,userId);
         else
             throw new IllegalArgumentException("couldn't open store because the given userId doesn't exist or is not logged in");
     }
