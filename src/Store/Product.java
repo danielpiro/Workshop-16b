@@ -1,11 +1,12 @@
 package Store;
 
+import CustomExceptions.CantPurchaseException;
 import Store.BuyinfOptions.BuyOption;
 import Store.BuyinfOptions.ImmediateBuy;
-import Views.ProductView;
 
+import javax.naming.LimitExceededException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Product {
@@ -24,7 +25,7 @@ public class Product {
         this.id = id;
         this.name = name;
         editPrice(price);
-        this.reviews = new ArrayList<Review>();
+        this.reviews = new ArrayList<>();
         editSupply(supply);
         this.rating = 0;
         this.category = ProductsCategories.valueOf(category);
@@ -34,8 +35,7 @@ public class Product {
     public void addReview(float rating, String userId, String title, String body){
         reviews.add(new Review(rating, userId, title, body));
         float sum = 0;
-        for (Review rev :
-                reviews) {
+        for (Review rev : reviews) {
             sum = rev.getRating()+sum;
         }
         this.rating = sum / (reviews.size());
@@ -56,9 +56,6 @@ public class Product {
     public void editSupply(int newSupply) {
         if(newSupply < 0)
             throw new RuntimeException("supply cant be negative");
-        else if(newSupply < reservedSupply){
-            throw new RuntimeException("cant be less supply then reserved supply");
-        }
         else
             this.supply = newSupply;
     }
@@ -105,18 +102,16 @@ public class Product {
         return reservedSupply;
     }
 
-    public void setReservedSupply(int reservedSupply) {
+    public void setReservedSupply(int reservedSupply)  {
         this.reservedSupply = reservedSupply;
     }
-    public ProductView getProductView() {
-        ProductView newProduct = new ProductView();
-        newProduct.id = id;
-        newProduct.name = name;
-        newProduct.price = price;
-        newProduct.reviews = reviews;
-        newProduct.supply = supply;
-        newProduct.rating = rating;
-        newProduct.category = category;
-        return newProduct;
+
+    public List<Review> getReviews() {
+        return Collections.unmodifiableList(reviews);
+    }
+
+    public void moveFromSupplyToReserved(int howMuch){
+
+
     }
 }

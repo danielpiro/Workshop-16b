@@ -10,7 +10,12 @@ public class testing {
         try {
             StoreController con = new StoreController();
 
-            User guy = new fakeUser();
+            User guy = new User() {
+                @Override
+                public String getUserId() {
+                    return "guy";
+                }
+            };
             List<String> managers = new ArrayList<>();
             managers.add(guy.getUserId());
             con.openNewStore("guys store", managers);

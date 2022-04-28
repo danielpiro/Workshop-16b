@@ -1,13 +1,13 @@
 package Store;
 
+import CustomExceptions.CantPurchaseException;
 import ExternalConnections.PurchasePolicies;
 import GlobalSystemServices.IdGenerator;
 import ShoppingCart.InventoryProtector;
-import Views.ProductView;
 
+import javax.naming.LimitExceededException;
 import java.util.*;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class InventoryManager  implements InventoryProtector {
     private HashMap<String, Product> products;
@@ -25,7 +25,7 @@ public class InventoryManager  implements InventoryProtector {
 
 
 
-    public void editProductSupply(String productId, int newSupply, String newName, float newPrice, String category) {
+    public void editProduct(String productId, int newSupply, String newName, float newPrice, String category) {
         Product Op = products.get(productId);
         if(Op == null){
             throw new RuntimeException("no product with this id");
@@ -47,11 +47,11 @@ public class InventoryManager  implements InventoryProtector {
     }
 
 
-    public List<ProductView> getAllProducts(Predicate<Product> filter) {
-        List<ProductView> PV= new ArrayList<>();
+    public List<Product> getAllProducts(Predicate<Product> filter) {
+        List<Product> PV= new ArrayList<>();
         for (Product p : products.values()) {
             if(filter.test(p)){
-                PV.add(p.getProductView());
+                PV.add(p);
             }
 
         }
@@ -102,14 +102,13 @@ public class InventoryManager  implements InventoryProtector {
     }
 
     @Override
-    public void purchaseSuccessful(HashMap<String, Integer> ProductAmount, boolean success) {
-        if(success){
+    public void purchaseSuccessful(HashMap<String, Integer> ProductAmount, boolean success)  {
+        if (success) {
             for (String Id : ProductAmount.keySet()) {
                 int newReservedSupply = products.get(Id).getReservedSupply() - ProductAmount.get(Id);
                 products.get(Id).setReservedSupply(newReservedSupply);
             }
-        }
-        else{
+        } else {
             for (String Id : ProductAmount.keySet()) {
                 int newReservedSupply = products.get(Id).getReservedSupply() - ProductAmount.get(Id);
                 products.get(Id).setReservedSupply(newReservedSupply);
@@ -121,19 +120,20 @@ public class InventoryManager  implements InventoryProtector {
     }
 
     @Override
-    public float reserve(HashMap<String, Integer> ProductAmount, PurchasePolicies purchasePolicies, String userId) {
+    public float reserve(HashMap<String, Integer> ProductAmount, PurchasePolicies purchasePolicies, String userId) throws CantPurchaseException {
         for (String Id : ProductAmount.keySet()) {
             if(products.get(Id).getBuyOption().checkIfCanBuy(userId)) {
                 int newSupply = products.get(Id).getSupply() - ProductAmount.get(Id);
+                products.get(Id).setReservedSupply(ProductAmount.get(Id));
                 products.get(Id).editSupply(newSupply);
-                products.get(Id).setReservedSupply(products.get(Id).getSupply());
+
             }
         }
         return calculatePriceWithDiscount(ProductAmount);
     }
 
-    public ProductView getProduct(String productId) throws Exception {
-        ProductView pro =  products.get(productId).getProductView();
+    public Product getProduct(String productId) throws Exception {
+        Product pro =  products.get(productId);
         if(pro == null){
             throw new Exception("no product with this id");
         }

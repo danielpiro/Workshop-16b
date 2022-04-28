@@ -8,7 +8,6 @@ import Store.Forum.Forum;
 import StorePermission.OriginalStoreOwnerRole;
 import StorePermission.Permission;
 import StorePermission.StoreRoles;
-import Views.ProductView;
 //import org.junit.platform.engine.support.hierarchical.ThrowableCollector;
 
 import javax.naming.NoPermissionException;
@@ -107,11 +106,11 @@ public class Store {
 
 
     }
-    public void editProductSupply( String userId, String productId, int newSupply, String newName, float newPrice ,String category) throws NoPermissionException {
+    public void editProduct(String userId, String productId, int newSupply, String newName, float newPrice , String category) throws NoPermissionException {
         if(!checkPermission(userId, Permission.EDIT_EXISTING_PRODUCT)){
             throw new NoPermissionException("the user don't have this permission");
         }
-        inventoryManager.editProductSupply(productId, newSupply, newName, newPrice, category);
+        inventoryManager.editProduct(productId, newSupply, newName, newPrice, category);
     }
 
     public String addNewProduct(String userId, String productName, float price, int howMuch, String category) throws NoPermissionException {
@@ -123,25 +122,25 @@ public class Store {
     }
 
 
-    public List<ProductView> getAllProducts() {
+    public List<Product> getAllProducts() {
         return inventoryManager.getAllProducts((x)->true);
     }
-    public List<ProductView> getProductsNameContains(String PartialName) {
+    public List<Product> getProductsNameContains(String PartialName) {
         return inventoryManager.getAllProducts(
                 (p)->p.getName().toUpperCase().contains(PartialName.toUpperCase())
         );
     }
-    public List<ProductView> getProductsPriceContains(float lowerRange, float upperRange) {
+    public List<Product> getProductsPriceContains(float lowerRange, float upperRange) {
         return inventoryManager.getAllProducts(
                 (p)->(p.getPrice() >= lowerRange && p.getPrice() <= upperRange)
         );
     }
-    public List<ProductView> getAllProductsCategory(List<String> category) {
+    public List<Product> getAllProductsCategory(List<String> category) {
         return inventoryManager.getAllProducts(
                 (p)->category.stream().anyMatch(cat ->p.getCategory().toString().equals(cat))
         );
     }
-    public List<ProductView> getAllProductsRating(float lower, float upper) {
+    public List<Product> getAllProductsRating(float lower, float upper) {
         return inventoryManager.getAllProducts(
                 (p)->p.getRating() >= lower && p.getRating() <=upper
         );
@@ -219,7 +218,7 @@ public class Store {
     }
 
 
-    public ProductView getProduct(String productId) throws Exception {
+    public Product getProduct(String productId) throws Exception {
         return inventoryManager.getProduct(productId);
     }
      public List<PurchaseHistory> getStoreHistory(String userId) throws NoPermissionException {

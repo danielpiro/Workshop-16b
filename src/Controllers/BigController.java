@@ -10,11 +10,11 @@ import GlobalSystemServices.Log;
 import ShoppingCart.InventoryProtector;
 import ExternalConnections.PurchasePolicies;
 import ShoppingCart.ShoppingCart;
+import Store.Product;
 import StorePermission.Permission;
 import StorePermission.StoreRoles;
 import User.Guest;
 import User.Subscriber;
-import Views.ProductView;
 
 import javax.naming.NoPermissionException;
 import java.io.IOException;
@@ -220,14 +220,14 @@ public class BigController {
     }
 
 
-    private HashMap<String,List<ProductView>> getAllProductsAndStores(String userId){
+    private HashMap<String,List<Product>> getAllProductsAndStores(String userId){
         if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId))
             throw new IllegalArgumentException("User doesn't exist or is not logged in or is not logged in");
         getStoreController().getAllProductsAndStores();
-        return (HashMap<String, List<ProductView>>) Collections.EMPTY_MAP;
+        return (HashMap<String, List<Product>>) Collections.EMPTY_MAP;
     }
 
-    public List<ProductView> SearchProductsAccordingName(String userId,String productName){
+    public List<Product> SearchProductsAccordingName(String userId,String productName){
 
         if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId))
             throw new IllegalArgumentException("User doesn't exist or is not logged in");
@@ -235,21 +235,21 @@ public class BigController {
         return Collections.EMPTY_LIST;
     }
 
-    public List<ProductView> SearchProductsAccordingCategory(String userId,List<String> categories ){
+    public List<Product> SearchProductsAccordingCategory(String userId,List<String> categories ){
         if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId))
             throw new IllegalArgumentException("User doesn't exist or is not logged in");
         getStoreController().SearchProductsAccordingCategory(categories);
         return Collections.EMPTY_LIST;
 
     }
-    public List<ProductView> SearchProductsAccordingPrice(String userId, float fromPrice, float toPrice ){
+    public List<Product> SearchProductsAccordingPrice(String userId, float fromPrice, float toPrice ){
         if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId))
             throw new IllegalArgumentException("User doesn't exist or is not logged in");
         getStoreController().SearchProductsAccordingPrice(fromPrice,toPrice);
         return Collections.EMPTY_LIST;
 
     }
-    public List<ProductView> SearchProductsAccordingRating(String userId,float productRating){
+    public List<Product> SearchProductsAccordingRating(String userId,float productRating){
         if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId))
             throw new IllegalArgumentException("User doesn't exist or is not logged in");
         getStoreController().SearchProductsAccordingRating(productRating);

@@ -202,7 +202,7 @@ public class Real implements BridgeInterface{
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
 
-    /** User requirement - II.2.2 */
+    /** User requirement - II.2.2 *//*
     public List<ProductView> searchProduct(String userId, String productName){
         return getBigController().SearchProductsAccordingName(userId,productName);
     }
@@ -318,7 +318,7 @@ public class Real implements BridgeInterface{
         }
     }
     /** User requirement - II.4.1 */
-    public boolean editProductInStore(String storeId, String userId, String productId,
+    /*public boolean editProductInStore(String storeId, String userId, String productId,
                                      int newSupply, String newName, float newPrice, String category){
         try {
             bigController.editProduct(storeId, userId,productId, newSupply,  newName, newPrice, category);
@@ -342,7 +342,7 @@ public class Real implements BridgeInterface{
 /** User requirement - II.4.4 *//*
 
     /** User requirement - II.4.4 */
-    public boolean addNewStoreOwner(String storeId, String userIdGiving, String UserGettingPermissionId, List<Permission> permissions){
+    /*public boolean addNewStoreOwner(String storeId, String userIdGiving, String UserGettingPermissionId, List<Permission> permissions){
         try {
             bigController.createOwner(storeId, userIdGiving,UserGettingPermissionId,permissions);
             return true;
@@ -353,7 +353,7 @@ public class Real implements BridgeInterface{
     }
 
     /** User requirement - II.4.6 */
-    public boolean addNewStoreManager(String storeId, String userIdGiving, String UserGettingPermissionId){
+    /*public boolean addNewStoreManager(String storeId, String userIdGiving, String UserGettingPermissionId){
         try {
             bigController.createManager(storeId, userIdGiving,UserGettingPermissionId);
             return true;
@@ -364,12 +364,12 @@ public class Real implements BridgeInterface{
     }
 
 
-    /** User requirement - II.4.7 */
+    /** User requirement - II.4.7 *//*
     public String changeStoreManagerPermissions(String storeName, String storeManagerUserName, User.permission newPermission){
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
 
-    /** User requirement - II.4.9 */
+    /** User requirement - II.4.9 *//*
     public boolean freezeStoreByOwner(String storeId, String userId){
         try {
             bigController.freezeStore(storeId,userId);
@@ -379,7 +379,7 @@ public class Real implements BridgeInterface{
             return false;
         }
     }
-    /** User requirement - II.4.10 */
+    /** User requirement - II.4.10 *//*
     public boolean unfreezeStoreByOwner(String storeId, String userId){//todo tell amit i added this
         try {
             bigController.unfreezeStore(storeId,userId);
@@ -390,7 +390,7 @@ public class Real implements BridgeInterface{
         }
     }
 
-    /** User requirement - II.4.11 */
+    /** User requirement - II.4.11 *//*
     public boolean showStoreOfficials(String storeId, String userId){
         try {
             bigController.getInfoOnManagersOwners(storeId,userId);

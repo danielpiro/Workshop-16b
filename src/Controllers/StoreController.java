@@ -6,13 +6,14 @@ import ShoppingCart.InventoryProtector;
 import Store.Store;
 import StorePermission.Permission;
 import StorePermission.StoreRoles;
-import Views.ProductView;
+import Store.Product;
 
 import javax.naming.NoPermissionException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 //todo add view history function
 public class StoreController {
     private HashMap<String,Store> stores; // storeId and the store
@@ -86,7 +87,7 @@ public class StoreController {
             throw new RuntimeException("guest cant do this action");
         }
         Store relevantStore = stores.get(storeId);
-        relevantStore.editProductSupply(userId, productId,  newSupply, newName, newPrice, category);
+        relevantStore.editProduct(userId, productId,  newSupply, newName, newPrice, category);
     }
     public void deleteProduct(String storeId, String userId, String productId) throws NoPermissionException {
         if(checkIfGuest(userId)){
@@ -156,32 +157,32 @@ public class StoreController {
         }
     }
 
-    public HashMap<String,List<ProductView>> getAllProductsAndStores(){
-        HashMap<String,List<ProductView>> ProductsAndStores = new HashMap<>();
+    public HashMap<String,List<Product>> getAllProductsAndStores(){
+        HashMap<String,List<Product>> ProductsAndStores = new HashMap<>();
         for (Store store : stores.values()) {
             ProductsAndStores.put(store.getId(),store.getAllProducts());
         }
         return ProductsAndStores;
     }
 
-    public List<ProductView> SearchProductsAccordingName(String productName){
-        List<ProductView> filtered=  new ArrayList<>();
+    public List<Product> SearchProductsAccordingName(String productName){
+        List<Product> filtered=  new ArrayList<>();
         for (Store store : stores.values()) {
             filtered.addAll(store.getProductsNameContains(productName));
         }
         return filtered;
     }
 
-    public List<ProductView> SearchProductsAccordingCategory(List<String> categories ){
-        List<ProductView> filtered=  new ArrayList<>();
+    public List<Product> SearchProductsAccordingCategory(List<String> categories ){
+        List<Product> filtered=  new ArrayList<>();
         for (Store store : stores.values()) {
             filtered.addAll(store.getAllProductsCategory(categories));
         }
         return filtered;
 
     }
-    public List<ProductView> SearchProductsAccordingPrice( float fromPrice, float toPrice ){
-        List<ProductView> filtered=  new ArrayList<>();
+    public List<Product> SearchProductsAccordingPrice(float fromPrice, float toPrice ){
+        List<Product> filtered=  new ArrayList<>();
         for (Store store : stores.values()) {
             filtered.addAll(store.getProductsPriceContains(fromPrice, toPrice));
         }
@@ -189,8 +190,8 @@ public class StoreController {
 
 
     }
-    public List<ProductView> SearchProductsAccordingRating(float productRating){
-        List<ProductView> filtered=  new ArrayList<>();
+    public List<Product> SearchProductsAccordingRating(float productRating){
+        List<Product> filtered=  new ArrayList<>();
         for (Store store : stores.values()) {
             filtered.addAll(store.getAllProductsRating(productRating, 5f));
         }

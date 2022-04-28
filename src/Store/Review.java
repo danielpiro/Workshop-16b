@@ -42,7 +42,8 @@ public class Review {
         if (rating>=1  || rating<=5){
             this.rating=rating;
         }
-        throw new IllegalArgumentException("rating is between 1 and 5");
+        else
+            throw new IllegalArgumentException("rating is between 1 and 5");
     }
     public float getRating() {
         return rating;
