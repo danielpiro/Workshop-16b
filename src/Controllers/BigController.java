@@ -1,6 +1,12 @@
 package Controllers;
 
 
+import ExternalConnections.Delivery.FedEx;
+import ExternalConnections.Delivery.UPS;
+import ExternalConnections.ExternalConnections;
+import ExternalConnections.Payment.MasterCard;
+import ExternalConnections.Payment.Payment;
+import ExternalConnections.Payment.Visa;
 import ShoppingCart.InventoryProtector;
 import ExternalConnections.PurchasePolicies;
 import ShoppingCart.ShoppingCart;
@@ -22,9 +28,21 @@ public class BigController {
     private StoreController sc;
     private UserController us;
 
+
+    //todo Guy - add function to get Inverntory Protectore
     public BigController() throws IOException {
         this.us = new UserController();
         this.sc = new StoreController();
+        initiateExternalConnections();
+    }
+
+
+    public void initiateExternalConnections() {
+        ExternalConnections externalConnections = ExternalConnections.getInstance();
+        externalConnections.addPayment(new Visa());
+        externalConnections.addPayment(new MasterCard());
+        externalConnections.addDelivery(new FedEx());
+        externalConnections.addDelivery(new UPS());
     }
     //// user controller
     public void addSystemAdmin(String whoIsAdding,String user_toMakeAdmin) {
@@ -40,10 +58,17 @@ public class BigController {
     public void login(String user_name, String password) {
         try {
             getUserController().login(user_name, password);
+
         }catch (Exception e)
+
         {}
     }
 
+    public InventoryProtector getInventoryProtector(String storeId) throws Exception {
+
+        throw new UnsupportedOperationException("Not Implemented Yet");
+
+    }
     public void logout(String user_name) {
         getUserController().logout(user_name);
     }
@@ -88,9 +113,7 @@ public class BigController {
     public int removeProduct(String user_id,String productID, String storeID, int amount) {
         return getUserController().removeProduct(user_id,productID,storeID,amount);
     }
-    public int addProduct(String user_id,String productID, String storeID, int amount,boolean auctionOrBid) {
-        return getUserController().addProduct(user_id,productID,storeID,amount,auctionOrBid);
-    }
+
     public int addProduct(String user_id, String productID, String storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
         return getUserController().addProduct(user_id,productID,storeID,amount,inventoryProtector,auctionOrBid);
     }

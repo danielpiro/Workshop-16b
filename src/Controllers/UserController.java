@@ -69,15 +69,7 @@ public class UserController {
         }
     return get_subscriber(user_id).removeProduct(productID,storeID,amount);
     }
-    public int addProduct(String user_id,String productID, String storeID, int amount,boolean auctionOrBid) {
-        if(get_subscriber(user_id)==null){
-            throw new IllegalArgumentException("User doesn't exist");
-        }
-        if(checkIfUserIsLoggedIn(user_id)){
-            throw new IllegalArgumentException("User is not logged in");
-        }
-     return get_subscriber(user_id).addProduct(productID,storeID,amount,auctionOrBid);
-    }
+
     public int addProduct(String user_id, String productID, String storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
         if(get_subscriber(user_id)==null){
             throw new IllegalArgumentException("User doesn't exist");

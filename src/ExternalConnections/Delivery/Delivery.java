@@ -16,4 +16,11 @@ public interface Delivery {
     boolean isConnected ();
 
     String getName ();
+
+
+    boolean isTaken();
+
+    boolean setTakenFree();
+
+    boolean setTakenTrue();
 }

@@ -1,24 +1,30 @@
 package ExternalConnections.Delivery;
+import ExternalConnections.ExternalConnections;
+
 
 
 public class FedEx implements Delivery{
 
     private boolean connected;
-    private Object lock;
     private String name;
+    private int identifier;
+    private boolean taken;
+
 
     public FedEx() {
-        lock = new Object();
         this.connected = false;
         name = "FedEx";
+        taken = false;
+        identifier = ExternalConnections.getInstance().getId();
+
     }
 
     @Override
-    public int Delivery(float delivery) {
-        synchronized (lock) {
+    public synchronized int Delivery(float delivery) {
+
 
             return 0;
-        }
+
     }
 
 
@@ -36,5 +42,26 @@ public class FedEx implements Delivery{
     @Override
     public String getName() {
         return name;
+    }
+
+
+    public synchronized boolean setTakenTrue(){
+        if(taken == false) {
+            taken = true;
+            return true;
+        }
+        return false;
+    }
+    public synchronized boolean setTakenFree(){
+        if(taken == true) {
+            taken = false;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public  synchronized boolean isTaken() {
+        return taken;
     }
 }

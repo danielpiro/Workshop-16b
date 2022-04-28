@@ -1,17 +1,25 @@
 package Tests.Bridge;
 
+import Controllers.BigController;
+import ExternalConnections.Payment.Payment;
+
 import java.util.HashMap;
 
 public class Real implements BridgeInterface{
 
-    private MarketSystem msApp;
+    private BigController bigController;
 
     public Real() {
-        this.msApp = null;
+
+        try {
+            this.bigController = new BigController();
+        }catch (Exception e){
+
+        }
     }
-//    public Real(MarketSystem msApp) {
-//        this.msApp = msApp;
-//    }
+    public Real(BigController msApp) {
+        this.bigController = msApp;
+   }
 
 //    public MarketSystem getMsApp() {
 //        return msApp;
@@ -37,15 +45,20 @@ public class Real implements BridgeInterface{
     }
 
     /** System requirement - I.2 */
-    public String changeExternalService(int currServiceCode, String currServiceName,
+    /*public String changeExternalService(int currServiceCode, String currServiceName,
                                         int newServiceCode, String newServiceName){
         throw new UnsupportedOperationException("Not Implemented Yet");
-    }
+    }*/
 
+    //todo talk about Extrenal connections how to make it bettter.
     /** System requirement - I.2 */
-    public String switchExternalService(int currServiceCode, String currServiceName,
-                                        int newServiceCode, String newServiceName){
-        throw new UnsupportedOperationException("Not Implemented Yet");
+    public String removePayment(String paymentRemove,Payment payment){
+        return "";
+
+    }
+    public String AddPayment(Payment payment){
+
+
     }
 
     /** System requirement - I.2 */
@@ -133,25 +146,31 @@ public class Real implements BridgeInterface{
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
 
-    /** User requirement - II.2.3 */
-    public String saveProductFromStoreToShoppingCart(String storeName, String productName){
-        throw new UnsupportedOperationException("Not Implemented Yet");
-    }
+    /** User requirement - II.2.3  => its the same as II.2.4 */
+
 
     /** User requirement - II.2.4 */
-    public String showShoppingCart(){
-        throw new UnsupportedOperationException("Not Implemented Yet");
+    public String showShoppingCart(String userId){
+        return bigController.getCartInventory(userId);
     }
     /** User requirement - II.2.4 */
     //inc. by 1!
-    public String increaseProductQuantityInShoppingCart(String productName){
-        throw new UnsupportedOperationException("Not Implemented Yet");
+    public boolean increaseProductQuantityInShoppingCart(String user_id,String productID, String storeID, int amount,boolean auctionOrBid ){
+        int ans = bigController.addProduct( user_id, productID,  storeID,  amount, auctionOrBid);
+        if(ans == 0)
+            return true;
+        return false;
+
     }
     /** User requirement - II.2.4 */
     //dec. by 1!
-    public String decreaseProductQuantityInShoppingCart(String productName){
-        throw new UnsupportedOperationException("Not Implemented Yet");
-    }
+    public boolean decreaseProductQuantityInShoppingCart(String userId,String productID, String storeID, int amount){
+        int ans = bigController.removeProduct( userId, productID,  storeID,  amount);
+        if(ans == 0)
+            return true;
+        return false;
+
+        }
     /** User requirement - II.2.4 */
     public String removeProductFromShoppingCart(String productName){
         throw new UnsupportedOperationException("Not Implemented Yet");

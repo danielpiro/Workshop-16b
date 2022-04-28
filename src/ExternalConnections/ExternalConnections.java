@@ -5,6 +5,7 @@ import ExternalConnections.Delivery.Delivery;
 import ExternalConnections.Delivery.FedEx;
 import ExternalConnections.Payment.Payment;
 import ExternalConnections.Payment.Visa;
+import History.History;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -13,15 +14,36 @@ import java.util.List;
 //to make singleton?
 public class ExternalConnections {
 
-    public static List<Payment> payments;
-    public static List<Delivery> deliveries;
+    private static ExternalConnections externalConnections;
+
+    public  List<Payment> payments;
+    public  List<Delivery> deliveries;
+    private Object lock;
+    private int id;
 
 
-    public ExternalConnections() {
+    private ExternalConnections() {
         payments = new LinkedList<>();
         deliveries = new LinkedList<>();
+        id =0;
+        lock = new Object();
     }
 
+
+
+    //todo check if admin
+    public static ExternalConnections getInstance() {
+
+        // most will skip synchronized section, only in the beggining will one thread enter and create history.
+        if (externalConnections == null) {
+            synchronized (ExternalConnections.class) {
+                if (externalConnections == null) {
+                    externalConnections = new ExternalConnections();
+                }
+            }
+        }
+        return externalConnections;
+    }
 
     public  boolean addPayment (Payment payment){
         if(payment.connect(123)) {
@@ -41,11 +63,13 @@ public class ExternalConnections {
             return false;
     }
 
-    public  Payment getCertainPayment (String name) throws ExternalServiceDoesNotExist {
+    public synchronized Payment getCertainPayment (String name) throws ExternalServiceDoesNotExist {
         for (Payment p : payments)
         {
-            if(p.getName().equals(name))
+            if(p.getName().equals(name) && p.isConnected() && !p.isTaken()) {
+                p.setTakenTrue();
                 return p;
+            }
         }
         throw new ExternalServiceDoesNotExist(name);
     }
@@ -58,6 +82,31 @@ public class ExternalConnections {
         }
         throw new ExternalServiceDoesNotExist(name);
     }
+
+    public  boolean removePayment (Payment payment){
+        if(payments.contains(payment)) {
+            payments.remove(payment);
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public  boolean removeDelivery (Delivery delivery){
+        if(payments.contains(delivery)) {
+            payments.remove(delivery);
+            return true;
+        }
+        else
+            return false;
+    }
+    public int getId(){
+        synchronized (lock){
+            id++;
+            return id;
+        }
+    }
+
 
 
     /*//return the payment methods that didnt connect

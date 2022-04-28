@@ -1,25 +1,30 @@
 package ExternalConnections.Delivery;
+import ExternalConnections.ExternalConnections;
+
 
 
 public class UPS implements Delivery{
 
     private boolean connected;
-    private Object lock;
     private String name;
+    private boolean taken;
+    private int identifier;
+
 
     public UPS() {
-        lock = new Object();
         this.connected = false;
         name = "UPS";
+        taken = false;
+        identifier = ExternalConnections.getInstance().getId();
+
     }
 
 
     @Override
-    public int Delivery(float delivery) {
-        synchronized (lock) {
+    public  synchronized int Delivery(float delivery) {
 
             return 0;
-        }    }
+          }
 
     @Override
     public boolean connect(int key) {
@@ -35,5 +40,26 @@ public class UPS implements Delivery{
     @Override
     public String getName() {
         return name;
+    }
+
+
+    public synchronized boolean setTakenTrue(){
+        if(taken == false) {
+            taken = true;
+            return true;
+        }
+        return false;
+    }
+    public synchronized boolean setTakenFree(){
+        if(taken == true) {
+            taken = false;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public  synchronized boolean isTaken() {
+        return taken;
     }
 }
