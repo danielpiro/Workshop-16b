@@ -1,11 +1,14 @@
 package Tests.Bridge;
 
 import Controllers.BigController;
+import ExternalConnections.Delivery.Delivery;
+import ExternalConnections.ExternalConnections;
 import ExternalConnections.Payment.Payment;
 import Store.Product;
 
 import javax.naming.NoPermissionException;
 import java.util.HashMap;
+import java.util.List;
 
 public class Real implements BridgeInterface{
 
@@ -54,69 +57,93 @@ public class Real implements BridgeInterface{
 
     //todo talk about Extrenal connections how to make it bettter.
     /** System requirement - I.2 */
-    public String removePayment(String paymentRemove,Payment payment){
-        return "";
+    public boolean removePayment(String paymentRemove){
+        return ExternalConnections.getInstance().removePayment(paymentRemove);
 
     }
-    public String AddPayment(Payment payment){
-        return "";
+    public boolean AddPayment(Payment payment){
+        return ExternalConnections.getInstance().addPayment(payment);
+
 
     }
+    public boolean removeDelivery(String deliveryRemove){
+        return ExternalConnections.getInstance().removeDelivery(deliveryRemove);
 
-    /** System requirement - I.2 */
-    public String addExternalService(int serviceCode, String serviceName){
-        throw new UnsupportedOperationException("Not Implemented Yet");
     }
+    public boolean addDelivery(Delivery delivery){
+        return ExternalConnections.getInstance().addDelivery(delivery);
+    }
+
+
 
     /** System requirement - I.3 */
-    public String payment(){
-        throw new UnsupportedOperationException("Not Implemented Yet");
+    public int payment(String payment, float total)
+    {
+        Payment paymentObject=null;
+        boolean gotPayment=false;
+        while (!gotPayment) {
+            try {
+                paymentObject = ExternalConnections.getInstance().getCertainPayment(payment);
+                gotPayment=true;
+            }catch (Exception e){ }
+
+        }
+       return paymentObject.payment(total);
     }
 
     /** System requirement - I.4 */
-    public String delivery(){
-        throw new UnsupportedOperationException("Not Implemented Yet");
+    public int delivery(String delivery, float weight){
+        Delivery deliveryObject=null;
+        boolean gotDelivery=false;
+        while (!gotDelivery) {
+            try {
+                deliveryObject = ExternalConnections.getInstance().getCertainDelivery(delivery);
+                gotDelivery=true;
+            }catch (Exception e){ }
+
+        }
+        return deliveryObject.delivery(weight);
     }
 
-    /** System requirement - I.5 */
+   /* * System requirement - I.5
     public String realtimeNotificationProductBought(){
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
 
-    /** System requirement - I.5 */
+    * System requirement - I.5
     public String realtimeNotificationStoreClosed(){
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
 
-    /** System requirement - I.5 */
+    * System requirement - I.5
     public String realtimeNotificationStoreReopened(){
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
 
-    /** System requirement - I.5 */
+    * System requirement - I.5
     public String realtimeNotificationUserPermissionUpdate(){
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
 
-    /** System requirement - I.6 */
+    * System requirement - I.6
     public String offlineNotificationProductBought(){
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
 
-    /** System requirement - I.6 */
+    * System requirement - I.6
     public String offlineNotificationStoreClosed(){
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
 
-    /** System requirement - I.6 */
+    * System requirement - I.6
     public String offlineNotificationStoreReopened(){
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
 
-    /** System requirement - I.6 */
+    * System requirement - I.6
     public String offlineNotificationUserPermissionUpdate(){
         throw new UnsupportedOperationException("Not Implemented Yet");
-    }
+    }*/
 
     /** User requirement - II.1.1 */
     public String getInToTheSystem(){
@@ -157,7 +184,7 @@ public class Real implements BridgeInterface{
     }
     /** User requirement - II.2.4 */
     //inc. by 1!
-    public boolean increaseProductQuantityInShoppingCart(String user_id,String productID, String storeID, int amount,boolean auctionOrBid ){
+    public boolean increaseProductQuantityInShoppingCart(String user_id,String productID, String storeID, int amount,boolean auctionOrBid ) throws Exception {
         int ans = bigController.addProduct( user_id, productID,  storeID,  amount, auctionOrBid);
         if(ans == 0)
             return true;
@@ -175,12 +202,18 @@ public class Real implements BridgeInterface{
         }
     /** User requirement - II.2.4 */
     public String removeProductFromShoppingCart(String productName){
+        //todo call removeCompletly product once implemented.
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
 
     /** User requirement - II.2.5 */
-    public String purchaseShoppingCart(){
-        throw new UnsupportedOperationException("Not Implemented Yet");
+    public boolean purchaseShoppingCart(String userID,String payment,String delivery){
+        float ans= bigController.purchaseCart(userID,payment,delivery);
+        if(ans ==-1)
+            return false;
+        return true;
+
+
     }
 
     /** User requirement - II.3.1 */
@@ -238,10 +271,10 @@ public class Real implements BridgeInterface{
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
 
-    /** User requirement - II.4.2 */
+    /** User requirement - II.4.2 *//*
     public String changeStorePolicy(String storeName, String newStorePolicy){
         throw new UnsupportedOperationException("Not Implemented Yet");
-    }
+    }*/
 
     /** User requirement - II.4.4 */
     public String addNewStoreOwner(String storeName, String newStoreOwnerUserName){
@@ -269,8 +302,16 @@ public class Real implements BridgeInterface{
     }
 
     /** User requirement - II.4.13 */
-    public String showStorePurchaseHistory(String storeName){
-        throw new UnsupportedOperationException("Not Implemented Yet");
+    public List<PurchaseHistory> showStorePurchaseHistory(String storeId){
+
+        return History.getInstance().getStoreHistory(storeId);
+    }
+
+
+    //should exists
+    public List<PurchaseHistory> showUserPurchaseHistory(String userID){
+
+        return History.getInstance().getUserHistory(userID);
     }
 
     /** User requirement - II.6.4 */

@@ -2,10 +2,7 @@ package ExternalConnections;
 
 import CustomExceptions.ExternalServiceDoesNotExist;
 import ExternalConnections.Delivery.Delivery;
-import ExternalConnections.Delivery.FedEx;
 import ExternalConnections.Payment.Payment;
-import ExternalConnections.Payment.Visa;
-import History.History;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,7 +15,9 @@ public class ExternalConnections {
 
     public  List<Payment> payments;
     public  List<Delivery> deliveries;
-    private Object lock;
+    private Object lockid;
+    private Object lockDelivery;
+    private Object lockPayment;
     private int id;
 
 
@@ -26,7 +25,10 @@ public class ExternalConnections {
         payments = new LinkedList<>();
         deliveries = new LinkedList<>();
         id =0;
-        lock = new Object();
+        lockid= new Object();
+        lockDelivery= new Object();
+        lockPayment= new Object();
+
     }
 
 
@@ -63,45 +65,55 @@ public class ExternalConnections {
             return false;
     }
 
-    public synchronized Payment getCertainPayment (String name) throws ExternalServiceDoesNotExist {
-        for (Payment p : payments)
-        {
-            if(p.getName().equals(name) && p.isConnected() && !p.isTaken()) {
-                p.setTakenTrue();
-                return p;
+    public  Payment getCertainPayment (String name) throws ExternalServiceDoesNotExist {
+        synchronized (lockPayment) {
+            for (Payment p : payments) {
+                if (p.getName().equals(name) && p.isConnected() && !p.isTaken()) {
+                    p.setTakeTrue();
+                    return p;
+                }
             }
+            throw new ExternalServiceDoesNotExist(name);
         }
-        throw new ExternalServiceDoesNotExist(name);
     }
 
     public  Delivery getCertainDelivery (String name) throws ExternalServiceDoesNotExist {
-        for (Delivery p : deliveries)
-        {
-            if(p.getName().equals(name))
-                return p;
+        synchronized (lockDelivery) {
+
+            for (Delivery d : deliveries) {
+                if (d.getName().equals(name) && d.isConnected() && !d.isTaken())
+                    return d;
+            }
+            throw new ExternalServiceDoesNotExist(name);
         }
-        throw new ExternalServiceDoesNotExist(name);
+    }
+    public  boolean removePayment (String payment) {
+        synchronized (lockPayment) {
+
+
+            for (Payment p : payments) {
+                if (p.getName().equals(payment)){
+                    return true;
+                }
+            }
+                return false;
+        }
     }
 
-    public  boolean removePayment (Payment payment){
-        if(payments.contains(payment)) {
-            payments.remove(payment);
-            return true;
-        }
-        else
-            return false;
-    }
+    public    boolean removeDelivery (String delivery) {
+        synchronized (lockDelivery) {
 
-    public  boolean removeDelivery (Delivery delivery){
-        if(payments.contains(delivery)) {
-            payments.remove(delivery);
-            return true;
-        }
-        else
+
+            for (Delivery p : deliveries) {
+                if (p.getName().equals(delivery)){
+                    return true;
+                }
+            }
             return false;
+        }
     }
     public int getId(){
-        synchronized (lock){
+        synchronized (lockid){
             id++;
             return id;
         }

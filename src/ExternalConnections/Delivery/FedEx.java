@@ -2,66 +2,23 @@ package ExternalConnections.Delivery;
 import ExternalConnections.ExternalConnections;
 
 
-
-public class FedEx implements Delivery{
-
-    private boolean connected;
-    private String name;
-    private int identifier;
-    private boolean taken;
+public class FedEx extends Delivery {
 
 
     public FedEx() {
-        this.connected = false;
-        name = "FedEx";
-        taken = false;
-        identifier = ExternalConnections.getInstance().getId();
-
+        super(false,"FedEx", ExternalConnections.getInstance().getId(),false);
     }
+
 
     @Override
-    public synchronized int Delivery(float delivery) {
-
-
+    protected int internalDelivery(float total) {
+        if(total>0)
             return 0;
-
+        return -1;
     }
-
 
     @Override
     public boolean connect(int key) {
-        connected = true;
         return true;
-    }
-
-    @Override
-    public boolean isConnected() {
-        return connected;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-
-    public synchronized boolean setTakenTrue(){
-        if(taken == false) {
-            taken = true;
-            return true;
-        }
-        return false;
-    }
-    public synchronized boolean setTakenFree(){
-        if(taken == true) {
-            taken = false;
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public  synchronized boolean isTaken() {
-        return taken;
     }
 }

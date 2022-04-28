@@ -192,5 +192,8 @@ public class StoreController {
     }
 
 
-
+    //todo remove
+    public InventoryProtector getInventoryProtector(String storeID) throws Exception {
+        throw new Exception("LALALA");
+    }
 }

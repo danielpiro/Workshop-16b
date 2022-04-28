@@ -2,64 +2,26 @@ package ExternalConnections.Payment;
 import ExternalConnections.ExternalConnections;
 
 
-public class MasterCard extends PaymentAbstract  {
-
+public class MasterCard extends Payment {
 
 
 
     public MasterCard() {
-        connected=false;
-        name = "MasterCard";
-        taken = false;
-        identifier = ExternalConnections.getInstance().getId();
-
-
+        super(false,"MaserCard",ExternalConnections.getInstance().getId(),false);
     }
 
-    public synchronized boolean setTakenTrue(){
-        if(taken == false) {
-            taken = true;
-            return true;
-        }
-        return false;
-    }
-    public synchronized boolean setTakenFree(){
-        if(taken == true) {
-            taken = false;
-            return true;
-        }
-        return false;
-    }
-
+    // 0 is
     @Override
-    public synchronized int payment(float total) {
-
+    protected int internalPayment(float total) {
+        if(total>0)
             return 0;
-
-
+        return -1;
     }
 
     @Override
     public boolean connect(int key) {
-        connected=true;
-        return true;
+        return false;
     }
-
-    @Override
-    public boolean isConnected() {
-        return connected;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public synchronized  boolean isTaken() {
-        return taken;
-    }
-
 
 
 

@@ -1,26 +1,43 @@
 package ExternalConnections.Delivery;
 
+public abstract class Delivery {
+        private boolean connected;
+        private String name;
+        private int identifier;
+        private boolean taken;
+
+        public Delivery(boolean connected, String name, int identifier, boolean taken) {
+            this.connected = connected;
+            this.name = name;
+            this.identifier = identifier;
+            this.taken = taken;
+        }
+
+        //-1 already taken,
+        public synchronized int delivery (float total){
+            if(taken == true)
+                return -1;
+            int ans = internalDelivery(total);
+            taken=false;
+            return ans;
+
+        }
+
+        protected abstract int internalDelivery(float total);
+
+        // use secure key to connect
+        public abstract boolean connect (int key);
 
 
-public interface Delivery {
+        public boolean isConnected(){
+            return connected;
+        }
 
+        public String getName(){
+            return name;
+        }
 
-    // 0 is success, 1 is connection invalid, 2 not deliverable.
-    // Recieve list of items
-    // todo what does delievery recieve.
-    int Delivery (float delivery);
-
-    // use secure key to connect
-    boolean connect (int key);
-
-    boolean isConnected ();
-
-    String getName ();
-
-
-    boolean isTaken();
-
-    boolean setTakenFree();
-
-    boolean setTakenTrue();
+        public boolean isTaken(){
+            return taken;
+        }
 }

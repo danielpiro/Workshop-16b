@@ -18,7 +18,6 @@ import Views.ProductView;
 
 import javax.naming.NoPermissionException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +33,6 @@ public class BigController {
         this.sc = new StoreController();
         initiateExternalConnections();
     }
-
 
     public void initiateExternalConnections() {
         ExternalConnections externalConnections = ExternalConnections.getInstance();
@@ -125,8 +123,10 @@ public class BigController {
     public String getCartInventory(String user_id) {
         return getUserController().getCartInventory(user_id);
     }
-    public float purchaseCart(String user_id, PurchasePolicies purchasePolicies) {
-        return getUserController().purchaseCart(user_id,purchasePolicies);
+    public float purchaseCart(String user_id, String payment,String delivery) {
+
+
+        return getUserController().purchaseCart(user_id,new PurchasePolicies(payment,delivery));
     }
     public boolean recordPurchase (String user_id) {
         return getUserController().recordPurchase(user_id);
