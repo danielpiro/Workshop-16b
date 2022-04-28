@@ -21,6 +21,7 @@ public class Visa extends Payment {
 
     @Override
     public boolean connect(int key) {
-        return false;
+        connected =true;
+        return true;
     }
 }

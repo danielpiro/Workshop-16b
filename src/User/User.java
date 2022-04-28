@@ -35,9 +35,7 @@ public abstract class User {
     public float purchaseCart(PurchasePolicies purchasePolicies) {
      return shoppingCart.purchaseCart(purchasePolicies);
  }
-    public boolean recordPurchase () {
-     return shoppingCart.recordPurchase();
- }
+
 
 
 

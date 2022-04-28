@@ -7,7 +7,7 @@ public class MasterCard extends Payment {
 
 
     public MasterCard() {
-        super(false,"MaserCard",ExternalConnections.getInstance().getId(),false);
+        super(false,"MasterCard",ExternalConnections.getInstance().getId(),false);
     }
 
     // 0 is
@@ -20,7 +20,8 @@ public class MasterCard extends Payment {
 
     @Override
     public boolean connect(int key) {
-        return false;
+        connected =true;
+        return true;
     }
 
 

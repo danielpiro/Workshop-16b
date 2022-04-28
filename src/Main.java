@@ -1,3 +1,4 @@
+/*
 import ExternalConnections.Delivery.FedEx;
 import ExternalConnections.Payment.Visa;
 import ExternalConnections.PurchasePolicies;
@@ -56,3 +57,4 @@ public class Main {
 
     }
 }
+*/

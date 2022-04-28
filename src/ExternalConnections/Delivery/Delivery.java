@@ -1,7 +1,7 @@
 package ExternalConnections.Delivery;
 
 public abstract class Delivery {
-        private boolean connected;
+        protected boolean connected;
         private String name;
         private int identifier;
         private boolean taken;

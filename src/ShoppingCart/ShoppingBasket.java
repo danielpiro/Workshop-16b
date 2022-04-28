@@ -51,9 +51,11 @@ public class ShoppingBasket {
                 productAmount.replace(productID, currentAmount - amount);
 
 
-        } else
+        }
+        else
             return -1;
-        return -1;
+        return 1;
+
     }
     public int removeCompleteyProduct(String productID) {
         if (productAmount.containsKey(productID)) {

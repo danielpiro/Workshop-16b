@@ -125,9 +125,6 @@ public class BigController {
 
         return getUserController().purchaseCart(user_id,new PurchasePolicies(payment,delivery));
     }
-    public boolean recordPurchase (String user_id) {
-        return getUserController().recordPurchase(user_id);
-    }
 
     /// Store controller
 

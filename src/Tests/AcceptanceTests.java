@@ -1,3 +1,4 @@
+/*
 package Tests;
 
 import Tests.Bridge.Proxy;
@@ -13,15 +14,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AcceptanceTests {
 
-    /**
+    */
+/**
      * Version 1 tests status: 104 passed, 31 failed (due to requirement that not yet implemented).
-     */
+     *//*
 
-    /*TODO: (Tagged with fail() in the tests)
+
+    */
+/*TODO: (Tagged with fail() in the tests)
      * 1) Parallel Use.
      * 2) Logging.
      * 3) External Services.
-     */
+     *//*
+
 
     Proxy proxy = new Proxy();
 
@@ -41,10 +46,12 @@ public class AcceptanceTests {
         assertTrue(true);
     }
 
-    /**
+    */
+/**
      *  Need to implement thread-base system
      *  (requirement 1.b in V1)
-     **/
+     **//*
+
     @Test
     void parallel_use_success_case_test() {
         System.out.println("Need to implement thread-base system");
@@ -56,10 +63,12 @@ public class AcceptanceTests {
         fail();
     }
 
-    /**
+    */
+/**
      *  Need to create log file - contains error logs
      *  (requirement 1.c in V1)
-     **/
+     **//*
+
     @Test
     void check_log_success_case_test() {
         System.out.println("Need to create log file - contains error logs");
@@ -71,10 +80,12 @@ public class AcceptanceTests {
         fail();
     }
 
-    /**
+    */
+/**
      *  System requirement - I.1
      *  Important Note: This test is a must! otherwise all the tests can't have a proper set-up!
-     **/
+     **//*
+
     @Test
     void opening_market_system_success_case_test() {
 //        -Check that all the external services' connection are valid
@@ -126,9 +137,11 @@ public class AcceptanceTests {
         fail();
     }
 
-    /**
+    */
+/**
      *  System requirement - I.2
-     **/
+     **//*
+
     // testing change/edit external service connection
     @Test
     void change_external_service_success_case_test() {
@@ -240,9 +253,11 @@ public class AcceptanceTests {
         fail();
     }
 
-    /**
+    */
+/**
      *  System requirement - I.3
-     **/
+     **//*
+
     @Test
     void payment_success_case_test() {
         //TODO
@@ -273,9 +288,11 @@ public class AcceptanceTests {
         fail(); //assertNotEquals(proxy.payment(), "Payment done successfully");
     }
 
-    /**
+    */
+/**
      *  System requirement - I.4
-     **/
+     **//*
+
     @Test
     void delivery_success_case_test() {
         //TODO
@@ -306,9 +323,11 @@ public class AcceptanceTests {
         fail(); //assertNotEquals(proxy.delivery(), "Delivery done successfully");
     }
 
-    /**
+    */
+/**
      *  System requirement - I.5
-     **/
+     **//*
+
     // A user bought a product from a store
     @Test
     void realtime_notification_product_bought_success_case_test() {
@@ -391,9 +410,11 @@ public class AcceptanceTests {
         fail();
     }
 
-    /**
+    */
+/**
      *  System requirement - I.6
-     **/
+     **//*
+
     // A user bought a product from a store
     @Test
     void offline_notification_product_bought_success_case_test() {
@@ -476,9 +497,11 @@ public class AcceptanceTests {
         fail();
     }
 
-    /**
+    */
+/**
      *  User requirement - II.1.1
-     **/
+     **//*
+
     @Test
     void get_in_to_the_system_success_case_test() {
         //- Check that the user was "visitor" before get in to the system.
@@ -513,9 +536,11 @@ public class AcceptanceTests {
         assertEquals("fail - user failed to get-in", proxy.getInToTheSystem());
     }
 
-    /**
+    */
+/**
      *  User requirement - II.1.2
-     **/
+     **//*
+
     @Test
     void get_out_of_the_system_success_case_test() {
         //- Check that the user was a "buyer" before get out of the system.
@@ -565,9 +590,11 @@ public class AcceptanceTests {
                 proxy.getOutFromTheSystem_FailTest3());
     }
 
-    /**
+    */
+/**
      *  User requirement - II.1.3
-     **/
+     **//*
+
     @Test
     void register_success_case_test() {
         //- Perform Register (entering username and password) & validate registration details (will return TRUE)
@@ -602,9 +629,11 @@ public class AcceptanceTests {
         assertEquals("fail - invalid password", proxy.register("user0", "000"));
     }
 
-    /**
+    */
+/**
      *  User requirement - II.1.4
-     **/
+     **//*
+
     @Test
     void login_success_case_test() {
         //- Perform Login (entering username and password) & validate login details (will return TRUE)
@@ -631,9 +660,11 @@ public class AcceptanceTests {
         assertEquals("fail - wrong password", proxy.login("user1", "111111"));
     }
 
-    /**
+    */
+/**
      *  User requirement - II.2.1
-     **/
+     **//*
+
     @Test
     void receive_system_info_success_case_test() {
         //- Check all stores and products are presented to the costumer (will be successful).
@@ -662,9 +693,11 @@ public class AcceptanceTests {
         assertNotEquals(str, proxy.receiveSystemInfo());
     }
 
-    /**
+    */
+/**
      *  User requirement - II.2.2
-     **/
+     **//*
+
     @Test
     void search_product_success_case_test() {
         //- User inserting the product he is looking for...
@@ -685,9 +718,11 @@ public class AcceptanceTests {
                 proxy.searchProduct("p10"));
     }
 
-    /**
+    */
+/**
      *  User requirement - II.2.3
-     **/
+     **//*
+
     @Test
     void save_products_from_store_to_shopping_cart_success_case_test() {
         //- User selecting products from specific store.
@@ -729,9 +764,11 @@ public class AcceptanceTests {
                 proxy.saveProductFromStoreToShoppingCart("store1", "p2"));
     }
 
-    /**
+    */
+/**
      *  User requirement - II.2.4
-     **/
+     **//*
+
     @Test
     void show_shopping_cart_success_case_test() {
         //- Check all shopping cart info presented to the costumer (will be successful).
@@ -841,9 +878,11 @@ public class AcceptanceTests {
                 proxy.removeProductFromShoppingCart("p4"));
     }
 
-    /**
+    */
+/**
      *  User requirement - II.2.5
-     **/
+     **//*
+
     @Test
     void purchase_shopping_cart_success_case_test() {
 //        System.out.println("""
@@ -863,9 +902,11 @@ public class AcceptanceTests {
         fail();
     }
 
-    /**
+    */
+/**
      *  User requirement - II.3.1
-     **/
+     **//*
+
     @Test
     void logout_success_case_test() {
         //- Perform logout.
@@ -903,9 +944,11 @@ public class AcceptanceTests {
         fail();
     }
 
-    /**
+    */
+/**
      *  User requirement - II.3.2
-     **/
+     **//*
+
     @Test
     void open_store_success_case_test() {
         //- User inserting new store details.
@@ -975,9 +1018,11 @@ public class AcceptanceTests {
         assertEquals("fail - store name is not valid", proxy.openStore("st2", prods));
     }
 
-    /**
+    */
+/**
      *  User requirement - II.4.1
-     **/
+     **//*
+
     @Test
     void store_management_add_product_success_case_test() {
         //- Check that the user is logged in as store owner.
@@ -1231,9 +1276,11 @@ public class AcceptanceTests {
                         "pp1", 11, 11));
     }
 
-    /**
+    */
+/**
      *  User requirement - II.4.2
-     **/
+     **//*
+
     @Test
     void change_store_policy_success_case_test() {
         //- Check that the user is logged in as store owner.
@@ -1307,9 +1354,11 @@ public class AcceptanceTests {
                 proxy.changeStorePolicy("store1", "irregular policy"));
     }
 
-    /**
+    */
+/**
      *  User requirement - II.4.4
-     **/
+     **//*
+
     @Test
     void adding_store_owner_success_case_test() {
         //- Check that the user (adding the new store owner) is logged in as store owner.
@@ -1385,9 +1434,11 @@ public class AcceptanceTests {
                 proxy.addNewStoreOwner("store1", "user3"));
     }
 
-    /**
+    */
+/**
      *  User requirement - II.4.6
-     **/
+     **//*
+
     @Test
     void adding_store_manager_success_case_test() {
         //- Check that the user (adding the new store manager) is logged in as store owner.
@@ -1463,9 +1514,11 @@ public class AcceptanceTests {
                 proxy.addNewStoreManager("store1", "user3"));
     }
 
-    /**
+    */
+/**
      *  User requirement - II.4.7
-     **/
+     **//*
+
     @Test
     void change_store_manager_permissions_success_case_test() {
         //- Check that the user (changing the store manager permissions) is logged in as store owner.
@@ -1521,9 +1574,11 @@ public class AcceptanceTests {
         assertEquals("fail - this user is not a manager in that store",
                 proxy.changeStoreManagerPermissions("store1", "user5", User.permission.ShopOwner));
     }
-    /**
+    */
+/**
      *  User requirement - II.4.9
-     **/
+     **//*
+
     @Test
     void close_store_success_case_test() {
         //- Check that the user is logged in as store owner.
@@ -1584,9 +1639,11 @@ public class AcceptanceTests {
         assertEquals("the store was already closed",proxy.closeStoreByOwner("store1"));
     }
 
-    /**
+    */
+/**
      *  User requirement - II.4.11
-     **/
+     **//*
+
     @Test
     void show_store_officials_success_case_test() { //officials = store owners/store managers
         //- Check that the user is logged in as store owner.
@@ -1642,9 +1699,11 @@ public class AcceptanceTests {
                 proxy.showStoreOfficials("s1"));
     }
 
-    /**
+    */
+/**
      *  User requirement - II.4.13
-     **/
+     **//*
+
     @Test
     void show_store_purchase_history_success_case_test() {
         //- Check that the user is logged in as store owner.
@@ -1700,9 +1759,11 @@ public class AcceptanceTests {
                 proxy.showStorePurchaseHistory("s1"));
     }
 
-    /**
+    */
+/**
      *  User requirement - II.6.4
-     **/
+     **//*
+
     @Test
     void show_purchase_history_to_system_founder_success_case_test1() {
         //- Check that the user is logged in as store owner.
@@ -1772,3 +1833,4 @@ public class AcceptanceTests {
     }
 
 }
+*/
