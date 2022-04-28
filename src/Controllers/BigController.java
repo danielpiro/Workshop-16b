@@ -1,6 +1,7 @@
 package Controllers;
 
 
+import GlobalSystemServices.Log;
 import ShoppingCart.InventoryProtector;
 import ExternalConnections.PurchasePolicies;
 import ShoppingCart.ShoppingCart;
@@ -32,6 +33,13 @@ public class BigController {
        getUserController().addSystemAdmin(whoIsAdding,user_toMakeAdmin);
     }
     public boolean deleteUser(String whosDeleting,String whosBeingDeleted) {
+        Log.getLogger().logger.info("user- "+ whosDeleting +" try to delete "+whosBeingDeleted);
+        try {
+            sc.removeAllPermissionTo(whosBeingDeleted);
+        } catch (NoPermissionException e) {
+            Log.getLogger().logger.warning("cant remove user permission"+ whosBeingDeleted +" by user "+whosDeleting+ "because:  "+ e.getMessage());
+            return false;
+        }
         return getUserController().deleteUser(whosDeleting,whosBeingDeleted);
     }
     public boolean sign_up(String user_name, String password) {
@@ -89,10 +97,9 @@ public class BigController {
     public int removeProduct(String user_id,String productID, String storeID, int amount) {
         return getUserController().removeProduct(user_id,productID,storeID,amount);
     }
-    public int addProduct(String user_id,String productID, String storeID, int amount,boolean auctionOrBid) {
-        return getUserController().addProduct(user_id,productID,storeID,amount,auctionOrBid);
-    }
-    public int addProduct(String user_id, String productID, String storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
+
+    public int addProduct(String user_id, String productID, String storeID, int amount, boolean auctionOrBid) {
+        InventoryProtector inventoryProtector = sc.getInventoryProtector(storeID);
         return getUserController().addProduct(user_id,productID,storeID,amount,inventoryProtector,auctionOrBid);
     }
     public String getCartInventory(String user_id) {
@@ -159,8 +166,6 @@ public class BigController {
         }
         throw new IllegalArgumentException("couldn't give permission because the given userId doesn't exist or is not logged in");
     }
-
-
 
 
     public void addReviewToProduct(String storeId, String userId, String productId, String Title, String Body, float rating){

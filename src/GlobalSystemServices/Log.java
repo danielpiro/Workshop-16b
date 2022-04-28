@@ -21,10 +21,18 @@ public class Log {
         fh.setFormatter(formatter);
 
     }
+    private Log()  {
+        logger = Logger.getLogger("test");
+    }
 
-    public static Log getLogger() throws IOException {
+    public static Log getLogger() {
         if(log_instance == null)
-            log_instance = new Log("log.txt");
+            try {
+                log_instance = new Log("log.txt");
+            }catch ( IOException e)
+            {
+                log_instance = new Log();
+            }
         return log_instance;
 
 

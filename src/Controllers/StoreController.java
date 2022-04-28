@@ -2,6 +2,7 @@ package Controllers;
 
 import GlobalSystemServices.IdGenerator;
 import GlobalSystemServices.Log;
+import ShoppingCart.InventoryProtector;
 import Store.Store;
 import StorePermission.Permission;
 import StorePermission.StoreRoles;
@@ -24,19 +25,16 @@ public class StoreController {
         stores = new HashMap<String, Store>();
     }
 
-    public void openNewStore(String name,List<String> managers){
+    public String openNewStore(String name,List<String> managers){
         String newId = IdGenerator.getInstance().getStoreId();
         Store newStore= new Store(name, newId, managers);
         stores.put(newId, newStore);
+        return newId;
     }
 
     private boolean checkIfGuest(String userId){
         return userId.startsWith("GuestID");
     }
-    private boolean checkIfAdmin(String userId){
-        return userId.startsWith("Admin");
-    }
-
 
     public void addNewProduct(String storeId, String userId, String productName, float price, int supply, String category) throws NoPermissionException {
         if(checkIfGuest(userId)){
@@ -72,7 +70,7 @@ public class StoreController {
     }
 
     public void deleteStore(String userId, String storeId){
-        if(!checkIfAdmin(userId)){
+        if(!IdGenerator.getInstance().checkIfAdmin(userId)){
             throw new RuntimeException("only admin can do this action");
         }
         stores.remove(storeId);
@@ -99,11 +97,20 @@ public class StoreController {
         Store relevantStore = stores.get(storeId);
         relevantStore.removePermissionTo(userIdRemoving, UserAffectedId);
     }
+    public void removeAllPermissionTo(String UserId) throws NoPermissionException{
+        for (Store store : stores.values()) {
+            store.removePermissionTo(UserId);
+        }
+    }
     public void givePermissionTo(String storeId, String userIdGiving,String UserGettingPermissionId,List<Permission> permissions) throws NoPermissionException {
         Store relevantStore = stores.get(storeId);
         relevantStore.givePermissionTo(userIdGiving, UserGettingPermissionId, permissions);
     }
 
+    public InventoryProtector getInventoryProtector(String storeId){
+        Store relevantStore = stores.get(storeId);
+        return relevantStore.getInventoryProtector();
+    }
 
 
 
