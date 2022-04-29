@@ -194,7 +194,7 @@ public class Real implements BridgeInterface{
 
     /** User requirement - II.2.3  => its the same as II.2.4 */
     public boolean saveProductFromStoreToShoppingCart(String user_id,String productID, String storeID, int amount,boolean auctionOrBid){
-        return increaseProductQuantityInShoppingCart( user_id, productID,  storeID,  amount, auctionOrBid);
+        return increaseProductQuantityInShoppingCart(user_id, productID,  storeID,  amount, auctionOrBid);
     }
 
     /** User requirement - II.2.4 */

@@ -102,7 +102,7 @@
       <recent name="com.company" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.IntegrationTests">
+  <component name="RunManager" selected="JUnit.AcceptanceTests.opening_market_system_success_case_test">
     <configuration name="AcceptanceTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Workshop-16b" />
       <extension name="coverage">
@@ -118,7 +118,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AcceptanceTests.show_purchase_history_to_system_founder_fail_case_test1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AcceptanceTests.opening_market_system_success_case_test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Workshop-16b" />
       <extension name="coverage">
         <pattern>
@@ -128,7 +128,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="Tests" />
       <option name="MAIN_CLASS_NAME" value="Tests.AcceptanceTests" />
-      <option name="METHOD_NAME" value="show_purchase_history_to_system_founder_fail_case_test1" />
+      <option name="METHOD_NAME" value="opening_market_system_success_case_test" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -183,11 +183,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.AcceptanceTests.opening_market_system_success_case_test" />
         <item itemvalue="JUnit.IntegrationTests" />
         <item itemvalue="JUnit.AcceptanceTests" />
         <item itemvalue="JUnit.AcceptanceTests.show_purchase_history_to_system_founder_fail_case_test3" />
         <item itemvalue="JUnit.AcceptanceTests.show_purchase_history_to_system_founder_fail_case_test2" />
-        <item itemvalue="JUnit.AcceptanceTests.show_purchase_history_to_system_founder_fail_case_test1" />
       </list>
     </recent_temporary>
   </component>
