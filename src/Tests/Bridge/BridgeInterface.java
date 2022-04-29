@@ -1,7 +1,4 @@
-
 package Tests.Bridge;
-
-
 
 import ExternalConnections.Delivery.Delivery;
 import ExternalConnections.Payment.Payment;
@@ -85,16 +82,18 @@ public interface BridgeInterface {
     List<Product> searchProduct(String userId, String productName);
 
     /** User requirement - II.2.3 */
-    boolean saveProductFromStoreToShoppingCart(String user_id,String productID, String storeID, int amount,boolean auctionOrBid);
+    boolean saveProductFromStoreToShoppingCart(String user_id, String productID, String storeID,
+                                               int amount, boolean auctionOrBid);
 
     /** User requirement - II.2.4 */
     String showShoppingCart(String userId);
 
     /** User requirement - II.2.4 */
-    boolean increaseProductQuantityInShoppingCart(String user_id,String productID, String storeID, int amount,boolean auctionOrBid );
+    boolean increaseProductQuantityInShoppingCart(String user_id,String productID, String storeID,
+                                                  int amount ,boolean auctionOrBid);
 
     /** User requirement - II.2.4 */
-    boolean decreaseProductQuantityInShoppingCart(String userId,String productID, String storeID, int amount); //dec. by 1!
+    boolean decreaseProductQuantityInShoppingCart(String userId,String productID, String storeID, int amount);
 
     /** User requirement - II.2.4 */
     String removeProductFromShoppingCart(String productName);
@@ -109,10 +108,11 @@ public interface BridgeInterface {
     boolean openStore(String userID, String storeName);
 
     /** User requirement - II.4.1 */
-    boolean addProductToStore(String storeId, String userId, String productName, float price, int supply, String category);
+    boolean addProductToStore(String storeId, String userId, String productName, float price,
+                              int supply, String category);
 
     /** User requirement - II.4.1 */
-    boolean removeProductFromStore(String storeId,String userId,String productId);
+    boolean removeProductFromStore(String storeId, String userId,String productId);
 
     /** User requirement - II.4.1 */
     boolean editProductInStore(String storeId, String userId, String productId,
@@ -122,7 +122,8 @@ public interface BridgeInterface {
     String changeStorePolicy(String storeName, String newStorePolicy);
 
     /** User requirement - II.4.4 */
-    boolean addNewStoreOwner(String storeId, String userIdGiving, String UserGettingPermissionId, List<Permission> permissions);
+    boolean addNewStoreOwner(String storeId, String userIdGiving, String UserGettingPermissionId,
+                             List<Permission> permissions);
 
     /** User requirement - II.4.6 */
     boolean addNewStoreManager(String storeId, String userIdGiving, String UserGettingPermissionId);
@@ -143,7 +144,7 @@ public interface BridgeInterface {
     List<PurchaseHistory> showStorePurchaseHistory(String storeId);
 
     /** User requirement - II.4.13 */
-    List<PurchaseHistory> showUserPurchaseHistory(String userID)
+    List<PurchaseHistory> showUserPurchaseHistory(String userID);
 
     /** User requirement - II.6.4 */
     String showPurchaseHistoryForSystemFounder(String storeOrUser, String name);

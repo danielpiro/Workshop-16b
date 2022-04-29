@@ -1,14 +1,12 @@
-
 package Tests.Bridge;
 
-import GlobalSystemServices.IdGenerator;
-import Store.Store;
+import ExternalConnections.Delivery.Delivery;
+import ExternalConnections.Payment.Payment;
+import History.PurchaseHistory;
 import Store.Product;
-import User.Subscriber;
+import StorePermission.Permission;
 
 import javax.naming.NoPermissionException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Proxy implements BridgeInterface {
@@ -17,7 +15,6 @@ public class Proxy implements BridgeInterface {
 //    private ArrayList<Subscriber> users;
 //    private ArrayList<Store> stores;
 //    private Subscriber currentUserInSystem;
-
 
     public Proxy() {
         this.real = null;
@@ -112,881 +109,345 @@ public class Proxy implements BridgeInterface {
         if (real != null)
             return real.openingMarket();
         throw new UnsupportedOperationException("Not Implemented Yet!");
-        
-        if (users.isEmpty() && stores.isEmpty()) // just for tests
-            uploadUsersAndStores();
-
-        boolean extServices = true; //TODO
-        if (!extServices)
-            return "fail - connection with external services has failed";
-
-        if (users.size() == 7 && stores.size() == 1) {
-            for (Subscriber u : users) {
-                if (u.getPermissionLevel() == Subscriber.permission.SystemFounder) {
-                    return "system opened successfully";
-                }
-            }
-            return "fail - system doesn't have a founder";
-        }
-        return "fail - system didn't upload all the users or stores";
     }
 
-
-    /**
-     * System requirement - I.2
-     */
+    /** System requirement - I.2 */
     public String changeExternalService(int currServiceCode, String currServiceName,
                                         int newServiceCode, String newServiceName) {
         //Valid ServiceCode includes only positive numbers
         //Valid ServiceName includes only letters
         if (real != null)
             return real.changeExternalService(currServiceCode, currServiceName, newServiceCode, newServiceName);
-
-        if (newServiceCode <= 0 || !newServiceName.matches("[a-zA-Z]+"))
-            return "fail - invalid service code or name";
-        else { //TODO: Make a proper service change
-            currServiceCode = newServiceCode;
-            currServiceName = newServiceName;
-            return "change services done successfully";
-        }
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-    /**
-     * System requirement - I.2
-     */
+    /** System requirement - I.2 */
     public String switchExternalService(int currServiceCode, String currServiceName,
                                         int newServiceCode, String newServiceName) {
         //Valid ServiceCode includes only positive numbers
         //Valid ServiceName includes only letters
         if (real != null)
             return real.switchExternalService(currServiceCode, currServiceName, newServiceCode, newServiceName);
-
-        if (newServiceCode <= 0 || !newServiceName.matches("[a-zA-Z]+"))
-            return "fail - invalid service code or name";
-        else { //TODO: Make a proper service switch
-            currServiceCode = newServiceCode;
-            currServiceName = newServiceName;
-            return "switch services done successfully";
-        }
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-    /**
-     * System requirement - I.2
-     *//*
-
-
+    /** System requirement - I.2 */
     public String addExternalService(int serviceCode, String serviceName){
-        //Valid ServiceCode includes only positive numbers
-        //Valid ServiceName includes only letters
         if(real!=null)
             return real.addExternalService(serviceCode, serviceName);
-
-        if(serviceCode <= 0 || !serviceName.matches("[a-zA-Z]+"))
-            return "fail - invalid service code or name";
-        else //TODO: Make a proper service adding
-            return "adding services done successfully";
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
+    /** System requirement - I.2 */
+    public boolean removePayment(String paymentRemove){
+        if(real!=null)
+            return real.removePayment(paymentRemove);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
+    }
 
-/** System requirement - I.3 */
-    public String payment() {
+    /** System requirement - I.2 */
+    public boolean AddPayment(Payment payment){
+        if(real!=null)
+            return real.AddPayment(payment);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
+    }
+
+    /** System requirement - I.2 */
+    public boolean removeDelivery(String deliveryRemove){
+        if(real!=null)
+            return real.removeDelivery(deliveryRemove);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
+    }
+
+    /** System requirement - I.2 */
+    public boolean addDelivery(Delivery delivery){
+        if(real!=null)
+            return real.addDelivery(delivery);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
+    }
+
+    /** System requirement - I.3 */
+    public int payment(String payment, float total) {
         if (real != null)
-            return real.payment();
-
-        //TODO: Make sure there is a payment service in the system
-        return "Payment done successfully";
+            return real.payment(payment, total);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-    /**
-     * System requirement - I.4
-     */
-    public String delivery() {
+    /** System requirement - I.4 */
+    public int delivery(String delivery, float weight) {
         if (real != null)
-            return real.delivery();
-
-        //TODO: Make sure there is a delivery service in the system
-        return "Delivery done successfully";
+            return real.delivery(delivery, weight);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-    /**
-     * System requirement - I.5
-     */
+    /** System requirement - I.5 */
     public String realtimeNotificationProductBought() {
         if (real != null)
             return real.realtimeNotificationProductBought();
 
         //TODO: Make sure there is a realtime notifications in the system
-        return "TODO!";
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-    /**
-     * System requirement - I.5
-     *//*
-
-
+    /** System requirement - I.5 */
     public String realtimeNotificationStoreClosed(){
         if(real!=null)
             return real.realtimeNotificationStoreClosed();
 
         //TODO: Make sure there is a realtime notifications in the system
-        return "TODO!";
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-/** System requirement - I.5 */
+    /** System requirement - I.5 */
     public String realtimeNotificationStoreReopened() {
         if (real != null)
             return real.realtimeNotificationStoreReopened();
 
         //TODO: Make sure there is a realtime notifications in the system
-        return "TODO!";
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
 
-    /**
-     * System requirement - I.5
-     */
-
+    /** System requirement - I.5 */
     public String realtimeNotificationUserPermissionUpdate() {
         if (real != null)
             return real.realtimeNotificationUserPermissionUpdate();
 
         //TODO: Make sure there is a realtime notifications in the system
-        return "TODO!";
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-    /**
-     * System requirement - I.6
-     */
-
+    /** System requirement - I.6 */
     public String offlineNotificationProductBought() {
         if (real != null)
             return real.offlineNotificationProductBought();
 
         //TODO: Make sure there is a offline notifications in the system
-        return "TODO!";
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-    /**
-     * System requirement - I.6
-     */
-
+    /** System requirement - I.6 */
     public String offlineNotificationStoreClosed() {
         if (real != null)
             return real.offlineNotificationStoreClosed();
 
         //TODO: Make sure there is a offline notifications in the system
-        return "TODO!";
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-    /**
-     * System requirement - I.6
-     */
-
+    /** System requirement - I.6 */
     public String offlineNotificationStoreReopened() {
         if (real != null)
             return real.offlineNotificationStoreReopened();
 
         //TODO: Make sure there is a offline notifications in the system
-        return "TODO!";
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-    /**
-     * System requirement - I.6
-     */
-
+    /** System requirement - I.6 */
     public String offlineNotificationUserPermissionUpdate() {
         if (real != null)
             return real.offlineNotificationUserPermissionUpdate();
 
         //TODO: Make sure there is a offline notifications in the system
-        return "TODO!";
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-    /**
-     * User requirement - II.1.1
-     */
-
+    /** User requirement - II.1.1 */
     public String getInToTheSystem() {
         if (real != null)
             return real.getInToTheSystem();
-
-        if (currentUserInSystem.getPermissionLevel() != Subscriber.permission.Visitor)
-            return "fail - the user that got in is not a visitor";
-        //after get-in
-        currentUserInSystem.setPermissionLevel(Subscriber.permission.Buyer);
-        if (currentUserInSystem.getPermissionLevel() == Subscriber.permission.Buyer &&
-                currentUserInSystem.getShoppingCart() != null) {
-            return "user got-in successfully";
-        }
-        return "fail - user failed to get-in";
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-/**
- * User requirement - II.1.2  User requirement - II.1.3  User requirement - II.1.4  User requirement - II.2.1  User requirement - II.2.2  User requirement - II.2.3  User requirement - II.2.4  User requirement - II.2.4  User requirement - II.2.4  User requirement - II.2.4  User requirement - II.2.5  User requirement - II.3.1  User requirement - II.3.2  User requirement - II.4.1  User requirement - II.4.1  User requirement - II.4.1  User requirement - II.4.2  User requirement - II.4.4  User requirement - II.4.6  User requirement - II.4.7  User requirement - II.4.9  User requirement - II.4.11  User requirement - II.4.13  User requirement - II.6.4
- */
-
-    public String getOutFromTheSystem(){
+    /** User requirement - II.1.2 */
+    public String getOutFromTheSystem(String name){
         if(real!=null)
-            return real.getOutFromTheSystem();
-
-        if(currentUserInSystem.getPermissionLevel() == Subscriber.permission.Visitor)
-            return "fail - the user already got out of the system (as buyer)";
-
-        currentUserInSystem.setPermissionLevel(Subscriber.permission.Visitor);
-        currentUserInSystem.setShoppingCart(null);
-        if(currentUserInSystem.getShoppingCart() != null)
-            return "fail - empty user's shopping cart failed";
-        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.Visitor)
-            return "fail - user's permission didn't change to visitor";
-
-        return "user got out successfully";
-    }
-    public String getOutFromTheSystem_FailTest2(){
-        if(real!=null)
-            return real.getOutFromTheSystem();
-
-        if(currentUserInSystem.getPermissionLevel() == Subscriber.permission.Visitor)
-            return "fail - the user already got out of the system (as buyer)";
-
-        currentUserInSystem.setPermissionLevel(Subscriber.permission.Visitor);
-        if(currentUserInSystem.getShoppingCart() != null)
-            return "fail - empty user's shopping cart failed";
-        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.Visitor)
-            return "fail - user's permission didn't change to visitor";
-
-        return "user got out successfully";
-    }
-    public String getOutFromTheSystem_FailTest3(){
-        if(real!=null)
-            return real.getOutFromTheSystem();
-
-        if(currentUserInSystem.getPermissionLevel() == Subscriber.permission.Visitor)
-            return "fail - the user already got out of the system (as buyer)";
-
-        currentUserInSystem.setShoppingCart(null);
-        if(currentUserInSystem.getShoppingCart() != null)
-            return "fail - empty user's shopping cart failed";
-        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.Visitor)
-            return "fail - user's permission didn't change to visitor";
-
-        return "user got out successfully";
+            return real.getOutFromTheSystem(name);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-/** User requirement - II.1.3 */
-
-    public String register(String username, String password){
-        //username has to contain at least 3 characters
-        //password has to contain at least 4 characters
+    /** User requirement - II.1.3 */
+    public boolean register(String username, String password){
         if(real!=null)
             return real.register(username, password);
-
-        for(Subscriber u : users){
-            if(u.getUsername().equals(username)){
-                return "fail - this username already exists in the system";
-            }
-        }
-        if(username.length() < 3)
-            return "fail - invalid username";
-        if(password.length() < 4)
-            return "fail - invalid password";
-
-        users.add(new Subscriber(username, password, Subscriber.permission.Visitor));
-        return "the user registered successfully";
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
 
-/** User requirement - II.1.4 */
-
-    public String login(String username, String password){
-        //username has to contain at least 3 characters
-        //password has to contain at least 4 characters
+    /** User requirement - II.1.4 */
+    public boolean login(String username, String password){
         if(real!=null)
             return real.login(username, password);
-
-        for(Subscriber u : users){
-            if(u.getUsername().equals(username)){
-                if(u.getPassword().equals(password)){
-                    currentUserInSystem = u;
-                    currentUserInSystem.setIsLoggedIn(true);
-                    currentUserInSystem.setPermissionLevel(u.getPermissionLevel());
-                    return "user logged in successfully";
-                }
-                else{
-                    return "fail - wrong password";
-                }
-            }
-        }
-        return "fail - wrong username / no such username in the system";
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-/** User requirement - II.2.1 */
-
+    /** User requirement - II.2.1 */
     public String receiveSystemInfo(){
         if(real!=null)
             return real.receiveSystemInfo();
-
-        String str = "";
-        str += "Users:\n";
-        for (Subscriber u : users){
-            str = str.concat(u.getUsername() + "\n");
-        }
-        str += "\nStores:\n";
-        for (Store s : stores){
-            str = str.concat(s.getStoreName() + "\n");
-        }
-        return str;
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-/** User requirement - II.2.2 */
-
-    public String searchProduct(String productName){
+    /** User requirement - II.2.2 */
+    public List<Product> searchProduct(String userId, String productName){
         if(real!=null)
-            return real.searchProduct(productName);
-
-        int productCount = 0;
-        for (Store s : stores){
-            for(Product p : s.getProducts().keySet()){
-                if(p.getProductName().equals(productName) && s.getProducts().get(p) > 0){
-                    productCount++;
-                }
-            }
-        }
-        if(productCount > 0)
-            return "showing all the products that were searched by the user";
-        else
-            return "there's no such product in the system (in any store)";
+            return real.searchProduct(userId, productName);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-/** User requirement - II.2.3 */
-
-    public String saveProductFromStoreToShoppingCart(String storeName, String productName){
+    /** User requirement - II.2.3 */
+    public boolean saveProductFromStoreToShoppingCart(String user_id, String productID, String storeID,
+                                                     int amount, boolean auctionOrBid){
         if(real!=null)
-            return real.saveProductFromStoreToShoppingCart(storeName, productName);
-
-        if(currentUserInSystem.getPermissionLevel() == Subscriber.permission.Visitor)
-            return "fail - visitor user can't use shopping cart (need to be at least buyer)";
-        for (Store s : stores){
-             if(s.getStoreName().equals(storeName)){
-                 for (Product p : s.getProducts().keySet()){
-                     if(p.getProductName().equals(productName) && s.getProducts().get(p) > 0){
-                         HashMap<String, Integer> shoppingCart = currentUserInSystem.getShoppingCart();
-                         shoppingCart.put(p.getProductName(), 1);
-                         currentUserInSystem.setShoppingCart(shoppingCart);
-                         return "product saved to shopping cart successfully";
-                     }
-                 }
-                 return "there's no such product in the store / there's no quantity left to this product";
-             }
-        }
-        return "fail - wrong store name";
+            return real.saveProductFromStoreToShoppingCart(user_id, productID, storeID, amount, auctionOrBid);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-/** User requirement - II.2.4 */
-
-    public String showShoppingCart(){
+    /** User requirement - II.2.4 */
+    public String showShoppingCart(String userId){
         if(real!=null)
-            return real.showShoppingCart();
-
-        if(currentUserInSystem.getShoppingCart() == null)
-            return "fail - shopping cart can't be displayed";
-
-        //currentUserInSystem.getShoppingCart();
-        return "showing user's shopping cart";
+            return real.showShoppingCart(userId);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-/** User requirement - II.2.4 */
-
-    //inc. by 1!
-    public String increaseProductQuantityInShoppingCart(String productName){
+    /** User requirement - II.2.4 */
+    public boolean increaseProductQuantityInShoppingCart(String user_id,String productID, String storeID,
+                                                        int amount ,boolean auctionOrBid){
         if(real!=null)
-            return real.increaseProductQuantityInShoppingCart(productName);
-
-        if(currentUserInSystem.getPermissionLevel() == Subscriber.permission.Visitor)
-            return "fail - visitor user can't use shopping cart (need to be at least buyer)";
-        HashMap<String, Integer> shoppingCart = currentUserInSystem.getShoppingCart();
-        for (String pName : shoppingCart.keySet()){
-            if(pName.equals(productName)){
-                int quantity = shoppingCart.get(productName) + 1;
-                shoppingCart.put(productName, quantity);
-                currentUserInSystem.setShoppingCart(shoppingCart);
-                return "the product quantity increased successfully";
-            }
-        }
-        return "failed to increase product quantity";
+            return real.increaseProductQuantityInShoppingCart(user_id, productID, storeID, amount, auctionOrBid);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-/** User requirement - II.2.4 */
-
-    //dec. by 1!
-    public String decreaseProductQuantityInShoppingCart(String productName){
+    /** User requirement - II.2.4 */
+    public boolean decreaseProductQuantityInShoppingCart(String userId,String productID, String storeID, int amount){
         if(real!=null)
-            return real.decreaseProductQuantityInShoppingCart(productName);
-
-        if(currentUserInSystem.getPermissionLevel() == Subscriber.permission.Visitor)
-            return "fail - visitor user can't use shopping cart (need to be at least buyer)";
-        HashMap<String, Integer> shoppingCart = currentUserInSystem.getShoppingCart();
-        for (String pName : shoppingCart.keySet()){
-            if(pName.equals(productName)){
-                int quantity = shoppingCart.get(productName) - 1;
-                if(quantity < 0)
-                    quantity = 0;
-                shoppingCart.put(productName, quantity);
-                currentUserInSystem.setShoppingCart(shoppingCart);
-                return "the product quantity decreased successfully";
-            }
-        }
-        return "failed to decrease product quantity";
+            return real.decreaseProductQuantityInShoppingCart(userId, productID, storeID, amount);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-/** User requirement - II.2.4 */
-
+    /** User requirement - II.2.4 */
     public String removeProductFromShoppingCart(String productName){
         if(real!=null)
             return real.removeProductFromShoppingCart(productName);
-
-        if(currentUserInSystem.getPermissionLevel() == Subscriber.permission.Visitor)
-            return "fail - visitor user can't use shopping cart (need to be at least buyer)";
-        HashMap<String, Integer> shoppingCart = currentUserInSystem.getShoppingCart();
-        for (String pName : shoppingCart.keySet()){
-            if(pName.equals(productName)){
-                shoppingCart.remove(productName);
-                currentUserInSystem.setShoppingCart(shoppingCart);
-                return "the product removed successfully";
-            }
-        }
-        return "failed to remove product quantity";
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-/** User requirement - II.2.5 */
-
-    public String purchaseShoppingCart(){
+    /** User requirement - II.2.5 */
+    public boolean purchaseShoppingCart(String userID,String payment,String delivery){
         if(real!=null)
-            return real.purchaseShoppingCart();
+            return real.purchaseShoppingCart(userID, payment, delivery);
 
         //TODO: Need to add external services...
-        return "TODO!";
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-/** User requirement - II.3.1 */
-
-    public String logout(){
+    /** User requirement - II.3.1 */
+    public boolean logout(String userid){
         if(real!=null)
-            return real.logout();
-
-        if(currentUserInSystem == null || !currentUserInSystem.getIsLoggedIn()){
-            return "fail - this user isn't logged in";
-        }
-
-        currentUserInSystem.setIsLoggedIn(false);
-        //TODO: Need to save the registered user's shopping cart
-        currentUserInSystem.setShoppingCart(new HashMap<>());
-        //currentUserInSystem.setPermissionLevel(User.permission.Visitor);
-        return "logout done successfully";
+            return real.logout(userid);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-/** User requirement - II.3.2 */
-
-    public String openStore(String storeName, HashMap<Product, Integer> products){
-        //storeName has to have at least 5 characters
+    /** User requirement - II.3.2 */
+    public boolean openStore(String userID, String storeName){
         if(real!=null)
-            return real.openStore(storeName, products);
-
-        if(storeName.length() < 5){
-            return "fail - store name is not valid";
-        }
-        if(currentUserInSystem.getPermissionLevel() == Subscriber.permission.Visitor ||
-            currentUserInSystem.getPermissionLevel() == Subscriber.permission.Buyer ||
-                !currentUserInSystem.getIsLoggedIn()){
-            return "fail - registration & login are required in order to open a store";
-        }
-        for(Store s : stores){
-            if(s.getStoreName().equals(storeName)){
-                return "fail - this store name is already taken";
-            }
-        }
-        stores.add(new Store(storeName, products));
-        currentUserInSystem.setStoreOwnedByMe(storeName);
-        if(currentUserInSystem.getPermissionLevel() == Subscriber.permission.Registered ||
-                currentUserInSystem.getPermissionLevel() == Subscriber.permission.ShopManager) {
-            currentUserInSystem.setPermissionLevel(Subscriber.permission.ShopOwner);
-        }
-        return "store was opened successfully";
+            return real.openStore(userID, storeName);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-/** User requirement - II.4.1 */
-
-    public String addProductToStore(String storeName, String productName, int productPrice, int productQuantity){
-        //productName has to have at least 2 characters
+    /** User requirement - II.4.1 */
+    public boolean addProductToStore(String storeId, String userId, String productName, float price,
+                                     int supply, String category){
         if(real!=null)
-            return real.addProductToStore(storeName, productName, productPrice, productQuantity);
-
-        if(productName.length() < 2 || productPrice <= 0 || productQuantity < 0){
-            return "fail - product name/price/quantity is not valid";
-        }
-        if((currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
-        currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemManager &&
-        currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemFounder)
-                || !currentUserInSystem.getIsLoggedIn()){
-            return "fail - user has to be at least shop owner and to be logged in";
-        }
-        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
-                !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
-            return "fail - the user is not owner on that store";
-        }
-        for(Store s : stores){
-            if(s.getStoreName().equals(storeName)){
-                for(Product p : s.getProducts().keySet()){
-                    if(p.getProductName().equals(productName)){
-                        return "this exact same product is already in the store";
-                    }
-                }
-                HashMap<Product, Integer> prods = s.getProducts();
-                prods.put(new Product(productName, productPrice), productQuantity);
-                s.setProducts(prods);
-                return "product was added to the store successfully";
-            }
-        }
-        return "fail - should never happen!";
+            return real.addProductToStore(storeId, userId, productName, price, supply, category);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-/** User requirement - II.4.1 */
-
-    public String removeProductFromStore(String storeName, String productName){
+    /** User requirement - II.4.1 */
+    public boolean removeProductFromStore(String storeId, String userId,String productId){
         if(real!=null)
-            return real.removeProductFromStore(storeName, productName);
-
-        if((currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
-                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemManager &&
-                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemFounder)
-                || !currentUserInSystem.getIsLoggedIn()){
-            return "fail - user has to be at least shop owner and to be logged in";
-        }
-        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
-                !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
-            return "fail - the user is not owner on that store";
-        }
-        for(Store s : stores){
-            if(s.getStoreName().equals(storeName)){
-                for(Product p : s.getProducts().keySet()){
-                    if(p.getProductName().equals(productName)){
-                        HashMap<Product, Integer> prods = s.getProducts();
-                        prods.remove(p);
-                        s.setProducts(prods);
-                        return "product was removed from the store successfully";
-                    }
-                }
-            }
-        }
-        return "failed to remove product (check storeName or productName)";
+            return real.removeProductFromStore(storeId, userId, productId);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-/** User requirement - II.4.1 */
-
-    public String editProductInStore(String storeName, String productName, String newProductName,
-                                     int newProductPrice, int newProductQuantity){
+    /** User requirement - II.4.1 */
+    public boolean editProductInStore(String storeId, String userId, String productId,
+                                     int newSupply, String newName, float newPrice, String category){
         if(real!=null)
-            return real.editProductInStore(storeName, productName, newProductName, newProductPrice, newProductQuantity);
-
-        if(newProductName.length() < 2 || newProductPrice <= 0 || newProductQuantity < 0){
-            return "fail - new product name/price/quantity is not valid";
-        }
-        if((currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
-                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemManager &&
-                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemFounder)
-                || !currentUserInSystem.getIsLoggedIn()){
-            return "fail - user has to be at least shop owner and to be logged in";
-        }
-        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
-                !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
-            return "fail - the user is not owner on that store";
-        }
-        for(Store s : stores){
-            if(s.getStoreName().equals(storeName)){
-                for(Product p : s.getProducts().keySet()){
-                    if(p.getProductName().equals(productName)){
-                        HashMap<Product, Integer> prods = s.getProducts();
-                        prods.remove(p);
-                        prods.put(new Product(newProductName, newProductPrice), newProductQuantity);
-                        s.setProducts(prods);
-                        return "product was edited in the store successfully";
-                    }
-                }
-            }
-        }
-        return "failed to edit product (check storeName or productName)";
+            return real.editProductInStore(storeId, userId, productId, newSupply, newName, newPrice, category);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-/** User requirement - II.4.2 */
-
+    /** User requirement - II.4.2 */
     public String changeStorePolicy(String storeName, String newStorePolicy){
-        //policy should contain at least 10 characters;
         if(real!=null)
             return real.changeStorePolicy(storeName, newStorePolicy);
-
-        if(newStorePolicy.length() < 10){
-            return "fail - new policy is not valid";
-        }
-        if((currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
-                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemManager &&
-                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemFounder)
-                || !currentUserInSystem.getIsLoggedIn()){
-            return "fail - user has to be at least shop owner and to be logged in";
-        }
-        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
-                !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
-            return "fail - the user is not owner on that store (Check store name)";
-        }
-        for(Store s : stores){
-            if(s.getStoreName().equals(storeName)){
-                s.setPolicy(newStorePolicy);
-                return "changed policy successfully";
-            }
-        }
-        return "failed to change policy (Check store name)";
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-/** User requirement - II.4.4 */
-
-    public String addNewStoreOwner(String storeName, String newStoreOwnerUserName){
+    /** User requirement - II.4.4 */
+    public boolean addNewStoreOwner(String storeId, String userIdGiving, String UserGettingPermissionId,
+                                   List<Permission> permissions){
         if(real!=null)
-            return real.addNewStoreOwner(storeName, newStoreOwnerUserName);
-
-        if((currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
-                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemManager &&
-                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemFounder)
-                || !currentUserInSystem.getIsLoggedIn()){
-            return "fail - user has to be at least shop owner and to be logged in";
-        }
-        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
-                !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
-            return "fail - the user is not owner on that store (Check store name)";
-        }
-        Store store = null;
-        Subscriber user = null;
-        for (Store s : stores){
-            if(s.getStoreName().equals(storeName))
-                store = s;
-        }
-        for (Subscriber u : users){
-            if(u.getUsername().equals(newStoreOwnerUserName))
-                user = u;
-        }
-        if(store == null || user == null)
-            return "fail - store name or username is invalid";
-        else if (user.getStoreOwnedByMe()!=null || user.getStoreManagedByMe()!=null)
-            return "fail - this user is already managing/owning a store in the system";
-        else{
-            user.setPermissionLevel(Subscriber.permission.ShopOwner);
-            user.setStoreOwnedByMe(storeName);
-            HashMap<String, Subscriber.permission> officials = store.getStoreOfficials();
-            officials.put(user.getUsername(), user.getPermissionLevel());
-            store.setStoreOfficials(officials);
-        }
-        return "the user is now store owner";
+            return real.addNewStoreOwner(storeId, userIdGiving, UserGettingPermissionId, permissions);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-/** User requirement - II.4.6 */
-
-    public String addNewStoreManager(String storeName, String newStoreManagerUserName){
+    /** User requirement - II.4.6 */
+    public boolean addNewStoreManager(String storeId, String userIdGiving, String UserGettingPermissionId){
         if(real!=null)
-            return real.addNewStoreManager(storeName, newStoreManagerUserName);
-
-        if((currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
-                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemManager &&
-                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemFounder)
-                || !currentUserInSystem.getIsLoggedIn()){
-            return "fail - user has to be at least shop owner and to be logged in";
-        }
-        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
-                !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
-            return "fail - the user is not owner on that store (Check store name)";
-        }
-        Store store = null;
-        Subscriber user = null;
-        for (Store s : stores){
-            if(s.getStoreName().equals(storeName))
-                store = s;
-        }
-        for (Subscriber u : users){
-            if(u.getUsername().equals(newStoreManagerUserName))
-                user = u;
-        }
-        if(store == null || user == null)
-            return "fail - store name or username is invalid";
-        else if (user.getStoreOwnedByMe()!=null || user.getStoreManagedByMe()!=null)
-            return "fail - this user is already managing/owning a store in the system";
-        else{
-            user.setPermissionLevel(Subscriber.permission.ShopManager);
-            user.setStoreOwnedByMe(storeName);
-            HashMap<String, Subscriber.permission> officials = store.getStoreOfficials();
-            officials.put(user.getUsername(), user.getPermissionLevel());
-            store.setStoreOfficials(officials);
-        }
-        return "the user is now store manager";
+            return real.addNewStoreManager(storeId, userIdGiving, UserGettingPermissionId);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-/** User requirement - II.4.7 */
-
-    public String changeStoreManagerPermissions(String storeName, String storeManagerUserName, Subscriber.permission newPermission){
+    /** User requirement - II.4.7 */
+    public String changeStoreManagerPermissions(String storeName, String storeManagerUserName, String newPermission){
         if(real!=null)
             return real.changeStoreManagerPermissions(storeName, storeManagerUserName, newPermission);
-
-        if((currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
-                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemManager &&
-                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemFounder)
-                || !currentUserInSystem.getIsLoggedIn()){
-            return "fail - user has to be at least shop owner and to be logged in";
-        }
-        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
-                !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
-            return "fail - the user is not owner on that store (Check store name)";
-        }
-        for (Store s : stores){
-            if(s.getStoreName().equals(storeName)){
-                for(String uName : s.getStoreOfficials().keySet()){
-                    if(uName.equals(storeManagerUserName)){
-                        for (Subscriber u : users){
-                            if(u.getUsername().equals(storeManagerUserName)){
-                                u.setPermissionLevel(newPermission);
-                                if(newPermission == Subscriber.permission.ShopOwner)
-                                    u.setStoreOwnedByMe(storeName);
-                                else
-                                    u.setStoreManagedByMe(storeName);
-                                HashMap<String, Subscriber.permission> officials = s.getStoreOfficials();
-                                officials.put(u.getUsername(), u.getPermissionLevel());
-                                return "store manager permission has changed successfully";
-                            }
-                        }
-                    }
-                }
-                return "fail - this user is not a manager in that store";
-            }
-        }
-        return "fail - there's no such store in the system";
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-/** User requirement - II.4.9 */
-
-    public String closeStoreByOwner(String storeName){
+    /** User requirement - II.4.9 */
+    public boolean freezeStoreByOwner(String storeId, String userId){
         if(real!=null)
-            return real.closeStoreByOwner(storeName);
-
-        if((currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
-                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemManager &&
-                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemFounder)
-                || !currentUserInSystem.getIsLoggedIn()){
-            return "fail - user has to be at least shop owner and to be logged in";
-        }
-        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
-                !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
-            return "fail - the user is not owner on that store (Check store name)";
-        }
-        for (Store s : stores) {
-            if (s.getStoreName().equals(storeName)) {
-                if(!s.isOpen())
-                    return "the store was already closed";
-                s.setOpen(false);
-                return "the store has closed successfully";
-            }
-        }
-        return "failed to close store (Check store name)";
+            return real.freezeStoreByOwner(storeId, userId);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-/** User requirement - II.4.11 */
-
-    public String showStoreOfficials(String storeName){
+    /** User requirement - II.4.10 */
+    public boolean unfreezeStoreByOwner(String storeId, String userId){
         if(real!=null)
-            return real.showStoreOfficials(storeName);
-
-        if((currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
-                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemManager &&
-                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemFounder)
-                || !currentUserInSystem.getIsLoggedIn()){
-            return "fail - user has to be at least shop owner and to be logged in";
-        }
-        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
-                !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
-            return "fail - the user is not owner on that store (Check store name)";
-        }
-        for (Store s : stores) {
-            if (s.getStoreName().equals(storeName)) {
-                return "showing all the officials...";
-            }
-        }
-        return "failed to show the store's officials";
+            return real.unfreezeStoreByOwner(storeId, userId);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-/** User requirement - II.4.13 */
-
-    public String showStorePurchaseHistory(String storeName){
+    /** User requirement - II.4.11 */
+    public boolean showStoreOfficials(String storeId, String userId){
         if(real!=null)
-            return real.showStorePurchaseHistory(storeName);
-
-        if((currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
-                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemManager &&
-                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemFounder)
-                || !currentUserInSystem.getIsLoggedIn()){
-            return "fail - user has to be at least shop owner and to be logged in";
-        }
-        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
-                !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
-            return "fail - the user is not owner on that store (Check store name)";
-        }
-        for (Store s : stores) {
-            if (s.getStoreName().equals(storeName)) {
-                return "showing all the purchase history...";
-            }
-        }
-        return "failed to show the store's purchase history";
+            return real.showStoreOfficials(storeId, userId);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
+    /** User requirement - II.4.13 */
+    public List<PurchaseHistory> showStorePurchaseHistory(String storeId){
+        if(real!=null)
+            return real.showStorePurchaseHistory(storeId);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
+    }
 
-/** User requirement - II.6.4 */
+    /** User requirement - II.4.13 */
+    public List<PurchaseHistory> showUserPurchaseHistory(String userId){
+        if(real!=null)
+            return real.showUserPurchaseHistory(userId);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
+    }
 
+    /** User requirement - II.6.4 */
     public String showPurchaseHistoryForSystemFounder(String storeOrUser, String name){
         if(real!=null)
             return real.showPurchaseHistoryForSystemFounder(storeOrUser, name);
-
-        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemFounder ||
-                !currentUserInSystem.getIsLoggedIn()){
-            return "fail - user has to be system founder and to be logged in";
-        }
-        if(storeOrUser.equals("store")){
-            return showStorePurchaseHistory(name);
-        }
-        else if(storeOrUser.equals("user")){
-            return "Show user history purchase...";
-        }
-        else
-            return "fail - user have to ask user/store only";
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 }
 

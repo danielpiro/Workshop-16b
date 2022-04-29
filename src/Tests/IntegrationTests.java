@@ -1,4 +1,3 @@
-/*
 package Tests;
 
 import Tests.Bridge.Proxy;
@@ -15,22 +14,18 @@ import static org.junit.jupiter.api.Assertions.*;
 public class IntegrationTests {
     Proxy proxy = new Proxy();
 
-    */
-/**
+    /**
      * Simulate requirement II.1.1 -> Entering to the system
-     *//*
-
+     */
     @BeforeEach
     void setUp() {
         //set all system's users, stores & products
         proxy.openingMarket();
     }
 
-    */
-/**
+    /**
      * Shutting down
-     *//*
-
+     */
     @AfterEach
     void tearDown() {
         proxy.setUsers(new ArrayList<>());
@@ -42,11 +37,9 @@ public class IntegrationTests {
         assertTrue(true);
     }
 
-    */
-/**
+    /**
      * Requirements I.3 + I.4
-     *//*
-
+     */
     @Test
     void payment_and_delivery_test() {
         String str = "";
@@ -57,11 +50,9 @@ public class IntegrationTests {
                              "Delivery done successfully", str);
     }
 
-    */
-/**
+    /**
      * Requirements II.1.1 + II.1.2
-     *//*
-
+     */
     @Test
     void get_in_and_get_out_test() {
         //setting up a visitor in the system
@@ -77,13 +68,11 @@ public class IntegrationTests {
                              "user got out successfully", str);
     }
 
-    */
-/**
+    /**
      *  1) Register new user -> Requirement II.1.3
      *  2) Login with this user -> Requirement II.1.4
      *  3) Logout from that user -> Requirement II.3.1
-     **//*
-
+     **/
     @Test
     void register_login_and_logout_test() {
         String str = proxy.register("user0", "00000");
@@ -96,12 +85,10 @@ public class IntegrationTests {
                              "logout done successfully", str);
     }
 
-    */
-/**
+    /**
      *  1) Receive Info in the system -> Requirement II.1.1
      *  2) Search product -> Requirement II.1.2
-     **//*
-
+     **/
     @Test
     void receiveSystemInfo_and_searchProduct_test() {
         String str = "";
@@ -124,16 +111,14 @@ public class IntegrationTests {
                             "showing all the products that were searched by the user\n", str);
     }
 
-    */
-/**
+    /**
      *  1) User in the system (by Login) -> Requirement II.1.4
      *  2) Search product -> Requirement II.1.2
      *  3) Save Product to the shopping cart -> Requirement II.2.3
      *  4) Check shopping cart content -> Requirement II.2.4
      *  5) Purchase shopping cart -> Requirement II.2.5
      *  6) Logout from that user -> Requirement II.3.1
-     **//*
-
+     **/
     @Test
     void login_searchProduct_saveProduct_checkShoppingCart_and_purchaseShoppingCart_test() {
         String str = "";
@@ -155,13 +140,11 @@ public class IntegrationTests {
                             "logout done successfully", str);
     }
 
-    */
-/**
+    /**
      *  1) Login -> Requirement II.1.4
      *  2) Open store -> Requirement II.3.2
      *  3) Logout -> Requirement II.3.1
-     **//*
-
+     **/
     @Test
     void login_openStore_and_logout(){
         String str = "";
@@ -178,14 +161,12 @@ public class IntegrationTests {
                             "logout done successfully", str);
     }
 
-    */
-/**
+    /**
      *  1) Login - as StoreOwner -> Requirement II.1.4
      *  2) ShowStorePurchaseHistory -> Requirement II.4.11
      *  3) ShowStoreOfficials -> Requirement II.4.13
      *  4) Logout -> Requirement II.3.1
-     **//*
-
+     **/
     @Test
     void login_showStorePurchaseHistory_showStoreOfficials_and_logout_test() {
         String str = proxy.login("user3", "33333");
@@ -201,15 +182,12 @@ public class IntegrationTests {
                              "logout done successfully",str);
     }
 
-    */
-/**
-     *  Scenario 3:
+    /**
      *  1) Login - as StoreOwner
      *  2) Add store manager to a store.
      *  3) Add store owner to a store -> we'll fail this one with user that is already a manager/owner.
      *  4) Logout
-     **//*
-
+     **/
     @Test
     void login_addNewManager_notAddingNewOwner_and_logout_test() {
         String str = proxy.login("user3", "33333");
@@ -225,8 +203,7 @@ public class IntegrationTests {
                              "logout done successfully", str);
     }
 
-    */
-/**
+    /**
      *  1) Register new user
      *  2) Login with this user
      *  3) Logout from that user
@@ -240,8 +217,7 @@ public class IntegrationTests {
      *  9) Add store manager to a store.
      *  10) Add store owner to a store -> we'll fail this one with user that is already a manager/owner.
      *  11) Logout
-     **//*
-
+     **/
     @Test
     void scenarios_1_2_3_test() {
         String str = proxy.register("user0", "00000");
@@ -282,4 +258,3 @@ public class IntegrationTests {
     }
 
 }
-*/
