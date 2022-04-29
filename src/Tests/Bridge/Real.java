@@ -18,12 +18,6 @@ public class Real implements BridgeInterface{
     private BigController bigController;
 
     public Real() {
-        try {
-            this.bigController = new BigController();
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-        }
     }
 
    public Real(BigController msApp) {
@@ -46,7 +40,13 @@ public class Real implements BridgeInterface{
 
     /** System requirement - I.1 */
     public String openingMarket(){
-        throw new UnsupportedOperationException("Not Implemented Yet");
+        try {
+            this.bigController = new BigController();
+            return "system opened successfully";
+        }
+        catch (Exception e){
+            return "failed to open market system";
+        }
     }
 
     /** System requirement - I.2 - Header*/

@@ -450,5 +450,3 @@ public class Proxy implements BridgeInterface {
         throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 }
-
-

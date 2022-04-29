@@ -6,6 +6,7 @@ import ExternalConnections.Payment.Visa;
 import History.PurchaseHistory;
 import Store.Product;
 import Tests.Bridge.Proxy;
+import Tests.Bridge.Real;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,11 +30,30 @@ public class AcceptanceTests {
      * 3) External Services.
      */
 
-    Proxy proxy = new Proxy();
+    Proxy proxy = new Proxy(new Real());
 
     @BeforeEach
     void setUp() throws NoPermissionException {
-//        proxy.openingMarket();
+        proxy.openingMarket();
+
+//        admin: user AdminID_1, password BigBoss
+//        user1: store owner of store1 (store original owner)
+//        user2: store manager of store1
+//        user3: subscriber
+//        guest: GuestID_1
+
+        proxy.register("user1", "11111");
+        proxy.login("user1", "11111");
+        proxy.openStore("user1", "store1");
+        proxy.register("user2", "22222");
+        proxy.addNewStoreManager("store1", "user1", "user2");
+        proxy.register("user3", "33333");
+        proxy.getInToTheSystem(); // for guest
+
+        proxy.addProductToStore("store1", "user1", "p0", 5.0f, 0, "Other");
+        proxy.addProductToStore("store1", "user1", "p1", 10.0f, 5, "Other");
+        proxy.addProductToStore("store1", "user1", "p2", 15.0f, 10, "Other");
+        proxy.addProductToStore("store1", "user1", "p3", 20.0f, 15, "Other");
     }
 
     @AfterEach
