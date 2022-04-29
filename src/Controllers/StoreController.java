@@ -7,7 +7,7 @@ import Store.Store;
 import StorePermission.Permission;
 import StorePermission.StoreRoles;
 import Store.Product;
-
+import Store.StoreState;
 import javax.naming.NoPermissionException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -160,7 +160,10 @@ public class StoreController {
     public HashMap<String,List<Product>> getAllProductsAndStores(){
         HashMap<String,List<Product>> ProductsAndStores = new HashMap<>();
         for (Store store : stores.values()) {
-            ProductsAndStores.put(store.getId(),store.getAllProducts());
+            if(store.getStoreState().equals(StoreState.ACTIVE)){
+                ProductsAndStores.put(store.getId(),store.getAllProducts());
+
+            }
         }
         return ProductsAndStores;
     }
@@ -168,7 +171,9 @@ public class StoreController {
     public List<Product> SearchProductsAccordingName(String productName){
         List<Product> filtered=  new ArrayList<>();
         for (Store store : stores.values()) {
-            filtered.addAll(store.getProductsNameContains(productName));
+            if(store.getStoreState().equals(StoreState.ACTIVE)) {
+                filtered.addAll(store.getProductsNameContains(productName));
+            }
         }
         return filtered;
     }
@@ -176,7 +181,9 @@ public class StoreController {
     public List<Product> SearchProductsAccordingCategory(List<String> categories ){
         List<Product> filtered=  new ArrayList<>();
         for (Store store : stores.values()) {
-            filtered.addAll(store.getAllProductsCategory(categories));
+            if(store.getStoreState().equals(StoreState.ACTIVE)){
+                filtered.addAll(store.getAllProductsCategory(categories));
+            }
         }
         return filtered;
 
@@ -184,7 +191,9 @@ public class StoreController {
     public List<Product> SearchProductsAccordingPrice(float fromPrice, float toPrice ){
         List<Product> filtered=  new ArrayList<>();
         for (Store store : stores.values()) {
-            filtered.addAll(store.getProductsPriceContains(fromPrice, toPrice));
+            if(store.getStoreState().equals(StoreState.ACTIVE)){
+                filtered.addAll(store.getProductsPriceContains(fromPrice, toPrice));
+            }
         }
         return filtered;
 
@@ -193,7 +202,9 @@ public class StoreController {
     public List<Product> SearchProductsAccordingRating(float productRating){
         List<Product> filtered=  new ArrayList<>();
         for (Store store : stores.values()) {
-            filtered.addAll(store.getAllProductsRating(productRating, 5f));
+            if(store.getStoreState().equals(StoreState.ACTIVE)) {
+                filtered.addAll(store.getAllProductsRating(productRating, 5f));
+            }
         }
         return filtered;
     }

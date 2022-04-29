@@ -13,8 +13,8 @@ public class OriginalStoreOwnerRole extends StoreRoles{
     }
 
     public StoreOwnerRole createOwner(String userId, List<Permission> givePerm){
-        for (Permission p :
-                givePerm) {
+        for (Permission p
+                : givePerm) {
             if (p == Permission.CLOSE_STORE  ||  p == Permission.OPEN_STORE) {
                 throw new RuntimeException("only store manager can have permission to close store");
             }

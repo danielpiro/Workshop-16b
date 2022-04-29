@@ -21,6 +21,11 @@ public class Store {
     private List<StoreRoles> StoreRoles;
     private InventoryManager inventoryManager;
     private Forum forum;
+
+    public StoreState getStoreState() {
+        return storeState;
+    }
+
     private StoreState storeState;
     private float storeRating; //rating between 1 - 5
     private List<Review> reviews;
@@ -76,7 +81,7 @@ public class Store {
         }
         throw new NoPermissionException("the user is not manager/owner");
     }
-    private void removePermissionTo(List<String> RolesToRemove){
+    private void removeRolesInStoreTo(List<String> RolesToRemove){
         for (String id : RolesToRemove) {
             for (int i = 0; i < StoreRoles.size(); i++) {
                 if(IdGenerator.getInstance().isIdEqual(
@@ -88,13 +93,13 @@ public class Store {
                 }
             }
 
-
         }
     }
     public void removePermissionTo(String userIdRemoving,String UserAffectedId) throws NoPermissionException {
+        //todo add option for "userIdRemoving" to delete manager of manager that he gave permission to
         for (StoreRoles roleUser : StoreRoles) {
             if (roleUser.getUserId().equals(userIdRemoving) ) {
-                removePermissionTo( roleUser.removeManager(UserAffectedId));
+                removeRolesInStoreTo( roleUser.removeManager(UserAffectedId));
                 return;
             }
         }
@@ -102,7 +107,7 @@ public class Store {
     }
     public void removePermissionTo(String userId) {
         for (StoreRoles roleUser : StoreRoles) {
-            removePermissionTo( roleUser.removeManager(userId));
+            removeRolesInStoreTo( roleUser.removeManager(userId));
         }
 
 

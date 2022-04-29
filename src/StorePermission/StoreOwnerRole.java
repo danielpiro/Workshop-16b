@@ -16,7 +16,9 @@ public class StoreOwnerRole extends StoreRoles{
                 throw new IllegalArgumentException("this manager don't have the permission he is giving");
             }
         }
-        return new StoreOwnerRole(userId, givePerm);
+        StoreOwnerRole newOwner = new StoreOwnerRole(userId, givePerm);
+        createPermissionsTo.add(newOwner);
+        return newOwner;
     }
     @Override
     public StoreManager createManager(String userId) throws NoPermissionException {
