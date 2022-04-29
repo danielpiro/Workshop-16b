@@ -72,7 +72,6 @@ public class AcceptanceTests {
      *  Need to implement thread-base system
      *  (requirement 1.b in V1)
      **/
-
     @Test
     void parallel_use_success_case_test() {
         System.out.println("Need to implement thread-base system");
