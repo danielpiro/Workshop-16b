@@ -11,10 +11,12 @@ import java.util.HashMap;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class IntegrationTests {
+
+
     Proxy proxy = new Proxy();
 
-    /**
-     * Simulate requirement II.1.1 -> Entering to the system
+    /*
+      Simulate requirement II.1.1 -> Entering to the system
      */
     @BeforeEach
     void setUp() {
