@@ -1,174 +1,118 @@
 
 package Tests.Bridge;
 
+import GlobalSystemServices.IdGenerator;
 import Store.Store;
 import Store.Product;
+import User.Subscriber;
+
+import javax.naming.NoPermissionException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Proxy implements BridgeInterface {
     private BridgeInterface real;
 
-    private ArrayList<User> users;
-    private ArrayList<Store> stores;
-    private User currentUserInSystem;
+//    private ArrayList<Subscriber> users;
+//    private ArrayList<Store> stores;
+//    private Subscriber currentUserInSystem;
 
 
     public Proxy() {
         this.real = null;
-        users = new ArrayList<>();
-        stores = new ArrayList<>();
-        currentUserInSystem = null;
-    }
-//    public Proxy(BridgeInterface real) {
-//        this.real = real;
 //        users = new ArrayList<>();
 //        stores = new ArrayList<>();
 //        currentUserInSystem = null;
-//    }
+    }
+    public Proxy(BridgeInterface real) {
+        this.real = real;
+//        users = new ArrayList<>();
+//        stores = new ArrayList<>();
+//        currentUserInSystem = null;
+    }
 
     public BridgeInterface getReal() {
         return real;
     }
 
-//    public void setReal(BridgeInterface real) {
-//        this.real = real;
+    public void setReal(BridgeInterface real) {
+        this.real = real;
+    }
+
+//    public ArrayList<Subscriber> getUsers() {
+//        return users;
+//    }
+//
+//    public void setUsers(ArrayList<Subscriber> users) {
+//        this.users = users;
+//    }
+//
+//    public ArrayList<Store> getStores() {
+//        return stores;
+//    }
+//
+//    public void setStores(ArrayList<Store> stores) {
+//        this.stores = stores;
+//    }
+//
+//    public Subscriber getCurrentUserInSystem() {
+//        return currentUserInSystem;
+//    }
+//
+//    public void setCurrentUserInSystem(Subscriber currentUserInSystem) {
+//        this.currentUserInSystem = currentUserInSystem;
 //    }
 
-    public ArrayList<User> getUsers() {
-        return users;
-    }
+//    public void uploadUsersAndStores() throws NoPermissionException {
+//        Subscriber user1 = new Subscriber("user1", "11111");
+//        Subscriber user2 = new Subscriber("user2", "22222");
+//        Subscriber user3 = new Subscriber("user3", "33333");
+//        Subscriber user4 = new Subscriber("user4", "44444");
+//        Subscriber user5 = new Subscriber("user5", "55555");
+//        Subscriber user6 = new Subscriber("user6", "66666");
+//        Subscriber user7 = new Subscriber("user7", "77777");
+//        users.add(user1);
+//        users.add(user2);
+//        users.add(user3);
+//        users.add(user4);
+//        users.add(user5);
+//        users.add(user6);
+//        users.add(user7);
+//
+//        List<String> officials = new ArrayList<>();
+//        officials.add(user1.getName());
+//        officials.add(user2.getName());
+//        officials.add(user3.getName());
+//        officials.add(user4.getName());
+//        Store store1 = new Store("store1", IdGenerator.getInstance().getStoreId(), officials);
+//        stores.add(store1);
+//        store1.addNewProduct(user1.getName(), "p0", 5.0f, 10, "Other");
+//        store1.addNewProduct(user1.getName(), "p1", 15.0f, 11, "Other");
+//        store1.addNewProduct(user1.getName(), "p2", 25.0f, 12, "Other");
+//        store1.addNewProduct(user1.getName(), "p3", 35.0f, 13, "Other");
+//    }
 
-    public void setUsers(ArrayList<User> users) {
-        this.users = users;
-    }
-
-    public ArrayList<Store> getStores() {
-        return stores;
-    }
-
-    public void setStores(ArrayList<Store> stores) {
-        this.stores = stores;
-    }
-
-    public User getCurrentUserInSystem() {
-        return currentUserInSystem;
-    }
-
-    public void setCurrentUserInSystem(User currentUserInSystem) {
-        this.currentUserInSystem = currentUserInSystem;
-    }
-
-    public void uploadUsersAndStores() {
-        User user1 = new User("user1", "11111", User.permission.SystemFounder);
-        User user2 = new User("user2", "22222", User.permission.SystemManager);
-        User user3 = new User("user3", "33333", User.permission.ShopOwner);
-        User user4 = new User("user4", "44444", User.permission.ShopManager);
-        User user5 = new User("user5", "55555", User.permission.Registered);
-        User user6 = new User("user6", "66666", User.permission.Buyer);
-        User user7 = new User("user7", "77777", User.permission.Visitor);
-        users.add(user1);
-        users.add(user2);
-        users.add(user3);
-        users.add(user4);
-        users.add(user5);
-        users.add(user6);
-        users.add(user7);
-
-        Product p0 = new Product("p0", 0);
-        Product p1 = new Product("p1", 1);
-        Product p2 = new Product("p2", 2);
-        Product p3 = new Product("p3", 3);
-        HashMap<Product, Integer> products = new HashMap<>();
-        products.put(p0, 0);
-        products.put(p1, 5);
-        products.put(p2, 15);
-        products.put(p3, 25);
-        Store store1 = new Store("store1", products);
-        stores.add(store1);
-        user1.setStoreOwnedByMe("store1");
-        user2.setStoreOwnedByMe("store1");
-        user3.setStoreOwnedByMe("store1");
-        user4.setStoreManagedByMe("store1");
-        HashMap<String, User.permission> officials = new HashMap<>();
-        officials.put(user1.getUsername(), user1.getPermissionLevel());
-        officials.put(user2.getUsername(), user2.getPermissionLevel());
-        officials.put(user3.getUsername(), user3.getPermissionLevel());
-        officials.put(user4.getUsername(), user4.getPermissionLevel());
-        store1.setStoreOfficials(officials);
-    }
-
-    public void uploadUsersAndStores_FailTest1() {
-        users.add(new User("user1", "11111", User.permission.SystemManager));
-        users.add(new User("user2", "22222", User.permission.SystemManager));
-        users.add(new User("user3", "33333", User.permission.ShopOwner));
-        users.add(new User("user4", "44444", User.permission.ShopManager));
-        users.add(new User("user5", "55555", User.permission.Registered));
-        users.add(new User("user6", "66666", User.permission.Buyer));
-        users.add(new User("user7", "77777", User.permission.Visitor));
-
-        Product p1 = new Product("p1", 1);
-        Product p2 = new Product("p2", 2);
-        Product p3 = new Product("p3", 3);
-        HashMap<Product, Integer> products = new HashMap<>();
-        products.put(p1, 5);
-        products.put(p2, 15);
-        products.put(p3, 25);
-        stores.add(new Store("store1", products));
-    }
-
-    public void uploadUsersAndStores_FailTest2() {
-        users.add(new User("user1", "11111", User.permission.SystemFounder));
-        users.add(new User("user2", "22222", User.permission.SystemManager));
-        users.add(new User("user3", "33333", User.permission.ShopOwner));
-        users.add(new User("user4", "44444", User.permission.ShopManager));
-        users.add(new User("user5", "55555", User.permission.Registered));
-        users.add(new User("user6", "66666", User.permission.Buyer));
-
-        Product p1 = new Product("p1", 1);
-        Product p2 = new Product("p2", 2);
-        Product p3 = new Product("p3", 3);
-        HashMap<Product, Integer> products = new HashMap<>();
-        products.put(p1, 5);
-        products.put(p2, 15);
-        products.put(p3, 25);
-        stores.add(new Store("store1", products));
-    }
-
-
-    /**
-     * requirement 1.b in V1
-     */
-
-
+    /** requirement 1.b in V1 */
     public String parallelUse() { //Need to implement thread-base system
         if (real != null)
             return real.parallelUse();
-        throw new UnsupportedOperationException("Not Implemented Yet - Ask Backend Group");
+        throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
-
-    /**
-     * requirement 1.c in V1
-     */
-
-
+    /** requirement 1.c in V1 */
     public String systemLogging() { //Need to create log file (containing error logs)
         if (real != null)
             return real.parallelUse();
         throw new UnsupportedOperationException("Not Implemented Yet - Ask Backend Group");
     }
 
-
-    /**
-     * System requirement - I.1
-     */
-
-
-    public String openingMarket() {
+    /** System requirement - I.1 */
+    public String openingMarket() throws NoPermissionException {
         if (real != null)
             return real.openingMarket();
-
+        throw new UnsupportedOperationException("Not Implemented Yet!");
+        
         if (users.isEmpty() && stores.isEmpty()) // just for tests
             uploadUsersAndStores();
 
@@ -177,8 +121,8 @@ public class Proxy implements BridgeInterface {
             return "fail - connection with external services has failed";
 
         if (users.size() == 7 && stores.size() == 1) {
-            for (User u : users) {
-                if (u.getPermissionLevel() == User.permission.SystemFounder) {
+            for (Subscriber u : users) {
+                if (u.getPermissionLevel() == Subscriber.permission.SystemFounder) {
                     return "system opened successfully";
                 }
             }
@@ -377,11 +321,11 @@ public class Proxy implements BridgeInterface {
         if (real != null)
             return real.getInToTheSystem();
 
-        if (currentUserInSystem.getPermissionLevel() != User.permission.Visitor)
+        if (currentUserInSystem.getPermissionLevel() != Subscriber.permission.Visitor)
             return "fail - the user that got in is not a visitor";
         //after get-in
-        currentUserInSystem.setPermissionLevel(User.permission.Buyer);
-        if (currentUserInSystem.getPermissionLevel() == User.permission.Buyer &&
+        currentUserInSystem.setPermissionLevel(Subscriber.permission.Buyer);
+        if (currentUserInSystem.getPermissionLevel() == Subscriber.permission.Buyer &&
                 currentUserInSystem.getShoppingCart() != null) {
             return "user got-in successfully";
         }
@@ -397,14 +341,14 @@ public class Proxy implements BridgeInterface {
         if(real!=null)
             return real.getOutFromTheSystem();
 
-        if(currentUserInSystem.getPermissionLevel() == User.permission.Visitor)
+        if(currentUserInSystem.getPermissionLevel() == Subscriber.permission.Visitor)
             return "fail - the user already got out of the system (as buyer)";
 
-        currentUserInSystem.setPermissionLevel(User.permission.Visitor);
+        currentUserInSystem.setPermissionLevel(Subscriber.permission.Visitor);
         currentUserInSystem.setShoppingCart(null);
         if(currentUserInSystem.getShoppingCart() != null)
             return "fail - empty user's shopping cart failed";
-        if(currentUserInSystem.getPermissionLevel() != User.permission.Visitor)
+        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.Visitor)
             return "fail - user's permission didn't change to visitor";
 
         return "user got out successfully";
@@ -413,13 +357,13 @@ public class Proxy implements BridgeInterface {
         if(real!=null)
             return real.getOutFromTheSystem();
 
-        if(currentUserInSystem.getPermissionLevel() == User.permission.Visitor)
+        if(currentUserInSystem.getPermissionLevel() == Subscriber.permission.Visitor)
             return "fail - the user already got out of the system (as buyer)";
 
-        currentUserInSystem.setPermissionLevel(User.permission.Visitor);
+        currentUserInSystem.setPermissionLevel(Subscriber.permission.Visitor);
         if(currentUserInSystem.getShoppingCart() != null)
             return "fail - empty user's shopping cart failed";
-        if(currentUserInSystem.getPermissionLevel() != User.permission.Visitor)
+        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.Visitor)
             return "fail - user's permission didn't change to visitor";
 
         return "user got out successfully";
@@ -428,13 +372,13 @@ public class Proxy implements BridgeInterface {
         if(real!=null)
             return real.getOutFromTheSystem();
 
-        if(currentUserInSystem.getPermissionLevel() == User.permission.Visitor)
+        if(currentUserInSystem.getPermissionLevel() == Subscriber.permission.Visitor)
             return "fail - the user already got out of the system (as buyer)";
 
         currentUserInSystem.setShoppingCart(null);
         if(currentUserInSystem.getShoppingCart() != null)
             return "fail - empty user's shopping cart failed";
-        if(currentUserInSystem.getPermissionLevel() != User.permission.Visitor)
+        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.Visitor)
             return "fail - user's permission didn't change to visitor";
 
         return "user got out successfully";
@@ -449,7 +393,7 @@ public class Proxy implements BridgeInterface {
         if(real!=null)
             return real.register(username, password);
 
-        for(User u : users){
+        for(Subscriber u : users){
             if(u.getUsername().equals(username)){
                 return "fail - this username already exists in the system";
             }
@@ -459,7 +403,7 @@ public class Proxy implements BridgeInterface {
         if(password.length() < 4)
             return "fail - invalid password";
 
-        users.add(new User(username, password, User.permission.Visitor));
+        users.add(new Subscriber(username, password, Subscriber.permission.Visitor));
         return "the user registered successfully";
     }
 
@@ -472,7 +416,7 @@ public class Proxy implements BridgeInterface {
         if(real!=null)
             return real.login(username, password);
 
-        for(User u : users){
+        for(Subscriber u : users){
             if(u.getUsername().equals(username)){
                 if(u.getPassword().equals(password)){
                     currentUserInSystem = u;
@@ -497,7 +441,7 @@ public class Proxy implements BridgeInterface {
 
         String str = "";
         str += "Users:\n";
-        for (User u : users){
+        for (Subscriber u : users){
             str = str.concat(u.getUsername() + "\n");
         }
         str += "\nStores:\n";
@@ -535,7 +479,7 @@ public class Proxy implements BridgeInterface {
         if(real!=null)
             return real.saveProductFromStoreToShoppingCart(storeName, productName);
 
-        if(currentUserInSystem.getPermissionLevel() == User.permission.Visitor)
+        if(currentUserInSystem.getPermissionLevel() == Subscriber.permission.Visitor)
             return "fail - visitor user can't use shopping cart (need to be at least buyer)";
         for (Store s : stores){
              if(s.getStoreName().equals(storeName)){
@@ -574,7 +518,7 @@ public class Proxy implements BridgeInterface {
         if(real!=null)
             return real.increaseProductQuantityInShoppingCart(productName);
 
-        if(currentUserInSystem.getPermissionLevel() == User.permission.Visitor)
+        if(currentUserInSystem.getPermissionLevel() == Subscriber.permission.Visitor)
             return "fail - visitor user can't use shopping cart (need to be at least buyer)";
         HashMap<String, Integer> shoppingCart = currentUserInSystem.getShoppingCart();
         for (String pName : shoppingCart.keySet()){
@@ -595,7 +539,7 @@ public class Proxy implements BridgeInterface {
         if(real!=null)
             return real.decreaseProductQuantityInShoppingCart(productName);
 
-        if(currentUserInSystem.getPermissionLevel() == User.permission.Visitor)
+        if(currentUserInSystem.getPermissionLevel() == Subscriber.permission.Visitor)
             return "fail - visitor user can't use shopping cart (need to be at least buyer)";
         HashMap<String, Integer> shoppingCart = currentUserInSystem.getShoppingCart();
         for (String pName : shoppingCart.keySet()){
@@ -617,7 +561,7 @@ public class Proxy implements BridgeInterface {
         if(real!=null)
             return real.removeProductFromShoppingCart(productName);
 
-        if(currentUserInSystem.getPermissionLevel() == User.permission.Visitor)
+        if(currentUserInSystem.getPermissionLevel() == Subscriber.permission.Visitor)
             return "fail - visitor user can't use shopping cart (need to be at least buyer)";
         HashMap<String, Integer> shoppingCart = currentUserInSystem.getShoppingCart();
         for (String pName : shoppingCart.keySet()){
@@ -670,8 +614,8 @@ public class Proxy implements BridgeInterface {
         if(storeName.length() < 5){
             return "fail - store name is not valid";
         }
-        if(currentUserInSystem.getPermissionLevel() == User.permission.Visitor ||
-            currentUserInSystem.getPermissionLevel() == User.permission.Buyer ||
+        if(currentUserInSystem.getPermissionLevel() == Subscriber.permission.Visitor ||
+            currentUserInSystem.getPermissionLevel() == Subscriber.permission.Buyer ||
                 !currentUserInSystem.getIsLoggedIn()){
             return "fail - registration & login are required in order to open a store";
         }
@@ -682,9 +626,9 @@ public class Proxy implements BridgeInterface {
         }
         stores.add(new Store(storeName, products));
         currentUserInSystem.setStoreOwnedByMe(storeName);
-        if(currentUserInSystem.getPermissionLevel() == User.permission.Registered ||
-                currentUserInSystem.getPermissionLevel() == User.permission.ShopManager) {
-            currentUserInSystem.setPermissionLevel(User.permission.ShopOwner);
+        if(currentUserInSystem.getPermissionLevel() == Subscriber.permission.Registered ||
+                currentUserInSystem.getPermissionLevel() == Subscriber.permission.ShopManager) {
+            currentUserInSystem.setPermissionLevel(Subscriber.permission.ShopOwner);
         }
         return "store was opened successfully";
     }
@@ -700,13 +644,13 @@ public class Proxy implements BridgeInterface {
         if(productName.length() < 2 || productPrice <= 0 || productQuantity < 0){
             return "fail - product name/price/quantity is not valid";
         }
-        if((currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
-        currentUserInSystem.getPermissionLevel() != User.permission.SystemManager &&
-        currentUserInSystem.getPermissionLevel() != User.permission.SystemFounder)
+        if((currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
+        currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemManager &&
+        currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemFounder)
                 || !currentUserInSystem.getIsLoggedIn()){
             return "fail - user has to be at least shop owner and to be logged in";
         }
-        if(currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
                 !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
             return "fail - the user is not owner on that store";
         }
@@ -732,13 +676,13 @@ public class Proxy implements BridgeInterface {
         if(real!=null)
             return real.removeProductFromStore(storeName, productName);
 
-        if((currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
-                currentUserInSystem.getPermissionLevel() != User.permission.SystemManager &&
-                currentUserInSystem.getPermissionLevel() != User.permission.SystemFounder)
+        if((currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
+                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemManager &&
+                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemFounder)
                 || !currentUserInSystem.getIsLoggedIn()){
             return "fail - user has to be at least shop owner and to be logged in";
         }
-        if(currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
                 !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
             return "fail - the user is not owner on that store";
         }
@@ -767,13 +711,13 @@ public class Proxy implements BridgeInterface {
         if(newProductName.length() < 2 || newProductPrice <= 0 || newProductQuantity < 0){
             return "fail - new product name/price/quantity is not valid";
         }
-        if((currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
-                currentUserInSystem.getPermissionLevel() != User.permission.SystemManager &&
-                currentUserInSystem.getPermissionLevel() != User.permission.SystemFounder)
+        if((currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
+                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemManager &&
+                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemFounder)
                 || !currentUserInSystem.getIsLoggedIn()){
             return "fail - user has to be at least shop owner and to be logged in";
         }
-        if(currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
                 !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
             return "fail - the user is not owner on that store";
         }
@@ -804,13 +748,13 @@ public class Proxy implements BridgeInterface {
         if(newStorePolicy.length() < 10){
             return "fail - new policy is not valid";
         }
-        if((currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
-                currentUserInSystem.getPermissionLevel() != User.permission.SystemManager &&
-                currentUserInSystem.getPermissionLevel() != User.permission.SystemFounder)
+        if((currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
+                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemManager &&
+                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemFounder)
                 || !currentUserInSystem.getIsLoggedIn()){
             return "fail - user has to be at least shop owner and to be logged in";
         }
-        if(currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
                 !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
             return "fail - the user is not owner on that store (Check store name)";
         }
@@ -830,23 +774,23 @@ public class Proxy implements BridgeInterface {
         if(real!=null)
             return real.addNewStoreOwner(storeName, newStoreOwnerUserName);
 
-        if((currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
-                currentUserInSystem.getPermissionLevel() != User.permission.SystemManager &&
-                currentUserInSystem.getPermissionLevel() != User.permission.SystemFounder)
+        if((currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
+                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemManager &&
+                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemFounder)
                 || !currentUserInSystem.getIsLoggedIn()){
             return "fail - user has to be at least shop owner and to be logged in";
         }
-        if(currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
                 !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
             return "fail - the user is not owner on that store (Check store name)";
         }
         Store store = null;
-        User user = null;
+        Subscriber user = null;
         for (Store s : stores){
             if(s.getStoreName().equals(storeName))
                 store = s;
         }
-        for (User u : users){
+        for (Subscriber u : users){
             if(u.getUsername().equals(newStoreOwnerUserName))
                 user = u;
         }
@@ -855,9 +799,9 @@ public class Proxy implements BridgeInterface {
         else if (user.getStoreOwnedByMe()!=null || user.getStoreManagedByMe()!=null)
             return "fail - this user is already managing/owning a store in the system";
         else{
-            user.setPermissionLevel(User.permission.ShopOwner);
+            user.setPermissionLevel(Subscriber.permission.ShopOwner);
             user.setStoreOwnedByMe(storeName);
-            HashMap<String, User.permission> officials = store.getStoreOfficials();
+            HashMap<String, Subscriber.permission> officials = store.getStoreOfficials();
             officials.put(user.getUsername(), user.getPermissionLevel());
             store.setStoreOfficials(officials);
         }
@@ -871,23 +815,23 @@ public class Proxy implements BridgeInterface {
         if(real!=null)
             return real.addNewStoreManager(storeName, newStoreManagerUserName);
 
-        if((currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
-                currentUserInSystem.getPermissionLevel() != User.permission.SystemManager &&
-                currentUserInSystem.getPermissionLevel() != User.permission.SystemFounder)
+        if((currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
+                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemManager &&
+                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemFounder)
                 || !currentUserInSystem.getIsLoggedIn()){
             return "fail - user has to be at least shop owner and to be logged in";
         }
-        if(currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
                 !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
             return "fail - the user is not owner on that store (Check store name)";
         }
         Store store = null;
-        User user = null;
+        Subscriber user = null;
         for (Store s : stores){
             if(s.getStoreName().equals(storeName))
                 store = s;
         }
-        for (User u : users){
+        for (Subscriber u : users){
             if(u.getUsername().equals(newStoreManagerUserName))
                 user = u;
         }
@@ -896,9 +840,9 @@ public class Proxy implements BridgeInterface {
         else if (user.getStoreOwnedByMe()!=null || user.getStoreManagedByMe()!=null)
             return "fail - this user is already managing/owning a store in the system";
         else{
-            user.setPermissionLevel(User.permission.ShopManager);
+            user.setPermissionLevel(Subscriber.permission.ShopManager);
             user.setStoreOwnedByMe(storeName);
-            HashMap<String, User.permission> officials = store.getStoreOfficials();
+            HashMap<String, Subscriber.permission> officials = store.getStoreOfficials();
             officials.put(user.getUsername(), user.getPermissionLevel());
             store.setStoreOfficials(officials);
         }
@@ -908,17 +852,17 @@ public class Proxy implements BridgeInterface {
 
 /** User requirement - II.4.7 */
 
-    public String changeStoreManagerPermissions(String storeName, String storeManagerUserName, User.permission newPermission){
+    public String changeStoreManagerPermissions(String storeName, String storeManagerUserName, Subscriber.permission newPermission){
         if(real!=null)
             return real.changeStoreManagerPermissions(storeName, storeManagerUserName, newPermission);
 
-        if((currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
-                currentUserInSystem.getPermissionLevel() != User.permission.SystemManager &&
-                currentUserInSystem.getPermissionLevel() != User.permission.SystemFounder)
+        if((currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
+                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemManager &&
+                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemFounder)
                 || !currentUserInSystem.getIsLoggedIn()){
             return "fail - user has to be at least shop owner and to be logged in";
         }
-        if(currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
                 !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
             return "fail - the user is not owner on that store (Check store name)";
         }
@@ -926,14 +870,14 @@ public class Proxy implements BridgeInterface {
             if(s.getStoreName().equals(storeName)){
                 for(String uName : s.getStoreOfficials().keySet()){
                     if(uName.equals(storeManagerUserName)){
-                        for (User u : users){
+                        for (Subscriber u : users){
                             if(u.getUsername().equals(storeManagerUserName)){
                                 u.setPermissionLevel(newPermission);
-                                if(newPermission == User.permission.ShopOwner)
+                                if(newPermission == Subscriber.permission.ShopOwner)
                                     u.setStoreOwnedByMe(storeName);
                                 else
                                     u.setStoreManagedByMe(storeName);
-                                HashMap<String, User.permission> officials = s.getStoreOfficials();
+                                HashMap<String, Subscriber.permission> officials = s.getStoreOfficials();
                                 officials.put(u.getUsername(), u.getPermissionLevel());
                                 return "store manager permission has changed successfully";
                             }
@@ -953,13 +897,13 @@ public class Proxy implements BridgeInterface {
         if(real!=null)
             return real.closeStoreByOwner(storeName);
 
-        if((currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
-                currentUserInSystem.getPermissionLevel() != User.permission.SystemManager &&
-                currentUserInSystem.getPermissionLevel() != User.permission.SystemFounder)
+        if((currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
+                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemManager &&
+                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemFounder)
                 || !currentUserInSystem.getIsLoggedIn()){
             return "fail - user has to be at least shop owner and to be logged in";
         }
-        if(currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
                 !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
             return "fail - the user is not owner on that store (Check store name)";
         }
@@ -981,13 +925,13 @@ public class Proxy implements BridgeInterface {
         if(real!=null)
             return real.showStoreOfficials(storeName);
 
-        if((currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
-                currentUserInSystem.getPermissionLevel() != User.permission.SystemManager &&
-                currentUserInSystem.getPermissionLevel() != User.permission.SystemFounder)
+        if((currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
+                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemManager &&
+                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemFounder)
                 || !currentUserInSystem.getIsLoggedIn()){
             return "fail - user has to be at least shop owner and to be logged in";
         }
-        if(currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
                 !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
             return "fail - the user is not owner on that store (Check store name)";
         }
@@ -1006,13 +950,13 @@ public class Proxy implements BridgeInterface {
         if(real!=null)
             return real.showStorePurchaseHistory(storeName);
 
-        if((currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
-                currentUserInSystem.getPermissionLevel() != User.permission.SystemManager &&
-                currentUserInSystem.getPermissionLevel() != User.permission.SystemFounder)
+        if((currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
+                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemManager &&
+                currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemFounder)
                 || !currentUserInSystem.getIsLoggedIn()){
             return "fail - user has to be at least shop owner and to be logged in";
         }
-        if(currentUserInSystem.getPermissionLevel() != User.permission.ShopOwner &&
+        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.ShopOwner &&
                 !currentUserInSystem.getStoreOwnedByMe().equals(storeName)){
             return "fail - the user is not owner on that store (Check store name)";
         }
@@ -1031,7 +975,7 @@ public class Proxy implements BridgeInterface {
         if(real!=null)
             return real.showPurchaseHistoryForSystemFounder(storeOrUser, name);
 
-        if(currentUserInSystem.getPermissionLevel() != User.permission.SystemFounder ||
+        if(currentUserInSystem.getPermissionLevel() != Subscriber.permission.SystemFounder ||
                 !currentUserInSystem.getIsLoggedIn()){
             return "fail - user has to be system founder and to be logged in";
         }
