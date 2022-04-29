@@ -156,7 +156,7 @@ public class StoreController {
             return false;
         }
     }
-
+    /**return key=store, value=productList*/
     public HashMap<String,List<Product>> getAllProductsAndStores(){
         HashMap<String,List<Product>> ProductsAndStores = new HashMap<>();
         for (Store store : stores.values()) {
