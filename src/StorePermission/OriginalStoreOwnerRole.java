@@ -1,12 +1,15 @@
 package StorePermission;
 
 import javax.naming.NoPermissionException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class OriginalStoreOwnerRole extends StoreRoles{
     public OriginalStoreOwnerRole(String userId) {
-        super(userId, Arrays.asList(Permission.values()));
+        super(userId, new ArrayList<>());
+        List<Permission> allPerm = Arrays.asList(Permission.values());
+        storePermissions.addAll(allPerm);
     }
 
     public StoreOwnerRole createOwner(String userId, List<Permission> givePerm){

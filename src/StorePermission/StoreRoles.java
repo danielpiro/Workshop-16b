@@ -15,6 +15,7 @@ public abstract class  StoreRoles {
     public StoreRoles(String userId,List<Permission> permissions){
         this.userId = userId;
         this.storePermissions = permissions;
+        createPermissionsTo = new ArrayList<>();
     }
 
     public String getUserId() {

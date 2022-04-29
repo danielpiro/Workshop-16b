@@ -43,10 +43,10 @@ class InventoryManagerTest {
             String pId = products.get(0).getId();
             invMan.editProduct(pId, -1, "t2", 3F, "Other");
             products = invMan.getAllProducts(p -> p.getPrice() == 3F);
-            assertFalse( products.get(0).getSupply() == -1);
+            assertNotEquals(-1, products.get(0).getSupply());
         }
         catch (Exception e){
-            assertFalse(false);
+            e.printStackTrace();
         }
     }
 
@@ -66,7 +66,7 @@ class InventoryManagerTest {
         invMan.addNewProduct("t1", 5.5F, 4, "Appliances");
         try {
             invMan.addNewProduct("t1", 5.2F, 1, "Other");
-            assertTrue(false);
+            fail();
         }catch (Exception e){
             assertTrue(true,e.toString());
         }
@@ -77,7 +77,7 @@ class InventoryManagerTest {
     void deleteProduct() {
         String Id = invMan.addNewProduct("t1", 5.5F, 4, "Appliances");
         invMan.deleteProduct(Id);
-        assertTrue(invMan.getAllProducts(p->true).size()==0);
+        assertEquals(invMan.getAllProducts(p -> true).size(), 0);
 
     }
 
@@ -92,7 +92,7 @@ class InventoryManagerTest {
             assertTrue(revs.size() == 2 && revs.get(1).getBody().equals("problem") && invMan.getProduct(Id).getRating() == 2.5);
         } catch (Exception e) {
             e.printStackTrace();
-            assertTrue(false);
+            fail();
         }
     }
     @Test
@@ -105,7 +105,6 @@ class InventoryManagerTest {
             assertFalse(revs.size() == 2 && revs.get(1).getBody().equals("problem") && invMan.getProduct(Id).getRating() == 2.5);
         } catch (Exception e) {
             e.printStackTrace();
-            assertTrue(true);
         }
     }
 
@@ -119,7 +118,7 @@ class InventoryManagerTest {
             fail();
         }
         catch (Exception e){
-            assertTrue(true);
+            e.printStackTrace();
         }
     }
     @Test

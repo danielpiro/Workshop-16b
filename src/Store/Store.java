@@ -54,7 +54,8 @@ public class Store {
         }
         for (StoreRoles roleUser : StoreRoles) {
             if (roleUser.getUserId().equals(userIdGiving) ) {
-                roleUser.createManager(UserGettingPermission);
+                StoreRoles newRole = roleUser.createManager(UserGettingPermission);
+                StoreRoles.add(newRole);
                 return;
             }
         }
@@ -66,10 +67,10 @@ public class Store {
                 throw new NoPermissionException("cant give permissions to user who is already owner");
             }
         }
-        for (StoreRoles roleUser :
-                StoreRoles) {
+        for (StoreRoles roleUser : StoreRoles) {
             if (roleUser.getUserId().equals(userIdGiving) ) {
-                roleUser.createOwner(UserGettingPermission,permissions);
+                StoreRoles newRole = roleUser.createOwner(UserGettingPermission,permissions);
+                StoreRoles.add(newRole);
                 return;
             }
         }
