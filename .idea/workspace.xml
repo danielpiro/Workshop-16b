@@ -102,7 +102,7 @@
       <recent name="com.company" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.AcceptanceTests.opening_market_system_success_case_test">
+  <component name="RunManager" selected="JUnit.AcceptanceTests">
     <configuration name="AcceptanceTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Workshop-16b" />
       <extension name="coverage">
@@ -183,9 +183,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.AcceptanceTests" />
         <item itemvalue="JUnit.AcceptanceTests.opening_market_system_success_case_test" />
         <item itemvalue="JUnit.IntegrationTests" />
-        <item itemvalue="JUnit.AcceptanceTests" />
         <item itemvalue="JUnit.AcceptanceTests.show_purchase_history_to_system_founder_fail_case_test3" />
         <item itemvalue="JUnit.AcceptanceTests.show_purchase_history_to_system_founder_fail_case_test2" />
       </list>
