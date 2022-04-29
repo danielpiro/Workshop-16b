@@ -1,7 +1,6 @@
 package Tests;
 
 import Tests.Bridge.Proxy;
-import Tests.Bridge.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,8 +18,8 @@ public class IntegrationTests {
      */
     @BeforeEach
     void setUp() {
-        //set all system's users, stores & products
-        proxy.openingMarket();
+//        set all system's users, stores & products
+//        proxy.openingMarket();
     }
 
     /**
@@ -28,8 +27,8 @@ public class IntegrationTests {
      */
     @AfterEach
     void tearDown() {
-        proxy.setUsers(new ArrayList<>());
-        proxy.setStores(new ArrayList<>());
+//        proxy.setUsers(new ArrayList<>());
+//        proxy.setStores(new ArrayList<>());
     }
 
     @Test
