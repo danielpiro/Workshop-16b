@@ -29,11 +29,11 @@ public abstract class  StoreRoles {
         return Collections.unmodifiableList(storePermissions);
     }
 
-    public List<String> removeAllManagers(){
+    private List<String> removeAllManagers(){
         List<String> managersRemoved = new ArrayList<>();
-        for (StoreRoles sr :
-                createPermissionsTo) {
-            managersRemoved.addAll(removeManager(sr.getUserId()));
+        for (StoreRoles sr : createPermissionsTo) {
+            managersRemoved.addAll(sr.removeAllManagers());
+            managersRemoved.add(sr.getUserId());
         }
         return managersRemoved;
     }
@@ -52,7 +52,6 @@ public abstract class  StoreRoles {
         }
         List<String> managersIdsRemoved =createPermissionsTo.get(indexToRemove).removeAllManagers();
         managersIdsRemoved.add(createPermissionsTo.get(indexToRemove).getUserId());
-
         createPermissionsTo.remove(indexToRemove);
 
         return managersIdsRemoved;
