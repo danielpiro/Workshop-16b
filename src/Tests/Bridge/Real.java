@@ -234,13 +234,12 @@ public class Real implements BridgeInterface{
     }
 
     /** User requirement - II.3.2 */
-    public boolean openStore(String userID, String storeName){
+    public String openStore(String userID, String storeName){
         try {
-            bigController.openNewStore(storeName, userID);
-            return true;
+            return bigController.openNewStore(userID, storeName);
         }
         catch (Exception e){
-            return false;
+            return "failed to open store";
         }
     }
 //    public boolean openStore(String userID, String storeName, HashMap<Product, Integer> products){
@@ -314,7 +313,7 @@ public class Real implements BridgeInterface{
     /** User requirement - II.4.6 */
     public boolean addNewStoreManager(String storeId, String userIdGiving, String UserGettingPermissionId){
         try {
-            bigController.createManager(storeId, userIdGiving,UserGettingPermissionId);
+            bigController.createManager(storeId, userIdGiving, UserGettingPermissionId);
             return true;
         }
         catch (NoPermissionException e) {

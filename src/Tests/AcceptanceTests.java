@@ -44,16 +44,17 @@ public class AcceptanceTests {
 
         proxy.register("user1", "11111");
         proxy.login("user1", "11111");
-        proxy.openStore("user1", "store1");
+        String store1_id = proxy.openStore("user1", "store1");
         proxy.register("user2", "22222");
-        proxy.addNewStoreManager("store1", "user1", "user2");
+
+        proxy.addNewStoreManager(store1_id, "user1", "user2");
         proxy.register("user3", "33333");
         proxy.getInToTheSystem(); // for guest
 
-        proxy.addProductToStore("store1", "user1", "p0", 5.0f, 0, "Other");
-        proxy.addProductToStore("store1", "user1", "p1", 10.0f, 5, "Other");
-        proxy.addProductToStore("store1", "user1", "p2", 15.0f, 10, "Other");
-        proxy.addProductToStore("store1", "user1", "p3", 20.0f, 15, "Other");
+        proxy.addProductToStore(store1_id, "user1", "p0", 5.0f, 0, "Other");
+        proxy.addProductToStore(store1_id, "user1", "p1", 10.0f, 5, "Other");
+        proxy.addProductToStore(store1_id, "user1", "p2", 15.0f, 10, "Other");
+        proxy.addProductToStore(store1_id, "user1", "p3", 20.0f, 15, "Other");
     }
 
     @AfterEach
@@ -888,8 +889,7 @@ public class AcceptanceTests {
 //        - Opening store will be activated & check that new permissions were given to the user (as store owner).
 //        - Show success message...
 
-        // "store was opened successfully"
-        assertTrue(proxy.openStore("user2", "store2"));
+        assertEquals("store was opened successfully", proxy.openStore("user2", "store2"));
     }
     @Test
     void open_store_fail_case_test1() {
@@ -898,8 +898,7 @@ public class AcceptanceTests {
 //                  -> store name is already exists.
 //        - Show fail message...
 
-        // "fail - this store name is already taken"
-        assertFalse(proxy.openStore("user1", "store1"));
+        assertEquals("fail - this store name is already taken", proxy.openStore("user1", "store1"));
     }
     @Test
     void open_store_fail_case_test2() {
@@ -908,8 +907,8 @@ public class AcceptanceTests {
 //                  -> user is not registered/logged-in to his user.
 //        - Show fail message...
 
-        // "fail - registration & login are required in order to open a store"
-        assertFalse(proxy.openStore("user3", "store2")); //Not logged in
+        assertEquals("fail - registration & login are required in order to open a store",
+                proxy.openStore("user3", "store2")); //Not logged in
     }
     @Test
     void open_store_fail_case_test3() {
@@ -918,8 +917,8 @@ public class AcceptanceTests {
 //                  -> user is not registered/logged-in to his user.
 //        - Show fail message...
 
-        // "fail - registration & login are required in order to open a store"
-        assertFalse(proxy.openStore("user10", "store2")); //Not registered
+        assertEquals("fail - registration & login are required in order to open a store",
+                proxy.openStore("user10", "store2")); //Not registered
     }
     @Test
     void open_store_fail_case_test4() {
@@ -928,8 +927,7 @@ public class AcceptanceTests {
 //                  -> store details are invalid (not matching the store details required in the system).
 //        - Show fail message...
 
-        // "fail - store name is not valid"
-        assertFalse(proxy.openStore("user2", "st2"));
+        assertEquals("fail - store name is not valid", proxy.openStore("user2", "st2"));
     }
 
     /**

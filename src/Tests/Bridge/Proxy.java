@@ -350,7 +350,7 @@ public class Proxy implements BridgeInterface {
     }
 
     /** User requirement - II.3.2 */
-    public boolean openStore(String userID, String storeName){
+    public String openStore(String userID, String storeName){
         if(real!=null)
             return real.openStore(userID, storeName);
         throw new UnsupportedOperationException("Not Implemented Yet!");

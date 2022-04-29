@@ -142,7 +142,7 @@ public class BigController {
             return getStoreController().openNewStore(storeName, managers);
         }
         else
-            throw new IllegalArgumentException("couldn't add new product because the given userId doesn't exist or is not logged in");
+            throw new IllegalArgumentException("couldn't open store because the given userId doesn't exist or is not logged in");
     }
 
     public void unfreezeStore(String storeId, String userId) throws NoPermissionException {
@@ -189,13 +189,15 @@ public class BigController {
         if(getUserController().checkIfUserExists(userIdGiving) && getUserController().checkIfUserExists(UserGettingPermissionId)&&getUserController().checkIfUserIsLoggedIn(userIdGiving)){
             getStoreController().createOwner(storeId,userIdGiving,UserGettingPermissionId,permissions);
         }
-        throw new IllegalArgumentException("couldn't give permission because the given userId doesn't exist or is not logged in");
+        else
+            throw new IllegalArgumentException("couldn't give permission because the given userId doesn't exist or is not logged in");
     }
     public void createManager(String storeId, String userIdGiving, String UserGettingPermissionId) throws NoPermissionException {
         if(getUserController().checkIfUserExists(userIdGiving) && getUserController().checkIfUserExists(UserGettingPermissionId)&&getUserController().checkIfUserIsLoggedIn(userIdGiving)){
             getStoreController().createManager(storeId,userIdGiving,UserGettingPermissionId);
         }
-        throw new IllegalArgumentException("couldn't give permission because the given userId doesn't exist or is not logged in");
+        else
+            throw new IllegalArgumentException("couldn't give permission because the given userId doesn't exist or is not logged in");
     }
 
 
@@ -256,10 +258,7 @@ public class BigController {
         return Collections.EMPTY_LIST;
     }
 
-
-
-
-        public UserController getUserController() {
+    public UserController getUserController() {
         return us;
     }
 

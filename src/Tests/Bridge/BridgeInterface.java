@@ -105,7 +105,7 @@ public interface BridgeInterface {
     boolean logout(String userid);
 
     /** User requirement - II.3.2 */
-    boolean openStore(String userID, String storeName);
+    String openStore(String userID, String storeName);
 
     /** User requirement - II.4.1 */
     boolean addProductToStore(String storeId, String userId, String productName, float price,
