@@ -15,8 +15,10 @@ public abstract class Delivery {
 
         //-1 already taken,
         public synchronized int delivery (float total){
+
             if(taken == true)
                 return -1;
+
             int ans = internalDelivery(total);
             taken=false;
             return ans;

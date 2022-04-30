@@ -18,6 +18,7 @@ public abstract class Payment {
     //-1 already taken,
     public synchronized int payment (float total){
 
+
         int ans = internalPayment(total);
         taken=false;
         return ans;

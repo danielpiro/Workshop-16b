@@ -1,15 +1,18 @@
 package Controllers;
 
 
+import ExternalConnections.Delivery.Delivery;
+import ExternalConnections.Delivery.DeliveryNames;
 import ExternalConnections.Delivery.FedEx;
 import ExternalConnections.Delivery.UPS;
 import ExternalConnections.ExternalConnections;
 import ExternalConnections.Payment.MasterCard;
+import ExternalConnections.Payment.PaymentNames;
 import ExternalConnections.Payment.Visa;
 import GlobalSystemServices.Log;
 import History.PurchaseHistory;
 import ShoppingCart.InventoryProtector;
-import ExternalConnectionHolder;
+import ExternalConnections.ExternalConnectionHolder;
 import ShoppingCart.ShoppingCart;
 import Store.Product;
 import StorePermission.Permission;
@@ -139,9 +142,9 @@ public class BigController {
         my_log.logger.info("getting cart inventory for user with id: "+user_id);
         return getUserController().getCartInventory(user_id);
     }
-    public float purchaseCart(String user_id, String payment,String delivery) {
+    public float purchaseCart(String user_id, PaymentNames payment, DeliveryNames delivery) {
         my_log.logger.info("trying to purchase cart");
-        return getUserController().purchaseCart(user_id,new ExternalConnectionHolder(payment,delivery));
+        return getUserController().purchaseCart(user_id,new ExternalConnectionHolder(delivery,payment));
     }
 
     /// Store controller

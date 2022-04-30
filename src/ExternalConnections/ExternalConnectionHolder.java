@@ -31,7 +31,7 @@ public class ExternalConnectionHolder {
         Payment paymentObject = null;
 
 
-        my_log.logger.info("trying to purchase with total:" + total + " and delivery weight is" + deliveryDetails);
+        my_log.logger.fine("trying to purchase with total:" + total + " and delivery weight is" + deliveryDetails);
 
 
         for (int i = 0; i < TRYTOCONNECT; i++) {

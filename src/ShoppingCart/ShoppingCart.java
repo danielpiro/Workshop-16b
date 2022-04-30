@@ -34,7 +34,7 @@ public class ShoppingCart {
     public int removeProduct(String productID, String storeID, int amount) {
         if (basketCases.containsKey(storeID)) {
             if (basketCases.get(storeID).removeProduct(productID, amount) >= 0)
-                Log.getLogger().logger.info("user " + userId + "removed product " + productID + "from store " + storeID + "and amount " + amount);
+                Log.getLogger().logger.fine("user " + userId + "removed product " + productID + "from store " + storeID + "and amount " + amount);
             else
                 Log.getLogger().logger.warning("user " + userId + "could not remove product " + productID + " because the item does not exist in basket");
 
@@ -49,7 +49,7 @@ public class ShoppingCart {
     public int removeCompleteyProduct(String productID, String storeID) {
         if (basketCases.containsKey(storeID)) {
             if (basketCases.get(storeID).removeCompleteyProduct(productID) >= 0)
-                Log.getLogger().logger.info("user " + userId + "removed product " + productID + "from store " + storeID + " completly");
+                Log.getLogger().logger.fine("user " + userId + "removed product " + productID + "from store " + storeID + " completly");
             else
                 Log.getLogger().logger.warning("user " + userId + "could not remove product " + productID + " because the item does not exist in basket");
 
@@ -83,7 +83,7 @@ public class ShoppingCart {
             basketCases.put(storeID, sb);
 
         }
-        Log.getLogger().logger.info("user " + userId +" added product " + productID + "to store " + storeID + " with amount of " + amount);
+        Log.getLogger().logger.fine("user " + userId +" added product " + productID + "to store " + storeID + " with amount of " + amount);
         return 1;
 
 
@@ -95,7 +95,7 @@ public class ShoppingCart {
             sb.append("store number " + basket.getKey() + "\n");
             sb.append(basket.getValue().getInventory());
         }
-        Log.getLogger().logger.info("user " + userId + " printing cart inventory");
+        Log.getLogger().logger.fine("user " + userId + " printing cart inventory");
 
         return sb.toString();
     }
@@ -107,7 +107,7 @@ public class ShoppingCart {
         int weight = 10;
         int ans =0;
 
-        Log.getLogger().logger.info("user " + userId + "trying to purchase Cart");
+        Log.getLogger().logger.fine("user " + userId + "trying to purchase Cart");
 
 
         //check if we can purchase from store, that items are in inventory and store policies are complied
