@@ -91,6 +91,7 @@ public class ShoppingCart {
 
     public String getCartInventory() {
         StringBuilder sb = new StringBuilder();
+        sb.append("showing user's shopping cart:\n");
         for (Map.Entry<String, ShoppingBasket> basket : basketCases.entrySet()) {
             sb.append("store number " + basket.getKey() + "\n");
             sb.append(basket.getValue().getInventory());

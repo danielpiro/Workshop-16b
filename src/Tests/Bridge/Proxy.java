@@ -1,5 +1,6 @@
 package Tests.Bridge;
 
+import Controllers.BigController;
 import ExternalConnections.Delivery.Delivery;
 import ExternalConnections.Delivery.DeliveryNames;
 import ExternalConnections.Payment.Payment;
@@ -7,8 +8,10 @@ import ExternalConnections.Payment.PaymentNames;
 import History.PurchaseHistory;
 import Store.Product;
 import StorePermission.Permission;
+import User.Guest;
 
 import javax.naming.NoPermissionException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -450,6 +453,20 @@ public class Proxy implements BridgeInterface {
     public String showPurchaseHistoryForSystemFounder(String storeOrUser, String name){
         if(real!=null)
             return real.showPurchaseHistoryForSystemFounder(storeOrUser, name);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
+    }
+
+    //Helper Methods
+    public HashMap<String,List<Product>> getAllProductsAndStores(String userId){
+        if(real!=null)
+            return real.getAllProductsAndStores(userId);
+        throw new UnsupportedOperationException("Not Implemented Yet!");
+    }
+
+    @Override
+    public List<Guest> getGuest_list() {
+        if(real!=null)
+            return real.getGuest_list();
         throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 }

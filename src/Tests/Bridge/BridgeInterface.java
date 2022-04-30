@@ -7,8 +7,10 @@ import ExternalConnections.Payment.PaymentNames;
 import History.PurchaseHistory;
 import Store.Product;
 import StorePermission.Permission;
+import User.Guest;
 
 import javax.naming.NoPermissionException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -151,4 +153,9 @@ public interface BridgeInterface {
 
     /** User requirement - II.6.4 */
     String showPurchaseHistoryForSystemFounder(String storeOrUser, String name);
+
+    //Helper Methods
+    HashMap<String, List<Product>> getAllProductsAndStores(String userId);
+
+    List<Guest> getGuest_list();
 }

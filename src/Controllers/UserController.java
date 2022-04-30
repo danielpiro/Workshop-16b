@@ -71,7 +71,7 @@ public class UserController {
             throw new IllegalArgumentException("User doesn't exist");
         }
         synchronized (get_subscriber(user_Id).getLock()) {
-            if (checkIfUserIsLoggedIn(user_Id)) {
+            if (!checkIfUserIsLoggedIn(user_Id)) {
                 my_log.logger.warning("User "+user_Id+ " is not logged in");
                 throw new IllegalArgumentException("User is not logged in");
             }
@@ -86,7 +86,7 @@ public class UserController {
             throw new IllegalArgumentException("User doesn't exist");
         }
         synchronized (get_subscriber(user_id).getLock()) {
-            if (checkIfUserIsLoggedIn(user_id)) {
+            if (!checkIfUserIsLoggedIn(user_id)) {
                 my_log.logger.warning("User "+ user_id +" is not logged in");
                 throw new IllegalArgumentException("User is not logged in");
             }
@@ -111,7 +111,7 @@ public class UserController {
             throw new IllegalArgumentException("User doesn't exist");
         }
         synchronized (get_subscriber(user_id).getLock()) {
-            if (checkIfUserIsLoggedIn(user_id)) {
+            if (!checkIfUserIsLoggedIn(user_id)) {
                 throw new IllegalArgumentException("User is not logged in");
             }
             return get_subscriber(user_id).addProduct(productID, storeID, amount, inventoryProtector, auctionOrBid);
@@ -138,7 +138,7 @@ public class UserController {
             throw new IllegalArgumentException("User doesn't exist");
         }
         synchronized (get_subscriber(user_id).getLock()) {
-            if (checkIfUserIsLoggedIn(user_id)) {
+            if (!checkIfUserIsLoggedIn(user_id)) {
                 my_log.logger.warning("user "+user_id + " is not logged in");
                 throw new IllegalArgumentException("User is not logged in");
             }
