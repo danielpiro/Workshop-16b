@@ -1,6 +1,22 @@
 package Controllers;
 
+import ExternalConnections.Delivery.DeliveryNames;
+import ExternalConnections.ExternalConnectionHolder;
+import ExternalConnections.Payment.PaymentNames;
+import History.PurchaseHistory;
+import ShoppingCart.InventoryProtector;
+import ShoppingCart.ShoppingCart;
+import Store.Product;
+import StorePermission.Permission;
+import StorePermission.StoreRoles;
+import User.Guest;
+import User.Subscriber;
+
+import javax.naming.NoPermissionException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.*;
 
 public class Service {
@@ -14,286 +30,299 @@ public class Service {
         bigController = new BigController();
     }
 
-    public Future sign_up(String user_name, String password) {
-        Future future = executorService.submit(() -> bigController.sign_up(user_name,password));
+    public Future<Boolean> sign_up(String user_name, String password) {
+        Future<Boolean> future = executorService.submit(() -> bigController.sign_up(user_name,password));
         return future;
     }
 
-    public Future login(String user_name, String password) {
-        Future future = executorService.submit(() -> bigController.login(user_name,password));
+    public Future<Boolean> login(String user_name, String password) {
+        Future<Boolean> future = executorService.submit(() -> bigController.login(user_name,password));
         return future;
     }
 
-    public Future logout(String user_name) {
-        Future future = executorService.submit(() -> bigController.logout(user_name));
+    public Future<Boolean> logout(String user_name) {
+        Future<Boolean> future = executorService.submit(() -> bigController.logout(user_name));
         return future;
 
     }
-   /* public void sendComplaint(String userId, String StoreName,String complaint ) {
-        my_log.logger.info("user "+userId+ " is sending a complain");
-        getUserController().sendComplaint(userId,StoreName,complaint);
+    public Future sendComplaint(String userId, String StoreName,String complaint ) {
+        Future future = executorService.submit(() -> bigController.sendComplaint(userId,StoreName,complaint));
+        return future;
+
     }
 
-    public Guest getGuest(String id) {
-        return getUserController().getGuest(id);
+    public Future getGuest(String id) {
+        Future future = executorService.submit(() -> bigController.getGuest(id));
+        return future;
+
     }
 
-    public String addGuest() {
-        my_log.logger.info("adding guest");
-        return getUserController().addGuest().name;
+    public Future addGuest() {
+        Future future = executorService.submit(() -> bigController.addGuest());
+        return future;
     }
-    public String GuestExitSystem(String name) {
-        return getUserController().GuestExitSystem(name);
+    public Future GuestExitSystem(String name) {
+        Future future = executorService.submit(() -> bigController.GuestExitSystem(name));
+        return future;
+
     }
 
-    public Subscriber getSystemAdmin() {
-        return getUserController().getSystemAdmin();
+    public Future getSystemAdmin() {
+        Future future = executorService.submit(() -> bigController.getSystemAdmin());
+        return future;
+
     }
 
-    public void add_subscriber(Subscriber s) {
-        my_log.logger.info("adding subscriber");
-        getUserController().add_subscriber(s);
-    }
-    public List<Guest> getGuest_list() {
-        my_log.logger.info("getting guests list");
+    public Future add_subscriber(Subscriber s) {
+        Future future = executorService.submit(() -> bigController.add_subscriber(s));
+        return future;
 
-        return getUserController().getGuest_list();
     }
-
-    public List<Subscriber> getUser_list() {
-        my_log.logger.info("getting subscribers list");
-        return getUserController().getUser_list();
-    }
-    public void Add_Query(String user_name,String query) {
-        my_log.logger.info("user: "+user_name+ " is adding a query");
-        getUserController().Add_Query(user_name,query);
-    }
-    public Subscriber get_subscriber(String user_name) {
-        my_log.logger.info("getting subscriber " +user_name );
-        return getUserController().get_subscriber(user_name);
-    }
-    public ShoppingCart getShoppingCart(String user_Id){
-        my_log.logger.info("getting shopping cart for user: "+user_Id);
-        return getUserController().getShoppingCart(user_Id);
-    }
-    public boolean containsStore(String user_id,String storeID) {
-        return getUserController().containsStore(user_id,storeID);
-    }
-    public int removeProduct(String user_id,String productID, String storeID, int amount) {
-        my_log.logger.info("user: "+user_id +"is trying to remove product with id:" +productID +"from store with id:"+ storeID);
-        return getUserController().removeProduct(user_id,productID,storeID,amount);
+    public Future getGuest_list() {
+        Future future = executorService.submit(() -> bigController.getGuest_list());
+        return future;
     }
 
-    public int addProduct(String user_id, String productID, String storeID, int amount, boolean auctionOrBid) {
-        my_log.logger.info("user with id:"+user_id+ " is adding product");
-        InventoryProtector inventoryProtector = sc.getInventoryProtector(storeID);
-        return getUserController().addProduct(user_id,productID,storeID,amount,inventoryProtector,auctionOrBid);
+    public Future getUser_list() {
+        Future future = executorService.submit(() -> bigController.getUser_list());
+        return future;
     }
-    public String getCartInventory(String user_id) {
-        my_log.logger.info("getting cart inventory for user with id: "+user_id);
-        return getUserController().getCartInventory(user_id);
+    public Future Add_Query(String user_name,String query) {
+        Future future = executorService.submit(() -> bigController.Add_Query(user_name,query));
+        return future;
+
     }
-    public float purchaseCart(String user_id, String payment,String delivery) {
-        my_log.logger.info("trying to purchase cart");
-        return getUserController().purchaseCart(user_id,new PurchasePolicies(payment,delivery));
+    public Future get_subscriber(String user_name) {
+        Future future = executorService.submit(() -> bigController.get_subscriber(user_name));
+        return future;
+    }
+    public Future getShoppingCart(String user_Id){
+        Future future = executorService.submit(() -> bigController.getShoppingCart(user_Id));
+        return future;
+    }
+    public Future containsStore(String user_id,String storeID) {
+        Future future = executorService.submit(() -> bigController.containsStore(user_id,storeID));
+        return future;
+
+    }
+    public Future removeProduct(String user_id,String productID, String storeID, int amount) {
+        Future future = executorService.submit(() -> bigController.removeProductFromCart(user_id,productID,storeID,amount));
+        return future;
+    }
+
+    public Future addProduct(String user_id, String productID, String storeID, int amount, boolean auctionOrBid) {
+        Future future = executorService.submit(() -> bigController.addProductFromCart(user_id,productID,storeID,amount,auctionOrBid));
+        return future;
+    }
+    public Future getCartInventory(String user_id) {
+        Future future = executorService.submit(() -> bigController.getCartInventory(user_id));
+        return future;
+
+    }
+    public Future purchaseCart(String user_id, PaymentNames payment, DeliveryNames delivery) {
+        Future future = executorService.submit(() -> bigController.purchaseCart(user_id,payment,delivery));
+        return future;
+
     }
 
     /// Store controller
 
-    public void addNewProduct(String storeId, String userId, String productName, float price, int supply, String category) throws NoPermissionException {
-        my_log.logger.info("adding new product");
-        if(getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId))
-            getStoreController().addNewProduct(storeId,userId,productName,price,supply,category);
-        else
-            throw new IllegalArgumentException("couldn't add new product because the given userId doesn't exist or is not logged in");
-    }
+    public Future addNewProduct(String storeId, String userId, String productName, float price, int supply, String category) throws NoPermissionException {
 
-    public String openNewStore( String userId, String storeName){
-        my_log.logger.info("trying to opening store");
-        if(getUserController().checkIfUserExists(userId) && getUserController().checkIfUserIsLoggedIn(userId)) {
-            List<String> managers = new ArrayList<>();
-            managers.add(userId);
-            return getStoreController().openNewStore(storeName, managers);
+            Future future = executorService.submit(() -> {
+                try {
+                    bigController.addNewProductToStore(storeId, userId, productName, price, supply, category);
+                    return true;
+                } catch (NoPermissionException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            });
+            return future;
+
         }
-        else
-            throw new IllegalArgumentException("couldn't open store because the given userId doesn't exist or is not logged in");
+
+    public Future openNewStore( String userId, String storeName){
+        Future future = executorService.submit(() -> bigController.openNewStore(userId, storeName));
+        return future;
+
     }
 
-    public void unfreezeStore(String storeId, String userId) throws NoPermissionException {
-        my_log.logger.info("trying to unfreeze store");
-        if(getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId))
-            getStoreController().unfreezeStore(storeId,userId);
-        else
-            throw new IllegalArgumentException("couldn't close store because the given userId doesn't exist or is not logged in");
-    }
-    public void freezeStore(String storeId, String userId) throws NoPermissionException {
-        my_log.logger.info("trying to freeze store");
-        if(getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId))
-            getStoreController().freezeStore(storeId,userId);
-        else
-            throw new IllegalArgumentException("couldn't open store because the given userId doesn't exist or is not logged in");
-    }
-    public List<StoreRoles> getInfoOnManagersOwners(String storeId, String userId) throws NoPermissionException {
-        my_log.logger.info("getting info on managers owners");
-        if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId)){
-            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
-            return null;
-        }
-        return getStoreController().getInfoOnManagersOwners(storeId,userId);
-    }
-    public void editProduct(String storeId, String userId, String productId, int newSupply, String newName, float newPrice, String category) throws NoPermissionException {
-        my_log.logger.info("trying to edit product");
-        if(getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId))
-            getStoreController().editProduct(storeId,userId,productId,newSupply,newName,newPrice,category);
-        else
-            throw new IllegalArgumentException("couldn't edit product  because the given userId doesn't exist or is not logged in");
-    }
+    public Future unfreezeStore(String storeId, String userId) throws NoPermissionException {
+        Future future = executorService.submit(() -> {
+            try {
+                bigController.unfreezeStore(storeId,userId);
+                return true;
+            } catch (NoPermissionException e) {
+                return false;
 
-    public void deleteProduct(String storeId, String userId, String productId) throws NoPermissionException {
-        my_log.logger.info("trying to delete product with id:" + productId);
-        if(getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId))
-            getStoreController().deleteProduct(storeId,userId,productId);
-        else
-            throw new IllegalArgumentException("couldn't delete product  because the given userId doesn't exist or is not logged in");
-    }
-
-
-    public void removePermissionTo(String storeId, String userIdRemoving,String UserAffectedId) throws NoPermissionException {
-        if(getUserController().checkIfUserExists(userIdRemoving) && getUserController().checkIfUserExists(UserAffectedId)&&getUserController().checkIfUserIsLoggedIn(userIdRemoving))
-            getStoreController().removePermissionTo(storeId,userIdRemoving,UserAffectedId);
-        else
-            throw new IllegalArgumentException("couldn't remove permission because the given userId doesn't exist or is not logged in");
-    }
-
-    public void createOwner(String storeId, String userIdGiving, String UserGettingPermissionId, List<Permission> permissions) throws NoPermissionException {
-        if(getUserController().checkIfUserExists(userIdGiving) && getUserController().checkIfUserExists(UserGettingPermissionId)&&getUserController().checkIfUserIsLoggedIn(userIdGiving)){
-            getStoreController().createOwner(storeId,userIdGiving,UserGettingPermissionId,permissions);
-        }
-        else
-            throw new IllegalArgumentException("couldn't give permission because the given userId doesn't exist or is not logged in");
-    }
-    public void createManager(String storeId, String userIdGiving, String UserGettingPermissionId) throws NoPermissionException {
-        if(getUserController().checkIfUserExists(userIdGiving) && getUserController().checkIfUserExists(UserGettingPermissionId)&&getUserController().checkIfUserIsLoggedIn(userIdGiving)){
-            getStoreController().createManager(storeId,userIdGiving,UserGettingPermissionId);
-        }
-        else
-            throw new IllegalArgumentException("couldn't give permission because the given userId doesn't exist or is not logged in");
-    }
-
-
-
-
-    public void addReviewToProduct(String storeId, String userId, String productId, String Title, String Body, float rating){
-        if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId))
-            throw new IllegalArgumentException("User doesn't exist or is not logged in or is not logged in");
-        getStoreController().addReviewToProduct(storeId,userId,productId,Title,Body,rating);
-    }
-
-    public String addNewThreadToForum(String storeId,String title, String userId){
-        if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId)){
-            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
-            return null;
-        }
-        return getStoreController().addNewThreadToForum(storeId,title,userId);
-    }
-
-    public void postMessageToForum(String storeId, String threadId, String userId, String message) throws NoPermissionException {
-        if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId)){
-            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
-        }
-        getStoreController().postMessageToForum(storeId,threadId,userId,message);
-    }
-
-
-    private HashMap<String,List<Product>> getAllProductsAndStores(String userId){
-        my_log.logger.info("getting a look at all products and stores");
-        for(Guest g :getGuest_list()){
-            if(g.name.equals(userId)){
-                return getStoreController().getAllProductsAndStores();
             }
+        });
+        return future;
         }
-        if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId)){
-            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
-            return null;
-        }
-        return getStoreController().getAllProductsAndStores();
-    }
 
-    public List<Product> SearchProductsAccordingName(String userId,String productName){
-        my_log.logger.info("searching products according name");
-        for(Guest g :getGuest_list()){
-            if(g.name.equals(userId)){
-                getStoreController().SearchProductsAccordingName(productName);
+
+    public Future freezeStore(String storeId, String userId) throws NoPermissionException {
+        Future future = executorService.submit(() -> {
+            try {
+                bigController.freezeStore(storeId,userId);
+                return true;
+            } catch (NoPermissionException e) {
+                e.printStackTrace();
+                return false;
             }
-        }
-        if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId)){
-            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
-            return null;
-        }
-        return getStoreController().SearchProductsAccordingName(productName);
+        });
+        return future;
     }
+    public Future getInfoOnManagersOwners(String storeId, String userId) throws NoPermissionException {
+        Future future = executorService.submit(() -> bigController.getInfoOnManagersOwners(storeId,userId));
+        return future;
 
-    public List<Product> SearchProductsAccordingCategory(String userId,List<String> categories ){
-        my_log.logger.info("searching products according category");
-        for(Guest g :getGuest_list()){
-            if(g.name.equals(userId)){
-                getStoreController().SearchProductsAccordingCategory(categories);
+    }
+    public Future editProduct(String storeId, String userId, String productId, int newSupply, String newName, float newPrice, String category) throws NoPermissionException {
+
+        Future future = executorService.submit(() -> {
+            try {
+                bigController.editProduct(storeId,userId,productId,newSupply,newName,newPrice,category);
+                return true;
+            } catch (NoPermissionException e) {
+                e.printStackTrace();
+                return false;
             }
-        }
-        if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId)){
-            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
-            return null;
-        }
-        return getStoreController().SearchProductsAccordingCategory(categories);
+        });
+        return future;
+         }
 
-    }
-    public List<Product> SearchProductsAccordingPrice(String userId, float fromPrice, float toPrice ){
-        my_log.logger.info("searching products according price");
-        for(Guest g :getGuest_list()){
-            if(g.name.equals(userId)){
-                getStoreController().SearchProductsAccordingPrice(fromPrice,toPrice);
+    public Future deleteProduct(String storeId, String userId, String productId) throws NoPermissionException {
+
+        Future future = executorService.submit(() -> {
+            try {
+                bigController.deleteProductFromStore(storeId,userId,productId);
+                return true;
+            } catch (NoPermissionException e) {
+                e.printStackTrace();
+                return false;
             }
-        }
-        if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId)){
-            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
-            return null;
-        }
-        return getStoreController().SearchProductsAccordingPrice(fromPrice,toPrice);
+        });
+        return future;
+          }
 
-    }
-    public List<Product> SearchProductsAccordingRating(String userId, float productRating){
-        my_log.logger.info("searching products according rating");
-        for(Guest g :getGuest_list()){
-            if(g.name.equals(userId)){
-                return getStoreController().SearchProductsAccordingRating(productRating);
+
+    public Future removePermissionTo(String storeId, String userIdRemoving,String UserAffectedId) throws NoPermissionException {
+        Future future = executorService.submit(() -> {
+            try {
+                bigController.removePermissionTo(storeId,userIdRemoving,UserAffectedId);
+                return true;
+            } catch (NoPermissionException e) {
+                e.printStackTrace();
+                return false;
             }
+        });
+        return future;
+         }
+
+    public Future createOwner(String storeId, String userIdGiving, String UserGettingPermissionId, List<Permission> permissions) throws NoPermissionException {
+        Future future = executorService.submit(() -> {
+            try {
+                bigController.createOwner(storeId,userIdGiving,UserGettingPermissionId,permissions);
+                return true;
+            } catch (NoPermissionException e) {
+                e.printStackTrace();
+                return false;
+            }
+        });
+        return future;
+
         }
-        if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId)){
-            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
-            return null;}
-        return getStoreController().SearchProductsAccordingRating(productRating);
+    public Future createManager(String storeId, String userIdGiving, String UserGettingPermissionId) throws NoPermissionException {
+        Future future = executorService.submit(() -> {
+            try {
+                bigController.createManager(storeId,userIdGiving,UserGettingPermissionId);
+                return true;
+            } catch (NoPermissionException e) {
+                e.printStackTrace();
+                return false;
+            }
+        });
+        return future;
+           }
+
+
+
+
+    public Future addReviewToProduct(String storeId, String userId, String productId, String Title, String Body, float rating){
+        Future future = executorService.submit(() -> bigController.addReviewToProduct(storeId,userId,productId,Title,Body,rating));
+        return future;
+
     }
 
-    public void deleteStore(String userId, String storeId) {
-        my_log.logger.info("trying to delete store :"+storeId);
-        getStoreController().deleteStore(userId,storeId);
+    public Future addNewThreadToForum(String storeId,String title, String userId){
+        Future future = executorService.submit(() -> bigController.addNewThreadToForum(storeId,title,userId));
+        return future;
+
     }
 
-    public List<PurchaseHistory> getStoreHistory(String storeId, String userId) throws NoPermissionException{
-        if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId)){
-            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
-            return null;
-        }
-        return sc.getStoreHistory(storeId, userId);
+    public Future postMessageToForum(String storeId, String threadId, String userId, String message) throws NoPermissionException {
+        Future future = executorService.submit(() -> {
+            try {
+                bigController.postMessageToForum(storeId,threadId,userId,message);
+                return true;
+            } catch (NoPermissionException e) {
+                e.printStackTrace();
+                return false;
+            }
+        });
+        return future;
+
     }
 
-    private UserController getUserController() {
-        return us;
+
+    private Future getAllProductsAndStores(String userId){
+        Future future = executorService.submit(() -> bigController.getAllProductsAndStores(userId));
+        return future;
+
     }
 
-    private StoreController getStoreController() {
-        return sc;
+    public Future SearchProductsAccordingName(String userId,String productName){
+        Future future = executorService.submit(() -> bigController.SearchProductsAccordingName( userId, productName));
+        return future;
+
     }
-}*/
+
+    public Future SearchProductsAccordingCategory(String userId,List<String> categories ){
+        Future future = executorService.submit(() -> bigController.SearchProductsAccordingCategory( userId, categories ));
+        return future;
+
+
+    }
+    public Future SearchProductsAccordingPrice(String userId, float fromPrice, float toPrice ){
+        Future future = executorService.submit(() -> bigController.SearchProductsAccordingPrice( userId,  fromPrice,  toPrice ));
+        return future;
+
+
+    }
+
+    public Future SearchProductsAccordingRating(String userId, float productRating){
+        Future future = executorService.submit(() -> bigController.SearchProductsAccordingRating(userId, productRating));
+        return future;
+
+    }
+
+    public Future deleteStore(String userId, String storeId) {
+        Future future = executorService.submit(() -> bigController.deleteStore(userId,storeId));
+        return future;
+
+    }
+
+    public Future getStoreHistory(String storeId, String userId) throws NoPermissionException{
+        Future future = executorService.submit(() -> bigController.getStoreHistory(storeId, userId));
+        return future;
+    }
+
+    public void shutdown(){
+        executorService.shutdown();
+    }
 
 }
+
+

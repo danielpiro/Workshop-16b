@@ -32,6 +32,7 @@ public class AcceptanceTests {
 
     Proxy proxy;
 
+    private String storeId;
     {
         try {
             proxy = new Proxy(new Real());
@@ -52,17 +53,17 @@ public class AcceptanceTests {
 
         proxy.register("user1", "11111");
         proxy.login("user1", "11111");
-        String store1_id = proxy.openStore("user1", "store1");
+        storeId = proxy.openStore("user1", "store1");
         proxy.register("user2", "22222");
 
-        proxy.addNewStoreManager(store1_id, "user1", "user2");
+        proxy.addNewStoreManager(storeId, "user1", "user2");
         proxy.register("user3", "33333");
         proxy.getInToTheSystem(); // for guest
 
-        proxy.addProductToStore(store1_id, "user1", "p0", 5.0f, 0, "Other");
-        proxy.addProductToStore(store1_id, "user1", "p1", 10.0f, 5, "Other");
-        proxy.addProductToStore(store1_id, "user1", "p2", 15.0f, 10, "Other");
-        proxy.addProductToStore(store1_id, "user1", "p3", 20.0f, 15, "Other");
+        proxy.addProductToStore(storeId, "user1", "p0", 5.0f, 0, "Other");
+        proxy.addProductToStore(storeId, "user1", "p1", 10.0f, 5, "Other");
+        proxy.addProductToStore(storeId, "user1", "p2", 15.0f, 10, "Other");
+        proxy.addProductToStore(storeId, "user1", "p3", 20.0f, 15, "Other");
     }
 
     @AfterEach
@@ -804,7 +805,7 @@ public class AcceptanceTests {
 //              ->  the product's quantity did not increase
 
         // "fail - visitor user can't use shopping cart (need to be at least buyer)"
-        assertFalse(proxy.increaseProductQuantityInShoppingCart("user00", "p1", "store1",
+        assertFalse(proxy.increaseProductQuantityInShoppingCart("user00", "p1", storeId,
                         10, true));
     }
     @Test
@@ -813,7 +814,7 @@ public class AcceptanceTests {
 //        - Check that the product's quantity has decreased (will be successful).
 
         // "the product quantity decreased successfully"
-        assertTrue(proxy.decreaseProductQuantityInShoppingCart("user1", "p1", "store1",10));
+        assertTrue(proxy.decreaseProductQuantityInShoppingCart("user1", "p1", storeId,10));
     }
     @Test
     void decrease_product_quantity_in_shopping_cart_fail_case_test() {
@@ -822,7 +823,7 @@ public class AcceptanceTests {
 //              ->  the product's quantity did not decreased
 
         // "fail - visitor user can't use shopping cart (need to be at least buyer)"
-        assertFalse(proxy.decreaseProductQuantityInShoppingCart("user00", "p1", "store1",10));
+        assertFalse(proxy.decreaseProductQuantityInShoppingCart("user00", "p1", storeId,10));
     }
     @Test
     void remove_product_from_shopping_cart_success_case_test() {

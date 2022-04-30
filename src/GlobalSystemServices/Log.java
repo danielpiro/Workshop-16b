@@ -13,7 +13,8 @@ public class Log {
 
     private Log(String file_name) throws SecurityException, IOException {
         File f = new File(file_name);
-        if(!f.exists()) f.createNewFile();
+        if(!f.exists())
+            f.createNewFile();
         fh = new FileHandler(file_name,true);
         logger = Logger.getLogger("test");
         logger.addHandler(fh);
