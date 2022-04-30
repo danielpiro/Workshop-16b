@@ -1,6 +1,5 @@
 package Tests.StorePartUnitTests;
 
-import ExternalConnections.PurchasePolicies;
 import Store.InventoryManager;
 import Store.Product;
 import Store.ProductsCategories;

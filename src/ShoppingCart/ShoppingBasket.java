@@ -1,7 +1,7 @@
 package ShoppingCart;
 
 import CustomExceptions.CantPurchaseException;
-import ExternalConnections.PurchasePolicies;
+import ExternalConnections.ExternalConnectionHolder;
 import Generic.ThreeGenerics;
 
 import java.util.HashMap;
@@ -17,6 +17,7 @@ public class ShoppingBasket {
     private InventoryProtector iProtector;
 
     public int addProduct(String productID, int amount) {
+
         if (productAmount.containsKey(productID)) {
             int currentAmount = productAmount.get(productID);
             productAmount.replace(productID, currentAmount + amount);
@@ -75,9 +76,9 @@ public class ShoppingBasket {
         return sb.toString();
     }
 
-    public float purchase(PurchasePolicies purchasePolicies,String userID) throws CantPurchaseException {
+    public float purchase(ExternalConnectionHolder externalConnectionHolder, String userID) throws CantPurchaseException {
 
-        float answer = iProtector.reserve(productAmount , purchasePolicies, userID);
+        float answer = iProtector.reserve(productAmount , externalConnectionHolder, userID);
         if(answer < 0 )
              return -1;
         else

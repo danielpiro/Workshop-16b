@@ -1,85 +1,35 @@
 package Controllers;
 
-
-import ExternalConnections.Delivery.Delivery;
-import ExternalConnections.Delivery.DeliveryNames;
-import ExternalConnections.Delivery.FedEx;
-import ExternalConnections.Delivery.UPS;
-import ExternalConnections.ExternalConnections;
-import ExternalConnections.Payment.MasterCard;
-import ExternalConnections.Payment.PaymentNames;
-import ExternalConnections.Payment.Visa;
-import GlobalSystemServices.Log;
-import History.PurchaseHistory;
-import ShoppingCart.InventoryProtector;
-import ExternalConnections.ExternalConnectionHolder;
-import ShoppingCart.ShoppingCart;
-import Store.Product;
-import StorePermission.Permission;
-import StorePermission.StoreRoles;
-import User.Guest;
-import User.Subscriber;
-
-import javax.naming.NoPermissionException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.concurrent.*;
 
-public class BigController {
-    private StoreController sc;
-    private UserController us;
-    Log my_log = Log.getLogger();
-    Object signUpLock = new Object();
+public class Service {
 
+    private ExecutorService executorService;
 
+    private BigController bigController;
 
-    //todo Guy - add function to get Inverntory Protectore
-    public BigController() throws IOException {
-        this.us = new UserController();
-        this.sc = new StoreController();
-        initiateExternalConnections();
-        my_log.logger.info("System Started");
+    public Service() throws IOException {
+        this.executorService = Executors.newFixedThreadPool(10);
+        bigController = new BigController();
     }
 
-    public void initiateExternalConnections() {
-        ExternalConnections externalConnections = ExternalConnections.getInstance();
-        externalConnections.addPayment(new Visa());
-        externalConnections.addPayment(new MasterCard());
-        externalConnections.addDelivery(new FedEx());
-        externalConnections.addDelivery(new UPS());
+    public Future sign_up(String user_name, String password) {
+        Future future = executorService.submit(() -> bigController.sign_up(user_name,password));
+        return future;
     }
 
-    //// user controller
-    public void addSystemAdmin(String whoIsAdding,String user_toMakeAdmin) {
-        my_log.logger.info("admin "+ whoIsAdding +"is trying to add "+user_toMakeAdmin +"as system admin");
-        getUserController().addSystemAdmin(whoIsAdding,user_toMakeAdmin);
-    }
-    public boolean deleteUser(String whosDeleting,String whosBeingDeleted) throws NoPermissionException {
-        my_log.logger.info("user"+whosDeleting+"is trying to delete user"+whosBeingDeleted);
-        //try {
-        sc.removeAllPermissionTo(whosBeingDeleted);
-       // } catch (NoPermissionException e) {
-       //     Log.getLogger().logger.warning("cant remove user permission"+ whosBeingDeleted +" by user "+whosDeleting+ "because:  "+ e.getMessage());
-       //     return false;
-        //}
-        return getUserController().deleteUser(whosDeleting,whosBeingDeleted);
-    }
-    public boolean sign_up(String user_name, String password) {
-        my_log.logger.info("user "+user_name+ " is trying to sign up");
-        return getUserController().sign_up(user_name, password);
+    public Future login(String user_name, String password) {
+        Future future = executorService.submit(() -> bigController.login(user_name,password));
+        return future;
     }
 
-    public boolean login(String user_name, String password) {
-        my_log.logger.info("user "+user_name+ " is trying to login");
-        return getUserController().login(user_name,password);
-    }
+    public Future logout(String user_name) {
+        Future future = executorService.submit(() -> bigController.logout(user_name));
+        return future;
 
-    public boolean logout(String user_name) {
-        my_log.logger.info("user "+user_name+ " is trying to logout");
-        return getUserController().logout(user_name);
     }
-    public void sendComplaint(String userId, String StoreName,String complaint ) {
+   /* public void sendComplaint(String userId, String StoreName,String complaint ) {
         my_log.logger.info("user "+userId+ " is sending a complain");
         getUserController().sendComplaint(userId,StoreName,complaint);
     }
@@ -93,10 +43,10 @@ public class BigController {
         return getUserController().addGuest().name;
     }
     public String GuestExitSystem(String name) {
-       return getUserController().GuestExitSystem(name);
+        return getUserController().GuestExitSystem(name);
     }
 
-        public Subscriber getSystemAdmin() {
+    public Subscriber getSystemAdmin() {
         return getUserController().getSystemAdmin();
     }
 
@@ -115,7 +65,7 @@ public class BigController {
         return getUserController().getUser_list();
     }
     public void Add_Query(String user_name,String query) {
-        my_log.logger.info("user: "+user_name+ " is adding a query: "+query);
+        my_log.logger.info("user: "+user_name+ " is adding a query");
         getUserController().Add_Query(user_name,query);
     }
     public Subscriber get_subscriber(String user_name) {
@@ -129,12 +79,12 @@ public class BigController {
     public boolean containsStore(String user_id,String storeID) {
         return getUserController().containsStore(user_id,storeID);
     }
-    public int removeProductFromCart(String user_id, String productID, String storeID, int amount) {
+    public int removeProduct(String user_id,String productID, String storeID, int amount) {
         my_log.logger.info("user: "+user_id +"is trying to remove product with id:" +productID +"from store with id:"+ storeID);
         return getUserController().removeProduct(user_id,productID,storeID,amount);
     }
 
-    public int addProductFromCart(String user_id, String productID, String storeID, int amount, boolean auctionOrBid) {
+    public int addProduct(String user_id, String productID, String storeID, int amount, boolean auctionOrBid) {
         my_log.logger.info("user with id:"+user_id+ " is adding product");
         InventoryProtector inventoryProtector = sc.getInventoryProtector(storeID);
         return getUserController().addProduct(user_id,productID,storeID,amount,inventoryProtector,auctionOrBid);
@@ -143,17 +93,17 @@ public class BigController {
         my_log.logger.info("getting cart inventory for user with id: "+user_id);
         return getUserController().getCartInventory(user_id);
     }
-    public float purchaseCart(String user_id, PaymentNames payment, DeliveryNames delivery) {
+    public float purchaseCart(String user_id, String payment,String delivery) {
         my_log.logger.info("trying to purchase cart");
-        return getUserController().purchaseCart(user_id,new ExternalConnectionHolder(delivery,payment));
+        return getUserController().purchaseCart(user_id,new PurchasePolicies(payment,delivery));
     }
 
     /// Store controller
 
-    public void addNewProductToStore(String storeId, String userId, String productName, float price, int supply, String category) throws NoPermissionException {
+    public void addNewProduct(String storeId, String userId, String productName, float price, int supply, String category) throws NoPermissionException {
         my_log.logger.info("adding new product");
         if(getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId))
-        getStoreController().addNewProduct(storeId,userId,productName,price,supply,category);
+            getStoreController().addNewProduct(storeId,userId,productName,price,supply,category);
         else
             throw new IllegalArgumentException("couldn't add new product because the given userId doesn't exist or is not logged in");
     }
@@ -199,7 +149,7 @@ public class BigController {
             throw new IllegalArgumentException("couldn't edit product  because the given userId doesn't exist or is not logged in");
     }
 
-    public void deleteProductToStore(String storeId, String userId, String productId) throws NoPermissionException {
+    public void deleteProduct(String storeId, String userId, String productId) throws NoPermissionException {
         my_log.logger.info("trying to delete product with id:" + productId);
         if(getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId))
             getStoreController().deleteProduct(storeId,userId,productId);
@@ -208,7 +158,7 @@ public class BigController {
     }
 
 
-    public void removePermissionTo(String storeId, String userIdRemoving,String UserAffectedId) throws NoPermissionException{
+    public void removePermissionTo(String storeId, String userIdRemoving,String UserAffectedId) throws NoPermissionException {
         if(getUserController().checkIfUserExists(userIdRemoving) && getUserController().checkIfUserExists(UserAffectedId)&&getUserController().checkIfUserIsLoggedIn(userIdRemoving))
             getStoreController().removePermissionTo(storeId,userIdRemoving,UserAffectedId);
         else
@@ -240,7 +190,7 @@ public class BigController {
     }
 
     public String addNewThreadToForum(String storeId,String title, String userId){
-        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
+        if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId)){
             my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
             return null;
         }
@@ -248,23 +198,23 @@ public class BigController {
     }
 
     public void postMessageToForum(String storeId, String threadId, String userId, String message) throws NoPermissionException {
-        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
+        if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId)){
             my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
         }
-        getStoreController().RolePostMessageToForum(storeId,threadId,userId,message);
+        getStoreController().postMessageToForum(storeId,threadId,userId,message);
     }
 
 
-    public HashMap<String,List<Product>> getAllProductsAndStores(String userId){
+    private HashMap<String,List<Product>> getAllProductsAndStores(String userId){
         my_log.logger.info("getting a look at all products and stores");
         for(Guest g :getGuest_list()){
             if(g.name.equals(userId)){
-               return getStoreController().getAllProductsAndStores();
+                return getStoreController().getAllProductsAndStores();
             }
         }
-        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
+        if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId)){
             my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
-        return null;
+            return null;
         }
         return getStoreController().getAllProductsAndStores();
     }
@@ -276,11 +226,11 @@ public class BigController {
                 getStoreController().SearchProductsAccordingName(productName);
             }
         }
-        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
+        if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId)){
             my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
             return null;
         }
-       return getStoreController().SearchProductsAccordingName(productName);
+        return getStoreController().SearchProductsAccordingName(productName);
     }
 
     public List<Product> SearchProductsAccordingCategory(String userId,List<String> categories ){
@@ -304,23 +254,23 @@ public class BigController {
                 getStoreController().SearchProductsAccordingPrice(fromPrice,toPrice);
             }
         }
-        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
+        if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId)){
             my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
             return null;
         }
         return getStoreController().SearchProductsAccordingPrice(fromPrice,toPrice);
 
     }
-    public List<Product> SearchProductsAccordingRating(String userId,float productRating){
+    public List<Product> SearchProductsAccordingRating(String userId, float productRating){
         my_log.logger.info("searching products according rating");
         for(Guest g :getGuest_list()){
             if(g.name.equals(userId)){
-               return getStoreController().SearchProductsAccordingRating(productRating);
+                return getStoreController().SearchProductsAccordingRating(productRating);
             }
         }
-        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
+        if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId)){
             my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
-        return null;}
+            return null;}
         return getStoreController().SearchProductsAccordingRating(productRating);
     }
 
@@ -330,7 +280,7 @@ public class BigController {
     }
 
     public List<PurchaseHistory> getStoreHistory(String storeId, String userId) throws NoPermissionException{
-        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
+        if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId)){
             my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
             return null;
         }
@@ -344,4 +294,6 @@ public class BigController {
     private StoreController getStoreController() {
         return sc;
     }
+}*/
+
 }

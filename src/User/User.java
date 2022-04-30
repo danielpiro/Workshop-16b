@@ -1,6 +1,6 @@
 package User;
 
-import ExternalConnections.PurchasePolicies;
+import ExternalConnections.ExternalConnectionHolder;
 import ShoppingCart.ShoppingCart;
 import ShoppingCart.InventoryProtector;
 
@@ -32,8 +32,8 @@ public abstract class User {
     public String getCartInventory() {
      return shoppingCart.getCartInventory();
  }
-    public float purchaseCart(PurchasePolicies purchasePolicies) {
-     return shoppingCart.purchaseCart(purchasePolicies);
+    public float purchaseCart(ExternalConnectionHolder externalConnectionHolder) {
+     return shoppingCart.purchaseCart(externalConnectionHolder);
  }
 
 

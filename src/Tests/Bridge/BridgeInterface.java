@@ -1,21 +1,24 @@
 package Tests.Bridge;
 
 import ExternalConnections.Delivery.Delivery;
+import ExternalConnections.Delivery.DeliveryNames;
 import ExternalConnections.Payment.Payment;
+import ExternalConnections.Payment.PaymentNames;
 import History.PurchaseHistory;
 import Store.Product;
 import StorePermission.Permission;
 
 import javax.naming.NoPermissionException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public interface BridgeInterface {
 
     /** requirement 1.b in V1 */
-    String parallelUse(); //Need to implement thread-base system
+    String parallelUse() throws ExecutionException, InterruptedException; //Need to implement thread-base system
 
     /** requirement 1.c in V1 */
-    String systemLogging(); //Need to create log file (containing error logs)
+    String systemLogging() throws ExecutionException, InterruptedException; //Need to create log file (containing error logs)
 
     /** System requirement - I.1 */
     String openingMarket() throws NoPermissionException;
@@ -28,16 +31,16 @@ public interface BridgeInterface {
     String addExternalService(int serviceCode, String serviceName);
 
     /** System requirement - I.2 -> Method to implement the Headers (above)*/
-    boolean removePayment(String paymentRemove);
+    boolean removePayment(PaymentNames paymentRemove);
     boolean AddPayment(Payment payment);
-    boolean removeDelivery(String deliveryRemove);
+    boolean removeDelivery(DeliveryNames deliveryRemove);
     boolean addDelivery(Delivery delivery);
 
     /** System requirement - I.3 */
-    int payment(String payment, float total);
+    int payment(PaymentNames payment, float total);
 
     /** System requirement - I.4 */
-    int delivery(String delivery, float weight);
+    int delivery(DeliveryNames delivery, float weight);
 
     /** System requirement - I.5 */
     String realtimeNotificationProductBought();
@@ -99,7 +102,7 @@ public interface BridgeInterface {
     String removeProductFromShoppingCart(String productName);
 
     /** User requirement - II.2.5 */
-    boolean purchaseShoppingCart(String userID,String payment,String delivery);
+    boolean purchaseShoppingCart(String userID,PaymentNames payment,DeliveryNames delivery);
 
     /** User requirement - II.3.1 */
     boolean logout(String userid);

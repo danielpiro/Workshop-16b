@@ -5,8 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import CustomExceptions.UserDeleted;
-import ExternalConnections.PurchasePolicies;
+import ExternalConnections.ExternalConnectionHolder;
 import ShoppingCart.InventoryProtector;
 import GlobalSystemServices.IdGenerator;
 import GlobalSystemServices.Log;
@@ -134,10 +133,8 @@ public class UserController {
             return get_subscriber(user_id).getCartInventory();
         }
     }
-    public float purchaseCart(String user_id,PurchasePolicies purchasePolicies) {
-        my_log.logger.info("user "+user_id + " is trying to purchase cart");
-        if (get_subscriber(user_id) == null) {
-            my_log.logger.warning("user "+user_id + " doesn't exist");
+    public float purchaseCart(String user_id, ExternalConnectionHolder externalConnectionHolder) {
+        if(get_subscriber(user_id)==null){
             throw new IllegalArgumentException("User doesn't exist");
         }
         synchronized (get_subscriber(user_id).getLock()) {
@@ -147,6 +144,7 @@ public class UserController {
             }
             return get_subscriber(user_id).purchaseCart(purchasePolicies);
         }
+     return get_subscriber(user_id).purchaseCart(externalConnectionHolder);
     }
 
         //String sender_id, String message, LocalDate date,String storeName

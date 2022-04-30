@@ -1,5 +1,6 @@
 package ExternalConnections.Payment;
 import ExternalConnections.ExternalConnections;
+import GlobalSystemServices.Log;
 
 
 public class MasterCard extends Payment {
@@ -13,6 +14,8 @@ public class MasterCard extends Payment {
     // 0 is
     @Override
     protected int internalPayment(float total) {
+        Log.getLogger().logger.fine("try to pay with MasterCard");
+
         if(total>0)
             return 0;
         return -1;
@@ -20,6 +23,8 @@ public class MasterCard extends Payment {
 
     @Override
     public boolean connect(int key) {
+        Log.getLogger().logger.info("MasterCard connected");
+
         connected =true;
         return true;
     }

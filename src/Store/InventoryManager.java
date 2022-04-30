@@ -1,12 +1,11 @@
 package Store;
 
 import CustomExceptions.CantPurchaseException;
-import ExternalConnections.PurchasePolicies;
+import ExternalConnections.ExternalConnectionHolder;
 import GlobalSystemServices.IdGenerator;
 import ShoppingCart.InventoryProtector;
 import ShoppingCart.ProductAmount;
 
-import javax.naming.LimitExceededException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
@@ -131,7 +130,7 @@ public class InventoryManager  implements InventoryProtector {
     }
 
     @Override
-    public float reserve(HashMap<String, Integer> ProductAmount, PurchasePolicies purchasePolicies, String userId) throws CantPurchaseException {
+    public float reserve(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, String userId) throws CantPurchaseException {
         for (String Id : ProductAmount.keySet()) {
             synchronized (products.get(Id)) {
                 if (products.get(Id).getBuyOption().checkIfCanBuy(userId)) {

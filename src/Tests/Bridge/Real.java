@@ -2,22 +2,31 @@
 package Tests.Bridge;
 
 import Controllers.BigController;
+import Controllers.Service;
 import ExternalConnections.Delivery.Delivery;
+import ExternalConnections.Delivery.DeliveryNames;
 import ExternalConnections.ExternalConnections;
 import ExternalConnections.Payment.Payment;
+import ExternalConnections.Payment.PaymentNames;
+
 import History.PurchaseHistory;
 import Store.Product;
 import StorePermission.Permission;
 
 import History.History;
 import javax.naming.NoPermissionException;
+import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 public class Real implements BridgeInterface{
 
     private BigController bigController;
+    private Service service;
 
-    public Real() {
+    public Real() throws IOException {
+        service = new Service();
     }
 
    public Real(BigController msApp) {
@@ -28,9 +37,23 @@ public class Real implements BridgeInterface{
         return bigController;
   }
 
-    /** requirement 1.b in V1 */
-    public String parallelUse() { //Need to implement thread-base system
-        throw new UnsupportedOperationException("Not Implemented Yet");
+    /** requirement 1.b in V1
+     * @return*/
+    public String parallelUse() throws ExecutionException, InterruptedException { //Need to implement thread-base system
+        Future future1 = service.sign_up("dan","rotman");
+        Future future2 = service.sign_up("guy","porat");
+        future1.get();
+        future2.get();
+
+        Future future3 = service.login("dan","rotman");
+        Future future4 = service.login("guy","porat");
+        future3.get();
+        future4.get();
+
+        return "true";
+
+
+
     }
 
     /** requirement 1.c in V1 */
@@ -69,7 +92,7 @@ public class Real implements BridgeInterface{
     //TODO: talk about external connections how to make it better.
 
     /** System requirement - I.2 */
-    public boolean removePayment(String paymentRemove){
+    public boolean removePayment(PaymentNames paymentRemove){
         return ExternalConnections.getInstance().removePayment(paymentRemove);
     }
 
@@ -79,7 +102,7 @@ public class Real implements BridgeInterface{
     }
 
     /** System requirement - I.2 */
-    public boolean removeDelivery(String deliveryRemove){
+    public boolean removeDelivery(DeliveryNames deliveryRemove){
         return ExternalConnections.getInstance().removeDelivery(deliveryRemove);
     }
 
@@ -89,11 +112,11 @@ public class Real implements BridgeInterface{
     }
 
     /** System requirement - I.3 */
-    public int payment(String payment, float total)
+    public int payment(PaymentNames payment, float total)
     {
         Payment paymentObject=null;
         boolean gotPayment=false;
-        while (!gotPayment) {
+        for (int i = 0; i < 20; i++) {
             try {
                 paymentObject = ExternalConnections.getInstance().getCertainPayment(payment);
                 gotPayment=true;
@@ -107,11 +130,12 @@ public class Real implements BridgeInterface{
     }
 
     /** System requirement - I.4 */
-    public int delivery(String delivery, float weight){
+    public int delivery(DeliveryNames delivery, float weight){
         Delivery deliveryObject=null;
         boolean gotDelivery=false;
-        while (!gotDelivery) {
-            try {
+        for (int i = 0; i < 20; i++) {
+
+           try {
                 deliveryObject = ExternalConnections.getInstance().getCertainDelivery(delivery);
                 gotDelivery=true;
             }
@@ -222,7 +246,7 @@ public class Real implements BridgeInterface{
     }
 
     /** User requirement - II.2.5 */
-    public boolean purchaseShoppingCart(String userID,String payment,String delivery){
+    public boolean purchaseShoppingCart(String userID,PaymentNames payment,DeliveryNames delivery){
         float ans= bigController.purchaseCart(userID,payment,delivery);
         return ans != -1;
     }
