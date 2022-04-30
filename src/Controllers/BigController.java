@@ -28,6 +28,7 @@ public class BigController {
     private StoreController sc;
     private UserController us;
     Log my_log = Log.getLogger();
+    Object signUpLock = new Object();
 
 
 
@@ -49,7 +50,7 @@ public class BigController {
 
     //// user controller
     public void addSystemAdmin(String whoIsAdding,String user_toMakeAdmin) {
-        my_log.logger.info("adding system admin");
+        my_log.logger.info("admin "+ whoIsAdding +"is trying to add "+user_toMakeAdmin +"as system admin");
         getUserController().addSystemAdmin(whoIsAdding,user_toMakeAdmin);
     }
     public boolean deleteUser(String whosDeleting,String whosBeingDeleted) throws NoPermissionException {
@@ -112,7 +113,7 @@ public class BigController {
         return getUserController().getUser_list();
     }
     public void Add_Query(String user_name,String query) {
-        my_log.logger.info("user: "+user_name+ " is adding a query");
+        my_log.logger.info("user: "+user_name+ " is adding a query: "+query);
         getUserController().Add_Query(user_name,query);
     }
     public Subscriber get_subscriber(String user_name) {
@@ -237,7 +238,7 @@ public class BigController {
     }
 
     public String addNewThreadToForum(String storeId,String title, String userId){
-        if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId)){
+        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
             my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
             return null;
         }
@@ -245,7 +246,7 @@ public class BigController {
     }
 
     public void postMessageToForum(String storeId, String threadId, String userId, String message) throws NoPermissionException {
-        if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId)){
+        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
             my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
         }
         getStoreController().postMessageToForum(storeId,threadId,userId,message);
@@ -259,7 +260,7 @@ public class BigController {
                return getStoreController().getAllProductsAndStores();
             }
         }
-        if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId)){
+        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
             my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
         return null;
         }
@@ -273,7 +274,7 @@ public class BigController {
                 getStoreController().SearchProductsAccordingName(productName);
             }
         }
-        if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId)){
+        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
             my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
             return null;
         }
@@ -301,7 +302,7 @@ public class BigController {
                 getStoreController().SearchProductsAccordingPrice(fromPrice,toPrice);
             }
         }
-        if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId)){
+        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
             my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
             return null;
         }
@@ -315,7 +316,7 @@ public class BigController {
                return getStoreController().SearchProductsAccordingRating(productRating);
             }
         }
-        if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId)){
+        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
             my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
         return null;}
         return getStoreController().SearchProductsAccordingRating(productRating);
@@ -327,7 +328,7 @@ public class BigController {
     }
 
     public List<PurchaseHistory> getStoreHistory(String storeId, String userId) throws NoPermissionException{
-        if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId)){
+        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
             my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
             return null;
         }

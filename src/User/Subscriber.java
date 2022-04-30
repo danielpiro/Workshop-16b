@@ -9,7 +9,7 @@ public class Subscriber extends User {
     private boolean logged_in = false;
     private List<String> Queries; //3.5
     private List<Message> buffer;
-    private Object lock;
+    private Object lock = new Object();
     Encrypt enc = new Encrypt();;
 
     public Subscriber(String user_name, String password) {
