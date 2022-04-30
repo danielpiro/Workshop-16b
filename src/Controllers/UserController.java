@@ -18,7 +18,8 @@ public class UserController {
     private List<Guest> guest_list;
     private List<Subscriber> system_admins;
     private Subscriber admin;
-   Log my_log = Log.getLogger();
+    Log my_log = Log.getLogger();
+    final Object signUpLock =new Object();
 
     public UserController() throws IOException {
         user_list = new ArrayList<>();
@@ -116,13 +117,15 @@ public class UserController {
     }
 
     public boolean sign_up(String user_name, String password) {
-        my_log.logger.info("Sign Up");
-        if(get_subscriber(user_name)==null){
-            Subscriber s = new Subscriber(user_name,password);
-            add_subscriber(s);
-            return true;
+        synchronized(signUpLock){
+            my_log.logger.info("Sign Up");
+            if (get_subscriber(user_name) == null) {
+                Subscriber s = new Subscriber(user_name, password);
+                add_subscriber(s);
+                return true;
+            }
+            return false;
         }
-        return false;
     }
 
     public boolean login(String user_name, String password) {

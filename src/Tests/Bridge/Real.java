@@ -297,7 +297,9 @@ public class Real implements BridgeInterface{
     public String changeStorePolicy(String storeName, String newStorePolicy){
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
-
+    public HashMap<String,List<Product>> getAllProductsAndStores(String userId){
+        return bigController.getAllProductsAndStores(userId);
+    }
     /** User requirement - II.4.4 */
     public boolean addNewStoreOwner(String storeId, String userIdGiving, String UserGettingPermissionId, List<Permission> permissions){
         try {

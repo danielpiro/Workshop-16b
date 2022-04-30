@@ -33,12 +33,15 @@ public class Product {
     }
 
     public void addReview(float rating, String userId, String title, String body){
-        reviews.add(new Review(rating, userId, title, body));
-        float sum = 0;
-        for (Review rev : reviews) {
-            sum = rev.getRating()+sum;
+
+            reviews.add(new Review(rating, userId, title, body));
+            float sum = 0;
+        synchronized (reviews) {
+            for (Review rev : reviews) {
+                sum = rev.getRating() + sum;
+            }
+            this.rating = sum / (reviews.size());
         }
-        this.rating = sum / (reviews.size());
     }
 
     public BuyOption getBuyOption() {
@@ -60,7 +63,7 @@ public class Product {
             this.supply = newSupply;
     }
     public void editPrice(float newPrice) {
-        if(price >=0)
+        if(newPrice >=0)
             this.price = newPrice;
         else
             throw new RuntimeException("price cant be negative");

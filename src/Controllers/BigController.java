@@ -20,7 +20,6 @@ import User.Subscriber;
 import javax.naming.NoPermissionException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -126,12 +125,12 @@ public class BigController {
     public boolean containsStore(String user_id,String storeID) {
         return getUserController().containsStore(user_id,storeID);
     }
-    public int removeProduct(String user_id,String productID, String storeID, int amount) {
+    public int removeProductFromCart(String user_id, String productID, String storeID, int amount) {
         my_log.logger.info("user: "+user_id +"is trying to remove product with id:" +productID +"from store with id:"+ storeID);
         return getUserController().removeProduct(user_id,productID,storeID,amount);
     }
 
-    public int addProduct(String user_id, String productID, String storeID, int amount, boolean auctionOrBid) {
+    public int addProductFromCart(String user_id, String productID, String storeID, int amount, boolean auctionOrBid) {
         my_log.logger.info("user with id:"+user_id+ " is adding product");
         InventoryProtector inventoryProtector = sc.getInventoryProtector(storeID);
         return getUserController().addProduct(user_id,productID,storeID,amount,inventoryProtector,auctionOrBid);
@@ -147,7 +146,7 @@ public class BigController {
 
     /// Store controller
 
-    public void addNewProduct(String storeId, String userId, String productName, float price, int supply, String category) throws NoPermissionException {
+    public void addNewProductToStore(String storeId, String userId, String productName, float price, int supply, String category) throws NoPermissionException {
         my_log.logger.info("adding new product");
         if(getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId))
         getStoreController().addNewProduct(storeId,userId,productName,price,supply,category);
@@ -196,7 +195,7 @@ public class BigController {
             throw new IllegalArgumentException("couldn't edit product  because the given userId doesn't exist or is not logged in");
     }
 
-    public void deleteProduct(String storeId, String userId, String productId) throws NoPermissionException {
+    public void deleteProductToStore(String storeId, String userId, String productId) throws NoPermissionException {
         my_log.logger.info("trying to delete product with id:" + productId);
         if(getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId))
             getStoreController().deleteProduct(storeId,userId,productId);
@@ -248,11 +247,11 @@ public class BigController {
         if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId)){
             my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
         }
-        getStoreController().postMessageToForum(storeId,threadId,userId,message);
+        getStoreController().RolePostMessageToForum(storeId,threadId,userId,message);
     }
 
 
-    private HashMap<String,List<Product>> getAllProductsAndStores(String userId){
+    public HashMap<String,List<Product>> getAllProductsAndStores(String userId){
         my_log.logger.info("getting a look at all products and stores");
         for(Guest g :getGuest_list()){
             if(g.name.equals(userId)){
