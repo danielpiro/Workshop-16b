@@ -199,7 +199,7 @@ public class BigController {
             throw new IllegalArgumentException("couldn't edit product  because the given userId doesn't exist or is not logged in");
     }
 
-    public void deleteProductToStore(String storeId, String userId, String productId) throws NoPermissionException {
+    public void deleteProductFromStore(String storeId, String userId, String productId) throws NoPermissionException {
         my_log.logger.info("trying to delete product with id:" + productId);
         if(getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId))
             getStoreController().deleteProduct(storeId,userId,productId);

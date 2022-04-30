@@ -82,7 +82,7 @@ public class ExternalConnections {
     public  Payment getCertainPayment (PaymentNames name) throws ExternalServiceDoesNotExist {
         synchronized (lockPayment) {
             for (Payment p : payments) {
-                if (p.getName().equals(name) && p.isConnected() && !p.isTaken()) {
+                if (p.getName().equals(name.toString()) && p.isConnected() && !p.isTaken()) {
                     p.setTakeTrue();
                     return p;
                 }
@@ -95,7 +95,7 @@ public class ExternalConnections {
         synchronized (lockDelivery) {
 
             for (Delivery d : deliveries) {
-                if (d.getName().equals(name) && d.isConnected() && !d.isTaken())
+                if (d.getName().equals(name.toString()) && d.isConnected() && !d.isTaken())
                     return d;
             }
             throw new ExternalServiceDoesNotExist("name");
@@ -107,7 +107,7 @@ public class ExternalConnections {
 
 
             for (Payment p : payments) {
-                if (p.getName().equals(payment)){
+                if (p.getName().equals(payment.toString())){
                     return true;
                 }
             }
@@ -121,7 +121,7 @@ public class ExternalConnections {
             Log.getLogger().logger.info("removing delivery " + delivery + "from external connections");
 
             for (Delivery p : deliveries) {
-                if (p.getName().equals(delivery)){
+                if (p.getName().equals(delivery.toString())){
                     return true;
                 }
             }
