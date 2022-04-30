@@ -30,7 +30,6 @@ public class BigController {
     private StoreController sc;
     private UserController us;
     Log my_log = Log.getLogger();
-    Object signUpLock = new Object();
 
 
 

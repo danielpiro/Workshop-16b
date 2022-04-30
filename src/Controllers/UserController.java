@@ -20,8 +20,9 @@ public class UserController {
    Log my_log = Log.getLogger();
      Object signUpLock = new Object();
     Object addingSubscriber = new Object();
-    Object addingSystemAdmin = new Object();
     Object guest = new Object();
+
+
 
 
 
@@ -37,7 +38,6 @@ public class UserController {
     //WE DECIDED THAT ALL THE SYSTEM ADMINS WILL HAVE A SIMILAR USERNAME AS FOLLOWS:
     // Admin_1 Admin_2 Admin_3 and so on
     public void addSystemAdmin(String whoIsAdding,String user_toMakeAdmin) {
-        my_log.logger.info("user " + whoIsAdding +"adding subscriber");
         if (!getUser_list().contains(get_subscriber(whoIsAdding))) {
             my_log.logger.warning("the user that we treated as admin is not a user at all!!");
             throw new IllegalArgumentException("the user that we treated as admin is not a user at all!!");
@@ -65,107 +65,86 @@ public class UserController {
         }
     }
     public ShoppingCart getShoppingCart(String user_Id){
-        my_log.logger.info("user " + user_Id +"is trying to get his shopping cart");
         if(get_subscriber(user_Id)==null){
             my_log.logger.warning("User "+ user_Id +" doesn't exist");
             throw new IllegalArgumentException("User doesn't exist");
         }
-        synchronized (get_subscriber(user_Id).getLock()) {
             if (!checkIfUserIsLoggedIn(user_Id)) {
                 my_log.logger.warning("User "+user_Id+ " is not logged in");
                 throw new IllegalArgumentException("User is not logged in");
             }
             return get_subscriber(user_Id).getShoppingCart();
-        }
     }
 
     public boolean containsStore(String user_id,String storeID) {
-        my_log.logger.info("user " + user_id +" is checking if contains store "+storeID);
         if(get_subscriber(user_id)==null){
             my_log.logger.warning("User "+ user_id +" doesn't exist");
             throw new IllegalArgumentException("User doesn't exist");
         }
-        synchronized (get_subscriber(user_id).getLock()) {
             if (!checkIfUserIsLoggedIn(user_id)) {
                 my_log.logger.warning("User "+ user_id +" is not logged in");
                 throw new IllegalArgumentException("User is not logged in");
             }
             return get_subscriber(user_id).containsStore(storeID);
-        }
     }
 
     public int removeProduct(String user_id,String productID, String storeID, int amount) {
-        my_log.logger.info("user " + user_id +" is trying to remove product "+productID +" from store "+storeID);
         if (get_subscriber(user_id) == null) {
             my_log.logger.warning("User "+ user_id +" doesn't exist");
             throw new IllegalArgumentException("User doesn't exist");
         }
-        synchronized (get_subscriber(user_id).getLock()) {
             return get_subscriber(user_id).removeProduct(productID, storeID, amount);
         }
-    }
 
     public int addProduct(String user_id, String productID, String storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
-        my_log.logger.info("user " + user_id +" is trying to add product "+productID +" to store "+storeID);
         if (get_subscriber(user_id) == null) {
             throw new IllegalArgumentException("User doesn't exist");
         }
-        synchronized (get_subscriber(user_id).getLock()) {
             if (!checkIfUserIsLoggedIn(user_id)) {
                 throw new IllegalArgumentException("User is not logged in");
             }
             return get_subscriber(user_id).addProduct(productID, storeID, amount, inventoryProtector, auctionOrBid);
-        }
     }
 
 
     public String getCartInventory(String user_id) {
-        my_log.logger.info("user "+user_id + " is trying to get cart inventory");
         if(get_subscriber(user_id)==null){
             my_log.logger.warning("user "+user_id + " doesn't exist");
             throw new IllegalArgumentException("User doesn't exist");
         }
-        synchronized (get_subscriber(user_id).getLock()) {
             if (checkIfUserIsLoggedIn(user_id)) {
                 my_log.logger.warning("user "+user_id + " is not logged in");
                 throw new IllegalArgumentException("User is not logged in");
             }
             return get_subscriber(user_id).getCartInventory();
-        }
     }
     public float purchaseCart(String user_id, ExternalConnectionHolder externalConnectionHolder) {
         if(get_subscriber(user_id)==null){
             throw new IllegalArgumentException("User doesn't exist");
         }
-        synchronized (get_subscriber(user_id).getLock()) {
             if (!checkIfUserIsLoggedIn(user_id)) {
                 my_log.logger.warning("user "+user_id + " is not logged in");
                 throw new IllegalArgumentException("User is not logged in");
             }
             return get_subscriber(user_id).purchaseCart(externalConnectionHolder);
-        }
 
     }
 
         //String sender_id, String message, LocalDate date,String storeName
     public void sendComplaint(String userId, String StoreName,String complaint ){
-        my_log.logger.info("user "+userId + " is trying to send a complaint");
         if(get_subscriber(userId)==null){
             my_log.logger.warning("user "+userId + " does not exist");
             throw new IllegalArgumentException("User doesn't exist");
         }
-        synchronized (get_subscriber(userId).getLock()) {
             if (!IdGenerator.getInstance().checkIfAdmin(userId))
                 admin.getBuffer().add(new Message(userId, complaint, LocalDate.now(), StoreName));
             else {
                 my_log.logger.warning("user "+userId + "is a system admin, system admin can't send a complaint to himself or sending user doesn't exist");
                 throw new IllegalArgumentException("system admin can't send a complaint to himself or sending user doesn't exist");
             }
-        }
     }
 
     public boolean sign_up(String user_name, String password) {
-        my_log.logger.info("user "+user_name + " sign up");
         synchronized (signUpLock) {
             my_log.logger.info("Sign Up");
             if (get_subscriber(user_name) == null) {
@@ -179,7 +158,6 @@ public class UserController {
     }
 
     public boolean login(String user_name, String password) {
-        my_log.logger.info("user "+user_name + " is trying to login");
         if (checkIfUserExists(user_name)) {
             synchronized (get_subscriber(user_name).getLock()) {
                 if (checkIfUserExists(user_name)) {
@@ -206,7 +184,6 @@ public class UserController {
     }
 
     public boolean logout(String user_name) {
-            my_log.logger.info("user "+user_name +" is trying to logout");
             if (get_subscriber(user_name) == null) {
                 my_log.logger.warning(user_name + " is null");
                 return false;
@@ -225,7 +202,6 @@ public class UserController {
 
 
     public  boolean check_password(String user_name, String password) {
-        my_log.logger.info("checking password for user "+user_name);
         if (get_subscriber(user_name) == null) {
             my_log.logger.warning("User "+user_name + " doesn't exist");
             return false;
@@ -243,7 +219,6 @@ public class UserController {
     }
 
     public Subscriber get_subscriber(String user_name){
-        my_log.logger.info("trying to get subscriber with id: " +user_name);
         Subscriber subscriber = null;
         for (Subscriber user : user_list) {
             if (user.getName().equals(user_name)) {
@@ -254,7 +229,6 @@ public class UserController {
         return subscriber;
     }
     public boolean checkIfUserExists(String userID) {
-        my_log.logger.info("checking if user "+userID +" exists");
         if (get_subscriber(userID) == null) {
             my_log.logger.warning(" user "+userID + "doesn't exist");
             return false;
@@ -281,17 +255,14 @@ public class UserController {
         }
     }
     public String GuestExitSystem(String name) {
-        synchronized (guest) {
             for (Guest g : getGuest_list())
                 if (g.name.equals(name)) {
                     getGuest_list().remove(g);
                     return g.name;
                 }
             return null;
-        }
     }
     public void Add_Query(String user_name,String query) { //3.5
-        my_log.logger.info(" user "+user_name + "is trying to add a query");
         if (get_subscriber(user_name) == null) {
             my_log.logger.warning(" user "+user_name+ "doesn't exist");
             throw new IllegalArgumentException("User doesn't exist");
@@ -304,7 +275,6 @@ public class UserController {
     }
 
     public boolean deleteUser(String whosDeleting,String whosBeingDeleted) {
-        my_log.logger.info(" user "+whosBeingDeleted + "is trying to delete user "+whosBeingDeleted);
         if (checkIfUserExists(whosDeleting)&&checkIfUserIsLoggedIn(whosDeleting) && IdGenerator.getInstance().checkIfAdmin(whosDeleting) ) {
             synchronized (get_subscriber(whosDeleting).getLock()) {
                 if (checkIfUserExists(whosDeleting) && !IdGenerator.getInstance().checkIfAdmin(whosBeingDeleted)) {
@@ -325,44 +295,29 @@ public class UserController {
 
 
     public List<Guest> getGuest_list() {
-        synchronized (guest) {
             return guest_list;
-        }
     }
 
     public List<Subscriber> getUser_list() {
-        my_log.logger.info("getting all subscribers");
-        synchronized (addingSubscriber) {
             return user_list;
-        }
     }
 
     public void add_subscriber(Subscriber s) {
-        my_log.logger.info("trying to add "+ s.getName() +" subscriber");
         synchronized (addingSubscriber) {
             user_list.add(s);
         }
     }
 
     public void add_admin(Subscriber s) {
-        my_log.logger.info("trying to add "+ s.getName() +" as system admin");
-        synchronized (addingSystemAdmin) {
             system_admins.add(s);
         }
-    }
     public List<Subscriber> getSystemAdmins() {
-        synchronized (addingSubscriber) {
             return system_admins;
-        }
     }
     public Subscriber getSystemAdmin() {
-        my_log.logger.info("getting system admin");
-        synchronized (addingSystemAdmin) {
             return admin;
-        }
     }
     public boolean checkIfUserIsLoggedIn(String id) {
-        my_log.logger.info("checking if user "+id+" is logged in");
         synchronized (get_subscriber(id).getLock()) {
             return get_subscriber(id).isLogged_in();
         }
