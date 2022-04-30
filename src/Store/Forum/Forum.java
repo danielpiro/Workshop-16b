@@ -1,10 +1,8 @@
 package Store.Forum;
 
-import Store.Store;
 //import jdk.jshell.spi.ExecutionControl;
 
 import java.util.HashMap;
-import java.util.List;
 
 public class Forum {
 
@@ -35,8 +33,13 @@ public class Forum {
         return forumThreads.get(ThreadId).getUserId();
     }
 
-    public List<String> getThreadsOfUserId(String UserId){
-        throw new RuntimeException("notImplemented");
+    public ForumThread getThreadOfUserId(String UserId){
+        for (ForumThread f : forumThreads.values()) {
+            if(f.getUserId().equals(UserId)){
+                return f;
+            }
+        }
+        throw new IllegalArgumentException("no forume thread with this userId - "+UserId);
     }
 
 

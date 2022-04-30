@@ -5,6 +5,7 @@ import History.History;
 import History.PurchaseHistory;
 import ShoppingCart.InventoryProtector;
 import Store.Forum.Forum;
+import Store.Forum.ForumThread;
 import StorePermission.OriginalStoreOwnerRole;
 import StorePermission.Permission;
 import StorePermission.StoreRoles;
@@ -191,7 +192,7 @@ public class Store {
             throw new NoPermissionException("only user that created the forum thread can post messages");
         }
         forum.postMessage(threadId, userId, message);
-    }
+    }//todo seperate post and reply
 
 
     public void deleteProduct(String userId, String productId) throws NoPermissionException {
@@ -234,4 +235,7 @@ public class Store {
         return History.getInstance().getStoreHistory(storeId);
     }
 
+    public ForumThread getThread(String userId) {
+        return forum.getThreadOfUserId(userId);
+    }
 }

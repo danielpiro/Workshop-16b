@@ -195,13 +195,21 @@ class StoreTest {
     @Test
     void addNewThreadToForum() {
         store1.addNewThreadToForum("test", userId3);
+        assertTrue(store1.getThread(userId3).getUserId().equals(userId3));
     }
 
     @Test
     void postMessageToForum() {
+        String threadId=store1.addNewThreadToForum("test", userId3);
+        try {
+            store1.postMessageToForum(threadId,userId3,"good products");
+            assertEquals(store1.getThread(userId3).getTitle(),"test");
+
+        } catch (NoPermissionException e) {
+            e.printStackTrace();
+            fail();
+        }
     }
 
-    @Test
-    void getInfoOnManagersOwners() {
-    }
+
 }
