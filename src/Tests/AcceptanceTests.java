@@ -28,9 +28,9 @@ public class AcceptanceTests {
      */
 
     Proxy proxy;
-
+    String storeId;
     @BeforeEach
-    void setUp() throws NoPermissionException {
+    void setUp() throws Exception {
         proxy = new Proxy(new Real());
         proxy.openingMarket();
 
@@ -42,18 +42,18 @@ public class AcceptanceTests {
 
         proxy.register("user1", "11111");
         proxy.login("user1", "11111");
-        String store0_id = proxy.openStore("user1", "store1");
+        storeId = proxy.openStore("user1", "store1");
         // store0_id = StoreID_0
         proxy.register("user2", "22222");
 
-        proxy.addNewStoreManager(store0_id, "user1", "user2");
+        proxy.addNewStoreManager(storeId, "user1", "user2");
         proxy.register("user3", "33333");
         proxy.getInToTheSystem(); // for guest
 
-        proxy.addProductToStore(store0_id, "user1", "p0", 5.0f, 0, "Other");
-        proxy.addProductToStore(store0_id, "user1", "p1", 10.0f, 5, "Other");
-        proxy.addProductToStore(store0_id, "user1", "p2", 15.0f, 10, "Other");
-        proxy.addProductToStore(store0_id, "user1", "p3", 20.0f, 15, "Other");
+        proxy.addProductToStore(storeId, "user1", "p0", 5.0f, 0, "Other");
+        proxy.addProductToStore(storeId, "user1", "p1", 10.0f, 5, "Other");
+        proxy.addProductToStore(storeId, "user1", "p2", 15.0f, 10, "Other");
+        proxy.addProductToStore(storeId, "user1", "p3", 20.0f, 15, "Other");
     }
 
     @AfterEach
@@ -292,7 +292,7 @@ public class AcceptanceTests {
 //              -> payment service returns an invalid answer (= the payment can't be done)
 
         // "Failed to do payment" - returning -1
-        assertNotEquals(0, proxy.payment("Visa", -50));
+        assertNotEquals(0, proxy.payment(PaymentNames.Visa, -50));
     }
 
 
@@ -315,7 +315,7 @@ public class AcceptanceTests {
 //        -Check delivery service answer
 //              -> payment service returns an invalid answer (= the delivery can't be done)
 
-        assertNotEquals(0, proxy.delivery("FedEx", -2));
+        assertNotEquals(0, proxy.delivery(DeliveryNames.FedEx, -2));
     }
 
 
