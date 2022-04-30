@@ -105,12 +105,12 @@ public class Service {
         return future;
 
     }
-    public Future removeProduct(String user_id,String productID, String storeID, int amount) {
+    public Future removeProductFromCart(String user_id,String productID, String storeID, int amount) {
         Future future = executorService.submit(() -> bigController.removeProductFromCart(user_id,productID,storeID,amount));
         return future;
     }
 
-    public Future addProduct(String user_id, String productID, String storeID, int amount, boolean auctionOrBid) {
+    public Future addProductFromCart(String user_id, String productID, String storeID, int amount, boolean auctionOrBid) {
         Future future = executorService.submit(() -> bigController.addProductFromCart(user_id,productID,storeID,amount,auctionOrBid));
         return future;
     }
@@ -127,7 +127,7 @@ public class Service {
 
     /// Store controller
 
-    public Future addNewProduct(String storeId, String userId, String productName, float price, int supply, String category) throws NoPermissionException {
+    public Future addNewProductToStore(String storeId, String userId, String productName, float price, int supply, String category) throws NoPermissionException {
 
             Future future = executorService.submit(() -> {
                 try {
@@ -277,7 +277,7 @@ public class Service {
     }
 
 
-    private Future getAllProductsAndStores(String userId){
+    public Future getAllProductsAndStores(String userId){
         Future future = executorService.submit(() -> bigController.getAllProductsAndStores(userId));
         return future;
 

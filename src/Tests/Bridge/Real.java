@@ -296,7 +296,7 @@ public class Real implements BridgeInterface{
     /** User requirement - II.4.1 */
     public boolean removeProductFromStore(String storeId,String userId,String productId){
         try {
-            bigController.deleteProductToStore(storeId,userId, productId);
+            bigController.deleteProductFromStore(storeId,userId, productId);
             return true;
         }
         catch (NoPermissionException e) {
