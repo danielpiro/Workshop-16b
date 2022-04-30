@@ -319,6 +319,10 @@ public class Service {
         return future;
     }
 
+    public void shutdown(){
+        executorService.shutdown();
+    }
+
 }
 
 
