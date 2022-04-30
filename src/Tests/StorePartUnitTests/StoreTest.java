@@ -202,7 +202,7 @@ class StoreTest {
     void postMessageToForum() {
         String threadId=store1.addNewThreadToForum("test", userId3);
         try {
-            store1.postMessageToForum(threadId,userId3,"good products");
+            store1.userPostMessageToForum(threadId,userId3,"good products");
             assertEquals(store1.getThread(userId3).getTitle(),"test");
 
         } catch (NoPermissionException e) {
