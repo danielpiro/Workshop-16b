@@ -7,14 +7,11 @@ import History.PurchaseHistory;
 import Store.Product;
 import Tests.Bridge.Proxy;
 import Tests.Bridge.Real;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import javax.naming.NoPermissionException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.lang.reflect.Method;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -113,6 +110,7 @@ public class AcceptanceTests {
     }
     @Test
     void opening_market_system_fail_case_test1() throws NoPermissionException {
+        //TODO: Create a fail case for this test
 //        -Check that all the external services' connection are valid
 //        -Check that there is a system manager
 //          -> there is no system founder.
@@ -123,6 +121,7 @@ public class AcceptanceTests {
     }
     @Test
     void opening_market_system_fail_case_test2() throws NoPermissionException {
+        //TODO: Create a fail case for this test
 //        -Check that all the external services' connection are valid
 //        -Check that there is a system manager
 //        -Check that all users and stores uploaded successfully
@@ -134,21 +133,24 @@ public class AcceptanceTests {
     }
     @Test
     void opening_market_system_fail_case_test3() {
-//        TODO
+        //TODO: Create a fail case for this test
+
 //        -Check that all the external services connection are valid
 //              -> No payment system is exists in the system.
         fail();
     }
     @Test
     void opening_market_system_fail_case_test4() {
-//        TODO
+        //TODO: Create a fail case for this test
+
 //        -Check that all the external services connection are valid
 //              -> No delivery system is exists in the system.
         fail();
     }
     @Test
     void opening_market_system_fail_case_test5() {
-//        TODO
+        //TODO: Create a fail case for this test
+
 //        -Check that all the external services connection are valid
 //              -> No security system is exists in the system.
         fail();
@@ -165,29 +167,34 @@ public class AcceptanceTests {
 //        -Check that the new service is valid
 //        -Check that the change done successfully
 
-        assertEquals("change services done successfully",
-                proxy.changeExternalService(1, "aaa",
-                        2, "bbb"));
+//        assertEquals("change services done successfully",
+//                proxy.changeExternalService(1, "aaa",
+//                        2, "bbb"));
+        fail();
     }
     @Test
     void change_external_service_fail_case_test1() {
+//        TODO
 //        -Check that all actions in the system work well
 //        -Check that the new service is valid
 //          -> invalid service code
 
-        assertEquals("fail - invalid service code or name",
-                proxy.changeExternalService(1, "aaa",
-                        -2, "bbb"));
+//        assertEquals("fail - invalid service code or name",
+//                proxy.changeExternalService(1, "aaa",
+//                        -2, "bbb"));
+        fail();
     }
     @Test
     void change_external_service_fail_case_test2() {
+//        TODO
 //        -Check that all actions in the system work well
 //        -Check that the new service is valid
 //          -> invalid service name
 
-        assertEquals("fail - invalid service code or name",
-                proxy.changeExternalService(1, "aaa",
-                        2, "bbb222"));
+//        assertEquals("fail - invalid service code or name",
+//                proxy.changeExternalService(1, "aaa",
+//                        2, "bbb222"));
+        fail();
     }
     @Test
     void change_external_service_fail_case_test3() {
@@ -207,27 +214,34 @@ public class AcceptanceTests {
 //        -Check that the new service is valid
 //        -Check that the switch done successfully
 
-        assertEquals("switch services done successfully",
-                proxy.switchExternalService(1, "aaa",
-                        2, "bbb"));
+//        assertEquals("switch services done successfully",
+//                proxy.switchExternalService(1, "aaa",
+//                        2, "bbb"));
+        fail();
     }
     @Test
     void switch_external_service_fail_case_test1() {
+//        TODO
 //        -Check that all actions in the system work well
 //        -Check that the new service is valid
 //              -> invalid service code
-        assertEquals("fail - invalid service code or name",
-                proxy.switchExternalService(1, "aaa",
-                        -2, "bbb"));
+
+//        assertEquals("fail - invalid service code or name",
+//                proxy.switchExternalService(1, "aaa",
+//                        -2, "bbb"));
+        fail();
     }
     @Test
     void switch_external_service_fail_case_test2() {
+//        TODO
 //        -Check that all actions in the system work well
 //        -Check that the new service is valid
 //              -> invalid service name
-        assertEquals("fail - invalid service code or name",
-                proxy.switchExternalService(1, "aaa",
-                        2, "bbb222"));
+
+//        assertEquals("fail - invalid service code or name",
+//                proxy.switchExternalService(1, "aaa",
+//                        2, "bbb222"));
+        fail();
     }
     @Test
     void switch_external_service_fail_case_test3() {
@@ -246,26 +260,31 @@ public class AcceptanceTests {
 //        -Check that the new service is valid
 //        -Check that the switch done successfully
 
-        assertEquals("adding services done successfully",
-                proxy.addExternalService(1, "aaa"));
+//        assertEquals("adding services done successfully",
+//                proxy.addExternalService(1, "aaa"));
+        fail();
     }
     @Test
     void add_external_service_fail_case_test1() {
+//        TODO
 //        -Check that all actions in the system work well
 //        -Check that the new service is valid
 //              -> invalid service code
 
-        assertEquals("fail - invalid service code or name",
-                proxy.addExternalService(-1, "aaa"));
+//        assertEquals("fail - invalid service code or name",
+//                proxy.addExternalService(-1, "aaa"));
+        fail();
     }
     @Test
     void add_external_service_fail_case_test2() {
+//        TODO
 //        -Check that all actions in the system work well
 //        -Check that the new service is valid
 //              -> invalid service name
 
-        assertEquals("fail - invalid service code or name",
-                proxy.addExternalService(1, "aaa111"));
+//        assertEquals("fail - invalid service code or name",
+//                proxy.addExternalService(1, "aaa111"));
+        fail();
     }
     @Test
     void add_external_service_fail_case_test3() {
@@ -303,33 +322,35 @@ public class AcceptanceTests {
      **/
     @Test
     void payment_success_case_test() {
-//        TODO
 //        -Check that the payment service connection is valid
 //        -Check payment details
 //        -Check payment service answer
 
-        // "Payment done successfully"
-        assertEquals(50, proxy.payment("Visa", 50));
+        // "Payment done successfully" - returning 0 means paid successfully
+        assertEquals(0, proxy.payment("Visa", 50));
     }
     @Test
     void payment_fail_case_test1() {
-//        TODO
+        //TODO: Create a fail case for this test
+
 //        -Check that the payment service connection is valid
 //        -Check payment details
 //        -Check payment service answer
 //              -> payment service connection lost
 
-        fail(); //assertNotEquals(proxy.payment(), "Payment done successfully");
+//        // "Failed to do payment" - returning -1
+//        assertNotEquals(0, proxy.payment("Visa", 50));
+        fail();
     }
     @Test
     void payment_fail_case_test2() {
-//        TODO
 //        -Check that the payment service connection is valid
 //        -Check payment details
 //        -Check payment service answer
 //              -> payment service returns an invalid answer (= the payment can't be done)
 
-        fail(); //assertNotEquals(proxy.payment(), "Payment done successfully");
+        // "Failed to do payment" - returning -1
+        assertNotEquals(0, proxy.payment("Visa", -50));
     }
 
     /**
@@ -337,33 +358,34 @@ public class AcceptanceTests {
      **/
     @Test
     void delivery_success_case_test() {
-//        TODO
 //        -Check that the delivery service connection is valid
 //        -Check delivery details
 //        -Check delivery service answer
 
         //"Delivery done successfully"
-        assertEquals(2, proxy.delivery("FedEx", 2));
+        assertEquals(0, proxy.delivery("FedEx", 2));
     }
     @Test
     void delivery_fail_case_test1() {
-//        TODO
+        //TODO: Create a fail case for this test
+
 //        -Check that the delivery service connection is valid
 //        -Check delivery details
 //        -Check delivery service answer
 //              -> delivery service connection lost
 
+//        //"Failed to do the delivery"
+//        assertEquals(0, proxy.delivery("FedEx", 2));
         fail(); //assertNotEquals(proxy.delivery(), "Delivery done successfully");
     }
     @Test
     void delivery_fail_case_test2() {
-//        TODO
 //        -Check that the delivery service connection is valid
 //        -Check delivery details
 //        -Check delivery service answer
-//              -> payment service returns an invalid answer (= the payment can't be done)
+//              -> payment service returns an invalid answer (= the delivery can't be done)
 
-        fail(); //assertNotEquals(proxy.delivery(), "Delivery done successfully");
+        assertNotEquals(0, proxy.delivery("FedEx", -2));
     }
 
     /**
@@ -1532,3 +1554,5 @@ public class AcceptanceTests {
     }
 
 }
+
+
