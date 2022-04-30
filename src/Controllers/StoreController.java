@@ -2,6 +2,7 @@ package Controllers;
 
 import GlobalSystemServices.IdGenerator;
 import GlobalSystemServices.Log;
+import History.PurchaseHistory;
 import ShoppingCart.InventoryProtector;
 import Store.Store;
 import StorePermission.Permission;
@@ -146,7 +147,7 @@ public class StoreController {
         stores.get(storeId).postMessageToForum(threadId, userId, message);
     }
 
-    public boolean checkIfProductExists(String storeId, String productId) throws IOException {
+    private boolean checkIfProductExists(String storeId, String productId) throws IOException {
         Store relevantStore =  stores.get(storeId);
         try {
             relevantStore.getProduct(productId);
@@ -208,7 +209,10 @@ public class StoreController {
         }
         return filtered;
     }
-
+    public List<PurchaseHistory> getStoreHistory(String storeId, String userId) throws NoPermissionException{
+        Store relevantStore = stores.get(storeId);
+        return relevantStore.getStoreHistory(userId);
+    }
 
 
 }

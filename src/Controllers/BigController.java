@@ -7,6 +7,7 @@ import ExternalConnections.ExternalConnections;
 import ExternalConnections.Payment.MasterCard;
 import ExternalConnections.Payment.Visa;
 import GlobalSystemServices.Log;
+import History.PurchaseHistory;
 import ShoppingCart.InventoryProtector;
 import ExternalConnections.PurchasePolicies;
 import ShoppingCart.ShoppingCart;
@@ -325,11 +326,19 @@ public class BigController {
         getStoreController().deleteStore(userId,storeId);
     }
 
-    public UserController getUserController() {
+    public List<PurchaseHistory> getStoreHistory(String storeId, String userId) throws NoPermissionException{
+        if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId)){
+            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
+            return null;
+        }
+        return sc.getStoreHistory(storeId, userId);
+    }
+
+    private UserController getUserController() {
         return us;
     }
 
-    public StoreController getStoreController() {
+    private StoreController getStoreController() {
         return sc;
     }
 }
