@@ -35,7 +35,7 @@ class ExternalConnectionsTest {
     @Test
     void getCertainPayment() {
         try {
-           Payment p= externalConnections.getCertainPayment(PaymentNames.Visa.toString());
+           Payment p= externalConnections.getCertainPayment(PaymentNames.Visa);
            return;
         } catch (Exception e)
         {
@@ -47,7 +47,7 @@ class ExternalConnectionsTest {
     @Test
     void getCertainDelivery() {
         try {
-            Delivery p= externalConnections.getCertainDelivery(DeliveryNames.UPS.toString());
+            Delivery p= externalConnections.getCertainDelivery(DeliveryNames.UPS);
             return;
         } catch (Exception e)
         {
@@ -59,7 +59,7 @@ class ExternalConnectionsTest {
     @Test
     void removePayment() {
 
-           if(externalConnections.removePayment(PaymentNames.Visa.toString()))
+           if(externalConnections.removePayment(PaymentNames.Visa))
                return;
            else
                fail ("couldnt remove payment");
@@ -71,7 +71,7 @@ class ExternalConnectionsTest {
     void removeDelivery() {
 
 
-        if(externalConnections.removeDelivery(DeliveryNames.UPS.toString()))
+        if(externalConnections.removeDelivery(DeliveryNames.UPS))
             return;
         else
             fail ("couldnt remove payment");

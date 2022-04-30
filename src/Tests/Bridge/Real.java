@@ -16,6 +16,7 @@ import StorePermission.Permission;
 import History.History;
 import javax.naming.NoPermissionException;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -228,13 +229,13 @@ public class Real implements BridgeInterface{
 
     /** User requirement - II.2.4 */
     public boolean increaseProductQuantityInShoppingCart(String user_id,String productID, String storeID, int amount,boolean auctionOrBid )  {
-        int ans = bigController.addProduct( user_id, productID,  storeID,  amount, auctionOrBid);
+        int ans = bigController.addProductFromCart( user_id, productID,  storeID,  amount, auctionOrBid);
         return ans == 0;
     }
 
     /** User requirement - II.2.4 */
     public boolean decreaseProductQuantityInShoppingCart(String userId,String productID, String storeID, int amount){
-        int ans = bigController.removeProduct( userId, productID,  storeID,  amount);
+        int ans = bigController.removeProductFromCart( userId, productID,  storeID,  amount);
         return ans == 0;
 
     }
@@ -283,7 +284,7 @@ public class Real implements BridgeInterface{
     /** User requirement - II.4.1 */
     public boolean addProductToStore(String storeId, String userId, String productName, float price, int supply, String category){
         try {
-            bigController.addNewProduct(storeId,userId,productName,price,supply,category);
+            bigController.addNewProductToStore(storeId,userId,productName,price,supply,category);
             return true;
         }
         catch (NoPermissionException e) {
@@ -295,7 +296,7 @@ public class Real implements BridgeInterface{
     /** User requirement - II.4.1 */
     public boolean removeProductFromStore(String storeId,String userId,String productId){
         try {
-            bigController.deleteProduct(storeId,userId, productId);
+            bigController.deleteProductToStore(storeId,userId, productId);
             return true;
         }
         catch (NoPermissionException e) {

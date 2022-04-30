@@ -1,7 +1,9 @@
 package Tests;
 
+import ExternalConnections.Delivery.DeliveryNames;
 import ExternalConnections.Delivery.UPS;
 import ExternalConnections.Payment.MasterCard;
+import ExternalConnections.Payment.PaymentNames;
 import ExternalConnections.Payment.Visa;
 import History.PurchaseHistory;
 import Store.Product;
@@ -10,6 +12,7 @@ import Tests.Bridge.Real;
 import org.junit.jupiter.api.*;
 
 import javax.naming.NoPermissionException;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.*;
 
@@ -27,7 +30,15 @@ public class AcceptanceTests {
      * 3) External Services.
      */
 
-    Proxy proxy = new Proxy(new Real());
+    Proxy proxy;
+
+    {
+        try {
+            proxy = new Proxy(new Real());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @BeforeEach
     void setUp() throws NoPermissionException {
@@ -309,12 +320,12 @@ public class AcceptanceTests {
     @Test
     void remove_delivery_service_success_case() {
         //assertTrue(proxy.removeDelivery("UPS"));
-        assertTrue(proxy.removeDelivery("FedEx"));
+        assertTrue(proxy.removeDelivery(DeliveryNames.FedEx));
     }
     @Test
     void add_delivery_service_success_case() {
         //assertTrue(proxy.removeDelivery("UPS"));
-        assertTrue(proxy.removeDelivery("FedEx"));
+        assertTrue(proxy.removeDelivery(DeliveryNames.FedEx));
     }
 
     /**
@@ -327,7 +338,7 @@ public class AcceptanceTests {
 //        -Check payment service answer
 
         // "Payment done successfully" - returning 0 means paid successfully
-        assertEquals(0, proxy.payment("Visa", 50));
+        assertEquals(0, proxy.payment(PaymentNames.Visa, 50));
     }
     @Test
     void payment_fail_case_test1() {
@@ -350,7 +361,7 @@ public class AcceptanceTests {
 //              -> payment service returns an invalid answer (= the payment can't be done)
 
         // "Failed to do payment" - returning -1
-        assertNotEquals(0, proxy.payment("Visa", -50));
+        assertNotEquals(0, proxy.payment(PaymentNames.Visa, -50));
     }
 
     /**
@@ -363,7 +374,7 @@ public class AcceptanceTests {
 //        -Check delivery service answer
 
         //"Delivery done successfully"
-        assertEquals(0, proxy.delivery("FedEx", 2));
+        assertEquals(0, proxy.delivery(DeliveryNames.FedEx, 2));
     }
     @Test
     void delivery_fail_case_test1() {
@@ -385,7 +396,7 @@ public class AcceptanceTests {
 //        -Check delivery service answer
 //              -> payment service returns an invalid answer (= the delivery can't be done)
 
-        assertNotEquals(0, proxy.delivery("FedEx", -2));
+        assertNotEquals(0, proxy.delivery(DeliveryNames.FedEx, -2));
     }
 
     /**
@@ -842,7 +853,7 @@ public class AcceptanceTests {
 //                - Show success message to the user (later on - will need to update quantity in the system).
 //                """);
 
-        assertTrue(proxy.purchaseShoppingCart("user1", "Visa", "FedEx"));
+        assertTrue(proxy.purchaseShoppingCart("user1", PaymentNames.Visa, DeliveryNames.FedEx));
     }
     @Test
     void purchase_shopping_cart_fail_case_test1() {
@@ -852,7 +863,7 @@ public class AcceptanceTests {
 //                - Show failure message to the user.
 //                """);
 
-        assertFalse(proxy.purchaseShoppingCart("user1", "Visa...", "FedEx"));
+   //todo     assertFalse(proxy.purchaseShoppingCart("user1", "Visa...", DeliveryNames.FedEx));
     }
     @Test
     void purchase_shopping_cart_fail_case_test2() {
@@ -862,7 +873,7 @@ public class AcceptanceTests {
 //                - Show failure message to the user.
 //                """);
 
-        assertFalse(proxy.purchaseShoppingCart("user1", "Visa", "FedEx..."));
+   //todo     assertFalse(proxy.purchaseShoppingCart("user1", "Visa", "FedEx..."));
     }
 
     /**

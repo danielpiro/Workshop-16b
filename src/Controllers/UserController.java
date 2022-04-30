@@ -142,9 +142,9 @@ public class UserController {
                 my_log.logger.warning("user "+user_id + " is not logged in");
                 throw new IllegalArgumentException("User is not logged in");
             }
-            return get_subscriber(user_id).purchaseCart(purchasePolicies);
+            return get_subscriber(user_id).purchaseCart(externalConnectionHolder);
         }
-     return get_subscriber(user_id).purchaseCart(externalConnectionHolder);
+
     }
 
         //String sender_id, String message, LocalDate date,String storeName
