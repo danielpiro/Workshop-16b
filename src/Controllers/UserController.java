@@ -49,7 +49,7 @@ public class UserController {
         if(get_subscriber(user_Id)==null){
             throw new IllegalArgumentException("User doesn't exist");
         }
-        if(checkIfUserIsLoggedIn(user_Id)){
+        if(!checkIfUserIsLoggedIn(user_Id)){
             throw new IllegalArgumentException("User is not logged in");
         }
         return get_subscriber(user_Id).getShoppingCart();
@@ -58,7 +58,7 @@ public class UserController {
         if(get_subscriber(user_id)==null){
             throw new IllegalArgumentException("User doesn't exist");
         }
-        if(checkIfUserIsLoggedIn(user_id)){
+        if(!checkIfUserIsLoggedIn(user_id)){
             throw new IllegalArgumentException("User is not logged in");
         }
         return get_subscriber(user_id).containsStore(storeID);
@@ -75,7 +75,7 @@ public class UserController {
         if(get_subscriber(user_id)==null){
             throw new IllegalArgumentException("User doesn't exist");
         }
-        if(checkIfUserIsLoggedIn(user_id)){
+        if(!checkIfUserIsLoggedIn(user_id)){
             throw new IllegalArgumentException("User is not logged in");
         }
         return get_subscriber(user_id).addProduct(productID,storeID,amount,inventoryProtector,auctionOrBid);
@@ -87,7 +87,7 @@ public class UserController {
         if(get_subscriber(user_id)==null){
             throw new IllegalArgumentException("User doesn't exist");
         }
-        if(checkIfUserIsLoggedIn(user_id)){
+        if(!checkIfUserIsLoggedIn(user_id)){
             throw new IllegalArgumentException("User is not logged in");
         }
     return get_subscriber(user_id).getCartInventory();
@@ -96,7 +96,7 @@ public class UserController {
         if(get_subscriber(user_id)==null){
             throw new IllegalArgumentException("User doesn't exist");
         }
-        if(checkIfUserIsLoggedIn(user_id)){
+        if(!checkIfUserIsLoggedIn(user_id)){
             throw new IllegalArgumentException("User is not logged in");
         }
      return get_subscriber(user_id).purchaseCart(purchasePolicies);
@@ -117,7 +117,7 @@ public class UserController {
 
     public boolean sign_up(String user_name, String password) {
         my_log.logger.info("Sign Up");
-        if(get_subscriber(user_name)==null){
+        if(get_subscriber(user_name)==null && user_name != null && password != null){
             Subscriber s = new Subscriber(user_name,password);
             add_subscriber(s);
             return true;
@@ -204,12 +204,13 @@ public class UserController {
         return guest;
     }
     public String GuestExitSystem(String name){
-        for(Guest g: getGuest_list())
-            if(g.name.equals(name)){
+        for(Guest g: getGuest_list()) {
+            if (g.name.equals(name)) {
                 getGuest_list().remove(g);
                 return g.name;
             }
-                return null;
+        }
+        return null;
     }
 
     public void Add_Query(String user_name,String query) { //3.5
