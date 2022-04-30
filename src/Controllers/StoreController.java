@@ -14,26 +14,31 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 //todo add view history function
 public class StoreController {
-    private HashMap<String,Store> stores; // storeId and the store
+    private ConcurrentHashMap<String,Store> stores; // storeId and the store
 
-    public StoreController(HashMap<String, Store> stores) {
+    public StoreController(ConcurrentHashMap<String, Store> stores) {
         this.stores = stores;
     }
 
     public StoreController(){
-        stores = new HashMap<String, Store>();
+        stores = new ConcurrentHashMap<String, Store>();
     }
 
     public String openNewStore(String name,List<String> managers){
-        if(managers.stream().anyMatch(this::checkIfGuest) ){
-            throw new RuntimeException("guest cant do this action");
+
+        if (managers.stream().anyMatch(this::checkIfGuest)) {
+           throw new RuntimeException("guest cant do this action");
         }
+
         String newId = IdGenerator.getInstance().getStoreId();
         Store newStore= new Store(name, newId, managers);
+
         stores.put(newId, newStore);
+
         return newId;
     }
 
@@ -81,7 +86,7 @@ public class StoreController {
         stores.remove(storeId);
     }
 
-
+    
 
     public void editProduct(String storeId, String userId, String productId, int newSupply, String newName, float newPrice, String category) throws NoPermissionException {
         if(checkIfGuest(userId)){
@@ -140,13 +145,16 @@ public class StoreController {
         return stores.get(storeId).addNewThreadToForum(title, userId);
     }
 
-    public void postMessageToForum(String storeId, String threadId, String userId, String message) throws NoPermissionException {
+    public void RolePostMessageToForum(String storeId, String threadId, String userId, String message) throws NoPermissionException {
         if(checkIfGuest(userId)){
             throw new RuntimeException("guest cant do this action");
         }
-        stores.get(storeId).postMessageToForum(threadId, userId, message);
+        stores.get(storeId).RolePostMessageToForum(threadId, userId, message);
     }
-
+    public void  userPostMessageToForum(String storeId, String threadId, String userId, String message) throws NoPermissionException{
+        Store relevantStore = stores.get(storeId);
+        relevantStore.userPostMessageToForum(threadId, userId, message);
+    }
     private boolean checkIfProductExists(String storeId, String productId) throws IOException {
         Store relevantStore =  stores.get(storeId);
         try {

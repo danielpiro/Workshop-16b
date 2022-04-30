@@ -42,8 +42,11 @@ public class Store {
     }
 
     private boolean checkPermission(String userId, Permission action){
-
-        for (StoreRoles roleUser : StoreRoles) {
+        List<StoreRoles> copyStoreRoles;
+        synchronized (StoreRoles) {
+            copyStoreRoles = List.copyOf(StoreRoles);
+        }
+        for (StoreRoles roleUser : copyStoreRoles) {
             if (roleUser.getUserId().equals(userId) &&
                     roleUser.getPermissions().contains(action) ) {
                 return true;
@@ -53,34 +56,38 @@ public class Store {
     }
 
     public void createManager(String userIdGiving, String UserGettingPermission) throws NoPermissionException {
-        for (StoreRoles roleUser : StoreRoles) {
-            if (roleUser.getUserId().equals(UserGettingPermission) ) {
-                throw new NoPermissionException("cant give permissions to user who is already manager");
+        synchronized (StoreRoles) {
+            for (StoreRoles roleUser : StoreRoles) {
+                if (roleUser.getUserId().equals(UserGettingPermission)) {
+                    throw new NoPermissionException("cant give permissions to user who is already manager");
+                }
             }
-        }
-        for (StoreRoles roleUser : StoreRoles) {
-            if (roleUser.getUserId().equals(userIdGiving) ) {
-                StoreRoles newRole = roleUser.createManager(UserGettingPermission);
-                StoreRoles.add(newRole);
-                return;
+            for (StoreRoles roleUser : StoreRoles) {
+                if (roleUser.getUserId().equals(userIdGiving)) {
+                    StoreRoles newRole = roleUser.createManager(UserGettingPermission);
+                    StoreRoles.add(newRole);
+                    return;
+                }
             }
+            throw new NoPermissionException("the user is not manager/owner");
         }
-        throw new NoPermissionException("the user is not manager/owner");
     }
     public void createOwner(String userIdGiving, String UserGettingPermission, List<Permission> permissions) throws NoPermissionException {
-        for (StoreRoles roleUser : StoreRoles) {
-            if (roleUser.getUserId().equals(UserGettingPermission) ) {
-                throw new NoPermissionException("cant give permissions to user who is already owner");
+        synchronized (StoreRoles) {
+            for (StoreRoles roleUser : StoreRoles) {
+                if (roleUser.getUserId().equals(UserGettingPermission)) {
+                    throw new NoPermissionException("cant give permissions to user who is already owner");
+                }
             }
-        }
-        for (StoreRoles roleUser : StoreRoles) {
-            if (roleUser.getUserId().equals(userIdGiving) ) {
-                StoreRoles newRole = roleUser.createOwner(UserGettingPermission,permissions);
-                StoreRoles.add(newRole);
-                return;
+            for (StoreRoles roleUser : StoreRoles) {
+                if (roleUser.getUserId().equals(userIdGiving)) {
+                    StoreRoles newRole = roleUser.createOwner(UserGettingPermission, permissions);
+                    StoreRoles.add(newRole);
+                    return;
+                }
             }
+            throw new NoPermissionException("the user is not manager/owner");
         }
-        throw new NoPermissionException("the user is not manager/owner");
     }
     private void removeRolesInStoreTo(List<String> RolesToRemove){
         for (String id : RolesToRemove) {
@@ -98,20 +105,22 @@ public class Store {
     }
     public void removePermissionTo(String userIdRemoving,String UserAffectedId) throws NoPermissionException {
         //todo add option for "userIdRemoving" to delete manager of manager that he gave permission to
-        for (StoreRoles roleUser : StoreRoles) {
-            if (roleUser.getUserId().equals(userIdRemoving) ) {
-                removeRolesInStoreTo( roleUser.removeManager(UserAffectedId));
-                return;
+        synchronized (StoreRoles){
+            for (StoreRoles roleUser : StoreRoles) {
+                if (roleUser.getUserId().equals(userIdRemoving) ) {
+                    removeRolesInStoreTo( roleUser.removeManager(UserAffectedId));
+                    return;
+                }
             }
+            throw new NoPermissionException("the user is not manager");
         }
-        throw new NoPermissionException("the user is not manager");
     }
     public void removePermissionTo(String userId) {
-        for (StoreRoles roleUser : StoreRoles) {
-            removeRolesInStoreTo( roleUser.removeManager(userId));
+        synchronized (StoreRoles) {
+            for (StoreRoles roleUser : StoreRoles) {
+                removeRolesInStoreTo(roleUser.removeManager(userId));
+            }
         }
-
-
     }
     public void editProduct(String userId, String productId, int newSupply, String newName, float newPrice , String category) throws NoPermissionException {
         if(!checkPermission(userId, Permission.EDIT_EXISTING_PRODUCT)){
@@ -183,16 +192,21 @@ public class Store {
     public String addNewThreadToForum(String title, String userId){
         return forum.addNewThread(title, userId);
     }
-    public void postMessageToForum(String threadId, String userId, String message) throws NoPermissionException {
+    public void RolePostMessageToForum(String threadId, String userId, String message) throws NoPermissionException {
         if(!checkPermission(userId, Permission.REPLY_TO_FORUM)){
             throw new NoPermissionException("the user don't have this permission");
         }
+        String threadUser =  forum.getUserIdOfTread(threadId);
+        forum.postMessage(threadId, userId, message);
+    }
+
+    public void  userPostMessageToForum(String threadId, String userId, String message) throws NoPermissionException {
         String threadUser =  forum.getUserIdOfTread(threadId);
         if(!IdGenerator.getInstance().isIdEqual(threadUser, userId)){
             throw new NoPermissionException("only user that created the forum thread can post messages");
         }
         forum.postMessage(threadId, userId, message);
-    }//todo seperate post and reply
+    }
 
 
     public void deleteProduct(String userId, String productId) throws NoPermissionException {

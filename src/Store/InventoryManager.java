@@ -4,22 +4,24 @@ import CustomExceptions.CantPurchaseException;
 import ExternalConnections.PurchasePolicies;
 import GlobalSystemServices.IdGenerator;
 import ShoppingCart.InventoryProtector;
+import ShoppingCart.ProductAmount;
 
 import javax.naming.LimitExceededException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 
 public class InventoryManager  implements InventoryProtector {
-    private HashMap<String, Product> products;
+    private ConcurrentHashMap<String, Product> products;
     private List<Discount> discounts;
 
 
-    public InventoryManager(HashMap<String, Product> products, List<Discount> discounts) {
+    public InventoryManager(ConcurrentHashMap<String, Product> products, List<Discount> discounts) {
         this.products = products;
         this.discounts = discounts;
     }
     public InventoryManager() {
-        this.products = new HashMap<String, Product>();
+        this.products = new ConcurrentHashMap<String, Product>();
         this.discounts = new ArrayList<Discount>();
     }
 
@@ -63,11 +65,16 @@ public class InventoryManager  implements InventoryProtector {
         if(Op == null){
             throw new RuntimeException("no product with this id");
         }
-        Op.addReview(rating, userId, title, body);
+        synchronized (Op) {
+            Op.addReview(rating, userId, title, body);
+        }
     }
 
     public void deleteProduct(String productId) {
-        products.remove(productId);
+        Product ret = products.remove(productId);
+        if(ret == null){
+            throw new IllegalArgumentException("product "+ productId+" failed to deleted");
+        }
     }
     public static <T,S> HashMap<T, S> deepCopyWorkAround(HashMap<T, S> original)
     {
@@ -105,16 +112,20 @@ public class InventoryManager  implements InventoryProtector {
     public void purchaseSuccessful(HashMap<String, Integer> ProductAmount, boolean success)  {
         if (success) {
             for (String Id : ProductAmount.keySet()) {
-                int newReservedSupply = products.get(Id).getReservedSupply() - ProductAmount.get(Id);
-                products.get(Id).setReservedSupply(newReservedSupply);
+                synchronized (products.get(Id)) {
+                    int newReservedSupply = products.get(Id).getReservedSupply() - ProductAmount.get(Id);
+                    products.get(Id).setReservedSupply(newReservedSupply);
+                }
             }
         } else {
             for (String Id : ProductAmount.keySet()) {
-                int newReservedSupply = products.get(Id).getReservedSupply() - ProductAmount.get(Id);
-                products.get(Id).setReservedSupply(newReservedSupply);
+                synchronized (products.get(Id)) {
+                    int newReservedSupply = products.get(Id).getReservedSupply() - ProductAmount.get(Id);
+                    products.get(Id).setReservedSupply(newReservedSupply);
 
-                int newSupply = products.get(Id).getSupply() + ProductAmount.get(Id);
-                products.get(Id).editSupply(newSupply);
+                    int newSupply = products.get(Id).getSupply() + ProductAmount.get(Id);
+                    products.get(Id).editSupply(newSupply);
+                }
             }
         }
     }
@@ -122,11 +133,13 @@ public class InventoryManager  implements InventoryProtector {
     @Override
     public float reserve(HashMap<String, Integer> ProductAmount, PurchasePolicies purchasePolicies, String userId) throws CantPurchaseException {
         for (String Id : ProductAmount.keySet()) {
-            if(products.get(Id).getBuyOption().checkIfCanBuy(userId)) {
-                int newSupply = products.get(Id).getSupply() - ProductAmount.get(Id);
-                products.get(Id).setReservedSupply(ProductAmount.get(Id));
-                products.get(Id).editSupply(newSupply);
+            synchronized (products.get(Id)) {
+                if (products.get(Id).getBuyOption().checkIfCanBuy(userId)) {
+                    int newSupply = products.get(Id).getSupply() - ProductAmount.get(Id);
+                    products.get(Id).setReservedSupply(ProductAmount.get(Id));
+                    products.get(Id).editSupply(newSupply);
 
+                }
             }
         }
         return calculatePriceWithDiscount(ProductAmount);
