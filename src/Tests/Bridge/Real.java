@@ -10,7 +10,10 @@ import Store.Product;
 import StorePermission.Permission;
 
 import History.History;
+import User.Guest;
+
 import javax.naming.NoPermissionException;
+import java.util.HashMap;
 import java.util.List;
 
 public class Real implements BridgeInterface{
@@ -377,5 +380,15 @@ public class Real implements BridgeInterface{
     public String showPurchaseHistoryForSystemFounder(String storeOrUser, String name) {
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
+
+    //Helper Methods
+    public HashMap<String,List<Product>> getAllProductsAndStores(String userId){
+        return bigController.getAllProductsAndStores(userId);
+    }
+
+    public List<Guest> getGuest_list(){
+        return bigController.getGuest_list();
+    }
+
 }
 

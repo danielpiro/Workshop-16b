@@ -251,7 +251,7 @@ public class BigController {
     }
 
 
-    private HashMap<String,List<Product>> getAllProductsAndStores(String userId){
+    public HashMap<String,List<Product>> getAllProductsAndStores(String userId){
         my_log.logger.info("getting a look at all products and stores");
         for(Guest g :getGuest_list()){
             if(g.name.equals(userId)){

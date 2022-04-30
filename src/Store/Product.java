@@ -60,7 +60,7 @@ public class Product {
             this.supply = newSupply;
     }
     public void editPrice(float newPrice) {
-        if(price >=0)
+        if(newPrice >=0)
             this.price = newPrice;
         else
             throw new RuntimeException("price cant be negative");
