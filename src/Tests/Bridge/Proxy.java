@@ -1,13 +1,16 @@
 package Tests.Bridge;
 
 import ExternalConnections.Delivery.Delivery;
+import ExternalConnections.Delivery.DeliveryNames;
 import ExternalConnections.Payment.Payment;
+import ExternalConnections.Payment.PaymentNames;
 import History.PurchaseHistory;
 import Store.Product;
 import StorePermission.Permission;
 
 import javax.naming.NoPermissionException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class Proxy implements BridgeInterface {
     private BridgeInterface real;
@@ -91,14 +94,14 @@ public class Proxy implements BridgeInterface {
 //    }
 
     /** requirement 1.b in V1 */
-    public String parallelUse() { //Need to implement thread-base system
+    public String parallelUse() throws ExecutionException, InterruptedException { //Need to implement thread-base system
         if (real != null)
             return real.parallelUse();
         throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
     /** requirement 1.c in V1 */
-    public String systemLogging() { //Need to create log file (containing error logs)
+    public String systemLogging() throws ExecutionException, InterruptedException { //Need to create log file (containing error logs)
         if (real != null)
             return real.parallelUse();
         throw new UnsupportedOperationException("Not Implemented Yet - Ask Backend Group");
@@ -139,7 +142,7 @@ public class Proxy implements BridgeInterface {
     }
 
     /** System requirement - I.2 */
-    public boolean removePayment(String paymentRemove){
+    public boolean removePayment(PaymentNames paymentRemove){
         if(real!=null)
             return real.removePayment(paymentRemove);
         throw new UnsupportedOperationException("Not Implemented Yet!");
@@ -153,7 +156,7 @@ public class Proxy implements BridgeInterface {
     }
 
     /** System requirement - I.2 */
-    public boolean removeDelivery(String deliveryRemove){
+    public boolean removeDelivery(DeliveryNames deliveryRemove){
         if(real!=null)
             return real.removeDelivery(deliveryRemove);
         throw new UnsupportedOperationException("Not Implemented Yet!");
@@ -167,14 +170,14 @@ public class Proxy implements BridgeInterface {
     }
 
     /** System requirement - I.3 */
-    public int payment(String payment, float total) {
+    public int payment(PaymentNames payment, float total) {
         if (real != null)
             return real.payment(payment, total);
         throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
     /** System requirement - I.4 */
-    public int delivery(String delivery, float weight) {
+    public int delivery(DeliveryNames delivery, float weight) {
         if (real != null)
             return real.delivery(delivery, weight);
         throw new UnsupportedOperationException("Not Implemented Yet!");
@@ -334,7 +337,7 @@ public class Proxy implements BridgeInterface {
     }
 
     /** User requirement - II.2.5 */
-    public boolean purchaseShoppingCart(String userID,String payment,String delivery){
+    public boolean purchaseShoppingCart(String userID,PaymentNames payment,DeliveryNames delivery){
         if(real!=null)
             return real.purchaseShoppingCart(userID, payment, delivery);
 
