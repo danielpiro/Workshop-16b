@@ -2,9 +2,12 @@
 package Tests.Bridge;
 
 import Controllers.BigController;
+import Controllers.Service;
 import ExternalConnections.Delivery.Delivery;
 import ExternalConnections.ExternalConnections;
 import ExternalConnections.Payment.Payment;
+import ExternalConnections.PurchasePolicies;
+
 import History.PurchaseHistory;
 import Store.Product;
 import StorePermission.Permission;
@@ -12,12 +15,15 @@ import StorePermission.Permission;
 import History.History;
 import javax.naming.NoPermissionException;
 import java.util.List;
+import java.util.concurrent.Future;
 
 public class Real implements BridgeInterface{
 
     private BigController bigController;
+    private Service service;
 
     public Real() {
+        service = new Service();
     }
 
    public Real(BigController msApp) {
@@ -30,7 +36,17 @@ public class Real implements BridgeInterface{
 
     /** requirement 1.b in V1 */
     public String parallelUse() { //Need to implement thread-base system
-        throw new UnsupportedOperationException("Not Implemented Yet");
+        Future future1 = service.sign_up("dan","rotman");
+        Future future2 = service.sign_up("guy","porat");
+        future1.get();
+        future2.get();
+
+        Future future3 = service.login("dan","rotman");
+        Future future4 = service.login("guy","porat");
+        future3.get();
+        future4.get();
+
+
     }
 
     /** requirement 1.c in V1 */
@@ -93,7 +109,7 @@ public class Real implements BridgeInterface{
     {
         Payment paymentObject=null;
         boolean gotPayment=false;
-        while (!gotPayment) {
+        for (int i = 0; i < 20; i++) {
             try {
                 paymentObject = ExternalConnections.getInstance().getCertainPayment(payment);
                 gotPayment=true;
@@ -110,8 +126,9 @@ public class Real implements BridgeInterface{
     public int delivery(String delivery, float weight){
         Delivery deliveryObject=null;
         boolean gotDelivery=false;
-        while (!gotDelivery) {
-            try {
+        for (int i = 0; i < 20; i++) {
+
+           try {
                 deliveryObject = ExternalConnections.getInstance().getCertainDelivery(delivery);
                 gotDelivery=true;
             }

@@ -1,6 +1,6 @@
 package ShoppingCart;
 
-import ExternalConnections.PurchasePolicies;
+import ExternalConnections.ExternalConnectionHolder;
 
 import java.util.HashMap;
 
@@ -33,12 +33,12 @@ public class FakeInventoryManager implements InventoryProtector  {
     }
 
     @Override
-    public float reserve(HashMap<String, Integer> ProductAmount, PurchasePolicies purchasePolicies, String userId) {
+    public float reserve(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, String userId) {
         return 0;
     }
 
 
-    public float purchase(HashMap<String, Integer> ProductAmount, PurchasePolicies purchasePolicies) {
+    public float purchase(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder) {
         return 0;
     }
 }

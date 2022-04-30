@@ -5,8 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import CustomExceptions.UserDeleted;
-import ExternalConnections.PurchasePolicies;
+import ExternalConnections.ExternalConnectionHolder;
 import ShoppingCart.InventoryProtector;
 import GlobalSystemServices.IdGenerator;
 import GlobalSystemServices.Log;
@@ -92,14 +91,14 @@ public class UserController {
         }
     return get_subscriber(user_id).getCartInventory();
     }
-    public float purchaseCart(String user_id,PurchasePolicies purchasePolicies) {
+    public float purchaseCart(String user_id, ExternalConnectionHolder externalConnectionHolder) {
         if(get_subscriber(user_id)==null){
             throw new IllegalArgumentException("User doesn't exist");
         }
         if(checkIfUserIsLoggedIn(user_id)){
             throw new IllegalArgumentException("User is not logged in");
         }
-     return get_subscriber(user_id).purchaseCart(purchasePolicies);
+     return get_subscriber(user_id).purchaseCart(externalConnectionHolder);
     }
 
 

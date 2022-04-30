@@ -1,9 +1,8 @@
 package ShoppingCart;
 
 import CustomExceptions.CantPurchaseException;
-import ExternalConnections.PurchasePolicies;
+import ExternalConnections.ExternalConnectionHolder;
 
-import javax.naming.LimitExceededException;
 import java.util.HashMap;
 
 public interface InventoryProtector {
@@ -19,5 +18,5 @@ public interface InventoryProtector {
     public void purchaseSuccessful(HashMap<String,Integer> ProductAmount , boolean success) ;
 
     //return total price of items, if cant purchase return negative number. also send user payment and delivery
-    public float reserve (HashMap<String,Integer> ProductAmount , PurchasePolicies purchasePolicies, String userId) throws  CantPurchaseException;
+    public float reserve (HashMap<String,Integer> ProductAmount , ExternalConnectionHolder externalConnectionHolder, String userId) throws  CantPurchaseException;
 }

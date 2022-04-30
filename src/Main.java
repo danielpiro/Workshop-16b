@@ -1,21 +1,34 @@
-/*
-import ExternalConnections.Delivery.FedEx;
-import ExternalConnections.Payment.Visa;
-import ExternalConnections.PurchasePolicies;
-import GlobalSystemServices.Log;
-import History.History;
-import ShoppingCart.ShoppingCart;
-import ShoppingCart.FakeInventoryManager;
-import Store.InventoryManager;
+import Controllers.Service;
 
-import java.util.logging.Level;
+import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 
 public class Main {
 
-    public static void main(String[] args) {
-	// write your code here
-        Log my_log = null;
+    public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
+
+         Service service  = new Service();
+
+        Future future1 = service.sign_up("dan","rotman");
+        Future future2 = service.sign_up("guy","porat");
+        future1.get();
+        future2.get();
+
+        Future future3 = service.login("dan","rotman");
+        Future future4 = service.login("guy","porat");
+        future3.get();
+        future4.get();
+
+
+
+
+
+
+
+        // write your code here
+        /*Log my_log = null;
         try {
              my_log = Log.getLogger();
         }catch (Exception e)
@@ -27,7 +40,7 @@ public class Main {
 
         Visa visa = new Visa ();
 
-        PurchasePolicies purchasePolicies = new PurchasePolicies(fedEx,visa);
+        PurchasePolicies purchasePolicies = new PurchasePolicies("fedEx","visa");
         ShoppingCart shoppingCart = new ShoppingCart("1");
 
         InventoryManager inventoryManager = new InventoryManager();
@@ -51,10 +64,9 @@ public class Main {
 
 
         History history = History.getInstance();
-        history.PrintHistory();
+        history.PrintHistory();*/
 
 
 
     }
 }
-*/

@@ -2,7 +2,10 @@ package ExternalConnections;
 
 import CustomExceptions.ExternalServiceDoesNotExist;
 import ExternalConnections.Delivery.Delivery;
+import ExternalConnections.Delivery.DeliveryNames;
 import ExternalConnections.Payment.Payment;
+import ExternalConnections.Payment.PaymentNames;
+import GlobalSystemServices.Log;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -48,24 +51,35 @@ public class ExternalConnections {
     }
 
     public  boolean addPayment (Payment payment){
+
+
         if(payment.connect(123)) {
             payments.add(payment);
+            Log.getLogger().logger.info("adding payment " + payment.getName() + "to external connections");
             return true;
         }
-        else
+        else {
+            Log.getLogger().logger.warning("payment " + payment.getName() + "could not connect");
+
             return false;
+        }
     }
 
     public  boolean addDelivery (Delivery delivery){
         if(delivery.connect(123)) {
             deliveries.add(delivery);
+            Log.getLogger().logger.info("adding delivery " + delivery.getName() + "to external connections");
+
             return true;
         }
-        else
+        else {
+            Log.getLogger().logger.warning("delivery " + delivery.getName() + "could not connect");
+
             return false;
+        }
     }
 
-    public  Payment getCertainPayment (String name) throws ExternalServiceDoesNotExist {
+    public  Payment getCertainPayment (PaymentNames name) throws ExternalServiceDoesNotExist {
         synchronized (lockPayment) {
             for (Payment p : payments) {
                 if (p.getName().equals(name) && p.isConnected() && !p.isTaken()) {
@@ -73,22 +87,23 @@ public class ExternalConnections {
                     return p;
                 }
             }
-            throw new ExternalServiceDoesNotExist(name);
+            throw new ExternalServiceDoesNotExist("name");
         }
     }
 
-    public  Delivery getCertainDelivery (String name) throws ExternalServiceDoesNotExist {
+    public  Delivery getCertainDelivery (DeliveryNames name) throws ExternalServiceDoesNotExist {
         synchronized (lockDelivery) {
 
             for (Delivery d : deliveries) {
                 if (d.getName().equals(name) && d.isConnected() && !d.isTaken())
                     return d;
             }
-            throw new ExternalServiceDoesNotExist(name);
+            throw new ExternalServiceDoesNotExist("name");
         }
     }
-    public  boolean removePayment (String payment) {
+    public  boolean removePayment (PaymentNames payment) {
         synchronized (lockPayment) {
+            Log.getLogger().logger.info("removing payment " + payment + "from external connections");
 
 
             for (Payment p : payments) {
@@ -100,9 +115,10 @@ public class ExternalConnections {
         }
     }
 
-    public    boolean removeDelivery (String delivery) {
+    public    boolean removeDelivery (DeliveryNames delivery) {
         synchronized (lockDelivery) {
 
+            Log.getLogger().logger.info("removing delivery " + delivery + "from external connections");
 
             for (Delivery p : deliveries) {
                 if (p.getName().equals(delivery)){
