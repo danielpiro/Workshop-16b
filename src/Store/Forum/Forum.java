@@ -3,22 +3,23 @@ package Store.Forum;
 //import jdk.jshell.spi.ExecutionControl;
 
 import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Forum {
 
-    private HashMap<String,ForumThread> forumThreads; //<userId,forumThread>
+    private ConcurrentHashMap<String,ForumThread> forumThreads; //<threadId,forumThread>
 
-    public Forum(HashMap<String, ForumThread> forumThreads) {
+    public Forum(ConcurrentHashMap<String, ForumThread> forumThreads) {
         this.forumThreads = forumThreads;
     }
 
     public Forum() {
-        this.forumThreads = new HashMap<>();
+        this.forumThreads = new ConcurrentHashMap<>();
     }
 
     public String addNewThread(String title, String userId){
         ForumThread newTread = new ForumThread(title,userId);
-        forumThreads.put(title, newTread);
+        forumThreads.put(newTread.getThreadId(), newTread);
         return newTread.getThreadId();
     }
     public void postMessage(String threadId, String userId, String message){
