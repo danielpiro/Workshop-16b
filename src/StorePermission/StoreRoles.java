@@ -63,14 +63,15 @@ public abstract class  StoreRoles {
         return managersIdsRemoved;
     }
 
-    private void removePermissionToRole(List<Permission> PerToRemove){//todo need testing
+    private void removePermissionToRole(List<Permission> PerToRemove){
         for (StoreRoles sr : createPermissionsTo) {
             sr.removePermissionToRole(PerToRemove);
-            storePermissions.removeIf(x-> PerToRemove.stream().anyMatch(p-> p.equals(x)));
+
         }
+        storePermissions.removeIf(x-> PerToRemove.stream().anyMatch(p-> p.equals(x)));
     }
 
-    public void removePerToRole(String userAffected, List<Permission> PerToRemove){//todo need testing
+    public void removePerToRole(String userAffected, List<Permission> PerToRemove){
         int indexToRemove = -1;
         for (int i = 0; i < createPermissionsTo.size(); i++){
             try{

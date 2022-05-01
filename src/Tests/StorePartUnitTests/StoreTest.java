@@ -231,16 +231,26 @@ class StoreTest {
     void removePermissin() {
         try {
             setUpBeforePermissionTests();
-            List<Permission> per = new ArrayList<>();
-            per.add(Permission.ADD_NEW_PRODUCT);
-            per.add(Permission.EDIT_PRODUCT);
-            per.add(Permission.REMOVE_PRODUCT);
-            per.add(Permission.EDIT_STORE_POLICY);
-            per.add(Permission.VIEW_FORUM);
+            List<String> per = new ArrayList<>();
+            per.add("ADD_NEW_PRODUCT");
+            per.add("EDIT_PRODUCT");
+            per.add("REMOVE_PRODUCT");
+            per.add("EDIT_STORE_POLICY");
+            per.add("VIEW_FORUM");
 
-            //store1.removeSomePermissions(userId1,userId2,);
+
+            store1.removeSomePermissions(userId1,userId2,per);
             List<StoreRoles> storeRoles = store1.getInfoOnManagersOwners(userId1);
+            assertEquals(storeRoles.size(),6);
+            for (StoreRoles role : storeRoles) {
+                if (!role.getUserId().equals("userId1")) {
+                    assertFalse(role.getPermissions().stream().anyMatch(
+                            ProductPerm -> per.stream().anyMatch(
+                                    deletedPerm -> deletedPerm.equals(ProductPerm.toString())
+                            )));
 
+                }
+            }
 
         } catch (IllegalArgumentException | NoPermissionException e) {
             e.printStackTrace();

@@ -1,5 +1,7 @@
 package StorePermission;
 
+import GlobalSystemServices.IdGenerator;
+
 import javax.naming.NoPermissionException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,4 +23,6 @@ public class StoreManager extends StoreRoles {
     public StoreManager createManager(String userId) throws NoPermissionException {
         throw new NoPermissionException("manager cant give permissions");
     }
+
+
 }

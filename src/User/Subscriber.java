@@ -14,6 +14,12 @@ public class Subscriber extends User {
 
     public Subscriber(String user_name, String password) {
         super();
+        if(user_name == null){
+            throw new IllegalArgumentException("user_name cant be null");
+        }
+        if(password == null){
+            throw new IllegalArgumentException("password cant be null");
+        }
         this.password = enc.encrypt(password);
         this.name = user_name;
         Queries= new ArrayList<>();

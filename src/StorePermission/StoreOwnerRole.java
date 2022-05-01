@@ -13,7 +13,7 @@ public class StoreOwnerRole extends StoreRoles{
     public StoreOwnerRole createOwner(String userId, List<Permission> givePerm){
         for (Permission Perm: givePerm) {
             if(!storePermissions.contains(Perm)){
-                throw new IllegalArgumentException("this manager don't have the permission he is giving");
+                throw new IllegalArgumentException("this owner"+ userId +" don't have the permission he is giving");
             }
         }
         StoreOwnerRole newOwner = new StoreOwnerRole(userId, givePerm);

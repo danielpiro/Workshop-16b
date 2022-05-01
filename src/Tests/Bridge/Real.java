@@ -201,7 +201,13 @@ public class Real implements BridgeInterface{
 
     /** User requirement - II.1.3 */
     public boolean register(String username, String password){
-        return getBigController().sign_up(username,password);
+        try {
+            return  getBigController().sign_up(username, password);
+
+        }
+        catch (Exception e ){
+            return false;
+        }
     }
 
     /** User requirement - II.1.4 */

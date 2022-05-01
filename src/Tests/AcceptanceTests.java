@@ -538,7 +538,7 @@ public class AcceptanceTests {
         assertFalse(proxy.register("user1", "11111"));
     }
 
-    //todo Abed - cannot accept null in username or password
+    //todo Abed - cannot accept null in username or password **done**
     @Test
     void register_fail_case_test2() {
 //        - Perform Register (entering username and password) & validate registration details
@@ -548,7 +548,7 @@ public class AcceptanceTests {
         assertFalse(proxy.register(null, "11111"));
     }
 
-    //todo Abed - cannot accept null in username or password
+    //todo Abed - cannot accept null in username or password **done**
     @Test
     void register_fail_case_test3() {
 //        - Perform Register (entering username and password) & validate registration details

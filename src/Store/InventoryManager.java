@@ -12,7 +12,7 @@ import java.util.function.Predicate;
 
 public class InventoryManager  implements InventoryProtector {
     private ConcurrentHashMap<String, Product> products;
-        private List<Discount> discounts;
+        private List<Discount> discounts; //todo can use chain of responsibility for next version
 
 
     public InventoryManager(ConcurrentHashMap<String, Product> products, List<Discount> discounts) {
@@ -83,16 +83,20 @@ public class InventoryManager  implements InventoryProtector {
         }
         return copy;
     }
-    private float calculatePriceWithDiscount(HashMap<String, Integer> ProductIdAmount){//todo price return allways 0 to fix
-        HashMap<String,Integer> copyProductIdAmount = deepCopyWorkAround(ProductIdAmount);
+
+    private float calculatePriceWithDiscount(HashMap<String, Integer> ProductIdAmount){
+        //HashMap<String,Integer> copyProductIdAmount = deepCopyWorkAround(ProductIdAmount);
 
         float finalPrice = 0f;
-        for (Discount d : discounts) {
-            HashMap<String, Integer> productsWithTheDeal = d.checkIfDiscountApply(copyProductIdAmount);
-            finalPrice += d.applyDiscount(productsWithTheDeal);
-            for (String Id : productsWithTheDeal.keySet()){
-                copyProductIdAmount.replace(Id, (copyProductIdAmount.get(Id) - productsWithTheDeal.get(Id)) );
-            }
+//        for (Discount d : discounts) {
+//            HashMap<String, Integer> productsWithTheDeal = d.checkIfDiscountApply(copyProductIdAmount);
+//            finalPrice += d.applyDiscount(productsWithTheDeal);
+//            for (String Id : productsWithTheDeal.keySet()){
+//                copyProductIdAmount.replace(Id, (copyProductIdAmount.get(Id) - productsWithTheDeal.get(Id)) );
+//            }
+//        }
+        for (String productId: ProductIdAmount.keySet()) {
+            finalPrice += getProductPrice(productId) * ProductIdAmount.get(productId);
         }
         return finalPrice;
     }
