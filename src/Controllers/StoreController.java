@@ -103,13 +103,13 @@ public class StoreController {
         relevantStore.deleteProduct(userId, productId);
     }
 
-    public void removePermissionTo(String storeId, String userIdRemoving,String UserAffectedId) throws NoPermissionException{
+    public void removeRoleInHierarchy(String storeId, String userIdRemoving, String UserAffectedId) throws NoPermissionException{
         Store relevantStore = stores.get(storeId);
-        relevantStore.removePermissionTo(userIdRemoving, UserAffectedId);
+        relevantStore.removeRoleInHierarchy(userIdRemoving, UserAffectedId);
     }
-    public void removeAllPermissionTo(String UserId) throws NoPermissionException{
+    public void removeRoleInHierarchy(String UserId) throws NoPermissionException{
         for (Store store : stores.values()) {
-            store.removePermissionTo(UserId);
+            store.removeRoleInHierarchy(UserId);
         }
     }
     public void createOwner(String storeId, String userIdGiving, String UserGettingPermissionId, List<Permission> permissions) throws NoPermissionException {
@@ -120,7 +120,7 @@ public class StoreController {
         Store relevantStore = stores.get(storeId);
         relevantStore.createManager(userIdGiving, UserGettingPermissionId);
     }
-    public void editPermitions(){
+    public void editPermissions(){
         //todo add option to edit permitions
     }
     public InventoryProtector getInventoryProtector(String storeId){

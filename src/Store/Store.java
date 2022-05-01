@@ -45,7 +45,7 @@ public class Store {
         List<StoreRoles> copyStoreRoles;
         synchronized (StoreRoles) {
             copyStoreRoles = List.copyOf(StoreRoles);
-        }
+
         for (StoreRoles roleUser : copyStoreRoles) {
             if (roleUser.getUserId().equals(userId) &&
                     roleUser.getPermissions().contains(action) ) {
@@ -53,6 +53,7 @@ public class Store {
             }
         }
         return false;
+        }
     }
 
     public void createManager(String userIdGiving, String UserGettingPermission) throws NoPermissionException {
@@ -90,36 +91,42 @@ public class Store {
         }
     }
     private void removeRolesInStoreTo(List<String> RolesToRemove){
-        for (String id : RolesToRemove) {
-            for (int i = 0; i < StoreRoles.size(); i++) {
-                if(IdGenerator.getInstance().isIdEqual(
-                        StoreRoles.get(i).getUserId(),
-                        id)
-                ){
-                    StoreRoles.remove(i);
-                    break;
+        synchronized (StoreRoles) {
+            for (String id : RolesToRemove) {
+                for (int i = 0; i < StoreRoles.size(); i++) {
+                    if (IdGenerator.getInstance().isIdEqual(
+                            StoreRoles.get(i).getUserId(),
+                            id)
+                    ) {
+                        StoreRoles.remove(i);
+                        break;
+                    }
                 }
             }
-
         }
     }
-    public void removePermissionTo(String userIdRemoving,String UserAffectedId) throws NoPermissionException {
-        //todo add option for "userIdRemoving" to delete manager of manager that he gave permission to
+    public void removeRoleInHierarchy(String userIdRemoving, String UserAffectedId) throws NoPermissionException {
         synchronized (StoreRoles){
             for (StoreRoles roleUser : StoreRoles) {
                 if (roleUser.getUserId().equals(userIdRemoving) ) {
-                    removeRolesInStoreTo( roleUser.removeManager(UserAffectedId));
+                    removeRolesInStoreTo( roleUser.removeRole(UserAffectedId));
                     return;
                 }
             }
             throw new NoPermissionException("the user is not manager");
         }
     }
-    public void removePermissionTo(String userId) {
+    public void removeRoleInHierarchy(String userId) {
         synchronized (StoreRoles) {
             for (StoreRoles roleUser : StoreRoles) {
-                removeRolesInStoreTo(roleUser.removeManager(userId));
+                removeRolesInStoreTo(roleUser.removeRole(userId));
             }
+        }
+    }
+
+    public void removeSomePermissions(String userIdRemoving, String UserAffectedId, List<String> PerToRemove){
+        synchronized (StoreRoles) {
+
         }
     }
     public void editProduct(String userId, String productId, int newSupply, String newName, float newPrice , String category) throws NoPermissionException {
@@ -173,7 +180,7 @@ public class Store {
     }
 
     public void addProductReview(String userId, String productId, String title, String body, float rating) {
-        //TODO: check if user Bought this product
+        //TODO: check in history user Bought this product
         inventoryManager.addProductReview(productId, userId, title, body, rating);
 
         //updateRating();
