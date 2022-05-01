@@ -55,12 +55,8 @@ public class BigController {
     }
     public boolean deleteUser(String whosDeleting,String whosBeingDeleted) throws NoPermissionException {
         my_log.logger.info("user"+whosDeleting+"is trying to delete user"+whosBeingDeleted);
-        //try {
         sc.removeRoleInHierarchy(whosBeingDeleted);
-       // } catch (NoPermissionException e) {
-       //     Log.getLogger().logger.warning("cant remove user permission"+ whosBeingDeleted +" by user "+whosDeleting+ "because:  "+ e.getMessage());
-       //     return false;
-        //}
+
         return getUserController().deleteUser(whosDeleting,whosBeingDeleted);
     }
     public boolean sign_up(String user_name, String password) {

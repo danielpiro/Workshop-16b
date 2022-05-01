@@ -156,7 +156,7 @@ class StoreTest {
         }
     }
     @Test
-    void removePermissionTo1() {
+    void removeRoleTo1() {
         try {
 
             setUpBeforePermissionTests();
@@ -170,7 +170,7 @@ class StoreTest {
 
     }
     @Test
-    void removePermissionTo2() {
+    void removeRoleTo2() {
         try {
             setUpBeforePermissionTests();
 
@@ -185,7 +185,7 @@ class StoreTest {
     }
 
     @Test
-    void removePermissionTo3() {
+    void removeRoleTo3() {
         try {
             setUpBeforePermissionTests();
 
@@ -201,7 +201,7 @@ class StoreTest {
     }
 
     @Test
-    void removePermissionTo4() {
+    void removeRoleTo4() {
         try {
             setUpBeforePermissionTests();
 
@@ -216,7 +216,7 @@ class StoreTest {
 
     }
     @Test
-    void removePermissionToBad() {
+    void removeRoleToBad() {
         try {
             setUpBeforePermissionTests();
 
@@ -228,15 +228,23 @@ class StoreTest {
         }
     }
     @Test
-    void removePermissionToBad2() {
+    void removePermissin() {
         try {
             setUpBeforePermissionTests();
+            List<Permission> per = new ArrayList<>();
+            per.add(Permission.ADD_NEW_PRODUCT);
+            per.add(Permission.EDIT_PRODUCT);
+            per.add(Permission.REMOVE_PRODUCT);
+            per.add(Permission.EDIT_STORE_POLICY);
+            per.add(Permission.VIEW_FORUM);
 
-            store1.removeRoleInHierarchy(userId5,userId2);
-            fail();
+            store1.removeSomePermissions(userId1,userId2,);
+            List<StoreRoles> storeRoles = store1.getInfoOnManagersOwners(userId1);
+
 
         } catch (IllegalArgumentException | NoPermissionException e) {
             e.printStackTrace();
+            fail();
         }
 
     }

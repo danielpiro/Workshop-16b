@@ -123,7 +123,7 @@ class ServiceTest {
             Future p1= service.purchaseCart(userId2, PaymentNames.Visa,DeliveryNames.FedEx);
             Future success = service.deleteProduct(storeId,userId1, pID1);
 
-            assertTrue(((float)p1.get()==-1 && (boolean)success.get()) || ((float)p1.get()!=-1 && !(boolean)success.get())  );
+            assertTrue(((float)p1.get()==-1 && (boolean)success.get()) ^ ((float)p1.get()!=-1 && !(boolean)success.get())  );
 
 
 
