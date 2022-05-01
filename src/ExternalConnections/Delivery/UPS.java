@@ -15,7 +15,7 @@ public class UPS extends Delivery {
         Log.getLogger().logger.fine("try to Deliver UPS");
 
         if(total>0)
-         return 0;
+            return (int) total;
         return -1;
     }
 

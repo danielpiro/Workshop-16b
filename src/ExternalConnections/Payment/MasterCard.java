@@ -11,13 +11,13 @@ public class MasterCard extends Payment {
         super(false,"MasterCard",ExternalConnections.getInstance().getId(),false);
     }
 
-    // 0 is
+    // todo remove = zero
     @Override
     protected int internalPayment(float total) {
         Log.getLogger().logger.fine("try to pay with MasterCard");
 
-        if(total>0)
-            return 0;
+        if(total>=0)
+            return (int) total;
         return -1;
     }
 

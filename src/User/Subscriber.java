@@ -13,7 +13,7 @@ public class Subscriber extends User {
     Encrypt enc = new Encrypt();;
 
     public Subscriber(String user_name, String password) {
-        super();
+        super(user_name);
         this.password = enc.encrypt(password);
         this.name = user_name;
         Queries= new ArrayList<>();

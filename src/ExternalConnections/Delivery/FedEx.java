@@ -15,8 +15,8 @@ public class FedEx extends Delivery {
     protected int internalDelivery(float total) {
         Log.getLogger().logger.fine("try to Deliver FedEx");
 
-        if(total>0)
-            return 0;
+        if(total>=0)
+            return (int) total;
         return -1;
     }
 

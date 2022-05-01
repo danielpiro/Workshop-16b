@@ -131,17 +131,21 @@ public class InventoryManager  implements InventoryProtector {
 
     @Override
     public float reserve(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, String userId) throws CantPurchaseException {
-        for (String Id : ProductAmount.keySet()) {
-            synchronized (products.get(Id)) {
-                if (products.get(Id).getBuyOption().checkIfCanBuy(userId)) {
-                    int newSupply = products.get(Id).getSupply() - ProductAmount.get(Id);
-                    products.get(Id).setReservedSupply(ProductAmount.get(Id));
-                    products.get(Id).editSupply(newSupply);
+       try {
+           for (String Id : ProductAmount.keySet()) {
+               synchronized (products.get(Id)) {
+                   if (products.get(Id).getBuyOption().checkIfCanBuy(userId)) {
+                       int newSupply = products.get(Id).getSupply() - ProductAmount.get(Id);
+                       products.get(Id).setReservedSupply(ProductAmount.get(Id));
+                       products.get(Id).editSupply(newSupply);
 
-                }
-            }
-        }
-        return calculatePriceWithDiscount(ProductAmount);
+                   }
+               }
+           }
+           return calculatePriceWithDiscount(ProductAmount);
+       }catch (Exception e){
+           throw new CantPurchaseException(e.toString());
+       }
     }
 
     public Product getProduct(String productId) throws Exception {

@@ -17,8 +17,8 @@ public class Visa extends Payment {
     protected int internalPayment(float total) {
         Log.getLogger().logger.fine("try to pay with Visa");
 
-        if(total>0)
-            return 0;
+        if(total>=0)
+            return (int) total;
         return -1;
     }
 

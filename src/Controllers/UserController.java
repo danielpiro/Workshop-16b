@@ -222,7 +222,6 @@ public class UserController {
         Subscriber subscriber = null;
         for (Subscriber user : user_list) {
             if (user.getName().equals(user_name)) {
-                my_log.logger.warning("successfully found subscriber ");
                 subscriber = user;
             }
         }
@@ -234,7 +233,6 @@ public class UserController {
             return false;
         }
         synchronized (get_subscriber(userID).getLock()) {
-            my_log.logger.info(" user "+userID + " exists");
             return true;
         }
     }
