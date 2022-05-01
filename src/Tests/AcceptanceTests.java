@@ -244,6 +244,7 @@ public class AcceptanceTests {
     /**
      *  System requirement - I.3
      **/
+
     @Test
     void payment_success_case_test() {
 //        -Check that the payment service connection is valid
@@ -251,7 +252,7 @@ public class AcceptanceTests {
 //        -Check payment service answer
 
         // "Payment done successfully" - returning 0 means paid successfully
-        assertEquals(0, proxy.payment(PaymentNames.Visa, 50));
+        assertTrue( proxy.payment(PaymentNames.Visa, 50)>=0);
     }
     @Test
     void payment_fail_case_test() {
@@ -275,7 +276,7 @@ public class AcceptanceTests {
 //        -Check delivery service answer
 
         //"Delivery done successfully"
-        assertEquals(0, proxy.delivery(DeliveryNames.FedEx, 2));
+        assertTrue( proxy.delivery(DeliveryNames.FedEx, 2)>=0);
     }
     @Test
     void delivery_fail_case_test() {
@@ -665,7 +666,6 @@ public class AcceptanceTests {
     }
 
     //todo Amit make test work,
-    //todo Dan  add check in shopping cart that product exists.
     @Test
     void save_products_from_store_to_shopping_cart_fail_case_test() {
 //        - User selecting products from specific store.
