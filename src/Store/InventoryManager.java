@@ -12,7 +12,7 @@ import java.util.function.Predicate;
 
 public class InventoryManager  implements InventoryProtector {
     private ConcurrentHashMap<String, Product> products;
-    private List<Discount> discounts;
+        private List<Discount> discounts;
 
 
     public InventoryManager(ConcurrentHashMap<String, Product> products, List<Discount> discounts) {
@@ -83,7 +83,7 @@ public class InventoryManager  implements InventoryProtector {
         }
         return copy;
     }
-    private float calculatePriceWithDiscount(HashMap<String, Integer> ProductIdAmount){
+    private float calculatePriceWithDiscount(HashMap<String, Integer> ProductIdAmount){//todo price return allways 0 to fix
         HashMap<String,Integer> copyProductIdAmount = deepCopyWorkAround(ProductIdAmount);
 
         float finalPrice = 0f;
@@ -131,29 +131,38 @@ public class InventoryManager  implements InventoryProtector {
 
     @Override
     public float reserve(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, String userId) throws CantPurchaseException {
-       try {
-           for (String Id : ProductAmount.keySet()) {
-               synchronized (products.get(Id)) {
-                   if (products.get(Id).getBuyOption().checkIfCanBuy(userId)) {
-                       int newSupply = products.get(Id).getSupply() - ProductAmount.get(Id);
-                       products.get(Id).setReservedSupply(ProductAmount.get(Id));
-                       products.get(Id).editSupply(newSupply);
+        try {
+            for (String Id : ProductAmount.keySet()) {
+                synchronized (products.get(Id)) {
+                    if (products.get(Id).getBuyOption().checkIfCanBuy(userId)) {
+                        int newSupply = products.get(Id).getSupply() - ProductAmount.get(Id);
+                        products.get(Id).setReservedSupply(ProductAmount.get(Id));
+                        products.get(Id).editSupply(newSupply);
 
-                   }
-               }
-           }
-           return calculatePriceWithDiscount(ProductAmount);
-       }catch (Exception e){
-           throw new CantPurchaseException(e.toString());
-       }
+                    }
+                }
+            }
+            return calculatePriceWithDiscount(ProductAmount);
+        }
+        catch (Exception e){
+            throw new CantPurchaseException(e.toString());
+        }
     }
 
     public Product getProduct(String productId) throws Exception {
         Product pro =  products.get(productId);
         if(pro == null){
-            throw new Exception("no product with this id");
+            throw new Exception("no product with this "+ productId);
         }
         return pro;
 
+    }
+    @Override
+    public boolean checkIfProductExist(String productId){
+        Product pro =  products.get(productId);
+        if(pro == null){
+            return true;
+        }
+        return false;
     }
 }

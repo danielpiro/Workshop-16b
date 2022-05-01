@@ -12,6 +12,8 @@ import StorePermission.StoreRoles;
 //import org.junit.platform.engine.support.hierarchical.ThrowableCollector;
 
 import javax.naming.NoPermissionException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -113,7 +115,7 @@ public class Store {
                     return;
                 }
             }
-            throw new NoPermissionException("the user is not manager");
+            throw new NoPermissionException("the user doesn't have a role in store ");
         }
     }
     public void removeRoleInHierarchy(String userId) {
@@ -124,9 +126,19 @@ public class Store {
         }
     }
 
-    public void removeSomePermissions(String userIdRemoving, String UserAffectedId, List<String> PerToRemove){
+    public void removeSomePermissions(String userIdRemoving, String UserAffectedId, List<String> PerToRemove) throws NoPermissionException {
+        List<Permission> permissions = new ArrayList<>();
+        for (String perString: PerToRemove) {
+            permissions.add(Permission.valueOf(perString));
+        }
         synchronized (StoreRoles) {
-
+            for (StoreRoles roleUser : StoreRoles) {
+                if (roleUser.getUserId().equals(userIdRemoving) ) {
+                    roleUser.removePerToRole(UserAffectedId, permissions);
+                    return;
+                }
+            }
+            throw new NoPermissionException("the user doesn't have a role in store ");
         }
     }
     public void editProduct(String userId, String productId, int newSupply, String newName, float newPrice , String category) throws NoPermissionException {
@@ -249,7 +261,7 @@ public class Store {
     public Product getProduct(String productId) throws Exception {
         return inventoryManager.getProduct(productId);
     }
-     public List<PurchaseHistory> getStoreHistory(String userId) throws NoPermissionException {
+    public List<PurchaseHistory> getStoreHistory(String userId) throws NoPermissionException {
          if(!checkPermission(userId, Permission.VIEW_STORE_HISTORY)){
              throw new NoPermissionException("the user don't have this permission");
          }

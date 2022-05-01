@@ -195,7 +195,7 @@ public class UserController {
                         my_log.logger.warning("user "+user_name + " is not logged in");
                         return false;
                     } else {
-                        my_log.logger.warning("user "+user_name + " successfully logged out");
+                        my_log.logger.info("user "+user_name + " successfully logged out");
                         return true;
                     }
                 }

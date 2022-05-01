@@ -57,8 +57,8 @@ class ServiceTest {
             service.addProductFromCart(userId2,pID1,storeId.get(),1,false).get();
             service.addProductFromCart(userId3,pID1,storeId.get(),1,false).get();
 
-            Future per1 = service.purchaseCart(userId3, PaymentNames.Visa, DeliveryNames.FedEx);
-            Future per2 = service.purchaseCart(userId2, PaymentNames.Visa, DeliveryNames.FedEx);
+            Future per1 = service.purchaseCart(userId2, PaymentNames.Visa, DeliveryNames.FedEx);
+            Future per2 = service.purchaseCart(userId3, PaymentNames.Visa, DeliveryNames.FedEx);
 
 
             float x= (float)per1.get();
@@ -127,7 +127,7 @@ class ServiceTest {
             Future p1= service.purchaseCart(userId2, PaymentNames.Visa,DeliveryNames.FedEx);
             Future success = service.deleteProduct(storeId,userId1, pID1);
 
-            assertTrue(((float)p1.get()==-1 && (boolean)success.get()) || ((float)p1.get()!=-1 && !(boolean)success.get())  );
+            assertTrue(((float)p1.get()==-1 && (boolean)success.get()) ^ ((float)p1.get()!=-1 && !(boolean)success.get())  );
 
 
 
