@@ -195,7 +195,7 @@ public class UserController {
                         my_log.logger.warning("user "+user_name + " is not logged in");
                         return false;
                     } else {
-                        my_log.logger.warning("user "+user_name + " successfully logged out");
+                        my_log.logger.info("user "+user_name + " successfully logged out");
                         return true;
                     }
                 }
@@ -222,7 +222,6 @@ public class UserController {
         Subscriber subscriber = null;
         for (Subscriber user : user_list) {
             if (user.getName().equals(user_name)) {
-                my_log.logger.warning("successfully found subscriber ");
                 subscriber = user;
             }
         }
