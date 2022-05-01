@@ -196,6 +196,7 @@ public class UserController {
                         return false;
                     } else {
                         my_log.logger.info("user "+user_name + " successfully logged out");
+                        get_subscriber(user_name).setLogged_in(false);
                         return true;
                     }
                 }

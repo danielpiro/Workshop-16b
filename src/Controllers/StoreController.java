@@ -112,6 +112,11 @@ public class StoreController {
             store.removeRoleInHierarchy(UserId);
         }
     }
+
+    public void removeSomePermissions(String storeId, String userIdRemoving, String UserAffectedId, List<String> PerToRemove) throws NoPermissionException {
+        Store relevantStore = stores.get(storeId);
+        relevantStore.removeSomePermissions(userIdRemoving,UserAffectedId, PerToRemove);
+    }
     public void createOwner(String storeId, String userIdGiving, String UserGettingPermissionId, List<Permission> permissions) throws NoPermissionException {
         Store relevantStore = stores.get(storeId);
         relevantStore.createOwner(userIdGiving, UserGettingPermissionId, permissions);

@@ -134,8 +134,7 @@ public interface BridgeInterface {
     boolean addNewStoreManager(String storeId, String userIdGiving, String UserGettingPermissionId);
 
     /** User requirement - II.4.7 */
-    String changeStoreManagerPermissions(String storeName, String storeManagerUserName, String newPermission);
-
+    boolean changeStoreManagerPermissions(String storeId, String userIdRemoving, String UserAffectedId, List<String> PerToRemove) throws NoPermissionException;
     /** User requirement - II.4.9 */
     boolean freezeStoreByOwner(String storeId, String userId);
 

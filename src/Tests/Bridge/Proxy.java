@@ -408,9 +408,9 @@ public class Proxy implements BridgeInterface {
     }
 
     /** User requirement - II.4.7 */
-    public String changeStoreManagerPermissions(String storeName, String storeManagerUserName, String newPermission){
+    public boolean changeStoreManagerPermissions(String storeId, String userIdRemoving, String UserAffectedId, List<String> PerToRemove) throws NoPermissionException {
         if(real!=null)
-            return real.changeStoreManagerPermissions(storeName, storeManagerUserName, newPermission);
+            return real.changeStoreManagerPermissions(storeId, userIdRemoving, UserAffectedId, PerToRemove);
         throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 

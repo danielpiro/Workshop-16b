@@ -238,7 +238,7 @@ public class Real implements BridgeInterface{
     /** User requirement - II.2.4 */
     public boolean increaseProductQuantityInShoppingCart(String user_id,String productID, String storeID, int amount,boolean auctionOrBid )  {
         int ans = bigController.addProductFromCart( user_id, productID,  storeID,  amount, auctionOrBid);
-        return ans == 0;
+        return ans >= 0;
     }
 
     /** User requirement - II.2.4 */
@@ -357,8 +357,9 @@ public class Real implements BridgeInterface{
     }
 
     /** User requirement - II.4.7 */
-    public String changeStoreManagerPermissions(String storeName, String storeManagerUserName, String newPermission){
-        throw new UnsupportedOperationException("Not Implemented Yet");
+    public boolean changeStoreManagerPermissions(String storeId, String userIdRemoving, String UserAffectedId, List<String> PerToRemove) throws NoPermissionException {
+         bigController.removeSomePermissions(storeId, userIdRemoving, UserAffectedId, PerToRemove);
+         return true;
     }
 
     /** User requirement - II.4.9 */

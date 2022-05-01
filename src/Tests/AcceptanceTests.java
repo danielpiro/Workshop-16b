@@ -7,6 +7,7 @@ import ExternalConnections.Payment.PaymentNames;
 import ExternalConnections.Payment.Visa;
 import History.PurchaseHistory;
 import Store.Product;
+import StorePermission.Permission;
 import Tests.Bridge.Proxy;
 import Tests.Bridge.Real;
 import User.Guest;
@@ -45,8 +46,14 @@ public class AcceptanceTests {
         storeId = proxy.openStore("user1", "store1");
         // store0_id = StoreID_0
         proxy.register("user2", "22222");
+        proxy.register("userOwnerToDestroy", "12345");
+
 
         proxy.addNewStoreManager(storeId, "user1", "user2");
+        List<Permission> permission = new ArrayList<>();
+        permission.add(Permission.INFO_OF_MANAGERS);
+        permission.add(Permission.VIEW_FORUM);
+        proxy.addNewStoreOwner(storeId, "user1","userOwnerToDestroy",permission);
         proxy.register("user3", "33333");
         proxy.getInToTheSystem(); // for guest
 
@@ -650,8 +657,8 @@ public class AcceptanceTests {
     /**
      *  User requirement - II.2.3
      **/
-    //todo make test work
-    @Disabled
+
+
     @Test
     void save_products_from_store_to_shopping_cart_success_case_test() {
 //        - User selecting products from specific store.
@@ -660,12 +667,12 @@ public class AcceptanceTests {
 //        - Check that all the saved products are in the user's shopping cart (will be successful).
 
         // "product saved to shopping cart successfully"
-        fail();
-//        assertTrue(proxy.saveProductFromStoreToShoppingCart("user1", "p1", "StoreID_0",
-//                                                        1, true));
+        HashMap<String,List<Product>> products =proxy.getAllProductsAndStores("user1");
+        assertTrue(proxy.saveProductFromStoreToShoppingCart("user1", ((List<Product>)(products.values().toArray()[0])).get(0).getId() , storeId,
+                                                       1, false));
     }
 
-    //todo Amit make test work,
+
     @Test
     void save_products_from_store_to_shopping_cart_fail_case_test() {
 //        - User selecting products from specific store.
@@ -675,10 +682,10 @@ public class AcceptanceTests {
 //              -> the shopping cart will be empty/missing product.
 
         // "there's no such product in the store / there's no quantity left to this product"
-        fail();
-//        assertFalse(proxy.saveProductFromStoreToShoppingCart("user1", "notExistProd", "StoreID_0",
-//                                                        1, true));
-        //TODO: Fix this error!
+        HashMap<String,List<Product>> products =proxy.getAllProductsAndStores("user1");
+        assertFalse(proxy.saveProductFromStoreToShoppingCart("user1", "fuck you" , storeId,
+                1, false));
+
     }
 
     /**
@@ -1548,7 +1555,6 @@ public class AcceptanceTests {
     /**
      *  User requirement - II.4.7
      **/
-    @Disabled
     @Test
     void change_store_manager_permissions_success_case_test() {
 //        - Check that the user (changing the store manager permissions) is logged in as store owner.
@@ -1558,19 +1564,33 @@ public class AcceptanceTests {
 //        assertEquals("store manager permission has changed successfully",
 //                proxy.changeStoreManagerPermissions("StoreID_0", "user3", "ShopOwner"));
 
-        fail();
+        try {
+            List<String> permission = new ArrayList<>();
+            permission.add("INFO_OF_MANAGERS");
+            assertTrue(proxy.changeStoreManagerPermissions(storeId, "user1", "userOwnerToDestroy",permission));
+
+        } catch (NoPermissionException e) {
+            e.printStackTrace();
+            fail();
+        }
     }
-    @Disabled
     @Test
     void change_store_manager_permissions_fail_case_test1() {
 //        - Check that the user (changing the store manager permissions) is logged in as store owner.
 //                  -> the user isn't logged/registered in as a store owner.
 //        - Show fail message...
+        try {
+            List<String> permission = new ArrayList<>();
+            permission.add("INFO_OF_MANAGERS");
+            proxy.logout("user1");
+            assertFalse(proxy.changeStoreManagerPermissions(storeId, "user1", "userOwnerToDestroy",permission));
+            fail();
 
-        assertEquals("fail - user has to be at least shop owner and to be logged in",
-                proxy.changeStoreManagerPermissions("StoreID_0", "user3", "ShopOwner"));
+        } catch (Exception e) {
+            e.printStackTrace();
 
-        fail();
+        }
+
     }
     @Disabled
     @Test

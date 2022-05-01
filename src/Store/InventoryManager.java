@@ -165,8 +165,8 @@ public class InventoryManager  implements InventoryProtector {
     public boolean checkIfProductExist(String productId){
         Product pro =  products.get(productId);
         if(pro == null){
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 }

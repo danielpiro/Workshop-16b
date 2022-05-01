@@ -120,7 +120,13 @@ public class Service {
 
     }
     public Future purchaseCart(String user_id, PaymentNames payment, DeliveryNames delivery) {
-        Future future = executorService.submit(() -> bigController.purchaseCart(user_id,payment,delivery));
+        Future future = executorService.submit(() -> {
+            try {
+                return bigController.purchaseCart(user_id, payment, delivery);
+            } catch (Exception e) {
+                return -1f;
+            }
+        });
         return future;
 
     }

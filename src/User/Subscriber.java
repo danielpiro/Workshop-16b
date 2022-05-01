@@ -13,7 +13,7 @@ public class Subscriber extends User {
     Encrypt enc = new Encrypt();;
 
     public Subscriber(String user_name, String password) {
-        super();
+        super(user_name);
         if(user_name == null){
             throw new IllegalArgumentException("user_name cant be null");
         }

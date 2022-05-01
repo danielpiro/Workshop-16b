@@ -14,6 +14,7 @@ import ShoppingCart.InventoryProtector;
 import ExternalConnections.ExternalConnectionHolder;
 import ShoppingCart.ShoppingCart;
 import Store.Product;
+import Store.Store;
 import StorePermission.Permission;
 import StorePermission.StoreRoles;
 import User.Guest;
@@ -132,6 +133,14 @@ public class BigController {
     public void addNewProductToStore(String storeId, String userId, String productName, float price, int supply, String category) throws NoPermissionException {
         if(getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId))
         getStoreController().addNewProduct(storeId,userId,productName,price,supply,category);
+        else
+            throw new IllegalArgumentException("couldn't add new product because the given userId doesn't exist or is not logged in");
+    }
+
+    public void removeSomePermissions(String storeId, String userIdRemoving, String UserAffectedId, List<String> PerToRemove) throws NoPermissionException {
+        if(getUserController().checkIfUserExists(userIdRemoving)&&getUserController().checkIfUserIsLoggedIn(userIdRemoving)) {
+            sc.removeSomePermissions(storeId, userIdRemoving, UserAffectedId, PerToRemove);
+        }
         else
             throw new IllegalArgumentException("couldn't add new product because the given userId doesn't exist or is not logged in");
     }
