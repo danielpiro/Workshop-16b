@@ -59,7 +59,7 @@ class ServiceTest {
 
             float x= (float)per1.get();
             float x2= (float)per2.get();
-            assertTrue( (float)per1.get()== -1 ||  (float)per2.get()== -1 );
+            assertTrue( (float)per1.get()== -1 ^  (float)per2.get()== -1 );
 
 
 
