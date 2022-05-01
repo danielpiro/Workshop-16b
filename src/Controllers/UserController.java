@@ -21,6 +21,8 @@ public class UserController {
      Object signUpLock = new Object();
     Object addingSubscriber = new Object();
     Object guest = new Object();
+    Object deleteUser = new Object();
+
 
 
 
@@ -206,7 +208,6 @@ public class UserController {
             my_log.logger.warning("User "+user_name + " doesn't exist");
             return false;
         }
-        synchronized (get_subscriber(user_name).getLock()) {
             if (password.length() > 2) {
                 Subscriber subscriber = get_subscriber(user_name);
                 Encrypt enc = subscriber.getEncryption();
@@ -215,7 +216,6 @@ public class UserController {
             }
             my_log.logger.warning("invalid password for user "+user_name );
             return false;
-        }
     }
 
     public Subscriber get_subscriber(String user_name){
@@ -267,30 +267,26 @@ public class UserController {
             my_log.logger.warning(" user "+user_name+ "doesn't exist");
             throw new IllegalArgumentException("User doesn't exist");
         }
-        synchronized (get_subscriber(user_name).getLock()) {
             Subscriber subscriber = get_subscriber(user_name);
             my_log.logger.warning(" user "+user_name+ "successfully added a query ");
             subscriber.getQueries().add(query);
-        }
     }
 
     public boolean deleteUser(String whosDeleting,String whosBeingDeleted) {
-        if (checkIfUserExists(whosDeleting)&&checkIfUserIsLoggedIn(whosDeleting) && IdGenerator.getInstance().checkIfAdmin(whosDeleting) ) {
-            synchronized (get_subscriber(whosDeleting).getLock()) {
+        synchronized (deleteUser) {
+            if (checkIfUserExists(whosDeleting) && checkIfUserIsLoggedIn(whosDeleting) && IdGenerator.getInstance().checkIfAdmin(whosDeleting)) {
                 if (checkIfUserExists(whosDeleting) && !IdGenerator.getInstance().checkIfAdmin(whosBeingDeleted)) {
-                    synchronized (get_subscriber(whosBeingDeleted).getLock()) {
-                        for (Subscriber s : getUser_list()) {
-                            if (s.getName().equals(whosBeingDeleted)) {
-                                getUser_list().remove(s);
-                                return true;
-                            }
+                    for (Subscriber s : getUser_list()) {
+                        if (s.getName().equals(whosBeingDeleted)) {
+                            getUser_list().remove(s);
+                            return true;
                         }
                     }
                 }
             }
+            my_log.logger.info(" user " + whosBeingDeleted + "failed to delete user " + whosBeingDeleted);
+            return false;
         }
-        my_log.logger.info(" user "+whosBeingDeleted + "failed to delete user "+whosBeingDeleted);
-        return false;
     }
 
 
