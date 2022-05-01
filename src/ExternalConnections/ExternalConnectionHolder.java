@@ -23,7 +23,7 @@ public class ExternalConnectionHolder {
     }
 
 
-    public int tryToPurchase(float total, float deliveryDetails) {
+    public int tryToPurchase(float total, float deliveryDetails)  {
         int answer = 0;
         boolean gotDelivery = false;
         boolean gotPayment = false;
@@ -39,6 +39,10 @@ public class ExternalConnectionHolder {
                 deliveryObject = ExternalConnections.getInstance().getCertainDelivery(delivery);
                 gotDelivery = true;
             } catch (Exception e) {
+                try {
+                    Thread.sleep(100);
+                }catch (Exception e2){}
+
             }
 
         }
@@ -49,6 +53,9 @@ public class ExternalConnectionHolder {
                 paymentObject = ExternalConnections.getInstance().getCertainPayment(payment);
                 gotPayment = true;
             } catch (Exception e) {
+                try {
+                    Thread.sleep(100);
+                }catch (Exception e2){}
             }
 
         }
