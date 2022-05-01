@@ -238,7 +238,7 @@ class StoreTest {
             per.add(Permission.EDIT_STORE_POLICY);
             per.add(Permission.VIEW_FORUM);
 
-            store1.removeSomePermissions(userId1,userId2,);
+            //store1.removeSomePermissions(userId1,userId2,);
             List<StoreRoles> storeRoles = store1.getInfoOnManagersOwners(userId1);
 
 

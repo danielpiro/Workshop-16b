@@ -53,8 +53,8 @@ class ServiceTest {
             service.addProductFromCart(userId2,pID1,storeId.get(),1,false).get();
             service.addProductFromCart(userId3,pID1,storeId.get(),1,false).get();
 
-            Future per1 = service.purchaseCart(userId1, PaymentNames.Visa, DeliveryNames.FedEx);
-            Future per2 = service.purchaseCart(userId2, PaymentNames.Visa, DeliveryNames.FedEx);
+            Future per1 = service.purchaseCart(userId2, PaymentNames.Visa, DeliveryNames.FedEx);
+            Future per2 = service.purchaseCart(userId3, PaymentNames.Visa, DeliveryNames.FedEx);
 
 
             float x= (float)per1.get();
