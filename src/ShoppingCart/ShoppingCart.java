@@ -68,6 +68,10 @@ public class ShoppingCart {
     // to use when we do not have an instance of the store, and need an inventory protector
     public int addProduct(String productID, String storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
 
+
+        if(!inventoryProtector.checkIfProductExist(productID))
+            return -1;
+
         if (basketCases.containsKey(storeID) && auctionOrBid == false)
             basketCases.get(storeID).addProduct(productID, amount);
         else if(basketCases.containsKey(storeID) && auctionOrBid == true)

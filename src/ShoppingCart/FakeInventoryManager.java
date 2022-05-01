@@ -37,6 +37,11 @@ public class FakeInventoryManager implements InventoryProtector  {
         return 0;
     }
 
+    @Override
+    public boolean checkIfProductExist(String productId) {
+        return false;
+    }
+
 
     public float purchase(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder) {
         return 0;

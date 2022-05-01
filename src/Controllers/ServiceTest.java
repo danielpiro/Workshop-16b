@@ -103,7 +103,7 @@ class ServiceTest {
     }
 
     @Test
-    void OwnerDeleteProductWhileCustomerBuyIt() {
+    void ownerDeleteProductWhileCustomerBuyIt() {
         try {
             String userId1 = "user1";
             String userId2 = "user2";
@@ -139,39 +139,27 @@ class ServiceTest {
     }
 
     @Test
-    void OneExternalConnectionManyPurchases() {
+    void onlyOneCanLogin() {
 
         try {
             String userId1 = "user1";
             String userId2 = "user2";
-            String userId3 = "user3";
-            String userId4 = "user4";
-            String userId5 = "user5";
-            String userId6 = "user6";
 
 
 
             service.sign_up(userId1, "123").get();
             service.sign_up(userId2, "123").get();
-            service.sign_up(userId3, "123").get();
-            service.sign_up(userId4, "123").get();
-            service.sign_up(userId5, "123").get();
-            service.sign_up(userId6, "123").get();
+
 
 
             service.login(userId1, "123").get();
-            service.login(userId2, "123").get();
-            service.login(userId3, "123").get();
-            service.login(userId4, "123").get();
-            service.login(userId5, "123").get();
-            service.login(userId6, "123").get();
 
-            String storeId = (String) service.openNewStore(userId1, "store1").get();
-            service.addNewProductToStore(storeId, userId1, "fuck", 1F, 1, "Other").get();
-            Future<HashMap<String, List<Product>>> storesAndProducts = service.getAllProductsAndStores(userId1);
-            String pID1 = storesAndProducts.get().get(storeId).get(0).getId();
+            Future<Boolean>  future1= service.login(userId2, "123");
+            Future<Boolean>  future2= service.login(userId2, "123");
 
-            service.addProductFromCart(userId2, pID1, storeId, 1, false).get();
+            assertTrue( future1.get() ^  future2.get() );
+
+
 
         }catch (Exception e){
             e.printStackTrace();
