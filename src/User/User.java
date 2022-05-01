@@ -9,7 +9,7 @@ public abstract class User {
     public String name;
     private ShoppingCart shoppingCart;
 
- public User(){
+ public User(String name){
     shoppingCart = new ShoppingCart(name);
 
     }
@@ -33,7 +33,8 @@ public abstract class User {
      return shoppingCart.getCartInventory();
  }
     public float purchaseCart(ExternalConnectionHolder externalConnectionHolder) {
-     return shoppingCart.purchaseCart(externalConnectionHolder);
+     float a = shoppingCart.purchaseCart(externalConnectionHolder);
+     return a;
  }
 
 

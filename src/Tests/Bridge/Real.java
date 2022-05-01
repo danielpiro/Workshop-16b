@@ -119,7 +119,7 @@ public class Real implements BridgeInterface{
     {
         Payment paymentObject=null;
         boolean gotPayment=false;
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 20 && !gotPayment; i++) {
             try {
                 paymentObject = ExternalConnections.getInstance().getCertainPayment(payment);
                 gotPayment=true;
@@ -136,7 +136,7 @@ public class Real implements BridgeInterface{
     public int delivery(DeliveryNames delivery, float weight){
         Delivery deliveryObject=null;
         boolean gotDelivery=false;
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 20 && !gotDelivery; i++) {
 
            try {
                 deliveryObject = ExternalConnections.getInstance().getCertainDelivery(delivery);

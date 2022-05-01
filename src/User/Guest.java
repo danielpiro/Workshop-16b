@@ -6,7 +6,7 @@ import java.util.List;
 public class Guest extends User {
 
     public Guest(String id) {
-        super();
+        super("");
         this.name=id;
 
     }

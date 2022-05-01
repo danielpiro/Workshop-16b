@@ -13,7 +13,6 @@ public class ShoppingCart {
 
     //storeID, and the basket
     private HashMap<String, ShoppingBasket> basketCases;
-    private ExternalConnectionHolder externalConnectionHolder;
 
 
 
@@ -69,6 +68,10 @@ public class ShoppingCart {
     // to use when we do not have an instance of the store, and need an inventory protector
     public int addProduct(String productID, String storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
 
+
+        if(!inventoryProtector.checkIfProductExist(productID))
+            return -1;
+
         if (basketCases.containsKey(storeID) && auctionOrBid == false)
             basketCases.get(storeID).addProduct(productID, amount);
         else if(basketCases.containsKey(storeID) && auctionOrBid == true)
@@ -102,19 +105,20 @@ public class ShoppingCart {
     }
 
 
-    //if succesful returns price, else returns -1
+    //if successfull returns price, else returns -1
     public float purchaseCart(ExternalConnectionHolder externalConnectionHolder) {
         float total=0;
         int weight = 10;
         int ans =0;
 
-        Log.getLogger().logger.fine("user " + userId + "trying to purchase Cart");
+        Log.getLogger().logger.info("user " + userId + "trying to purchase Cart");
 
 
         //check if we can purchase from store, that items are in inventory and store policies are complied
         try {
             for (Map.Entry<String, ShoppingBasket> basket : basketCases.entrySet()) {
                 total += basket.getValue().purchase(externalConnectionHolder,userId);
+
             }
         }
         catch ( CantPurchaseException e){
@@ -126,6 +130,8 @@ public class ShoppingCart {
             return -1;
 
         }
+        Log.getLogger().logger.info("user " + userId + " total cart value " + total);
+
         ans = externalConnectionHolder.tryToPurchase(total,weight);
 
         //if transaction succeeded we need to save it in history.
@@ -133,8 +139,8 @@ public class ShoppingCart {
             for (Map.Entry<String, ShoppingBasket> basket : basketCases.entrySet()) {
                 basket.getValue().purchaseSuccessful(true);
             }
-            Log.getLogger().logger.info("user " + userId + "purchased cart successfully " );
-            Log.getLogger().logger.fine("user " + userId + "price of cart is " + total);
+            Log.getLogger().logger.info("user " + userId + " purchased cart successfully " );
+            Log.getLogger().logger.fine("user " + userId + " price of cart is " + total);
 
             recordPurchase();
         }

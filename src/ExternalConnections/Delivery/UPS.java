@@ -14,8 +14,8 @@ public class UPS extends Delivery {
     protected int internalDelivery(float total) {
         Log.getLogger().logger.fine("try to Deliver UPS");
 
-        if(total>0)
-         return 0;
+        if(total>=0)
+            return (int) total;
         return -1;
     }
 

@@ -233,7 +233,6 @@ public class UserController {
             return false;
         }
         synchronized (get_subscriber(userID).getLock()) {
-            my_log.logger.info(" user "+userID + " exists");
             return true;
         }
     }

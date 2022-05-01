@@ -23,7 +23,7 @@ public class ExternalConnectionHolder {
     }
 
 
-    public int tryToPurchase(float total, float deliveryDetails) {
+    public int tryToPurchase(float total, float deliveryDetails)  {
         int answer = 0;
         boolean gotDelivery = false;
         boolean gotPayment = false;
@@ -34,26 +34,33 @@ public class ExternalConnectionHolder {
         my_log.logger.fine("trying to purchase with total:" + total + " and delivery weight is" + deliveryDetails);
 
 
-        for (int i = 0; i < TRYTOCONNECT; i++) {
+        for (int i = 0; i < TRYTOCONNECT  && !gotDelivery; i++) {
             try {
                 deliveryObject = ExternalConnections.getInstance().getCertainDelivery(delivery);
                 gotDelivery = true;
             } catch (Exception e) {
+                try {
+                    Thread.sleep(100);
+                }catch (Exception e2){}
+
             }
 
         }
 
-        for (int i = 0; i < TRYTOCONNECT; i++) {
+        for (int i = 0; i < TRYTOCONNECT && !gotPayment; i++) {
 
             try {
                 paymentObject = ExternalConnections.getInstance().getCertainPayment(payment);
                 gotPayment = true;
             } catch (Exception e) {
+                try {
+                    Thread.sleep(100);
+                }catch (Exception e2){}
             }
 
         }
 
-        if (gotDelivery==false | gotPayment == false){
+        if (gotDelivery==false || gotPayment == false){
             my_log.logger.warning("could not purchase, because couldn't not obtain external connection of " + delivery+ " or " + payment );
 
             return -1;

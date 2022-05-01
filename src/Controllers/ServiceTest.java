@@ -2,6 +2,7 @@ package Controllers;
 
 import ExternalConnections.Delivery.DeliveryNames;
 import ExternalConnections.Payment.PaymentNames;
+import GlobalSystemServices.Log;
 import Store.Product;
 import StorePermission.Permission;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.logging.Level;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -50,6 +53,7 @@ class ServiceTest {
             service.addNewProductToStore(storeId.get(), userId1, "fuck", 1F, 1, "Other").get();
             Future<HashMap<String, List<Product>>> storesAndProducts = service.getAllProductsAndStores(userId1);
             String pID1 = storesAndProducts.get().get(storeId.get()).get(0).getId();
+
             service.addProductFromCart(userId2,pID1,storeId.get(),1,false).get();
             service.addProductFromCart(userId3,pID1,storeId.get(),1,false).get();
 
@@ -99,7 +103,7 @@ class ServiceTest {
     }
 
     @Test
-    void OwnerDeleteProductWhileCustomerBuyIt() {
+    void ownerDeleteProductWhileCustomerBuyIt() {
         try {
             String userId1 = "user1";
             String userId2 = "user2";
@@ -132,6 +136,35 @@ class ServiceTest {
             fail();
         }
 
+    }
+
+    @Test
+    void onlyOneCanLogin() {
+
+        try {
+            String userId1 = "user1";
+            String userId2 = "user2";
+
+
+
+            service.sign_up(userId1, "123").get();
+            service.sign_up(userId2, "123").get();
+
+
+
+            service.login(userId1, "123").get();
+
+            Future<Boolean>  future1= service.login(userId2, "123");
+            Future<Boolean>  future2= service.login(userId2, "123");
+
+            assertTrue( future1.get() ^  future2.get() );
+
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+            fail();
+        }
     }
 
 
