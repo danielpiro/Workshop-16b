@@ -1,7 +1,6 @@
 package Controllers;
 
 
-import ExternalConnections.Delivery.Delivery;
 import ExternalConnections.Delivery.DeliveryNames;
 import ExternalConnections.Delivery.FedEx;
 import ExternalConnections.Delivery.UPS;
@@ -57,7 +56,7 @@ public class BigController {
     public boolean deleteUser(String whosDeleting,String whosBeingDeleted) throws NoPermissionException {
         my_log.logger.info("user"+whosDeleting+"is trying to delete user"+whosBeingDeleted);
         //try {
-        sc.removeAllPermissionTo(whosBeingDeleted);
+        sc.removeRoleInHierarchy(whosBeingDeleted);
        // } catch (NoPermissionException e) {
        //     Log.getLogger().logger.warning("cant remove user permission"+ whosBeingDeleted +" by user "+whosDeleting+ "because:  "+ e.getMessage());
        //     return false;
@@ -209,7 +208,7 @@ public class BigController {
 
     public void removePermissionTo(String storeId, String userIdRemoving,String UserAffectedId) throws NoPermissionException{
         if(getUserController().checkIfUserExists(userIdRemoving) && getUserController().checkIfUserExists(UserAffectedId)&&getUserController().checkIfUserIsLoggedIn(userIdRemoving))
-            getStoreController().removePermissionTo(storeId,userIdRemoving,UserAffectedId);
+            getStoreController().removeRoleInHierarchy(storeId,userIdRemoving,UserAffectedId);
         else
             throw new IllegalArgumentException("couldn't remove permission because the given userId doesn't exist or is not logged in");
     }

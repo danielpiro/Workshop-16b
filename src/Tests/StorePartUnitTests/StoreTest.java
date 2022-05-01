@@ -4,8 +4,6 @@ import Store.Store;
 import StorePermission.Permission;
 import StorePermission.StoreManager;
 import StorePermission.StoreRoles;
-import Store.Product;
-import User.Subscriber;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -137,10 +135,8 @@ class StoreTest {
             fail();
         }
     }
-
-    @Test
-    void removePermissionTo() {
-        try {
+    private void setUpBeforePermissionTests(){
+        try{
             List<Permission> per = new ArrayList<>();
             per.add(Permission.ADD_NEW_PRODUCT);
             per.add(Permission.EDIT_PRODUCT);
@@ -153,35 +149,93 @@ class StoreTest {
             store1.createOwner(userId2, userId4, per);
             store1.createOwner(userId3, userId5, per);
             store1.createManager(userId4, userId6);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            fail();
+        }
+    }
+    @Test
+    void removePermissionTo1() {
+        try {
 
-            store1.removePermissionTo(userId1,userId2);
+            setUpBeforePermissionTests();
+            store1.removeRoleInHierarchy(userId1,userId2);
             assertEquals(store1.getInfoOnManagersOwners(userId1).size(),1);
 
         } catch (NoPermissionException e) {
             e.printStackTrace();
+            fail();
         }
 
     }
     @Test
     void removePermissionTo2() {
         try {
-            List<Permission> per = new ArrayList<>();
-            per.add(Permission.ADD_NEW_PRODUCT);
-            per.add(Permission.EDIT_PRODUCT);
-            per.add(Permission.REMOVE_PRODUCT);
-            per.add(Permission.EDIT_STORE_POLICY);
-            per.add(Permission.VIEW_FORUM);
+            setUpBeforePermissionTests();
 
-            store1.createOwner(userId1, userId2, per);
-            store1.createOwner(userId2, userId3, per);
-            store1.createOwner(userId2, userId4, per);
-            store1.createOwner(userId3, userId5, per);
-            store1.createManager(userId4, userId6);
-
-            store1.removePermissionTo(userId2,userId4);
+            store1.removeRoleInHierarchy(userId2,userId4);
             assertEquals(store1.getInfoOnManagersOwners(userId1).size(),4);
 
         } catch (NoPermissionException e) {
+            e.printStackTrace();
+            fail();
+        }
+
+    }
+
+    @Test
+    void removePermissionTo3() {
+        try {
+            setUpBeforePermissionTests();
+
+            store1.removeRoleInHierarchy(userId1,userId4);
+            List<StoreRoles> storeRoles = store1.getInfoOnManagersOwners(userId1);
+            assertEquals(storeRoles.size(),4);
+
+        } catch (NoPermissionException e) {
+            e.printStackTrace();
+            fail();
+        }
+
+    }
+
+    @Test
+    void removePermissionTo4() {
+        try {
+            setUpBeforePermissionTests();
+
+            store1.removeRoleInHierarchy(userId2,userId6);
+            List<StoreRoles> storeRoles = store1.getInfoOnManagersOwners(userId1);
+            assertEquals(storeRoles.size(),5);
+
+        } catch (NoPermissionException e) {
+            e.printStackTrace();
+            fail();
+        }
+
+    }
+    @Test
+    void removePermissionToBad() {
+        try {
+            setUpBeforePermissionTests();
+
+            store1.removeRoleInHierarchy(userId6,userId2);
+            fail();
+
+        } catch (IllegalArgumentException | NoPermissionException e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    void removePermissionToBad2() {
+        try {
+            setUpBeforePermissionTests();
+
+            store1.removeRoleInHierarchy(userId5,userId2);
+            fail();
+
+        } catch (IllegalArgumentException | NoPermissionException e) {
             e.printStackTrace();
         }
 

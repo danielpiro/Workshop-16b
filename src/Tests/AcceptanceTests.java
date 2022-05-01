@@ -1559,8 +1559,8 @@ public class AcceptanceTests {
 //                  -> the user isn't logged/registered in as a store owner.
 //        - Show fail message...
 
-//        assertEquals("fail - user has to be at least shop owner and to be logged in",
-//                proxy.changeStoreManagerPermissions("StoreID_0", "user3", "ShopOwner"));
+        assertEquals("fail - user has to be at least shop owner and to be logged in",
+                proxy.changeStoreManagerPermissions("StoreID_0", "user3", "ShopOwner"));
 
         fail();
     }

@@ -29,31 +29,73 @@ public abstract class  StoreRoles {
         return Collections.unmodifiableList(storePermissions);
     }
 
-    private List<String> removeAllManagers(){
+    private List<String> removeAllRoles(){
         List<String> managersRemoved = new ArrayList<>();
         for (StoreRoles sr : createPermissionsTo) {
-            managersRemoved.addAll(sr.removeAllManagers());
+            managersRemoved.addAll(sr.removeAllRoles());
             managersRemoved.add(sr.getUserId());
         }
         return managersRemoved;
     }
-    public List<String> removeManager(String userAffected){
+    public List<String> removeRole(String userAffected){
         int indexToRemove = -1;
         for (int i = 0; i < createPermissionsTo.size(); i++){
-            if(IdGenerator.getInstance().isIdEqual(
-                    createPermissionsTo.get(i).getUserId(),
-                    userAffected)
-                ){
-                indexToRemove = i;
+            try{
+                return createPermissionsTo.get(i).removeRole(userAffected);
+            }
+            catch (IllegalArgumentException e) {
+                if (IdGenerator.getInstance().isIdEqual(
+                        createPermissionsTo.get(i).getUserId(),
+                        userAffected
+                )
+                ) {
+                    indexToRemove = i;
+                }
             }
         }
         if(indexToRemove == -1){
-            throw new IllegalArgumentException("cant delete this user permission because userId- "+userId+" didnt gave him his permission");
+            throw new IllegalArgumentException("cant delete this user permission because userId- "+userId+" didn't gave him his permission");
         }
-        List<String> managersIdsRemoved =createPermissionsTo.get(indexToRemove).removeAllManagers();
+        List<String> managersIdsRemoved =createPermissionsTo.get(indexToRemove).removeAllRoles();
         managersIdsRemoved.add(createPermissionsTo.get(indexToRemove).getUserId());
         createPermissionsTo.remove(indexToRemove);
 
         return managersIdsRemoved;
     }
+
+    private void removePermissionToRole(List<Permission> PerToRemove){//todo need testing
+        for (StoreRoles sr : createPermissionsTo) {
+            sr.removePermissionToRole(PerToRemove);
+            storePermissions.removeIf(x-> PerToRemove.stream().anyMatch(p-> p.equals(x)));
+        }
+    }
+
+    public void removePerToRole(String userAffected, List<Permission> PerToRemove){//todo need testing
+        int indexToRemove = -1;
+        for (int i = 0; i < createPermissionsTo.size(); i++){
+            try{
+                createPermissionsTo.get(i).removePerToRole(userAffected,  PerToRemove);
+            }
+            catch (IllegalArgumentException e) {
+                if (IdGenerator.getInstance().isIdEqual(
+                        createPermissionsTo.get(i).getUserId(),
+                        userAffected
+                )
+                ) {
+                    indexToRemove = i;
+                }
+            }
+        }
+        if(indexToRemove == -1){
+            throw new IllegalArgumentException("cant delete this user permission because userId- "+userId+" didn't gave him his permission");
+        }
+
+        createPermissionsTo.get(indexToRemove).storePermissions.removeIf(x-> PerToRemove.stream().anyMatch(p-> p.equals(x)));//remove permissions from user
+
+        createPermissionsTo.get(indexToRemove).removePermissionToRole(PerToRemove);//delete permission to the sub roles
+
+
+
+    }
+
 }
