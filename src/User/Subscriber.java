@@ -44,6 +44,7 @@ public class Subscriber extends User {
             this.logged_in = logged_in;
 
     }
+    public void AddQuery(String s){this.getQueries().add(s);}
 
     public List<String> getQueries() {
         return Queries;
