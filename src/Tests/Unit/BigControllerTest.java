@@ -1,13 +1,14 @@
-package Tests;
+package Tests.Unit;
 
 import Controllers.BigController;
-import org.junit.BeforeClass;
 import org.junit.Test;
+import org.testng.annotations.BeforeClass;
+
 import org.junit.jupiter.api.BeforeEach;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class BigControllerTest {
@@ -23,7 +24,7 @@ class BigControllerTest {
 
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void sign_up() {
         assertTrue(bigController.sign_up("name", "pass"));
         assertEquals(5, bigController.getUser_list().size()); //Admin +1 new user + 3 already registered users(in setup)
@@ -33,14 +34,14 @@ class BigControllerTest {
 
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void login() {
         assertTrue(bigController.login("amit12", "peled1"));
         assertFalse(bigController.login("abed15", "taweel1"));
         assertFalse(bigController.login("matthew", "224342"));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void addGuest() {
         assertEquals(0, bigController.getGuest_list().size());
         bigController.addGuest();
@@ -60,7 +61,8 @@ class BigControllerTest {
     @org.junit.jupiter.api.Test
     public void GuestExitSystem() {
         assertEquals(null, bigController.GuestExitSystem("GuestID_4"));
-        assertEquals("GuestID_0", bigController.GuestExitSystem(bigController.addGuest()));
+        String guestId = bigController.addGuest();
+        assertEquals(guestId, bigController.GuestExitSystem(guestId));
     }
 
 

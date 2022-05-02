@@ -1,4 +1,4 @@
-package Tests.StorePartUnitTests;
+package Tests.Unit.StorePartUnitTests;
 
 import Store.Store;
 import StorePermission.Permission;
