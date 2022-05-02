@@ -1,4 +1,4 @@
-package Tests;
+package Tests.Unit;
 
 import User.Encrypt;
 import User.Subscriber;
