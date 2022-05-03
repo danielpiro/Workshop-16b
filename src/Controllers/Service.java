@@ -124,7 +124,7 @@ public class Service {
             try {
                 return bigController.purchaseCart(user_id, payment, delivery);
             } catch (Exception e) {
-                return -1f;
+                return -1;
             }
         });
         return future;

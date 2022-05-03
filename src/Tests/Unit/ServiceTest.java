@@ -38,6 +38,7 @@ class ServiceTest {
     @Test
     void lastProduct(){
         try {
+
             String userId1 = "user1";
             String userId2 = "user2";
             String userId3 = "user3";
