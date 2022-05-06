@@ -1,0 +1,55 @@
+{
+    "discounts": [
+        {
+            "id": "cxyz1",
+            "creator": "Shlomo",
+            "discountRelation": "xor",
+            "first_discount": "xyz1",
+            "second_discount": "xyz2",
+            "decide": "true"
+        }
+    ,{
+            "id": "cxyz2",
+            "creator": "Shlomo",
+            "discountRelation": "and",
+            "first_discount": "xyz1",
+            "second_discount": "xyz2",
+            "decide": "true"
+
+        },
+        {
+            "id": "cxyz3",
+            "creator": "Shlomo",
+            "discountRelation": "or",
+            "first_discount": "xyz1",
+            "second_discount": "xyz2",
+            "decide": "true"
+
+        },
+        {
+            "id": "cxyz4",
+            "creator": "Shlomo",
+            "discountRelation": "xor",
+            "first_discount": "xyz1",
+            "second_discount": "xyz2",
+            "decide": "true"
+
+        },
+        {
+            "id": "cxyz5",
+            "creator": "Shlomo",
+            "discountRelation": "and",
+            "first_discount": "xyz1",
+            "second_discount": "xyz2",
+            "decide": "true"
+        },
+        {
+            "id": "cxyz6",
+            "creator": "Shlomo",
+            "discountRelation": "or",
+            "first_discount": "xyz1",
+            "second_discount": "xyz2",
+            "decide": "true"
+        }
+    ]
+}

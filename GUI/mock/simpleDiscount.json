@@ -1,0 +1,86 @@
+{
+  "discounts": [
+    {
+      "id": "xyz1",
+      "creator": "Shlomo",
+      "discountType": "product",
+      "condition": "none",
+      "percent": "37%",
+      "category": "Dairy",
+      "product": "Milk",
+      "minVal": 100,
+      "maxVal": 200,
+      "initialDate:": "",
+      "endDate": ""
+
+    }
+  ,{
+      "id": "xyz2",
+      "creator": "Gil",
+      "discountType": "store",
+      "condition": "time",
+      "percent": "37%",
+      "category": "Cakes",
+      "product": "Cheese Cake",
+      "less_then": 0,
+      "greater_equal_then": 0,
+      "initialDate:": "",
+      "endDate": ""
+
+    },
+    {
+      "id": "xyz3",
+      "creator": "Shlomi",
+      "discountType": "product",
+      "condition": "none",
+      "percent": "37%",
+      "category": "Dairy",
+      "product": "Milk",
+      "less_then": 100,
+      "greater_equal_then": 200,
+      "initialDate:": "",
+      "endDate": ""
+
+    },
+    {
+      "id": "xyz4",
+      "creator": "Shlomi",
+      "discountType": "product",
+      "condition": "none",
+      "percent": "37%",
+      "category": "Dairy",
+      "product": "Milk",
+      "less_then": 100,
+      "greater_equal_then": 200,
+      "initialDate:": "",
+      "endDate": ""
+
+    },
+    {
+      "id": "xyz5",
+      "creator": "Shlomi",
+      "discountType": "product",
+      "condition": "false",
+      "percent": "37%",
+      "category": "Dairy",
+      "product": "Milk",
+      "less_then": 100,
+      "greater_equal_then": 200,
+      "initialDate:": "",
+      "endDate": ""
+    },
+    {
+      "id": "xyz6",
+      "creator": "Shlomi",
+      "discountType": "product",
+      "condition": "true",
+      "percent": "17%",
+      "category": "Dairy",
+      "product": "Milk",
+      "less_then": 100,
+      "greater_equal_then": 200,
+      "initialDate:": "",
+      "endDate": ""
+    }
+  ]
+}
