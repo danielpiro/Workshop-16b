@@ -5,7 +5,6 @@ const SearchBar = (props) => {
   const [isStore, setisStore] = useState(false);
   const [current, setCurrent] = useState("Type");
   const [value, setValue] = useState("");
-  const [path, setPath] = useState("http://localhost/9090/api/v1/");
   const onChange = (e) => {
     setValue(e.target.value);
   };
@@ -13,13 +12,20 @@ const SearchBar = (props) => {
   const onSearch = (e) => {
     e.preventDefault();
     if (isProduct || isStore) {
-      //need to change to api call
-      //props.setProducts([]);
-      api.get(
-        `/search/${
-          isProduct ? "products/" + value : isStore ? "stores/" + value : value
-        }`
-      );
+      api
+        .get(
+          `/search/${
+            isProduct
+              ? "products/" + value
+              : isStore
+              ? "stores/" + value
+              : value
+          }`
+        )
+        .then((res) => {
+          const { data } = res;
+          props.setProducts(data);
+        });
     }
   };
 
@@ -30,7 +36,7 @@ const SearchBar = (props) => {
 
   const onStores = () => {
     setCurrent("Stores");
-    setIsProduct(!isStore);
+    setisStore(!isStore);
   };
   return (
     <div className="container">

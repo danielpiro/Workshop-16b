@@ -19,15 +19,16 @@ const register = () => {
       return;
     }
     api
-      .post("/register", input)
+      .post("/register", JSON.stringify(input))
       .then((res) => {
         if (res.status !== 200) {
           setError(res.data);
           return;
         }
         setSuccess(
-          "Successfully registered to system , please login via login page"
+          "Successfully registered to system , will redirect to login page"
         );
+        window.location.href("/login");
       })
       .catch((err) => console.error(err));
   };

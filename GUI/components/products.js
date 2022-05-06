@@ -1,21 +1,10 @@
-import { useEffect, useState } from "react";
-
-const Products = (props) => {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    const fetchApi = async () => {
-      const response = await axios.get("https://fakestoreapi.com/products");
-      setIsLoading(!isLoading);
-      const { data } = response;
-      setProducts(data);
-    };
-    fetchApi();
-  }, []);
-
-  const filter = (pred) => products.filter((item) => pred(item));
-
-  return <div>{products}</div>;
+const products = () => {
+  return async () => {
+    //need to replace with real api
+    const response = await axios.get("https://fakestoreapi.com/products");
+    const { data } = response;
+    return data;
+  };
 };
 
-export default Products;
+export default products;

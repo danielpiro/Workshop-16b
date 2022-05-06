@@ -1,5 +1,5 @@
 import Link from "next/link";
-
+import logout from "./logout";
 const Menu = () => {
   return (
     <div className="flex">
