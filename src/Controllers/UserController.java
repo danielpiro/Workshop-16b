@@ -6,13 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ExternalConnections.ExternalConnectionHolder;
+import NotificationsManagement.Notification;
+import NotificationsManagement.NotificationReceiver;
 import ShoppingCart.InventoryProtector;
 import GlobalSystemServices.IdGenerator;
 import GlobalSystemServices.Log;
 import ShoppingCart.ShoppingCart;
 import User.*;
 
-public class UserController {
+public class UserController implements NotificationReceiver {
     private List<Subscriber> user_list;
     private List<Guest> guest_list;
     private List<Subscriber> system_admins;
@@ -318,4 +320,8 @@ public class UserController {
         }
     }
 
+    @Override
+    public void sendNotificationTo(List<String> userIds, Notification notification) {
+        //todo abed implement
+    }
 }

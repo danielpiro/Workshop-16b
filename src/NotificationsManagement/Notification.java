@@ -1,0 +1,30 @@
+package NotificationsManagement;
+
+public class Notification {
+    private final getStoreInfo sentFrom;
+    private final NotificationSubject subject;
+    private final String Title;
+    private final String Body;
+
+    public Notification(getStoreInfo sentFrom, NotificationSubject subject, String title, String body) {
+        this.sentFrom = sentFrom;
+        this.subject = subject;
+        Title = title;
+        Body = body;
+    }
+
+    public getStoreInfo getSentFrom() {
+        return sentFrom;
+    }
+
+    public String getTitle() {
+        return Title;
+    }
+
+    public String getBody() {
+        return Body;
+    }
+    public NotificationSubject getSubject() {
+        return subject;
+    }
+}

@@ -1,6 +1,7 @@
 package ShoppingCart;
 
 import CustomExceptions.CantPurchaseException;
+import CustomExceptions.SupplyManagementException;
 import ExternalConnections.ExternalConnectionHolder;
 import Generic.ThreeGenerics;
 
@@ -86,8 +87,13 @@ public class ShoppingBasket {
 
 
     }
-    public void purchaseSuccessful (boolean success){
-        iProtector.purchaseSuccessful(productAmount,success);
+    //todo dan add way to handle  SupplyManagementException
+    public void purchaseSuccessful (boolean success)  {
+        try {
+            iProtector.purchaseSuccessful(productAmount,success);
+        } catch (SupplyManagementException e) {
+            e.printStackTrace();
+        }
 
     }
 

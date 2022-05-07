@@ -1,8 +1,7 @@
 package Tests.Unit;
 
-import Controllers.BigController;
+import Controllers.MarketController;
 import org.junit.Test;
-import org.testng.annotations.BeforeClass;
 
 import org.junit.jupiter.api.BeforeEach;
 
@@ -12,11 +11,11 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BigControllerTest {
-    private static BigController bigController;
+    private static MarketController bigController;
 
     @BeforeEach
     void setUp() throws IOException {
-        bigController = new BigController();
+        bigController = new MarketController();
         bigController.sign_up("abed15", "taweel1");
         bigController.sign_up("amit12", "peled1");
         bigController.sign_up("guy123", "porat1");

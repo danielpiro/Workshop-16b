@@ -1,5 +1,6 @@
 package Controllers;
 
+import CustomExceptions.SupplyManagementException;
 import GlobalSystemServices.IdGenerator;
 import GlobalSystemServices.Log;
 import History.PurchaseHistory;
@@ -16,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-//todo add view history function
+
 public class StoreController {
     private ConcurrentHashMap<String,Store> stores; // storeId and the store
 
@@ -46,7 +47,7 @@ public class StoreController {
         return userId.startsWith("GuestID");
     }
 
-    public void addNewProduct(String storeId, String userId, String productName, float price, int supply, String category) throws NoPermissionException {
+    public void addNewProduct(String storeId, String userId, String productName, float price, int supply, String category) throws NoPermissionException, SupplyManagementException {
         if(checkIfGuest(userId)){
             throw new NoPermissionException("guest cant add new product");
         }
@@ -88,14 +89,14 @@ public class StoreController {
 
     
 
-    public void editProduct(String storeId, String userId, String productId, int newSupply, String newName, float newPrice, String category) throws NoPermissionException {
+    public void editProduct(String storeId, String userId, String productId, int newSupply, String newName, float newPrice, String category) throws NoPermissionException, SupplyManagementException {
         if(checkIfGuest(userId)){
             throw new NoPermissionException("guest cant edit products");
         }
         Store relevantStore = stores.get(storeId);
         relevantStore.editProduct(userId, productId,  newSupply, newName, newPrice, category);
     }
-    public void deleteProduct(String storeId, String userId, String productId) throws NoPermissionException {
+    public void deleteProduct(String storeId, String userId, String productId) throws NoPermissionException, SupplyManagementException {
         if(checkIfGuest(userId)){
             throw new NoPermissionException("guest cant delete products");
         }
@@ -135,7 +136,7 @@ public class StoreController {
 
 
 
-    public void addReviewToProduct(String storeId, String userId, String productId, String Title, String Body, float rating) throws NoPermissionException {
+    public void addReviewToProduct(String storeId, String userId, String productId, String Title, String Body, float rating) throws NoPermissionException, SupplyManagementException {
         if(checkIfGuest(userId)){
             throw new NoPermissionException("guest cant add reviews to product");
         }

@@ -113,7 +113,7 @@ public class InventoryManager  implements InventoryProtector {
     }
 
     @Override
-    public void purchaseSuccessful(HashMap<String, Integer> ProductAmount, boolean success)  {
+    public void purchaseSuccessful(HashMap<String, Integer> ProductAmount, boolean success) throws SupplyManagementException {
         if (success) {
             for (String Id : ProductAmount.keySet()) {
                 synchronized (products.get(Id)) {
@@ -133,7 +133,7 @@ public class InventoryManager  implements InventoryProtector {
             }
         }
     }
-
+    //todo talk with dan on discount
     @Override
     public float reserve(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, String userId) throws CantPurchaseException {
         try {

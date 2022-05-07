@@ -40,7 +40,7 @@ public class Forum {
                 return f;
             }
         }
-        throw new IllegalArgumentException("no forume thread with this userId - "+UserId);
+        throw new IllegalArgumentException("no forum thread with this userId - "+UserId);
     }
 
 

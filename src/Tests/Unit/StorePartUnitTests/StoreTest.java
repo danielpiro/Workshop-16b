@@ -1,5 +1,6 @@
 package Tests.Unit.StorePartUnitTests;
 
+import CustomExceptions.SupplyManagementException;
 import Store.Store;
 import StorePermission.Permission;
 import StorePermission.StoreManager;
@@ -42,7 +43,7 @@ class StoreTest {
             productId2 = store1.addNewProduct(userId1,"p2", 15.5F, 1, "Other");
             productId3 = store1.addNewProduct(userId1,"p3", 100F, 50, "Baby");
             assertEquals(store1.getAllProducts().size(), 3);
-        } catch (NoPermissionException e) {
+        } catch (NoPermissionException | SupplyManagementException e) {
             e.printStackTrace();
         }
 
@@ -130,7 +131,7 @@ class StoreTest {
             }
 
 
-        } catch (NoPermissionException e) {
+        } catch (NoPermissionException | SupplyManagementException e) {
             e.printStackTrace();
             fail();
         }

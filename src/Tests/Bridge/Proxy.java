@@ -1,6 +1,5 @@
 package Tests.Bridge;
 
-import Controllers.BigController;
 import ExternalConnections.Delivery.Delivery;
 import ExternalConnections.Delivery.DeliveryNames;
 import ExternalConnections.Payment.Payment;

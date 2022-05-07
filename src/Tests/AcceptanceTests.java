@@ -546,7 +546,7 @@ public class AcceptanceTests {
         assertFalse(proxy.register("user1", "11111"));
     }
 
-    //todo Abed - cannot accept null in username or password **done**
+
     @Test
     void register_fail_case_test2() {
 //        - Perform Register (entering username and password) & validate registration details
@@ -556,7 +556,7 @@ public class AcceptanceTests {
         assertFalse(proxy.register(null, "11111"));
     }
 
-    //todo Abed - cannot accept null in username or password **done**
+
     @Test
     void register_fail_case_test3() {
 //        - Perform Register (entering username and password) & validate registration details
@@ -605,6 +605,7 @@ public class AcceptanceTests {
     /**
      *  User requirement - II.2.1
      **/
+    //todo
     @Disabled
     @Test
     void receive_system_info_success_case_test() {
@@ -804,6 +805,7 @@ public class AcceptanceTests {
     /**
      *  User requirement - II.2.5
      **/
+    //todo dan make this tests work
     @Disabled
     @Test
     void purchase_shopping_cart_success_case_test() {
@@ -1809,6 +1811,7 @@ public class AcceptanceTests {
     /**
      *  User requirement - II.6.4
      **/
+    //todo guy when buying shopping cart works make this tests work
     @Disabled
     @Test
     void show_purchase_history_to_system_founder_success_case_test1() {

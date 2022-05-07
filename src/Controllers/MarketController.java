@@ -1,6 +1,7 @@
 package Controllers;
 
 
+import CustomExceptions.SupplyManagementException;
 import ExternalConnections.Delivery.DeliveryNames;
 import ExternalConnections.Delivery.FedEx;
 import ExternalConnections.Delivery.UPS;
@@ -10,6 +11,7 @@ import ExternalConnections.Payment.PaymentNames;
 import ExternalConnections.Payment.Visa;
 import GlobalSystemServices.Log;
 import History.PurchaseHistory;
+import NotificationsManagement.NotificationManager;
 import ShoppingCart.InventoryProtector;
 import ExternalConnections.ExternalConnectionHolder;
 import ShoppingCart.ShoppingCart;
@@ -26,17 +28,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class BigController {
+public class MarketController {
     private StoreController sc;
     private UserController us;
     Log my_log = Log.getLogger();
 
-
-
-    //todo Guy - add function to get Inverntory Protectore
-    public BigController() throws IOException {
+    public MarketController() throws IOException {
         this.us = new UserController();
         this.sc = new StoreController();
+        NotificationManager.buildNotificationManager(us);
         initiateExternalConnections();
         my_log.logger.info("System Started");
     }
@@ -130,7 +130,7 @@ public class BigController {
 
     /// Store controller
 
-    public void addNewProductToStore(String storeId, String userId, String productName, float price, int supply, String category) throws NoPermissionException {
+    public void addNewProductToStore(String storeId, String userId, String productName, float price, int supply, String category) throws NoPermissionException, SupplyManagementException {
         if(getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId))
         getStoreController().addNewProduct(storeId,userId,productName,price,supply,category);
         else
@@ -145,7 +145,7 @@ public class BigController {
             throw new IllegalArgumentException("couldn't add new product because the given userId doesn't exist or is not logged in");
     }
 
-    public String openNewStore( String userId, String storeName){
+    public String openNewStore( String userId, String storeName) throws NoPermissionException {
         if(getUserController().checkIfUserExists(userId) && getUserController().checkIfUserIsLoggedIn(userId)) {
             List<String> managers = new ArrayList<>();
             managers.add(userId);
@@ -174,14 +174,14 @@ public class BigController {
         }
         return getStoreController().getInfoOnManagersOwners(storeId,userId);
     }
-    public void editProduct(String storeId, String userId, String productId, int newSupply, String newName, float newPrice, String category) throws NoPermissionException {
+    public void editProduct(String storeId, String userId, String productId, int newSupply, String newName, float newPrice, String category) throws NoPermissionException, SupplyManagementException {
         if(getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId))
             getStoreController().editProduct(storeId,userId,productId,newSupply,newName,newPrice,category);
         else
             throw new IllegalArgumentException("couldn't edit product  because the given userId doesn't exist or is not logged in");
     }
 
-    public void deleteProductFromStore(String storeId, String userId, String productId) throws NoPermissionException {
+    public void deleteProductFromStore(String storeId, String userId, String productId) throws NoPermissionException, SupplyManagementException {
         if(getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId))
             getStoreController().deleteProduct(storeId,userId,productId);
         else
@@ -214,13 +214,13 @@ public class BigController {
 
 
 
-    public void addReviewToProduct(String storeId, String userId, String productId, String Title, String Body, float rating){
+    public void addReviewToProduct(String storeId, String userId, String productId, String Title, String Body, float rating) throws NoPermissionException, SupplyManagementException {
         if(!getUserController().checkIfUserExists(userId)&&getUserController().checkIfUserIsLoggedIn(userId))
             throw new IllegalArgumentException("User doesn't exist or is not logged in or is not logged in");
         getStoreController().addReviewToProduct(storeId,userId,productId,Title,Body,rating);
     }
 
-    public String addNewThreadToForum(String storeId,String title, String userId){
+    public String addNewThreadToForum(String storeId,String title, String userId) throws NoPermissionException {
         if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
             my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
             return null;
@@ -298,7 +298,7 @@ public class BigController {
         return getStoreController().SearchProductsAccordingRating(productRating);
     }
 
-    public void deleteStore(String userId, String storeId) {
+    public void deleteStore(String userId, String storeId) throws NoPermissionException {
         getStoreController().deleteStore(userId,storeId);
     }
 

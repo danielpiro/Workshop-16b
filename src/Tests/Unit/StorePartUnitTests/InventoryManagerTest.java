@@ -1,5 +1,6 @@
 package Tests.Unit.StorePartUnitTests;
 
+import CustomExceptions.SupplyManagementException;
 import ExternalConnections.Delivery.DeliveryNames;
 import ExternalConnections.ExternalConnectionHolder;
 import ExternalConnections.Payment.PaymentNames;
@@ -26,12 +27,17 @@ class InventoryManagerTest {
 
     @Test
     void editProductSupplyGood() {
-        invMan.addNewProduct("t1", 5.5F, 4, "Appliances");
-        List<Product> products=invMan.getAllProducts(p->p.getSupply()==4);
-        String pId = products.get(0).getId();
-        invMan.editProduct(pId, 7, "t2", 3F, "Other");
-        products=invMan.getAllProducts(p->p.getPrice()==3F);
-        assertTrue(products.get(0).getCategory().equals(ProductsCategories.Other) && products.get(0).getName().equals("t2") && products.get(0).getSupply()==7);
+        try {
+            invMan.addNewProduct("t1", 5.5F, 4, "Appliances");
+            List<Product> products=invMan.getAllProducts(p->p.getSupply()==4);
+            String pId = products.get(0).getId();
+            invMan.editProduct(pId, 7, "t2", 3F, "Other");
+            products=invMan.getAllProducts(p->p.getPrice()==3F);
+            assertTrue(products.get(0).getCategory().equals(ProductsCategories.Other) && products.get(0).getName().equals("t2") && products.get(0).getSupply()==7);
+        } catch (SupplyManagementException e) {
+            e.printStackTrace();
+            fail();
+        }
 
     }
 
@@ -54,18 +60,28 @@ class InventoryManagerTest {
 
     @Test
     void addNewProductGood() {
-        invMan.addNewProduct("t1", 5.5F, 4, "Appliances");
-        invMan.addNewProduct("t2", 15.5F, 1, "Other");
-        invMan.addNewProduct("t3", 100F, 50, "Baby");
-        List<Product> pL1 = invMan.getAllProducts(p -> p.getName().equals("t1"));
-        List<Product> pL2 = invMan.getAllProducts(p -> p.getSupply() == 1);
-        List<Product> pL3 = invMan.getAllProducts(p -> p.getPrice() == 100F);
-        assertTrue(pL1.get(0).getName().equals("t1") && pL2.get(0).getName().equals("t2") && pL3.get(0).getName().equals("t3"));
+        try {
+            invMan.addNewProduct("t1", 5.5F, 4, "Appliances");
+            invMan.addNewProduct("t2", 15.5F, 1, "Other");
+            invMan.addNewProduct("t3", 100F, 50, "Baby");
+            List<Product> pL1 = invMan.getAllProducts(p -> p.getName().equals("t1"));
+            List<Product> pL2 = invMan.getAllProducts(p -> p.getSupply() == 1);
+            List<Product> pL3 = invMan.getAllProducts(p -> p.getPrice() == 100F);
+            assertTrue(pL1.get(0).getName().equals("t1") && pL2.get(0).getName().equals("t2") && pL3.get(0).getName().equals("t3"));
+        } catch (SupplyManagementException e) {
+            e.printStackTrace();
+            fail();
+        }
 
     }
     @Test
     void addNewProductBad() {
-        invMan.addNewProduct("t1", 5.5F, 4, "Appliances");
+        try {
+            invMan.addNewProduct("t1", 5.5F, 4, "Appliances");
+        } catch (SupplyManagementException e) {
+            e.printStackTrace();
+            fail();
+        }
         try {
             invMan.addNewProduct("t1", 5.2F, 1, "Other");
             fail();
@@ -77,9 +93,14 @@ class InventoryManagerTest {
     }
     @Test
     void deleteProduct() {
-        String Id = invMan.addNewProduct("t1", 5.5F, 4, "Appliances");
-        invMan.deleteProduct(Id);
-        assertEquals(invMan.getAllProducts(p -> true).size(), 0);
+        String Id = null;
+        try {
+            Id = invMan.addNewProduct("t1", 5.5F, 4, "Appliances");
+            invMan.deleteProduct(Id);
+            assertEquals(invMan.getAllProducts(p -> true).size(), 0);
+        } catch (SupplyManagementException e) {
+            e.printStackTrace();
+        }
 
     }
 

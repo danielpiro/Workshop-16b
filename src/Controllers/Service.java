@@ -1,21 +1,13 @@
 package Controllers;
 
+import CustomExceptions.SupplyManagementException;
 import ExternalConnections.Delivery.DeliveryNames;
-import ExternalConnections.ExternalConnectionHolder;
 import ExternalConnections.Payment.PaymentNames;
-import History.PurchaseHistory;
-import ShoppingCart.InventoryProtector;
-import ShoppingCart.ShoppingCart;
-import Store.Product;
 import StorePermission.Permission;
-import StorePermission.StoreRoles;
-import User.Guest;
 import User.Subscriber;
 
 import javax.naming.NoPermissionException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -23,11 +15,11 @@ public class Service {
 
     private ExecutorService executorService;
 
-    private BigController bigController;
+    private MarketController bigController;
 
     public Service() throws IOException {
         this.executorService = Executors.newFixedThreadPool(10);
-        bigController = new BigController();
+        bigController = new MarketController();
     }
 
     public Future<Boolean> sign_up(String user_name, String password) {
@@ -257,7 +249,16 @@ public class Service {
 
 
     public Future addReviewToProduct(String storeId, String userId, String productId, String Title, String Body, float rating){
-        Future future = executorService.submit(() -> bigController.addReviewToProduct(storeId,userId,productId,Title,Body,rating));
+
+        Future future = executorService.submit(() -> {
+            try {
+                bigController.addReviewToProduct(storeId, userId, productId, Title, Body, rating);
+                return true;
+            } catch (NoPermissionException | SupplyManagementException e) {
+                e.printStackTrace();
+                return false;
+            }
+        });
         return future;
 
     }
@@ -315,7 +316,13 @@ public class Service {
     }
 
     public Future deleteStore(String userId, String storeId) {
-        Future future = executorService.submit(() -> bigController.deleteStore(userId,storeId));
+        Future future = executorService.submit(() ->{
+            try {
+                bigController.deleteStore(userId,storeId);
+            } catch (NoPermissionException e) {
+                e.printStackTrace();
+            }
+        });
         return future;
 
     }

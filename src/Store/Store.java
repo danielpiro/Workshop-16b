@@ -1,9 +1,14 @@
 package Store;
 
+import CustomExceptions.NotifyException;
 import CustomExceptions.SupplyManagementException;
 import GlobalSystemServices.IdGenerator;
 import History.History;
 import History.PurchaseHistory;
+import NotificationsManagement.Notification;
+import NotificationsManagement.NotificationManager;
+import NotificationsManagement.NotificationSubject;
+import NotificationsManagement.getStoreInfo;
 import ShoppingCart.InventoryProtector;
 import Store.Forum.Forum;
 import Store.Forum.ForumThread;
@@ -18,16 +23,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Store {
+public class Store implements getStoreInfo {
+
+
     private String storeName;
     private final String storeId;
     private List<StoreRoles> StoreRoles;
     private InventoryManager inventoryManager;
     private Forum forum;
 
-    public StoreState getStoreState() {
-        return storeState;
-    }
+
 
     private StoreState storeState;
     private float storeRating; //rating between 1 - 5
@@ -158,27 +163,37 @@ public class Store {
 
 
     public List<Product> getAllProducts() {
-        return inventoryManager.getAllProducts((x)->true);
+        if(storeState == StoreState.ACTIVE)
+            return inventoryManager.getAllProducts((x)->true);
+        return new ArrayList<Product>();
     }
     public List<Product> getProductsNameContains(String PartialName) {
-        return inventoryManager.getAllProducts(
-                (p)->p.getName().toUpperCase().contains(PartialName.toUpperCase())
-        );
+        if(storeState == StoreState.ACTIVE)
+            return inventoryManager.getAllProducts(
+                    (p)->p.getName().toUpperCase().contains(PartialName.toUpperCase())
+            );
+        return new ArrayList<Product>();
     }
     public List<Product> getProductsPriceContains(float lowerRange, float upperRange) {
-        return inventoryManager.getAllProducts(
-                (p)->(p.getPrice() >= lowerRange && p.getPrice() <= upperRange)
-        );
+        if(storeState == StoreState.ACTIVE)
+            return inventoryManager.getAllProducts(
+                    (p)->(p.getPrice() >= lowerRange && p.getPrice() <= upperRange)
+            );
+        return new ArrayList<Product>();
     }
     public List<Product> getAllProductsCategory(List<String> category) {
-        return inventoryManager.getAllProducts(
-                (p)->category.stream().anyMatch(cat ->p.getCategory().toString().equals(cat))
-        );
+        if(storeState == StoreState.ACTIVE)
+            return inventoryManager.getAllProducts(
+                    (p)->category.stream().anyMatch(cat ->p.getCategory().toString().equals(cat))
+            );
+        return new ArrayList<Product>();
     }
     public List<Product> getAllProductsRating(float lower, float upper) {
-        return inventoryManager.getAllProducts(
-                (p)->p.getRating() >= lower && p.getRating() <=upper
-        );
+        if(storeState == StoreState.ACTIVE)
+            return inventoryManager.getAllProducts(
+                    (p)->p.getRating() >= lower && p.getRating() <=upper
+            );
+        return new ArrayList<Product>();
     }
 
 
@@ -211,20 +226,22 @@ public class Store {
     public String addNewThreadToForum(String title, String userId){
         return forum.addNewThread(title, userId);
     }
-    public void RolePostMessageToForum(String threadId, String userId, String message) throws NoPermissionException {
+    public void RolePostMessageToForum(String threadId, String userId, String message) throws NoPermissionException, NotifyException {
         if(!checkPermission(userId, Permission.REPLY_TO_FORUM)){
             throw new NoPermissionException("the user don't have this permission");
         }
-        String threadUser =  forum.getUserIdOfTread(threadId);
         forum.postMessage(threadId, userId, message);
+        NotificationManager.getNotificationManager().sendNotificationTo(userId, new Notification(this, NotificationSubject.StoreForum,"someone in store replied to your message","message: "+message));
     }
 
-    public void  userPostMessageToForum(String threadId, String userId, String message) throws NoPermissionException {
+    public void  userPostMessageToForum(String threadId, String userId, String message) throws NoPermissionException, NotifyException {
         String threadUser =  forum.getUserIdOfTread(threadId);
         if(!IdGenerator.getInstance().isIdEqual(threadUser, userId)){
             throw new NoPermissionException("only user that created the forum thread can post messages");
         }
         forum.postMessage(threadId, userId, message);
+
+        NotificationManager.getNotificationManager().sendNotificationTo(getRolesIds(), new Notification(this, NotificationSubject.StoreForum,"user post message to forum","message: "+message));
     }
 
 
@@ -257,6 +274,13 @@ public class Store {
         return  Collections.unmodifiableList(StoreRoles);
     }
 
+    private List<String> getRolesIds(){
+        List<String> rolesIds = new ArrayList<>();
+        for (StorePermission.StoreRoles role : StoreRoles){
+            rolesIds.add(role.getUserId());
+        }
+        return rolesIds;
+    }
 
     public Product getProduct(String productId) throws Exception {
         return inventoryManager.getProduct(productId);
@@ -270,5 +294,11 @@ public class Store {
 
     public ForumThread getThread(String userId) {
         return forum.getThreadOfUserId(userId);
+    }
+    public String getStoreName() {
+        return storeName;
+    }
+    public StoreState getStoreState() {
+        return storeState;
     }
 }

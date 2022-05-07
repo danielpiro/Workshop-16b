@@ -1,8 +1,9 @@
 
 package Tests.Bridge;
 
-import Controllers.BigController;
+import Controllers.MarketController;
 import Controllers.Service;
+import CustomExceptions.SupplyManagementException;
 import ExternalConnections.Delivery.Delivery;
 import ExternalConnections.Delivery.DeliveryNames;
 import ExternalConnections.ExternalConnections;
@@ -25,18 +26,18 @@ import java.util.concurrent.Future;
 
 public class Real implements BridgeInterface{
 
-    private BigController bigController;
+    private MarketController bigController;
     private Service service;
 
     public Real() throws IOException {
         service = new Service();
     }
 
-   public Real(BigController msApp) {
+   public Real(MarketController msApp) {
         this.bigController = msApp;
    }
 
-   public BigController getBigController() {
+   public MarketController getBigController() {
         return bigController;
   }
 
@@ -67,7 +68,7 @@ public class Real implements BridgeInterface{
     /** System requirement - I.1 */
     public String openingMarket(){
         try {
-            this.bigController = new BigController();
+            this.bigController = new MarketController();
             return "system opened successfully";
         }
         catch (Exception e){
@@ -295,7 +296,7 @@ public class Real implements BridgeInterface{
             bigController.addNewProductToStore(storeId,userId,productName,price,supply,category);
             return true;
         }
-        catch (NoPermissionException e) {
+        catch (NoPermissionException | SupplyManagementException e) {
             e.printStackTrace();
             return false;
         }
@@ -307,7 +308,7 @@ public class Real implements BridgeInterface{
             bigController.deleteProductFromStore(storeId,userId, productId);
             return true;
         }
-        catch (NoPermissionException e) {
+        catch (NoPermissionException | SupplyManagementException e) {
             e.printStackTrace();
             return false;
         }
@@ -320,7 +321,7 @@ public class Real implements BridgeInterface{
             bigController.editProduct(storeId, userId,productId, newSupply,  newName, newPrice, category);
             return true;
         }
-        catch (NoPermissionException e) {
+        catch (NoPermissionException | SupplyManagementException e) {
             e.printStackTrace();
             return false;
         }
