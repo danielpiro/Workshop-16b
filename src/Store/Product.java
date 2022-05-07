@@ -1,6 +1,7 @@
 package Store;
 
 import CustomExceptions.CantPurchaseException;
+import CustomExceptions.SupplyManagementException;
 import Store.BuyinfOptions.BuyOption;
 import Store.BuyinfOptions.ImmediateBuy;
 
@@ -21,7 +22,7 @@ public class Product {
 
     private ProductsCategories category;
 
-    public Product(String id, String name, float price, int supply ,String category) {
+    public Product(String id, String name, float price, int supply ,String category) throws SupplyManagementException {
         this.id = id;
         this.name = name;
         editPrice(price);
@@ -56,17 +57,17 @@ public class Product {
         return supply;
     }
 
-    public void editSupply(int newSupply) {
+    public void editSupply(int newSupply) throws SupplyManagementException {
         if(newSupply < 0)
-            throw new RuntimeException("supply cant be negative");
+            throw new SupplyManagementException("supply cant be negative");
         else
             this.supply = newSupply;
     }
-    public void editPrice(float newPrice) {
+    public void editPrice(float newPrice) throws SupplyManagementException {
         if(newPrice >=0)
             this.price = newPrice;
         else
-            throw new RuntimeException("price cant be negative");
+            throw new SupplyManagementException("price cant be negative");
     }
     public void editName(String newName) {
         this.name = newName;

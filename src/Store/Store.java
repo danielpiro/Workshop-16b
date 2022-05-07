@@ -1,5 +1,6 @@
 package Store;
 
+import CustomExceptions.SupplyManagementException;
 import GlobalSystemServices.IdGenerator;
 import History.History;
 import History.PurchaseHistory;
@@ -9,11 +10,10 @@ import Store.Forum.ForumThread;
 import StorePermission.OriginalStoreOwnerRole;
 import StorePermission.Permission;
 import StorePermission.StoreRoles;
-//import org.junit.platform.engine.support.hierarchical.ThrowableCollector;
+
 
 import javax.naming.NoPermissionException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -141,14 +141,14 @@ public class Store {
             throw new NoPermissionException("the user doesn't have a role in store ");
         }
     }
-    public void editProduct(String userId, String productId, int newSupply, String newName, float newPrice , String category) throws NoPermissionException {
+    public void editProduct(String userId, String productId, int newSupply, String newName, float newPrice , String category) throws NoPermissionException, SupplyManagementException {
         if(!checkPermission(userId, Permission.EDIT_EXISTING_PRODUCT)){
             throw new NoPermissionException("the user don't have this permission");
         }
         inventoryManager.editProduct(productId, newSupply, newName, newPrice, category);
     }
 
-    public String addNewProduct(String userId, String productName, float price, int howMuch, String category) throws NoPermissionException {
+    public String addNewProduct(String userId, String productName, float price, int howMuch, String category) throws NoPermissionException, SupplyManagementException {
         if(!checkPermission(userId, Permission.ADD_NEW_PRODUCT)){
             throw new NoPermissionException("the user don't have this permission");
         }
@@ -191,7 +191,7 @@ public class Store {
         return storeId;
     }
 
-    public void addProductReview(String userId, String productId, String title, String body, float rating) {
+    public void addProductReview(String userId, String productId, String title, String body, float rating) throws SupplyManagementException {
         //TODO: check in history user Bought this product
         inventoryManager.addProductReview(productId, userId, title, body, rating);
 
@@ -228,7 +228,7 @@ public class Store {
     }
 
 
-    public void deleteProduct(String userId, String productId) throws NoPermissionException {
+    public void deleteProduct(String userId, String productId) throws NoPermissionException, SupplyManagementException {
         if(!checkPermission(userId, Permission.ADD_NEW_PRODUCT)){
             throw new NoPermissionException("the user don't have this permission");
         }

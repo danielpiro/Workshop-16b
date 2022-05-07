@@ -28,10 +28,10 @@ public class StoreController {
         stores = new ConcurrentHashMap<String, Store>();
     }
 
-    public String openNewStore(String name,List<String> managers){
+    public String openNewStore(String name,List<String> managers) throws NoPermissionException {
 
         if (managers.stream().anyMatch(this::checkIfGuest)) {
-           throw new RuntimeException("guest cant do this action");
+            throw new NoPermissionException("guest cant cant open new store");
         }
 
         String newId = IdGenerator.getInstance().getStoreId();
@@ -48,7 +48,7 @@ public class StoreController {
 
     public void addNewProduct(String storeId, String userId, String productName, float price, int supply, String category) throws NoPermissionException {
         if(checkIfGuest(userId)){
-            throw new RuntimeException("guest cant do this action");
+            throw new NoPermissionException("guest cant add new product");
         }
         Store relevantStore = stores.get(storeId);
         relevantStore.addNewProduct(userId, productName, price, supply, category);
@@ -57,7 +57,7 @@ public class StoreController {
 
     public void unfreezeStore(String storeId, String userId) throws NoPermissionException {
         if(checkIfGuest(userId)){
-            throw new RuntimeException("guest cant do this action");
+            throw new NoPermissionException("guest cant unfreeze store");
         }
         Store relevantStore = stores.get(storeId);
         relevantStore.closeStore(userId);
@@ -65,7 +65,7 @@ public class StoreController {
 
     public void freezeStore(String storeId, String userId) throws NoPermissionException {
         if(checkIfGuest(userId)){
-            throw new RuntimeException("guest cant do this action");
+            throw new NoPermissionException("guest cant freeze store");
         }
         Store relevantStore = stores.get(storeId);
         relevantStore.openStore(userId);
@@ -73,15 +73,15 @@ public class StoreController {
 
     public List<StoreRoles> getInfoOnManagersOwners(String storeId, String userId) throws NoPermissionException {
         if(checkIfGuest(userId)){
-            throw new RuntimeException("guest cant do this action");
+            throw new NoPermissionException("guest cant get info on managers/owners");
         }
         Store relevantStore = stores.get(storeId);
         return relevantStore.getInfoOnManagersOwners(userId);
     }
 
-    public void deleteStore(String userId, String storeId){
+    public void deleteStore(String userId, String storeId) throws NoPermissionException {
         if(!IdGenerator.getInstance().checkIfAdmin(userId)){
-            throw new RuntimeException("only admin can do this action");
+            throw new NoPermissionException("only admin can delete store");
         }
         stores.remove(storeId);
     }
@@ -90,14 +90,14 @@ public class StoreController {
 
     public void editProduct(String storeId, String userId, String productId, int newSupply, String newName, float newPrice, String category) throws NoPermissionException {
         if(checkIfGuest(userId)){
-            throw new RuntimeException("guest cant do this action");
+            throw new NoPermissionException("guest cant edit products");
         }
         Store relevantStore = stores.get(storeId);
         relevantStore.editProduct(userId, productId,  newSupply, newName, newPrice, category);
     }
     public void deleteProduct(String storeId, String userId, String productId) throws NoPermissionException {
         if(checkIfGuest(userId)){
-            throw new RuntimeException("guest cant do this action");
+            throw new NoPermissionException("guest cant delete products");
         }
         Store relevantStore = stores.get(storeId);
         relevantStore.deleteProduct(userId, productId);
@@ -135,24 +135,24 @@ public class StoreController {
 
 
 
-    public void addReviewToProduct(String storeId, String userId, String productId, String Title, String Body, float rating){
+    public void addReviewToProduct(String storeId, String userId, String productId, String Title, String Body, float rating) throws NoPermissionException {
         if(checkIfGuest(userId)){
-            throw new RuntimeException("guest cant do this action");
+            throw new NoPermissionException("guest cant add reviews to product");
         }
         Store relevantStore = stores.get(storeId);
         relevantStore.addProductReview( userId, productId, Title, Body, rating);
     }
 
-    public String addNewThreadToForum(String storeId,String title, String userId){
+    public String addNewThreadToForum(String storeId,String title, String userId) throws NoPermissionException {
         if(checkIfGuest(userId)){
-            throw new RuntimeException("guest cant do this action");
+            throw new NoPermissionException("guest cant open new threads in forum");
         }
         return stores.get(storeId).addNewThreadToForum(title, userId);
     }
 
     public void RolePostMessageToForum(String storeId, String threadId, String userId, String message) throws NoPermissionException {
         if(checkIfGuest(userId)){
-            throw new RuntimeException("guest cant do this action");
+            throw new NoPermissionException("guest cant post message to forum");
         }
         stores.get(storeId).RolePostMessageToForum(threadId, userId, message);
     }
