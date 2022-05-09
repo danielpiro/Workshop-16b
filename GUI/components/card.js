@@ -19,6 +19,10 @@ const Card = ({
     console.log("in details", e.target.value);
     getSingleProduct(e.target.value);
   };
+
+  const addProduct = (e) => {
+    e.preventDefault();
+  };
   return (
     <>
       <div className="card d-flex flex-fill h-100">
@@ -53,7 +57,7 @@ const Card = ({
           <button
             className="add-cart-buttom btn btn-outline-primary w-25 mb-3"
             value={value}
-            onClick={onClick}
+            onClick={addProduct}
           >
             Add to cart
           </button>

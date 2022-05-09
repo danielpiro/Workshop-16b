@@ -45,6 +45,7 @@ const Menu = () => {
               </li>
               <li className="logout-button nav-item">
                 <a
+                  href="#"
                   className="nav-link ms-4"
                   onClick={(e) => logout(e, window.userid)}
                 >

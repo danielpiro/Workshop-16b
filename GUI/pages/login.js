@@ -1,6 +1,7 @@
 import { useState } from "react";
 import api from "../components/api";
 import { useRouter } from "next/router";
+import bcrypt from "bcryptjs/dist/bcrypt";
 
 const Login = () => {
   const [input, setInput] = useState({
@@ -9,21 +10,35 @@ const Login = () => {
   });
   const [error, setError] = useState("");
   const router = useRouter();
-  const onClickLogin = (e) => {
+  const onClickLogin = async (e) => {
     e.preventDefault();
     setError("");
-    api
-      .post("/login", JSON.stringify(input))
+    const passwordRegex = /(?=.*[0-9])/;
+    const usernameRegex = /(?=.*[A-Za-z])/;
+    // if (
+    //   input.password.length < 6 ||
+    //   !input.password ||
+    //   !input.username ||
+    //   !passwordRegex.test(input.password) ||
+    //   !usernameRegex.test(input.username)
+    // ) {
+    //   setError("One of the login information provided is invalid");
+    //   return;
+    // }
+    const encrypted = async () => await bcrypt.hashSync(input.password, 8);
+    await api
+      .post(
+        "/login",
+        JSON.stringify({
+          username: input.username,
+          password: encrypted,
+        })
+      )
       .then((res) => {
-        if (res.status !== 200) {
-          setError(res.data.message);
-          return;
-        }
         const { data } = res;
-        window.userid = data.id;
-        console.log("data", response);
+        console.log(data);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.log(err));
   };
 
   const onClickGuest = (e) => {

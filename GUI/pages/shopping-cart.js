@@ -20,12 +20,17 @@ const shoppingCart = (props) => {
     setIsLoading(!isLoading);
   }, []);
 
+  const addToCart = (product) => {
+    //send api req to back
+    setCart({ ...cart, product });
+  };
+
   return (
     <>
       <Menu />
       <div className="container me-5 my-5">
         <h3>Shopping Cart</h3>
-        {isLoading ? <div className="spinner-border m-5 ms-5" /> : null}
+        {isLoading ? <div className="spinner-border m-5 ms-5" /> : cart}
       </div>
     </>
   );
