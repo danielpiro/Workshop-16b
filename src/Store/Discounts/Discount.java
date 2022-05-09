@@ -1,9 +1,6 @@
-package Store.DiscountAndPolicies;
-
-import Store.Store;
+package Store.Discounts;
 
 import java.util.HashMap;
-import java.util.List;
 
 public interface Discount {
     HashMap<String, Integer> checkIfDiscountApply(HashMap<String, Integer> ProductAmount);// return the products that include in discount

@@ -5,9 +5,6 @@ public class Notification {
     private final NotificationSubject subject;
     private final String Title;
     private final String Body;
-
-
-
     private boolean read;
 
     public Notification(getStoreInfo sentFrom, NotificationSubject subject, String title, String body) {

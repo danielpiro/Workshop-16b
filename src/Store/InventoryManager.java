@@ -5,7 +5,8 @@ import CustomExceptions.SupplyManagementException;
 import ExternalConnections.ExternalConnectionHolder;
 import GlobalSystemServices.IdGenerator;
 import ShoppingCart.InventoryProtector;
-import Store.DiscountAndPolicies.Discount;
+import ShoppingCart.UserInfo;
+import Store.Discounts.Discount;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -135,11 +136,11 @@ public class InventoryManager  implements InventoryProtector {
     }
     //todo talk with dan on discount
     @Override
-    public float reserve(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, String userId) throws CantPurchaseException {
+    public float reserve(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) throws CantPurchaseException {
         try {
             for (String Id : ProductAmount.keySet()) {
                 synchronized (products.get(Id)) {
-                    if (products.get(Id).getBuyOption().checkIfCanBuy(userId)) {
+                    if (products.get(Id).getBuyOption().checkIfCanBuy(userInfo.getUserId())) {
                         int newSupply = products.get(Id).getSupply() - ProductAmount.get(Id);
                         products.get(Id).setReservedSupply(ProductAmount.get(Id));
                         products.get(Id).editSupply(newSupply);
