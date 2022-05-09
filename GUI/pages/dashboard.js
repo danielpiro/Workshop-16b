@@ -8,6 +8,7 @@ import Footer from "../components/footer";
 const Dashboard = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [singleProduct, setSingleProduct] = useState({});
   useEffect(() => {
     const fetchApi = async () => {
       const response = await axios.get("https://fakestoreapi.com/products");
@@ -17,7 +18,14 @@ const Dashboard = () => {
     };
     fetchApi();
   }, []);
-
+  const getSingleProduct = (id) => {
+    products.map((product) => {
+      if (product.id === id) {
+        return setSingleProduct(product);
+      }
+      return null;
+    });
+  };
   return (
     <>
       <Menu />
@@ -38,7 +46,9 @@ const Dashboard = () => {
                     value={product.id}
                     image={product.image}
                     title={product.title}
-                    description={product.description}
+                    price={product.price}
+                    getSingleProduct={getSingleProduct}
+                    singleProduct={singleProduct}
                   />
                 </li>
               );

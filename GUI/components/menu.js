@@ -3,47 +3,37 @@ import logout from "./logout";
 const Menu = () => {
   return (
     <div className="flex">
-      <div className="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div className="navbar-brand navbar navbar-expand-lg navbar-dark bg-primary">
         <Link href="/dashboard">
-          <a>
-            <h3>
-              <strong>Marketplace</strong>
-            </h3>
+          <a className="ms-5">
+            <h2>Marketplace</h2>
           </a>
         </Link>
         <div className="container">
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navmenu"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
           <div className="collapse navbar-collapse justify-content-center align-content-center">
             <ul className="navbar-nav" id="navmenu">
               <li className="nav-item">
                 <a href="/shopping-cart" className="nav-link">
-                  Shopping Cart
+                  Shopping cart
                 </a>
               </li>
               <li className="nav-item">
-                <a href="/store-management" className="nav-link ms-4">
-                  Store Management
+                <a href="#" className="nav-link ms-4">
+                  Store management
                 </a>
               </li>
               <li className="nav-item">
-                <a href="/admin-actions" className="nav-link ms-4">
-                  Admin Action
+                <a href="#" className="nav-link ms-4">
+                  Admin action
                 </a>
               </li>
               <li className="nav-item">
-                <a href="/user-bids" className="nav-link ms-4">
-                  My Bids
+                <a href="#" className="nav-link ms-4">
+                  My bids
                 </a>
               </li>
               <li className="nav-item">
-                <a href="/user-history" className="nav-link ms-4">
+                <a href="#" className="nav-link ms-4">
                   History
                 </a>
               </li>

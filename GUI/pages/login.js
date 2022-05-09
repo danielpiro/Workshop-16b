@@ -1,33 +1,35 @@
 import { useState } from "react";
-import Link from "next/link";
 import api from "../components/api";
-const login = () => {
+import { useRouter } from "next/router";
+
+const Login = () => {
   const [input, setInput] = useState({
     username: "",
     password: "",
   });
   const [error, setError] = useState("");
+  const router = useRouter();
   const onClickLogin = (e) => {
     e.preventDefault();
     setError("");
-    const regex =
-      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-    if (regex.test(input.username) === false) {
-      setError("Please insert a valid email");
-      return;
-    }
     api
       .post("/login", JSON.stringify(input))
       .then((res) => {
         if (res.status !== 200) {
-          setError("cannot login");
+          setError(res.data.message);
           return;
         }
-        const response = res.data;
-        window.userid = res.data.id;
+        const { data } = res;
+        window.userid = data.id;
         console.log("data", response);
       })
       .catch((err) => console.error(err));
+  };
+
+  const onClickGuest = (e) => {
+    e.preventDefault();
+    //need to do api to backend and get guestid
+    router.push("/dashboard");
   };
 
   return (
@@ -66,7 +68,7 @@ const login = () => {
             <ul className="login-button-list">
               <li>
                 <button
-                  type="submit"
+                  type="button"
                   className="btn btn-primary my-1 mt-2"
                   style={{ padding: "5px 56px" }}
                   onClick={onClickLogin}
@@ -75,24 +77,82 @@ const login = () => {
                 </button>
               </li>
               <li>
-                <Link href="/register">
-                  <button
-                    type="register"
-                    className="btn btn-primary my-1"
-                    style={{ padding: "5px 47px" }}
-                  >
-                    Register
-                  </button>
-                </Link>
+                <button
+                  type="button"
+                  className="btn btn-primary my-1"
+                  style={{ padding: "5px 47px" }}
+                  data-bs-toggle="modal"
+                  data-bs-target="#register"
+                >
+                  Register
+                </button>
               </li>
               <li>
-                <Link href="/dashboard">
-                  <button type="guest" className="btn btn-primary my-1">
-                    Continue as guest
-                  </button>
-                </Link>
+                <button
+                  type="button"
+                  className="btn btn-primary my-1"
+                  onClick={onClickGuest}
+                >
+                  Continue as guest
+                </button>
               </li>
             </ul>
+          </div>
+          <div
+            className="modal fade"
+            id="register"
+            tabIndex="-1"
+            role="dialog"
+            aria-labelledby="registerTitle"
+            aria-hidden="true"
+          >
+            <div className="modal-dialog modal-dialog-centered" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" id="registerTitle">
+                    Register
+                  </h5>
+                </div>
+                <div className="modal-body">
+                  <div>
+                    <input
+                      placeholder="username"
+                      value={input.username}
+                      onChange={(e) =>
+                        setInput((prevState) => ({
+                          ...prevState,
+                          username: e.target.value,
+                        }))
+                      }
+                    />
+                  </div>
+                  <div>
+                    <input
+                      placeholder="password"
+                      value={input.password}
+                      onChange={(e) =>
+                        setInput((prevState) => ({
+                          ...prevState,
+                          password: e.target.value,
+                        }))
+                      }
+                    />
+                  </div>
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button type="button" className="btn btn-primary">
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </form>
       </div>
@@ -100,4 +160,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;
