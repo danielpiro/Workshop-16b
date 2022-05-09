@@ -5,7 +5,7 @@ import CustomExceptions.SupplyManagementException;
 import ExternalConnections.ExternalConnectionHolder;
 import GlobalSystemServices.IdGenerator;
 import ShoppingCart.InventoryProtector;
-import ShoppingCart.ProductAmount;
+import Store.DiscountAndPolicies.Discount;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

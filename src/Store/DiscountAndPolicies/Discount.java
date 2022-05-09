@@ -1,4 +1,6 @@
-package Store;
+package Store.DiscountAndPolicies;
+
+import Store.Store;
 
 import java.util.HashMap;
 import java.util.List;

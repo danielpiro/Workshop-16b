@@ -18,7 +18,7 @@ public interface InventoryProtector {
     public void purchaseSuccessful(HashMap<String,Integer> ProductAmount , boolean success) throws SupplyManagementException;
 
     //return total price of items, if cant purchase return negative number. also send user payment and delivery
-    public float reserve (HashMap<String,Integer> ProductAmount , ExternalConnectionHolder externalConnectionHolder, String userId) throws  CantPurchaseException;
+    public float reserve (HashMap<String,Integer> ProductAmount , ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) throws  CantPurchaseException;
 
     public boolean checkIfProductExist(String productId);
 }

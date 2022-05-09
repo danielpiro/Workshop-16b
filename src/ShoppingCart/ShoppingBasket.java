@@ -87,12 +87,12 @@ public class ShoppingBasket {
 
 
     }
-    //todo dan add way to handle  SupplyManagementException
+
     public void purchaseSuccessful (boolean success)  {
         try {
             iProtector.purchaseSuccessful(productAmount,success);
         } catch (SupplyManagementException e) {
-            e.printStackTrace();
+
         }
 
     }

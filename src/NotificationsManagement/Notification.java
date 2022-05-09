@@ -6,11 +6,16 @@ public class Notification {
     private final String Title;
     private final String Body;
 
+
+
+    private boolean read;
+
     public Notification(getStoreInfo sentFrom, NotificationSubject subject, String title, String body) {
         this.sentFrom = sentFrom;
         this.subject = subject;
         Title = title;
         Body = body;
+        read = false;
     }
 
     public getStoreInfo getSentFrom() {
@@ -26,5 +31,8 @@ public class Notification {
     }
     public NotificationSubject getSubject() {
         return subject;
+    }
+    public boolean isRead() {
+        return read;
     }
 }
