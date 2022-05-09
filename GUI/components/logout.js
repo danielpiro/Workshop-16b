@@ -1,13 +1,17 @@
 import api from "./api";
 
-const logout = (id) => {
+const logout = (e, id) => {
+  e.preventDefault();
+  window.location.href = "/login";
+  return;
   api
     .post("/logout/", {
-      id: window.userid,
+      id: id,
     })
     .then((res) => {
       if (res.status === 200) {
-        window.location.href = "/login";
+        router.push("/login");
+        //
       }
     })
     .catch((err) => console.error(err));

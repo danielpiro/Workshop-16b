@@ -1,5 +1,5 @@
 import Menu from "../components/menu";
-import SearchBar from "../components/searchbar";
+import SearchBar from "../components/search-bar";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Card from "../components/card";
@@ -11,10 +11,10 @@ const Dashboard = () => {
   const [singleProduct, setSingleProduct] = useState({});
   useEffect(() => {
     const fetchApi = async () => {
-      const response = await axios.get("https://fakestoreapi.com/products");
+      const response = await axios.get("https://dummyjson.com/products");
       setIsLoading(!isLoading);
       const { data } = response;
-      setProducts(data);
+      setProducts(data.products);
     };
     fetchApi();
   }, []);
@@ -44,9 +44,12 @@ const Dashboard = () => {
                 <li className=" list-group-item" key={product.id}>
                   <Card
                     value={product.id}
-                    image={product.image}
+                    image={product.images[0]}
                     title={product.title}
+                    category={product.category}
+                    description={product.description}
                     price={product.price}
+                    discount={product.discountPercentage}
                     getSingleProduct={getSingleProduct}
                     singleProduct={singleProduct}
                   />

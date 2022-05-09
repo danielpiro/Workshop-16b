@@ -1,5 +1,6 @@
 import Link from "next/link";
 import logout from "./logout";
+
 const Menu = () => {
   return (
     <div className="flex">
@@ -43,14 +44,12 @@ const Menu = () => {
                 </a>
               </li>
               <li className="logout-button nav-item">
-                <Link href="/login">
-                  <a
-                    className="nav-link ms-4"
-                    onClick={(e) => logout(window.userid)}
-                  >
-                    Logout
-                  </a>
-                </Link>
+                <a
+                  className="nav-link ms-4"
+                  onClick={(e) => logout(e, window.userid)}
+                >
+                  Logout
+                </a>
               </li>
             </ul>
           </div>
