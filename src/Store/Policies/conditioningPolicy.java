@@ -6,11 +6,12 @@ import Store.Product;
 
 import java.util.HashMap;
 
-public class conditioningPolicy implements Policy {
+public class conditioningPolicy extends Policy {
     Policy left;
     Policy right;
 
     public conditioningPolicy(Policy left, Policy right) {
+        super();
         this.left = left;
         this.right = right;
     }

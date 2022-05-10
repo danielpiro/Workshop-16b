@@ -114,6 +114,10 @@ public class InventoryManager  implements InventoryProtector {
         }
         return finalPrice;
     }
+
+    public void addNewPolicy(Policy policy){
+        policies.add(policy);
+    }
     @Override
     public String getProductName(String productID) {
         return products.get(productID).getName();
@@ -146,6 +150,7 @@ public class InventoryManager  implements InventoryProtector {
             }
         }
     }
+
     //todo talk with dan on discount
     @Override
     public float reserve(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) throws CantPurchaseException {

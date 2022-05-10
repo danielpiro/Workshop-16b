@@ -1,5 +1,7 @@
 package GlobalSystemServices;
 
+import Store.Policies.Policy;
+
 public class IdGenerator {
 
     private static IdGenerator single_instance = null;
@@ -19,20 +21,25 @@ public class IdGenerator {
     private String AdminPrefix = "AdminID_";
     private Long AdminSuffix;
 
+    private String PolicyPrefix = "PolicyID_";
+    private Long PolicySuffix;
+
     private IdGenerator(){
         productSuffix = 0L;
         storeSuffix = 0L;
         ForumThreadSuffix = 0L;
         GuestSuffix = 0L;
         AdminSuffix = 0L;
+        PolicySuffix = 0L;
     }
 
-    private IdGenerator(Long productSuffix, Long storeSuffix, Long ForumThreadSuffix, Long guestSuffix, Long AdminSuffix) {
+    private IdGenerator(Long productSuffix, Long storeSuffix, Long ForumThreadSuffix, Long guestSuffix, Long AdminSuffix, Long PolicySuffix) {
         this.productSuffix = productSuffix;
         this.storeSuffix = storeSuffix;
         this.ForumThreadSuffix = ForumThreadSuffix;
         this.GuestSuffix = guestSuffix;
         this.AdminSuffix = AdminSuffix;
+        this.PolicySuffix = PolicySuffix;
     }
 
     public static IdGenerator getInstance()
@@ -41,10 +48,10 @@ public class IdGenerator {
             single_instance = new IdGenerator();
         return single_instance;
     }
-    public static IdGenerator getInstance(Long productSuffix, Long storeSuffix, Long ForumThreadSuffix, Long guestSuffix , Long AdminSuffix)
+    public static IdGenerator getInstance(Long productSuffix, Long storeSuffix, Long ForumThreadSuffix, Long guestSuffix , Long AdminSuffix, Long PolicySuffix)
     {
         if (single_instance == null)
-            single_instance = new IdGenerator(productSuffix, storeSuffix, ForumThreadSuffix, guestSuffix, AdminSuffix);
+            single_instance = new IdGenerator(productSuffix, storeSuffix, ForumThreadSuffix, guestSuffix, AdminSuffix, PolicySuffix);
         return single_instance;
     }
 
@@ -72,6 +79,11 @@ public class IdGenerator {
     public String getAdminId(){
         AdminSuffix++;
         return AdminPrefix+(AdminSuffix-1L);
+    }
+
+    public String getPolicyId(){
+        PolicySuffix++;
+        return PolicyPrefix+(PolicySuffix-1L);
     }
 
     public boolean checkIfAdmin(String userId){

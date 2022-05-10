@@ -4,6 +4,7 @@ import CustomExceptions.SupplyManagementException;
 import ExternalConnections.Delivery.DeliveryNames;
 import ExternalConnections.ExternalConnectionHolder;
 import ExternalConnections.Payment.PaymentNames;
+import ShoppingCart.UserInfo;
 import Store.InventoryManager;
 import Store.Product;
 import Store.ProductsCategories;
@@ -137,7 +138,7 @@ class InventoryManagerTest {
             String Id1 = invMan.addNewProduct("t1", 5.5F, 4, "Appliances");
             HashMap<String,Integer> productAmount = new HashMap<>();
             productAmount.put(Id1, 5);
-            invMan.reserve(productAmount, new ExternalConnectionHolder(DeliveryNames.FedEx, PaymentNames.Visa), "guy");
+            invMan.reserve(productAmount, new ExternalConnectionHolder(DeliveryNames.FedEx, PaymentNames.Visa), new UserInfo(18, "guy"));
             fail();
         }
         catch (Exception e){
@@ -154,7 +155,7 @@ class InventoryManagerTest {
             productAmount.put(Id1, 2);
             productAmount.put(Id2, 1);
             productAmount.put(Id3, 50);
-            invMan.reserve(productAmount, new ExternalConnectionHolder(DeliveryNames.FedEx, PaymentNames.Visa), "guy");
+            invMan.reserve(productAmount, new ExternalConnectionHolder(DeliveryNames.FedEx, PaymentNames.Visa), new UserInfo(18, "guy"));
 
             HashMap<String, Integer> buySum1 = new HashMap<>();
             buySum1.put(Id1, 1);

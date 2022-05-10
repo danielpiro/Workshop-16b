@@ -7,11 +7,12 @@ import Store.Product;
 
 import java.util.HashMap;
 
-public class OnePredPolicy implements Policy {
+public class OnePredPolicy extends Policy {
     Predicate pPredicate;
 
 
     public OnePredPolicy(Predicate pPredicate) {
+        super();
         this.pPredicate = pPredicate;
         }
 

@@ -14,11 +14,15 @@ public class UserPredicate implements Predicate{
     private int startAge = -1; //for age case;
     private int endAge = -1; //for age case;
 
-    public UserPredicate(List<String> userIds, PredicateUserType type, int startAge, int endAge) {
-        this.userIds = userIds;
+    public UserPredicate(PredicateUserType type, int startAge, int endAge) {
         this.type = type;
         this.startAge = startAge;
         this.endAge = endAge;
+    }
+
+    public UserPredicate(List<String> userIds, PredicateUserType type) {
+        this.userIds = userIds;
+        this.type = type;
     }
 
     @Override

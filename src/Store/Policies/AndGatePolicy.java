@@ -6,11 +6,12 @@ import Store.Product;
 
 import java.util.HashMap;
 
-public class AndGatePolicy implements Policy {
+public class AndGatePolicy extends Policy {
     Policy left;
     Policy right;
 
     public AndGatePolicy(Policy left, Policy right) {
+        super();
         this.left = left;
         this.right = right;
     }

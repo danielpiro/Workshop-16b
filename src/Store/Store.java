@@ -13,6 +13,7 @@ import ShoppingCart.InventoryProtector;
 import Store.Forum.Forum;
 import Store.Forum.ForumThread;
 import Store.Policies.Policy;
+import Store.Policies.predicates.Predicate;
 import StorePermission.OriginalStoreOwnerRole;
 import StorePermission.Permission;
 import StorePermission.StoreRoles;
@@ -35,6 +36,7 @@ public class Store implements getStoreInfo {
     private StoreState storeState;
     private float storeRating; //rating between 1 - 5
     private List<Review> reviews;
+
 
 
     public Store(String storeName, String storeId, List<String> storeOriginalManager) {
@@ -161,51 +163,6 @@ public class Store implements getStoreInfo {
 
     }
 
-
-    public List<Product> getAllProducts() {
-        if(storeState == StoreState.ACTIVE)
-            return inventoryManager.getAllProducts((x)->true);
-        return new ArrayList<Product>();
-    }
-    public List<Product> getProductsNameContains(String PartialName) {
-        if(storeState == StoreState.ACTIVE)
-            return inventoryManager.getAllProducts(
-                    (p)->p.getName().toUpperCase().contains(PartialName.toUpperCase())
-            );
-        return new ArrayList<Product>();
-    }
-    public List<Product> getProductsPriceContains(float lowerRange, float upperRange) {
-        if(storeState == StoreState.ACTIVE)
-            return inventoryManager.getAllProducts(
-                    (p)->(p.getPrice() >= lowerRange && p.getPrice() <= upperRange)
-            );
-        return new ArrayList<Product>();
-    }
-    public List<Product> getAllProductsCategory(List<String> category) {
-        if(storeState == StoreState.ACTIVE)
-            return inventoryManager.getAllProducts(
-                    (p)->category.stream().anyMatch(cat ->p.getCategory().toString().equals(cat))
-            );
-        return new ArrayList<Product>();
-    }
-    public List<Product> getAllProductsRating(float lower, float upper) {
-        if(storeState == StoreState.ACTIVE)
-            return inventoryManager.getAllProducts(
-                    (p)->p.getRating() >= lower && p.getRating() <=upper
-            );
-        return new ArrayList<Product>();
-    }
-
-
-    public InventoryProtector getInventoryProtector(){
-        InventoryProtector InProtected = inventoryManager;
-        return InProtected;
-    }
-
-    public String getId() {
-        return storeId;
-    }
-
     public void addProductReview(String userId, String productId, String title, String body, float rating) throws SupplyManagementException {
         //TODO: check in history user Bought this product
         inventoryManager.addProductReview(productId, userId, title, body, rating);
@@ -267,6 +224,10 @@ public class Store implements getStoreInfo {
         storeState = StoreState.ACTIVE;
     }
 
+
+
+
+
     public List<StoreRoles> getInfoOnManagersOwners(String userId) throws NoPermissionException {
         if(!checkPermission(userId, Permission.INFO_OF_MANAGERS)){
             throw new NoPermissionException("the user don't have this permission");
@@ -280,6 +241,40 @@ public class Store implements getStoreInfo {
             rolesIds.add(role.getUserId());
         }
         return rolesIds;
+    }
+
+    public List<Product> getAllProducts() {
+        if(storeState == StoreState.ACTIVE)
+            return inventoryManager.getAllProducts((x)->true);
+        return new ArrayList<Product>();
+    }
+    public List<Product> getProductsNameContains(String PartialName) {
+        if(storeState == StoreState.ACTIVE)
+            return inventoryManager.getAllProducts(
+                    (p)->p.getName().toUpperCase().contains(PartialName.toUpperCase())
+            );
+        return new ArrayList<Product>();
+    }
+    public List<Product> getProductsPriceContains(float lowerRange, float upperRange) {
+        if(storeState == StoreState.ACTIVE)
+            return inventoryManager.getAllProducts(
+                    (p)->(p.getPrice() >= lowerRange && p.getPrice() <= upperRange)
+            );
+        return new ArrayList<Product>();
+    }
+    public List<Product> getAllProductsCategory(List<String> category) {
+        if(storeState == StoreState.ACTIVE)
+            return inventoryManager.getAllProducts(
+                    (p)->category.stream().anyMatch(cat ->p.getCategory().toString().equals(cat))
+            );
+        return new ArrayList<Product>();
+    }
+    public List<Product> getAllProductsRating(float lower, float upper) {
+        if(storeState == StoreState.ACTIVE)
+            return inventoryManager.getAllProducts(
+                    (p)->p.getRating() >= lower && p.getRating() <=upper
+            );
+        return new ArrayList<Product>();
     }
 
     public Product getProduct(String productId) throws Exception {
@@ -301,4 +296,14 @@ public class Store implements getStoreInfo {
     public StoreState getStoreState() {
         return storeState;
     }
+    public String getId() {
+        return storeId;
+    }
+    public InventoryProtector getInventoryProtector(){
+        InventoryProtector InProtected = inventoryManager;
+        return InProtected;
+    }
+
+
+
 }
