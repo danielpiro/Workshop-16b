@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import api from "../components/api";
 import { useRouter } from "next/router";
 import bcrypt from "bcryptjs/dist/bcrypt";
+import { useCookies } from "react-cookie";
 
 const Login = () => {
   const [input, setInput] = useState({
@@ -9,22 +10,35 @@ const Login = () => {
     password: "",
   });
   const [error, setError] = useState("");
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "username",
+    "password",
+    "userId",
+  ]);
   const router = useRouter();
+  useEffect(() => {
+    if (cookies.username === "asdasd" && cookies.password === "123123") {
+      router.push("/dashboard");
+    }
+  }, []);
+
   const onClickLogin = async (e) => {
     e.preventDefault();
     setError("");
     const passwordRegex = /(?=.*[0-9])/;
     const usernameRegex = /(?=.*[A-Za-z])/;
-    // if (
-    //   input.password.length < 6 ||
-    //   !input.password ||
-    //   !input.username ||
-    //   !passwordRegex.test(input.password) ||
-    //   !usernameRegex.test(input.username)
-    // ) {
-    //   setError("One of the login information provided is invalid");
-    //   return;
-    // }
+    if (
+      input.password.length < 6 ||
+      !input.password ||
+      !input.username ||
+      !passwordRegex.test(input.password) ||
+      !usernameRegex.test(input.username)
+    ) {
+      setError("One of the login information provided is invalid");
+      return;
+    }
+    setCookie("username", input.username, { path: "/", sameSite: true });
+    setCookie("password", input.password, { path: "/", sameSite: true });
     const encrypted = async () => await bcrypt.hashSync(input.password, 8);
     await api
       .post(

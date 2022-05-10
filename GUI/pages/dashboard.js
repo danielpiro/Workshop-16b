@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Card from "../components/card";
 import Footer from "../components/footer";
-import addToCart from "./shopping-cart";
+import shoppingCart from "./shopping-cart";
 
 const Dashboard = () => {
   const [products, setProducts] = useState([]);

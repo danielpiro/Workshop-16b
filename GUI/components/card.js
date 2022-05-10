@@ -13,7 +13,7 @@ const Card = ({
     console.log(e.target.value);
   };
 
-  const onClickDetails = (e) => {
+  const onClickBid = (e) => {
     e.preventDefault();
     alert("not working WIP");
     console.log("in details", e.target.value);
@@ -73,9 +73,9 @@ const Card = ({
             data-bs-toggle="modal"
             data-bs-target="#productDetails"
             value={value}
-            onClick={onClickDetails}
+            onClick={onClickBid}
           >
-            Details
+            Bid
           </button>
         </div>
         <div
