@@ -6,6 +6,6 @@ import Store.Product;
 
 import java.util.HashMap;
 
-public interface Predicate {//todo להוסיף עילוצי עקביות ולדאוג שפרדיקט לא סוטר אותן
+public interface Predicate {//todo add store policy of the original owner and for them not to collide
     boolean predicateStands(HashMap<Product, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo);
 }

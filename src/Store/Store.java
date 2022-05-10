@@ -12,6 +12,7 @@ import NotificationsManagement.getStoreInfo;
 import ShoppingCart.InventoryProtector;
 import Store.Forum.Forum;
 import Store.Forum.ForumThread;
+import Store.Policies.Policy;
 import StorePermission.OriginalStoreOwnerRole;
 import StorePermission.Permission;
 import StorePermission.StoreRoles;
@@ -31,12 +32,10 @@ public class Store implements getStoreInfo {
     private List<StoreRoles> StoreRoles;
     private InventoryManager inventoryManager;
     private Forum forum;
-
-
-
     private StoreState storeState;
     private float storeRating; //rating between 1 - 5
     private List<Review> reviews;
+
 
     public Store(String storeName, String storeId, List<String> storeOriginalManager) {
         this.storeName = storeName;
@@ -46,6 +45,7 @@ public class Store implements getStoreInfo {
         forum =new Forum();
         storeState = StoreState.ACTIVE;
         storeRating = 0;
+
     }
 
     private boolean checkPermission(String userId, Permission action){

@@ -1,12 +1,14 @@
 package Store;
 
 import CustomExceptions.CantPurchaseException;
+import CustomExceptions.StorePolicyViolatedException;
 import CustomExceptions.SupplyManagementException;
 import ExternalConnections.ExternalConnectionHolder;
 import GlobalSystemServices.IdGenerator;
 import ShoppingCart.InventoryProtector;
 import ShoppingCart.UserInfo;
 import Store.Discounts.Discount;
+import Store.Policies.Policy;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,19 +16,29 @@ import java.util.function.Predicate;
 
 public class InventoryManager  implements InventoryProtector {
     private ConcurrentHashMap<String, Product> products;
-        private List<Discount> discounts; //todo can use chain of responsibility for next version
+    private List<Discount> discounts; //todo can use chain of responsibility for next version
+    private List<Policy> policies;
 
 
-    public InventoryManager(ConcurrentHashMap<String, Product> products, List<Discount> discounts) {
-        this.products = products;
-        this.discounts = discounts;
-    }
     public InventoryManager() {
         this.products = new ConcurrentHashMap<String, Product>();
         this.discounts = new ArrayList<Discount>();
+        policies = new ArrayList<>();
     }
 
+    private boolean checksIfStorePoliciesMet(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo){
+        HashMap<Product, Integer> newProductAmount = new HashMap<Product, Integer>();
+        for(String productId : ProductAmount.keySet()){
+            newProductAmount.put(products.get(productId),ProductAmount.get(productId));
+        }
 
+        for (Policy p : policies){
+            if(p.checkIfPolicyStands(newProductAmount, externalConnectionHolder, userInfo)){
+                return false;//if policy return true that mean the policy violated
+            }
+        }
+        return true;
+    }
 
     public void editProduct(String productId, int newSupply, String newName, float newPrice, String category) throws SupplyManagementException {
         Product Op = products.get(productId);
@@ -138,6 +150,9 @@ public class InventoryManager  implements InventoryProtector {
     @Override
     public float reserve(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) throws CantPurchaseException {
         try {
+            if(!checksIfStorePoliciesMet( ProductAmount, externalConnectionHolder, userInfo)){
+                throw new StorePolicyViolatedException("");
+            }
             for (String Id : ProductAmount.keySet()) {
                 synchronized (products.get(Id)) {
                     if (products.get(Id).getBuyOption().checkIfCanBuy(userInfo.getUserId())) {

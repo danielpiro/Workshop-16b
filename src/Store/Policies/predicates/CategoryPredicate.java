@@ -8,8 +8,13 @@ import Store.ProductsCategories;
 import java.util.HashMap;
 import java.util.List;
 
-public class CategoryPredicate implements IfPredicate,ThenPredicate{
+public class CategoryPredicate implements Predicate{
     List<ProductsCategories> categories;
+
+    public CategoryPredicate(List<ProductsCategories> categories) {
+        this.categories = categories;
+    }
+
     @Override
     public boolean predicateStands(HashMap<Product, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) {
         for (Product p : ProductAmount.keySet()){
