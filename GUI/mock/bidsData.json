@@ -1,0 +1,55 @@
+{
+    "bids": [
+        {
+            "id": "xyz1",
+            "user": "Shlomo",
+            "store": "Gil Store",
+            "product": "Milk",
+            "currentOffer": "38",
+            "status": "Approved"
+        }
+    ,{
+            "id": "xyz1",
+            "user": "Shlomo",
+            "store": "Gil Store",
+            "product": "Milk",
+            "currentOffer": "38",
+            "status": "Declined"
+
+        },
+        {
+            "id": "xyz1",
+            "user": "Shlomo",
+            "store": "Gil Store",
+            "product": "Milk",
+            "currentOffer": "38",
+            "status": "Negotiation"
+
+        },
+        {
+            "id": "xyz1",
+            "user": "Shlomo",
+            "store": "Gil Store",
+            "product": "Milk",
+            "currentOffer": "38",
+            "status": "Approved"
+
+        },
+        {
+            "id": "xyz1",
+            "user": "Shlomo",
+            "store": "Gil Store",
+            "product": "Milk",
+            "currentOffer": "38",
+            "status": "Negotiation"
+        },
+        {
+            "id": "xyz1",
+            "user": "Shlomo",
+            "store": "Gil Store",
+            "product": "Milk",
+            "currentOffer": "38",
+            "status": "Declined"
+        }
+    ]
+}
