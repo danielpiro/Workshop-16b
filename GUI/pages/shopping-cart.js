@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
 import Menu from "../components/menu";
 import CartItem from "../components/cart-item.js";
+import { useCookies } from "react-cookie";
 
 const shoppingCart = () => {
   const [cart, setCart] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "username",
+    "password",
+    "userId",
+  ]);
   useEffect(() => {
     // const fetchCart = async () => {
     //   return await api.get("/cart/" + window.id).then((res) => {
@@ -16,20 +22,23 @@ const shoppingCart = () => {
     //   });
     // };
     // fetchCart();
+    setCart([1, 2, 3, 4, 5, 6, 6]);
+    console.log(cookies.username);
   }, []);
 
   return (
     <>
       <Menu />
-      <div className="container me-5 my-5">
-        <h3>Shopping Cart</h3>
-        <div className="me-lg-5">
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div
+            className="m-5"
+            style={{ display: "flex", justifyContent: "center" }}
+          >
+            <h3>Shopping Cart</h3>
+          </div>
           {cart.map((item) => {
-            return (
-              <div>
-                <CartItem props={item} />
-              </div>
-            );
+            return <CartItem props={item} />;
           })}
         </div>
       </div>

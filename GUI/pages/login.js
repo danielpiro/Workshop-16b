@@ -17,9 +17,9 @@ const Login = () => {
   ]);
   const router = useRouter();
   useEffect(() => {
-    if (cookies.username === "asdasd" && cookies.password === "123123") {
-      router.push("/dashboard");
-    }
+    // if (cookies.username === "asdasd" && cookies.password === "123123") {
+    //   router.push("/dashboard");
+    // }
   }, []);
 
   const onClickLogin = async (e) => {
@@ -40,19 +40,25 @@ const Login = () => {
     setCookie("username", input.username, { path: "/", sameSite: true });
     setCookie("password", input.password, { path: "/", sameSite: true });
     const encrypted = async () => await bcrypt.hashSync(input.password, 8);
-    await api
-      .post(
-        "/login",
-        JSON.stringify({
-          username: input.username,
-          password: encrypted,
-        })
-      )
-      .then((res) => {
-        const { data } = res;
-        console.log(data);
-      })
-      .catch((err) => console.log(err));
+    encrypted().then((res) => console.log("value", res));
+    const post = "post";
+    await api.post(`http://eu.httpbin.org/${post}`).then((res) => {
+      console.log(res);
+    });
+    //   .catch((err) => console.log(err));
+    //   await api
+    //     .post(
+    //       "/login",
+    //       JSON.stringify({
+    //         username: input.username,
+    //         password: encrypted,
+    //       })
+    //     )
+    //     .then((res) => {
+    //       const { data } = res;
+    //       console.log(data);
+    //     })
+    //     .catch((err) => console.log(err));
   };
 
   const onClickGuest = (e) => {
