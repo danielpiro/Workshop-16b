@@ -1,4 +1,4 @@
-package Store.Policies.predicates;
+package Store.StorePurchase.predicates;
 
 public enum PredicateTimeType {
     OnHoursOfTheDay,

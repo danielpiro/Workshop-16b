@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Product {
+public class Product implements PurchasableProduct{
     private final String id;
     private String name;
     private float price;
@@ -49,6 +49,11 @@ public class Product {
         return buyOption;
     }
 
+    @Override
+    public int getAmount() {
+        throw new RuntimeException("product dont have amount only purchasableProduct have amount");
+    }
+
     public String getId() {
         return id;
     }
@@ -68,6 +73,9 @@ public class Product {
             this.price = newPrice;
         else
             throw new SupplyManagementException("price cant be negative");
+    }
+    public void purchaseCompleted(int productsPurchased){
+        reservedSupply = reservedSupply - productsPurchased;
     }
     public void editName(String newName) {
         this.name = newName;

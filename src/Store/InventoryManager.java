@@ -7,8 +7,8 @@ import ExternalConnections.ExternalConnectionHolder;
 import GlobalSystemServices.IdGenerator;
 import ShoppingCart.InventoryProtector;
 import ShoppingCart.UserInfo;
-import Store.Discounts.Discount;
-import Store.Policies.Policy;
+import Store.StorePurchase.Discounts.Discount;
+import Store.StorePurchase.Policies.Policy;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -102,13 +102,6 @@ public class InventoryManager  implements InventoryProtector {
         //HashMap<String,Integer> copyProductIdAmount = deepCopyWorkAround(ProductIdAmount);
 
         float finalPrice = 0f;
-//        for (Discount d : discounts) {
-//            HashMap<String, Integer> productsWithTheDeal = d.checkIfDiscountApply(copyProductIdAmount);
-//            finalPrice += d.applyDiscount(productsWithTheDeal);
-//            for (String Id : productsWithTheDeal.keySet()){
-//                copyProductIdAmount.replace(Id, (copyProductIdAmount.get(Id) - productsWithTheDeal.get(Id)) );
-//            }
-//        }
         for (String productId: ProductIdAmount.keySet()) {
             finalPrice += getProductPrice(productId) * ProductIdAmount.get(productId);
         }
@@ -117,6 +110,9 @@ public class InventoryManager  implements InventoryProtector {
 
     public void addNewPolicy(Policy policy){
         policies.add(policy);
+    }
+    public List<Policy> getPolicies() {
+        return policies;
     }
     @Override
     public String getProductName(String productID) {
@@ -134,16 +130,15 @@ public class InventoryManager  implements InventoryProtector {
         if (success) {
             for (String Id : ProductAmount.keySet()) {
                 synchronized (products.get(Id)) {
-                    int newReservedSupply = products.get(Id).getReservedSupply() - ProductAmount.get(Id);
-                    products.get(Id).setReservedSupply(newReservedSupply);
+                    products.get(Id).purchaseCompleted(ProductAmount.get(Id));
                 }
             }
         } else {
             for (String Id : ProductAmount.keySet()) {
                 synchronized (products.get(Id)) {
-                    int newReservedSupply = products.get(Id).getReservedSupply() - ProductAmount.get(Id);
-                    products.get(Id).setReservedSupply(newReservedSupply);
+                    products.get(Id).purchaseCompleted(ProductAmount.get(Id));
 
+                    //because purchase was unsuccessful we need to add the supply that were subtracted
                     int newSupply = products.get(Id).getSupply() + ProductAmount.get(Id);
                     products.get(Id).editSupply(newSupply);
                 }

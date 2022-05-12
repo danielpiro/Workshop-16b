@@ -1,4 +1,4 @@
-package Store.Policies;
+package Store.StorePurchase.Policies;
 
 import ExternalConnections.ExternalConnectionHolder;
 import GlobalSystemServices.IdGenerator;

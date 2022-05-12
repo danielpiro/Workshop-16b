@@ -1,14 +1,16 @@
-package Store.Policies.predicates;
+package Store.StorePurchase.predicates;
 
 import ExternalConnections.ExternalConnectionHolder;
+import ShoppingCart.ProductAmount;
 import ShoppingCart.UserInfo;
 import Store.Product;
+import Store.PurchasableProduct;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class UserPredicate implements Predicate{
+public class UserPredicate implements PolicyPredicate{
     private List<String> userIds = new ArrayList<>(); // user id case
     private PredicateUserType type;
     private int startAge = -1; //for age case;
@@ -26,7 +28,7 @@ public class UserPredicate implements Predicate{
     }
 
     @Override
-    public boolean predicateStands(HashMap<Product, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) {
+    public boolean predicateStands(List<PurchasableProduct> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) {
         switch (type){
             case OnUserId:
                 return OnUserId(userInfo);

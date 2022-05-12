@@ -1,14 +1,16 @@
-package Store.Policies.predicates;
+package Store.StorePurchase.predicates;
 
 import ExternalConnections.ExternalConnectionHolder;
 import ShoppingCart.UserInfo;
 import Store.Product;
+import Store.PurchasableProduct;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.HashMap;
+import java.util.List;
 
-public class TimePredicate implements Predicate{
+public class TimePredicate implements PolicyPredicate{
     private LocalDateTime StartTime;
     private LocalDateTime endTime;
 
@@ -21,7 +23,7 @@ public class TimePredicate implements Predicate{
     }
 
     @Override
-    public boolean predicateStands(HashMap<Product, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) {
+    public boolean predicateStands(List<PurchasableProduct> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) {
         switch (type){
             case OnHoursOfTheDay:
                 return OnHoursOfTheDay();

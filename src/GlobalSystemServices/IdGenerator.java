@@ -1,7 +1,5 @@
 package GlobalSystemServices;
 
-import Store.Policies.Policy;
-
 public class IdGenerator {
 
     private static IdGenerator single_instance = null;

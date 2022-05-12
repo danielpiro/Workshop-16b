@@ -1,6 +1,6 @@
-package Store.Policies;
+package Store.StorePurchase.Policies;
 
-import Store.Policies.predicates.*;
+import Store.StorePurchase.predicates.*;
 import Store.Product;
 import Store.ProductsCategories;
 
@@ -15,7 +15,7 @@ public class PolicyBuilder {
      * @return policy
      */
     public Policy newCartPolicy(int numOfProducts){
-        Predicate p=new CartPredicate(numOfProducts);
+        PolicyPredicate p=new CartPredicate(numOfProducts);
         Policy policy = new OnePredPolicy(p);
         return policy;
     }
@@ -24,7 +24,7 @@ public class PolicyBuilder {
      * @return policy
      */
     public Policy newCategoryPolicy(List<ProductsCategories> categories){
-        Predicate p=new CategoryPredicate(categories);
+        PolicyPredicate p=new CategoryPredicate(categories);
         Policy policy = new OnePredPolicy(p);
         return policy;
     }
@@ -33,8 +33,17 @@ public class PolicyBuilder {
      * @param products - products in store you cant buy
      * @return policy
      */
-    public Policy newProductPolicy(List<Product> products){
-        Predicate p = new ProductPredicate(products);
+    public Policy newProductWithoutAmountPolicy(List<Product> products){
+        PolicyPredicate p = new ProductPredicate(products);
+        Policy policy  = new OnePredPolicy(p);
+        return policy;
+    }
+    /**
+     * @param products - products in store you cant buy
+     * @return policy
+     */
+    public Policy newProductWithAmountPolicy(HashMap<Product,Integer> products){
+        PolicyPredicate p = new ProductPredicate(products);
         Policy policy  = new OnePredPolicy(p);
         return policy;
     }
@@ -44,7 +53,7 @@ public class PolicyBuilder {
      * @return policy
      */
     public Policy newUserIdPolicy(List<String> userIds){
-        Predicate p = new UserPredicate(userIds,PredicateUserType.OnUserId);
+        PolicyPredicate p = new UserPredicate(userIds,PredicateUserType.OnUserId);
         Policy policy  = new OnePredPolicy(p);
         return policy;
     }
@@ -55,7 +64,7 @@ public class PolicyBuilder {
      * @return policy
      */
     public Policy newUseAgePolicy(int startAge, int endAge){
-        Predicate p = new UserPredicate(PredicateUserType.UserAge, startAge,endAge);
+        PolicyPredicate p = new UserPredicate(PredicateUserType.UserAge, startAge,endAge);
         Policy policy  = new OnePredPolicy(p);
         return policy;
     }
@@ -66,7 +75,7 @@ public class PolicyBuilder {
      * @return policy
      */
     public Policy newOnHoursOfTheDayPolicy(LocalDateTime startTime, LocalDateTime endTime){
-        Predicate p = new TimePredicate(startTime,endTime,PredicateTimeType.OnHoursOfTheDay);
+        PolicyPredicate p = new TimePredicate(startTime,endTime,PredicateTimeType.OnHoursOfTheDay);
         Policy policy  = new OnePredPolicy(p);
         return policy;
     }
@@ -77,7 +86,7 @@ public class PolicyBuilder {
      * @return policy
      */
     public Policy newOnDaysOfTheWeekPolicy(LocalDateTime startTime, LocalDateTime endTime){
-        Predicate p = new TimePredicate(startTime,endTime,PredicateTimeType.OnDaysOfTheWeek);
+        PolicyPredicate p = new TimePredicate(startTime,endTime,PredicateTimeType.OnDaysOfTheWeek);
         Policy policy  = new OnePredPolicy(p);
         return policy;
     }
@@ -88,7 +97,7 @@ public class PolicyBuilder {
      * @return policy
      */
     public Policy newOnDayOfMonthPolicy(LocalDateTime startTime, LocalDateTime endTime){
-        Predicate p = new TimePredicate(startTime,endTime,PredicateTimeType.OnDayOfMonth);
+        PolicyPredicate p = new TimePredicate(startTime,endTime,PredicateTimeType.OnDayOfMonth);
         Policy policy  = new OnePredPolicy(p);
         return policy;
     }

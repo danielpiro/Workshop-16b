@@ -1,5 +1,6 @@
 package Controllers;
 
+import CustomExceptions.NotifyException;
 import CustomExceptions.SupplyManagementException;
 import GlobalSystemServices.IdGenerator;
 import GlobalSystemServices.Log;
@@ -151,13 +152,13 @@ public class StoreController {
         return stores.get(storeId).addNewThreadToForum(title, userId);
     }
 
-    public void RolePostMessageToForum(String storeId, String threadId, String userId, String message) throws NoPermissionException {
+    public void RolePostMessageToForum(String storeId, String threadId, String userId, String message) throws NoPermissionException, NotifyException {
         if(checkIfGuest(userId)){
             throw new NoPermissionException("guest cant post message to forum");
         }
         stores.get(storeId).RolePostMessageToForum(threadId, userId, message);
     }
-    public void  userPostMessageToForum(String storeId, String threadId, String userId, String message) throws NoPermissionException{
+    public void  userPostMessageToForum(String storeId, String threadId, String userId, String message) throws NoPermissionException, NotifyException {
         Store relevantStore = stores.get(storeId);
         relevantStore.userPostMessageToForum(threadId, userId, message);
     }

@@ -1,5 +1,6 @@
 package ShoppingCart;
 
+import CustomExceptions.CantPurchaseException;
 import ExternalConnections.ExternalConnectionHolder;
 
 import java.util.HashMap;
@@ -33,9 +34,11 @@ public class FakeInventoryManager implements InventoryProtector  {
     }
 
     @Override
-    public float reserve(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, String userId) {
+    public float reserve(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) throws CantPurchaseException {
         return 0;
     }
+
+
 
     @Override
     public boolean checkIfProductExist(String productId) {

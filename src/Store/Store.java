@@ -12,8 +12,6 @@ import NotificationsManagement.getStoreInfo;
 import ShoppingCart.InventoryProtector;
 import Store.Forum.Forum;
 import Store.Forum.ForumThread;
-import Store.Policies.Policy;
-import Store.Policies.predicates.Predicate;
 import StorePermission.OriginalStoreOwnerRole;
 import StorePermission.Permission;
 import StorePermission.StoreRoles;

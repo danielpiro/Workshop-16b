@@ -1,6 +1,7 @@
 package Controllers;
 
 
+import CustomExceptions.NotifyException;
 import CustomExceptions.SupplyManagementException;
 import ExternalConnections.Delivery.DeliveryNames;
 import ExternalConnections.Delivery.FedEx;
@@ -228,7 +229,7 @@ public class MarketController {
         return getStoreController().addNewThreadToForum(storeId,title,userId);
     }
 
-    public void postMessageToForum(String storeId, String threadId, String userId, String message) throws NoPermissionException {
+    public void postMessageToForum(String storeId, String threadId, String userId, String message) throws NoPermissionException, NotifyException {
         if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
             my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
         }
