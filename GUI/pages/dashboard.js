@@ -12,9 +12,9 @@ import Footer from "../components/footer";
 const Dashboard = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [singleProduct, setSingleProduct] = useState({});
+  const [page, setPage] = useState(10);
   const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
-                                                                 //      + Edit using new method "setUserPermission"
+  //      + Edit using new method "setUserPermission"
   useEffect(() => {
     const fetchApi = async () => {
       const response = await axios.get("https://dummyjson.com/products");
@@ -25,29 +25,16 @@ const Dashboard = () => {
     fetchApi();
   }, []);
 
-  const getSingleProduct = (id) => {
-    products.map((product) => {
-      if (product.id === id) {
-        return setSingleProduct(product);
-      }
-      return null;
-    });
-  };
-
-  var menu;
-  if (userPermission == "Admin"){
+  let menu;
+  if (userPermission == "Admin") {
     menu = <AdminMenu />;
-  }
-  else if (userPermission == "Owner"){
+  } else if (userPermission == "Owner") {
     menu = <StoreOwnerMenu />;
-  }
-  else if (userPermission == "Manager"){
+  } else if (userPermission == "Manager") {
     menu = <StoreManagerMenu />;
-  }
-  else if (userPermission == "Subscriber"){
+  } else if (userPermission == "Subscriber") {
     menu = <SubscriberMenu />;
-  }
-  else{
+  } else {
     menu = <GuestMenu />;
   }
 
@@ -63,7 +50,7 @@ const Dashboard = () => {
       ></div>
       {!isLoading ? (
         <div style={{ display: "table", width: "100%" }}>
-          <ul className="list-group" style={{ display: "table-cell" }}>
+          <ul className="list-group-dashboard">
             {products.map((product) => {
               return (
                 <li className=" list-group-item" key={product.id}>
@@ -75,8 +62,6 @@ const Dashboard = () => {
                     description={product.description}
                     price={product.price}
                     discount={product.discountPercentage}
-                    getSingleProduct={getSingleProduct}
-                    singleProduct={singleProduct}
                   />
                 </li>
               );

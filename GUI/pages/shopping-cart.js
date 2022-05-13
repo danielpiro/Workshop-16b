@@ -5,6 +5,7 @@ import { useCookies } from "react-cookie";
 
 const shoppingCart = () => {
   const [cart, setCart] = useState([]);
+  const [storeList, setStoreList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [cookies, setCookie, removeCookie] = useCookies([
     "username",
@@ -22,25 +23,31 @@ const shoppingCart = () => {
     //   });
     // };
     // fetchCart();
-    setCart([1, 2, 3, 4, 5, 6, 6]);
+    setCart([1, 2, 3, 4]);
+    setStoreList([1, 2, 3, 4]);
     console.log(cookies.username);
   }, []);
-
   return (
     <>
       <Menu />
-      <div class="container">
-        <div class="row justify-content-md-center">
-          <div
-            className="m-5"
-            style={{ display: "flex", justifyContent: "center" }}
-          >
-            <h3>Shopping Cart</h3>
-          </div>
-          {cart.map((item) => {
-            return <CartItem props={item} />;
+      <div className="text-center my-3">
+        <h3>Cart</h3>
+      </div>
+      <div class="container card" style={{ width: "45rem" }}>
+        <ul class="list-group list-group-flush">
+          {storeList.map((item) => {
+            return (
+              <div className="mb-5">
+                <div className="card-header mb-3">Featured</div>
+                <ul>
+                  {cart.map((item2) => {
+                    return <CartItem />;
+                  })}
+                </ul>
+              </div>
+            );
           })}
-        </div>
+        </ul>
       </div>
     </>
   );

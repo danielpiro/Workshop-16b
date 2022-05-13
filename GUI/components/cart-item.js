@@ -5,9 +5,6 @@ const CartItem = (props) => {
       style={{ maxWidth: "700px", maxHeight: "150px" }}
     >
       <div className="row g-0">
-        <div className="col-md-4">
-          <img src="..." className="img-fluid rounded-start" alt="..." />
-        </div>
         <div className="col-md-8">
           <div className="card-body">
             <h5 className="card-title">Card title</h5>
