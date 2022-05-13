@@ -7,10 +7,6 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-// import Container from "react-bootstrap/Container"
-// import Row from "react-bootstrap/Row"
-// import Col from "react-bootstrap/Col"
-
 const ChangePolicy = () => {
     // const [isLoading, setIsLoading] = useState(true);
     // const [searchValue, setSearchValue] = useState("");
@@ -47,6 +43,9 @@ const ChangePolicy = () => {
         <>
         {menu}
 
+        <div className="card-header">
+            <h3>Change User's Permissions</h3>
+        </div>
         <div class="container">
             <div className="row">
                 <div className="col">

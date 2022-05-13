@@ -31,6 +31,9 @@ const AdminViewStorePurchaes = () => {
   return (
     <>
     <AdminMenu />
+    <div className="card-header">
+        <h3>View all store's purchases</h3>
+    </div>
     <div className="container">
       <nav className="navbar navbar-expand-lg bg-secondery align-items-center justify-content-center rounded-3">
         <form className="row form-inline" style={{ display: "flex", width: "60%" }}>

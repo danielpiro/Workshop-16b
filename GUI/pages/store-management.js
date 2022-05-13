@@ -7,10 +7,6 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-// import Container from "react-bootstrap/Container"
-// import Row from "react-bootstrap/Row"
-// import Col from "react-bootstrap/Col"
-
 const StoreManagement = () => {
     // const [isLoading, setIsLoading] = useState(true);
     // const [searchValue, setSearchValue] = useState("");
@@ -42,9 +38,6 @@ const StoreManagement = () => {
     else{
         menu = <GuestMenu />;
     }
-
-    // var editStore;
-    // editStore = <h3>Edit Store</h3>
   
     return (
       <>
@@ -78,15 +71,8 @@ const StoreManagement = () => {
                     </div>
                     <div style={{ display: userPermission=="Admin" ? "block" : "none" }}>
                         <li className="hire-owner-to-store-button nav-item m-2">
-                            <Link href="/dashboard"> 
-                                <a>Hire new Store Owner to store</a>
-                            </Link>
-                        </li>
-                    </div>
-                    <div style={{ display: userPermission=="Admin" ? "block" : "none" }}>
-                        <li className="hire-manager-to-store-button nav-item m-2">
-                            <Link href="/dashboard"> 
-                                <a>Hire new Store Manager to store</a>
+                            <Link href="/hire-owner-manager-to-store"> 
+                                <a>Hire new Store Owner/Manager to store</a>
                             </Link>
                         </li>
                     </div>
@@ -137,6 +123,24 @@ const StoreManagement = () => {
             </div>
           </div>
         )} */}
+
+        <div class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+            </div>
+        </div>
+        </div>
       </>
     );
   };

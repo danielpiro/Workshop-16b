@@ -52,8 +52,8 @@ const EditStoreSupply = () => {
     <>
     {menu}
 
-    <div className="m-3">
-      <h3>Edit store's supply:</h3>
+    <div className="card-header">
+        <h3>Edit store's supply</h3>
     </div>
        
     <div className="container">
