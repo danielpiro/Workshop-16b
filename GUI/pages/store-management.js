@@ -71,7 +71,7 @@ const StoreManagement = () => {
                     </div>
                     <div style={{ display: userPermission=="Admin" ? "block" : "none" }}>
                         <li className="change-policy-button nav-item m-2">
-                            <Link href="/dashboard"> 
+                            <Link href="/change-policy"> 
                                 <a>Change store's policy</a>
                             </Link>
                         </li>
