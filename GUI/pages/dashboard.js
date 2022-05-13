@@ -1,4 +1,8 @@
-import Menu from "../components/menu";
+import AdminMenu from "../components/menus/menuAdmin";
+import StoreOwnerMenu from "../components/menus/menuStoreOwner";
+import StoreManagerMenu from "../components/menus/menuStoreManager";
+import SubscriberMenu from "../components/menus/menuSubscriber";
+import GuestMenu from "../components/menus/menuGuest";
 import SearchBar from "../components/search-bar";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -9,6 +13,8 @@ const Dashboard = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [singleProduct, setSingleProduct] = useState({});
+  const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
+                                                                 //      + Edit using new method "setUserPermission"
   useEffect(() => {
     const fetchApi = async () => {
       const response = await axios.get("https://dummyjson.com/products");
@@ -18,6 +24,7 @@ const Dashboard = () => {
     };
     fetchApi();
   }, []);
+
   const getSingleProduct = (id) => {
     products.map((product) => {
       if (product.id === id) {
@@ -26,9 +33,27 @@ const Dashboard = () => {
       return null;
     });
   };
+
+  var menu;
+  if (userPermission == "Admin"){
+    menu = <AdminMenu />;
+  }
+  else if (userPermission == "Owner"){
+    menu = <StoreOwnerMenu />;
+  }
+  else if (userPermission == "Manager"){
+    menu = <StoreManagerMenu />;
+  }
+  else if (userPermission == "Subscriber"){
+    menu = <SubscriberMenu />;
+  }
+  else{
+    menu = <GuestMenu />;
+  }
+
   return (
     <>
-      <Menu />
+      {menu}
       <div className="my-4">
         <SearchBar setProducts={setProducts} />
       </div>
