@@ -1,6 +1,7 @@
-package Store;
+package Store.StorePurchase;
 
 import CustomExceptions.SupplyManagementException;
+import Store.ProductsCategories;
 
 public interface PurchasableProduct {
     int getAmount();
@@ -13,3 +14,4 @@ public interface PurchasableProduct {
 
 
 }
+

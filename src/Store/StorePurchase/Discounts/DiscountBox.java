@@ -2,16 +2,14 @@ package Store.StorePurchase.Discounts;
 
 import CustomExceptions.SupplyManagementException;
 import Store.ProductsCategories;
-import Store.PurchasableProduct;
+import Store.StorePurchase.PurchasableProduct;
 
 public class DiscountBox implements PurchasableProduct {
     private PurchasableProduct myProduct;
     private float updatedPrice; //price after discount for this purchase
     private int Amount;
 
-    public int getAmount() {
-        return Amount;
-    }
+
     public DiscountBox(PurchasableProduct myProduct, float updatedPrice, int amount) {
         this.myProduct= myProduct;
         this.Amount = amount;
@@ -46,4 +44,10 @@ public class DiscountBox implements PurchasableProduct {
     public ProductsCategories getCategory() {
         return myProduct.getCategory();
     }
+    @Override
+    public int getAmount() {
+        return Amount;
+    }
+
+
 }

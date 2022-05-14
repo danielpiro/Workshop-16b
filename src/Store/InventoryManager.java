@@ -98,9 +98,9 @@ public class InventoryManager  implements InventoryProtector {
         return copy;
     }
 
-    private float calculatePriceWithDiscount(HashMap<String, Integer> ProductIdAmount){
+    private float calculatePriceWithDiscount(HashMap<String, Integer> ProductIdAmount,  ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo){
         //HashMap<String,Integer> copyProductIdAmount = deepCopyWorkAround(ProductIdAmount);
-
+        //todo
         float finalPrice = 0f;
         for (String productId: ProductIdAmount.keySet()) {
             finalPrice += getProductPrice(productId) * ProductIdAmount.get(productId);
@@ -163,7 +163,7 @@ public class InventoryManager  implements InventoryProtector {
                     }
                 }
             }
-            return calculatePriceWithDiscount(ProductAmount);
+            return calculatePriceWithDiscount(ProductAmount,externalConnectionHolder,userInfo);
         }
         catch (Exception e){
             throw new CantPurchaseException(e.toString());

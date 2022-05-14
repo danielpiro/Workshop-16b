@@ -3,11 +3,12 @@ package Store.StorePurchase.Policies;
 import Store.StorePurchase.predicates.*;
 import Store.Product;
 import Store.ProductsCategories;
+import Store.StorePurchase.predicates.PredImplementions.*;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
-
+// todo add the missing policies
 public class PolicyBuilder {
 
     /**

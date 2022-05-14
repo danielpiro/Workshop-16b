@@ -1,14 +1,17 @@
-package Store.StorePurchase.predicates;
+package Store.StorePurchase.predicates.PredImplementions;
 
 import ExternalConnections.ExternalConnectionHolder;
 import ShoppingCart.UserInfo;
 import Store.Product;
-import Store.PurchasableProduct;
+import Store.StorePurchase.PurchasableProduct;
+import Store.StorePurchase.predicates.DiscountPredicate;
+import Store.StorePurchase.predicates.PolicyPredicate;
+import Store.StorePurchase.predicates.PredicateProductType;
 
 import java.util.HashMap;
 import java.util.List;
 
-public class ProductPredicate extends DiscountPredicate implements PolicyPredicate{
+public class ProductPredicate implements PolicyPredicate, DiscountPredicate {
     HashMap<Product,Integer> products;
     PredicateProductType type;
     public ProductPredicate(List<Product> products){

@@ -1,14 +1,14 @@
-package Store.StorePurchase.predicates;
+package Store.StorePurchase.predicates.PredImplementions;
 
 import ExternalConnections.ExternalConnectionHolder;
-import ShoppingCart.ProductAmount;
 import ShoppingCart.UserInfo;
-import Store.PurchasableProduct;
+import Store.StorePurchase.PurchasableProduct;
+import Store.StorePurchase.predicates.DiscountPredicate;
+import Store.StorePurchase.predicates.PolicyPredicate;
 
-import java.util.HashMap;
 import java.util.List;
 
-public class AllWaysTrue extends DiscountPredicate implements PolicyPredicate{
+public class AllWaysTrue  implements PolicyPredicate, DiscountPredicate {
     @Override
     public boolean predicateStands(List<PurchasableProduct> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) {
         return true;

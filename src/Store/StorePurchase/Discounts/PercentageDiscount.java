@@ -1,26 +1,45 @@
 package Store.StorePurchase.Discounts;
 
-import Store.PurchasableProduct;
+import ExternalConnections.ExternalConnectionHolder;
+import ShoppingCart.UserInfo;
+import Store.StorePurchase.PurchasableProduct;
 import Store.StorePurchase.predicates.DiscountPredicate;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-public class PercentageDiscount implements Discount{
+public class PercentageDiscount implements Discount{//simple discount, for example "discount on all store/category/product/products/price"
     private float discountPercent;
-    private DiscountPredicate discountOnPredicate;
+    private DiscountPredicate discountOnPredicate;//discount on what "discount on all store/category/product/products/price"
 
-    public List<DiscountBox> applyDiscount(List<PurchasableProduct> productsAmount){
-        List<DiscountBox> productsAfterDiscount = new ArrayList<>();
+    public PercentageDiscount(float discountPercent, DiscountPredicate discountOnPredicate) {
+        this.discountPercent = discountPercent;
+        this.discountOnPredicate = discountOnPredicate;
+    }
+    @Override
+    public  List<PurchasableProduct> applyDiscount(List<PurchasableProduct> productsAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo){
+        List<PurchasableProduct> productsAfterDiscount = new ArrayList<>();
+        float newPrice;
         for (PurchasableProduct pp:productsAmount){
-            if(discountOnPredicate.predicateStands(productsAmount)) {
-                float newPrice = pp.getPrice() * (discountPercent / 100);
-                productsAfterDiscount.add(new DiscountBox(pp, newPrice, pp.getAmount()));
+
+            if(discountOnPredicate.predicateStands(productsAmount,externalConnectionHolder,userInfo)) {
+                newPrice = pp.getPrice() * (discountPercent / 100);
             }
+            else {
+                newPrice =  pp.getPrice();
+            }
+            productsAfterDiscount.add(new DiscountBox(pp, newPrice, pp.getAmount()));
+
         }
+
         return productsAfterDiscount;
     }
 
+    public float getDiscountPercent() {
+        return discountPercent;
+    }
 
+    public DiscountPredicate getDiscountOnPredicate() {
+        return discountOnPredicate;
+    }
 }

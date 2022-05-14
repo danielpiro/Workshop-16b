@@ -1,16 +1,15 @@
 package Store;
 
-import CustomExceptions.CantPurchaseException;
 import CustomExceptions.SupplyManagementException;
 import Store.BuyinfOptions.BuyOption;
 import Store.BuyinfOptions.ImmediateBuy;
+import Store.StorePurchase.PurchasableProduct;
 
-import javax.naming.LimitExceededException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Product implements PurchasableProduct{
+public class Product implements PurchasableProduct {
     private final String id;
     private String name;
     private float price;

@@ -2,7 +2,7 @@ package Store.StorePurchase.Policies;
 
 import CustomExceptions.SupplyManagementException;
 import Store.ProductsCategories;
-import Store.PurchasableProduct;
+import Store.StorePurchase.PurchasableProduct;
 
 public class ProductBox implements PurchasableProduct {
     private PurchasableProduct myProduct;

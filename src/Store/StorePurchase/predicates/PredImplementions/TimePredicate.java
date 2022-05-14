@@ -1,16 +1,16 @@
-package Store.StorePurchase.predicates;
+package Store.StorePurchase.predicates.PredImplementions;
 
 import ExternalConnections.ExternalConnectionHolder;
 import ShoppingCart.UserInfo;
-import Store.Product;
-import Store.PurchasableProduct;
+import Store.StorePurchase.PurchasableProduct;
+import Store.StorePurchase.predicates.PolicyPredicate;
+import Store.StorePurchase.predicates.PredicateTimeType;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.HashMap;
 import java.util.List;
 
-public class TimePredicate implements PolicyPredicate{
+public class TimePredicate implements PolicyPredicate {
     private LocalDateTime StartTime;
     private LocalDateTime endTime;
 

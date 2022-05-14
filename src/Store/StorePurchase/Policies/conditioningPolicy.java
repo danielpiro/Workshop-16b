@@ -18,6 +18,6 @@ public class conditioningPolicy extends Policy {
 
     @Override
     public boolean checkIfPolicyStands(HashMap<Product, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) {
-        return !left.checkIfPolicyStands(ProductAmount,externalConnectionHolder,userInfo) || right.checkIfPolicyStands(ProductAmount,externalConnectionHolder,userInfo);
+        return !left.checkIfPolicyStands(ProductAmount, externalConnectionHolder, userInfo) || right.checkIfPolicyStands(ProductAmount, externalConnectionHolder, userInfo);
     }
 }

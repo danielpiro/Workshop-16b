@@ -1,16 +1,15 @@
-package Store.StorePurchase.predicates;
+package Store.StorePurchase.predicates.PredImplementions;
 
 import ExternalConnections.ExternalConnectionHolder;
-import ShoppingCart.ProductAmount;
 import ShoppingCart.UserInfo;
-import Store.Product;
-import Store.PurchasableProduct;
+import Store.StorePurchase.PurchasableProduct;
+import Store.StorePurchase.predicates.PolicyPredicate;
+import Store.StorePurchase.predicates.PredicateUserType;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-public class UserPredicate implements PolicyPredicate{
+public class UserPredicate implements PolicyPredicate {
     private List<String> userIds = new ArrayList<>(); // user id case
     private PredicateUserType type;
     private int startAge = -1; //for age case;

@@ -1,16 +1,15 @@
-package Store.StorePurchase.predicates;
+package Store.StorePurchase.predicates.PredImplementions;
 
 import ExternalConnections.ExternalConnectionHolder;
-import ShoppingCart.ProductAmount;
 import ShoppingCart.UserInfo;
-import Store.Product;
 import Store.ProductsCategories;
-import Store.PurchasableProduct;
+import Store.StorePurchase.PurchasableProduct;
+import Store.StorePurchase.predicates.DiscountPredicate;
+import Store.StorePurchase.predicates.PolicyPredicate;
 
-import java.util.HashMap;
 import java.util.List;
 
-public class CategoryPredicate extends DiscountPredicate implements PolicyPredicate {
+public class CategoryPredicate  implements PolicyPredicate, DiscountPredicate {
     List<ProductsCategories> categories;
 
     public CategoryPredicate(List<ProductsCategories> categories) {

@@ -7,6 +7,9 @@ public enum Permission {
     EDIT_PRODUCT,
     REMOVE_PRODUCT,
     EDIT_STORE_POLICY,
+
+    EDIT_STORE_DISCOUNT,
+
     ADD_REVIEW_TO_PRODUCT,
     VIEW_FORUM,
     REPLY_TO_FORUM,

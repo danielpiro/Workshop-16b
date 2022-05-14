@@ -1,11 +1,11 @@
 package Store.StorePurchase.Discounts;
 
-import ShoppingCart.ProductAmount;
-import Store.PurchasableProduct;
+import ExternalConnections.ExternalConnectionHolder;
+import ShoppingCart.UserInfo;
+import Store.StorePurchase.PurchasableProduct;
 
-import java.util.HashMap;
 import java.util.List;
 
 public interface Discount {
-    List<DiscountBox> applyDiscount(List<PurchasableProduct> ProductAmount); // return the price after discount
+    List<PurchasableProduct> applyDiscount(List<PurchasableProduct> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo); // return the price after discount
 }

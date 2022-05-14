@@ -79,7 +79,7 @@ public class ShoppingBasket {
 
     public float purchase(ExternalConnectionHolder externalConnectionHolder, String userID) throws CantPurchaseException {
 
-        float answer = iProtector.reserve(productAmount , externalConnectionHolder, new UserInfo(18,userID));//todo dan need to change this userInfo
+        float answer = iProtector.reserve(productAmount , externalConnectionHolder, new UserInfo(18,userID));//todo guy edited it but dan need to change this userInfo
         if(answer < 0 )
              return -1;
         else

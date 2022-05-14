@@ -2,7 +2,7 @@ package Store.StorePurchase.Policies;
 
 import ExternalConnections.ExternalConnectionHolder;
 import ShoppingCart.UserInfo;
-import Store.PurchasableProduct;
+import Store.StorePurchase.PurchasableProduct;
 import Store.StorePurchase.predicates.PolicyPredicate;
 import Store.Product;
 

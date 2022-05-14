@@ -127,9 +127,7 @@ public class StoreController {
         Store relevantStore = stores.get(storeId);
         relevantStore.createManager(userIdGiving, UserGettingPermissionId);
     }
-    public void editPermissions(){
-        //todo add option to edit permitions
-    }
+
     public InventoryProtector getInventoryProtector(String storeId){
         Store relevantStore = stores.get(storeId);
         return relevantStore.getInventoryProtector();
