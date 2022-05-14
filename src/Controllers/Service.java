@@ -22,8 +22,8 @@ public class Service {
         bigController = new MarketController();
     }
 
-    public Future<Boolean> sign_up(String user_name, String password) {
-        Future<Boolean> future = executorService.submit(() -> bigController.sign_up(user_name,password));
+    public Future<Boolean> sign_up(String guestId,String user_name, String password) {
+        Future<Boolean> future = executorService.submit(() -> bigController.sign_up(guestId, user_name,password));
         return future;
     }
 

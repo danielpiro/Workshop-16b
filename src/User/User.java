@@ -14,9 +14,14 @@ public abstract class User {
 
     }
 
+
     public ShoppingCart getShoppingCart() {
         return shoppingCart;
     }
+    public void setShoppingCart(ShoppingCart shoppingCart) {
+     this.shoppingCart = shoppingCart;
+    }
+
 
     public boolean containsStore(String storeID){
      return shoppingCart.containsStore(storeID);

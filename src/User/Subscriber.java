@@ -54,6 +54,8 @@ public class Subscriber extends User {
 
     public List<Message> getBuffer(){return buffer;}
 
+    public void addMessage(Message m){ getBuffer().add(m);}
+
     public Object getLock (){
         return lock;
     }

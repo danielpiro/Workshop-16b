@@ -141,19 +141,24 @@ public class UserController implements NotificationReceiver {
             throw new IllegalArgumentException("User doesn't exist");
         }
             if (!IdGenerator.getInstance().checkIfAdmin(userId))
-                admin.getBuffer().add(new Message(userId, complaint, LocalDate.now(), StoreName));
+                admin.getBuffer().add(new Message(StoreName, complaint)); // TODO
             else {
                 my_log.logger.warning("user "+userId + "is a system admin, system admin can't send a complaint to himself or sending user doesn't exist");
                 throw new IllegalArgumentException("system admin can't send a complaint to himself or sending user doesn't exist");
             }
     }
 
-    public boolean sign_up(String user_name, String password) {
+    public boolean sign_up(String guest_id,String user_name, String password) {
         synchronized (signUpLock) {
+            if(!checkIfGuestExists(guest_id)){
+                return false;
+            }
             my_log.logger.info("Sign Up");
             if (get_subscriber(user_name) == null) {
                 Subscriber s = new Subscriber(user_name, password);
                 add_subscriber(s);
+                s.setShoppingCart(getGuestShoppingCart(guest_id));
+                removeGuest(guest_id);
                 return true;
             }
         }
@@ -199,6 +204,8 @@ public class UserController implements NotificationReceiver {
                     } else {
                         my_log.logger.info("user "+user_name + " successfully logged out");
                         get_subscriber(user_name).setLogged_in(false);
+                       Guest g = addGuest();
+                       g.setShoppingCart(getSubscriberCart(user_name));
                         return true;
                     }
                 }
@@ -290,7 +297,32 @@ public class UserController implements NotificationReceiver {
         }
     }
 
-
+    public boolean checkIfGuestExists(String guestId){
+        for(Guest g : getGuest_list()){
+            if(g.name.equals(guestId))
+                return true;
+        }
+        return false;
+    }
+    public void removeGuest(String guestId){
+        for(Guest g : getGuest_list()){
+            if(g.name.equals(guestId))
+                getGuest_list().remove(g);
+        }
+    }
+    public ShoppingCart getGuestShoppingCart(String guestId){
+        for(Guest g : getGuest_list()){
+            if (g.name.equals(guestId))
+                return g.getShoppingCart();
+        }
+        return null;
+    }
+    public ShoppingCart getSubscriberCart(String subId){
+        for(Subscriber s : getUser_list())
+            if(s.getName().equals(subId))
+                return s.getShoppingCart();
+        return null;
+    }
     public List<Guest> getGuest_list() {
             return guest_list;
     }
@@ -322,6 +354,10 @@ public class UserController implements NotificationReceiver {
 
     @Override
     public void sendNotificationTo(List<String> userIds, Notification notification) {
-        //todo abed implement
+        for (String s : userIds) {
+            if (!checkIfUserExists(s))
+                throw new IllegalArgumentException("user doesn't exist"); //TODO custom exception
+              get_subscriber(s).addMessage(new Message(notification.getTitle(), notification.getBody()));
+        }
     }
 }

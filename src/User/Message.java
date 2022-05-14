@@ -4,52 +4,30 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Message {
-    private String sender_id;
+    /*private String sender_id;
     private String message;
     private String store_name;
     private LocalDate date;
-    private boolean is_read;
+    private boolean is_read;*/
+    private String Title;
+    private String Body;
+    private boolean read;
 
-    public Message(String sender_id, String message, LocalDate date,String storeName) {
-        this.sender_id = sender_id;
-        this.message = message;
-        this.date = date;
-        this.is_read = false;
-        store_name = storeName;
-    }
-
-    public String getSender_id() {
-        return sender_id;
-    }
-    public String getStore_name() {
-        return store_name;
+    public Message(String title , String body) {
+        this.Title = title;
+        this.Body = body;
     }
 
-    public void setSender_id(String sender_id) {
-        this.sender_id = sender_id;
+    public String getTitle() {
+        return Title;
     }
 
-    public String getMessage() {
-        return message;
+    public String getBody() {
+        return Body;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public boolean isRead() {
+        return read;
     }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public boolean isIs_read() {
-        return is_read;
-    }
-
-    public void setIs_read(boolean is_read) {
-        this.is_read = is_read;
-    }
+    public void setRead(){read = true;}
 }
