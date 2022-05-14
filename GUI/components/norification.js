@@ -1,22 +1,20 @@
 import { NotificationManager } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 
-const createNotification = (type, message) => {
+const createNotification = (type, message, onNotification) => {
   return () => {
     switch (type) {
       case "info":
-        NotificationManager.info(message, "", 3000);
+        NotificationManager.info(message, "Info", 2000, onNotification());
         break;
       case "success":
-        NotificationManager.success(message, "", 3000);
+        NotificationManager.success(message, "Success", 2000, onNotification());
         break;
       case "warning":
-        NotificationManager.warning(message, "", 3000);
+        NotificationManager.warning(message, "Warning", 2000, onNotification());
         break;
       case "error":
-        NotificationManager.error(message, "", 3000, () => {
-          alert("callback");
-        });
+        NotificationManager.error(message, "Error", 2000, onNotification());
         break;
     }
   };

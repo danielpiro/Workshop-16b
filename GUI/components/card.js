@@ -33,15 +33,16 @@ const Card = ({
             <u>Description:</u> {description}
           </p>
         </div>
-        <p className="card-price">
-          <span className="me-4">
+        <div className="text-center">
+          <p className="card-price me-2">
             <u>Price:</u>
-          </span>
-          <span className="prev-price">
-            {Math.round(price / ((100 - discount) / 100))}$
-          </span>{" "}
-          <strong>{price}$</strong> , {discount}% discount
-        </p>
+            <span className="prev-price me-2" style={{ marginLeft: "10px" }}>
+              {Math.round(price / ((100 - discount) / 100))}$
+            </span>
+            <strong>{price}$</strong> , {discount}% discount
+          </p>
+        </div>
+
         <div
           style={{
             display: "flex",

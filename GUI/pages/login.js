@@ -14,13 +14,13 @@ const Login = () => {
     username: "",
     password: "",
   });
-  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
   const [cookies, setCookie, removeCookie] = useCookies([
     "username",
     "password",
     "userId",
   ]);
-  const [isSuccess, setIsSuccess] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
   const router = useRouter();
   useEffect(() => {
     if (cookies.username && cookies.password) {
@@ -33,7 +33,6 @@ const Login = () => {
 
   const onClickLogin = async (e) => {
     e.preventDefault();
-    setError("");
     const passwordRegex = /(?=.*[0-9])/;
     const usernameRegex = /(?=.*[A-Za-z])/;
     if (
@@ -43,54 +42,84 @@ const Login = () => {
       !passwordRegex.test(loginInput.password) ||
       !usernameRegex.test(loginInput.username)
     ) {
-      setError("One of the login information provided is invalid");
+      createNotification("error", "Please insert proper login details")();
       return;
     }
-    setCookie("username", loginInput.username, { path: "/", sameSite: true });
-    setCookie("password", loginInput.password, { path: "/", sameSite: true });
+    let encryptedPassword = 0;
     const encrypted = async () => await bcrypt.hashSync(loginInput.password, 8);
     encrypted().then((res) => (encryptedPassword = res));
-    const post = "post";
-    await api.post(`http://eu.httpbin.org/${post}`).then((res) => {
-      console.log(res);
-    });
-    let encryptedPassword = 0;
-    // await api
-    //   .post(`/login/${loginInput.username}/${encryptedPassword}`)
-    //   .then((res) => {
-    //     if (res.status === 200) {
-    //       const { data } = res;
-    //       setCookie("userId", data, { path: "/", sameSite: true });
-    //     }
-    //   })
-    //   .catch((err) => console.log(err));
+
+    await api
+      .post(`/login/${loginInput.username}/${encryptedPassword}`)
+      .then((res) => {
+        if (res.status === 200) {
+          const { data } = res;
+          setCookie("userId", data, { path: "/", sameSite: true });
+          setCookie("username", loginInput.username, {
+            path: "/",
+            sameSite: true,
+          });
+          setCookie("password", loginInput.password, {
+            path: "/",
+            sameSite: true,
+          });
+        } else {
+          const { message } = res.data;
+          createNotification(
+            "error",
+            "Username or password not match , please try again."
+          )();
+        }
+      })
+      .catch((err) => createNotification("error", err)());
   };
 
   const onClickGuest = (e) => {
     e.preventDefault();
-    // api.post(`/guest/`).then((res) => {
-    //   setCookie("userId", JSON.parse(res.data), { path: "/", sameSite: true });
-    // });
-    router.push("/dashboard");
+    createNotification("success", "Create guest account successfully", () =>
+      router.push("/dashboard")
+    )();
+    // api
+    //   .post(`/guest/`)
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       setCookie("userId", JSON.parse(res.data), {
+    //         path: "/",
+    //         sameSite: true,
+    //       });
+    //       createNotification(
+    //         "success",
+    //         "Create guest account successfully",
+    //         () => router.push("/dashboard")
+    //       )();
+    //     } else {
+    //       createNotification(
+    //         "error",
+    //         "Cannot create guest account , please try again"
+    //       )();
+    //     }
+    //   })
+    //   .catch((err) => createNotification("error", err.message)());
   };
 
   const onSumbitRegister = (e) => {
     e.preventDefault();
-    const temp = createNotification("info");
-    console.log(temp());
-
     let encryptedPassword = 0;
     const encrypted = async () =>
       await bcrypt.hashSync(registerInput.password, 8);
     encrypted().then((res) => (encryptedPassword = res));
-    // api
-    //   .post(`/register/${registerInput.username}/${encryptedPassword}`)
-    //   .then((res) => {
-    //     if (res.status !== 200) {
-    //       setError(res.data);
-    //     } else {
-    //     }
-    //   });
+    api
+      .post(`/register/${registerInput.username}/${encryptedPassword}`)
+      .then((res) => {
+        if (res.status === 200) {
+          createNotification("success", "Register successfully")();
+        } else {
+          createNotification(
+            "error",
+            "Username and password was not valid , please try again"
+          )();
+        }
+      });
   };
 
   return (
@@ -124,7 +153,6 @@ const Login = () => {
               }))
             }
           />
-          {error ? <div>{error}</div> : null}
           <div className="container col-auto">
             <ul className="login-button-list">
               <li>
