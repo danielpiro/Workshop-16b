@@ -58,19 +58,21 @@ const AdminActions = () => {
         <div className="my-4" style={{ display: "flex", justifyContent: "center" }}>
             <h1>Admin Actions</h1>
         </div>
-        <div className="m-5">
-            <div className="row align-items-center justify-content-center">
-                <li className="see-user-purchase-history-button nav-item m-2">
-                    <Link href="/admin-view-user-puchase-history"> 
-                        <a>See all purchase history of specific user</a>
-                    </Link>
-                </li>
-                <li className="see-store-purchase-history-button nav-item m-2">
-                    <Link href="/admin-view-store-puchase-history"> 
-                        <a>See all purchase history of specific store</a>
-                    </Link>
-                </li>
-            </div>
+
+        <div class="card">
+          <div class="card-body">
+            <Link href="/admin-view-user-puchase-history"> 
+                <a>See all purchase history of specific user</a>
+            </Link>
+          </div>
+        </div>
+        <br/>
+        <div class="card">
+          <div class="card-body">
+            <Link href="/admin-view-store-puchase-history"> 
+                <a>See all purchase history of specific store</a>
+            </Link>
+          </div>
         </div>
         
         {/* {!isLoading ? (
@@ -88,4 +90,4 @@ const AdminActions = () => {
     );
   };
   
-  export default AdminActions;
+export default AdminActions;

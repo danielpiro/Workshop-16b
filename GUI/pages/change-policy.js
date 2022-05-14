@@ -44,15 +44,16 @@ const ChangePolicy = () => {
         {menu}
 
         <div className="card-header">
-            <h3>Change User's Permissions</h3>
+            <h3>Change Policy</h3>
         </div>
-        <div class="container">
+
+        <div className="container m-2">
             <div className="row">
                 <div className="col">
                     <input
                         className="form-control mr-sm-2 m-2"
                         type="search"
-                        placeholder="Enter username"
+                        placeholder="Enter storename"
                         aria-label="Search"
                     />
                 </div>
@@ -63,60 +64,71 @@ const ChangePolicy = () => {
                 </div>
             </div>
 
-            <div className="row m-3">
-                {/* <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDisabled" disabled />
-                <label class="form-check-label" for="flexSwitchCheckDisabled">Disabled switch checkbox input</label>
-                </div>
-                <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="flexSwitchCheckCheckedDisabled" checked disabled />
-                <label class="form-check-label" for="flexSwitchCheckCheckedDisabled">Disabled checked switch checkbox input</label>
-                </div> */}
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked/>
-                    <label class="form-check-label" for="flexSwitchCheckDefault">Permission #1</label>
-                </div>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" />
-                    <label class="form-check-label" for="flexSwitchCheckChecked">Permission #2</label>
-                </div>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked/>
-                    <label class="form-check-label" for="flexSwitchCheckDefault">Permission #3</label>
-                </div>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" />
-                    <label class="form-check-label" for="flexSwitchCheckChecked">Permission #4</label>
-                </div>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked/>
-                    <label class="form-check-label" for="flexSwitchCheckDefault">Permission #5</label>
-                </div>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" />
-                    <label class="form-check-label" for="flexSwitchCheckChecked">Permission #6</label>
-                </div>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked/>
-                    <label class="form-check-label" for="flexSwitchCheckDefault">Permission #7</label>
-                </div>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" />
-                    <label class="form-check-label" for="flexSwitchCheckChecked">Permission #8</label>
-                </div>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked/>
-                    <label class="form-check-label" for="flexSwitchCheckDefault">Permission #9</label>
-                </div>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" />
-                    <label class="form-check-label" for="flexSwitchCheckChecked">Permission #10</label>
+            <div className="row">
+                <div className="col">
+                    <div className="dropdown m-1">
+                        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Policy Type
+                        </button>
+                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a className="dropdown-item" href="#">Price</a></li>
+                            <li><a className="dropdown-item" href="#">Quantity</a></li>
+                            <li><a className="dropdown-item" href="#">Day Of Year</a></li>
+                            <li><a className="dropdown-item" href="#">Hour Of Day</a></li>
+                        </ul>
+                    </div>    
                 </div>
 
-                <button className="btn btn-primary mr-lg-3" style={{width: "20%"}}>
-                    Update Permissions
-                </button>
+                <div className="col">
+                    <div className="dropdown m-1">
+                        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Product Type
+                        </button>
+                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a className="dropdown-item" href="#">Drinks</a></li>
+                            <li><a className="dropdown-item" href="#">Food</a></li>
+                            <li><a className="dropdown-item" href="#">Others</a></li>
+                        </ul>
+                    </div>    
+                </div>
+
+                <div className="col">
+                    <div className="dropdown m-1">
+                        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Product
+                        </button>
+                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a className="dropdown-item" href="#">Product A</a></li>
+                            <li><a className="dropdown-item" href="#">Product B</a></li>
+                        </ul>
+                    </div>    
+                </div>
+
+                <div className="col">
+                    <div className="dropdown m-1">
+                        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Allowing/Restricting
+                        </button>
+                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a className="dropdown-item" href="#">Allowing</a></li>
+                            <li><a className="dropdown-item" href="#">Restricting</a></li>
+                        </ul>
+                    </div>    
+                </div>
+
+                <div className="row">
+                    <div className="col">
+                        <br />
+                        <div className="input-group m-2">
+                            <span className="input-group-text">Additional info to policy changes</span>
+                            <textarea className="form-control" aria-label="Additional info"></textarea>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <button className="btn btn-primary mr-lg-3 m-2" style={{width: "20%"}}>
+                Update Policy
+            </button>
         </div>
 
         </>

@@ -47,7 +47,7 @@ const HireOwnerToStore = () => {
             <h3>Hire new owner to a store</h3>
         </div>
 
-        <div class="container">
+        <div className="container">
             <div className="row" style={{ display: "flex", width: "50%" }}>
                 <input
                     className="form-control mr-sm-2 m-2"
@@ -64,7 +64,7 @@ const HireOwnerToStore = () => {
                     aria-label="Search"
                 />
             </div>
-            <div class="dropdown m-1">
+            <div className="dropdown m-1">
                 <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     Owner/Manager
                 </button>
