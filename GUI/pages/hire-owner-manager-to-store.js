@@ -7,7 +7,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
-const OpenNewStore = () => {
+const HireOwnerToStore = () => {
     // const [isLoading, setIsLoading] = useState(true);
     // const [searchValue, setSearchValue] = useState("");
     const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
@@ -44,28 +44,45 @@ const OpenNewStore = () => {
         {menu}
 
         <div className="card-header">
-            <h3>Open New Store</h3>
+            <h3>Hire new owner to a store</h3>
         </div>
 
-        <div className="container m-2">
+        <div className="container">
+            <div className="row" style={{ display: "flex", width: "50%" }}>
+                <input
+                    className="form-control mr-sm-2 m-2"
+                    type="search"
+                    placeholder="Enter username of the new owner/manager"
+                    aria-label="Search"
+                />
+            </div>
+            <div className="row" style={{ display: "flex", width: "50%" }}>
+                <input
+                    className="form-control mr-sm-2 m-2"
+                    type="search"
+                    placeholder="Enter the store name"
+                    aria-label="Search"
+                />
+            </div>
+            <div className="dropdown m-1">
+                <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    Owner/Manager
+                </button>
+                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a className="dropdown-item" href="#">Manager</a></li>
+                    <li><a className="dropdown-item" href="#">Owner</a></li>
+                </ul>
+            </div>
             <br />
-            <div className="mb-3">
-                <label for="formGroupExampleInput" className="form-label fs-4">New Store Name:</label>
-                <input type="text" className="form-control" id="formGroupExampleInput" placeholder="Store Name" />
-            </div>
-            <div className="mb-3">
-                <label for="formGroupExampleInput2" className="form-label fs-4">Other info of store:</label>
-                <input type="text" className="form-control" id="formGroupExampleInput2" placeholder="Other info of store..." />
-            </div>
-
-            
-            <button className="btn btn-primary mr-lg-3 m-2" style={{width: "20%"}}>
-                Open New Store
-            </button>
+            <div className="row m-1" style={{ display: "flex", width: "15%" }}>
+                <button className="btn btn-primary mr-lg-3">
+                    Search
+                </button>
+            </div>    
         </div>
-
+        
         </>
     );
 };
 
-export default OpenNewStore;
+export default HireOwnerToStore;

@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import Menu from "../components/menu";
+import AdminMenu from "../components/menus/menuAdmin";
+import StoreOwnerMenu from "../components/menus/menuStoreOwner";
+import StoreManagerMenu from "../components/menus/menuStoreManager";
+import SubscriberMenu from "../components/menus/menuSubscriber";
+import GuestMenu from "../components/menus/menuGuest";
 import CartItem from "../components/cart-item.js";
 import { useCookies } from "react-cookie";
 
@@ -12,6 +16,25 @@ const shoppingCart = () => {
     "password",
     "userId",
   ]);
+  const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
+                                                                 //      + Edit using new method "setUserPermission"
+  var menu;
+  if (userPermission == "Admin"){
+    menu = <AdminMenu />;
+  }
+  else if (userPermission == "Owner"){
+    menu = <StoreOwnerMenu />;
+  }
+  else if (userPermission == "Manager"){
+    menu = <StoreManagerMenu />;
+  }
+  else if (userPermission == "Subscriber"){
+    menu = <SubscriberMenu />;
+  }
+  else{
+    menu = <GuestMenu />;
+  }
+
   useEffect(() => {
     // const fetchCart = async () => {
     //   return await api.get("/cart/" + window.id).then((res) => {
@@ -29,7 +52,7 @@ const shoppingCart = () => {
   }, []);
   return (
     <>
-      <Menu />
+      {menu}
       <div className="text-center my-3">
         <h3>Cart</h3>
       </div>

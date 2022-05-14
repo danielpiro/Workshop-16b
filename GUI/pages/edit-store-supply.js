@@ -23,8 +23,12 @@ const EditStoreSupply = () => {
     fetchApi();
   }, []);
 
-  const onChange = (event) => {
-    props.setSearchValue(event.target.value);
+  const onChangeStoreName = (event) => {
+    //props.setSearchValue(event.target.value);
+  };
+
+  const onChangeProductName = (event) => {
+    //props.setSearchValue(event.target.value);
   };
 
   var menu;
@@ -47,45 +51,73 @@ const EditStoreSupply = () => {
   return (
     <>
     {menu}
-       
-      <div className="row justify-content-center align-items-center" style={{display: "inline-block"}}>
-        <h4>Search products in store to edit:</h4> 
-        <SearchBar setSearchValue={setSearchValue} />
-        <button>Search</button> 
-      </div>
-      
-     
-      {/*
-      <div className="container">
-        <h7>Product Name: </h7>
-        <nav className="navbar navbar-expand-lg bg-secondery rounded-3">
-          <form className="row form-inline" style={{ display: "flex", width: "40%" }}>
-            <div className="main-search-bar">
-              <input className="form-control mr-sm-2" type="search"
-                placeholder={setSearchValue} aria-label="Search" onChange={onChange}/>
-            </div>
-          </form>
-        </nav>
 
-        <h7>Product Price: </h7>
-        <nav className="navbar navbar-expand-lg bg-secondery rounded-3">
-          <form className="row form-inline" style={{ display: "flex", width: "40%" }}>
-            <div className="main-search-bar">
-              <input className="form-control mr-sm-2" type="search"
-                placeholder={setSearchValue} aria-label="Search" onChange={onChange}/>
+    <div className="card-header">
+        <h3>Edit store's supply</h3>
+    </div>
+       
+    <div className="container">
+      <nav className="navbar navbar-expand-lg bg-secondery align-items-left rounded-3">
+        <form className="row form-inline" style={{ display: "flex", width: "50%" }}>
+            <input
+              className="form-control mr-sm-2 m-2"
+              type="search"
+              placeholder="Enter store name"
+              aria-label="Search"
+              onChange={onChangeStoreName}
+            />
+            
+            <input
+              className="form-control mr-sm-2 m-2"
+              type="search"
+              placeholder="Enter product name"
+              aria-label="Search"
+              onChange={onChangeProductName}
+            />
+            <div>
+              <button className="btn btn-primary mr-lg-3">
+                Search
+              </button>
             </div>
-          </form>
-        </nav>
-        <h7>Product Quantity: </h7>
-        <nav className="navbar navbar-expand-lg bg-secondery rounded-3">
-          <form className="row form-inline" style={{ display: "flex", width: "40%" }}>
-            <div className="main-search-bar">
-              <input className="form-control mr-sm-2" type="search"
-                placeholder={setSearchValue} aria-label="Search" onChange={onChange}/>
+        </form>
+      </nav>
+    </div>      
+      
+    <br></br>  
+    <div className="container">
+      <nav className="navbar navbar-expand-lg bg-secondery align-items-left rounded-3">
+        <form className="row form-inline" style={{ display: "flex", width: "30%" }}>
+            <input
+              className="form-control mr-sm-2 m-2"
+              type="search"
+              placeholder="Enter new product name"
+              aria-label="Search"
+              onChange={onChangeStoreName}
+            />
+            
+            <input
+              className="form-control mr-sm-2 m-2"
+              type="search"
+              placeholder="Enter new product price"
+              aria-label="Search"
+              onChange={onChangeProductName}
+            />
+
+            <input
+              className="form-control mr-sm-2 m-2"
+              type="search"
+              placeholder="Enter new product quantity"
+              aria-label="Search"
+              onChange={onChangeProductName}
+            />
+            <div>
+              <button className="btn btn-primary mr-lg-3">
+                Edit
+              </button>
             </div>
-          </form>
-        </nav>
-    </div> */}
+        </form>
+      </nav>
+    </div>
     </>
   );
 };
