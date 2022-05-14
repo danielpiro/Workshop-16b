@@ -47,8 +47,7 @@ const StoreManagement = () => {
           style={{ display: "flex", justifyContent: "center" }}
         >
             <h1>Store Management</h1>
-        </div>
-                
+        </div>    
         <div className="containter">
             <div className="row">
                 <div className="col">
@@ -147,7 +146,6 @@ const StoreManagement = () => {
             </div>
           </div>
         )} */}
-
         <div className="modal" tabindex="-1">
         <div className="modal-dialog">
             <div className="modal-content">

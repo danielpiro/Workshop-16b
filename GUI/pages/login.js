@@ -3,68 +3,123 @@ import api from "../components/api";
 import { useRouter } from "next/router";
 import bcrypt from "bcryptjs/dist/bcrypt";
 import { useCookies } from "react-cookie";
+import createNotification from "../components/norification";
 
 const Login = () => {
-  const [input, setInput] = useState({
+  const [loginInput, setLoginInput] = useState({
     username: "",
     password: "",
   });
-  const [error, setError] = useState("");
+  const [registerInput, setRegisterInput] = useState({
+    username: "",
+    password: "",
+  });
+  const [message, setMessage] = useState("");
   const [cookies, setCookie, removeCookie] = useCookies([
     "username",
     "password",
     "userId",
   ]);
+  const [isSuccess, setIsSuccess] = useState(false);
   const router = useRouter();
   useEffect(() => {
-    // if (cookies.username === "asdasd" && cookies.password === "123123") {
-    //   router.push("/dashboard");
-    // }
+    if (cookies.username && cookies.password) {
+      setLoginInput(() => ({
+        username: cookies.username,
+        password: cookies.password,
+      }));
+    }
   }, []);
 
   const onClickLogin = async (e) => {
     e.preventDefault();
-    setError("");
     const passwordRegex = /(?=.*[0-9])/;
     const usernameRegex = /(?=.*[A-Za-z])/;
     if (
-      input.password.length < 6 ||
-      !input.password ||
-      !input.username ||
-      !passwordRegex.test(input.password) ||
-      !usernameRegex.test(input.username)
+      loginInput.password.length < 6 ||
+      !loginInput.password ||
+      !loginInput.username ||
+      !passwordRegex.test(loginInput.password) ||
+      !usernameRegex.test(loginInput.username)
     ) {
-      setError("One of the login information provided is invalid");
+      createNotification("error", "Please insert proper login details")();
       return;
     }
-    setCookie("username", input.username, { path: "/", sameSite: true });
-    setCookie("password", input.password, { path: "/", sameSite: true });
-    const encrypted = async () => await bcrypt.hashSync(input.password, 8);
-    encrypted().then((res) => console.log("value", res));
-    const post = "post";
-    await api.post(`http://eu.httpbin.org/${post}`).then((res) => {
-      console.log(res);
-    });
-    //   .catch((err) => console.log(err));
-    //   await api
-    //     .post(
-    //       "/login",
-    //       JSON.stringify({
-    //         username: input.username,
-    //         password: encrypted,
-    //       })
-    //     )
-    //     .then((res) => {
-    //       const { data } = res;
-    //       console.log(data);
-    //     })
-    //     .catch((err) => console.log(err));
+    let encryptedPassword = 0;
+    const encrypted = async () => await bcrypt.hashSync(loginInput.password, 8);
+    encrypted().then((res) => (encryptedPassword = res));
+
+    await api
+      .post(`/login/${loginInput.username}/${encryptedPassword}`)
+      .then((res) => {
+        if (res.status === 200) {
+          const { data } = res;
+          setCookie("userId", data, { path: "/", sameSite: true });
+          setCookie("username", loginInput.username, {
+            path: "/",
+            sameSite: true,
+          });
+          setCookie("password", loginInput.password, {
+            path: "/",
+            sameSite: true,
+          });
+        } else {
+          const { message } = res.data;
+          createNotification(
+            "error",
+            "Username or password not match , please try again."
+          )();
+        }
+      })
+      .catch((err) => createNotification("error", err)());
   };
 
   const onClickGuest = (e) => {
     e.preventDefault();
-    //need to do api to backend and get guestid
-    router.push("/dashboard");
+    createNotification("success", "Create guest account successfully", () =>
+      router.push("/dashboard")
+    )();
+    // api
+    //   .post(`/guest/`)
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       setCookie("userId", JSON.parse(res.data), {
+    //         path: "/",
+    //         sameSite: true,
+    //       });
+    //       createNotification(
+    //         "success",
+    //         "Create guest account successfully",
+    //         () => router.push("/dashboard")
+    //       )();
+    //     } else {
+    //       createNotification(
+    //         "error",
+    //         "Cannot create guest account , please try again"
+    //       )();
+    //     }
+    //   })
+    //   .catch((err) => createNotification("error", err.message)());
+  };
+
+  const onSumbitRegister = (e) => {
+    e.preventDefault();
+    let encryptedPassword = 0;
+    const encrypted = async () =>
+      await bcrypt.hashSync(registerInput.password, 8);
+    encrypted().then((res) => (encryptedPassword = res));
+    api
+      .post(`/register/${registerInput.username}/${encryptedPassword}`)
+      .then((res) => {
+        if (res.status === 200) {
+          createNotification("success", "Register successfully")();
+        } else {
+          createNotification(
+            "error",
+            "Username and password was not valid , please try again"
+          )();
+        }
+      });
   };
 
   return (
@@ -73,13 +128,13 @@ const Login = () => {
         <form className="main-login-form col-4 p-5">
           <h1 className="main-title">Marketplace</h1>
           <input
-            type="email"
+            type="username"
             className="form-control mt-1"
-            placeholder="Enter email"
+            placeholder="Enter username"
             name="username"
-            value={input.username}
+            value={loginInput.username}
             onChange={(e) =>
-              setInput((prevState) => ({
+              setLoginInput((prevState) => ({
                 ...prevState,
                 username: e.target.value,
               }))
@@ -90,15 +145,14 @@ const Login = () => {
             className="form-control mt-1"
             placeholder="Password"
             name="password"
-            value={input.password}
+            value={loginInput.password}
             onChange={(e) =>
-              setInput((prevState) => ({
+              setLoginInput((prevState) => ({
                 ...prevState,
                 password: e.target.value,
               }))
             }
           />
-          {error ? <div>{error}</div> : null}
           <div className="container col-auto">
             <ul className="login-button-list">
               <li>
@@ -151,22 +205,22 @@ const Login = () => {
                 <div className="modal-body">
                   <div>
                     <input
-                      placeholder="username"
-                      value={input.username}
+                      placeholder="Enter username"
+                      value={registerInput.username}
                       onChange={(e) =>
-                        setInput((prevState) => ({
+                        setRegisterInput((prevState) => ({
                           ...prevState,
                           username: e.target.value,
                         }))
                       }
                     />
                   </div>
-                  <div>
+                  <div className="mt-2">
                     <input
-                      placeholder="password"
-                      value={input.password}
+                      placeholder="Enter password"
+                      value={registerInput.password}
                       onChange={(e) =>
-                        setInput((prevState) => ({
+                        setRegisterInput((prevState) => ({
                           ...prevState,
                           password: e.target.value,
                         }))
@@ -182,7 +236,11 @@ const Login = () => {
                   >
                     Close
                   </button>
-                  <button type="button" className="btn btn-primary">
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={onSumbitRegister}
+                  >
                     Submit
                   </button>
                 </div>

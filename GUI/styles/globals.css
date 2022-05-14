@@ -13,13 +13,19 @@ a {
 * {
   box-sizing: border-box;
 }
-.list-group {
-  display: grid !important;
-  grid-template-columns: repeat(5, 1fr);
+.list-group-dashboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   grid-gap: 1em;
 }
 
-.list-group-item {
+.list-group-cart {
+  display: list-item !important;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1em;
+}
+
+.list-group-dashboard.list-group-item {
   background: #f7f7f7;
   padding: 1em;
   text-align: center;
@@ -42,7 +48,6 @@ a {
 }
 
 .main-login-form {
-  border: darkblue solid 2px;
   background-color: skyblue;
 }
 
@@ -73,4 +78,10 @@ a {
 }
 .prev-price {
   text-decoration: line-through;
+}
+
+.text-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

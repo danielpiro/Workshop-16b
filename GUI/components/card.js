@@ -6,8 +6,6 @@ const Card = ({
   description,
   price,
   discount,
-  getSingleProduct,
-  singleProduct,
 }) => {
   const onClick = (e) => {
     console.log(e.target.value);
@@ -15,9 +13,6 @@ const Card = ({
 
   const onClickBid = (e) => {
     e.preventDefault();
-    alert("not working WIP");
-    console.log("in details", e.target.value);
-    getSingleProduct(e.target.value);
   };
 
   const addProduct = (e) => {
@@ -38,15 +33,16 @@ const Card = ({
             <u>Description:</u> {description}
           </p>
         </div>
-        <p className="card-price">
-          <span className="me-4">
+        <div className="text-center">
+          <p className="card-price me-2">
             <u>Price:</u>
-          </span>
-          <span className="prev-price">
-            {Math.round(price / ((100 - discount) / 100))}$
-          </span>{" "}
-          <strong>{price}$</strong> , {discount}% discount
-        </p>
+            <span className="prev-price me-2" style={{ marginLeft: "10px" }}>
+              {Math.round(price / ((100 - discount) / 100))}$
+            </span>
+            <strong>{price}$</strong> , {discount}% discount
+          </p>
+        </div>
+
         <div
           style={{
             display: "flex",
@@ -77,38 +73,6 @@ const Card = ({
           >
             Bid
           </button>
-        </div>
-        <div
-          className="modal fade bd-example-modal-lg"
-          tabIndex="-1"
-          role="dialog"
-          aria-labelledby="myLargeModalLabel"
-          aria-hidden="true"
-          id="productDetails"
-        >
-          <div className="modal-dialog modal-lg">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLongTitle">
-                  Product details
-                </h5>
-              </div>
-              <div className="modal-body">
-                Title : {singleProduct.title}
-                Category : {singleProduct.category}
-                Description : {singleProduct.description}
-              </div>
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </>

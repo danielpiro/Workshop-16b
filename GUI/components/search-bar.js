@@ -1,9 +1,6 @@
 import { useState } from "react";
 import api from "./api";
 const SearchBar = (props) => {
-  const [isProduct, setIsProduct] = useState(false);
-  const [isStore, setisStore] = useState(false);
-  const [current, setCurrent] = useState("Type");
   const [value, setValue] = useState("");
   const onChange = (e) => {
     setValue(e.target.value);
@@ -11,32 +8,16 @@ const SearchBar = (props) => {
 
   const onSearch = (e) => {
     e.preventDefault();
-    if (isProduct || isStore) {
-      api
-        .get(
-          `/search/${
-            isProduct
-              ? "products/" + value
-              : isStore
-              ? "stores/" + value
-              : value
-          }`
-        )
-        .then((res) => {
-          const { data } = res;
-          props.setProducts(data);
-        });
-    }
-  };
-
-  const onProducts = () => {
-    setCurrent("Products");
-    setIsProduct(!isProduct);
-  };
-
-  const onStores = () => {
-    setCurrent("Stores");
-    setisStore(!isStore);
+    // api
+    //   .get(`/search/${value}`)
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       props.setProducts(res.data);
+    //     } else {
+    //       alert("not good");
+    //     }
+    //   })
+    //   .catch((err) => console.log(err));
   };
   return (
     <div className="container">
@@ -60,37 +41,6 @@ const SearchBar = (props) => {
             </div>
           </div>
         </form>
-        <div className="dropdown">
-          <button
-            className="btn btn-primary dropdown-toggle"
-            type="button"
-            id="dropdownMenu2"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            {current}
-          </button>
-          <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
-            <li>
-              <button
-                className="dropdown-item"
-                type="button"
-                onClick={onProducts}
-              >
-                Products
-              </button>
-            </li>
-            <li>
-              <button
-                className="dropdown-item"
-                type="button"
-                onClick={onStores}
-              >
-                Stores
-              </button>
-            </li>
-          </ul>
-        </div>
       </nav>
     </div>
   );
