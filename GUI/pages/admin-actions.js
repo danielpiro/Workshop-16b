@@ -9,26 +9,16 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 const AdminActions = () => {
-    // const [isLoading, setIsLoading] = useState(true);
-    // const [searchValue, setSearchValue] = useState("");
     const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
-    // useEffect(() => {
-    //   const fetchApi = async () => {
-    //     const response = await axios.get("https://fakestoreapi.com/products");
-    //     setIsLoading(!isLoading);
-    //     setProducts(response.data);
-    //     //TODO: Add logic to check if the user has any permission!
-    //     //setUserPermission("Admin/StoreOwner/StoreManager");
-    //   };
-    //   fetchApi();
-    // }, []);
-
+    
     // const router = useRouter();
-    // const onClick = (e) => {
+    // const onClickOfUser = (e) =>{
     //   e.preventDefault();
-    //   //need to do api to backend and get guestid
-    //   router.push("/dashboard");
-    // };
+    // }
+
+    // const onClickOfStore = (e) =>{
+    //   e.preventDefault();
+    // }
   
     var menu;
     if (userPermission == "Admin"){
@@ -46,15 +36,10 @@ const AdminActions = () => {
     else{
         menu = <GuestMenu />;
     }
-  
-    /* TODO: 
-     * Change links to the real pages! 
-     * Add store history page
-     * Add user history page
-     */
+
     return (
       <>
-      {menu}
+      {menu} {/*Should be Admin Only!!!*/}
         <div className="my-4" style={{ display: "flex", justifyContent: "center" }}>
             <h1>Admin Actions</h1>
         </div>
@@ -69,23 +54,11 @@ const AdminActions = () => {
         <br/>
         <div class="card">
           <div class="card-body">
-            <Link href="/admin-view-store-puchase-history"> 
+            <Link href="/admin-view-store-puchase-history" disabled> 
                 <a>See all purchase history of specific store</a>
             </Link>
           </div>
         </div>
-        
-        {/* {!isLoading ? (
-          <div style={{ display: "table", width: "100%" }}>
-            <h2>See All History</h2>
-          </div>
-        ) : (
-          <div className="container h-100 my-6">
-            <div className="row align-items-center justify-content-center">
-              <div className="spinner-border" />
-            </div>
-          </div>
-        )} */}
       </>
     );
   };

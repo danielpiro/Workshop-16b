@@ -5,28 +5,30 @@ import { useState, useEffect } from "react";
 import Card from "../components/card";
 
 const AdminViewUserPurchaes = () => {
-  //const [purchases, setProducts] = useState([]);
-  //const [isLoading, setIsLoading] = useState(true);
+  const [purchases, setPurchases] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-  const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
-  // useEffect(() => {
-  //   const fetchApi = async () => {
-  //     const response = await axios.get("https://fakestoreapi.com/users");
-  //     setIsLoading(!isLoading);
-  //     setProducts(response.data);
-  //     //TODO: Add logic to check if the user has any permission!
-  //     //setUserPermission("Admin/StoreOwner/StoreManager");
-  //   };
-  //   fetchApi();
-  // }, []);
-  const onChange = (e) => {
-    setSearchValue(e.target.value);
-  };
+  const [userPermission, setUserPermission] = useState("Admin"); //=useState("Guest"); //TODO: Need to change to Guest when logic is ready!
 
   const searchUsernamePurchases = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
+    setIsLoading(true);
+    const fetchPurchases = async () => {
+      const response = await axios.get("history/user");
+      setIsLoading(!isLoading);
+      setPurchases(response.data);
+    };
+    fetchPurchases();
   }
+
+  useEffect(() => {
+    const fetchPermission = async () => {
+      const response = await axios.get("users/getUserPermission");
+      setIsLoading(!isLoading);
+      setUserPermission(response.data);
+    };
+    fetchPermission();
+  }, []);
 
   return (
     <>
@@ -43,7 +45,13 @@ const AdminViewUserPurchaes = () => {
               type="search"
               placeholder="Enter username"
               aria-label="Search"
-              onChange={onChange}
+              value={searchValue.data}
+              onChange={(e) =>
+                setSearchValue((prevState) => ({
+                    ...prevState,
+                    searchValue: e.target.value,
+                  }))
+              }
             />
             <div>
               <button className="btn btn-primary mr-lg-3" onClick={searchUsernamePurchases}>
@@ -58,21 +66,21 @@ const AdminViewUserPurchaes = () => {
     <div className="my-4" style={{ display: "flex", justifyContent: "center" }}>
       <h1>Purchases</h1>
     </div>
-    {/* {!isLoading ? (
+
+    {!isLoading ? (
       <div style={{ display: "table", width: "100%" }}>
         <ul className="list-group" style={{ display: "table-cell" }}>
           {purchases
             .filter((val) =>
               val.title.toLowerCase().includes(searchValue.toLowerCase())
             )
-            .map((product) => {
+            .map((purchase) => {
               return (
-                <li className=" list-group-item" key={product.id}>
+                <li className=" list-group-item" key={purchase.id}>
                   <Card
-                    value={product.id}
-                    image={product.image}
-                    title={product.title}
-                    description={product.description}
+                    value={purchase.id}
+                    title={purchase.title}
+                    description={purchase.description}
                   />
                 </li>
               );
@@ -85,7 +93,7 @@ const AdminViewUserPurchaes = () => {
           <div className="spinner-border" />
         </div>
       </div>
-    )} */}
+    )}
     </>
   );
 };

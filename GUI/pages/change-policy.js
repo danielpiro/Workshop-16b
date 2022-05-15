@@ -64,6 +64,55 @@ const ChangePolicy = () => {
                 </div>
             </div>
 
+            <div className="row m-2">
+                {/*displaying all searched stores - will be displayed in cards that contain the button "Close Store"*/}
+                <div className="card w-75 m-1">
+                    <div className="card-body">
+                        <div className="row">
+                            <div className="col">
+                                <h5 className="card-title">Store A</h5>
+                            </div>
+                            <div className="col">
+                                <p className="card-text">Store description...</p>
+                            </div>
+                            <div className="col">
+                                <a href="#" className="btn btn-primary">Close Store</a>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+                <div className="card w-75 m-1">
+                    <div className="card-body">
+                        <div className="row">
+                            <div className="col">
+                                <h5 className="card-title">Store B</h5>
+                            </div>
+                            <div className="col">
+                                <p className="card-text">Store description...</p>
+                            </div>
+                            <div className="col">
+                                <a href="#" className="btn btn-primary">Close Store</a>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+                <div className="card w-75 m-1">
+                    <div className="card-body">
+                        <div className="row">
+                            <div className="col">
+                                <h5 className="card-title">Store A</h5>
+                            </div>
+                            <div className="col">
+                                <p className="card-text">Store description...</p>
+                            </div>
+                            <div className="col">
+                                <a href="#" className="btn btn-primary">Close Store</a>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            </div>
+
             <div className="row">
                 <div className="col">
                     <div className="dropdown m-1">
@@ -71,10 +120,15 @@ const ChangePolicy = () => {
                             Policy Type
                         </button>
                         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a className="dropdown-item" href="#">Price</a></li>
-                            <li><a className="dropdown-item" href="#">Quantity</a></li>
-                            <li><a className="dropdown-item" href="#">Day Of Year</a></li>
+                            <li><a className="dropdown-item" href="#">Total cart price</a></li>
+                            <li><a className="dropdown-item" href="#">Quantity in cart</a></li>
+                            <li><a className="dropdown-item" href="#">Product should be in cart</a></li>
+                            <li><a className="dropdown-item" href="#">Product should be in cart with minimum quantity</a></li>
+                            <li><a className="dropdown-item" href="#">Day Of Month</a></li>
+                            <li><a className="dropdown-item" href="#">Day Of Week</a></li>
                             <li><a className="dropdown-item" href="#">Hour Of Day</a></li>
+                            <li><a className="dropdown-item" href="#">Specific user</a></li>
+                            <li><a className="dropdown-item" href="#">Age</a></li>
                         </ul>
                     </div>    
                 </div>
