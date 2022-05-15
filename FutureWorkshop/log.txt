@@ -1,0 +1,696 @@
+May 13, 2022 7:43:22 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 7:43:22 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 7:43:22 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 7:43:22 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 7:43:22 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 7:43:22 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 7:43:22 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 7:43:22 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 7:43:22 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 7:43:52 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 7:43:52 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 7:43:52 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 7:43:52 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 7:43:52 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 7:43:52 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 7:43:52 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 7:43:52 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 7:43:52 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 7:51:42 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 7:51:42 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 7:51:42 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 7:51:42 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 7:51:42 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 7:51:42 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 7:51:42 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 7:51:42 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 7:51:42 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 7:52:11 AM com.example.demo.Controllers.BigController deleteUser
+INFO: userdanis trying to delete userdaniel
+May 13, 2022 7:52:11 AM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user dandoesn't exist
+May 13, 2022 7:52:11 AM com.example.demo.Controllers.UserController deleteUser
+INFO:  user danielfailed to delete user daniel
+May 13, 2022 7:52:57 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 7:52:57 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 7:52:57 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 7:52:57 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 7:52:57 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 7:52:57 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 7:52:57 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 7:52:57 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 7:52:57 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 7:53:01 AM com.example.demo.Controllers.BigController deleteUser
+INFO: userdanis trying to delete userdaniel
+May 13, 2022 7:53:01 AM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user dandoesn't exist
+May 13, 2022 7:53:01 AM com.example.demo.Controllers.UserController deleteUser
+INFO:  user danielfailed to delete user daniel
+May 13, 2022 8:11:04 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 8:11:04 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 8:11:04 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 8:11:04 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 8:11:04 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 8:11:04 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 8:11:04 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 8:11:04 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 8:11:04 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 8:11:35 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 8:11:35 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 8:11:35 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 8:11:35 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 8:11:35 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 8:11:35 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 8:11:35 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 8:11:35 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 8:11:35 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 8:12:25 AM com.example.demo.Controllers.BigController deleteUser
+INFO: userdanis trying to delete userdaniel
+May 13, 2022 8:12:25 AM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user dandoesn't exist
+May 13, 2022 8:12:25 AM com.example.demo.Controllers.UserController deleteUser
+INFO:  user danielfailed to delete user daniel
+May 13, 2022 8:13:03 AM com.example.demo.Controllers.BigController sign_up
+INFO: user dan is trying to sign up
+May 13, 2022 8:13:03 AM com.example.demo.Controllers.UserController sign_up
+INFO: Sign Up
+May 13, 2022 8:32:07 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 8:32:07 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 8:32:07 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 8:32:07 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 8:32:07 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 8:32:07 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 8:32:07 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 8:32:07 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 8:32:07 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 8:32:30 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 8:32:30 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 8:32:30 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 8:32:30 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 8:32:30 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 8:32:30 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 8:32:30 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 8:32:30 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 8:32:30 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 8:34:31 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 8:34:31 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 8:34:31 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 8:34:31 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 8:34:31 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 8:34:31 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 8:34:31 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 8:34:31 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 8:34:31 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 8:35:09 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 8:35:09 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 8:35:09 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 8:35:09 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 8:35:09 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 8:35:09 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 8:35:09 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 8:35:09 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 8:35:09 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 8:35:33 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 8:35:33 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 8:35:33 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 8:35:33 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 8:35:33 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 8:35:33 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 8:35:33 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 8:35:33 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 8:35:33 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 8:36:00 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 8:36:00 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 8:36:00 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 8:36:00 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 8:36:00 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 8:36:00 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 8:36:00 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 8:36:00 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 8:36:00 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 8:38:04 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 8:38:04 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 8:38:04 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 8:38:04 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 8:38:04 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 8:38:04 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 8:38:04 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 8:38:04 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 8:38:04 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 8:38:35 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 8:38:35 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 8:38:35 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 8:38:35 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 8:38:35 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 8:38:35 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 8:38:35 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 8:38:35 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 8:38:35 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 8:40:04 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 8:40:04 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 8:40:04 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 8:40:04 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 8:40:04 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 8:40:04 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 8:40:04 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 8:40:04 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 8:40:04 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 8:40:29 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 8:40:29 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 8:40:29 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 8:40:29 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 8:40:29 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 8:40:29 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 8:40:29 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 8:40:29 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 8:40:29 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 8:41:13 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 8:41:13 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 8:41:13 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 8:41:13 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 8:41:13 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 8:41:13 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 8:41:13 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 8:41:13 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 8:41:13 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 8:42:04 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 8:42:04 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 8:42:04 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 8:42:04 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 8:42:04 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 8:42:04 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 8:42:04 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 8:42:04 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 8:42:04 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 8:42:24 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 8:42:24 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 8:42:24 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 8:42:24 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 8:42:24 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 8:42:24 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 8:42:24 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 8:42:24 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 8:42:24 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 8:42:52 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 8:42:52 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 8:42:52 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 8:42:52 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 8:42:52 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 8:42:52 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 8:42:52 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 8:42:52 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 8:42:52 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 8:43:22 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 8:43:22 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 8:43:22 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 8:43:22 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 8:43:22 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 8:43:22 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 8:43:22 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 8:43:22 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 8:43:22 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 8:43:54 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 8:43:54 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 8:43:54 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 8:43:54 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 8:43:54 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 8:43:54 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 8:43:54 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 8:43:54 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 8:43:54 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 8:45:06 AM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user danieldoesn't exist
+May 13, 2022 8:45:37 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 8:45:37 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 8:45:37 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 8:45:37 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 8:45:37 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 8:45:37 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 8:45:37 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 8:45:37 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 8:45:37 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 8:45:49 AM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user danieldoesn't exist
+May 13, 2022 9:07:59 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 9:07:59 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 9:07:59 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 9:07:59 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 9:07:59 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 9:07:59 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 9:07:59 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 9:07:59 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 9:07:59 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 9:20:01 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 9:20:01 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 9:20:01 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 9:20:01 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 9:20:01 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 9:20:01 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 9:20:01 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 9:20:01 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 9:20:01 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 9:20:45 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 9:20:45 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 9:20:45 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 9:20:45 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 9:20:45 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 9:20:45 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 9:20:45 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 9:20:45 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 9:20:45 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 9:21:38 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 9:21:38 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 9:21:38 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 9:21:38 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 9:21:38 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 9:21:38 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 9:21:38 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 9:21:38 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 9:21:38 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 13, 2022 9:24:52 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 13, 2022 9:24:52 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 13, 2022 9:24:52 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 13, 2022 9:24:52 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 13, 2022 9:24:52 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 13, 2022 9:24:52 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 13, 2022 9:24:52 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 13, 2022 9:24:52 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 13, 2022 9:24:52 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 14, 2022 2:09:41 PM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 14, 2022 2:09:41 PM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 14, 2022 2:09:41 PM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 14, 2022 2:09:41 PM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 14, 2022 2:09:41 PM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 14, 2022 2:09:41 PM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 14, 2022 2:09:41 PM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 14, 2022 2:09:41 PM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 14, 2022 2:09:41 PM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 14, 2022 4:49:45 PM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 14, 2022 4:49:45 PM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 14, 2022 4:49:45 PM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 14, 2022 4:49:45 PM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 14, 2022 4:49:45 PM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 14, 2022 4:49:45 PM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 14, 2022 4:49:45 PM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 14, 2022 4:49:45 PM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 14, 2022 4:49:45 PM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 14, 2022 4:50:03 PM com.example.demo.Controllers.BigController sign_up
+INFO: user amit is trying to sign up
+May 14, 2022 4:50:03 PM com.example.demo.Controllers.UserController sign_up
+INFO: Sign Up
+May 15, 2022 6:54:16 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 15, 2022 6:54:16 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 15, 2022 6:54:16 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 15, 2022 6:54:16 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 15, 2022 6:54:16 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 15, 2022 6:54:16 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 15, 2022 6:54:16 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 15, 2022 6:54:16 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 15, 2022 6:54:16 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 15, 2022 6:54:40 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 15, 2022 6:54:40 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 15, 2022 6:54:40 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 15, 2022 6:54:40 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 15, 2022 6:54:40 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 15, 2022 6:54:40 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 15, 2022 6:54:40 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 15, 2022 6:54:40 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 15, 2022 6:54:40 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 15, 2022 6:55:46 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 15, 2022 6:55:46 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 15, 2022 6:55:46 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 15, 2022 6:55:46 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 15, 2022 6:55:46 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 15, 2022 6:55:46 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 15, 2022 6:55:46 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 15, 2022 6:55:46 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 15, 2022 6:55:46 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 15, 2022 7:07:17 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 15, 2022 7:07:17 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 15, 2022 7:07:17 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 15, 2022 7:07:17 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 15, 2022 7:07:17 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 15, 2022 7:07:17 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 15, 2022 7:07:17 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 15, 2022 7:07:17 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 15, 2022 7:07:17 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 15, 2022 7:09:28 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 15, 2022 7:09:28 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 15, 2022 7:09:28 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 15, 2022 7:09:28 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 15, 2022 7:09:28 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 15, 2022 7:09:28 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 15, 2022 7:09:28 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 15, 2022 7:09:28 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 15, 2022 7:09:28 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 15, 2022 7:10:21 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 15, 2022 7:10:21 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 15, 2022 7:10:21 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 15, 2022 7:10:21 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 15, 2022 7:10:21 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 15, 2022 7:10:21 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 15, 2022 7:10:21 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 15, 2022 7:10:21 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 15, 2022 7:10:21 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
+May 15, 2022 7:12:53 AM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 15, 2022 7:12:53 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 15, 2022 7:12:53 AM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 15, 2022 7:12:53 AM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 15, 2022 7:12:53 AM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 15, 2022 7:12:53 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 15, 2022 7:12:53 AM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 15, 2022 7:12:53 AM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 15, 2022 7:12:53 AM com.example.demo.Controllers.BigController <init>
+INFO: System Started
