@@ -120,10 +120,10 @@ const StoreManagement = () => {
                     </div>
                 </div>
                 <div className="col">
-                    <div className="card" style={{ display: "none" }}>
+                    <div className="card" style={{ display: userPermission=="Admin" ? "block" : "none" }}>
                         <div className="card-body">
-                            <Link href="/..."> 
-                                <a>...</a>
+                            <Link href="/discounts"> 
+                                <a>Add/Edit discounts</a>
                             </Link>
                         </div>
                     </div>

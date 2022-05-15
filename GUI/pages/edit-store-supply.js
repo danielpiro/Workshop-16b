@@ -3,7 +3,6 @@ import StoreOwnerMenu from "../components/menus/menuStoreOwner";
 import StoreManagerMenu from "../components/menus/menuStoreManager";
 import SubscriberMenu from "../components/menus/menuSubscriber";
 import GuestMenu from "../components/menus/menuGuest";
-import SearchBar from "../components/search-bar";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
@@ -86,7 +85,7 @@ const EditStoreSupply = () => {
               type="search"
               placeholder="Enter store name"
               aria-label="Search"
-              value={setSearchValue.storename}
+              value={searchValue.storename}
               onChange={(e) =>
                   setSearchValue((prevState) => ({
                     ...prevState,
@@ -100,7 +99,7 @@ const EditStoreSupply = () => {
               type="search"
               placeholder="Enter product name"
               aria-label="Search"
-              value={setSearchValue.storename}
+              value={searchValue.storename}
               onChange={(e) =>
                   setSearchValue((prevState) => ({
                     ...prevState,
@@ -116,7 +115,36 @@ const EditStoreSupply = () => {
         </form>
       </nav>
     </div>      
-      
+    
+    {/* TODO: Add card to each pruduct that in the results! */}
+    {/* {!isLoading ? (
+        <div style={{ display: "table", width: "100%" }}>
+          <ul className="list-group-dashboard">
+            {products.map((product) => {
+              return (
+                <li className=" list-group-item" key={product.id}>
+                  <Card
+                    value={product.id}
+                    image={product.images[0]}
+                    title={product.title}
+                    category={product.category}
+                    description={product.description}
+                    price={product.price}
+                    discount={product.discountPercentage}
+                  />
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ) : (
+        <div className="container h-100 my-6">
+          <div className="row align-items-center justify-content-center">
+            <div className="spinner-border" />
+          </div>
+        </div>
+      )} */}
+
     <br></br>  
     <div className="container" style={{ display: hideEditor ? "none" : "block"}}>
       <nav className="navbar navbar-expand-lg bg-secondery align-items-left rounded-3">
@@ -124,7 +152,7 @@ const EditStoreSupply = () => {
             <input
               className="form-control mr-sm-2 m-2"
               type="search"
-              placeholder={searchValue.productname}
+              placeholder="Enter product name"
               aria-label="Search"
               value={searchValue.productname}
               onChange={(e) =>
@@ -138,7 +166,7 @@ const EditStoreSupply = () => {
             <input
               className="form-control mr-sm-2 m-2"
               type="search"
-              placeholder={searchValue.productprice}
+              placeholder="Enter product price"
               aria-label="Search"
               value={searchValue.productprice}
               onChange={(e) =>
@@ -152,7 +180,7 @@ const EditStoreSupply = () => {
             <input
               className="form-control mr-sm-2 m-2"
               type="search"
-              placeholder={searchValue.productquantity}
+              placeholder="Enter product quantity"
               aria-label="Search"
               value={searchValue.productquantity}
               onChange={(e) =>
