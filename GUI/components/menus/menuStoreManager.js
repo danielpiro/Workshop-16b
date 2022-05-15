@@ -36,18 +36,42 @@ const Menu = () => {
                 </Link>
               </li>
               <li className="my-bids-button nav-item">
-                <Link href="/my-bids">
-                  <a className="nav-link ms-4">My Bids</a>
+                <Link href="#">
+                  <a
+                    className="nav-link ms-4"
+                    onClick={createNotification(
+                      "info",
+                      "Will be implemented next milestone..."
+                    )}
+                  >
+                    My Bids
+                  </a>
                 </Link>
               </li>
               <li className="history-button nav-item">
-                <Link href="/user-history">
-                  <a className="nav-link ms-4">History</a>
+                <Link href="#">
+                  <a
+                    className="nav-link ms-4"
+                    onClick={createNotification(
+                      "info",
+                      "Will be implemented next milestone..."
+                    )}
+                  >
+                    History
+                  </a>
                 </Link>
               </li>
               <li className="statistics-button nav-item">
-                <Link href="/statistics">
-                  <a className="nav-link ms-4">Statistics</a>
+                <Link href="#">
+                  <a
+                    className="nav-link ms-4"
+                    onClick={createNotification(
+                      "info",
+                      "Will be implemented next milestone..."
+                    )}
+                  >
+                    Statistics
+                  </a>
                 </Link>
               </li>
               <li className="logout-button nav-item">

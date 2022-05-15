@@ -3,121 +3,88 @@ import StoreOwnerMenu from "../components/menus/menuStoreOwner";
 import StoreManagerMenu from "../components/menus/menuStoreManager";
 import SubscriberMenu from "../components/menus/menuSubscriber";
 import GuestMenu from "../components/menus/menuGuest";
-import SearchBar from "../components/search-bar";
-import axios from "axios";
 import { useState, useEffect } from "react";
+import api from "../components/api";
+import StoreCard from "../components/store-card";
 
 const EditStoreSupply = () => {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [store, setStore] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
-  useEffect(() => {
-    const fetchApi = async () => {
-      const response = await axios.get("https://fakestoreapi.com/products");
-      setIsLoading(!isLoading);
-      setProducts(response.data);
-      //TODO: Add logic to check if the user has any permission!
-      //setUserPermission("Admin/StoreOwner/StoreManager");
-    };
-    fetchApi();
-  }, []);
 
-  const onChangeStoreName = (event) => {
-    //props.setSearchValue(event.target.value);
+  const onSearch = (e) => {
+    e.preventDefault();
+    setIsLoading(!isLoading);
+    api.get("/search/store", { params: { name: searchValue } }).then((res) => {
+      if (res.status === 200) {
+        setStore([res.data]);
+        setIsLoading(!isLoading);
+      }
+    });
   };
 
-  const onChangeProductName = (event) => {
-    //props.setSearchValue(event.target.value);
+  const onChange = (e) => {
+    e.preventDefault();
+    setSearchValue(e.target.value);
   };
 
   var menu;
-  if (userPermission == "Admin"){
+  if (userPermission == "Admin") {
     menu = <AdminMenu />;
-  }
-  else if (userPermission == "Owner"){
+  } else if (userPermission == "Owner") {
     menu = <StoreOwnerMenu />;
-  }
-  else if (userPermission == "Manager"){
+  } else if (userPermission == "Manager") {
     menu = <StoreManagerMenu />;
-  }
-  else if (userPermission == "Subscriber"){
+  } else if (userPermission == "Subscriber") {
     menu = <SubscriberMenu />;
-  }
-  else{
+  } else {
     menu = <GuestMenu />;
   }
 
   return (
     <>
-    {menu}
-
-    <div className="card-header">
-        <h3>Edit store's supply</h3>
-    </div>
-       
-    <div className="container">
-      <nav className="navbar navbar-expand-lg bg-secondery align-items-left rounded-3">
-        <form className="row form-inline" style={{ display: "flex", width: "50%" }}>
+      {menu}
+      <div className="container m-auto w-100">
+        <span className="text-center my-4">
+          <h3>Edit store's supply</h3>
+        </span>
+        <nav className="navbar navbar-expand-lg bg-secondery d-flex justify-content-center">
+          <form className="row form-inline col-4">
             <input
               className="form-control mr-sm-2 m-2"
               type="search"
               placeholder="Enter store name"
               aria-label="Search"
-              onChange={onChangeStoreName}
+              onChange={onChange}
             />
-            
-            <input
-              className="form-control mr-sm-2 m-2"
-              type="search"
-              placeholder="Enter product name"
-              aria-label="Search"
-              onChange={onChangeProductName}
-            />
-            <div>
-              <button className="btn btn-primary mr-lg-3">
+
+            <div className="d-flex justify-content-center">
+              <button className="btn btn-primary my-3" onClick={onSearch}>
                 Search
               </button>
             </div>
-        </form>
-      </nav>
-    </div>      
-      
-    <br></br>  
-    <div className="container">
-      <nav className="navbar navbar-expand-lg bg-secondery align-items-left rounded-3">
-        <form className="row form-inline" style={{ display: "flex", width: "30%" }}>
-            <input
-              className="form-control mr-sm-2 m-2"
-              type="search"
-              placeholder="Enter new product name"
-              aria-label="Search"
-              onChange={onChangeStoreName}
-            />
-            
-            <input
-              className="form-control mr-sm-2 m-2"
-              type="search"
-              placeholder="Enter new product price"
-              aria-label="Search"
-              onChange={onChangeProductName}
-            />
-
-            <input
-              className="form-control mr-sm-2 m-2"
-              type="search"
-              placeholder="Enter new product quantity"
-              aria-label="Search"
-              onChange={onChangeProductName}
-            />
-            <div>
-              <button className="btn btn-primary mr-lg-3">
-                Edit
-              </button>
+          </form>
+        </nav>
+        <ul>
+          <StoreCard />
+          {!isLoading ? (
+            store.map((shop) => {
+              return (
+                <div>
+                  <li key={shop.id}>{shop}</li>
+                </div>
+              );
+            })
+          ) : (
+            <div className="container">
+              <div className="d-flex justify-content-center">
+                <div className="spinner-border my-5 me-4" />
+              </div>
             </div>
-        </form>
-      </nav>
-    </div>
+          )}
+        </ul>
+      </div>
     </>
   );
 };

@@ -17,21 +17,17 @@ const shoppingCart = () => {
     "userId",
   ]);
   const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
-                                                                 //      + Edit using new method "setUserPermission"
+  //      + Edit using new method "setUserPermission"
   var menu;
-  if (userPermission == "Admin"){
+  if (userPermission == "Admin") {
     menu = <AdminMenu />;
-  }
-  else if (userPermission == "Owner"){
+  } else if (userPermission == "Owner") {
     menu = <StoreOwnerMenu />;
-  }
-  else if (userPermission == "Manager"){
+  } else if (userPermission == "Manager") {
     menu = <StoreManagerMenu />;
-  }
-  else if (userPermission == "Subscriber"){
+  } else if (userPermission == "Subscriber") {
     menu = <SubscriberMenu />;
-  }
-  else{
+  } else {
     menu = <GuestMenu />;
   }
 
@@ -53,25 +49,23 @@ const shoppingCart = () => {
   return (
     <>
       {menu}
-      <div className="text-center my-3">
+      <div className="text-center my-5">
         <h3>Cart</h3>
       </div>
-      <div class="container card" style={{ width: "45rem" }}>
-        <ul class="list-group list-group-flush">
-          {storeList.map((item) => {
-            return (
-              <div className="mb-5">
-                <div className="card-header mb-3">Featured</div>
-                <ul>
-                  {cart.map((item2) => {
-                    return <CartItem />;
-                  })}
-                </ul>
-              </div>
-            );
-          })}
-        </ul>
-      </div>
+      <ul class="list-group list-group-flush">
+        {storeList.map((item) => {
+          return (
+            <div class="container card mb-5" style={{ width: "45rem" }}>
+              <div className="card-header mb-3 text-center">Featured</div>
+              <ul>
+                {cart.map((item2) => {
+                  return <CartItem />;
+                })}
+              </ul>
+            </div>
+          );
+        })}
+      </ul>
     </>
   );
 };
