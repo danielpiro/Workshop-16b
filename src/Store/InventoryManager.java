@@ -8,7 +8,9 @@ import GlobalSystemServices.IdGenerator;
 import ShoppingCart.InventoryProtector;
 import ShoppingCart.UserInfo;
 import Store.StorePurchase.Discounts.Discount;
+import Store.StorePurchase.Discounts.DiscountBox;
 import Store.StorePurchase.Policies.Policy;
+import Store.StorePurchase.PurchasableProduct;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -16,7 +18,7 @@ import java.util.function.Predicate;
 
 public class InventoryManager  implements InventoryProtector {
     private ConcurrentHashMap<String, Product> products;
-    private List<Discount> discounts; //todo can use chain of responsibility for next version
+    private List<Discount> discounts;
     private List<Policy> policies;
 
 
@@ -99,11 +101,21 @@ public class InventoryManager  implements InventoryProtector {
     }
 
     private float calculatePriceWithDiscount(HashMap<String, Integer> ProductIdAmount,  ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo){
-        //HashMap<String,Integer> copyProductIdAmount = deepCopyWorkAround(ProductIdAmount);
-        //todo
+        //convert products to PurchasableProduct
+        List<PurchasableProduct> productsConverted = new ArrayList<>();
+        for (String Id : ProductIdAmount.keySet()) {
+            Product p = products.get(Id);
+            PurchasableProduct pp = new DiscountBox(p,p.getPrice(),ProductIdAmount.get(Id));
+            productsConverted.add(pp);
+        }
+
+        for (Discount d: discounts){
+            productsConverted = d.applyDiscount(productsConverted,externalConnectionHolder,userInfo);
+        }
+
         float finalPrice = 0f;
-        for (String productId: ProductIdAmount.keySet()) {
-            finalPrice += getProductPrice(productId) * ProductIdAmount.get(productId);
+        for (PurchasableProduct product: productsConverted) {
+            finalPrice += product.getPrice() * product.getAmount();
         }
         return finalPrice;
     }
@@ -146,7 +158,7 @@ public class InventoryManager  implements InventoryProtector {
         }
     }
 
-    //todo talk with dan on discount
+
     @Override
     public float reserve(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) throws CantPurchaseException {
         try {
