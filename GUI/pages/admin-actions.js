@@ -44,16 +44,16 @@ const AdminActions = () => {
             <h1>Admin Actions</h1>
         </div>
 
-        <div class="card">
-          <div class="card-body">
+        <div className="card">
+          <div className="card-body">
             <Link href="/admin-view-user-puchase-history"> 
                 <a>See all purchase history of specific user</a>
             </Link>
           </div>
         </div>
         <br/>
-        <div class="card">
-          <div class="card-body">
+        <div className="card">
+          <div className="card-body">
             <Link href="/admin-view-store-puchase-history" disabled> 
                 <a>See all purchase history of specific store</a>
             </Link>

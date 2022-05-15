@@ -8,19 +8,16 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 
 const StoreManagement = () => {
-    // const [isLoading, setIsLoading] = useState(true);
-    // const [searchValue, setSearchValue] = useState("");
-    const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
-    // useEffect(() => {
-    //   const fetchApi = async () => {
-    //     const response = await axios.get("https://fakestoreapi.com/products");
-    //     setIsLoading(!isLoading);
-    //     setProducts(response.data);
-    //     //TODO: Add logic to check if the user has any permission!
-    //     //setUserPermission("Admin/StoreOwner/StoreManager");
-    //   };
-    //   fetchApi();
-    // }, []);
+    const [userPermission, setUserPermission] = useState("Admin"); //= useState(""); //TODO: Need to change to Guest when logic is ready!
+    
+    useEffect(() => {
+        const fetchPermission = async () => {
+          const response = await axios.get("users/getUserPermission");
+          setIsLoading(!isLoading);
+          setUserPermission(response.data);
+        };
+        fetchPermission();
+      }, []);
   
     var menu;
     if (userPermission == "Admin"){
@@ -51,8 +48,8 @@ const StoreManagement = () => {
         <div className="containter">
             <div className="row">
                 <div className="col">
-                    <div class="card" style={{ display: userPermission=="Admin" ? "block" : "none" }}>
-                        <div class="card-body">
+                    <div className="card" style={{ display: userPermission=="Admin" ? "block" : "none" }}>
+                        <div className="card-body">
                             <Link href="/edit-store-supply"> 
                                 <a>Edit store's supply/products</a>
                             </Link>
@@ -60,8 +57,8 @@ const StoreManagement = () => {
                     </div>
                 </div>
                 <div className="col">
-                    <div class="card" style={{ display: userPermission=="Admin" ? "block" : "none" }}>
-                        <div class="card-body">
+                    <div className="card" style={{ display: userPermission=="Admin" ? "block" : "none" }}>
+                        <div className="card-body">
                             <Link href="/change-policy"> 
                                 <a>Change store's policy</a>
                             </Link>
@@ -72,8 +69,8 @@ const StoreManagement = () => {
             <br/>
             <div className="row">
                 <div className="col">
-                    <div class="card" style={{ display: userPermission=="Admin" ? "block" : "none" }}>
-                        <div class="card-body">
+                    <div className="card" style={{ display: userPermission=="Admin" ? "block" : "none" }}>
+                        <div className="card-body">
                             <Link href="/hire-owner-manager-to-store"> 
                                 <a>Hire new Store Owner/Manager to store</a>
                             </Link>
@@ -81,8 +78,8 @@ const StoreManagement = () => {
                     </div>
                 </div>
                 <div className="col">
-                    <div class="card" style={{ display: userPermission=="Admin" ? "block" : "none" }}>
-                        <div class="card-body">
+                    <div className="card" style={{ display: userPermission=="Admin" ? "block" : "none" }}>
+                        <div className="card-body">
                             <Link href="/change-store-manager-permissions"> 
                                 <a>Change store's manager permissions</a>
                             </Link>
@@ -93,8 +90,8 @@ const StoreManagement = () => {
             <br/>
             <div className="row">
                 <div className="col">
-                    <div class="card" style={{ display: userPermission=="Admin" ? "block" : "none" }}>
-                        <div class="card-body">
+                    <div className="card" style={{ display: userPermission=="Admin" ? "block" : "none" }}>
+                        <div className="card-body">
                             <Link href="/display-store-purchases"> 
                                 <a>Display purchases of store</a>
                             </Link>
@@ -102,8 +99,8 @@ const StoreManagement = () => {
                     </div>
                 </div>
                 <div className="col">
-                    <div class="card" style={{ display: userPermission=="Admin" ? "block" : "none" }}>
-                        <div class="card-body">
+                    <div className="card" style={{ display: userPermission=="Admin" ? "block" : "none" }}>
+                        <div className="card-body">
                             <Link href="/close-store"> 
                                 <a>Close a store</a>
                             </Link>
@@ -114,8 +111,8 @@ const StoreManagement = () => {
             <br/>
             <div className="row">
                 <div className="col">
-                    <div class="card" style={{ display: userPermission=="Admin" ? "block" : "none" }}>
-                        <div class="card-body">
+                    <div className="card" style={{ display: userPermission=="Admin" ? "block" : "none" }}>
+                        <div className="card-body">
                             <Link href="/display-store-officials"> 
                                 <a>Display officials info in store</a>
                             </Link>
@@ -123,8 +120,8 @@ const StoreManagement = () => {
                     </div>
                 </div>
                 <div className="col">
-                    <div class="card" style={{ display: "none" }}>
-                        <div class="card-body">
+                    <div className="card" style={{ display: "none" }}>
+                        <div className="card-body">
                             <Link href="/..."> 
                                 <a>...</a>
                             </Link>
@@ -135,17 +132,6 @@ const StoreManagement = () => {
             <br/>
         </div>
 
-        {/* {!isLoading ? (
-          <div style={{ display: "table", width: "100%" }}>
-            <h2>See All History</h2>
-          </div>
-        ) : (
-          <div className="container h-100 my-6">
-            <div className="row align-items-center justify-content-center">
-              <div className="spinner-border" />
-            </div>
-          </div>
-        )} */}
         <div className="modal" tabindex="-1">
         <div className="modal-dialog">
             <div className="modal-content">

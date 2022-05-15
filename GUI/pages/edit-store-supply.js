@@ -10,24 +10,46 @@ import { useState, useEffect } from "react";
 const EditStoreSupply = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState({
+    storename: "",
+    productname: "",
+  });
+  const [editValues, setEditValues] = useState({
+    productname: "",
+    productprice: "",
+    productquantity: "",
+  });
+  const [hideEditor, setHideEditor] = useState(true);
   const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
+
+  useEffect(() => {
+    const fetchPermission = async () => {
+      const response = await axios.get("users/getUserPermission");
+      setIsLoading(!isLoading);
+      setUserPermission(response.data);
+    };
+    fetchPermission();
+  }, []);
+
   useEffect(() => {
     const fetchApi = async () => {
-      const response = await axios.get("https://fakestoreapi.com/products");
+      const response = await axios.get("https://fakestoreapi.com/products"); //TODO: Need to get all products!
       setIsLoading(!isLoading);
       setProducts(response.data);
-      //TODO: Add logic to check if the user has any permission!
-      //setUserPermission("Admin/StoreOwner/StoreManager");
     };
     fetchApi();
   }, []);
 
-  const onChangeStoreName = (event) => {
-    //props.setSearchValue(event.target.value);
+  const searchingProduct = (e) => {
+    e.preventDefault();
+    if(searchValue.storename != "" && searchValue.productname != ""){
+      setHideEditor(false);
+    }
+    //products...
   };
 
-  const onChangeProductName = (event) => {
+  const onEdit = (e) => {
+    e.preventDefault();
     //props.setSearchValue(event.target.value);
   };
 
@@ -64,7 +86,13 @@ const EditStoreSupply = () => {
               type="search"
               placeholder="Enter store name"
               aria-label="Search"
-              onChange={onChangeStoreName}
+              value={setSearchValue.storename}
+              onChange={(e) =>
+                  setSearchValue((prevState) => ({
+                    ...prevState,
+                    storename: e.target.value,
+                  }))
+              }
             />
             
             <input
@@ -72,10 +100,16 @@ const EditStoreSupply = () => {
               type="search"
               placeholder="Enter product name"
               aria-label="Search"
-              onChange={onChangeProductName}
+              value={setSearchValue.storename}
+              onChange={(e) =>
+                  setSearchValue((prevState) => ({
+                    ...prevState,
+                    productname: e.target.value,
+                  }))
+              }
             />
             <div>
-              <button className="btn btn-primary mr-lg-3">
+              <button className="btn btn-primary mr-lg-3" onClick={searchingProduct}>
                 Search
               </button>
             </div>
@@ -84,34 +118,52 @@ const EditStoreSupply = () => {
     </div>      
       
     <br></br>  
-    <div className="container">
+    <div className="container" style={{ display: hideEditor ? "none" : "block"}}>
       <nav className="navbar navbar-expand-lg bg-secondery align-items-left rounded-3">
         <form className="row form-inline" style={{ display: "flex", width: "30%" }}>
             <input
               className="form-control mr-sm-2 m-2"
               type="search"
-              placeholder="Enter new product name"
+              placeholder={searchValue.productname}
               aria-label="Search"
-              onChange={onChangeStoreName}
+              value={searchValue.productname}
+              onChange={(e) =>
+                  setEditValues((prevState) => ({
+                    ...prevState,
+                    productname: e.target.value,
+                  }))
+              }
             />
             
             <input
               className="form-control mr-sm-2 m-2"
               type="search"
-              placeholder="Enter new product price"
+              placeholder={searchValue.productprice}
               aria-label="Search"
-              onChange={onChangeProductName}
+              value={searchValue.productprice}
+              onChange={(e) =>
+                  setEditValues((prevState) => ({
+                    ...prevState,
+                    productprice: e.target.value,
+                  }))
+              }
             />
 
             <input
               className="form-control mr-sm-2 m-2"
               type="search"
-              placeholder="Enter new product quantity"
+              placeholder={searchValue.productquantity}
               aria-label="Search"
-              onChange={onChangeProductName}
+              value={searchValue.productquantity}
+              onChange={(e) =>
+                  setEditValues((prevState) => ({
+                    ...prevState,
+                    productquantity: e.target.value,
+                  }))
+              }
             />
             <div>
-              <button className="btn btn-primary mr-lg-3">
+              <button className="btn btn-primary mr-lg-3" onClick={onEdit}>
                 Edit
               </button>
             </div>
