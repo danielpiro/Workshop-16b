@@ -6,12 +6,20 @@ import java.time.ZonedDateTime;
 
 public class ApiException {
 
-    private final String message;
+    private  String message;
+    private  String errorMessage;
     //private final HttpStatus httpStatus;
-    private final ZonedDateTime timestamp;
+    private  ZonedDateTime timestamp;
 
-    public ApiException(String message, ZonedDateTime timestamp) {
+
+    public ApiException(String message ,String errorMessage, ZonedDateTime timestamp) {
         this.message = message;
+        this.errorMessage=errorMessage;
+        this.timestamp = timestamp;
+    }
+
+    public ApiException(String errorMessage, ZonedDateTime timestamp) {
+        this.errorMessage = errorMessage;
 
         this.timestamp = timestamp;
     }
@@ -19,7 +27,9 @@ public class ApiException {
     public String getMessage() {
         return message;
     }
-
+    public String getErrorMessage (){
+        return errorMessage;
+    }
 
 
 

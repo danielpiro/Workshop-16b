@@ -1,6 +1,8 @@
 package com.example.demo.Controllers;
 
 import com.example.demo.Controllers.Mock.MockFullProduct;
+import com.example.demo.Controllers.Mock.MockPermission;
+import com.example.demo.Controllers.Mock.MockSmallPermission;
 import com.example.demo.Controllers.Mock.MockSmallProduct;
 import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
 import com.example.demo.ExternalConnections.Delivery.FedEx;
@@ -25,6 +27,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.NoPermissionException;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -157,14 +161,14 @@ public class BigController {
 //    }
 
     @DeleteMapping ("/cart")
-    public int removeProductFromCart(@Validated @RequestBody MockSmallProduct mockSmallProduct) {
+    public int removeProductFromCart(@Valid @RequestBody MockSmallProduct mockSmallProduct) {
 
         return getUserController().removeProduct(mockSmallProduct.getUser_id(), mockSmallProduct.getProductID(), mockSmallProduct.getStoreID(), mockSmallProduct.getAmount());
     }
 
     //auction or bid false for now
     @PostMapping ("/cart/product")
-    public int addProductFromCart(@Validated @RequestBody MockSmallProduct mockProduct,
+    public int addProductFromCart(@Valid @RequestBody MockSmallProduct mockProduct,
                                   @RequestParam boolean auctionOrBid) {
         InventoryProtector inventoryProtector = sc.getInventoryProtector(mockProduct.getStoreID());
         return getUserController().addProduct(mockProduct.getUser_id(), mockProduct.getProductID(), mockProduct.getStoreID(), mockProduct.getAmount(), inventoryProtector, auctionOrBid);
@@ -185,19 +189,17 @@ public class BigController {
     /// Store controller
 
     @PostMapping ("/store")
-    //todo mock product?
-    public void addNewProductToStore(@Validated @RequestBody MockFullProduct mockProduct) throws NoPermissionException {
+    public void addNewProductToStore(@Valid @RequestBody MockFullProduct mockProduct) throws NoPermissionException {
         if (getUserController().checkIfUserExists(mockProduct.getUserId()) && getUserController().checkIfUserIsLoggedIn(mockProduct.getUserId()))
-            getStoreController().addNewProduct(storeId, userId, productName, price, supply, category);
+            getStoreController().addNewProduct(mockProduct.getStoreId(), mockProduct.getUserId(), mockProduct.getProductName(), mockProduct.getPrice(), mockProduct.getSupply(), mockProduct.getCategory());
         else
             throw new IllegalArgumentException("couldn't add new product because the given userId doesn't exist or is not logged in");
     }
 
-    //todo how to send list
     @DeleteMapping ("/permissions")
-    public void removeSomePermissions(@RequestParam String storeId,@RequestParam String userIdRemoving,@RequestParam String UserAffectedId,@RequestParam List<String> PerToRemove) throws NoPermissionException {
-        if (getUserController().checkIfUserExists(userIdRemoving) && getUserController().checkIfUserIsLoggedIn(userIdRemoving)) {
-            sc.removeSomePermissions(storeId, userIdRemoving, UserAffectedId, PerToRemove);
+    public void removeSomePermissions(@Valid @RequestBody MockPermission mockPermission) throws NoPermissionException {
+        if (getUserController().checkIfUserExists(mockPermission.getUserIdRemoving()) && getUserController().checkIfUserIsLoggedIn(mockPermission.getUserIdRemoving())) {
+            sc.removeSomePermissions(mockPermission.getStoreId(), mockPermission.getUserIdRemoving(), mockPermission.getUserAffectedId(), mockPermission.getPerToRemove());
         } else
             throw new IllegalArgumentException("couldn't add new product because the given userId doesn't exist or is not logged in");
     }
@@ -241,9 +243,9 @@ public class BigController {
     }
 
     @PostMapping ("/store/product")
-    public void editProduct(String storeId, String userId, String productId, int newSupply, String newName, float newPrice, String category) throws NoPermissionException {
-        if (getUserController().checkIfUserExists(userId) && getUserController().checkIfUserIsLoggedIn(userId))
-            getStoreController().editProduct(storeId, userId, productId, newSupply, newName, newPrice, category);
+        public void editProduct( @RequestParam String productId, @Valid @RequestBody MockFullProduct mockProduct) throws NoPermissionException {
+        if (getUserController().checkIfUserExists(mockProduct.getUserId()) && getUserController().checkIfUserIsLoggedIn(mockProduct.getUserId()))
+            getStoreController().editProduct(mockProduct.getStoreId(), mockProduct.getUserId(), productId, mockProduct.getSupply(), mockProduct.getProductName(), mockProduct.getPrice(), mockProduct.getCategory());
         else
             throw new IllegalArgumentException("couldn't edit product  because the given userId doesn't exist or is not logged in");
     }
@@ -268,9 +270,9 @@ public class BigController {
     }
 
     @PostMapping ("/owner")
-    public void createOwner(String storeId, String userIdGiving, String UserGettingPermissionId, List<Permission> permissions) throws NoPermissionException {
-        if (getUserController().checkIfUserExists(userIdGiving) && getUserController().checkIfUserExists(UserGettingPermissionId) && getUserController().checkIfUserIsLoggedIn(userIdGiving)) {
-            getStoreController().createOwner(storeId, userIdGiving, UserGettingPermissionId, permissions);
+    public void createOwner(@Valid @RequestBody MockSmallPermission mockPermission) throws NoPermissionException {
+        if (getUserController().checkIfUserExists(mockPermission.getUserIdGiving()) && getUserController().checkIfUserExists(mockPermission.getUserGettingPermissionId()) && getUserController().checkIfUserIsLoggedIn(mockPermission.getUserIdGiving())) {
+            getStoreController().createOwner(mockPermission.getStoreId(), mockPermission.getUserIdGiving(), mockPermission.getUserGettingPermissionId(), mockPermission.getPermissions());
         } else
             throw new IllegalArgumentException("couldn't give permission because the given userId doesn't exist or is not logged in");
     }

@@ -16,7 +16,9 @@ public class ApiExceptionHandler {
     @ExceptionHandler(value = { MethodArgumentNotValidException.class})
     public ResponseEntity<Object> handleNotValidException (MethodArgumentNotValidException e){
         ApiException apiException = new ApiException(
+                "one of the variables you entered wasn't correct",
                 e.getMessage(),
+
                 ZonedDateTime.now(ZoneId.of("Z"))
         );
 
@@ -28,6 +30,7 @@ public class ApiExceptionHandler {
     @ExceptionHandler(value = { MissingServletRequestParameterException.class})
     public ResponseEntity<Object> handleNotValidException (MissingServletRequestParameterException e){
         ApiException apiException = new ApiException(
+                "one of the variables you entered wasn't correct",
                 e.getMessage(),
                 ZonedDateTime.now(ZoneId.of("Z"))
         );
