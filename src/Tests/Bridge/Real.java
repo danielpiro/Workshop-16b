@@ -43,9 +43,12 @@ public class Real implements BridgeInterface{
 
     /** requirement 1.b in V1
      * @return*/
-    public String parallelUse() throws ExecutionException, InterruptedException { //Need to implement thread-base system
-        Future future1 = service.sign_up("dan","rotman");
-        Future future2 = service.sign_up("guy","porat");
+    public String parallelUse() throws ExecutionException, InterruptedException {
+         //Need to implement thread-base system
+        service.addGuest();
+        service.addGuest();
+        Future future1 = service.sign_up("GuestID_0","dan","rotman");
+        Future future2 = service.sign_up("GuestID_1","guy","porat");
         future1.get();
         future2.get();
 
@@ -201,9 +204,9 @@ public class Real implements BridgeInterface{
     }
 
     /** User requirement - II.1.3 */
-    public boolean register(String username, String password){
+    public boolean register(String guestId,String username, String password){
         try {
-            return  getBigController().sign_up(username, password);
+            return  getBigController().sign_up( guestId,username, password);
 
         }
         catch (Exception e ){

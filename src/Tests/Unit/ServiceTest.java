@@ -38,12 +38,15 @@ class ServiceTest {
     @Test
     void lastProduct(){
         try {
+            service.addGuest();
+            service.addGuest();
+            service.addGuest();
             String userId1 = "user1";
             String userId2 = "user2";
             String userId3 = "user3";
-            service.sign_up(userId1, "123").get();
-            service.sign_up(userId2, "123").get();
-            service.sign_up(userId3, "123").get();
+            service.sign_up("GuestID_0",userId1, "123").get();
+            service.sign_up("GuestID_1",userId2, "123").get();
+            service.sign_up("GuestID_2",userId3, "123").get();
 
             service.login(userId1, "123").get();
             service.login(userId2, "123").get();
@@ -76,13 +79,16 @@ class ServiceTest {
     @Test
     void twoOwnersGivePermissionAtTheSameTime() {
         try {
+            service.addGuest();
+            service.addGuest();
+            service.addGuest();
             String userId1 = "user1";
             String userId2 = "user2";
             String userId3 = "user3";
 
-            service.sign_up(userId1, "123").get();
-            service.sign_up(userId2, "123").get();
-            service.sign_up(userId3, "123").get();
+            service.sign_up("GuestID_0",userId1, "123").get();
+            service.sign_up("GuestID_1",userId2, "123").get();
+            service.sign_up("GuestID_2",userId3, "123").get();
 
             service.login(userId1, "123").get();
             service.login(userId2, "123").get();
@@ -106,12 +112,14 @@ class ServiceTest {
     @Test
     void ownerDeleteProductWhileCustomerBuyIt() {
         try {
+            service.addGuest();
+            service.addGuest();
             String userId1 = "user1";
             String userId2 = "user2";
 
 
-            service.sign_up(userId1, "123").get();
-            service.sign_up(userId2, "123").get();
+            service.sign_up("GuestID_0",userId1, "123").get();
+            service.sign_up("GuestID_1",userId2, "123").get();
 
 
             service.login(userId1, "123").get();
@@ -143,13 +151,15 @@ class ServiceTest {
     void onlyOneCanLogin() {
 
         try {
+            service.addGuest();
+            service.addGuest();
             String userId1 = "user1";
             String userId2 = "user2";
 
 
 
-            service.sign_up(userId1, "123").get();
-            service.sign_up(userId2, "123").get();
+            service.sign_up("GuestID_0",userId1, "123").get();
+            service.sign_up("GuestID_1",userId2, "123").get();
 
 
 

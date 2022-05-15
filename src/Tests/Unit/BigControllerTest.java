@@ -16,19 +16,24 @@ class BigControllerTest {
     @BeforeEach
     void setUp() throws IOException {
         bigController = new MarketController();
-        bigController.sign_up("abed15", "taweel1");
-        bigController.sign_up("amit12", "peled1");
-        bigController.sign_up("guy123", "porat1");
+        bigController.addGuest();
+        bigController.addGuest();
+        bigController.addGuest();
+        bigController.addGuest();
+        bigController.addGuest();
+        bigController.sign_up("GuestID_0","abed15", "taweel1");
+        bigController.sign_up("GuestID_1","amit12", "peled1");
+        bigController.sign_up("GuestID_2","guy123", "porat1");
         bigController.login("abed15", "taweel1");
 
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void sign_up() {
-        assertTrue(bigController.sign_up("name", "pass"));
+        assertTrue(bigController.sign_up("GuestID_3","name", "pass"));
         assertEquals(5, bigController.getUser_list().size()); //Admin +1 new user + 3 already registered users(in setup)
-        assertFalse(bigController.sign_up("abed15", "pass1111"));
-        assertTrue(bigController.sign_up("newUser2", "newPass3"));
+        assertFalse(bigController.sign_up("GuestID_4","abed15", "pass1111"));
+        assertTrue(bigController.sign_up("GuestID_4","newUser2", "newPass3"));
         assertEquals(6, bigController.getUser_list().size()); //
 
     }

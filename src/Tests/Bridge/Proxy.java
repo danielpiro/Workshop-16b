@@ -273,9 +273,9 @@ public class Proxy implements BridgeInterface {
     }
 
     /** User requirement - II.1.3 */
-    public boolean register(String username, String password){
+    public boolean register(String guestId,String username, String password){
         if(real!=null)
-            return real.register(username, password);
+            return real.register(guestId,username, password);
         throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 

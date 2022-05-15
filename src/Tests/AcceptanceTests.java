@@ -40,13 +40,15 @@ public class AcceptanceTests {
 //        user2: store manager of store1
 //        user3: subscriber
 //        guest: GuestID_0
-
-        proxy.register("user1", "11111");
+         proxy.getInToTheSystem();
+        proxy.register("GuestID_0","user1", "11111");
         proxy.login("user1", "11111");
         storeId = proxy.openStore("user1", "store1");
         // store0_id = StoreID_0
-        proxy.register("user2", "22222");
-        proxy.register("userOwnerToDestroy", "12345");
+        proxy.getInToTheSystem();
+        proxy.register("GuestID_1","user2", "22222");
+        proxy.getInToTheSystem();
+        proxy.register("GuestID_2","userOwnerToDestroy", "12345");
 
 
         proxy.addNewStoreManager(storeId, "user1", "user2");
@@ -54,8 +56,9 @@ public class AcceptanceTests {
         permission.add(Permission.INFO_OF_MANAGERS);
         permission.add(Permission.VIEW_FORUM);
         proxy.addNewStoreOwner(storeId, "user1","userOwnerToDestroy",permission);
-        proxy.register("user3", "33333");
-        proxy.getInToTheSystem(); // for guest
+        proxy.getInToTheSystem();
+        proxy.register("GuestID_3","user3", "33333");
+       // proxy.getInToTheSystem(); // for guest
 
         proxy.addProductToStore(storeId, "user1", "p0", 5.0f, 0, "Other");
         proxy.addProductToStore(storeId, "user1", "p1", 10.0f, 5, "Other");
@@ -534,16 +537,16 @@ public class AcceptanceTests {
 //        - Perform Register (entering username and password) & validate registration details (will return TRUE)
 //        - Check that the user is still "visitor/buyer" (and not a logged-in user - until he performs login).
 //        - Send success message...
-
-        assertTrue(proxy.register("user8", "88888"));
+        proxy.getInToTheSystem();
+        assertTrue(proxy.register("GuestID_0","user8", "88888"));
     }
     @Test
     void register_fail_case_test1() {
 //        - Perform Register (entering username and password) & validate registration details
 //              -> username already exists in system.
 //        - Send failure message...
-
-        assertFalse(proxy.register("user1", "11111"));
+        proxy.getInToTheSystem();
+        assertFalse(proxy.register("GuestID_0","user1", "11111"));
     }
 
 
@@ -552,8 +555,9 @@ public class AcceptanceTests {
 //        - Perform Register (entering username and password) & validate registration details
 //              -> username is not match the requirements for proper username in the system.
 //        - Send failure message...
+        proxy.getInToTheSystem();
 
-        assertFalse(proxy.register(null, "11111"));
+        assertFalse(proxy.register("GuestID_0",null, "11111"));
     }
 
 
@@ -562,8 +566,8 @@ public class AcceptanceTests {
 //        - Perform Register (entering username and password) & validate registration details
 //              -> password is not match the requirements for proper password in the system.
 //        - Send failure message...
-
-        assertFalse(proxy.register("user0", null));
+         proxy.getInToTheSystem();
+        assertFalse(proxy.register("GuestID_0","user0", null));
     }
 
     /**

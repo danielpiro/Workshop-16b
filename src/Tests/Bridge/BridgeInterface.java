@@ -75,7 +75,7 @@ public interface BridgeInterface {
     String getOutFromTheSystem(String name);
 
     /** User requirement - II.1.3 */
-    boolean register(String username, String password);
+    boolean register(String guestId,String username, String password);
 
     /** User requirement - II.1.4 */
     boolean login(String username, String password);

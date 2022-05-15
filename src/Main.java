@@ -14,9 +14,10 @@ public class Main {
 
         Log.getLogger().logger.setLevel(Level.SEVERE);
         Service service  = new Service();
-
-        Future future1 = service.sign_up("dan","rotman");
-        Future future2 = service.sign_up("guy","porat");
+        service.addGuest();
+        service.addGuest();
+        Future future1 = service.sign_up("GuestID_0","dan","rotman");
+        Future future2 = service.sign_up("GuestID_1","guy","porat");
 
         boolean a = (boolean) future1.get();
         future2.get();
