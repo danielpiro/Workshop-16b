@@ -71,13 +71,13 @@ public class BigController {
 
     @Async
     @DeleteMapping ("/users")
-    public boolean deleteUser(@RequestParam String dan,
+    public boolean deleteUser(@RequestParam String isDeleting,
                               @RequestParam String whosBeingDeleted) throws NoPermissionException {
 
-        my_log.logger.info("user" + dan + "is trying to delete user" + whosBeingDeleted);
+        my_log.logger.info("user" + isDeleting + "is trying to delete user" + whosBeingDeleted);
         sc.removeRoleInHierarchy(whosBeingDeleted);
 
-        return getUserController().deleteUser(dan, whosBeingDeleted);
+        return getUserController().deleteUser(isDeleting, whosBeingDeleted);
     }
 
     @Async
@@ -287,7 +287,6 @@ public class BigController {
 
 
     @PostMapping ("/product")
-
     public void addReviewToProduct(@RequestParam String storeId,@RequestParam String userId,@RequestParam String productId, @RequestParam String Title,@RequestParam String Body,@RequestParam float rating) {
         if (!getUserController().checkIfUserExists(userId) && getUserController().checkIfUserIsLoggedIn(userId))
             throw new IllegalArgumentException("User doesn't exist or is not logged in or is not logged in");
