@@ -1,8 +1,7 @@
 package NotificationsManagement;
 
 import CustomExceptions.NotifyException;
-import GlobalSystemServices.IdGenerator;
-import org.junit.runners.model.InitializationError;
+import CustomExceptions.UserException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,13 +23,16 @@ public class NotificationManager {
         throw new NotifyException("no one built NotificationManager");
     }
 
-    public void sendNotificationTo(List<String> userIds,Notification notification){
-        receiver.sendNotificationTo( userIds, notification);
+    public void sendNotificationTo(List<String> userIds, StoreNotification storeNotification) throws UserException {
+        receiver.sendNotificationTo( userIds, storeNotification);
     }
-    public void sendNotificationTo(String userId,Notification notification){
+    public void sendNotificationTo(String userId, StoreNotification storeNotification) throws UserException {
         List<String> userIds = new ArrayList<>();
         userIds.add(userId);
-        receiver.sendNotificationTo( userIds, notification);
+        receiver.sendNotificationTo( userIds, storeNotification);
+    }
+    public void sendComplaintTo(String senderId,List<String> userIds, ComplaintNotification ComplaintNotification) throws UserException {
+        receiver.sendComplaintTo( senderId,userIds, ComplaintNotification);
     }
 
 

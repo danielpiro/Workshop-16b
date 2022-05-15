@@ -1,12 +1,13 @@
 package Controllers;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import CustomExceptions.UserException;
 import ExternalConnections.ExternalConnectionHolder;
-import NotificationsManagement.Notification;
+import NotificationsManagement.ComplaintNotification;
+import NotificationsManagement.StoreNotification;
 import NotificationsManagement.NotificationReceiver;
 import ShoppingCart.InventoryProtector;
 import GlobalSystemServices.IdGenerator;
@@ -68,73 +69,74 @@ public class UserController implements NotificationReceiver {
             }
         }
     }
-    public ShoppingCart getShoppingCart(String user_Id){
+    public ShoppingCart getShoppingCart(String user_Id) throws UserException {
         if(get_subscriber(user_Id)==null){
             my_log.logger.warning("User "+ user_Id +" doesn't exist");
-            throw new IllegalArgumentException("User doesn't exist");
+            throw new UserException("User " +user_Id+ "doesn't exist");
         }
             if (!checkIfUserIsLoggedIn(user_Id)) {
                 my_log.logger.warning("User "+user_Id+ " is not logged in");
-                throw new IllegalArgumentException("User is not logged in");
+                throw new UserException("User "+user_Id+ "is not logged in");
             }
             return get_subscriber(user_Id).getShoppingCart();
     }
 
-    public boolean containsStore(String user_id,String storeID) {
+    public boolean containsStore(String user_id,String storeID) throws UserException {
         if(get_subscriber(user_id)==null){
             my_log.logger.warning("User "+ user_id +" doesn't exist");
-            throw new IllegalArgumentException("User doesn't exist");
+            throw new UserException("User "+ user_id+ "doesn't exist");
         }
             if (!checkIfUserIsLoggedIn(user_id)) {
                 my_log.logger.warning("User "+ user_id +" is not logged in");
-                throw new IllegalArgumentException("User is not logged in");
+                throw new UserException("User "+user_id+ "is not logged in");
             }
             return get_subscriber(user_id).containsStore(storeID);
     }
 
-    public int removeProduct(String user_id,String productID, String storeID, int amount) {
+    public int removeProduct(String user_id,String productID, String storeID, int amount) throws UserException {
         if (get_subscriber(user_id) == null) {
             my_log.logger.warning("User "+ user_id +" doesn't exist");
-            throw new IllegalArgumentException("User doesn't exist");
+            throw new UserException("User "+user_id+ "doesn't exist");
         }
             return get_subscriber(user_id).removeProduct(productID, storeID, amount);
         }
 
-    public int addProduct(String user_id, String productID, String storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
+    public int addProduct(String user_id, String productID, String storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) throws UserException {
         if (get_subscriber(user_id) == null) {
-            throw new IllegalArgumentException("User doesn't exist");
+            throw new UserException("User "+user_id+ "doesn't exist");
         }
             if (!checkIfUserIsLoggedIn(user_id)) {
-                throw new IllegalArgumentException("User is not logged in");
+                throw new UserException("User "+user_id+ "is not logged in");
             }
             return get_subscriber(user_id).addProduct(productID, storeID, amount, inventoryProtector, auctionOrBid);
     }
 
 
-    public String getCartInventory(String user_id) {
+    public String getCartInventory(String user_id) throws UserException {
         if(get_subscriber(user_id)==null){
             my_log.logger.warning("user "+user_id + " doesn't exist");
-            throw new IllegalArgumentException("User doesn't exist");
+            throw new UserException("User " +user_id + "doesn't exist");
         }
             if (checkIfUserIsLoggedIn(user_id)) {
                 my_log.logger.warning("user "+user_id + " is not logged in");
-                throw new IllegalArgumentException("User is not logged in");
+                throw new UserException("User " +user_id + "is not logged in");
             }
             return get_subscriber(user_id).getCartInventory();
     }
-    public float purchaseCart(String user_id, ExternalConnectionHolder externalConnectionHolder) {
+    public float purchaseCart(String user_id, ExternalConnectionHolder externalConnectionHolder) throws UserException {
         if(get_subscriber(user_id)==null){
-            throw new IllegalArgumentException("User doesn't exist");
+            throw new UserException("User "+user_id + "doesn't exist");
         }
             if (!checkIfUserIsLoggedIn(user_id)) {
                 my_log.logger.warning("user "+user_id + " is not logged in");
-                throw new IllegalArgumentException("User is not logged in");
+                throw new UserException("User "+user_id +"is not logged in");
             }
             return get_subscriber(user_id).purchaseCart(externalConnectionHolder);
 
     }
 
         //String sender_id, String message, LocalDate date,String storeName
+    /*
     public void sendComplaint(String userId, String StoreName,String complaint ){
         if(get_subscriber(userId)==null){
             my_log.logger.warning("user "+userId + " does not exist");
@@ -147,17 +149,17 @@ public class UserController implements NotificationReceiver {
                 throw new IllegalArgumentException("system admin can't send a complaint to himself or sending user doesn't exist");
             }
     }
-
+*/
     public boolean sign_up(String guest_id,String user_name, String password) {
+        if(getGuest(guest_id)==null){
+            return false;
+        }
         synchronized (signUpLock) {
-            if(!checkIfGuestExists(guest_id)){
-                return false;
-            }
             my_log.logger.info("Sign Up");
             if (get_subscriber(user_name) == null) {
                 Subscriber s = new Subscriber(user_name, password);
                 add_subscriber(s);
-                s.setShoppingCart(getGuestShoppingCart(guest_id));
+              // s.setShoppingCart(getGuestShoppingCart(guest_id));
                 removeGuest(guest_id);
                 return true;
             }
@@ -257,9 +259,9 @@ public class UserController implements NotificationReceiver {
 
     public Guest addGuest(){
         synchronized (guest) {
-            Guest guest = new Guest(IdGenerator.getInstance().getGuestId());
-            getGuest_list().add(guest);
-            return guest;
+            Guest g = new Guest(IdGenerator.getInstance().getGuestId());
+            getGuest_list().add(g);
+            return g;
         }
     }
     public String GuestExitSystem(String name) {
@@ -270,10 +272,14 @@ public class UserController implements NotificationReceiver {
                 }
             return null;
     }
-    public void Add_Query(String user_name,String query) { //3.5
+    public void Add_Query(String user_name,String query) throws UserException {
         if (get_subscriber(user_name) == null) {
             my_log.logger.warning(" user "+user_name+ "doesn't exist");
-            throw new IllegalArgumentException("User doesn't exist");
+            throw new UserException("User " +user_name + "doesn't exist");
+        }
+        if (!get_subscriber(user_name).isLogged_in()) {
+            my_log.logger.warning(" user "+user_name+ "is offline");
+            throw new UserException("User " +user_name + "is offline");
         }
             Subscriber subscriber = get_subscriber(user_name);
             my_log.logger.warning(" user "+user_name+ "successfully added a query ");
@@ -305,9 +311,10 @@ public class UserController implements NotificationReceiver {
         return false;
     }
     public void removeGuest(String guestId){
-        for(Guest g : getGuest_list()){
-            if(g.name.equals(guestId))
+        for(Guest g : getGuest_list()) {
+            if (g.name.equals(guestId)) {
                 getGuest_list().remove(g);
+            }
         }
     }
     public ShoppingCart getGuestShoppingCart(String guestId){
@@ -351,13 +358,33 @@ public class UserController implements NotificationReceiver {
             return get_subscriber(id).isLogged_in();
         }
     }
+    public boolean checkIfAdmin(String userId){
+        if(getSystemAdmins().contains(get_subscriber(userId)))
+        return true;
+        return false;
+    }
 
     @Override
-    public void sendNotificationTo(List<String> userIds, Notification notification) {
+    public void sendNotificationTo(List<String> userIds, StoreNotification storeNotification) throws UserException {
         for (String s : userIds) {
             if (!checkIfUserExists(s))
-                throw new IllegalArgumentException("user doesn't exist"); //TODO custom exception
-              get_subscriber(s).addMessage(new Message(notification.getTitle(), notification.getBody()));
+                throw new UserException("user "+s+ "doesn't exist");
+              get_subscriber(s).addNotification(storeNotification);
+        }
+    }
+
+    @Override
+    public void sendComplaintTo(String senderId,List<String> adminIds, ComplaintNotification complaintNotification) throws UserException {
+        if(get_subscriber(senderId)==null)
+            throw new UserException("user "+senderId + "doesn't exist");
+        if(!get_subscriber(senderId).isLogged_in())
+            throw new UserException("the sender is not online");
+        for (String s : adminIds) {
+            if (!checkIfUserExists(s))
+                throw new UserException("user " +s + "doesn't exist");
+            if (!checkIfAdmin(s))
+                throw new UserException("trying to send a complaint to a user " +s + "which is not an admin");
+            get_subscriber(s).addComplaint(complaintNotification);
         }
     }
 }

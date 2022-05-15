@@ -2,6 +2,7 @@ package Tests.Unit.StorePartUnitTests;
 
 import CustomExceptions.NotifyException;
 import CustomExceptions.SupplyManagementException;
+import CustomExceptions.UserException;
 import Store.Store;
 import StorePermission.Permission;
 import StorePermission.StoreManager;
@@ -279,7 +280,7 @@ class StoreTest {
             store1.userPostMessageToForum(threadId,userId3,"good products");
             assertEquals(store1.getThread(userId3).getTitle(),"test");
 
-        } catch (NoPermissionException | NotifyException e) {
+        } catch (NoPermissionException | NotifyException | UserException e) {
             e.printStackTrace();
             fail();
         }

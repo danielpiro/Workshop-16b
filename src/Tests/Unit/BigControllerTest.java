@@ -1,6 +1,7 @@
 package Tests.Unit;
 
 import Controllers.MarketController;
+import User.Guest;
 import org.junit.Test;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -12,33 +13,37 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BigControllerTest {
     private static MarketController bigController;
-
+    String g1;
+    String g2;
+    String g3;
+    String g4;
+    String g5;
     @BeforeEach
     void setUp() throws IOException {
         bigController = new MarketController();
-        bigController.addGuest();
-        bigController.addGuest();
-        bigController.addGuest();
-        bigController.addGuest();
-        bigController.addGuest();
-        bigController.sign_up("GuestID_0","abed15", "taweel1");
-        bigController.sign_up("GuestID_1","amit12", "peled1");
-        bigController.sign_up("GuestID_2","guy123", "porat1");
+        g1 =  bigController.addGuest();
+        bigController.sign_up(g1,"abed15", "taweel1");
+        g2= bigController.addGuest();
+        bigController.sign_up(g2,"amit12", "peled1");
+        g3=bigController.addGuest();
+        bigController.sign_up(g3,"guy123", "porat1");
         bigController.login("abed15", "taweel1");
+        g4= bigController.addGuest();
+        g5= bigController.addGuest();
 
     }
 
     @org.junit.jupiter.api.Test
     public void sign_up() {
-        assertTrue(bigController.sign_up("GuestID_3","name", "pass"));
+        assertTrue(bigController.sign_up(g4,"name", "pass"));
         assertEquals(5, bigController.getUser_list().size()); //Admin +1 new user + 3 already registered users(in setup)
-        assertFalse(bigController.sign_up("GuestID_4","abed15", "pass1111"));
-        assertTrue(bigController.sign_up("GuestID_4","newUser2", "newPass3"));
+        assertFalse(bigController.sign_up(g5,"abed15", "pass1111"));
+        assertTrue(bigController.sign_up(g5,"newUser2", "newPass3"));
         assertEquals(6, bigController.getUser_list().size()); //
 
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void login() {
         assertTrue(bigController.login("amit12", "peled1"));
         assertFalse(bigController.login("abed15", "taweel1"));
@@ -62,9 +67,9 @@ class BigControllerTest {
         assertFalse(bigController.logout("user0"));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void GuestExitSystem() {
-        assertEquals(null, bigController.GuestExitSystem("GuestID_4"));
+        assertEquals(null, bigController.GuestExitSystem("GuestID_5"));
         String guestId = bigController.addGuest();
         assertEquals(guestId, bigController.GuestExitSystem(guestId));
     }

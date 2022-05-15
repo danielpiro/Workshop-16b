@@ -1,8 +1,10 @@
 package Controllers;
 
 import CustomExceptions.SupplyManagementException;
+import CustomExceptions.UserException;
 import ExternalConnections.Delivery.DeliveryNames;
 import ExternalConnections.Payment.PaymentNames;
+import NotificationsManagement.ComplaintNotification;
 import StorePermission.Permission;
 import User.Subscriber;
 
@@ -37,8 +39,14 @@ public class Service {
         return future;
 
     }
-    public Future sendComplaint(String userId, String StoreName,String complaint ) {
-        Future future = executorService.submit(() -> bigController.sendComplaint(userId,StoreName,complaint));
+    public Future sendComplaint(String userId, List<String> adminIds, ComplaintNotification complaintNotification) {
+        Future future = executorService.submit(() -> {
+            try {
+                bigController.sendComplaint(userId,adminIds,complaintNotification);
+            } catch (UserException e) {
+                e.printStackTrace();
+            }
+        });
         return future;
 
     }
@@ -80,7 +88,13 @@ public class Service {
         return future;
     }
     public Future Add_Query(String user_name,String query) {
-        Future future = executorService.submit(() -> bigController.Add_Query(user_name,query));
+        Future future = executorService.submit(() -> {
+            try {
+                bigController.Add_Query(user_name,query);
+            } catch (UserException e) {
+                e.printStackTrace();
+            }
+        });
         return future;
 
     }

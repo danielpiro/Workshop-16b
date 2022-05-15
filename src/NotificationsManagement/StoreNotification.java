@@ -1,13 +1,13 @@
 package NotificationsManagement;
 
-public class Notification {
+public class StoreNotification {
     private final getStoreInfo sentFrom;
     private final NotificationSubject subject;
     private final String Title;
     private final String Body;
     private boolean read;
 
-    public Notification(getStoreInfo sentFrom, NotificationSubject subject, String title, String body) {
+    public StoreNotification(getStoreInfo sentFrom, NotificationSubject subject, String title, String body) {
         this.sentFrom = sentFrom;
         this.subject = subject;
         Title = title;

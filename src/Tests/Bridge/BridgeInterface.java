@@ -1,5 +1,6 @@
 package Tests.Bridge;
 
+import CustomExceptions.UserException;
 import ExternalConnections.Delivery.Delivery;
 import ExternalConnections.Delivery.DeliveryNames;
 import ExternalConnections.Payment.Payment;
@@ -88,23 +89,23 @@ public interface BridgeInterface {
 
     /** User requirement - II.2.3 */
     boolean saveProductFromStoreToShoppingCart(String user_id, String productID, String storeID,
-                                               int amount, boolean auctionOrBid);
+                                               int amount, boolean auctionOrBid) throws UserException;
 
     /** User requirement - II.2.4 */
-    String showShoppingCart(String userId);
+    String showShoppingCart(String userId) throws UserException;
 
     /** User requirement - II.2.4 */
     boolean increaseProductQuantityInShoppingCart(String user_id,String productID, String storeID,
-                                                  int amount ,boolean auctionOrBid);
+                                                  int amount ,boolean auctionOrBid) throws UserException;
 
     /** User requirement - II.2.4 */
-    boolean decreaseProductQuantityInShoppingCart(String userId,String productID, String storeID, int amount);
+    boolean decreaseProductQuantityInShoppingCart(String userId,String productID, String storeID, int amount) throws UserException;
 
     /** User requirement - II.2.4 */
     String removeProductFromShoppingCart(String productName);
 
     /** User requirement - II.2.5 */
-    boolean purchaseShoppingCart(String userID,PaymentNames payment,DeliveryNames delivery);
+    boolean purchaseShoppingCart(String userID,PaymentNames payment,DeliveryNames delivery) throws UserException;
 
     /** User requirement - II.3.1 */
     boolean logout(String userid);

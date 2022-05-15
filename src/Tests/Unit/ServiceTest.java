@@ -38,15 +38,15 @@ class ServiceTest {
     @Test
     void lastProduct(){
         try {
-            service.addGuest();
-            service.addGuest();
-            service.addGuest();
+           Future s1= service.addGuest();
+            Future s2 = service.addGuest();
+            Future s3 = service.addGuest();
             String userId1 = "user1";
             String userId2 = "user2";
             String userId3 = "user3";
-            service.sign_up("GuestID_0",userId1, "123").get();
-            service.sign_up("GuestID_1",userId2, "123").get();
-            service.sign_up("GuestID_2",userId3, "123").get();
+            service.sign_up((String) s1.get(),userId1, "123").get();
+            service.sign_up((String) s2.get(),userId2, "123").get();
+            service.sign_up((String) s3.get(),userId3, "123").get();
 
             service.login(userId1, "123").get();
             service.login(userId2, "123").get();
@@ -79,16 +79,16 @@ class ServiceTest {
     @Test
     void twoOwnersGivePermissionAtTheSameTime() {
         try {
-            service.addGuest();
-            service.addGuest();
-            service.addGuest();
+           Future f1= service.addGuest();
+           Future f2 = service.addGuest();
+            Future f3 = service.addGuest();
             String userId1 = "user1";
             String userId2 = "user2";
             String userId3 = "user3";
 
-            service.sign_up("GuestID_0",userId1, "123").get();
-            service.sign_up("GuestID_1",userId2, "123").get();
-            service.sign_up("GuestID_2",userId3, "123").get();
+            service.sign_up((String) f1.get(),userId1, "123").get();
+            service.sign_up((String) f2.get(),userId2, "123").get();
+            service.sign_up((String) f3.get(),userId3, "123").get();
 
             service.login(userId1, "123").get();
             service.login(userId2, "123").get();
@@ -112,14 +112,14 @@ class ServiceTest {
     @Test
     void ownerDeleteProductWhileCustomerBuyIt() {
         try {
-            service.addGuest();
-            service.addGuest();
+           Future f1= service.addGuest();
+            Future f2 = service.addGuest();
             String userId1 = "user1";
             String userId2 = "user2";
 
 
-            service.sign_up("GuestID_0",userId1, "123").get();
-            service.sign_up("GuestID_1",userId2, "123").get();
+            service.sign_up((String) f1.get(),userId1, "123").get();
+            service.sign_up((String) f2.get(),userId2, "123").get();
 
 
             service.login(userId1, "123").get();
@@ -151,15 +151,15 @@ class ServiceTest {
     void onlyOneCanLogin() {
 
         try {
-            service.addGuest();
-            service.addGuest();
+            Future f1 =service.addGuest();
+            Future f2 = service.addGuest();
             String userId1 = "user1";
             String userId2 = "user2";
 
 
 
-            service.sign_up("GuestID_0",userId1, "123").get();
-            service.sign_up("GuestID_1",userId2, "123").get();
+            service.sign_up((String) f1.get(),userId1, "123").get();
+            service.sign_up((String) f2.get(),userId2, "123").get();
 
 
 

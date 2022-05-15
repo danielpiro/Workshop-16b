@@ -1,5 +1,8 @@
 package User;
 
+import NotificationsManagement.ComplaintNotification;
+import NotificationsManagement.StoreNotification;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +11,8 @@ public class Subscriber extends User {
     private String password;
     private boolean logged_in = false;
     private List<String> Queries; //3.5
-    private List<Message> buffer;
+    private List<StoreNotification> storeNotifications;
+    private List<ComplaintNotification> complaintNotifications;
     private Object lock = new Object();
     Encrypt enc = new Encrypt();;
 
@@ -24,7 +28,8 @@ public class Subscriber extends User {
         this.name = user_name;
         Queries= new ArrayList<>();
         lock = new Object();
-        buffer = new ArrayList<>();
+        storeNotifications = new ArrayList<>();
+        complaintNotifications = new ArrayList<>();
     }
 
     public String getName()
@@ -52,9 +57,16 @@ public class Subscriber extends User {
 
     public Encrypt getEncryption(){return enc;}
 
-    public List<Message> getBuffer(){return buffer;}
+    public List<StoreNotification> getStoreNotifications() {
+        return storeNotifications;
+    }
 
-    public void addMessage(Message m){ getBuffer().add(m);}
+    public List<ComplaintNotification> getComplaintNotifications() {
+        return complaintNotifications;
+    }
+
+    public void addComplaint(ComplaintNotification complaintNotification){ getComplaintNotifications().add(complaintNotification);}
+    public void addNotification(StoreNotification storeNotification){ getStoreNotifications().add(storeNotification);}
 
     public Object getLock (){
         return lock;

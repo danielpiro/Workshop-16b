@@ -3,6 +3,7 @@ package Controllers;
 
 import CustomExceptions.NotifyException;
 import CustomExceptions.SupplyManagementException;
+import CustomExceptions.UserException;
 import ExternalConnections.Delivery.DeliveryNames;
 import ExternalConnections.Delivery.FedEx;
 import ExternalConnections.Delivery.UPS;
@@ -12,6 +13,7 @@ import ExternalConnections.Payment.PaymentNames;
 import ExternalConnections.Payment.Visa;
 import GlobalSystemServices.Log;
 import History.PurchaseHistory;
+import NotificationsManagement.ComplaintNotification;
 import NotificationsManagement.NotificationManager;
 import ShoppingCart.InventoryProtector;
 import ExternalConnections.ExternalConnectionHolder;
@@ -72,8 +74,8 @@ public class MarketController {
     public boolean logout(String user_name) {
         return getUserController().logout(user_name);
     }
-    public void sendComplaint(String userId, String StoreName,String complaint ) {
-        getUserController().sendComplaint(userId,StoreName,complaint);
+    public void sendComplaint(String userId, List<String> adminIds, ComplaintNotification complaintNotification) throws UserException {
+        getUserController().sendComplaintTo(userId,adminIds,complaintNotification);
     }
 
     public Guest getGuest(String id) {
@@ -102,30 +104,30 @@ public class MarketController {
     public List<Subscriber> getUser_list() {
         return getUserController().getUser_list();
     }
-    public void Add_Query(String user_name,String query) {
+    public void Add_Query(String user_name,String query) throws UserException {
         getUserController().Add_Query(user_name,query);
     }
     public Subscriber get_subscriber(String user_name) {
         return getUserController().get_subscriber(user_name);
     }
-    public ShoppingCart getShoppingCart(String user_Id){
+    public ShoppingCart getShoppingCart(String user_Id) throws UserException {
         return getUserController().getShoppingCart(user_Id);
     }
-    public boolean containsStore(String user_id,String storeID) {
+    public boolean containsStore(String user_id,String storeID) throws UserException {
         return getUserController().containsStore(user_id,storeID);
     }
-    public int removeProductFromCart(String user_id, String productID, String storeID, int amount) {
+    public int removeProductFromCart(String user_id, String productID, String storeID, int amount) throws UserException {
         return getUserController().removeProduct(user_id,productID,storeID,amount);
     }
 
-    public int addProductFromCart(String user_id, String productID, String storeID, int amount, boolean auctionOrBid) {
+    public int addProductFromCart(String user_id, String productID, String storeID, int amount, boolean auctionOrBid) throws UserException {
         InventoryProtector inventoryProtector = sc.getInventoryProtector(storeID);
         return getUserController().addProduct(user_id,productID,storeID,amount,inventoryProtector,auctionOrBid);
     }
-    public String getCartInventory(String user_id) {
+    public String getCartInventory(String user_id) throws UserException {
         return getUserController().getCartInventory(user_id);
     }
-    public float purchaseCart(String user_id, PaymentNames payment, DeliveryNames delivery) {
+    public float purchaseCart(String user_id, PaymentNames payment, DeliveryNames delivery) throws UserException {
         return getUserController().purchaseCart(user_id,new ExternalConnectionHolder(delivery,payment));
     }
 
@@ -229,7 +231,7 @@ public class MarketController {
         return getStoreController().addNewThreadToForum(storeId,title,userId);
     }
 
-    public void postMessageToForum(String storeId, String threadId, String userId, String message) throws NoPermissionException, NotifyException {
+    public void postMessageToForum(String storeId, String threadId, String userId, String message) throws NoPermissionException, NotifyException, UserException {
         if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
             my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
         }

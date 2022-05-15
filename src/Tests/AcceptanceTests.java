@@ -1,5 +1,6 @@
 package Tests;
 
+import CustomExceptions.UserException;
 import ExternalConnections.Delivery.DeliveryNames;
 import ExternalConnections.Delivery.UPS;
 import ExternalConnections.Payment.MasterCard;
@@ -30,6 +31,10 @@ public class AcceptanceTests {
 
     Proxy proxy;
     String storeId;
+    String s1;
+    String s2;
+    String s3;
+    String s4;
     @BeforeEach
     void setUp() throws Exception {
         proxy = new Proxy(new Real());
@@ -40,15 +45,15 @@ public class AcceptanceTests {
 //        user2: store manager of store1
 //        user3: subscriber
 //        guest: GuestID_0
-         proxy.getInToTheSystem();
-        proxy.register("GuestID_0","user1", "11111");
+          s1= proxy.getInToTheSystem();
+        proxy.register(s1,"user1", "11111");
         proxy.login("user1", "11111");
         storeId = proxy.openStore("user1", "store1");
         // store0_id = StoreID_0
-        proxy.getInToTheSystem();
-        proxy.register("GuestID_1","user2", "22222");
-        proxy.getInToTheSystem();
-        proxy.register("GuestID_2","userOwnerToDestroy", "12345");
+         s2 =proxy.getInToTheSystem();
+        proxy.register(s2,"user2", "22222");
+         s3 =proxy.getInToTheSystem();
+        proxy.register(s3,"userOwnerToDestroy", "12345");
 
 
         proxy.addNewStoreManager(storeId, "user1", "user2");
@@ -56,8 +61,8 @@ public class AcceptanceTests {
         permission.add(Permission.INFO_OF_MANAGERS);
         permission.add(Permission.VIEW_FORUM);
         proxy.addNewStoreOwner(storeId, "user1","userOwnerToDestroy",permission);
-        proxy.getInToTheSystem();
-        proxy.register("GuestID_3","user3", "33333");
+         s4 =proxy.getInToTheSystem();
+        proxy.register(s4,"user3", "33333");
        // proxy.getInToTheSystem(); // for guest
 
         proxy.addProductToStore(storeId, "user1", "p0", 5.0f, 0, "Other");
@@ -481,7 +486,7 @@ public class AcceptanceTests {
 
         // "guest user got-in successfully"
         boolean b = false;
-        String s = proxy.getInToTheSystem();
+        String s =  proxy.getInToTheSystem();
         for (Guest g : proxy.getGuest_list()){
             if(g.name.equals(s)){
                 b = true;
@@ -504,7 +509,7 @@ public class AcceptanceTests {
 
         //"user got out successfully"
         boolean b = false;
-        String sIn = proxy.getInToTheSystem();
+        String sIn =  proxy.getInToTheSystem();
         String sOut = proxy.getOutFromTheSystem(sIn);
         assertEquals(sIn, sOut);
         //GuestID might change due to tests that have been added to the acceptance tests
@@ -537,16 +542,16 @@ public class AcceptanceTests {
 //        - Perform Register (entering username and password) & validate registration details (will return TRUE)
 //        - Check that the user is still "visitor/buyer" (and not a logged-in user - until he performs login).
 //        - Send success message...
-        proxy.getInToTheSystem();
-        assertTrue(proxy.register("GuestID_0","user8", "88888"));
+       String s = proxy.getInToTheSystem();
+        assertTrue(proxy.register(s,"user8", "88888"));
     }
     @Test
     void register_fail_case_test1() {
 //        - Perform Register (entering username and password) & validate registration details
 //              -> username already exists in system.
 //        - Send failure message...
-        proxy.getInToTheSystem();
-        assertFalse(proxy.register("GuestID_0","user1", "11111"));
+        String s =proxy.getInToTheSystem();
+        assertFalse(proxy.register(s,"user1", "11111"));
     }
 
 
@@ -555,9 +560,9 @@ public class AcceptanceTests {
 //        - Perform Register (entering username and password) & validate registration details
 //              -> username is not match the requirements for proper username in the system.
 //        - Send failure message...
-        proxy.getInToTheSystem();
+       String s = proxy.getInToTheSystem();
 
-        assertFalse(proxy.register("GuestID_0",null, "11111"));
+        assertFalse(proxy.register(s,null, "11111"));
     }
 
 
@@ -566,8 +571,8 @@ public class AcceptanceTests {
 //        - Perform Register (entering username and password) & validate registration details
 //              -> password is not match the requirements for proper password in the system.
 //        - Send failure message...
-         proxy.getInToTheSystem();
-        assertFalse(proxy.register("GuestID_0","user0", null));
+         String s =proxy.getInToTheSystem();
+        assertFalse(proxy.register(s,"user0", null));
     }
 
     /**
@@ -665,7 +670,7 @@ public class AcceptanceTests {
 
 
     @Test
-    void save_products_from_store_to_shopping_cart_success_case_test() {
+    void save_products_from_store_to_shopping_cart_success_case_test() throws UserException {
 //        - User selecting products from specific store.
 //        - User perform save to these products.
 //        - Check that the user is not a visitor.
@@ -679,7 +684,7 @@ public class AcceptanceTests {
 
 
     @Test
-    void save_products_from_store_to_shopping_cart_fail_case_test() {
+    void save_products_from_store_to_shopping_cart_fail_case_test() throws UserException {
 //        - User selecting products from specific store.
 //        - User perform save to these products.
 //        - Check that the user is not a visitor.
@@ -698,14 +703,14 @@ public class AcceptanceTests {
      **/
     @Disabled
     @Test
-    void show_shopping_cart_success_case_test() {
+    void show_shopping_cart_success_case_test() throws UserException {
 //        - Check all shopping cart info presented to the costumer (will be successful).
 
         assertEquals("showing user's shopping cart:\n", proxy.showShoppingCart("user1"));
     }
     @Disabled
     @Test
-    void show_shopping_cart_fail_case_test() {
+    void show_shopping_cart_fail_case_test() throws UserException {
         //TODO: Create a fail case for this test
 
 //        - Check all shopping cart info presented to the costumer (will be successful).
@@ -812,7 +817,7 @@ public class AcceptanceTests {
     //todo dan make this tests work
     @Disabled
     @Test
-    void purchase_shopping_cart_success_case_test() {
+    void purchase_shopping_cart_success_case_test() throws UserException {
 
 // already checked in the Service Test which includes Concurrency and failed and success case
 //        System.out.println("""
