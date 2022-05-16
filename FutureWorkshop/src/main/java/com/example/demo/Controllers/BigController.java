@@ -4,6 +4,7 @@ import com.example.demo.Controllers.Mock.MockFullProduct;
 import com.example.demo.Controllers.Mock.MockPermission;
 import com.example.demo.Controllers.Mock.MockSmallPermission;
 import com.example.demo.Controllers.Mock.MockSmallProduct;
+import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
 import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
 import com.example.demo.ExternalConnections.Delivery.FedEx;
 import com.example.demo.ExternalConnections.Delivery.UPS;
@@ -71,39 +72,45 @@ public class BigController {
 
     @Async
     @DeleteMapping ("/users")
-    public boolean deleteUser(@RequestParam String isDeleting,
+    public ReturnValue deleteUser(@RequestParam String isDeleting,
                               @RequestParam String whosBeingDeleted) throws NoPermissionException {
 
         my_log.logger.info("user" + isDeleting + "is trying to delete user" + whosBeingDeleted);
         sc.removeRoleInHierarchy(whosBeingDeleted);
 
-        return getUserController().deleteUser(isDeleting, whosBeingDeleted);
+        ReturnValue rv = new ReturnValue (true,"", getUserController().deleteUser(isDeleting, whosBeingDeleted));
+        return rv;
     }
-
     @Async
     @PostMapping ("/users/signup")
-    public boolean sign_up(@RequestParam String user_name,
+    public ReturnValue sign_up(@RequestParam String user_name,
                            @RequestParam String password) {
         my_log.logger.info("user " + user_name + " is trying to sign up");
-        return getUserController().sign_up(user_name, password);
+        ReturnValue rv = new ReturnValue (true,"", getUserController().sign_up(user_name, password));
+        return rv;
     }
 
     @Async
     @PostMapping ("/users/login")
-    public boolean login(@RequestParam String user_name_login,
+    public ReturnValue login(@RequestParam String user_name_login,
                          @RequestParam String password) {
-        return getUserController().login(user_name_login, password);
+        ReturnValue rv = new ReturnValue (true,"", getUserController().login(user_name_login, password));
+        return rv;
     }
 
 
     @PostMapping ("/users/logout")
-    public boolean logout(@RequestParam String user_name) {
-        return getUserController().logout(user_name);
+    public ReturnValue logout(@RequestParam String user_name) {
+
+        ReturnValue rv = new ReturnValue (true,"", getUserController().logout(user_name));
+        return rv;
+
     }
 
     @PostMapping ("/market")
-    public void sendComplaint(@RequestParam String userId, @RequestParam String StoreName, @RequestParam String complaint) {
-        getUserController().sendComplaint(userId, StoreName, complaint);
+    public ReturnValue sendComplaint(@RequestParam String userId, @RequestParam String StoreName, @RequestParam String complaint) {
+        ReturnValue rv = new ReturnValue (true,"", null);
+        return rv;
     }
 
 
@@ -119,8 +126,11 @@ public class BigController {
 
 
     @PostMapping ("/users")
-    public String GuestExitSystem(@RequestParam String guestId) {
-        return getUserController().GuestExitSystem(guestId);
+    public ReturnValue GuestExitSystem(@RequestParam String guestId) {
+        getUserController().GuestExitSystem(guestId);
+
+        ReturnValue rv = new ReturnValue (true,"", null);
+        return rv;
     }
 
     private Subscriber getSystemAdmin() {
@@ -152,8 +162,9 @@ public class BigController {
 //    }
 
     @PostMapping ("/cart")
-    public ShoppingCart getShoppingCart(@RequestParam String user_Id) {
-        return getUserController().getShoppingCart(user_Id);
+    public ReturnValue getShoppingCart(@RequestParam String user_Id) {
+        ReturnValue rv = new ReturnValue (true,"", getUserController().getShoppingCart(user_Id));
+        return rv;
     }
 
 //    public boolean containsStore(String user_id, String storeID) {

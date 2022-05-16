@@ -9,34 +9,36 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.NoSuchElementException;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
 
-    @ExceptionHandler(value = { MethodArgumentNotValidException.class})
-    public ResponseEntity<Object> handleNotValidException (MethodArgumentNotValidException e){
-        ApiException apiException = new ApiException(
-                "one of the variables you entered wasn't correct",
-                e.getMessage(),
 
-                ZonedDateTime.now(ZoneId.of("Z"))
+    @ExceptionHandler(value = { MissingServletRequestParameterException.class,
+                                MethodArgumentNotValidException.class})
+
+    public ResponseEntity<Object> handleWrongArgument (){
+        ReturnValue rv = new ReturnValue(
+                false,
+                "one of the variables you entered wasn't correct",
+                null
         );
 
-        return new ResponseEntity<>(apiException,HttpStatus.BAD_REQUEST);
-
+        return new ResponseEntity<>(rv,HttpStatus.BAD_REQUEST);
 
     }
 
-    @ExceptionHandler(value = { MissingServletRequestParameterException.class})
-    public ResponseEntity<Object> handleNotValidException (MissingServletRequestParameterException e){
-        ApiException apiException = new ApiException(
-                "one of the variables you entered wasn't correct",
-                e.getMessage(),
-                ZonedDateTime.now(ZoneId.of("Z"))
+    @ExceptionHandler(value = { NoSuchElementException.class})
+
+    public ResponseEntity<Object> handleElementDoesntExist (){
+        ReturnValue rv = new ReturnValue(
+                false,
+                "one of the variables you entered doesn't exist",
+                null
         );
 
-        return new ResponseEntity<>(apiException,HttpStatus.BAD_REQUEST);
-
+        return new ResponseEntity<>(rv,HttpStatus.BAD_REQUEST);
 
     }
 

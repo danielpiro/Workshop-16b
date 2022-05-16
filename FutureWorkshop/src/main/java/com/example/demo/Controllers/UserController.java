@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 
@@ -259,14 +260,14 @@ public class UserController {
             return guest;
         }
     }
-    public String GuestExitSystem(String name) {
+    public void GuestExitSystem(String name)  throws NoSuchElementException {
             for (Guest g : getGuest_list())
                 if (g.name.equals(name)) {
                     getGuest_list().remove(g);
-                    return g.name;
+                    return;
                 }
-            return null;
-    }
+            throw new NoSuchElementException();
+        }
     public void Add_Query(String user_name,String query) { //3.5
         if (get_subscriber(user_name) == null) {
             my_log.logger.warning(" user "+user_name+ "doesn't exist");
