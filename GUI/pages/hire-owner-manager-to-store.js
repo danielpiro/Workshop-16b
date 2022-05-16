@@ -5,35 +5,44 @@ import SubscriberMenu from "../components/menus/menuSubscriber";
 import GuestMenu from "../components/menus/menuGuest";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import createNotification from "../components/norification";
+import { useRouter } from "next/router";
 
 const HireOwnerToStore = () => {
+    const router = useRouter();
     const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
     const [newOfficialInput, setNewOfficialInput] = useState({
         username: "",
         storename: "",
-        ownerORmanager: ""
+        ownerORmanager: "Manager/Owner"
     });
+
+    const setManager = () => {
+        setNewOfficialInput((prevState) => ({ ...prevState, ownerORmanager: "Manager",}))
+    }
     
+    const setOwner = () => {
+        setNewOfficialInput((prevState) => ({ ...prevState, ownerORmanager: "Owner",}))
+    }
+
     const onHiringOfficial = (e) => {
         e.preventDefault();
-        // console.log(newOfficialInput.username);
-        // console.log(newOfficialInput.storename);
-        // console.log(newOfficialInput.ownerORmanager);
         if(newOfficialInput.username != "" && newOfficialInput.storename != "" && newOfficialInput.ownerORmanager != ""){
             if(newOfficialInput.ownerORmanager == "Owner"){
-                const isOpened = axios.post(`owner/${openNewStoreInput.storeOwnerUsername}/${openNewStoreInput.storename}`); 
+                const isOpened = axios.post(`owner/${newOfficialInput.username}/${newOfficialInput.storename}`); 
+                //console.log(isOpened.status);
             }
             if(newOfficialInput.ownerORmanager == "Manager"){
-                const isOpened = axios.post(`manager/${openNewStoreInput.storeOwnerUsername}/${openNewStoreInput.storename}`); 
+                const isOpened = axios.post(`manager/${newOfficialInput.username}/${newOfficialInput.storename}`); 
             } 
             
             if(isOpened){
-                createNotification("success", "Create new store successfully", () =>
+                createNotification("success", "Create new owner/manager successfully", () =>
                 router.push("/dashboard")
                 )();
             }
             else{
-                createNotification("error", "failure opening new store!")();
+                createNotification("error", "failure hiring new owner/manager!")();
             }     
         }
         else{
@@ -106,17 +115,17 @@ const HireOwnerToStore = () => {
                 />
             </div>
             <div className="dropdown m-1">
-                <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    Owner/Manager
+                <button className="btn btn-secondary dropdown-toggle" 
+                        type="button" 
+                        id="dropdownMenuButton1" 
+                        data-bs-toggle="dropdown" 
+                        aria-expanded="false"
+                >
+                    {newOfficialInput.ownerORmanager}
                 </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1" value={newOfficialInput.ownerORmanager}
-                    onChange={(e) => setNewOfficialInput((prevState) => ({
-                                        ...prevState,
-                                        ownerORmanager: e.target.value,
-                        }))
-                    }>
-                    <li><a className="dropdown-item" href="#">Manager</a></li>
-                    <li><a className="dropdown-item" href="#">Owner</a></li>
+                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a className="dropdown-item" href="#" onClick={setManager}>Manager</a></li>
+                    <li><a className="dropdown-item" href="#" onClick={setOwner}>Owner</a></li>
                 </ul>
             </div>
             <br />
