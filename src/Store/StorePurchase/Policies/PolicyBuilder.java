@@ -103,6 +103,18 @@ public class PolicyBuilder {
         return policy;
     }
 
+    /**
+     * @param price = sum of product prices need to be above price
+     * @return policy;
+     */
+    public Policy newPricePredicate(float price){
+        PolicyPredicate p = new PricePredicate(price);
+        Policy policy  = new OnePredPolicy(p);
+        return policy;
+    }
+
+
+
 
     /**
      * @param p1 - first policy

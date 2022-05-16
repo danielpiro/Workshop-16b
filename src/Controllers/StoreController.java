@@ -7,6 +7,7 @@ import GlobalSystemServices.Log;
 import History.PurchaseHistory;
 import ShoppingCart.InventoryProtector;
 import Store.Store;
+import Store.StorePurchase.Policies.Policy;
 import StorePermission.Permission;
 import StorePermission.StoreRoles;
 import Store.Product;
@@ -159,6 +160,18 @@ public class StoreController {
     public void  userPostMessageToForum(String storeId, String threadId, String userId, String message) throws NoPermissionException, NotifyException {
         Store relevantStore = stores.get(storeId);
         relevantStore.userPostMessageToForum(threadId, userId, message);
+    }
+    public String addNewPolicy(String storeId,String userId, Policy policy) throws NoPermissionException {
+        Store relevantStore =  stores.get(storeId);
+        return relevantStore.addNewPolicy(userId,policy);
+    }
+    public void deletePolicy(String storeId,String userId, String policyId) throws NoPermissionException {
+        Store relevantStore =  stores.get(storeId);
+        relevantStore.deletePolicy(userId,policyId);
+    }
+    public List<Policy> getPolices(String storeId,String userId) throws NoPermissionException {
+        Store relevantStore =  stores.get(storeId);
+        return relevantStore.getPolices(userId);
     }
     private boolean checkIfProductExists(String storeId, String productId) throws IOException {
         Store relevantStore =  stores.get(storeId);

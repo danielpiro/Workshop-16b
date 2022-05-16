@@ -12,6 +12,7 @@ import NotificationsManagement.getStoreInfo;
 import ShoppingCart.InventoryProtector;
 import Store.Forum.Forum;
 import Store.Forum.ForumThread;
+import Store.StorePurchase.Policies.Policy;
 import StorePermission.OriginalStoreOwnerRole;
 import StorePermission.Permission;
 import StorePermission.StoreRoles;
@@ -222,8 +223,24 @@ public class Store implements getStoreInfo {
         storeState = StoreState.ACTIVE;
     }
 
-
-
+    public String addNewPolicy(String userId, Policy policy) throws NoPermissionException {
+        if(!checkPermission(userId, Permission.EDIT_STORE_POLICY)){
+            throw new NoPermissionException("the user don't have this permission");
+        }
+        return inventoryManager.addNewPolicy(policy);
+    }
+    public void deletePolicy(String userId, String policyId) throws NoPermissionException {
+        if(!checkPermission(userId, Permission.EDIT_STORE_POLICY)){
+            throw new NoPermissionException("the user don't have this permission");
+        }
+        inventoryManager.deletePolicy(policyId);
+    }
+    public List<Policy> getPolices(String userId) throws NoPermissionException {
+        if(!checkPermission(userId, Permission.EDIT_STORE_POLICY)){
+            throw new NoPermissionException("the user don't have this permission");
+        }
+        return inventoryManager.getPolicies();
+    }
 
 
     public List<StoreRoles> getInfoOnManagersOwners(String userId) throws NoPermissionException {

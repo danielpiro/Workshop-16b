@@ -18,6 +18,7 @@ import ExternalConnections.ExternalConnectionHolder;
 import ShoppingCart.ShoppingCart;
 import Store.Product;
 import Store.Store;
+import Store.StorePurchase.Policies.Policy;
 import StorePermission.Permission;
 import StorePermission.StoreRoles;
 import User.Guest;
@@ -302,7 +303,26 @@ public class MarketController {
     public void deleteStore(String userId, String storeId) throws NoPermissionException {
         getStoreController().deleteStore(userId,storeId);
     }
-
+    public String addNewPolicy(String storeId,String userId, Policy policy) throws NoPermissionException {//todo need to use policyBuilder to create policy
+        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
+            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
+            return null;
+        }
+        return sc.addNewPolicy(storeId,userId,policy);
+    }
+    public void deletePolicy(String storeId,String userId, String policyId) throws NoPermissionException {
+        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
+            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
+        }
+        sc.deletePolicy(storeId,userId,policyId);
+    }
+    public List<Policy> getPolices(String storeId,String userId) throws NoPermissionException {
+        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
+            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
+            return null;
+        }
+        return sc.getPolices(storeId,userId);
+    }
     public List<PurchaseHistory> getStoreHistory(String storeId, String userId) throws NoPermissionException{
         if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
             my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");

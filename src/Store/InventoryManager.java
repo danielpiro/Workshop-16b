@@ -5,6 +5,7 @@ import CustomExceptions.StorePolicyViolatedException;
 import CustomExceptions.SupplyManagementException;
 import ExternalConnections.ExternalConnectionHolder;
 import GlobalSystemServices.IdGenerator;
+import GlobalSystemServices.Log;
 import ShoppingCart.InventoryProtector;
 import ShoppingCart.UserInfo;
 import Store.StorePurchase.Discounts.Discount;
@@ -120,9 +121,21 @@ public class InventoryManager  implements InventoryProtector {
         return finalPrice;
     }
 
-    public void addNewPolicy(Policy policy){
+    public String addNewPolicy(Policy policy){
         policies.add(policy);
+        return policy.getPolicyId();
     }
+    public void deletePolicy(String policyId) {
+        for(Policy p : policies){
+            if(p.getPolicyId().equals(policyId)){
+                policies.remove(p);
+                break;
+            }
+        }
+        Log.getLogger().logger.warning("cant delete, no Policy with this Id");
+        throw new RuntimeException("no Policy with this Id");
+    }
+
     public List<Policy> getPolicies() {
         return policies;
     }
