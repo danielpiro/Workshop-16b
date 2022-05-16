@@ -47,16 +47,24 @@ const ChangeStoreManagerPermissions = () => {
             <h3>Change Store Manager's Permissions</h3>
         </div>
         <div className="container">
-            <div className="row">
-                <div className="col">
+            <div>
+                <div className="row">
                     <input
                         className="form-control mr-sm-2 m-2"
                         type="search"
                         placeholder="Enter username"
                         aria-label="Search"
+                    />       
+                </div>
+                <div className="row">
+                    <input
+                        className="form-control mr-sm-2 m-2"
+                        type="search"
+                        placeholder="Enter store name"
+                        aria-label="Search"
                     />
                 </div>
-                <div className="col m-2">
+                <div className="row"> 
                     <button className="btn btn-primary mr-lg-3">
                         Search
                     </button>
