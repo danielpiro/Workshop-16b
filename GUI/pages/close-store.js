@@ -22,10 +22,11 @@ const CloseStore = () => {
     const onCloseStore = (e) => {
         e.preventDefault();
         
-        setSelectedStore((prevState) => ({ ...prevState, storeId: "amit"}))
-        setSelectedStore((prevState) => ({ ...prevState, storename: "peled"}))
+        setSelectedStore((prevState) => ({ ...prevState, storeId: e.data,})) //TODO: Fix setting these params!
+        setSelectedStore((prevState) => ({ ...prevState, storename: e.data,}))
 
-        console.log(selectedStore.storeId); console.log(selectedStore.storename);
+        console.log(selectedStore.storeId); 
+        console.log(selectedStore.storename);
 
         if(selectedStore.storeId != "" && selectedStore.storename != ""){
             const isClosed = axios.post(`store/${selectedStore.storeId}/${selectedStore.storename}`); 
