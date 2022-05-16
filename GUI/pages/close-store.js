@@ -5,22 +5,62 @@ import SubscriberMenu from "../components/menus/menuSubscriber";
 import GuestMenu from "../components/menus/menuGuest";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Link from "next/link";
+import createNotification from "../components/norification";
+import { useRouter } from "next/router";
+import Footer from "../components/footer";
 
 const CloseStore = () => {
-    // const [isLoading, setIsLoading] = useState(true);
-    // const [searchValue, setSearchValue] = useState("");
+    const router = useRouter();
+    const [isLoading, setIsLoading] = useState(true);
+    const [stores, setStores] = useState([]);
+    const [selectedStore, setSelectedStore] = useState({
+        storeId: "",
+        storename: "",
+    });
     const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
-    // useEffect(() => {
-    //   const fetchApi = async () => {
-    //     const response = await axios.get("https://fakestoreapi.com/products");
-    //     setIsLoading(!isLoading);
-    //     setProducts(response.data);
-    //     //TODO: Add logic to check if the user has any permission!
-    //     //setUserPermission("Admin/StoreOwner/StoreManager");
-    //   };
-    //   fetchApi();
-    // }, []);
+    
+    const onCloseStore = (e) => {
+        e.preventDefault();
+        
+        setSelectedStore((prevState) => ({ ...prevState, storeId: "amit"}))
+        setSelectedStore((prevState) => ({ ...prevState, storename: "peled"}))
+
+        console.log(selectedStore.storeId); console.log(selectedStore.storename);
+
+        if(selectedStore.storeId != "" && selectedStore.storename != ""){
+            const isClosed = axios.post(`store/${selectedStore.storeId}/${selectedStore.storename}`); 
+            // console.log(isClosed);
+            if(isClosed){
+                createNotification("success", "Closed store successfully", () =>
+                router.push("/dashboard")
+                )();
+            }
+            else{
+                createNotification("error", "failure closing store!")();
+            }     
+        }
+        else{
+            createNotification("error", "storename or storeID was not valid, please try again")();
+        }
+    }
+
+    useEffect(() => {
+        const fetchPermission = async () => {
+          const response = await axios.get("users/getUserPermission");
+          setUserPermission(response.data);
+        };
+        fetchPermission();
+    }, []);
+
+    useEffect(() => {
+        const fetchApi = async () => {
+          const response = await axios.get("https://dummyjson.com/products");
+          setIsLoading(!isLoading);
+          const { data } = response;
+          setStores(data.products);
+        };
+        fetchApi();
+      }, []);
   
     var menu;
     if (userPermission == "Admin"){
@@ -66,54 +106,56 @@ const CloseStore = () => {
             <br/>
             <div className="row m-2">
                 {/*displaying all searched stores - will be displayed in cards that contain the button "Close Store"*/}
-                <div className="card w-75 m-1">
-                    <div className="card-body">
-                        <div className="row">
+                {!isLoading ? (
+                    <div style={{ display: "table", width: "100%" }}>
+                    <ul className="list-group-item" style={{ display: "table-cell" }}> 
+                        <div className="row m-3">
                             <div className="col">
-                                <h5 className="card-title">Store A</h5>
+                                <h3 className="card-title">Store ID</h3>
                             </div>
                             <div className="col">
-                                <p className="card-text">Store description...</p>
+                                <h3 className="card-desc">Store Name</h3>
                             </div>
                             <div className="col">
-                                <a href="#" className="btn btn-primary">Close Store</a>
-                            </div>
-                        </div>    
-                    </div>
-                </div>
-                <div className="card w-75 m-1">
-                    <div className="card-body">
-                        <div className="row">
-                            <div className="col">
-                                <h5 className="card-title">Store B</h5>
-                            </div>
-                            <div className="col">
-                                <p className="card-text">Store description...</p>
-                            </div>
-                            <div className="col">
-                                <a href="#" className="btn btn-primary">Close Store</a>
+                                <h3 className="card-price">Select Store</h3>
                             </div>
                         </div>    
+                        {stores.map((store) => {
+                        return (
+                            <li className=" list-group-item" key={store.id}>
+                            <div className="card w-100 m-1">
+                                <div className="card-body">
+                                    <div className="row">
+                                        <div className="col">
+                                            <h5 className="card-title">{store.id}</h5>
+                                        </div>
+                                        <div className="col">
+                                            <p className="card-desc">{store.title}</p>
+                                        </div>
+                                        <div className="row m-1" style={{ display: "flex", width: "20%" }}>
+                                            <button className="btn btn-primary mr-lg-3" onClick={onCloseStore}>
+                                                Close Store
+                                            </button>
+                                        </div>
+                                    </div>    
+                                </div>
+                            </div>
+                            </li>
+                        );
+                        })}
+                    </ul>
                     </div>
-                </div>
-                <div className="card w-75 m-1">
-                    <div className="card-body">
-                        <div className="row">
-                            <div className="col">
-                                <h5 className="card-title">Store A</h5>
-                            </div>
-                            <div className="col">
-                                <p className="card-text">Store description...</p>
-                            </div>
-                            <div className="col">
-                                <a href="#" className="btn btn-primary">Close Store</a>
-                            </div>
-                        </div>    
+                ) : (
+                    <div className="container h-100 my-6">
+                    <div className="row align-items-center justify-content-center">
+                        <div className="spinner-border" />
                     </div>
-                </div>
+                    </div>
+                )}
+      
             </div>
         </div>
-
+        <Footer />
         </>
     );
 };

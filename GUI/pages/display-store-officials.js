@@ -10,29 +10,28 @@ import Card from "../components/card";
 import Footer from "../components/footer";
 
 const DisplayStoreOfficials = () => {
-  const [products, setProducts] = useState([]);
+  const [officials, setOfficials] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [singleProduct, setSingleProduct] = useState({});
+
   const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
-                                                                 //      + Edit using new method "setUserPermission"
+  
+  useEffect(() => {
+      const fetchPermission = async () => {
+        const response = await axios.get("users/getUserPermission");
+        setUserPermission(response.data);
+      };
+      fetchPermission();
+  }, []);
+
   useEffect(() => {
     const fetchApi = async () => {
       const response = await axios.get("https://dummyjson.com/products");
       setIsLoading(!isLoading);
       const { data } = response;
-      setProducts(data.products);
+      setOfficials(data.products);
     };
     fetchApi();
   }, []);
-
-  const getSingleProduct = (id) => {
-    products.map((product) => {
-      if (product.id === id) {
-        return setSingleProduct(product);
-      }
-      return null;
-    });
-  };
 
   var menu;
   if (userPermission == "Admin"){
@@ -58,7 +57,7 @@ const DisplayStoreOfficials = () => {
         <h3>Display Store Officials</h3>
       </div>
       <div className="my-4">
-        <SearchBar setProducts={setProducts} />
+        <SearchBar setOfficials={setOfficials} />
       </div>
       <div
         className="my-4"
@@ -66,21 +65,36 @@ const DisplayStoreOfficials = () => {
       ></div>
       {!isLoading ? (
         <div style={{ display: "table", width: "100%" }}>
-          <ul className="list-group" style={{ display: "table-cell" }}>
-            {products.map((product) => {
+          <ul className="list-group-item" style={{ display: "table-cell" }}>
+            <div className="row m-3">
+                <div className="col">
+                    <h3 className="card-title">Official ID</h3>
+                </div>
+                <div className="col">
+                    <h3 className="card-desc">Official Name</h3>
+                </div>
+                <div className="col">
+                    <h3 className="card-price">Official Permission</h3>
+                </div>
+            </div> 
+            {officials.map((official) => {
               return (
-                <li className=" list-group-item" key={product.id}>
-                  <Card
-                    value={product.id}
-                    image={product.images[0]}
-                    title={product.title}
-                    category={product.category}
-                    description={product.description}
-                    price={product.price}
-                    discount={product.discountPercentage}
-                    getSingleProduct={getSingleProduct}
-                    singleProduct={singleProduct}
-                  />
+                <li className=" list-group-item" key={official.id}>
+                  <div className="card w-100 m-1">
+                    <div className="card-body">
+                        <div className="row">
+                            <div className="col">
+                                <h5 className="card-title">{official.id}</h5>
+                            </div>
+                            <div className="col">
+                                <p className="card-desc">{official.title}</p>
+                            </div>
+                            <div className="col">
+                                <p className="card-price">{official.description}</p>
+                            </div>
+                        </div>    
+                    </div>
+                  </div>
                 </li>
               );
             })}

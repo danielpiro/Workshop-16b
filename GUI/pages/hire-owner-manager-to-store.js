@@ -7,6 +7,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import createNotification from "../components/norification";
 import { useRouter } from "next/router";
+import Footer from "../components/footer";
 
 const HireOwnerToStore = () => {
     const router = useRouter();
@@ -135,7 +136,7 @@ const HireOwnerToStore = () => {
                 </button>
             </div>    
         </div>
-        
+        <Footer/>
         </>
     );
 };
