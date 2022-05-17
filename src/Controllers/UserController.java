@@ -43,26 +43,27 @@ public class UserController implements NotificationReceiver {
     //WE DECIDED THAT ALL THE SYSTEM ADMINS WILL HAVE A SIMILAR USERNAME AS FOLLOWS:
     // Admin_1 Admin_2 Admin_3 and so on
     public void addSystemAdmin(String whoIsAdding,String user_toMakeAdmin) {
+        my_log.logger.info("user "+whoIsAdding+ "is trying to add "+user_toMakeAdmin+ "as admin");
         if (!getUser_list().contains(get_subscriber(whoIsAdding))) {
-            my_log.logger.warning("the user that we treated as admin is not a user at all!!");
+            my_log.error_logger.warning("the user that we treated as admin is not a user at all!!");
             throw new IllegalArgumentException("the user that we treated as admin is not a user at all!!");
         }
         synchronized (get_subscriber(whoIsAdding).getLock()) {
             if (!getSystemAdmins().contains(get_subscriber(whoIsAdding))) {
-                my_log.logger.warning("the user that is trying to add in not an admin");
+                my_log.error_logger.warning("the user that is trying to add in not an admin");
                 throw new IllegalArgumentException("the user that is trying to add in not an admin");
             }
             synchronized (get_subscriber(user_toMakeAdmin).getLock()) {
                 if (getSystemAdmins().contains(get_subscriber(user_toMakeAdmin))) {
-                    my_log.logger.warning("this user we are trying to add is already a system admin");
+                    my_log.error_logger.warning("this user we are trying to add is already a system admin");
                     throw new IllegalArgumentException("this user we are trying to add is already a system admin");
                 }
                 else if (!getUser_list().contains(get_subscriber(user_toMakeAdmin))) {
-                    my_log.logger.warning("the given user name is not a valid name for an existing user in the system");
+                    my_log.error_logger.warning("the given user name is not a valid name for an existing user in the system");
                     throw new IllegalArgumentException("the given user name is not a valid name for an existing user in the system");
                 }
                 else if (!checkIfUserIsLoggedIn(whoIsAdding)) {
-                    my_log.logger.warning("the admin that is trying to add another admin is not logged in");
+                    my_log.error_logger.warning("the admin that is trying to add another admin is not logged in");
                     throw new IllegalArgumentException("the admin that is trying to add another admin is not logged in");
                 }
                 getSystemAdmins().add(get_subscriber(user_toMakeAdmin));
@@ -71,11 +72,11 @@ public class UserController implements NotificationReceiver {
     }
     public ShoppingCart getShoppingCart(String user_Id) throws UserException {
         if(get_subscriber(user_Id)==null){
-            my_log.logger.warning("User "+ user_Id +" doesn't exist");
+            my_log.error_logger.warning("User "+ user_Id +" doesn't exist");
             throw new UserException("User " +user_Id+ "doesn't exist");
         }
             if (!checkIfUserIsLoggedIn(user_Id)) {
-                my_log.logger.warning("User "+user_Id+ " is not logged in");
+                my_log.error_logger.warning("User "+user_Id+ " is not logged in");
                 throw new UserException("User "+user_Id+ "is not logged in");
             }
             return get_subscriber(user_Id).getShoppingCart();
@@ -83,11 +84,11 @@ public class UserController implements NotificationReceiver {
 
     public boolean containsStore(String user_id,String storeID) throws UserException {
         if(get_subscriber(user_id)==null){
-            my_log.logger.warning("User "+ user_id +" doesn't exist");
+            my_log.error_logger.warning("User "+ user_id +" doesn't exist");
             throw new UserException("User "+ user_id+ "doesn't exist");
         }
             if (!checkIfUserIsLoggedIn(user_id)) {
-                my_log.logger.warning("User "+ user_id +" is not logged in");
+                my_log.error_logger.warning("User "+ user_id +" is not logged in");
                 throw new UserException("User "+user_id+ "is not logged in");
             }
             return get_subscriber(user_id).containsStore(storeID);
@@ -95,7 +96,7 @@ public class UserController implements NotificationReceiver {
 
     public int removeProduct(String user_id,String productID, String storeID, int amount) throws UserException {
         if (get_subscriber(user_id) == null) {
-            my_log.logger.warning("User "+ user_id +" doesn't exist");
+            my_log.error_logger.warning("User "+ user_id +" doesn't exist");
             throw new UserException("User "+user_id+ "doesn't exist");
         }
             return get_subscriber(user_id).removeProduct(productID, storeID, amount);
@@ -114,11 +115,11 @@ public class UserController implements NotificationReceiver {
 
     public String getCartInventory(String user_id) throws UserException {
         if(get_subscriber(user_id)==null){
-            my_log.logger.warning("user "+user_id + " doesn't exist");
+            my_log.error_logger.warning("user "+user_id + " doesn't exist");
             throw new UserException("User " +user_id + "doesn't exist");
         }
             if (checkIfUserIsLoggedIn(user_id)) {
-                my_log.logger.warning("user "+user_id + " is not logged in");
+                my_log.error_logger.warning("user "+user_id + " is not logged in");
                 throw new UserException("User " +user_id + "is not logged in");
             }
             return get_subscriber(user_id).getCartInventory();
@@ -128,7 +129,7 @@ public class UserController implements NotificationReceiver {
             throw new UserException("User "+user_id + "doesn't exist");
         }
             if (!checkIfUserIsLoggedIn(user_id)) {
-                my_log.logger.warning("user "+user_id + " is not logged in");
+                my_log.error_logger.warning("user "+user_id + " is not logged in");
                 throw new UserException("User "+user_id +"is not logged in");
             }
             return get_subscriber(user_id).purchaseCart(externalConnectionHolder);
@@ -151,11 +152,11 @@ public class UserController implements NotificationReceiver {
     }
 */
     public boolean sign_up(String guest_id,String user_name, String password) {
+        my_log.logger.info("a guest with id: "+guest_id+ " is trying to sign up with user name : "+user_name);
         if(getGuest(guest_id)==null){
             return false;
         }
         synchronized (signUpLock) {
-            my_log.logger.info("Sign Up");
             if (get_subscriber(user_name) == null) {
                 Subscriber s = new Subscriber(user_name, password);
                 add_subscriber(s);
@@ -164,18 +165,20 @@ public class UserController implements NotificationReceiver {
                 return true;
             }
         }
-        my_log.logger.warning("user "+user_name + "failed to sign up");
+        my_log.error_logger.warning("user "+user_name + " failed to sign up");
         return false;
     }
 
     public boolean login(String user_name, String password) {
+        my_log.logger.info("user "+ user_name+ " is trying to login");
         if (checkIfUserExists(user_name)) {
             synchronized (get_subscriber(user_name).getLock()) {
                 if (checkIfUserExists(user_name)) {
-                my_log.logger.info("login");
                 if (get_subscriber(user_name) == null) {
+                    my_log.error_logger.warning("user "+user_name+ " failed to login");
                     return false;
                 } else if (get_subscriber(user_name).isLogged_in() && check_password(user_name, password)) {
+                    my_log.error_logger.warning("user "+user_name+ " is already logged in");
                     return false;
                 } else if(!get_subscriber(user_name).isLogged_in() && check_password(user_name, password)) {
                     get_subscriber(user_name).setLogged_in(true);
@@ -183,25 +186,26 @@ public class UserController implements NotificationReceiver {
                 }
             }
                 else {
-                    my_log.logger.warning("user "+user_name + "doesn't exist -- failed to login");
+                    my_log.error_logger.warning("user "+user_name + " doesn't exist -- failed to login");
                     return false;
                    // ("user has been deleted") // add logger
                 }
             }
 
         }
-        my_log.logger.warning("user "+user_name + "failed login");
+        my_log.error_logger.warning("user "+user_name + " failed login");
         return false;
     }
 
     public boolean logout(String user_name) {
+        my_log.logger.info("user "+ user_name+ " is trying to logout");
             if (get_subscriber(user_name) == null) {
-                my_log.logger.warning(user_name + " is null");
+                my_log.error_logger.warning("failed to logout because " +user_name + " is null");
                 return false;
             }
                 synchronized (get_subscriber(user_name).getLock()) {
                     if (!get_subscriber(user_name).isLogged_in()) {
-                        my_log.logger.warning("user "+user_name + " is not logged in");
+                        my_log.error_logger.warning("failed to logout - user "+user_name + " is not logged in");
                         return false;
                     } else {
                         my_log.logger.info("user "+user_name + " successfully logged out");
@@ -217,7 +221,7 @@ public class UserController implements NotificationReceiver {
 
     public  boolean check_password(String user_name, String password) {
         if (get_subscriber(user_name) == null) {
-            my_log.logger.warning("User "+user_name + " doesn't exist");
+            my_log.error_logger.warning("User "+user_name + " doesn't exist");
             return false;
         }
             if (password.length() > 2) {
@@ -226,7 +230,7 @@ public class UserController implements NotificationReceiver {
                 String password_dyc = enc.decrypt(subscriber.getPassword());
                 return password_dyc.equals(password);
             }
-            my_log.logger.warning("invalid password for user "+user_name );
+            my_log.error_logger.warning("invalid password for user "+user_name );
             return false;
     }
 
@@ -241,7 +245,7 @@ public class UserController implements NotificationReceiver {
     }
     public boolean checkIfUserExists(String userID) {
         if (get_subscriber(userID) == null) {
-            my_log.logger.warning(" user "+userID + "doesn't exist");
+            my_log.error_logger.warning(" user "+userID + "doesn't exist");
             return false;
         }
         synchronized (get_subscriber(userID).getLock()) {
@@ -274,15 +278,15 @@ public class UserController implements NotificationReceiver {
     }
     public void Add_Query(String user_name,String query) throws UserException {
         if (get_subscriber(user_name) == null) {
-            my_log.logger.warning(" user "+user_name+ "doesn't exist");
+            my_log.error_logger.warning(" user "+user_name+ "doesn't exist");
             throw new UserException("User " +user_name + "doesn't exist");
         }
         if (!get_subscriber(user_name).isLogged_in()) {
-            my_log.logger.warning(" user "+user_name+ "is offline");
+            my_log.error_logger.warning(" user "+user_name+ "is offline");
             throw new UserException("User " +user_name + "is offline");
         }
             Subscriber subscriber = get_subscriber(user_name);
-            my_log.logger.warning(" user "+user_name+ "successfully added a query ");
+            my_log.error_logger.warning(" user "+user_name+ "successfully added a query ");
             subscriber.getQueries().add(query);
     }
 
@@ -311,11 +315,7 @@ public class UserController implements NotificationReceiver {
         return false;
     }
     public void removeGuest(String guestId){
-        for(Guest g : getGuest_list()) {
-            if (g.name.equals(guestId)) {
-                getGuest_list().remove(g);
-            }
-        }
+        guest_list.removeIf(guest -> guest.name.equals(guestId));
     }
     public ShoppingCart getGuestShoppingCart(String guestId){
         for(Guest g : getGuest_list()){
@@ -366,25 +366,33 @@ public class UserController implements NotificationReceiver {
 
     @Override
     public void sendNotificationTo(List<String> userIds, StoreNotification storeNotification) throws UserException {
+        my_log.logger.info("sending store notification for some users");
         for (String s : userIds) {
-            if (!checkIfUserExists(s))
-                throw new UserException("user "+s+ "doesn't exist");
+            if (!checkIfUserExists(s)) {
+                my_log.error_logger.warning("can't send store notification because user " + s + "doesn't exist");
+                throw new UserException("can't send store notification because user " + s + "doesn't exist");
+            }
               get_subscriber(s).addNotification(storeNotification);
         }
     }
 
     @Override
     public void sendComplaintTo(String senderId,List<String> adminIds, ComplaintNotification complaintNotification) throws UserException {
+        my_log.logger.info("user "+senderId+" is wants to send a complaint to system admins");
         if(get_subscriber(senderId)==null)
             throw new UserException("user "+senderId + "doesn't exist");
-        if(!get_subscriber(senderId).isLogged_in())
-            throw new UserException("the sender is not online");
+        if(!get_subscriber(senderId).isLogged_in()) {
+            my_log.error_logger.warning("the sender " + senderId + " is not online");
+            throw new UserException("the sender " + senderId + " is not online");
+        }
         for (String s : adminIds) {
             if (!checkIfUserExists(s))
                 throw new UserException("user " +s + "doesn't exist");
-            if (!checkIfAdmin(s))
-                throw new UserException("trying to send a complaint to a user " +s + "which is not an admin");
-            get_subscriber(s).addComplaint(complaintNotification);
+            if (!checkIfAdmin(s)) {
+                my_log.error_logger.warning("trying to send a complaint to a user " + s + "which is not an admin");
+                throw new UserException("trying to send a complaint to a user " + s + "which is not an admin");
+            }
+                get_subscriber(s).addComplaint(complaintNotification);
         }
     }
 }
