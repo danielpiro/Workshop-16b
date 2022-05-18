@@ -7,41 +7,27 @@ import createNotification from "../components/norification";
 import { useRouter } from "next/router";
 import Footer from "../components/footer";
 
-const HireOwnerToStore = () => {
+const FireOwnerToStore = () => {
     const router = useRouter();
     const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
     const [newOfficialInput, setNewOfficialInput] = useState({
         username: "",
         storename: "",
-        ownerORmanager: "Manager/Owner"
     });
-
-    const setManager = () => {
-        setNewOfficialInput((prevState) => ({ ...prevState, ownerORmanager: "Manager",}))
-    }
-    
-    const setOwner = () => {
-        setNewOfficialInput((prevState) => ({ ...prevState, ownerORmanager: "Owner",}))
-    }
 
     const onHiringOfficial = (e) => {
         e.preventDefault();
-        if(newOfficialInput.username != "" && newOfficialInput.storename != "" && newOfficialInput.ownerORmanager != ""){
-            if(newOfficialInput.ownerORmanager == "Owner"){
-                const isOpened = axios.post(`owner/${newOfficialInput.username}/${newOfficialInput.storename}`); 
-                //console.log(isOpened.status);
-            }
-            if(newOfficialInput.ownerORmanager == "Manager"){
-                const isOpened = axios.post(`manager/${newOfficialInput.username}/${newOfficialInput.storename}`); 
-            } 
+        if(newOfficialInput.username != "" && newOfficialInput.storename != ""){ 
+            const userToFire = axios.post(`owner/fire/${newOfficialInput.username}/${newOfficialInput.storename}`); 
+            //console.log(isOpened.status);           
             
-            if(isOpened){
-                createNotification("success", "Create new owner/manager successfully", () =>
+            if(userToFire){
+                createNotification("success", "Fire owner/manager successfully", () =>
                 router.push("/dashboard")
                 )();
             }
             else{
-                createNotification("error", "failure hiring new owner/manager!")();
+                createNotification("error", "failure firing owner/manager!")();
             }     
         }
         else{
@@ -81,7 +67,7 @@ const HireOwnerToStore = () => {
                 <input
                     className="form-control mr-sm-2 m-2"
                     type="search"
-                    placeholder="Enter username of the new owner/manager"
+                    placeholder="Enter username of the future fired owner/manager"
                     aria-label="Search"
                     value={newOfficialInput.username}
                     onChange={(e) =>
@@ -107,24 +93,10 @@ const HireOwnerToStore = () => {
                     }
                 />
             </div>
-            <div className="dropdown m-1">
-                <button className="btn btn-secondary dropdown-toggle" 
-                        type="button" 
-                        id="dropdownMenuButton1" 
-                        data-bs-toggle="dropdown" 
-                        aria-expanded="false"
-                >
-                    {newOfficialInput.ownerORmanager}
-                </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a className="dropdown-item" href="#" onClick={setManager}>Manager</a></li>
-                    <li><a className="dropdown-item" href="#" onClick={setOwner}>Owner</a></li>
-                </ul>
-            </div>
             <br />
             <div className="row m-1" style={{ display: "flex", width: "15%" }}>
                 <button className="btn btn-primary mr-lg-3" onClick={onHiringOfficial}>
-                    Hire new Manager/Owner
+                    Fire Manager/Owner
                 </button>
             </div>    
         </div>
@@ -133,4 +105,4 @@ const HireOwnerToStore = () => {
     );
 };
 
-export default HireOwnerToStore;
+export default FireOwnerToStore;

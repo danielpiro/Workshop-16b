@@ -1,4 +1,5 @@
 import Link from "next/link";
+import createNotification from "../norification";
 
 const Menu = () => {
   return (
@@ -25,24 +26,34 @@ const Menu = () => {
                   <a className="nav-link ms-4">Shopping Cart</a>
                 </Link>
               </li>
-              <li className="my-bids-button nav-item">
-                <Link href="/my-bids">
-                  <a className="nav-link ms-4">My Bids</a>
+              <li className="store-management-button nav-item">
+                <Link href="/stores">
+                  <a className="nav-link ms-4">Stores</a>
                 </Link>
+              </li>
+              <li className="my-bids-button nav-item">
+                <Link href="#">
+                    <a
+                      className="nav-link ms-4"
+                      onClick={createNotification("info", "message")}
+                    >
+                      My Bids
+                    </a>
+                  </Link>
               </li>
               <li className="history-button nav-item">
-                <Link href="/user-history">
-                  <a className="nav-link ms-4">History</a>
-                </Link>
-              </li>
-              <li className="statistics-button nav-item">
-                <Link href="/statistics">
-                  <a className="nav-link ms-4">Statistics</a>
-                </Link>
+                  <Link href="#">
+                    <a
+                      className="nav-link ms-4"
+                      onClick={createNotification("info", "message")}
+                    >
+                      History
+                    </a>
+                  </Link>
               </li>
               <li className="logout-button nav-item">
                 <Link href="/login">
-                  <a className="nav-link ms-4">Logout</a>
+                  <a className="nav-link ms-4">Exit to Register/Login page</a>
                 </Link>
               </li>
             </ul>

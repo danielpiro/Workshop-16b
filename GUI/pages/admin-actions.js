@@ -1,6 +1,4 @@
 import AdminMenu from "../components/menus/menuAdmin";
-import StoreOwnerMenu from "../components/menus/menuStoreOwner";
-import StoreManagerMenu from "../components/menus/menuStoreManager";
 import SubscriberMenu from "../components/menus/menuSubscriber";
 import GuestMenu from "../components/menus/menuGuest";
 import axios from "axios";
@@ -23,12 +21,6 @@ const AdminActions = () => {
     var menu;
     if (userPermission == "Admin"){
         menu = <AdminMenu />;
-    }
-    else if (userPermission == "Owner"){
-        menu = <StoreOwnerMenu />;
-    }
-    else if (userPermission == "Manager"){
-        menu = <StoreManagerMenu />;
     }
     else if (userPermission == "Subscriber"){
         menu = <SubscriberMenu />;
@@ -54,8 +46,16 @@ const AdminActions = () => {
         <br/>
         <div className="card">
           <div className="card-body">
-            <Link href="/admin-view-store-puchase-history" disabled> 
+            <Link href="/admin-view-store-puchase-history"> 
                 <a>See all purchase history of specific store</a>
+            </Link>
+          </div>
+        </div>
+        <br/>
+        <div className="card">
+          <div className="card-body">
+            <Link href="/unregister-user"> 
+                <a>Unregister user</a>
             </Link>
           </div>
         </div>

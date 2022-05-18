@@ -1,6 +1,4 @@
 import AdminMenu from "../components/menus/menuAdmin";
-import StoreOwnerMenu from "../components/menus/menuStoreOwner";
-import StoreManagerMenu from "../components/menus/menuStoreManager";
 import SubscriberMenu from "../components/menus/menuSubscriber";
 import GuestMenu from "../components/menus/menuGuest";
 import axios from "axios";
@@ -23,12 +21,6 @@ const StoreManagement = () => {
     if (userPermission == "Admin"){
         menu = <AdminMenu />;
     }
-    else if (userPermission == "Owner"){
-        menu = <StoreOwnerMenu />;
-    }
-    else if (userPermission == "Manager"){
-        menu = <StoreManagerMenu />;
-    }
     else if (userPermission == "Subscriber"){
         menu = <SubscriberMenu />;
     }
@@ -43,15 +35,36 @@ const StoreManagement = () => {
           className="my-4"
           style={{ display: "flex", justifyContent: "center" }}
         >
-            <h1>Store Management</h1>
+            <h1>Stores</h1>
         </div>    
         <div className="containter">
             <div className="row">
                 <div className="col">
                     <div className="card" style={{ display: userPermission=="Admin" ? "block" : "none" }}>
                         <div className="card-body">
+                            <Link href="/add-new-store-supply"> 
+                                <a>Add new store's supply/products</a>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+                <div className="col">
+                    <div className="card" style={{ display: userPermission=="Admin" ? "block" : "none" }}>
+                        <div className="card-body">
                             <Link href="/edit-store-supply"> 
                                 <a>Edit store's supply/products</a>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div className="row">
+                <div className="col">
+                    <div className="card" style={{ display: userPermission=="Admin" ? "block" : "none" }}>
+                        <div className="card-body">
+                            <Link href="/fire-owner-manager-to-store"> 
+                                <a>Fire existing Store Manager in store</a>
                             </Link>
                         </div>
                     </div>

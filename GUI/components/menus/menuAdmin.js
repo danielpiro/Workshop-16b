@@ -31,9 +31,14 @@ const Menu = () => {
                   <a className="nav-link ms-4">Open New Store</a>
                 </Link>
               </li>
-              <li className="store-management-button nav-item">
+              {/* <li className="store-management-button nav-item">
                 <Link href="/store-management">
                   <a className="nav-link ms-4">Store Management</a>
+                </Link>
+              </li> */}
+              <li className="store-management-button nav-item">
+                <Link href="/stores">
+                  <a className="nav-link ms-4">Stores</a>
                 </Link>
               </li>
               <li className="admin-actions-button nav-item">
@@ -42,23 +47,28 @@ const Menu = () => {
                 </Link>
               </li>
               <li className="my-bids-button nav-item">
-                <Link href="/my-bids">
-                  <a className="nav-link ms-4">My Bids</a>
-                </Link>
+                <Link href="#">
+                    <a
+                      className="nav-link ms-4"
+                      onClick={createNotification("info", "message")}
+                    >
+                      My Bids
+                    </a>
+                  </Link>
               </li>
               <li className="history-button nav-item">
-                <Link href="/user-history">
-                  <a className="nav-link ms-4">History</a>
-                </Link>
+                  <Link href="#">
+                    <a
+                      className="nav-link ms-4"
+                      onClick={createNotification("info", "message")}
+                    >
+                      History
+                    </a>
+                  </Link>
               </li>
               <li className="statistics-button nav-item">
-                <Link href="#">
-                  <a
-                    className="nav-link ms-4"
-                    onClick={createNotification("info", "message")}
-                  >
-                    Statistics
-                  </a>
+                <Link href="/statistics">
+                  <a className="nav-link ms-4">Statistics</a>
                 </Link>
               </li>
               <li className="logout-button nav-item">

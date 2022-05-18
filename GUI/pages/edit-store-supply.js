@@ -1,6 +1,4 @@
 import AdminMenu from "../components/menus/menuAdmin";
-import StoreOwnerMenu from "../components/menus/menuStoreOwner";
-import StoreManagerMenu from "../components/menus/menuStoreManager";
 import SubscriberMenu from "../components/menus/menuSubscriber";
 import GuestMenu from "../components/menus/menuGuest";
 import axios from "axios";
@@ -55,12 +53,6 @@ const EditStoreSupply = () => {
   var menu;
   if (userPermission == "Admin"){
     menu = <AdminMenu />;
-  }
-  else if (userPermission == "Owner"){
-    menu = <StoreOwnerMenu />;
-  }
-  else if (userPermission == "Manager"){
-    menu = <StoreManagerMenu />;
   }
   else if (userPermission == "Subscriber"){
     menu = <SubscriberMenu />;
