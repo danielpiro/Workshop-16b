@@ -11,7 +11,6 @@
 //@Entity
 //@Table(name = "john")
 //public class SampleTable {
-//    @Column(name = "age")
 //    @Id
 //    private int age;
 //    private String name;

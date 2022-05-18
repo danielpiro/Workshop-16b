@@ -22,12 +22,12 @@ public abstract class User {
      return shoppingCart.containsStore(storeID);
  }
 
-    public int removeProduct(String productID, String storeID, int amount){
-        return shoppingCart.removeProduct(productID,storeID,amount);
+    public void removeProduct(String productID, String storeID, int amount){
+         shoppingCart.removeProduct(productID,storeID,amount);
     }
 
-    public int addProduct(String productID, String storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
-    return shoppingCart.addProduct(productID,storeID,amount,inventoryProtector,auctionOrBid);
+    public void addProduct(String productID, String storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
+     shoppingCart.addProduct(productID,storeID,amount,inventoryProtector,auctionOrBid);
  }
     public String getCartInventory() {
      return shoppingCart.getCartInventory();

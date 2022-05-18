@@ -31,19 +31,21 @@ public class ShoppingCart {
         return basketCases.containsKey(storeID);
     }
 
-    public int removeProduct(String productID, String storeID, int amount) {
-        if (basketCases.containsKey(storeID)) {
+    public void removeProduct(String productID, String storeID, int amount) {
+        if (basketCases.containsKey(storeID)  ) {
             if (basketCases.get(storeID).removeProduct(productID, amount) >= 0)
                 Log.getLogger().logger.fine("user " + userId + "removed product " + productID + "from store " + storeID + "and amount " + amount);
-            else
-                Log.getLogger().logger.warning("user " + userId + "could not remove product " + productID + " because the item does not exist in basket");
-
+            else {
+                Log.getLogger().logger.warning("user " + userId + "could not remove product " + productID + " because the item does not exist in the basket");
+                throw new NoSuchElementException( "couldn't remove item because it is not in the basket");
+            }
         } else {
             Log.getLogger().logger.warning("user " + userId + "could not remove product " + productID + " because cart does not contain that store");
-            return -1;
+            throw new NoSuchElementException( "couldn't remove item because it is not in the basket");
+
+
 
         }
-        return 1;
 
     }
     public int removeCompleteyProduct(String productID, String storeID) {
@@ -67,11 +69,12 @@ public class ShoppingCart {
 
 
     // to use when we do not have an instance of the store, and need an inventory protector
-    public int addProduct(String productID, String storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
+    public void addProduct(String productID, String storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
 
 
         if(!inventoryProtector.checkIfProductExist(productID))
-            return -1;
+            throw new NoSuchElementException("item doest not exist in the store you specified");
+
 
         if (basketCases.containsKey(storeID) && auctionOrBid == false)
             basketCases.get(storeID).addProduct(productID, amount);
@@ -88,7 +91,7 @@ public class ShoppingCart {
 
         }
         Log.getLogger().logger.fine("user " + userId +" added product " + productID + "to store " + storeID + " with amount of " + amount);
-        return 1;
+
 
 
     }
@@ -128,7 +131,7 @@ public class ShoppingCart {
             for (Map.Entry<String, ShoppingBasket> basket : basketCases.entrySet()) {
                 basket.getValue().purchaseSuccessful(false);
             }
-            return -1;
+            throw new CantPurchaseException ("not enough items in stock in the store");
 
         }
         Log.getLogger().logger.info("user " + userId + " total cart value " + total);
@@ -147,7 +150,8 @@ public class ShoppingCart {
         }
         else {
             Log.getLogger().logger.warning("user " + userId + " could not purchase cart");
-            return -1;
+            throw new CantPurchaseException ("could not complete transaction, because of payment or delivery");
+
         }
 
         //check if the order complies with Purchase and Delivery selected.

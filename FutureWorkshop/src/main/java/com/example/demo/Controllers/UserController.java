@@ -97,22 +97,22 @@ public class UserController {
             return get_subscriber(user_id).containsStore(storeID);
     }
 
-    public int removeProduct(String user_id,String productID, String storeID, int amount) {
+    public void removeProduct(String user_id,String productID, String storeID, int amount) {
         if (get_subscriber(user_id) == null) {
             my_log.logger.warning("User "+ user_id +" doesn't exist");
             throw new IllegalArgumentException("User doesn't exist");
         }
-            return get_subscriber(user_id).removeProduct(productID, storeID, amount);
+             get_subscriber(user_id).removeProduct(productID, storeID, amount);
         }
 
-    public int addProduct(String user_id, String productID, String storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
+    public void addProduct(String user_id, String productID, String storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
         if (get_subscriber(user_id) == null) {
             throw new IllegalArgumentException("User doesn't exist");
         }
             if (!checkIfUserIsLoggedIn(user_id)) {
                 throw new IllegalArgumentException("User is not logged in");
             }
-            return get_subscriber(user_id).addProduct(productID, storeID, amount, inventoryProtector, auctionOrBid);
+             get_subscriber(user_id).addProduct(productID, storeID, amount, inventoryProtector, auctionOrBid);
     }
 
 
@@ -266,7 +266,7 @@ public class UserController {
                     getGuest_list().remove(g);
                     return;
                 }
-            throw new NoSuchElementException();
+            throw new NoSuchElementException("Guest does not exist");
         }
     public void Add_Query(String user_name,String query) { //3.5
         if (get_subscriber(user_name) == null) {
