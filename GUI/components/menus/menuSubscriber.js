@@ -56,6 +56,21 @@ const Menu = () => {
                     </a>
                   </Link>
               </li>
+              <li className="notify-admins-button nav-item">
+                  <Link href="/notify-admins">
+                    <a className="nav-link ms-4">Notify Admins</a>
+                  </Link>
+              </li>
+              <li className="notifications-button nav-item">
+                  <Link href="#">
+                    <a
+                      className="nav-link ms-4"
+                      onClick={createNotification("info", "message")}
+                    >
+                      Notifications
+                    </a>
+                  </Link>
+              </li>
               <li className="logout-button nav-item">
                 <Link href="/login">
                   <a className="nav-link ms-4">Logout</a>
