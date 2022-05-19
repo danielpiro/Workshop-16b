@@ -1,7 +1,6 @@
 import AdminMenu from "../components/menus/menuAdmin";
 import SubscriberMenu from "../components/menus/menuSubscriber";
 import GuestMenu from "../components/menus/menuGuest";
-import SearchBar from "../components/search-bar";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Footer from "../components/footer";
@@ -1195,7 +1194,7 @@ const ChangePolicy = () => {
                 </button>
             </div>
         </div>
-
+        <Footer/>
         </>
     );
 };

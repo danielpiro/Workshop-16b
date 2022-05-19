@@ -3,6 +3,7 @@ import SearchBar from "../components/search-bar";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Card from "../components/card";
+import Footer from "../components/footer";
 
 const AdminViewUserPurchaes = () => {
   const [purchases, setPurchases] = useState([]);
@@ -94,6 +95,7 @@ const AdminViewUserPurchaes = () => {
         </div>
       </div>
     )}
+    <Footer/>
     </>
   );
 };

@@ -3,6 +3,7 @@ import SubscriberMenu from "../components/menus/menuSubscriber";
 import GuestMenu from "../components/menus/menuGuest";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import Footer from "../components/footer";
 
 const EditStoreSupply = () => {
   const [products, setProducts] = useState([]);
@@ -190,6 +191,7 @@ const EditStoreSupply = () => {
         </form>
       </nav>
     </div>
+    <Footer/>
     </>
   );
 };

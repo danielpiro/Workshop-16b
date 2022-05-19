@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
 import createNotification from "../components/norification";
+import Footer from "../components/footer";
 
 const OpenNewStore = () => {
     const router = useRouter();
@@ -102,7 +103,7 @@ const OpenNewStore = () => {
                 Open New Store
             </button>
         </div>
-
+        <Footer/>
         </>
     );
 };

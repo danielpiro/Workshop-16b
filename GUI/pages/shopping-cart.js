@@ -4,6 +4,7 @@ import SubscriberMenu from "../components/menus/menuSubscriber";
 import GuestMenu from "../components/menus/menuGuest";
 import CartItem from "../components/cart-item.js";
 import { useCookies } from "react-cookie";
+import Footer from "../components/footer";
 
 const shoppingCart = () => {
   const [cart, setCart] = useState([]);
@@ -64,6 +65,7 @@ const shoppingCart = () => {
           })}
         </ul>
       </div>
+      <Footer/>
     </>
   );
 };

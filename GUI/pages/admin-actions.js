@@ -5,6 +5,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Footer from "../components/footer";
 
 const AdminActions = () => {
     const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
@@ -59,6 +60,7 @@ const AdminActions = () => {
             </Link>
           </div>
         </div>
+        <Footer/>
       </>
     );
   };

@@ -4,6 +4,7 @@ import GuestMenu from "../components/menus/menuGuest";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Footer from "../components/footer";
 
 const StoreManagement = () => {
     const [userPermission, setUserPermission] = useState("Admin"); //= useState(""); //TODO: Need to change to Guest when logic is ready!
@@ -162,6 +163,7 @@ const StoreManagement = () => {
             </div>
         </div>
         </div>
+        <Footer/>
       </>
     );
   };

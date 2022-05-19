@@ -3,7 +3,7 @@ import SubscriberMenu from "../components/menus/menuSubscriber";
 import GuestMenu from "../components/menus/menuGuest";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Link from "next/link";
+import Footer from "../components/footer";
 
 const ChangeStoreManagerPermissions = () => {
     // const [isLoading, setIsLoading] = useState(true);
@@ -147,7 +147,7 @@ const ChangeStoreManagerPermissions = () => {
                 </button>
             </div>
         </div>
-
+        <Footer/>
         </>
     );
 };
