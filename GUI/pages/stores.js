@@ -4,7 +4,6 @@ import GuestMenu from "../components/menus/menuGuest";
 import SearchBar from "../components/search-bar";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Card from "../components/card";
 import Footer from "../components/footer";
 import { useRouter } from "next/router";
 

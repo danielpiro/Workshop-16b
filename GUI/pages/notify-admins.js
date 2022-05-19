@@ -45,10 +45,10 @@ const NotifyAdmins = () => {
         </div>
 
         <br/>
-        <div class="input-group m-2" style={{width: "85%"}}>
-            <span class="input-group-text">Write your message here</span>
+        <div className="input-group m-2" style={{width: "85%"}}>
+            <span className="input-group-text">Write your message here</span>
             <textarea 
-                class="form-control" 
+                className="form-control" 
                 aria-label="With textarea" 
                 placeholder="Notify Admin Message..."
                 onChange={(e) =>

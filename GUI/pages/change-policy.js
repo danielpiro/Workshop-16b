@@ -1,14 +1,42 @@
 import AdminMenu from "../components/menus/menuAdmin";
 import SubscriberMenu from "../components/menus/menuSubscriber";
 import GuestMenu from "../components/menus/menuGuest";
+import SearchBar from "../components/search-bar";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Link from "next/link";
+import Footer from "../components/footer";
+import { useRouter } from "next/router";
 
 const ChangePolicy = () => {
-    // const [isLoading, setIsLoading] = useState(true);
-    // const [searchValue, setSearchValue] = useState("");
     const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
+    const [policyType, setPolicyType] = useState("PolicyType");
+    const [combinationType, setCombinationType] = useState("And/Or/Xor");
+    const [preds, setPreds] = useState({
+        pred1: "Choose predict #1",
+        pred2: "Choose predict #2",
+    });
+    const [predsFeatures, setPredsFeature] = useState({
+        allowORforbid: "Allow/Forbid",
+        minPrice: "",
+        maxPrice: "",
+        minQunatity: "",
+        maxQunatity: "",
+        productShouldBeInCart: "",
+        productShouldBeInCartMinQunatity: "",
+        dayOfMonth: "Day Of Month",
+        dayOfWeek: "Day Of Week",
+        hourOfDay: "Hour Of Day",
+        specificUser: "",
+        age: "",
+    });
+    
+    const onUpdatePolicy = (e) => {
+        e.preventDefault();
+        console.log(policyType);
+    }
+
+    //TODO: Make sure we got storeID in advance...
+
     // useEffect(() => {
     //   const fetchApi = async () => {
     //     const response = await axios.get("https://fakestoreapi.com/products");
@@ -18,6 +46,14 @@ const ChangePolicy = () => {
     //     //setUserPermission("Admin/StoreOwner/StoreManager");
     //   };
     //   fetchApi();
+    // }, []);
+
+    // useEffect(() => {
+    //     const fetchPermission = async () => {
+    //       const response = await axios.get("users/getUserPermission");
+    //       setUserPermission(response.data);
+    //     };
+    //     fetchPermission();
     // }, []);
   
     var menu;
@@ -42,139 +78,339 @@ const ChangePolicy = () => {
         <div className="container m-2">
             <div className="row">
                 <div className="col">
-                    <input
-                        className="form-control mr-sm-2 m-2"
-                        type="search"
-                        placeholder="Enter storename"
-                        aria-label="Search"
-                    />
-                </div>
-                <div className="col m-2">
-                    <button className="btn btn-primary mr-lg-3">
-                        Search
-                    </button>
-                </div>
-            </div>
-
-            <div className="row m-2">
-                {/*displaying all searched stores - will be displayed in cards that contain the button "Close Store"*/}
-                <div className="card w-75 m-1">
-                    <div className="card-body">
-                        <div className="row">
-                            <div className="col">
-                                <h5 className="card-title">Store A</h5>
-                            </div>
-                            <div className="col">
-                                <p className="card-text">Store description...</p>
-                            </div>
-                            <div className="col">
-                                <a href="#" className="btn btn-primary">Close Store</a>
-                            </div>
-                        </div>    
+                    <div className="dropdown m-1">
+                        <button className="btn btn-secondary dropdown-toggle" 
+                                type="button" 
+                                id="dropdownMenuButton1" 
+                                data-bs-toggle="dropdown" 
+                                aria-expanded="false"
+                        >
+                            {policyType}
+                        </button>
+                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a className="dropdown-item" href="#" 
+                                    onClick={() => setPolicyType("Total cart price")}>Total cart price</a></li>
+                            <li><a className="dropdown-item" href="#" 
+                                    onClick={() => setPolicyType("Quantity in cart")}>Quantity in cart</a></li>
+                            <li><a className="dropdown-item" href="#" 
+                                    onClick={() => setPolicyType("Product should be in cart")}>Product should be in cart</a></li>
+                            <li><a className="dropdown-item" href="#" 
+                                    onClick={() => setPolicyType("Product should be in cart with minimum quantity")}>Product should be in cart with minimum quantity</a></li>
+                            <li><a className="dropdown-item" href="#" 
+                                    onClick={() => setPolicyType("Day Of Month")}>Day Of Month</a></li>
+                            <li><a className="dropdown-item" href="#" 
+                                    onClick={() => setPolicyType("Day Of Week")}>Day Of Week</a></li>
+                            <li><a className="dropdown-item" href="#" 
+                                    onClick={() => setPolicyType("Hour Of Day")}>Hour Of Day</a></li>
+                            <li><a className="dropdown-item" href="#" 
+                                    onClick={() => setPolicyType("Specific user")}>Specific user</a></li>
+                            <li><a className="dropdown-item" href="#" 
+                                    onClick={() => setPolicyType("Age")}>Age</a></li>
+                        </ul>
                     </div>
                 </div>
-                <div className="card w-75 m-1">
-                    <div className="card-body">
-                        <div className="row">
-                            <div className="col">
-                                <h5 className="card-title">Store B</h5>
-                            </div>
-                            <div className="col">
-                                <p className="card-text">Store description...</p>
-                            </div>
-                            <div className="col">
-                                <a href="#" className="btn btn-primary">Close Store</a>
-                            </div>
-                        </div>    
+                <div className="col">
+                    <h4><u>Create policy</u></h4>
+                    <div className="dropdown m-1">
+                        <button className="btn btn-secondary dropdown-toggle" 
+                                type="button" 
+                                id="dropdownMenuButton1" 
+                                data-bs-toggle="dropdown" 
+                                aria-expanded="false"
+                        >
+                            {preds.pred1}
+                        </button>
+                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a className="dropdown-item" href="#" 
+                                    onClick={() => setPreds((prevState) => ({ ...prevState, pred1: "Create new predicate",}))}>
+                                        Create new predicate
+                            </a></li>
+                            <li><a className="dropdown-item" href="#" 
+                                    onClick={() => setPreds((prevState) => ({ ...prevState, pred1: "Choose Existing predicate",}))}>
+                                        Choose Existing predicate
+                            </a></li>
+                        </ul>
+                    </div>
+                    <div className="dropdown m-1">
+                        <button className="btn btn-secondary dropdown-toggle" 
+                                type="button" 
+                                id="dropdownMenuButton1" 
+                                data-bs-toggle="dropdown" 
+                                aria-expanded="false"
+                        >
+                            {combinationType}
+                        </button>
+                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a className="dropdown-item" href="#" onClick={() => setCombinationType("None of the above")}>None of the above</a></li>
+                            <li><a className="dropdown-item" href="#" onClick={() => setCombinationType("And")}>And</a></li>
+                            <li><a className="dropdown-item" href="#" onClick={() => setCombinationType("Or")}>Or</a></li>
+                            <li><a className="dropdown-item" href="#" onClick={() => setCombinationType("Xor")}>Xor</a></li>
+                        </ul>
+                    </div>
+                    <div className="dropdown m-1">
+                        <button className="btn btn-secondary dropdown-toggle" 
+                                type="button" 
+                                id="dropdownMenuButton1" 
+                                data-bs-toggle="dropdown" 
+                                aria-expanded="false"
+                        >
+                            {preds.pred2}
+                        </button>
+                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a className="dropdown-item" href="#" 
+                                    onClick={() => setPreds((prevState) => ({ ...prevState, pred2: "Create new predicate",}))}>
+                                        Create new predicate
+                            </a></li>
+                            <li><a className="dropdown-item" href="#" 
+                                    onClick={() => setPreds((prevState) => ({ ...prevState, pred2: "Choose Existing predicate",}))}>
+                                        Choose Existing predicate
+                            </a></li>
+                        </ul>
                     </div>
                 </div>
-                <div className="card w-75 m-1">
-                    <div className="card-body">
-                        <div className="row">
-                            <div className="col">
-                                <h5 className="card-title">Store A</h5>
+                <div className="col">
+                    <div className="row" style={{ display: preds.pred1=="Create new predicate" ? "block" : "none" }}>
+                        <h4><u>Create predicate #1</u></h4>
+                        <div style={{ display: policyType=="Total cart price" ? "block" : "none" }}>
+                            <div className="input-group mb-3">
+                                <span className="input-group-text" id="basic-addon1">Min Price</span>
+                                <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    placeholder="Enter price in NIS" 
+                                    aria-label="MinPrice" 
+                                    aria-describedby="basic-addon1"
+                                    value={predsFeatures.minPrice}
+                                    onChange={(e) =>
+                                        setPredsFeature((prevState) => ({
+                                            ...prevState,
+                                            minPrice: e.target.value,
+                                        }))
+                                    } 
+                                />
                             </div>
-                            <div className="col">
-                                <p className="card-text">Store description...</p>
+                            <div className="input-group mb-3">
+                                <span className="input-group-text" id="basic-addon1">Max Price</span>
+                                <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    placeholder="Enter price in NIS" 
+                                    aria-label="MaxPrice" 
+                                    aria-describedby="basic-addon1"
+                                    value={predsFeatures.maxPrice}
+                                    onChange={(e) =>
+                                        setPredsFeature((prevState) => ({
+                                            ...prevState,
+                                            maxPrice: e.target.value,
+                                        }))
+                                    }  
+                                />
                             </div>
-                            <div className="col">
-                                <a href="#" className="btn btn-primary">Close Store</a>
+                        </div>
+                        <div style={{ display: policyType=="Quantity in cart" ? "block" : "none" }}>
+                            <div className="input-group mb-3">
+                                <span className="input-group-text" id="basic-addon1">Min Quantity</span>
+                                <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    placeholder="Enter minimum quantity" 
+                                    aria-label="MinQuantity" 
+                                    aria-describedby="basic-addon1"
+                                    value={predsFeatures.minQunatity}
+                                    onChange={(e) =>
+                                        setPredsFeature((prevState) => ({
+                                            ...prevState,
+                                            minQunatity: e.target.value,
+                                        }))
+                                    }  
+                                />
                             </div>
-                        </div>    
+                            <div className="input-group mb-3">
+                                <span className="input-group-text" id="basic-addon1">Max Quantity</span>
+                                <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    placeholder="Enter maximum quantity" 
+                                    aria-label="MaxQuantity" 
+                                    aria-describedby="basic-addon1"
+                                    value={predsFeatures.maxQunatity}
+                                    onChange={(e) =>
+                                        setPredsFeature((prevState) => ({
+                                            ...prevState,
+                                            maxQunatity: e.target.value,
+                                        }))
+                                    }  
+                                />
+                            </div>
+                        </div>
+                        <div style={{ display: policyType=="Product should be in cart" ? "block" : "none" }}>
+                            <div className="input-group mb-3">
+                                <span className="input-group-text" id="basic-addon1">Product Name</span>
+                                <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    placeholder="Enter product name" 
+                                    aria-label="ProductName" 
+                                    aria-describedby="basic-addon1"
+                                    value={predsFeatures.productShouldBeInCart}
+                                    onChange={(e) =>
+                                        setPredsFeature((prevState) => ({
+                                            ...prevState,
+                                            productShouldBeInCart: e.target.value,
+                                        }))
+                                    }  
+                                />
+                            </div>
+                        </div>
+                        <div style={{ display: policyType=="Product should be in cart with minimum quantity" ? "block" : "none" }}>
+                            <div className="input-group mb-3">
+                                <span className="input-group-text" id="basic-addon1">Product Name</span>
+                                <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    placeholder="Enter product name" 
+                                    aria-label="ProductName" 
+                                    aria-describedby="basic-addon1"
+                                    value={predsFeatures.productShouldBeInCart}
+                                    onChange={(e) =>
+                                        setPredsFeature((prevState) => ({
+                                            ...prevState,
+                                            productShouldBeInCart: e.target.value,
+                                        }))
+                                    }  
+                                />
+                            </div>
+                            <div className="input-group mb-3">
+                            <span className="input-group-text" id="basic-addon1">Min Quantity</span>
+                                <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    placeholder="Enter minimum quantity" 
+                                    aria-label="ProductMinQuantity" 
+                                    aria-describedby="basic-addon1"
+                                    value={predsFeatures.productShouldBeInCartMinQunatity}
+                                    onChange={(e) =>
+                                        setPredsFeature((prevState) => ({
+                                            ...prevState,
+                                            productShouldBeInCartMinQunatity: e.target.value,
+                                        }))
+                                    }  
+                                />
+                            </div>
+                        </div>
+                        <div style={{ display: policyType=="Day Of Month" ? "block" : "none" }}>
+                            <div className="dropdown m-1">
+                                <button className="btn btn-secondary dropdown-toggle" 
+                                        type="button" 
+                                        id="dropdownMenuButton1" 
+                                        data-bs-toggle="dropdown" 
+                                        aria-expanded="false"
+                                >
+                                    {predsFeatures.allowORforbid}
+                                </button>
+                                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a className="dropdown-item" href="#" onClick={(e) => 
+                                                                                setPredsFeature((prevState) => ({
+                                                                                    ...prevState,
+                                                                                    allowORforbid: "Allow/Forbid",
+                                                                                }))
+                                                                            }>
+                                        {/* Allow/Forbid */}
+                                    </a></li>
+                                    <li><a className="dropdown-item" href="#" onClick={(e) => 
+                                                                                setPredsFeature((prevState) => ({
+                                                                                    ...prevState,
+                                                                                    allowORforbid: "Allow",
+                                                                                }))
+                                                                            }>
+                                        Allow
+                                    </a></li>
+                                    <li><a className="dropdown-item" href="#" onClick={(e) => 
+                                                                                setPredsFeature((prevState) => ({
+                                                                                    ...prevState,
+                                                                                    allowORforbid: "Forbid",
+                                                                                }))
+                                                                            }>
+                                        Forbid
+                                    </a></li>
+                                </ul>
+                            </div>
+                            <div className="dropdown m-1">
+                                <button className="btn btn-secondary dropdown-toggle" 
+                                        type="button" 
+                                        id="dropdownMenuButton1" 
+                                        data-bs-toggle="dropdown" 
+                                        aria-expanded="false"
+                                >
+                                    {predsFeatures.dayOfMonth}
+                                </button>
+                                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a className="dropdown-item" href="#" 
+                                       onClick={(e) => setPredsFeature((prevState) => ({...prevState, dayOfMonth: "Day Of Month",}))}>
+                                        {/* Day Of Month */}
+                                    </a></li>
+                                <li><a className="dropdown-item" href="#" 
+                                       onClick={(e) => setPredsFeature((prevState) => ({...prevState, dayOfMonth: "1",}))}>1</a></li>
+                                <li><a className="dropdown-item" href="#" 
+                                       onClick={(e) => setPredsFeature((prevState) => ({...prevState, dayOfMonth: "2",}))}>2</a></li>
+                                <li><a className="dropdown-item" href="#" 
+                                       onClick={(e) => setPredsFeature((prevState) => ({...prevState, dayOfMonth: "3",}))}>3</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div style={{ display: policyType=="Day Of Week" ? "block" : "none" }}>
+
+                        </div>
+                        <div style={{ display: policyType=="Hour Of Day" ? "block" : "none" }}>
+
+                        </div>
+                        <div style={{ display: policyType=="Specific user" ? "block" : "none" }}>
+
+                        </div>
+                        <div style={{ display: policyType=="Age" ? "block" : "none" }}>
+
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <div className="row">
-                <div className="col">
-                    <div className="dropdown m-1">
-                        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            Policy Type
-                        </button>
-                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a className="dropdown-item" href="#">Total cart price</a></li>
-                            <li><a className="dropdown-item" href="#">Quantity in cart</a></li>
-                            <li><a className="dropdown-item" href="#">Product should be in cart</a></li>
-                            <li><a className="dropdown-item" href="#">Product should be in cart with minimum quantity</a></li>
-                            <li><a className="dropdown-item" href="#">Day Of Month</a></li>
-                            <li><a className="dropdown-item" href="#">Day Of Week</a></li>
-                            <li><a className="dropdown-item" href="#">Hour Of Day</a></li>
-                            <li><a className="dropdown-item" href="#">Specific user</a></li>
-                            <li><a className="dropdown-item" href="#">Age</a></li>
-                        </ul>
-                    </div>    
-                </div>
+                    <div className="row" style={{ display: preds.pred2=="Create new predicate" ? "block" : "none" }}>
+                        <h4><u>Create predicate #2</u></h4>
+                        <div style={{ display: policyType=="Total cart price" ? "block" : "none" }}>
 
-                <div className="col">
-                    <div className="dropdown m-1">
-                        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            Product Type
-                        </button>
-                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a className="dropdown-item" href="#">Drinks</a></li>
-                            <li><a className="dropdown-item" href="#">Food</a></li>
-                            <li><a className="dropdown-item" href="#">Others</a></li>
-                        </ul>
-                    </div>    
-                </div>
+                        </div>
+                        <div style={{ display: policyType=="Quantity in cart" ? "block" : "none" }}>
 
-                <div className="col">
-                    <div className="dropdown m-1">
-                        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            Product
-                        </button>
-                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a className="dropdown-item" href="#">Product A</a></li>
-                            <li><a className="dropdown-item" href="#">Product B</a></li>
-                        </ul>
-                    </div>    
-                </div>
+                        </div>
+                        <div style={{ display: policyType=="Product should be in cart" ? "block" : "none" }}>
 
-                <div className="col">
-                    <div className="dropdown m-1">
-                        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            Allowing/Restricting
-                        </button>
-                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a className="dropdown-item" href="#">Allowing</a></li>
-                            <li><a className="dropdown-item" href="#">Restricting</a></li>
-                        </ul>
-                    </div>    
-                </div>
+                        </div>
+                        <div style={{ display: policyType=="Product should be in cart with minimum quantity" ? "block" : "none" }}>
 
-                <div className="row">
-                    <div className="col">
-                        <br />
-                        <div className="input-group m-2">
-                            <span className="input-group-text">Additional info to policy changes</span>
-                            <textarea className="form-control" aria-label="Additional info"></textarea>
+                        </div>
+                        <div style={{ display: policyType=="Day Of Month" ? "block" : "none" }}>
+
+                        </div>
+                        <div style={{ display: policyType=="Day Of Week" ? "block" : "none" }}>
+
+                        </div>
+                        <div style={{ display: policyType=="Hour Of Day" ? "block" : "none" }}>
+
+                        </div>
+                        <div style={{ display: policyType=="Specific user" ? "block" : "none" }}>
+
+                        </div>
+                        <div style={{ display: policyType=="Age" ? "block" : "none" }}>
+
                         </div>
                     </div>
                 </div>
+            </div>   
+
+            <br/>
+            <div className="row m-1"> 
+                <button className="btn btn-primary mr-lg-3" style={{width: "100%"}} onClick={onUpdatePolicy}>
+                    Update Policy
+                </button>
             </div>
-            <button className="btn btn-primary mr-lg-3 m-2" style={{width: "20%"}}>
-                Update Policy
-            </button>
         </div>
 
         </>

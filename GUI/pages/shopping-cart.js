@@ -48,8 +48,8 @@ const shoppingCart = () => {
       <div className="text-center my-3">
         <h3>Cart</h3>
       </div>
-      <div class="container card" style={{ width: "45rem" }}>
-        <ul class="list-group list-group-flush">
+      <div className="container card" style={{ width: "45rem" }}>
+        <ul className="list-group list-group-flush">
           {storeList.map((item) => {
             return (
               <div className="mb-5">
