@@ -72,7 +72,6 @@ const DisplayStoreOfficials = () => {
           </div>
         </div>
       )}
-      <Footer />
     </>
   );
 };

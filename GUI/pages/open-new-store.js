@@ -104,7 +104,6 @@ const OpenNewStore = () => {
           Open New Store
         </button>
       </div>
-      <Footer />
     </>
   );
 };

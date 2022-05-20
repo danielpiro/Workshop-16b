@@ -72,7 +72,6 @@ const DisplayStorePurchases = () => {
           </div>
         </div>
       )}
-      <Footer />
     </>
   );
 };

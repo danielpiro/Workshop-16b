@@ -93,7 +93,6 @@ const FireOwnerToStore = () => {
           </button>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

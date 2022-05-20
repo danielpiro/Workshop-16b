@@ -70,7 +70,6 @@ const UnregisterUser = () => {
           </button>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

@@ -14,45 +14,39 @@ const NotifyAdmins = () => {
     console.log(userInput);
   };
 
-  useEffect(() => {
-    const fetchPermission = async () => {
-      const response = await axios.get("users/getUserPermission");
-      setUserPermission(response.data);
-    };
-    fetchPermission();
-  }, []);
+  // useEffect(() => {
+  //   const fetchPermission = async () => {
+  //     const response = await axios.get("users/getUserPermission");
+  //     setUserPermission(response.data);
+  //   };
+  //   fetchPermission();
+  // }, []);
 
   return (
     <>
       <Menu />
-      <div className="card-header">
+      <div className="text-center m-5">
         <h3>Notify Admins</h3>
       </div>
-
-      <br />
-      <div className="input-group m-2" style={{ width: "85%" }}>
-        <span className="input-group-text">Write your message here</span>
-        <textarea
-          className="form-control"
-          aria-label="With textarea"
-          placeholder="Notify Admin Message..."
-          onChange={(e) =>
-            setUserInput((prevState) => ({
-              ...prevState,
-              userInput: e.target.value,
-            }))
-          }
-        />
+      <div className="container d-flex justify-content-center">
+        <div className="input-group m-2 w-50">
+          <span className="input-group-text">Write your message here</span>
+          <textarea
+            className="form-control"
+            aria-label="With textarea"
+            placeholder="Notify Admin Message..."
+            onChange={(e) =>
+              setUserInput((prevState) => ({
+                ...prevState,
+                userInput: e.target.value,
+              }))
+            }
+          />
+        </div>
+        <button className="btn btn-primary m-2" onClick={onNotify}>
+          Submit
+        </button>
       </div>
-      <button
-        className="btn btn-primary mr-lg-3 m-2"
-        style={{ width: "10%" }}
-        onClick={onNotify}
-      >
-        Submit
-      </button>
-
-      <Footer />
     </>
   );
 };

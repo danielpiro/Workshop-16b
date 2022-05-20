@@ -80,7 +80,6 @@ const Dashboard = () => {
                 </li>
               </ul>
             </nav>
-            <Footer />
           </div>
         ) : (
           <div className="container h-100 my-6">

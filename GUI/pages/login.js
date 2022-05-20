@@ -122,138 +122,136 @@ const Login = () => {
       });
   };
   return (
-    <div className="form-control">
-      <div className="form-signin w-100 m-auto">
-        <form>
-          <h1 className="h3 mb-4 fw-normal">Sign in</h1>
-          <div class="form-floating">
-            <input
-              type="email"
-              className="form-control"
-              id="floatingInput"
-              placeholder="Enter username"
-              value={loginInput.username}
-              onChange={(e) =>
-                setLoginInput((prevState) => ({
-                  ...prevState,
-                  username: e.target.value,
-                }))
-              }
-            />
-            <label for="floatingInput">Username</label>
-          </div>
-          <div class="form-floating">
-            <input
-              type="password"
-              className="form-control mt-1"
-              id="floatingPassword"
-              placeholder="Password"
-              value={loginInput.password}
-              onChange={(e) =>
-                setLoginInput((prevState) => ({
-                  ...prevState,
-                  password: e.target.value,
-                }))
-              }
-            />
-            <label for="floatingPassword">Password</label>
-          </div>
-          <div className="container col-auto">
-            <ul className="login-button-list">
-              <li>
-                <button
-                  type="submit"
-                  className="w-100 btn btn-lg btn-primary mb-2"
-                  style={{ padding: "5px 56px" }}
-                  onClick={onClickLogin}
-                >
-                  Login
-                </button>
-              </li>
-              <li>
+    <div className="form-signin w-100 m-auto">
+      <form>
+        <h1 className="h3 mb-4 fw-normal">Sign in</h1>
+        <div class="form-floating">
+          <input
+            type="email"
+            className="form-control"
+            id="floatingInput"
+            placeholder="Enter username"
+            value={loginInput.username}
+            onChange={(e) =>
+              setLoginInput((prevState) => ({
+                ...prevState,
+                username: e.target.value,
+              }))
+            }
+          />
+          <label for="floatingInput">Username</label>
+        </div>
+        <div class="form-floating">
+          <input
+            type="password"
+            className="form-control mt-1"
+            id="floatingPassword"
+            placeholder="Password"
+            value={loginInput.password}
+            onChange={(e) =>
+              setLoginInput((prevState) => ({
+                ...prevState,
+                password: e.target.value,
+              }))
+            }
+          />
+          <label for="floatingPassword">Password</label>
+        </div>
+        <div className="container col-auto">
+          <ul className="login-button-list">
+            <li>
+              <button
+                type="submit"
+                className="w-100 btn btn-lg btn-primary mb-2"
+                style={{ padding: "5px 56px" }}
+                onClick={onClickLogin}
+              >
+                Login
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                className="w-100 btn btn-lg btn-primary mb-2"
+                style={{ padding: "5px 47px" }}
+                data-bs-toggle="modal"
+                data-bs-target="#register"
+              >
+                Register
+              </button>
+            </li>
+            <li>
+              <button
+                type="submit"
+                className="w-100 btn btn-lg btn-primary"
+                onClick={onClickGuest}
+              >
+                Continue as guest
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div
+          className="modal fade"
+          id="register"
+          tabIndex="-1"
+          role="dialog"
+          aria-labelledby="registerTitle"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog modal-dialog-centered" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="registerTitle">
+                  Register
+                </h5>
+              </div>
+              <div className="modal-body">
+                <div>
+                  <input
+                    placeholder="Enter username"
+                    value={registerInput.username}
+                    onChange={(e) =>
+                      setRegisterInput((prevState) => ({
+                        ...prevState,
+                        username: e.target.value,
+                      }))
+                    }
+                  />
+                </div>
+                <div className="mt-2">
+                  <input
+                    placeholder="Enter password"
+                    value={registerInput.password}
+                    onChange={(e) =>
+                      setRegisterInput((prevState) => ({
+                        ...prevState,
+                        password: e.target.value,
+                      }))
+                    }
+                  />
+                </div>
+              </div>
+              <div className="modal-footer">
                 <button
                   type="button"
-                  className="w-100 btn btn-lg btn-primary mb-2"
-                  style={{ padding: "5px 47px" }}
-                  data-bs-toggle="modal"
-                  data-bs-target="#register"
+                  className="btn btn-secondary"
+                  data-bs-dismiss="modal"
                 >
-                  Register
+                  Close
                 </button>
-              </li>
-              <li>
                 <button
-                  type="submit"
-                  className="w-100 btn btn-lg btn-primary"
-                  onClick={onClickGuest}
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={onSumbitRegister}
                 >
-                  Continue as guest
+                  Submit
                 </button>
-              </li>
-            </ul>
-          </div>
-          <div
-            className="modal fade"
-            id="register"
-            tabIndex="-1"
-            role="dialog"
-            aria-labelledby="registerTitle"
-            aria-hidden="true"
-          >
-            <div className="modal-dialog modal-dialog-centered" role="document">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title" id="registerTitle">
-                    Register
-                  </h5>
-                </div>
-                <div className="modal-body">
-                  <div>
-                    <input
-                      placeholder="Enter username"
-                      value={registerInput.username}
-                      onChange={(e) =>
-                        setRegisterInput((prevState) => ({
-                          ...prevState,
-                          username: e.target.value,
-                        }))
-                      }
-                    />
-                  </div>
-                  <div className="mt-2">
-                    <input
-                      placeholder="Enter password"
-                      value={registerInput.password}
-                      onChange={(e) =>
-                        setRegisterInput((prevState) => ({
-                          ...prevState,
-                          password: e.target.value,
-                        }))
-                      }
-                    />
-                  </div>
-                </div>
-                <div className="modal-footer">
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={onSumbitRegister}
-                  >
-                    Submit
-                  </button>
-                </div>
               </div>
             </div>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   );
 };

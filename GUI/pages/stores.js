@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Footer from "../components/footer";
 import { useRouter } from "next/router";
+import StoreCardStores from "../components/store-card-stores";
 
 const Stores = () => {
   const router = useRouter();
@@ -37,52 +38,13 @@ const Stores = () => {
       <div className="my-4">
         <SearchBar setStores={setStores} />
       </div>
-      <div
-        className="my-4"
-        style={{ display: "flex", justifyContent: "center" }}
-      ></div>
       {!isLoading ? (
-        <div style={{ display: "table", width: "100%" }}>
+        <div className="row">
           <ul className="list-group-dashboard">
             {stores.map((store) => {
               return (
-                <li className=" list-group-item" key={store.id}>
-                  <div className="card w-100 m-1">
-                    <div className="card-body">
-                      <div className="row">
-                        <div className="col">
-                          <h5 className="card-title">{store.id}</h5>
-                        </div>
-                        <div className="col">
-                          <p className="card-desc">{store.title}</p>
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div
-                          className="col m-1"
-                          style={{ display: "flex", width: "40%" }}
-                        >
-                          <button
-                            className="btn btn-primary mr-lg-3"
-                            onClick={onShopStore}
-                          >
-                            Shop Now
-                          </button>
-                        </div>
-                        <div
-                          className="col m-1"
-                          style={{ display: "flex", width: "40%" }}
-                        >
-                          <button
-                            className="btn btn-primary mr-lg-3"
-                            onClick={onManageStore}
-                          >
-                            Manage Store
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <li className="list-group-item" key={store.id}>
+                  <StoreCardStores />
                 </li>
               );
             })}
@@ -95,7 +57,6 @@ const Stores = () => {
           </div>
         </div>
       )}
-      <Footer />
     </>
   );
 };

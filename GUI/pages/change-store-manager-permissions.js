@@ -48,15 +48,6 @@ const ChangeStoreManagerPermissions = () => {
     document.getElementById("Permission3").checked = true;
   };
 
-  var menu;
-  if (userPermission == "Admin") {
-    menu = <AdminMenu />;
-  } else if (userPermission == "Subscriber") {
-    menu = <SubscriberMenu />;
-  } else {
-    menu = <GuestMenu />;
-  }
-
   return (
     <>
       <Menu />
@@ -226,7 +217,6 @@ const ChangeStoreManagerPermissions = () => {
           </button>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

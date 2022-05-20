@@ -17,15 +17,6 @@ const AdminActions = () => {
   //   e.preventDefault();
   // }
 
-  var menu;
-  if (userPermission == "Admin") {
-    menu = <AdminMenu />;
-  } else if (userPermission == "Subscriber") {
-    menu = <SubscriberMenu />;
-  } else {
-    menu = <GuestMenu />;
-  }
-
   return (
     <>
       <Menu /> {/*Should be Admin Only!!!*/}
@@ -58,7 +49,6 @@ const AdminActions = () => {
           </Link>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

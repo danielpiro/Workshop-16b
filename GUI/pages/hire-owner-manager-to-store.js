@@ -144,7 +144,6 @@ const HireOwnerToStore = () => {
           </button>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

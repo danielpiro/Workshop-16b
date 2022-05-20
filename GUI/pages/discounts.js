@@ -12,7 +12,6 @@ const Discounts = () => {
       <div className="card-header">
         <h3>Edit store's discounts</h3>
       </div>
-      <Footer />
     </>
   );
 };

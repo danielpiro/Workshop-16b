@@ -193,7 +193,6 @@ const StoreManagement = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

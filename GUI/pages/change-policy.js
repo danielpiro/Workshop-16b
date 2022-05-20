@@ -2672,7 +2672,6 @@ const ChangePolicy = () => {
           </button>
         </div>
       </div>
-      <Footer />
     </>
   );
 };
