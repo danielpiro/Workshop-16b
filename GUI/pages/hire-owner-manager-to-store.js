@@ -1,35 +1,82 @@
 import AdminMenu from "../components/menus/menuAdmin";
-import StoreOwnerMenu from "../components/menus/menuStoreOwner";
-import StoreManagerMenu from "../components/menus/menuStoreManager";
 import SubscriberMenu from "../components/menus/menuSubscriber";
 import GuestMenu from "../components/menus/menuGuest";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Link from "next/link";
+import createNotification from "../components/norification";
+import { useRouter } from "next/router";
+import Footer from "../components/footer";
 
 const HireOwnerToStore = () => {
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [searchValue, setSearchValue] = useState("");
+  const router = useRouter();
   const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
-  const [choose, setChoose] = useState("Owner/Manager");
-  // useEffect(() => {
-  //   const fetchApi = async () => {
-  //     const response = await axios.get("https://fakestoreapi.com/products");
-  //     setIsLoading(!isLoading);
-  //     setProducts(response.data);
-  //     //TODO: Add logic to check if the user has any permission!
-  //     //setUserPermission("Admin/StoreOwner/StoreManager");
-  //   };
-  //   fetchApi();
-  // }, []);
+  const [newOfficialInput, setNewOfficialInput] = useState({
+    username: "",
+    storename: "",
+    ownerORmanager: "Manager/Owner",
+  });
+
+  const setManager = () => {
+    setNewOfficialInput((prevState) => ({
+      ...prevState,
+      ownerORmanager: "Manager",
+    }));
+  };
+
+  const setOwner = () => {
+    setNewOfficialInput((prevState) => ({
+      ...prevState,
+      ownerORmanager: "Owner",
+    }));
+  };
+
+  const onHiringOfficial = (e) => {
+    e.preventDefault();
+    if (
+      newOfficialInput.username != "" &&
+      newOfficialInput.storename != "" &&
+      newOfficialInput.ownerORmanager != ""
+    ) {
+      if (newOfficialInput.ownerORmanager == "Owner") {
+        const isOpened = axios.post(
+          `owner/${newOfficialInput.username}/${newOfficialInput.storename}`
+        );
+        //console.log(isOpened.status);
+      }
+      if (newOfficialInput.ownerORmanager == "Manager") {
+        const isOpened = axios.post(
+          `manager/${newOfficialInput.username}/${newOfficialInput.storename}`
+        );
+      }
+
+      if (isOpened) {
+        createNotification(
+          "success",
+          "Create new owner/manager successfully",
+          () => router.push("/dashboard")
+        )();
+      } else {
+        createNotification("error", "failure hiring new owner/manager!")();
+      }
+    } else {
+      createNotification(
+        "error",
+        "storename or username was not valid, please try again"
+      )();
+    }
+  };
+
+  useEffect(() => {
+    const fetchPermission = async () => {
+      const response = await axios.get("users/getUserPermission");
+      setUserPermission(response.data);
+    };
+    fetchPermission();
+  }, []);
 
   var menu;
   if (userPermission == "Admin") {
     menu = <AdminMenu />;
-  } else if (userPermission == "Owner") {
-    menu = <StoreOwnerMenu />;
-  } else if (userPermission == "Manager") {
-    menu = <StoreManagerMenu />;
   } else if (userPermission == "Subscriber") {
     menu = <SubscriberMenu />;
   } else {
@@ -40,28 +87,42 @@ const HireOwnerToStore = () => {
     <>
       {menu}
 
-      <div className="text-center my-5">
+      <div className="card-header">
         <h3>Hire new owner to a store</h3>
       </div>
 
       <div className="container">
-        <div className="col-4">
+        <div className="row" style={{ display: "flex", width: "50%" }}>
           <input
             className="form-control mr-sm-2 m-2"
             type="search"
             placeholder="Enter username of the new owner/manager"
             aria-label="Search"
+            value={newOfficialInput.username}
+            onChange={(e) =>
+              setNewOfficialInput((prevState) => ({
+                ...prevState,
+                username: e.target.value,
+              }))
+            }
           />
         </div>
-        <div className="col-4">
+        <div className="row" style={{ display: "flex", width: "50%" }}>
           <input
             className="form-control mr-sm-2 m-2"
             type="search"
             placeholder="Enter the store name"
             aria-label="Search"
+            value={newOfficialInput.storename}
+            onChange={(e) =>
+              setNewOfficialInput((prevState) => ({
+                ...prevState,
+                storename: e.target.value,
+              }))
+            }
           />
         </div>
-        <div className="dropdown m-1 d-flex justify-content-center">
+        <div className="dropdown m-1">
           <button
             className="btn btn-secondary dropdown-toggle"
             type="button"
@@ -69,34 +130,32 @@ const HireOwnerToStore = () => {
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            {choose}
+            {newOfficialInput.ownerORmanager}
           </button>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li>
-              <a
-                className="dropdown-item"
-                href="#"
-                onClick={() => setChoose("Manager")}
-              >
+              <a className="dropdown-item" href="#" onClick={setManager}>
                 Manager
               </a>
             </li>
             <li>
-              <a
-                className="dropdown-item"
-                href="#"
-                onClick={() => setChoose("Owner")}
-              >
+              <a className="dropdown-item" href="#" onClick={setOwner}>
                 Owner
               </a>
             </li>
           </ul>
         </div>
         <br />
-        <div className="d-flex justify-content-center">
-          <button className="btn btn-primary mr-lg-3">Search</button>
+        <div className="row m-1" style={{ display: "flex", width: "15%" }}>
+          <button
+            className="btn btn-primary mr-lg-3"
+            onClick={onHiringOfficial}
+          >
+            Hire new Manager/Owner
+          </button>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

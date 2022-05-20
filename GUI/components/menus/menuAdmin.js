@@ -31,9 +31,14 @@ const Menu = () => {
                   <a className="nav-link ms-4">Open New Store</a>
                 </Link>
               </li>
-              <li className="store-management-button nav-item">
+              {/* <li className="store-management-button nav-item">
                 <Link href="/store-management">
                   <a className="nav-link ms-4">Store Management</a>
+                </Link>
+              </li> */}
+              <li className="store-management-button nav-item">
+                <Link href="/stores">
+                  <a className="nav-link ms-4">Stores</a>
                 </Link>
               </li>
               <li className="admin-actions-button nav-item">
@@ -45,10 +50,7 @@ const Menu = () => {
                 <Link href="#">
                   <a
                     className="nav-link ms-4"
-                    onClick={createNotification(
-                      "info",
-                      "Will be implemented next milestone..."
-                    )}
+                    onClick={createNotification("info", "message")}
                   >
                     My Bids
                   </a>
@@ -58,26 +60,30 @@ const Menu = () => {
                 <Link href="#">
                   <a
                     className="nav-link ms-4"
-                    onClick={createNotification(
-                      "info",
-                      "Will be implemented next milestone..."
-                    )}
+                    onClick={createNotification("info", "message")}
                   >
                     History
                   </a>
                 </Link>
               </li>
-              <li className="statistics-button nav-item">
+              <li className="notify-admins-button nav-item">
+                <Link href="/notify-admins">
+                  <a className="nav-link ms-4">Notify Admins</a>
+                </Link>
+              </li>
+              <li className="notifications-button nav-item">
                 <Link href="#">
                   <a
                     className="nav-link ms-4"
-                    onClick={createNotification(
-                      "info",
-                      "Will be implemented next milestone..."
-                    )}
+                    onClick={createNotification("info", "message")}
                   >
-                    Statistics
+                    Notifications
                   </a>
+                </Link>
+              </li>
+              <li className="statistics-button nav-item">
+                <Link href="/statistics">
+                  <a className="nav-link ms-4">Statistics</a>
                 </Link>
               </li>
               <li className="logout-button nav-item">

@@ -1,6 +1,4 @@
 import AdminMenu from "../components/menus/menuAdmin";
-import StoreOwnerMenu from "../components/menus/menuStoreOwner";
-import StoreManagerMenu from "../components/menus/menuStoreManager";
 import SubscriberMenu from "../components/menus/menuSubscriber";
 import GuestMenu from "../components/menus/menuGuest";
 import SearchBar from "../components/search-bar";

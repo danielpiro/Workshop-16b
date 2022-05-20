@@ -126,7 +126,7 @@ const Login = () => {
   return (
     <main className="form-signin w-100 m-auto">
       <form>
-        <h1 className="h3 mb-3 fw-normal">Please sign in...</h1>
+        <h1 className="h3 mb-3 fw-normal">Sign in</h1>
         <div class="form-floating">
           <input
             type="email"
@@ -141,7 +141,7 @@ const Login = () => {
               }))
             }
           />
-          <label for="floatingInput">Email address</label>
+          <label for="floatingInput">Username</label>
         </div>
         <div class="form-floating">
           <input

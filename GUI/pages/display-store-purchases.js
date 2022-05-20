@@ -1,6 +1,4 @@
 import AdminMenu from "../components/menus/menuAdmin";
-import StoreOwnerMenu from "../components/menus/menuStoreOwner";
-import StoreManagerMenu from "../components/menus/menuStoreManager";
 import SubscriberMenu from "../components/menus/menuSubscriber";
 import GuestMenu from "../components/menus/menuGuest";
 import SearchBar from "../components/search-bar";
@@ -14,7 +12,7 @@ const DisplayStorePurchases = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [singleProduct, setSingleProduct] = useState({});
   const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
-                                                                 //      + Edit using new method "setUserPermission"
+  //      + Edit using new method "setUserPermission"
   useEffect(() => {
     const fetchApi = async () => {
       const response = await axios.get("https://dummyjson.com/products");
@@ -35,19 +33,11 @@ const DisplayStorePurchases = () => {
   };
 
   var menu;
-  if (userPermission == "Admin"){
+  if (userPermission == "Admin") {
     menu = <AdminMenu />;
-  }
-  else if (userPermission == "Owner"){
-    menu = <StoreOwnerMenu />;
-  }
-  else if (userPermission == "Manager"){
-    menu = <StoreManagerMenu />;
-  }
-  else if (userPermission == "Subscriber"){
+  } else if (userPermission == "Subscriber") {
     menu = <SubscriberMenu />;
-  }
-  else{
+  } else {
     menu = <GuestMenu />;
   }
 
