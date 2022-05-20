@@ -79,15 +79,16 @@ const Menu = () => {
                   </Link>
                 </li>
                 <li>
-                  <button
-                    type="button"
-                    className="btn btn-primary my-1"
-                    style={{ padding: "5px 47px" }}
-                    data-bs-toggle="modal"
-                    data-bs-target="#register"
-                  >
-                    Become a member
-                  </button>
+                  <Link href="#">
+                    <a
+                      type="button"
+                      className="nav-link ms-4"
+                      data-bs-toggle="modal"
+                      data-bs-target="#register"
+                    >
+                      Become a member
+                    </a>
+                  </Link>
                 </li>
                 {/* <li className="become-a-member-button nav-item">
                   <Link href="#">
