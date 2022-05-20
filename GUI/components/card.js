@@ -1,10 +1,6 @@
 import createNotification from "./norification";
 
 const Card = ({ value, title, category, description, price, discount }) => {
-  const onClick = (e) => {
-    console.log(e.target.value);
-  };
-
   const onClickBid = (e) => {
     e.preventDefault();
     createNotification("info", "Will be implemented next milestone...")();
@@ -40,13 +36,6 @@ const Card = ({ value, title, category, description, price, discount }) => {
           onClick={addProduct}
         >
           Add to cart
-        </button>
-        <button
-          className="add-cart-buttom btn btn-outline-primary w-25 mb-3 ms-3"
-          value={value}
-          onClick={onClick}
-        >
-          Buy now
         </button>
         <button
           className="add-cart-buttom btn btn-outline-primary w-25 mb-3 ms-3"

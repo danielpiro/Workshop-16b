@@ -1,6 +1,4 @@
-import AdminMenu from "../components/menus/menuAdmin";
-import SubscriberMenu from "../components/menus/menuSubscriber";
-import GuestMenu from "../components/menus/menuGuest";
+import Menu from "../components/menu";
 import SearchBar from "../components/search-bar";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -32,18 +30,9 @@ const DisplayStorePurchases = () => {
     });
   };
 
-  var menu;
-  if (userPermission == "Admin") {
-    menu = <AdminMenu />;
-  } else if (userPermission == "Subscriber") {
-    menu = <SubscriberMenu />;
-  } else {
-    menu = <GuestMenu />;
-  }
-
   return (
     <>
-      {menu}
+      <Menu />
       <div className="card-header">
         <h3>Display Store Purchases</h3>
       </div>

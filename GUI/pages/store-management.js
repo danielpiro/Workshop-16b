@@ -1,6 +1,4 @@
-import AdminMenu from "../components/menus/menuAdmin";
-import SubscriberMenu from "../components/menus/menuSubscriber";
-import GuestMenu from "../components/menus/menuGuest";
+import Menu from "../components/menu";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -18,18 +16,9 @@ const StoreManagement = () => {
     fetchPermission();
   }, []);
 
-  var menu;
-  if (userPermission == "Admin") {
-    menu = <AdminMenu />;
-  } else if (userPermission == "Subscriber") {
-    menu = <SubscriberMenu />;
-  } else {
-    menu = <GuestMenu />;
-  }
-
   return (
     <>
-      {menu}
+      <Menu />
       <div
         className="my-4"
         style={{ display: "flex", justifyContent: "center" }}

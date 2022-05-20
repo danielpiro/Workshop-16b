@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import AdminMenu from "../components/menus/menuAdmin";
-import SubscriberMenu from "../components/menus/menuSubscriber";
-import GuestMenu from "../components/menus/menuGuest";
+import Menu from "../components/menu";
 import CartItem from "../components/cart-item.js";
 import { useCookies } from "react-cookie";
 
@@ -16,14 +14,6 @@ const shoppingCart = () => {
   ]);
   const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
   //      + Edit using new method "setUserPermission"
-  var menu;
-  if (userPermission == "Admin") {
-    menu = <AdminMenu />;
-  } else if (userPermission == "Subscriber") {
-    menu = <SubscriberMenu />;
-  } else {
-    menu = <GuestMenu />;
-  }
 
   useEffect(() => {
     // const fetchCart = async () => {
@@ -40,26 +30,58 @@ const shoppingCart = () => {
     setStoreList([1, 2, 3, 4]);
     console.log(cookies.username);
   }, []);
+
+  const onBuy = (e) => {
+    e.preventDefault();
+    ///send cart to back to purcash
+  };
   return (
     <>
-      {menu}
+      <Menu />
       <div className="text-center my-5">
         <h3>Cart</h3>
       </div>
-      <ul class="list-group list-group-flush">
-        {storeList.map((item) => {
-          return (
-            <div class="container card mb-5" style={{ width: "45rem" }}>
-              <div className="card-header mb-3 text-center">Featured</div>
-              <ul>
-                {cart.map((item2) => {
-                  return <CartItem />;
-                })}
-              </ul>
-            </div>
-          );
-        })}
-      </ul>
+      <div className="container">
+        <div className="row">
+          <div className="col-sm">
+            <ul className="list-group list-group-flush">
+              {storeList.map((item) => {
+                return (
+                  <div
+                    className="container card mb-5"
+                    style={{ width: "45rem" }}
+                  >
+                    <div className="card-header mb-3 text-center">
+                      Store name
+                    </div>
+                    <ul>
+                      {cart.map((item2) => {
+                        return <CartItem />;
+                      })}
+                    </ul>
+                  </div>
+                );
+              })}
+            </ul>
+          </div>
+          <div className="col-sm">
+            <form className="row g-3 sticky-sm-top">
+              <div className="text-center">Subtotal: Price from back</div>
+              <div className="text-center">Discount: Price from back</div>
+              <div className="text-center">Total: total to pay</div>
+              <div className="col-12 d-flex justify-content-center mt-3">
+                <button
+                  type="button"
+                  className="btn btn-primary w-25"
+                  onClick={onBuy}
+                >
+                  Buy
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

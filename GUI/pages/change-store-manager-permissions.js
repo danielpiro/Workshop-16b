@@ -1,6 +1,4 @@
-import AdminMenu from "../components/menus/menuAdmin";
-import SubscriberMenu from "../components/menus/menuSubscriber";
-import GuestMenu from "../components/menus/menuGuest";
+import Menu from "../components/menu";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Footer from "../components/footer";
@@ -61,7 +59,7 @@ const ChangeStoreManagerPermissions = () => {
 
   return (
     <>
-      {menu}
+      <Menu />
 
       <div className="card-header">
         <h3>Change Store Manager's Permissions</h3>
