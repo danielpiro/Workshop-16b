@@ -14,7 +14,6 @@ import com.example.demo.Tests.Bridge.Proxy;
 import com.example.demo.Tests.Bridge.Real;
 import com.example.demo.User.Guest;
 import com.google.gson.Gson;
-import javafx.application.Application;
 import org.json.JSONObject;
 import org.junit.jupiter.api.*;
 
