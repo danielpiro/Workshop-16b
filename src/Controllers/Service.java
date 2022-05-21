@@ -86,8 +86,11 @@ public class Service {
         return future;
 
     }
-
-    public Future getSystemAdmin() {
+    public Future getPermissionType(String username) {
+        Future future = executorService.submit(() -> bigController.GuestExitSystem(username));
+        return future;
+    }
+        public Future getSystemAdmin() {
         Future future = executorService.submit(() -> bigController.getSystemAdmin());
         return future;
 
