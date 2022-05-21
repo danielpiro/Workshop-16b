@@ -37,7 +37,7 @@ public class TimePredicate implements PolicyPredicate {
 
     public boolean OnDayOfMonth(){
         int dayOfMonth = LocalDateTime.now().getDayOfMonth();
-        return StartTime.getDayOfMonth() <= dayOfMonth && dayOfMonth <= endTime.getMonthValue();
+        return StartTime.getDayOfMonth() <= dayOfMonth && dayOfMonth <= endTime.getDayOfMonth();
     }
     public boolean OnHoursOfTheDay() {
         LocalTime now = LocalTime.now();

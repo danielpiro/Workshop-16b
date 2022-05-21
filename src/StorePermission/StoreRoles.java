@@ -99,4 +99,5 @@ public abstract class  StoreRoles {
 
     }
 
+    public abstract String getTitle();
 }

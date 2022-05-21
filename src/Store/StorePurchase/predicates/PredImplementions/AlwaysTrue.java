@@ -8,9 +8,11 @@ import Store.StorePurchase.predicates.PolicyPredicate;
 
 import java.util.List;
 
-public class AllWaysTrue  implements PolicyPredicate, DiscountPredicate {
+public class AlwaysTrue implements PolicyPredicate, DiscountPredicate {
     @Override
     public boolean predicateStands(List<PurchasableProduct> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) {
         return true;
     }
+
+
 }

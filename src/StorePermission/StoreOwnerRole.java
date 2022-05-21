@@ -26,4 +26,9 @@ public class StoreOwnerRole extends StoreRoles{
         createPermissionsTo.add(newStoreManager);
         return newStoreManager;
     }
+
+    @Override
+    public String getTitle() {
+        return "owner";
+    }
 }

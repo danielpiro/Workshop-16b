@@ -1,5 +1,6 @@
 package Store.StorePurchase.Policies;
 
+import Store.StorePurchase.PurchasableProduct;
 import Store.StorePurchase.predicates.*;
 import Store.Product;
 import Store.ProductsCategories;
@@ -34,7 +35,7 @@ public class PolicyBuilder {
      * @param products - products in store you cant buy
      * @return policy
      */
-    public Policy newProductWithoutAmountPolicy(List<Product> products){
+    public Policy newProductWithoutAmountPolicy(List<PurchasableProduct> products){
         PolicyPredicate p = new ProductPredicate(products);
         Policy policy  = new OnePredPolicy(p);
         return policy;
@@ -43,7 +44,7 @@ public class PolicyBuilder {
      * @param products - products in store you cant buy
      * @return policy
      */
-    public Policy newProductWithAmountPolicy(HashMap<Product,Integer> products){
+    public Policy newProductWithAmountPolicy(HashMap<PurchasableProduct,Integer> products){
         PolicyPredicate p = new ProductPredicate(products);
         Policy policy  = new OnePredPolicy(p);
         return policy;

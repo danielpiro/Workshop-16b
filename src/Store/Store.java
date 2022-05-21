@@ -320,5 +320,21 @@ public class Store implements getStoreInfo {
     }
 
 
+    public String getTitle(String userIf) {
+        for(StoreRoles sr:StoreRoles){
+            if(sr.getUserId().equals(userIf)){
+                return sr.getTitle();
+            }
+        }
+        return "no title";
+    }
 
+    public List<Permission> getUserPermission(String userId) {
+        for(StoreRoles sr:StoreRoles){
+            if(sr.getUserId().equals(userId)){
+                return sr.getPermissions();
+            }
+        }
+        return new ArrayList<>();
+    }
 }

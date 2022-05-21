@@ -316,6 +316,12 @@ public class MarketController {
         }
         sc.deletePolicy(storeId,userId,policyId);
     }
+    public List<Permission> getUserPermission(String StoreId,String userId){
+       return sc.getUserPermission(StoreId,userId);
+    }
+    public String getTitle(String StoreId,String userIf){
+        return sc.getTitle(StoreId,userIf);
+    }
     public List<Policy> getPolices(String storeId,String userId) throws NoPermissionException {
         if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
             my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");

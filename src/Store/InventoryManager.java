@@ -29,18 +29,18 @@ public class InventoryManager  implements InventoryProtector {
         policies = new ArrayList<>();
     }
 
-    private boolean checksIfStorePoliciesMet(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo){
+    private void checksIfStorePoliciesMet(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) throws StorePolicyViolatedException {
         HashMap<Product, Integer> newProductAmount = new HashMap<Product, Integer>();
         for(String productId : ProductAmount.keySet()){
             newProductAmount.put(products.get(productId),ProductAmount.get(productId));
         }
 
         for (Policy p : policies){
-            if(p.checkIfPolicyStands(newProductAmount, externalConnectionHolder, userInfo)){
-                return false;//if policy return true that mean the policy violated
+            if(!p.checkIfPolicyStands(newProductAmount, externalConnectionHolder, userInfo)){
+                throw new StorePolicyViolatedException(p.getPolicyId());
             }
         }
-        return true;
+
     }
 
     public void editProduct(String productId, int newSupply, String newName, float newPrice, String category) throws SupplyManagementException {
@@ -129,7 +129,7 @@ public class InventoryManager  implements InventoryProtector {
         for(Policy p : policies){
             if(p.getPolicyId().equals(policyId)){
                 policies.remove(p);
-                break;
+                return;
             }
         }
         Log.getLogger().logger.warning("cant delete, no Policy with this Id");
@@ -173,11 +173,9 @@ public class InventoryManager  implements InventoryProtector {
 
 
     @Override
-    public float reserve(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) throws CantPurchaseException {
-        try {
-            if(!checksIfStorePoliciesMet( ProductAmount, externalConnectionHolder, userInfo)){
-                throw new StorePolicyViolatedException("");
-            }
+    public float reserve(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) throws CantPurchaseException, StorePolicyViolatedException, SupplyManagementException {
+
+            checksIfStorePoliciesMet( ProductAmount, externalConnectionHolder, userInfo);
             for (String Id : ProductAmount.keySet()) {
                 synchronized (products.get(Id)) {
                     if (products.get(Id).getBuyOption().checkIfCanBuy(userInfo.getUserId())) {
@@ -189,10 +187,8 @@ public class InventoryManager  implements InventoryProtector {
                 }
             }
             return calculatePriceWithDiscount(ProductAmount,externalConnectionHolder,userInfo);
-        }
-        catch (Exception e){
-            throw new CantPurchaseException(e.toString());
-        }
+
+
     }
 
     public Product getProduct(String productId) throws SupplyManagementException {

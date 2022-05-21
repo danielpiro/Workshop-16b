@@ -1,6 +1,8 @@
 package ShoppingCart;
 
 import CustomExceptions.CantPurchaseException;
+import CustomExceptions.StorePolicyViolatedException;
+import CustomExceptions.SupplyManagementException;
 import ExternalConnections.ExternalConnectionHolder;
 import Generic.ThreeGenerics;
 import GlobalSystemServices.Log;
@@ -121,14 +123,13 @@ public class ShoppingCart {
 
             }
         }
-        catch ( CantPurchaseException e){
+        catch ( StorePolicyViolatedException|SupplyManagementException|CantPurchaseException e) {
             Log.getLogger().logger.warning("user " + userId + " could not reserve items in cart");
 
             for (Map.Entry<String, ShoppingBasket> basket : basketCases.entrySet()) {
                 basket.getValue().purchaseSuccessful(false);
             }
             return -1;
-
         }
         Log.getLogger().logger.info("user " + userId + " total cart value " + total);
 

@@ -18,4 +18,7 @@ public class CartPredicate implements PolicyPredicate {
     public boolean predicateStands(List<PurchasableProduct> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) {
         return numOfProducts<= ProductAmount.size();
     }
+
+
+
 }

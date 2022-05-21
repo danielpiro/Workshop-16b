@@ -173,6 +173,7 @@ public class StoreController {
         Store relevantStore =  stores.get(storeId);
         return relevantStore.getPolices(userId);
     }
+
     private boolean checkIfProductExists(String storeId, String productId) throws IOException {
         Store relevantStore =  stores.get(storeId);
         try {
@@ -241,4 +242,13 @@ public class StoreController {
     }
 
 
+    public String getTitle(String storeId, String userIf) {
+        Store relevantStore = stores.get(storeId);
+        return relevantStore.getTitle(userIf);
+    }
+
+    public List<Permission> getUserPermission(String storeId, String userId) {
+        Store relevantStore = stores.get(storeId);
+        return relevantStore.getUserPermission(userId);
+    }
 }

@@ -12,16 +12,16 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ProductPredicate implements PolicyPredicate, DiscountPredicate {
-    HashMap<Product,Integer> products;
+    HashMap<PurchasableProduct,Integer> products;
     PredicateProductType type;
-    public ProductPredicate(List<Product> products){
+    public ProductPredicate(List<PurchasableProduct> products){
         type = PredicateProductType.General;
         this.products = new HashMap<>();
-        for(Product p: products){
+        for(PurchasableProduct p: products){
           this.products.put(p,0);
         }
     }
-    public ProductPredicate(HashMap<Product,Integer> products){
+    public ProductPredicate(HashMap<PurchasableProduct,Integer> products){
         type = PredicateProductType.Products_Above_Amount;
         this.products = products;
 
@@ -44,7 +44,7 @@ public class ProductPredicate implements PolicyPredicate, DiscountPredicate {
     }
     public boolean productWithAmount(List<PurchasableProduct> ProductAmount){
         for (PurchasableProduct p1:ProductAmount){
-            for(Product p2: products.keySet()){
+            for(PurchasableProduct p2: products.keySet()){
                 if(p1.getId().equals(p2.getId()) && p1.getAmount()<p2.getAmount()){
                     return false;
                 }

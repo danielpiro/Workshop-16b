@@ -30,4 +30,9 @@ public class OriginalStoreOwnerRole extends StoreRoles{
         createPermissionsTo.add(newStoreManager);
         return newStoreManager;
     }
+
+    @Override
+    public String getTitle() {
+        return "original owner";
+    }
 }

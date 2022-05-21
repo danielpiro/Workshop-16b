@@ -24,5 +24,10 @@ public class StoreManager extends StoreRoles {
         throw new NoPermissionException("manager cant give permissions");
     }
 
+    @Override
+    public String getTitle() {
+        return "manger";
+    }
+
 
 }

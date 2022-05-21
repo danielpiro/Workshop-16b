@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface Predicate {//todo add store policy of the original owner and for them not to collide
     boolean predicateStands(List<PurchasableProduct> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo);
+
 }

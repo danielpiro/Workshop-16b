@@ -1,6 +1,7 @@
 package ShoppingCart;
 
 import CustomExceptions.CantPurchaseException;
+import CustomExceptions.StorePolicyViolatedException;
 import CustomExceptions.SupplyManagementException;
 import ExternalConnections.ExternalConnectionHolder;
 import Generic.ThreeGenerics;
@@ -77,7 +78,7 @@ public class ShoppingBasket {
         return sb.toString();
     }
 
-    public float purchase(ExternalConnectionHolder externalConnectionHolder, String userID) throws CantPurchaseException {
+    public float purchase(ExternalConnectionHolder externalConnectionHolder, String userID) throws CantPurchaseException, SupplyManagementException, StorePolicyViolatedException {
 
         float answer = iProtector.reserve(productAmount , externalConnectionHolder, new UserInfo(18,userID));//todo guy edited it but dan need to change this userInfo
         if(answer < 0 )
