@@ -4,95 +4,83 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 
 const CloseStore = () => {
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [searchValue, setSearchValue] = useState("");
+  const [store, setStore] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
   const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
-  // useEffect(() => {
-  //   const fetchApi = async () => {
-  //     const response = await axios.get("https://fakestoreapi.com/products");
-  //     setIsLoading(!isLoading);
-  //     setProducts(response.data);
-  //     //TODO: Add logic to check if the user has any permission!
-  //     //setUserPermission("Admin/StoreOwner/StoreManager");
-  //   };
-  //   fetchApi();
-  // }, []);
+
+  const onSearch = (e) => {
+    e.preventDefault();
+    setIsLoading(!isLoading);
+    api.get("/search/store", { params: { name: searchValue } }).then((res) => {
+      if (res.status === 200) {
+        setStore([res.data]);
+        setIsLoading(!isLoading);
+      }
+    });
+  };
+
+  const onChange = (e) => {
+    e.preventDefault();
+    setSearchValue(e.target.value);
+  };
+
+  const onCloseStore = (e) => {
+    e.preventDefault();
+  }
+ 
   return (
     <>
       <Menu />
-      <div className="card-header">
-        <h3>Close Store</h3>
-      </div>
-
-      <div className="container m-2">
-        <div className="row">
-          <div className="col">
+     <div className="container m-auto w-100">
+        <span className="text-center m-3"> <h3>Close store</h3> </span>
+        <span className="text-center"> <h5>(freezing store actions)</h5> </span>
+        
+        <nav className="navbar navbar-expand-lg bg-secondery d-flex justify-content-center">
+          <form className="row form-inline col-4">
             <input
               className="form-control mr-sm-2 m-2"
               type="search"
-              placeholder="Enter storename"
+              placeholder="Enter store name"
               aria-label="Search"
+              onChange={onChange}
             />
-          </div>
-          <div className="col m-2">
-            <button className="btn btn-primary mr-lg-3">Search</button>
+
+            <div className="d-flex justify-content-center">
+              <button className="btn btn-primary my-3" onClick={onSearch}>
+                Search
+              </button>
+            </div>
+          </form>
+        </nav>
+        <ul>
+        <div class="card text-center">
+          <div class="card-body">
+            <h3 class="card-title">Store # ...</h3>
+            <p class="card-text">
+              With supporting text below as a natural lead-in to additional content.
+            </p>
+            <button class="btn btn-primary" onClick={onCloseStore}>
+              Close store
+            </button>
           </div>
         </div>
-        <br />
-        <div className="row m-2">
-          {/*displaying all searched stores - will be displayed in cards that contain the button "Close Store"*/}
-          <div className="card w-75 m-1">
-            <div className="card-body">
-              <div className="row">
-                <div className="col">
-                  <h5 className="card-title">Store A</h5>
+          {!isLoading ? (
+            store.map((shop) => {
+              return (
+                <div>
+                  <li key={shop.id}>{shop}</li>
                 </div>
-                <div className="col">
-                  <p className="card-text">Store description...</p>
-                </div>
-                <div className="col">
-                  <a href="#" className="btn btn-primary">
-                    Close Store
-                  </a>
-                </div>
+              );
+            })
+          ) : (
+            <div className="container">
+              <div className="d-flex justify-content-center">
+                <div className="spinner-border my-5 me-4" />
               </div>
             </div>
-          </div>
-          <div className="card w-75 m-1">
-            <div className="card-body">
-              <div className="row">
-                <div className="col">
-                  <h5 className="card-title">Store B</h5>
-                </div>
-                <div className="col">
-                  <p className="card-text">Store description...</p>
-                </div>
-                <div className="col">
-                  <a href="#" className="btn btn-primary">
-                    Close Store
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="card w-75 m-1">
-            <div className="card-body">
-              <div className="row">
-                <div className="col">
-                  <h5 className="card-title">Store A</h5>
-                </div>
-                <div className="col">
-                  <p className="card-text">Store description...</p>
-                </div>
-                <div className="col">
-                  <a href="#" className="btn btn-primary">
-                    Close Store
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+          )}
+        </ul>
       </div>
     </>
   );

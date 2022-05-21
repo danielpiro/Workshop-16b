@@ -8,19 +8,10 @@ const ChangeStoreManagerPermissions = () => {
   // const [searchValue, setSearchValue] = useState("");
   const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
   const [permission, setPermissions] = useState({
-    p1: true,
-    p2: true,
-    p3: true,
-    p4: true,
-    p5: true,
-    p6: true,
-    p7: true,
-    p8: true,
-    p9: true,
-    p10: true,
-    p11: true,
-    p12: true,
+    p1: false, p2: false, p3: false, p4: false, p5: false, p6: false,
+    p7: false, p8: false, p9: false, p10: false, p11: false, p12: false,
   });
+
   // useEffect(() => {
   //   const fetchApi = async () => {
   //     const response = await axios.get("https://fakestoreapi.com/products");
@@ -32,20 +23,85 @@ const ChangeStoreManagerPermissions = () => {
   //   fetchApi();
   // }, []);
 
+//   useEffect(() => {
+//     const fetchPermission = async () => {
+//       const response = await axios.get("users/getUserPermission");
+//       setUserPermission(response.data);
+//     };
+//     fetchPermission();
+//   }, []);
+
   useEffect(() => {
-    const fetchPermission = async () => {
-      const response = await axios.get("users/getUserPermission");
-      setUserPermission(response.data);
+    const fetchSpecificPermission = async () => {
+        // const response = await axios.get("users/getUserSpecificPermission");
+        // setPermissions(response.data);
+        const response = await {per1: true, per2: false, per3: true, per4: false, per5: true, per6: false,
+            per7: true, per8: false, per9: true, per10: false, per11: true, per12: false,};
+        setPermissions((prevState) => ({...prevState, p1: response.per1,}));
+        setPermissions((prevState) => ({...prevState, p2: response.per2,}));
+        setPermissions((prevState) => ({...prevState, p3: response.per3,}));
+        setPermissions((prevState) => ({...prevState, p4: response.per4,}));
+        setPermissions((prevState) => ({...prevState, p5: response.per5,}));
+        setPermissions((prevState) => ({...prevState, p6: response.per6,}));
+        setPermissions((prevState) => ({...prevState, p7: response.per7,}));
+        setPermissions((prevState) => ({...prevState, p8: response.per8,}));
+        setPermissions((prevState) => ({...prevState, p9: response.per9,}));
+        setPermissions((prevState) => ({...prevState, p10: response.per10,}));
+        setPermissions((prevState) => ({...prevState, p11: response.per11,}));
+        setPermissions((prevState) => ({...prevState, p12: response.per12,})); 
+        if(response.per1) checkPermission("Permission1"); else disablePermission("Permission1");
+        if(response.per2) checkPermission("Permission2"); else disablePermission("Permission2");
+        if(response.per3) checkPermission("Permission3"); else disablePermission("Permission3");
+        if(response.per4) checkPermission("Permission4"); else disablePermission("Permission4");
+        if(response.per5) checkPermission("Permission5"); else disablePermission("Permission5");
+        if(response.per6) checkPermission("Permission6"); else disablePermission("Permission6");
+        if(response.per7) checkPermission("Permission7"); else disablePermission("Permission7");
+        if(response.per8) checkPermission("Permission8"); else disablePermission("Permission8");
+        if(response.per9) checkPermission("Permission9"); else disablePermission("Permission9");
+        if(response.per10) checkPermission("Permission10"); else disablePermission("Permission10");
+        if(response.per11) checkPermission("Permission11"); else disablePermission("Permission11");
+        if(response.per12) checkPermission("Permission12"); else disablePermission("Permission12");
+        
     };
-    fetchPermission();
+    fetchSpecificPermission();
   }, []);
+
+  const isEnablePermission = (permissionID) => {
+    return document.getElementById(permissionID).disabled == false;
+  }
+  const isCheckPermission = (permissionID) => {
+    return document.getElementById(permissionID).checked == true;
+  }
+  const enablePermission = (permissionID) => {
+    document.getElementById(permissionID).disabled = false;
+  }
+  const disablePermission = (permissionID) => {
+    document.getElementById(permissionID).disabled = true;
+  }
+  const uncheckPermission = (permissionID) => {
+    document.getElementById(permissionID).checked = false;
+  }
+  const checkPermission = (permissionID) => {
+    document.getElementById(permissionID).checked = true;
+  }
 
   const onUpdatePermissions = (e) => {
     e.preventDefault();
-    document.getElementById("Permission1").checked = true;
-    document.getElementById("Permission1").disabled = true;
-    document.getElementById("Permission2").checked = true;
-    document.getElementById("Permission3").checked = true;
+    setTimeout(() => { 
+        setPermissions((prevState) => ({...prevState, p1: isCheckPermission("Permission1"),}));
+        setPermissions((prevState) => ({...prevState, p2: isCheckPermission("Permission2"),}));
+        setPermissions((prevState) => ({...prevState, p3: isCheckPermission("Permission3"),}));
+        setPermissions((prevState) => ({...prevState, p4: isCheckPermission("Permission4"),}));
+        setPermissions((prevState) => ({...prevState, p5: isCheckPermission("Permission5"),}));
+        setPermissions((prevState) => ({...prevState, p6: isCheckPermission("Permission6"),}));
+        setPermissions((prevState) => ({...prevState, p7: isCheckPermission("Permission7"),}));
+        setPermissions((prevState) => ({...prevState, p8: isCheckPermission("Permission8"),}));
+        setPermissions((prevState) => ({...prevState, p9: isCheckPermission("Permission9"),}));
+        setPermissions((prevState) => ({...prevState, p10: isCheckPermission("Permission10"),}));
+        setPermissions((prevState) => ({...prevState, p11: isCheckPermission("Permission11"),}));
+        setPermissions((prevState) => ({...prevState, p12: isCheckPermission("Permission12"),}));
+        console.log(permission);
+    }, 3000);
   };
 
   return (
@@ -79,14 +135,6 @@ const ChangeStoreManagerPermissions = () => {
         </div>
 
         <div className="row m-3">
-          {/* <div className="form-check form-switch">
-                <input className="form-check-input" type="checkbox" id="flexSwitchCheckDisabled" disabled />
-                <label className="form-check-label" for="flexSwitchCheckDisabled">Disabled switch checkbox input</label>
-                </div>
-                <div className="form-check form-switch">
-                <input className="form-check-input" type="checkbox" id="flexSwitchCheckCheckedDisabled" checked disabled />
-                <label className="form-check-label" for="flexSwitchCheckCheckedDisabled">Disabled checked switch checkbox input</label>
-                </div> */}
           <div className="form-check form-switch">
             <input
               className="form-check-input"
