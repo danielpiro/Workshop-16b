@@ -28,9 +28,6 @@ public class UserController implements NotificationReceiver {
 
 
 
-
-
-
     public UserController() throws IOException {
         user_list = new ArrayList<>();
         guest_list=new ArrayList<>();
@@ -395,29 +392,42 @@ public class UserController implements NotificationReceiver {
                 get_subscriber(s).addComplaint(complaintNotification.getDeepCopy());
         }
     }
-    public void readStoreNotification(String userid,int storeNotificaionId){
+    public void readStoreNotification(String userid,int storeNotificaionId) throws UserException {
         my_log.logger.info("user "+userid+" wants to read store notification with id "+ storeNotificaionId);
-        if (get_subscriber(userid)==null)
-            my_log.error_logger.warning("user "+userid+" does not exist");
-        if (!get_subscriber(userid).isLogged_in())
-            my_log.error_logger.warning("user "+userid+" is not online");
-        if(storeNotificaionId<0||storeNotificaionId>get_subscriber(userid).getStoreNotifications().size()-1)
+        if (get_subscriber(userid)==null) {
+            my_log.error_logger.warning("user " + userid + " does not exist");
+            throw new UserException("user " + userid + " does not exist");
+        }
+        if (!get_subscriber(userid).isLogged_in()) {
+            my_log.error_logger.warning("user " + userid + " is not online");
+            throw new UserException("user " + userid + " is not online");
+        }
+        if(storeNotificaionId<0||storeNotificaionId>get_subscriber(userid).getStoreNotifications().size()-1) {
             my_log.error_logger.warning("invalid store notification id");
-        else
+            throw new UserException("invalid store notification id");
+        }
             get_subscriber(userid).getComplaintNotifications().get(storeNotificaionId).setReadTrue();
 
     }
-    public void readComplaintNotification(String userid,int complaintNotificaionId){
+    public void readComplaintNotification(String userid,int complaintNotificaionId) throws UserException {
         my_log.logger.info("user "+userid+" wants to read store notification with id "+ complaintNotificaionId);
-        if (get_subscriber(userid)==null)
-            my_log.error_logger.warning("user "+userid+" does not exist");
-        if (!get_subscriber(userid).isLogged_in())
-            my_log.error_logger.warning("user "+userid+" is not online");
-        if (!getSystemAdmins().contains(get_subscriber(userid)))
-            my_log.error_logger.warning("user "+userid+" is not admin(only admins can recieve and read complaints)");
-        if(complaintNotificaionId<0||complaintNotificaionId>get_subscriber(userid).getComplaintNotifications().size()-1)
+        if (get_subscriber(userid)==null) {
+            my_log.error_logger.warning("user " + userid + " does not exist");
+            throw new UserException("user " + userid + " does not exist");
+        }
+        if (!get_subscriber(userid).isLogged_in()) {
+            my_log.error_logger.warning("user " + userid + " is not online");
+            throw new UserException("user " + userid + " is not online");
+        }
+        if (!getSystemAdmins().contains(get_subscriber(userid))) {
+            my_log.error_logger.warning("user " + userid + " is not admin(only admins can recieve and read complaints)");
+            throw new UserException("user " + userid + " is not admin(only admins can recieve and read complaints)");
+        }
+        if(complaintNotificaionId<0||complaintNotificaionId>get_subscriber(userid).getComplaintNotifications().size()-1) {
             my_log.error_logger.warning("invalid complaint notification id");
-        else
+            throw new UserException("invalid complaint notification id");
+        }
             get_subscriber(userid).getComplaintNotifications().get(complaintNotificaionId).setReadTrue();
     }
+
 }

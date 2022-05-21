@@ -52,13 +52,21 @@ public class Service {
     }
     public Future readComplaintsNotification(String userid, int complaintNotificaionId) {
         Future future = executorService.submit(() -> {
-            bigController.readComplaintNotification(userid, complaintNotificaionId);
+            try {
+                bigController.readComplaintNotification(userid, complaintNotificaionId);
+            } catch (UserException e) {
+                e.printStackTrace();
+            }
         });
         return future;
     }
     public Future readStoreNotification(String userid, int storeNotificaionId) {
         Future future = executorService.submit(() -> {
-            bigController.readStoreNotification(userid, storeNotificaionId);
+            try {
+                bigController.readStoreNotification(userid, storeNotificaionId);
+            } catch (UserException e) {
+                e.printStackTrace();
+            }
         });
         return future;
     }
