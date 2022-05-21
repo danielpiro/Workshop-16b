@@ -1,21 +1,25 @@
 package NotificationsManagement;
 
-public class Notification {
-    private final getStoreInfo sentFrom;
+import GlobalSystemServices.IdGenerator;
+
+public class ComplaintNotification  {
+    private final String sentFrom;
     private final NotificationSubject subject;
     private final String Title;
     private final String Body;
     private boolean read;
+    private final int id;
 
-    public Notification(getStoreInfo sentFrom, NotificationSubject subject, String title, String body) {
+    public ComplaintNotification(String sentFrom, NotificationSubject subject, String title, String body) {
         this.sentFrom = sentFrom;
         this.subject = subject;
         Title = title;
         Body = body;
         read = false;
+        id = IdGenerator.getInstance().getComplaintNotificationId();
     }
 
-    public getStoreInfo getSentFrom() {
+    public String getSentFrom() {
         return sentFrom;
     }
 
@@ -31,5 +35,9 @@ public class Notification {
     }
     public boolean isRead() {
         return read;
+    }
+    public void setReadTrue(){this.read = true;}
+    public ComplaintNotification getDeepCopy(){
+        return new ComplaintNotification(sentFrom,subject,Title,Body);
     }
 }

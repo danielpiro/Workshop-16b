@@ -2,10 +2,11 @@ package Store;
 
 import CustomExceptions.NotifyException;
 import CustomExceptions.SupplyManagementException;
+import CustomExceptions.UserException;
 import GlobalSystemServices.IdGenerator;
 import History.History;
 import History.PurchaseHistory;
-import NotificationsManagement.Notification;
+import NotificationsManagement.StoreNotification;
 import NotificationsManagement.NotificationManager;
 import NotificationsManagement.NotificationSubject;
 import NotificationsManagement.getStoreInfo;
@@ -182,22 +183,22 @@ public class Store implements getStoreInfo {
     public String addNewThreadToForum(String title, String userId){
         return forum.addNewThread(title, userId);
     }
-    public void RolePostMessageToForum(String threadId, String userId, String message) throws NoPermissionException, NotifyException {
+    public void RolePostMessageToForum(String threadId, String userId, String message) throws NoPermissionException, NotifyException, UserException {
         if(!checkPermission(userId, Permission.REPLY_TO_FORUM)){
             throw new NoPermissionException("the user don't have this permission");
         }
         forum.postMessage(threadId, userId, message);
-        NotificationManager.getNotificationManager().sendNotificationTo(userId, new Notification(this, NotificationSubject.StoreForum,"someone in store replied to your message","message: "+message));
+        NotificationManager.getNotificationManager().sendNotificationTo(userId, new StoreNotification(this, NotificationSubject.StoreForum,"someone in store replied to your message","message: "+message));
     }
 
-    public void  userPostMessageToForum(String threadId, String userId, String message) throws NoPermissionException, NotifyException {
+    public void  userPostMessageToForum(String threadId, String userId, String message) throws NoPermissionException, NotifyException, UserException {
         String threadUser =  forum.getUserIdOfTread(threadId);
         if(!IdGenerator.getInstance().isIdEqual(threadUser, userId)){
             throw new NoPermissionException("only user that created the forum thread can post messages");
         }
         forum.postMessage(threadId, userId, message);
 
-        NotificationManager.getNotificationManager().sendNotificationTo(getRolesIds(), new Notification(this, NotificationSubject.StoreForum,"user post message to forum","message: "+message));
+        NotificationManager.getNotificationManager().sendNotificationTo(getRolesIds(), new StoreNotification(this, NotificationSubject.StoreForum,"user post message to forum","message: "+message));
     }
 
 

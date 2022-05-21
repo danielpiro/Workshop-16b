@@ -6,6 +6,7 @@ import Controllers.Service;
 import CustomExceptions.CantPurchaseException;
 import CustomExceptions.StorePolicyViolatedException;
 import CustomExceptions.SupplyManagementException;
+import CustomExceptions.UserException;
 import ExternalConnections.Delivery.Delivery;
 import ExternalConnections.Delivery.DeliveryNames;
 import ExternalConnections.ExternalConnections;
@@ -45,9 +46,12 @@ public class Real implements BridgeInterface{
 
     /** requirement 1.b in V1
      * @return*/
-    public String parallelUse() throws ExecutionException, InterruptedException { //Need to implement thread-base system
-        Future future1 = service.sign_up("dan","rotman");
-        Future future2 = service.sign_up("guy","porat");
+    public String parallelUse() throws ExecutionException, InterruptedException {
+         //Need to implement thread-base system
+        Future f3 =service.addGuest();
+        Future f4 =service.addGuest();
+        Future future1 = service.sign_up((String)f3.get(),"dan","rotman");
+        Future future2 = service.sign_up((String)f4.get(),"guy","porat");
         future1.get();
         future2.get();
 
@@ -194,7 +198,7 @@ public class Real implements BridgeInterface{
 
     /** User requirement - II.1.1 */
     public String getInToTheSystem(){
-        return getBigController().addGuest();
+         return getBigController().addGuest();
     }
 
     /** User requirement - II.1.2 */
@@ -203,9 +207,9 @@ public class Real implements BridgeInterface{
     }
 
     /** User requirement - II.1.3 */
-    public boolean register(String username, String password){
+    public boolean register(String guestId,String username, String password){
         try {
-            return  getBigController().sign_up(username, password);
+            return  getBigController().sign_up( guestId,username, password);
 
         }
         catch (Exception e ){
@@ -229,23 +233,23 @@ public class Real implements BridgeInterface{
     }
 
     /** User requirement - II.2.3  => its the same as II.2.4 */
-    public boolean saveProductFromStoreToShoppingCart(String user_id,String productID, String storeID, int amount,boolean auctionOrBid){
+    public boolean saveProductFromStoreToShoppingCart(String user_id,String productID, String storeID, int amount,boolean auctionOrBid) throws UserException {
         return increaseProductQuantityInShoppingCart(user_id, productID,  storeID,  amount, auctionOrBid);
     }
 
     /** User requirement - II.2.4 */
-    public String showShoppingCart(String userId){
+    public String showShoppingCart(String userId) throws UserException {
         return bigController.getCartInventory(userId);
     }
 
     /** User requirement - II.2.4 */
-    public boolean increaseProductQuantityInShoppingCart(String user_id,String productID, String storeID, int amount,boolean auctionOrBid )  {
+    public boolean increaseProductQuantityInShoppingCart(String user_id,String productID, String storeID, int amount,boolean auctionOrBid ) throws UserException {
         int ans = bigController.addProductFromCart( user_id, productID,  storeID,  amount, auctionOrBid);
         return ans >= 0;
     }
 
     /** User requirement - II.2.4 */
-    public boolean decreaseProductQuantityInShoppingCart(String userId,String productID, String storeID, int amount){
+    public boolean decreaseProductQuantityInShoppingCart(String userId,String productID, String storeID, int amount) throws UserException {
         int ans = bigController.removeProductFromCart( userId, productID,  storeID,  amount);
         return ans == 0;
 

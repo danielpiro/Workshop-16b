@@ -1,8 +1,10 @@
 package Controllers;
 
 import CustomExceptions.SupplyManagementException;
+import CustomExceptions.UserException;
 import ExternalConnections.Delivery.DeliveryNames;
 import ExternalConnections.Payment.PaymentNames;
+import NotificationsManagement.ComplaintNotification;
 import StorePermission.Permission;
 import User.Subscriber;
 
@@ -22,8 +24,8 @@ public class Service {
         bigController = new MarketController();
     }
 
-    public Future<Boolean> sign_up(String user_name, String password) {
-        Future<Boolean> future = executorService.submit(() -> bigController.sign_up(user_name,password));
+    public Future<Boolean> sign_up(String guestId,String user_name, String password) {
+        Future<Boolean> future = executorService.submit(() -> bigController.sign_up(guestId, user_name,password));
         return future;
     }
 
@@ -37,13 +39,39 @@ public class Service {
         return future;
 
     }
-    public Future sendComplaint(String userId, String StoreName,String complaint ) {
-        Future future = executorService.submit(() -> bigController.sendComplaint(userId,StoreName,complaint));
+    public Future sendComplaint(String userId, List<String> adminIds, ComplaintNotification complaintNotification) {
+        Future future = executorService.submit(() -> {
+            try {
+                bigController.sendComplaint(userId,adminIds,complaintNotification);
+            } catch (UserException e) {
+                e.printStackTrace();
+            }
+        });
         return future;
 
     }
+    public Future readComplaintsNotification(String userid, int complaintNotificaionId) {
+        Future future = executorService.submit(() -> {
+            try {
+                bigController.readComplaintNotification(userid, complaintNotificaionId);
+            } catch (UserException e) {
+                e.printStackTrace();
+            }
+        });
+        return future;
+    }
+    public Future readStoreNotification(String userid, int storeNotificaionId) {
+        Future future = executorService.submit(() -> {
+            try {
+                bigController.readStoreNotification(userid, storeNotificaionId);
+            } catch (UserException e) {
+                e.printStackTrace();
+            }
+        });
+        return future;
+    }
 
-    public Future getGuest(String id) {
+        public Future getGuest(String id) {
         Future future = executorService.submit(() -> bigController.getGuest(id));
         return future;
 
@@ -58,8 +86,11 @@ public class Service {
         return future;
 
     }
-
-    public Future getSystemAdmin() {
+    public Future getPermissionType(String username) {
+        Future future = executorService.submit(() -> bigController.GuestExitSystem(username));
+        return future;
+    }
+        public Future getSystemAdmin() {
         Future future = executorService.submit(() -> bigController.getSystemAdmin());
         return future;
 
@@ -80,7 +111,13 @@ public class Service {
         return future;
     }
     public Future Add_Query(String user_name,String query) {
-        Future future = executorService.submit(() -> bigController.Add_Query(user_name,query));
+        Future future = executorService.submit(() -> {
+            try {
+                bigController.Add_Query(user_name,query);
+            } catch (UserException e) {
+                e.printStackTrace();
+            }
+        });
         return future;
 
     }

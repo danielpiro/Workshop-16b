@@ -1,5 +1,6 @@
 package Tests.Bridge;
 
+import CustomExceptions.UserException;
 import ExternalConnections.Delivery.Delivery;
 import ExternalConnections.Delivery.DeliveryNames;
 import ExternalConnections.Payment.Payment;
@@ -273,9 +274,9 @@ public class Proxy implements BridgeInterface {
     }
 
     /** User requirement - II.1.3 */
-    public boolean register(String username, String password){
+    public boolean register(String guestId,String username, String password){
         if(real!=null)
-            return real.register(username, password);
+            return real.register(guestId,username, password);
         throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
@@ -303,14 +304,14 @@ public class Proxy implements BridgeInterface {
 
     /** User requirement - II.2.3 */
     public boolean saveProductFromStoreToShoppingCart(String user_id, String productID, String storeID,
-                                                     int amount, boolean auctionOrBid){
+                                                     int amount, boolean auctionOrBid) throws UserException {
         if(real!=null)
             return real.saveProductFromStoreToShoppingCart(user_id, productID, storeID, amount, auctionOrBid);
         throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
     /** User requirement - II.2.4 */
-    public String showShoppingCart(String userId){
+    public String showShoppingCart(String userId) throws UserException {
         if(real!=null)
             return real.showShoppingCart(userId);
         throw new UnsupportedOperationException("Not Implemented Yet!");
@@ -318,14 +319,14 @@ public class Proxy implements BridgeInterface {
 
     /** User requirement - II.2.4 */
     public boolean increaseProductQuantityInShoppingCart(String user_id,String productID, String storeID,
-                                                        int amount ,boolean auctionOrBid){
+                                                        int amount ,boolean auctionOrBid) throws UserException {
         if(real!=null)
             return real.increaseProductQuantityInShoppingCart(user_id, productID, storeID, amount, auctionOrBid);
         throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
     /** User requirement - II.2.4 */
-    public boolean decreaseProductQuantityInShoppingCart(String userId,String productID, String storeID, int amount){
+    public boolean decreaseProductQuantityInShoppingCart(String userId,String productID, String storeID, int amount) throws UserException {
         if(real!=null)
             return real.decreaseProductQuantityInShoppingCart(userId, productID, storeID, amount);
         throw new UnsupportedOperationException("Not Implemented Yet!");
@@ -339,7 +340,7 @@ public class Proxy implements BridgeInterface {
     }
 
     /** User requirement - II.2.5 */
-    public boolean purchaseShoppingCart(String userID,PaymentNames payment,DeliveryNames delivery){
+    public boolean purchaseShoppingCart(String userID,PaymentNames payment,DeliveryNames delivery) throws UserException {
         if(real!=null)
             return real.purchaseShoppingCart(userID, payment, delivery);
 

@@ -21,6 +21,8 @@ public class IdGenerator {
 
     private String PolicyPrefix = "PolicyID_";
     private Long PolicySuffix;
+    private int complaintNotificationId;
+    private int storeNotificationId;
 
     private IdGenerator(){
         productSuffix = 0L;
@@ -29,6 +31,8 @@ public class IdGenerator {
         GuestSuffix = 0L;
         AdminSuffix = 0L;
         PolicySuffix = 0L;
+        complaintNotificationId =0;
+        storeNotificationId=0;
     }
 
     private IdGenerator(Long productSuffix, Long storeSuffix, Long ForumThreadSuffix, Long guestSuffix, Long AdminSuffix, Long PolicySuffix) {
@@ -83,6 +87,15 @@ public class IdGenerator {
         PolicySuffix++;
         return PolicyPrefix+(PolicySuffix-1L);
     }
+    public int getComplaintNotificationId(){
+        complaintNotificationId++;
+        return (complaintNotificationId -1);
+    }
+    public int getStoreNotificationId(){
+        storeNotificationId++;
+        return (storeNotificationId -1);
+    }
+
 
     public boolean checkIfAdmin(String userId){
         return userId.startsWith("AdminID_");
