@@ -10,26 +10,13 @@ const Card = ({ value, title, category, description, price, discount }) => {
     e.preventDefault();
   };
   return (
-    <div className="card d-flex flex-fill h-100">
-      <div className="card-body">
-        <h4 className="card-title text-center">{title}</h4>
-        <h5 className="card-category text-center">{category}</h5>
-        <p className="card-description text-center">{description}</p>
-      </div>
-      <h5 className="card-price me-2 text-center mb-5">
-        <span className="prev-price me-2" style={{ marginLeft: "10px" }}>
-          {Math.round(price / ((100 - discount) / 100))}$
-        </span>
-        <strong>{price}$</strong> , {discount}% discount
-      </h5>
+    <div className="card-body">
+      <h4 className="card-title text-center">{title}</h4>
+      <h5 className="card-category text-center">{category}</h5>
+      <p className="card-description text-center">{description}</p>
+      <h5 className="card-price me-2 text-center mb-5">Price: {price}$</h5>
 
-      <div
-        style={{
-          display: "flex",
-          alignContent: "center",
-          justifyContent: "center",
-        }}
-      >
+      <div className="d-flex justify-content-center">
         <button
           className="add-cart-buttom btn btn-outline-primary w-25 mb-3"
           value={value}

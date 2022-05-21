@@ -2,7 +2,6 @@ import Menu from "../components/menu";
 import SearchBar from "../components/search-bar";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Footer from "../components/footer";
 import { useRouter } from "next/router";
 import StoreCardStores from "../components/store-card-stores";
 

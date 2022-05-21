@@ -41,64 +41,64 @@ const OpenNewStore = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchPermission = async () => {
-      const response = await axios.get("users/getUserPermission");
-      setIsLoading(!isLoading);
-      setUserPermission(response.data);
-    };
-    fetchPermission();
-  }, []);
+  // useEffect(() => {
+  //   const fetchPermission = async () => {
+  //     const response = await axios.get("users/getUserPermission");
+  //     setIsLoading(!isLoading);
+  //     setUserPermission(response.data);
+  //   };
+  //   fetchPermission();
+  // }, []);
 
   return (
     <>
       <Menu />
-      <div className="card-header">
+      <div className="text-center my-5">
         <h3>Open New Store</h3>
       </div>
-
-      <div className="container m-2">
-        <br />
-        <div className="mb-3">
-          <label for="formGroupExampleInput" className="form-label fs-4">
-            New Store Name:
-          </label>
-          <input
-            type="storename"
-            className="form-control"
-            placeholder="Enter Store Name"
-            name="StoreName"
-            value={openNewStoreInput.storename}
-            onChange={(e) =>
-              setOpenNewStoreInput((prevState) => ({
-                ...prevState,
-                storename: e.target.value,
-              }))
-            }
-          />
+      <div className="d-flex justify-content-center">
+        <div className="list-group">
+          <div className="mb-3">
+            <label for="formGroupExampleInput" className="form-label fs-4">
+              New Store Name
+            </label>
+            <input
+              type="storename"
+              className="form-control"
+              placeholder="Enter Store Name"
+              name="StoreName"
+              value={openNewStoreInput.storename}
+              onChange={(e) =>
+                setOpenNewStoreInput((prevState) => ({
+                  ...prevState,
+                  storename: e.target.value,
+                }))
+              }
+            />
+          </div>
+          <div className="mb-3">
+            <label for="formGroupExampleInput2" className="form-label fs-4">
+              Additional Store Owner Name
+            </label>
+            <input
+              type="additionalStoreOwner"
+              className="form-control"
+              placeholder="Enter Additional Store Owner Username"
+              name="AdditionalStoreOwnerName"
+              value={openNewStoreInput.additionalStoreOwnerUsername}
+              onChange={(e) =>
+                setOpenNewStoreInput((prevState) => ({
+                  ...prevState,
+                  additionalStoreOwnerUsername: e.target.value,
+                }))
+              }
+            />
+          </div>
         </div>
-        <div className="mb-3">
-          <label for="formGroupExampleInput2" className="form-label fs-4">
-            Additional Store Owner Name:
-          </label>
-          <input
-            type="additionalStoreOwner"
-            className="form-control"
-            placeholder="Enter Additional Store Owner Username"
-            name="AdditionalStoreOwnerName"
-            value={openNewStoreInput.additionalStoreOwnerUsername}
-            onChange={(e) =>
-              setOpenNewStoreInput((prevState) => ({
-                ...prevState,
-                additionalStoreOwnerUsername: e.target.value,
-              }))
-            }
-          />
-        </div>
-
+      </div>
+      <div className="d-flex justify-content-center">
         <button
           className="btn btn-primary mr-lg-3 m-2"
-          style={{ width: "20%" }}
           onClick={onOpeningNewStore}
         >
           Open New Store

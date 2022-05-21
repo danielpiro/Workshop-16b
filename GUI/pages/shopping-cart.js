@@ -51,9 +51,8 @@ const shoppingCart = () => {
                     className="container card mb-5"
                     style={{ width: "45rem" }}
                   >
-                    <div className="card-header mb-3 text-center">
-                      Store name
-                    </div>
+                    <h3 className="text-center mt-3">Store name</h3>
+                    <hr />
                     <ul>
                       {cart.map((item2) => {
                         return <CartItem />;

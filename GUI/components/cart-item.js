@@ -1,9 +1,9 @@
 const CartItem = (props) => {
+  const onRemove = (e) => {
+    e.preventDefault();
+  };
   return (
-    <div
-      className="card mb-3"
-      style={{ maxWidth: "700px", maxHeight: "150px" }}
-    >
+    <>
       <div className="row">
         <div className="col-sm-8">
           <div className="card-body">
@@ -15,8 +15,13 @@ const CartItem = (props) => {
             </p>
           </div>
         </div>
+        <div className="col-sm-4">
+          <button className="btn btn-primary" onClick={onRemove}>
+            Remove
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
