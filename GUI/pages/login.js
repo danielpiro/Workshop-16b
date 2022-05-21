@@ -32,74 +32,65 @@ const Login = () => {
 
   const onClickLogin = async (e) => {
     e.preventDefault();
-    const passwordRegex = /(?=.*[0-9])/;
-    const usernameRegex = /(?=.*[A-Za-z])/;
-    if (
-      loginInput.password.length < 6 ||
-      !loginInput.password ||
-      !loginInput.username ||
-      !passwordRegex.test(loginInput.password) ||
-      !usernameRegex.test(loginInput.username)
-    ) {
-      createNotification("error", "Please insert proper login details")();
-      return;
-    }
     let encryptedPassword = 0;
     const encrypted = async () => await bcrypt.hashSync(loginInput.password, 8);
-    encrypted().then((res) => (encryptedPassword = res));
-
-    await api
-      .post(`/login/${loginInput.username}/${encryptedPassword}`)
-      .then((res) => {
-        if (res.status === 200) {
-          const { data } = res;
-          setCookie("userId", data, { path: "/", sameSite: true });
-          setCookie("username", loginInput.username, {
-            path: "/",
-            sameSite: true,
-          });
-          setCookie("password", loginInput.password, {
-            path: "/",
-            sameSite: true,
-          });
-        } else {
-          const { message } = res.data;
-          createNotification(
-            "error",
-            "Username or password not match , please try again."
-          )();
-        }
-      })
-      .catch((err) => createNotification("error", err)());
+    await encrypted()
+      .then((res) => (encryptedPassword = res))
+      .then(() => {
+        return api
+          .post(
+            `/users/login/?userNameLogin=${loginInput.username}&password=${encryptedPassword}`
+          )
+          .then((res) => {
+            if (res.status === 200) {
+              const { data } = res;
+              console.log(data);
+              // setCookie("userId", data, { path: "/", sameSite: true });
+              // setCookie("username", loginInput.username, {
+              //   path: "/",
+              //   sameSite: true,
+              // });
+              // setCookie("password", loginInput.password, {
+              //   path: "/",
+              //   sameSite: true,
+              // });
+            } else {
+              const { reason } = res.data;
+              createNotification(
+                "error",
+                "Username or password not match , please try again."
+              )();
+            }
+          })
+          .catch((err) => console.log(err));
+      });
   };
 
   const onClickGuest = (e) => {
     e.preventDefault();
     setCookie("type", "guest", { path: "/", sameSite: true });
-    createNotification("success", "Create guest account successfully", () =>
-      router.push("/dashboard")
-    )();
-    // api
-    //   .post(`/guest/`)
-    //   .then((res) => {
-    //     if (res.status === 200) {
-    //       setCookie("userId", JSON.parse(res.data), {
-    //         path: "/",
-    //         sameSite: true,
-    //       });
-    //       createNotification(
-    //         "success",
-    //         "Create guest account successfully",
-    //         () => router.push("/dashboard")
-    //       )();
-    //     } else {
-    //       createNotification(
-    //         "error",
-    //         "Cannot create guest account , please try again"
-    //       )();
-    //     }
-    //   })
-    //   .catch((err) => createNotification("error", err.message)());
+    api
+      .get(`/market/guest`)
+      .then((res) => {
+        if (res.status === 200) {
+          const { data } = res;
+          setCookie("userId", data.value, {
+            path: "/",
+            sameSite: true,
+          });
+          createNotification(
+            "success",
+            "Create guest account successfully",
+            () => router.push("/dashboard")
+          )();
+        } else {
+          createNotification(
+            "error",
+            "Cannot create guest account , please try again"
+          )();
+        }
+      })
+      .catch((err) => createNotification("error", err.message)());
   };
 
   const onSumbitRegister = (e) => {
@@ -107,18 +98,28 @@ const Login = () => {
     let encryptedPassword = 0;
     const encrypted = async () =>
       await bcrypt.hashSync(registerInput.password, 8);
-    encrypted().then((res) => (encryptedPassword = res));
-    api
-      .post(`/register/${registerInput.username}/${encryptedPassword}`)
-      .then((res) => {
-        if (res.status === 200) {
-          createNotification("success", "Register successfully")();
-        } else {
-          createNotification(
-            "error",
-            "Username and password was not valid , please try again"
-          )();
-        }
+    encrypted()
+      .then((res) => (encryptedPassword = res))
+      .then(() => {
+        return api
+          .post(
+            `/users/signup/?guest_id=${""}&user_name=${
+              registerInput.username
+            }&password=${encryptedPassword}`
+          )
+          .then((res) => {
+            if (res.status === 200) {
+              const { data } = res;
+              console.log(data);
+              //need to add type and userid to cookies
+              createNotification("success", "Register successfully")();
+            } else {
+              createNotification(
+                "error",
+                "Username and password was not valid , please try again"
+              )();
+            }
+          });
       });
   };
   return (

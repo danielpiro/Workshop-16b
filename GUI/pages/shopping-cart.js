@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Menu from "../components/menu";
 import CartItem from "../components/cart-item.js";
 import { useCookies } from "react-cookie";
+import api from "../components/api";
+import createNotification from "../components/norification";
 
 const shoppingCart = () => {
   const [cart, setCart] = useState([]);
@@ -11,6 +13,7 @@ const shoppingCart = () => {
     "username",
     "password",
     "userId",
+    "type",
   ]);
   const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
   //      + Edit using new method "setUserPermission"
@@ -33,6 +36,13 @@ const shoppingCart = () => {
 
   const onBuy = (e) => {
     e.preventDefault();
+    api
+      .post(`/cart/purchase/?user_id=GuestID_0&payment=Visa&delivery=UPS`)
+      .then((res) => {
+        const { data } = res;
+        console.log(data);
+      })
+      .catch((err) => createNotification("error", err.message)());
     ///send cart to back to purcash
   };
   return (

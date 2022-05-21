@@ -2,7 +2,6 @@ import Menu from "../components/menu";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import Footer from "../components/footer";
 
 const NotifyAdmins = () => {
   const router = useRouter();

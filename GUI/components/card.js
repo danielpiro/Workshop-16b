@@ -1,3 +1,5 @@
+import { allowedStatusCodes } from "next/dist/lib/load-custom-routes";
+import api from "./api";
 import createNotification from "./norification";
 
 const Card = ({ value, title, category, description, price, discount }) => {
@@ -6,8 +8,27 @@ const Card = ({ value, title, category, description, price, discount }) => {
     createNotification("info", "Will be implemented next milestone...")();
   };
 
-  const addProduct = (e) => {
+  const addProduct = async (e) => {
     e.preventDefault();
+    const fake = {
+      user_id: "123",
+      productID: "123",
+      storeID: "123",
+      amount: 123,
+    };
+    api
+      .post(
+        `/cart/product/?auctionOrBid=false
+`,
+        fake
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          const { data } = res;
+          console.log(data);
+        }
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <div className="card-body">
