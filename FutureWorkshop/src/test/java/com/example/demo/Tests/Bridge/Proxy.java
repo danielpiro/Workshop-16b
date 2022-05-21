@@ -2,6 +2,7 @@ package com.example.demo.Tests.Bridge;
 
 
 
+import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
 import com.example.demo.ExternalConnections.Delivery.Delivery;
 import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
 import com.example.demo.ExternalConnections.Payment.Payment;
@@ -297,7 +298,7 @@ public class Proxy implements BridgeInterface {
     }
 
     /** User requirement - II.2.2 */
-    public List<Product> searchProduct(String userId, String productName){
+    public ReturnValue searchProduct(String userId, String productName){
         if(real!=null)
             return real.searchProduct(userId, productName);
         throw new UnsupportedOperationException("Not Implemented Yet!");

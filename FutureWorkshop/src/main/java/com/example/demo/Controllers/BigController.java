@@ -17,6 +17,8 @@ import com.example.demo.Store.Product;
 import com.example.demo.User.Guest;
 import com.example.demo.User.Subscriber;
 //import com.example.demo.dto.AdminDto;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.bind.annotation.*;
@@ -28,11 +30,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 
 @RestController
 @EnableWebMvc
-@EnableAsync
 @RequestMapping("/api")
 public class BigController {
     private StoreController sc;
@@ -64,25 +66,34 @@ public class BigController {
 //        getUserController().addSystemAdmin(whoIsAdding,user_toMakeAdmin);
 //    }
 
+
+    //todo wrap ReturnValue with Response Entity
+    //todo guy change by 2.d Version 2.
     @Async
     @DeleteMapping("/users")
     public ReturnValue deleteUser(@RequestParam String isDeleting,
-                                  @RequestParam String whosBeingDeleted) throws NoPermissionException {
+                                                        @RequestParam String whosBeingDeleted) throws NoPermissionException {
+
 
         my_log.logger.info("user" + isDeleting + "is trying to delete user" + whosBeingDeleted);
         sc.removeRoleInHierarchy(whosBeingDeleted);
 
         ReturnValue rv = new ReturnValue(true, "", getUserController().deleteUser(isDeleting, whosBeingDeleted));
+
+
+        //ResponseEntity re = new ResponseEntity(rv,)
+
         return rv;
     }
 
-    @Async
+
+
     @PostMapping("/users/signup")
-    public ReturnValue sign_up(@RequestParam String user_name,
+    public ResponseEntity signup(@RequestParam String user_name,
                                @RequestParam String password) {
         my_log.logger.info("user " + user_name + " is trying to sign up");
         ReturnValue rv = new ReturnValue(true, "", getUserController().sign_up(user_name, password));
-        return rv;
+        return new ResponseEntity(rv, HttpStatus.OK);
     }
 
     @Async
@@ -109,6 +120,8 @@ public class BigController {
     }
 
 
+
+
     //todo return guest id, not the guest itself
     private Guest getGuest(String id) {
         return getUserController().getGuest(id);
@@ -130,32 +143,17 @@ public class BigController {
     private Subscriber getSystemAdmin() {
         return getUserController().getSystemAdmin();
     }
-//
-//    public void add_subscriber(Subscriber s) {
-//       getUserController().add_subscriber(s);
-//    }
-
-    //todo get a random guest - dont want the front to know our implementation
-    public List<Guest> getGuest_list() {
-
-        return getUserController().getGuest_list();
-    }
-
-//    public List<Subscriber> getUser_list() {
-//        return getUserController().getUser_list();
-//    }
-
-    //todo what is this?
-    public void Add_Query(String user_name, String query) {
-        getUserController().Add_Query(user_name, query);
-    }
 
 
-//    public Subscriber get_subscriber(String user_name) {
-//        return getUserController().get_subscriber(user_name);
-//    }
 
-    //todo add guest to all functions!!!
+
+
+
+
+
+
+
+
     @PostMapping("/cart")
     public ReturnValue getShoppingCart(@RequestParam String user_Id) {
         ReturnValue rv = new ReturnValue(true, "", getUserController().getShoppingCart(user_Id));
@@ -188,14 +186,13 @@ public class BigController {
     }
 
 
-//    public String getCartInventory(String user_id) {
-//        return getUserController().getCartInventory(user_id);
-//    }
+
 
     @PostMapping("/cart/purchase")
     public ReturnValue purchaseCart(@RequestParam String user_id,
                                     @RequestParam PaymentNames payment,
                                     @RequestParam DeliveryNames delivery) {
+
 
         float a = getUserController().purchaseCart(user_id, new ExternalConnectionHolder(delivery, payment));
         ReturnValue rv = new ReturnValue(true, "", a);
@@ -349,12 +346,17 @@ public class BigController {
         return getStoreController().getAllProductsAndStores();
     }
 
+
+    @Async
     @GetMapping("/search/name")
-    public List<Product> SearchProductsAccordingName(@RequestParam String userId,@RequestParam String productName) {
+    public CompletableFuture<ReturnValue> SearchProductsAccordingName(@RequestParam String userId,@RequestParam String productName) {
+        System.out.println("");
         if (!IsGuest(userId))
             userExistsAndLoggedIn(userId);
 
-        return getStoreController().SearchProductsAccordingName(productName);
+        ReturnValue rv = new ReturnValue(true, "", getStoreController().SearchProductsAccordingName(productName));
+
+        return CompletableFuture.completedFuture( rv);
     }
 
 
@@ -427,8 +429,10 @@ public class BigController {
         ReturnValue rv = new ReturnValue(true, "", History.getInstance().getUserHistory(userId));
         return rv;
     }
+
+
     private boolean IsGuest(@RequestParam String userId) {
-        for (Guest g : getGuest_list()) {
+        for (Guest g : us.getGuest_list()) {
             if (g.name.equals(userId)) {
                 return true;
             }

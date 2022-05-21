@@ -66,11 +66,11 @@ public class AcceptanceTests {
     @Autowired
     private MockMvc mockMvc;
 
-    Proxy proxy;
+    Real proxy;
     String storeId;
     @BeforeEach
     void setUp() throws Exception {
-        proxy = new Proxy(new Real());
+        proxy = new Real();
         proxy.openingMarket();
 
 //        admin: user AdminID_0, password BigBoss
@@ -519,9 +519,11 @@ public class AcceptanceTests {
         String result=  mockMvc.perform(get("/api/search/name?userId=dan&productName=pump" )
                     .contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
 
+
         ReturnValue rv = new Gson().fromJson(result,ReturnValue.class);
         if (rv.isSuccess() == true)
             fail();
+        //rv.getValue()
 
 
 

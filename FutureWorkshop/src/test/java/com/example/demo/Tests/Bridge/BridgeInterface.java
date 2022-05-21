@@ -2,6 +2,7 @@ package com.example.demo.Tests.Bridge;
 
 
 
+import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
 import com.example.demo.ExternalConnections.Delivery.Delivery;
 import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
 import com.example.demo.ExternalConnections.Payment.Payment;
@@ -86,7 +87,7 @@ public interface BridgeInterface {
     String receiveSystemInfo();
 
     /** User requirement - II.2.2 */
-    List<Product> searchProduct(String userId, String productName);
+    ReturnValue searchProduct(String userId, String productName);
 
 //    /** User requirement - II.2.3 */
 //    boolean saveProductFromStoreToShoppingCart(String user_id, String productID, String storeID,

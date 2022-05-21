@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-public class Real implements BridgeInterface  {
+public class Real   {
 
     private BigController bigController;
     //private Service service;
@@ -192,7 +192,6 @@ public class Real implements BridgeInterface  {
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
 
-    @Override
     public String getInToTheSystem() {
         return null;
     }
@@ -209,18 +208,15 @@ public class Real implements BridgeInterface  {
         return returnValue.getValue();
     }
 
-    /** User requirement - II.1.3 */
-    public boolean register(String username, String password){
-        try {
-            ReturnValue<Boolean> returnValue = getBigController().sign_up(username, password);
-            return returnValue.getValue();
-
-
-        }
-        catch (Exception e ){
-            return false;
-        }
-    }
+//    /** User requirement - II.1.3 */
+//    public ReturnValue register(String username, String password){
+//
+//            ReturnValue returnValue = getBigController().sign_up(username, password);
+//            return returnValue;
+//
+//
+//
+//    }
 
     /** User requirement - II.1.4 */
     public boolean login(String username, String password){
@@ -234,10 +230,15 @@ public class Real implements BridgeInterface  {
     }
 
     /** User requirement - II.2.2 */
-    public List<Product> searchProduct(String userId, String productName){
+    public ReturnValue searchProduct(String userId, String productName){
 
 
-        return getBigController().SearchProductsAccordingName(userId, productName);
+        try {
+            ReturnValue rv  = getBigController().SearchProductsAccordingName(userId, productName).get();
+            return rv;
+        } catch (Exception e) {
+            return new ReturnValue(false,"could not complete the operation, async problem",null);
+        }
 
 
     }
