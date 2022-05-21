@@ -1,3 +1,7 @@
-const Policy = () => {};
+
+
+const Policy = (props) => {
+    
+};
 
 export default Policy;

@@ -1,6 +1,4 @@
-import AdminMenu from "../components/menus/menuAdmin";
-import SubscriberMenu from "../components/menus/menuSubscriber";
-import GuestMenu from "../components/menus/menuGuest";
+import Menu from "../components/menu";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
@@ -52,19 +50,9 @@ const OpenNewStore = () => {
     fetchPermission();
   }, []);
 
-  var menu;
-  if (userPermission == "Admin") {
-    menu = <AdminMenu />;
-  } else if (userPermission == "Subscriber") {
-    menu = <SubscriberMenu />;
-  } else {
-    menu = <GuestMenu />;
-  }
-
   return (
     <>
-      {menu}
-
+      <Menu />
       <div className="card-header">
         <h3>Open New Store</h3>
       </div>
@@ -116,7 +104,6 @@ const OpenNewStore = () => {
           Open New Store
         </button>
       </div>
-      <Footer />
     </>
   );
 };

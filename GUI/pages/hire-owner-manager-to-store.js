@@ -1,6 +1,4 @@
-import AdminMenu from "../components/menus/menuAdmin";
-import SubscriberMenu from "../components/menus/menuSubscriber";
-import GuestMenu from "../components/menus/menuGuest";
+import Menu from "../components/menu";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import createNotification from "../components/norification";
@@ -74,18 +72,9 @@ const HireOwnerToStore = () => {
     fetchPermission();
   }, []);
 
-  var menu;
-  if (userPermission == "Admin") {
-    menu = <AdminMenu />;
-  } else if (userPermission == "Subscriber") {
-    menu = <SubscriberMenu />;
-  } else {
-    menu = <GuestMenu />;
-  }
-
   return (
     <>
-      {menu}
+      <Menu />
 
       <div className="card-header">
         <h3>Hire new owner to a store</h3>
@@ -155,7 +144,6 @@ const HireOwnerToStore = () => {
           </button>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

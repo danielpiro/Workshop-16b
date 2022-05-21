@@ -1,44 +1,32 @@
-import AdminMenu from "../components/menus/menuAdmin";
-import SubscriberMenu from "../components/menus/menuSubscriber";
-import GuestMenu from "../components/menus/menuGuest";
+import Menu from "../components/menu";
 import { useState, useEffect } from "react";
 import api from "../components/api";
 import StoreCard from "../components/store-card";
 
 const EditStoreSupply = () => {
-  const [store, setStore] = useState([]);
+  const [store, setStore] = useState([1, 2, 3, 1, 4, 1, 1, 1, 1, 1]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
 
   const onSearch = (e) => {
     e.preventDefault();
-    setIsLoading(!isLoading);
-    api.get("/search/store", { params: { name: searchValue } }).then((res) => {
-      if (res.status === 200) {
-        setStore([res.data]);
-        setIsLoading(!isLoading);
-      }
-    });
+    //setIsLoading(!isLoading);
+    // api.get("/search/store", { params: { name: searchValue } }).then((res) => {
+    //   if (res.status === 200) {
+    //     setStore([res.data]);
+    //     setIsLoading(!isLoading);
+    //   }
+    // });
   };
 
   const onChange = (e) => {
     e.preventDefault();
     setSearchValue(e.target.value);
   };
-
-  var menu;
-  if (userPermission == "Admin") {
-    menu = <AdminMenu />;
-  } else if (userPermission == "Subscriber") {
-    menu = <SubscriberMenu />;
-  } else {
-    menu = <GuestMenu />;
-  }
-
   return (
     <>
-      {menu}
+      <Menu />
       <div className="container m-auto w-100">
         <span className="text-center my-4">
           <h3>Edit store's supply</h3>
@@ -60,24 +48,28 @@ const EditStoreSupply = () => {
             </div>
           </form>
         </nav>
-        <ul>
-          <StoreCard />
-          {!isLoading ? (
-            store.map((shop) => {
-              return (
-                <div>
-                  <li key={shop.id}>{shop}</li>
+        <div className="container">
+          <div className="row">
+            <ul>
+              {!isLoading ? (
+                store.map((shop) => {
+                  return (
+                    <li key={shop.id} className="mb-3">
+                      {" "}
+                      <StoreCard store={shop} />
+                    </li>
+                  );
+                })
+              ) : (
+                <div className="container">
+                  <div className="d-flex justify-content-center">
+                    <div className="spinner-border my-5 me-4" />
+                  </div>
                 </div>
-              );
-            })
-          ) : (
-            <div className="container">
-              <div className="d-flex justify-content-center">
-                <div className="spinner-border my-5 me-4" />
-              </div>
-            </div>
-          )}
-        </ul>
+              )}
+            </ul>
+          </div>
+        </div>
       </div>
     </>
   );

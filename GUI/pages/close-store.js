@@ -1,6 +1,4 @@
-import AdminMenu from "../components/menus/menuAdmin";
-import SubscriberMenu from "../components/menus/menuSubscriber";
-import GuestMenu from "../components/menus/menuGuest";
+import Menu from "../components/menu";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -30,20 +28,11 @@ const CloseStore = () => {
   const onCloseStore = (e) => {
     e.preventDefault();
   }
-
-  var menu;
-  if (userPermission == "Admin") {
-    menu = <AdminMenu />;
-  } else if (userPermission == "Subscriber") {
-    menu = <SubscriberMenu />;
-  } else {
-    menu = <GuestMenu />;
-  }
-
+ 
   return (
     <>
-      {menu}
-      <div className="container m-auto w-100">
+      <Menu />
+     <div className="container m-auto w-100">
         <span className="text-center m-3"> <h3>Close store</h3> </span>
         <span className="text-center"> <h5>(freezing store actions)</h5> </span>
         

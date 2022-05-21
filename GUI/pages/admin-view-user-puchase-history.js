@@ -1,4 +1,4 @@
-import AdminMenu from "../components/menus/menuAdmin";
+import Menu from "../components/menu";
 import SearchBar from "../components/search-bar";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -26,39 +26,48 @@ const AdminViewUserPurchaes = () => {
   const searchUsernamePurchases = (e) => {
     e.preventDefault();
     console.log(e.target.value);
-  }
+  };
 
   return (
     <>
-    <AdminMenu />
-    <div className="card-header">
+      <Menu />
+      <div className="card-header">
         <h3>View all user's purchases</h3>
-    </div>
-    <div className="container">
-      <nav className="navbar navbar-expand-lg bg-secondery align-items-center justify-content-center rounded-3">
-        <form className="row form-inline" style={{ display: "flex", width: "60%" }}>
-          <div className="main-search-bar">
-            <input
-              className="form-control mr-sm-2"
-              type="search"
-              placeholder="Enter username"
-              aria-label="Search"
-              onChange={onChange}
-            />
-            <div>
-              <button className="btn btn-primary mr-lg-3" onClick={searchUsernamePurchases}>
-                Search
-              </button>
+      </div>
+      <div className="container">
+        <nav className="navbar navbar-expand-lg bg-secondery align-items-center justify-content-center rounded-3">
+          <form
+            className="row form-inline"
+            style={{ display: "flex", width: "60%" }}
+          >
+            <div className="main-search-bar">
+              <input
+                className="form-control mr-sm-2"
+                type="search"
+                placeholder="Enter username"
+                aria-label="Search"
+                onChange={onChange}
+              />
+              <div>
+                <button
+                  className="btn btn-primary mr-lg-3"
+                  onClick={searchUsernamePurchases}
+                >
+                  Search
+                </button>
+              </div>
             </div>
-          </div>
-        </form>
-      </nav>
-    </div>      
-      
-    <div className="my-4" style={{ display: "flex", justifyContent: "center" }}>
-      <h1>Purchases</h1>
-    </div>
-    {/* {!isLoading ? (
+          </form>
+        </nav>
+      </div>
+
+      <div
+        className="my-4"
+        style={{ display: "flex", justifyContent: "center" }}
+      >
+        <h1>Purchases</h1>
+      </div>
+      {/* {!isLoading ? (
       <div style={{ display: "table", width: "100%" }}>
         <ul className="list-group" style={{ display: "table-cell" }}>
           {purchases

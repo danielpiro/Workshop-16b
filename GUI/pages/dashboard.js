@@ -1,6 +1,4 @@
-import AdminMenu from "../components/menus/menuAdmin";
-import SubscriberMenu from "../components/menus/menuSubscriber";
-import GuestMenu from "../components/menus/menuGuest";
+import Menu from "../components/menu";
 import SearchBar from "../components/search-bar";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -11,7 +9,7 @@ const Dashboard = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(0);
-  const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
+  const [userPermission, setUserPermission] = useState("Guest"); //TODO: Need to change to Guest when logic is ready!
   //      + Edit using new method "setUserPermission"
   useEffect(() => {
     const fetchApi = async () => {
@@ -22,19 +20,6 @@ const Dashboard = () => {
     };
     fetchApi();
   }, []);
-
-  let menu;
-  if (userPermission == "Admin") {
-    menu = <AdminMenu />;
-  } else if (userPermission == "Owner") {
-    menu = <StoreOwnerMenu />;
-  } else if (userPermission == "Manager") {
-    menu = <StoreManagerMenu />;
-  } else if (userPermission == "Subscriber") {
-    menu = <SubscriberMenu />;
-  } else {
-    menu = <GuestMenu />;
-  }
 
   const onNext = (e) => {
     e.preventDefault();
@@ -50,7 +35,7 @@ const Dashboard = () => {
   };
   return (
     <>
-      {menu}
+      <Menu />
       <div className="my-4">
         <SearchBar setProducts={setProducts} />
       </div>
@@ -95,7 +80,6 @@ const Dashboard = () => {
                 </li>
               </ul>
             </nav>
-            <Footer />
           </div>
         ) : (
           <div className="container h-100 my-6">

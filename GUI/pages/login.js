@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import bcrypt from "bcryptjs/dist/bcrypt";
 import { useCookies } from "react-cookie";
 import createNotification from "../components/norification";
-import { allowedStatusCodes } from "next/dist/lib/load-custom-routes";
 
 const Login = () => {
   const [loginInput, setLoginInput] = useState({
@@ -15,13 +14,12 @@ const Login = () => {
     username: "",
     password: "",
   });
-  const [message, setMessage] = useState("");
   const [cookies, setCookie, removeCookie] = useCookies([
     "username",
     "password",
     "userId",
+    "type",
   ]);
-  const [isSuccess, setIsSuccess] = useState(false);
   const router = useRouter();
   useEffect(() => {
     if (cookies.username && cookies.password) {
@@ -77,6 +75,7 @@ const Login = () => {
 
   const onClickGuest = (e) => {
     e.preventDefault();
+    setCookie("type", "guest", { path: "/", sameSite: true });
     createNotification("success", "Create guest account successfully", () =>
       router.push("/dashboard")
     )();
@@ -122,11 +121,10 @@ const Login = () => {
         }
       });
   };
-
   return (
-    <main className="form-signin w-100 m-auto">
+    <div className="form-signin w-100 m-auto">
       <form>
-        <h1 className="h3 mb-3 fw-normal">Sign in</h1>
+        <h1 className="h3 mb-4 fw-normal">Sign in</h1>
         <div class="form-floating">
           <input
             type="email"
@@ -194,7 +192,7 @@ const Login = () => {
           </ul>
         </div>
         <div
-          className="modal fade "
+          className="modal fade"
           id="register"
           tabIndex="-1"
           role="dialog"
@@ -254,7 +252,7 @@ const Login = () => {
           </div>
         </div>
       </form>
-    </main>
+    </div>
   );
 };
 

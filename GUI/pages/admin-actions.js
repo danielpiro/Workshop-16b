@@ -1,6 +1,4 @@
-import AdminMenu from "../components/menus/menuAdmin";
-import SubscriberMenu from "../components/menus/menuSubscriber";
-import GuestMenu from "../components/menus/menuGuest";
+import Menu from "../components/menu";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -19,18 +17,9 @@ const AdminActions = () => {
   //   e.preventDefault();
   // }
 
-  var menu;
-  if (userPermission == "Admin") {
-    menu = <AdminMenu />;
-  } else if (userPermission == "Subscriber") {
-    menu = <SubscriberMenu />;
-  } else {
-    menu = <GuestMenu />;
-  }
-
   return (
     <>
-      {menu} {/*Should be Admin Only!!!*/}
+      <Menu /> {/*Should be Admin Only!!!*/}
       <div
         className="my-4"
         style={{ display: "flex", justifyContent: "center" }}
@@ -60,7 +49,6 @@ const AdminActions = () => {
           </Link>
         </div>
       </div>
-      <Footer />
     </>
   );
 };
