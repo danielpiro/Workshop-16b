@@ -1,6 +1,7 @@
 package com.example.demo.CustomExceptions.ExceptionHandler;
 
 import com.example.demo.CustomExceptions.Exception.CantPurchaseException;
+import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -42,6 +43,20 @@ public class ApiExceptionHandler {
         return new ResponseEntity<>(rv,HttpStatus.BAD_REQUEST);
 
     }
+
+    //when this happens, the policy id is in the value field.
+    @ExceptionHandler(value = { StorePolicyViolatedException.class })
+    public ResponseEntity handlePolicyException (Exception e){
+        ReturnValue rv = new ReturnValue(
+                false,
+                "the store policy was violated" ,
+                e.getMessage()
+        );
+
+        return new ResponseEntity<>(rv,HttpStatus.PRECONDITION_FAILED);
+
+    }
+
 
 
 

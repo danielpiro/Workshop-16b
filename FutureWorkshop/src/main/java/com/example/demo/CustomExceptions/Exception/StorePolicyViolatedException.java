@@ -1,4 +1,4 @@
-package CustomExceptions;
+package com.example.demo.CustomExceptions.Exception;
 
 public class StorePolicyViolatedException extends Exception{
 

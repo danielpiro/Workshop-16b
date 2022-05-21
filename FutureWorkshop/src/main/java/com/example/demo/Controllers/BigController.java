@@ -1,5 +1,10 @@
 package com.example.demo.Controllers;
 
+import com.example.demo.CustomExceptions.Exception.NotifyException;
+import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
+import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
+import com.example.demo.CustomExceptions.Exception.UserException;
+import com.example.demo.History.PurchaseHistory;
 import com.example.demo.Mock.*;
 import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
 import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
@@ -14,6 +19,9 @@ import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.History.History;
 import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.Store.Product;
+import com.example.demo.Store.Store;
+import com.example.demo.Store.StorePurchase.Policies.Policy;
+import com.example.demo.StorePermission.Permission;
 import com.example.demo.User.Guest;
 import com.example.demo.User.Subscriber;
 //import com.example.demo.dto.AdminDto;
@@ -69,7 +77,7 @@ public class BigController {
 
     //todo wrap ReturnValue with Response Entity
     //todo guy change by 2.d Version 2.
-    @Async
+     
     @DeleteMapping("/users")
     public ReturnValue deleteUser(@RequestParam String isDeleting,
                                                         @RequestParam String whosBeingDeleted) throws NoPermissionException {
@@ -89,18 +97,18 @@ public class BigController {
 
 
     @PostMapping("/users/signup")
-    public ResponseEntity signup(@RequestParam String user_name,
+    public ResponseEntity signup(@RequestParam String guest_id,
+                                 @RequestParam String user_name,
                                @RequestParam String password) {
         my_log.logger.info("user " + user_name + " is trying to sign up");
-        ReturnValue rv = new ReturnValue(true, "", getUserController().sign_up(user_name, password));
+        ReturnValue rv = new ReturnValue(true, "", getUserController().sign_up(guest_id,user_name, password));
         return new ResponseEntity(rv, HttpStatus.OK);
     }
 
-    @Async
     @PostMapping("/users/login")
-    public ReturnValue login(@RequestParam String user_name_login,
+    public ReturnValue login(@RequestParam String userNameLogin,
                              @RequestParam String password) {
-        ReturnValue rv = new ReturnValue(true, "", getUserController().login(user_name_login, password));
+        ReturnValue rv = new ReturnValue(true, "", getUserController().login(userNameLogin, password));
         return rv;
     }
 
@@ -122,14 +130,13 @@ public class BigController {
 
 
 
-    //todo return guest id, not the guest itself
-    private Guest getGuest(String id) {
-        return getUserController().getGuest(id);
-    }
 
-//    public String addGuest() {
-//        return getUserController().addGuest().name;
-//    }
+    @GetMapping("/market/guest")
+    public ReturnValue addGuest() {
+
+        ReturnValue rv = new ReturnValue(true, "", getUserController().addGuest().name);
+        return rv;
+    }
 
 
     @PostMapping("/users")
@@ -155,7 +162,7 @@ public class BigController {
 
 
     @PostMapping("/cart")
-    public ReturnValue getShoppingCart(@RequestParam String user_Id) {
+    public ReturnValue getShoppingCart(@RequestParam String user_Id) throws UserException {
         ReturnValue rv = new ReturnValue(true, "", getUserController().getShoppingCart(user_Id));
         return rv;
     }
@@ -165,7 +172,7 @@ public class BigController {
 //    }
 
     @DeleteMapping("/cart")
-    public ReturnValue removeProductFromCart(@Valid @RequestBody MockSmallProduct mockSmallProduct) {
+    public ReturnValue removeProductFromCart(@Valid @RequestBody MockSmallProduct mockSmallProduct) throws UserException {
 
         getUserController().removeProduct(mockSmallProduct.getUser_id(), mockSmallProduct.getProductID(), mockSmallProduct.getStoreID(), mockSmallProduct.getAmount());
 
@@ -176,7 +183,7 @@ public class BigController {
     //auction or bid false for now
     @PostMapping("/cart/product")
     public ReturnValue addProductFromCart(@Valid @RequestBody MockSmallProduct mockProduct,
-                                          @RequestParam boolean auctionOrBid) {
+                                          @RequestParam boolean auctionOrBid) throws UserException {
 
         InventoryProtector inventoryProtector = sc.getInventoryProtector(mockProduct.getStoreID());
         getUserController().addProduct(mockProduct.getUser_id(), mockProduct.getProductID(), mockProduct.getStoreID(), mockProduct.getAmount(), inventoryProtector, auctionOrBid);
@@ -191,7 +198,7 @@ public class BigController {
     @PostMapping("/cart/purchase")
     public ReturnValue purchaseCart(@RequestParam String user_id,
                                     @RequestParam PaymentNames payment,
-                                    @RequestParam DeliveryNames delivery) {
+                                    @RequestParam DeliveryNames delivery) throws SupplyManagementException, StorePolicyViolatedException, UserException {
 
 
         float a = getUserController().purchaseCart(user_id, new ExternalConnectionHolder(delivery, payment));
@@ -202,7 +209,7 @@ public class BigController {
     /// Store controller
 
     @PostMapping("/store")
-    public ReturnValue addNewProductToStore(@Valid @RequestBody MockFullProduct mockProduct) throws NoPermissionException {
+    public ReturnValue addNewProductToStore(@Valid @RequestBody MockFullProduct mockProduct) throws NoPermissionException, SupplyManagementException {
         userExistsAndLoggedIn(mockProduct.getUserId());
 
         getStoreController().addNewProduct(mockProduct.getStoreId(), mockProduct.getUserId(), mockProduct.getProductName(), mockProduct.getPrice(), mockProduct.getSupply(), mockProduct.getCategory());
@@ -224,7 +231,7 @@ public class BigController {
 
     @PostMapping("/store/open")
     public ReturnValue openNewStore(@RequestParam String userId,
-                                    @RequestParam String storeName) {
+                                    @RequestParam String storeName) throws NoPermissionException {
 
         userExistsAndLoggedIn(userId);
         List<String> managers = new ArrayList<>();
@@ -265,7 +272,7 @@ public class BigController {
     }
 
     @PostMapping("/store/product")
-    public ReturnValue editProduct(@RequestParam String productId, @Valid @RequestBody MockFullProduct mockProduct) throws NoPermissionException {
+    public ReturnValue editProduct(@RequestParam String productId, @Valid @RequestBody MockFullProduct mockProduct) throws NoPermissionException, SupplyManagementException {
         userExistsAndLoggedIn(mockProduct.getUserId());
         getStoreController().editProduct(mockProduct.getStoreId(), mockProduct.getUserId(), productId, mockProduct.getSupply(), mockProduct.getProductName(), mockProduct.getPrice(), mockProduct.getCategory());
         ReturnValue rv = new ReturnValue(true, "", null);
@@ -276,7 +283,7 @@ public class BigController {
     @DeleteMapping("/store/product")
     public ReturnValue deleteProductFromStore(@RequestParam String storeId,
                                               @RequestParam String userId,
-                                              @RequestParam String productId) throws NoPermissionException {
+                                              @RequestParam String productId) throws NoPermissionException, SupplyManagementException {
         userExistsAndLoggedIn(userId);
         getStoreController().deleteProduct(storeId, userId, productId);
         ReturnValue rv = new ReturnValue(true, "", null);
@@ -315,7 +322,7 @@ public class BigController {
 
 
     @PostMapping("/product")
-    public ReturnValue addReviewToProduct(@Valid @RequestBody MockProductReview mockProd) {
+    public ReturnValue addReviewToProduct(@Valid @RequestBody MockProductReview mockProd) throws NoPermissionException, SupplyManagementException {
         userExistsAndLoggedIn(mockProd.getUserId());
         getStoreController().addReviewToProduct(mockProd.getStoreId(), mockProd.getUserId(), mockProd.getProductId(), mockProd.getTitle(), mockProd.getBody(), mockProd.getRating());
         ReturnValue rv = new ReturnValue(true, "", null);
@@ -323,7 +330,7 @@ public class BigController {
     }
 
     @PostMapping("/forum/thread")
-    public ReturnValue addNewThreadToForum(@RequestParam String storeId, @RequestParam String title, @RequestParam String userId) {
+    public ReturnValue addNewThreadToForum(@RequestParam String storeId, @RequestParam String title, @RequestParam String userId) throws NoPermissionException {
         userExistsAndLoggedIn(userId);
 
 
@@ -332,7 +339,7 @@ public class BigController {
     }
 
     @PostMapping("/forum/message")
-    public ReturnValue postMessageToForum(@RequestParam String storeId, @RequestParam String threadId, @RequestParam String userId, @RequestParam String message) throws NoPermissionException {
+    public ReturnValue postMessageToForum(@RequestParam String storeId, @RequestParam String threadId, @RequestParam String userId, @RequestParam String message) throws NoPermissionException, NotifyException, UserException {
         userExistsAndLoggedIn(userId);
         getStoreController().RolePostMessageToForum(storeId, threadId, userId, message);
         ReturnValue rv = new ReturnValue(true, "", null);
@@ -347,7 +354,7 @@ public class BigController {
     }
 
 
-    @Async
+     
     @GetMapping("/search/name")
     public CompletableFuture<ReturnValue> SearchProductsAccordingName(@RequestParam String userId,@RequestParam String productName) {
         System.out.println("");
@@ -396,7 +403,7 @@ public class BigController {
     }
 
     @DeleteMapping("/store")
-    public ReturnValue deleteStore(@RequestParam String userId, @RequestParam String storeId) {
+    public ReturnValue deleteStore(@RequestParam String userId, @RequestParam String storeId) throws NoPermissionException {
         userExistsAndLoggedIn(userId);
         getStoreController().deleteStore(userId, storeId);
         ReturnValue rv = new ReturnValue(true, "", null);
@@ -440,6 +447,59 @@ public class BigController {
         return false;
     }
 
+    public String getPermissionType(String username) {
+        return getUserController().getPermissionType(username);
+    }
+    public void readComplaintNotification(String userid,int complaintNotificaionId) throws UserException {
+        getUserController().readComplaintNotification(userid,complaintNotificaionId);
+    }
+    public void readStoreNotification(String userid,int storeNotificaionId) throws UserException {
+        getUserController().readStoreNotification(userid,storeNotificaionId);
+    }
+
+    public String addNewPolicy(String storeId,String userId, Policy policy) throws NoPermissionException {//todo need to use policyBuilder to create policy
+        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
+            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
+            return null;
+        }
+        return sc.addNewPolicy(storeId,userId,policy);
+    }
+    public void deletePolicy(String storeId,String userId, String policyId) throws NoPermissionException {
+        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
+            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
+        }
+        sc.deletePolicy(storeId,userId,policyId);
+    }
+
+    private void checkIfUserHaveRoleInStore(){
+        //todo
+    }
+
+    public List<Permission> getUserPermission(String StoreId, String userId){
+        return sc.getUserPermission(StoreId,userId);
+    }
+    public String getTitle(String StoreId, String userIf){
+        return sc.getTitle(StoreId,userIf);
+    }
+    public List<Policy> getPolices(String storeId, String userId) throws NoPermissionException {
+        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
+            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
+            return null;
+        }
+        return sc.getPolices(storeId,userId);
+    }
+
+    public List<PurchaseHistory> getStoreUserHistory(String userIdRequesting, String storeId, String userId) throws NoPermissionException{
+        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
+            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
+            return null;
+        }
+        return sc.getStoreHistory(userIdRequesting, storeId, userId);
+    }
+
+    public List<Store> getAllStoresByStoreName(String name){
+        return sc.getAllStoresByStoreName(name);
+    }
 
     private UserController getUserController() {
         return us;

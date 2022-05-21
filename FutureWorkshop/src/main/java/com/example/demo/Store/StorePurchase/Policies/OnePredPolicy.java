@@ -1,10 +1,11 @@
-package main.java.com.example.demo.Store.StorePurchase.Policies;
+package com.example.demo.Store.StorePurchase.Policies;
 
-import ExternalConnections.ExternalConnectionHolder;
-import ShoppingCart.UserInfo;
-import main.java.com.example.demo.Store.StorePurchase.PurchasableProduct;
-import main.java.com.example.demo.Store.StorePurchase.predicates.PolicyPredicate;
-import Store.Product;
+import com.example.demo.ExternalConnections.ExternalConnectionHolder;
+import com.example.demo.ShoppingCart.UserInfo;
+import com.example.demo.Store.Product;
+import com.example.demo.Store.StorePurchase.PurchasableProduct;
+import com.example.demo.Store.StorePurchase.predicates.PolicyPredicate;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;

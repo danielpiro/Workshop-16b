@@ -1,8 +1,10 @@
 package com.example.demo.Store;
 
 
+import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.Store.BuyinfOptions.BuyOption;
 import com.example.demo.Store.BuyinfOptions.ImmediateBuy;
+import com.example.demo.Store.StorePurchase.PurchasableProduct;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -60,17 +62,17 @@ public class Product implements PurchasableProduct {
         return supply;
     }
 
-    public void editSupply(int newSupply) throws SupplyManagementException {
+    public void editSupply(int newSupply) throws  SupplyManagementException {
         if(newSupply < 0)
-            throw new SupplyManagementException("supply cant be negative");
+            throw new  SupplyManagementException("supply cant be negative");
         else
             this.supply = newSupply;
     }
-    public void editPrice(float newPrice) throws SupplyManagementException {
+    public void editPrice(float newPrice) throws  SupplyManagementException {
         if(newPrice >=0)
             this.price = newPrice;
         else
-            throw new SupplyManagementException("price cant be negative");
+            throw new  SupplyManagementException("price cant be negative");
     }
     public void purchaseCompleted(int productsPurchased){
         reservedSupply = reservedSupply - productsPurchased;

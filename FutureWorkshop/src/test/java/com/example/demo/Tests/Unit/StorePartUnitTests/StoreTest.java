@@ -1,6 +1,9 @@
 package com.example.demo.Tests.Unit.StorePartUnitTests;
 
 
+import com.example.demo.CustomExceptions.Exception.NotifyException;
+import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
+import com.example.demo.CustomExceptions.Exception.UserException;
 import com.example.demo.Store.Store;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.StorePermission.StoreManager;

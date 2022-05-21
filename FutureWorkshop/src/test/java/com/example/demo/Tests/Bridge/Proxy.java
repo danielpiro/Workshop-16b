@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class Proxy implements BridgeInterface {
+public class Proxy  {
     private BridgeInterface real;
 
 //    private ArrayList<Subscriber> users;

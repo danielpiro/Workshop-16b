@@ -2,11 +2,15 @@ package com.example.demo.ShoppingCart;
 
 
 
+
 import com.example.demo.CustomExceptions.Exception.CantPurchaseException;
+import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
+import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.ExternalConnections.ExternalConnectionHolder;
 import com.example.demo.Generic.ThreeGenerics;
 import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.History.History;
+
 
 import java.util.*;
 
@@ -125,7 +129,7 @@ public class ShoppingCart {
 
             }
         }
-        catch ( StorePolicyViolatedException|SupplyManagementException|CantPurchaseException e) {
+        catch (  StorePolicyViolatedException |  SupplyManagementException |CantPurchaseException e) {
             Log.getLogger().logger.warning("user " + userId + " could not reserve items in cart");
 
             for (Map.Entry<String, ShoppingBasket> basket : basketCases.entrySet()) {

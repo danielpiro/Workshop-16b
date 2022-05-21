@@ -1,6 +1,6 @@
-package main.java.com.example.demo.NotificationsManagement;
+package com.example.demo.NotificationsManagement;
 
-import Store.StoreState;
+import com.example.demo.Store.StoreState;
 
 public interface getStoreInfo {
     StoreState getStoreState() ;

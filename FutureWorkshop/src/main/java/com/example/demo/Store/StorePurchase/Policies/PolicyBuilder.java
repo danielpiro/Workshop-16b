@@ -1,14 +1,13 @@
-package main.java.com.example.demo.Store.StorePurchase.Policies;
+package com.example.demo.Store.StorePurchase.Policies;
 
-import main.java.com.example.demo.Store.StorePurchase.PurchasableProduct;
-import Store.StorePurchase.predicates.*;
-import Store.Product;
-import Store.ProductsCategories;
-import Store.StorePurchase.predicates.PredImplementions.*;
-import main.java.com.example.demo.Store.StorePurchase.predicates.PolicyPredicate;
-import main.java.com.example.demo.Store.StorePurchase.predicates.PredImplementions.*;
-import main.java.com.example.demo.Store.StorePurchase.predicates.PredicateTimeType;
-import main.java.com.example.demo.Store.StorePurchase.predicates.PredicateUserType;
+import com.example.demo.Store.ProductsCategories;
+import com.example.demo.Store.StorePurchase.Policies.*;
+import com.example.demo.Store.StorePurchase.PurchasableProduct;
+import com.example.demo.Store.StorePurchase.predicates.PolicyPredicate;
+
+import com.example.demo.Store.StorePurchase.predicates.PredImplementions.*;
+import com.example.demo.Store.StorePurchase.predicates.PredicateTimeType;
+import com.example.demo.Store.StorePurchase.predicates.PredicateUserType;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -40,7 +39,7 @@ public class PolicyBuilder {
      * @return policy
      */
     public Policy newProductWithoutAmountPolicy(List<PurchasableProduct> products){
-        PolicyPredicate p = new ProductPredicate(products);
+        PolicyPredicate p = new    ProductPredicate(products);
         Policy policy  = new OnePredPolicy(p);
         return policy;
     }
@@ -59,7 +58,7 @@ public class PolicyBuilder {
      * @return policy
      */
     public Policy newUserIdPolicy(List<String> userIds){
-        PolicyPredicate p = new UserPredicate(userIds, PredicateUserType.OnUserId);
+        PolicyPredicate p = new       UserPredicate(userIds, PredicateUserType.OnUserId);
         Policy policy  = new OnePredPolicy(p);
         return policy;
     }
@@ -81,7 +80,7 @@ public class PolicyBuilder {
      * @return policy
      */
     public Policy newOnHoursOfTheDayPolicy(LocalDateTime startTime, LocalDateTime endTime){
-        PolicyPredicate p = new TimePredicate(startTime,endTime, PredicateTimeType.OnHoursOfTheDay);
+        PolicyPredicate p = new       TimePredicate(startTime,endTime, PredicateTimeType.OnHoursOfTheDay);
         Policy policy  = new OnePredPolicy(p);
         return policy;
     }
@@ -92,7 +91,7 @@ public class PolicyBuilder {
      * @return policy
      */
     public Policy newOnDaysOfTheWeekPolicy(LocalDateTime startTime, LocalDateTime endTime){
-        PolicyPredicate p = new TimePredicate(startTime,endTime,PredicateTimeType.OnDaysOfTheWeek);
+        PolicyPredicate p = new       TimePredicate(startTime,endTime,PredicateTimeType.OnDaysOfTheWeek);
         Policy policy  = new OnePredPolicy(p);
         return policy;
     }

@@ -1,17 +1,18 @@
-package Tests.Unit.StorePartUnitTests;
+package com.example.demo.Tests.Unit.StorePartUnitTests;
 
-import CustomExceptions.CantPurchaseException;
-import CustomExceptions.StorePolicyViolatedException;
-import CustomExceptions.SupplyManagementException;
-import ExternalConnections.Delivery.DeliveryNames;
-import ExternalConnections.ExternalConnectionHolder;
-import ExternalConnections.Payment.PaymentNames;
-import ShoppingCart.UserInfo;
-import Store.InventoryManager;
-import Store.ProductsCategories;
-import main.java.com.example.demo.Store.StorePurchase.Policies.Policy;
-import main.java.com.example.demo.Store.StorePurchase.Policies.PolicyBuilder;
-import main.java.com.example.demo.Store.StorePurchase.PurchasableProduct;
+
+import com.example.demo.CustomExceptions.Exception.CantPurchaseException;
+import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
+import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
+import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
+import com.example.demo.ExternalConnections.ExternalConnectionHolder;
+import com.example.demo.ExternalConnections.Payment.PaymentNames;
+import com.example.demo.ShoppingCart.UserInfo;
+import com.example.demo.Store.InventoryManager;
+import com.example.demo.Store.ProductsCategories;
+import com.example.demo.Store.StorePurchase.Policies.Policy;
+import com.example.demo.Store.StorePurchase.Policies.PolicyBuilder;
+import com.example.demo.Store.StorePurchase.PurchasableProduct;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 

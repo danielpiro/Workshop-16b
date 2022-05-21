@@ -1,9 +1,11 @@
-package main.java.com.example.demo.Store.StorePurchase.Policies;
+package com.example.demo.Store.StorePurchase.Policies;
 
-import ExternalConnections.ExternalConnectionHolder;
-import GlobalSystemServices.IdGenerator;
-import ShoppingCart.UserInfo;
-import Store.Product;
+
+
+import com.example.demo.ExternalConnections.ExternalConnectionHolder;
+import com.example.demo.GlobalSystemServices.IdGenerator;
+import com.example.demo.ShoppingCart.UserInfo;
+import com.example.demo.Store.Product;
 
 import java.util.HashMap;
 

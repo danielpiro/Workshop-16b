@@ -1,9 +1,11 @@
 package com.example.demo.Tests.Unit.StorePartUnitTests;
 
 
+import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
 import com.example.demo.ExternalConnections.ExternalConnectionHolder;
 import com.example.demo.ExternalConnections.Payment.PaymentNames;
+import com.example.demo.ShoppingCart.UserInfo;
 import com.example.demo.Store.InventoryManager;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.ProductsCategories;

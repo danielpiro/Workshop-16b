@@ -1,12 +1,16 @@
 package com.example.demo.Controllers;
 
 
+import com.example.demo.CustomExceptions.Exception.NotifyException;
+import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
+import com.example.demo.CustomExceptions.Exception.UserException;
 import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.History.PurchaseHistory;
 import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.Store;
+import com.example.demo.Store.StorePurchase.Policies.Policy;
 import com.example.demo.Store.StoreState;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.StorePermission.StoreRoles;
@@ -44,6 +48,7 @@ public class StoreController {
         Store newStore= new Store(name, newId, managers);
 
         stores.put(newId, newStore);
+
 
         return newId;
     }

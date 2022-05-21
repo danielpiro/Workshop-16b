@@ -2,7 +2,11 @@ package com.example.demo.ShoppingCart;
 
 
 
+
 import com.example.demo.CustomExceptions.Exception.CantPurchaseException;
+import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
+import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
+
 import com.example.demo.ExternalConnections.ExternalConnectionHolder;
 
 import java.util.HashMap;

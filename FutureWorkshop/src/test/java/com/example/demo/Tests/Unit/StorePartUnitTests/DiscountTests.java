@@ -1,4 +1,4 @@
-package Tests.Unit.StorePartUnitTests;
+package com.example.demo.Tests.Unit.StorePartUnitTests;
 
 public class DiscountTests {
 }

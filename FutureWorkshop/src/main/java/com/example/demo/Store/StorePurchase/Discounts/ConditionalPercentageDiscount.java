@@ -1,17 +1,18 @@
-package main.java.com.example.demo.Store.StorePurchase.Discounts;
+package com.example.demo.Store.StorePurchase.Discounts;
 
-import ExternalConnections.ExternalConnectionHolder;
-import ShoppingCart.UserInfo;
-import main.java.com.example.demo.Store.StorePurchase.PurchasableProduct;
-import main.java.com.example.demo.Store.StorePurchase.predicates.DiscountPredicate;
+import com.example.demo.ExternalConnections.ExternalConnectionHolder;
+import com.example.demo.ShoppingCart.UserInfo;
+import com.example.demo.Store.StorePurchase.PurchasableProduct;
+import com.example.demo.Store.StorePurchase.predicates.DiscountPredicate;
+
 
 import java.util.List;
 
-public class ConditionalPercentageDiscount implements Discount{
-    PercentageDiscount discount;
+public class ConditionalPercentageDiscount implements   Discount {
+      PercentageDiscount discount;
     DiscountPredicate pred; //discount only if predicate stands on Products examples " (DiscountPredicate = "purchase is above 200")(PercentageDiscount = " 5% on all fruits") "
 
-    public ConditionalPercentageDiscount(PercentageDiscount discount, DiscountPredicate pred) {
+    public ConditionalPercentageDiscount(  PercentageDiscount discount, DiscountPredicate pred) {
         this.discount = discount;
         this.pred = pred;
     }

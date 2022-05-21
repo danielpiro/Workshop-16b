@@ -1,9 +1,17 @@
 package com.example.demo.Store;
 
 import com.example.demo.CustomExceptions.Exception.CantPurchaseException;
+import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
+import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.ExternalConnections.ExternalConnectionHolder;
 import com.example.demo.GlobalSystemServices.IdGenerator;
+import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.ShoppingCart.InventoryProtector;
+import com.example.demo.ShoppingCart.UserInfo;
+import com.example.demo.Store.StorePurchase.Discounts.Discount;
+import com.example.demo.Store.StorePurchase.Discounts.DiscountBox;
+import com.example.demo.Store.StorePurchase.Policies.Policy;
+import com.example.demo.Store.StorePurchase.PurchasableProduct;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -29,7 +37,7 @@ public class InventoryManager  implements InventoryProtector {
 
         for (Policy p : policies){
             if(!p.checkIfPolicyStands(newProductAmount, externalConnectionHolder, userInfo)){
-                throw new StorePolicyViolatedException(p.getPolicyId());
+                throw new  StorePolicyViolatedException(p.getPolicyId());
             }
         }
 
@@ -38,7 +46,7 @@ public class InventoryManager  implements InventoryProtector {
     public void editProduct(String productId, int newSupply, String newName, float newPrice, String category) throws SupplyManagementException {
         Product Op = products.get(productId);
         if(Op == null){
-            throw new SupplyManagementException("no product with this id- "+productId);
+            throw new  SupplyManagementException("no product with this id- "+productId);
         }
         Op.editSupply(newSupply);
         Op.editPrice(newPrice);
@@ -46,10 +54,10 @@ public class InventoryManager  implements InventoryProtector {
         Op.setCategory(category);
     }
 
-    public String addNewProduct(String productName, float price, int howMuch, String category) throws SupplyManagementException {
+    public String addNewProduct(String productName, float price, int howMuch, String category) throws  SupplyManagementException {
         Optional<Product> Op = products.values().stream().filter(np-> productName.equals(np.getName())).findAny();
         if(Op.isPresent()){
-            throw new SupplyManagementException("product with this name- "+productName+" already exist");
+            throw new  SupplyManagementException("product with this name- "+productName+" already exist");
         }
         String newId = IdGenerator.getInstance().getProductId();
         products.put(newId,new Product(newId,productName,price,howMuch,category));
@@ -68,20 +76,20 @@ public class InventoryManager  implements InventoryProtector {
         return PV;
     }
 
-    public void addProductReview(String productId, String userId,  String title, String body, float rating) throws SupplyManagementException {
+    public void addProductReview(String productId, String userId,  String title, String body, float rating) throws  SupplyManagementException {
         Product Op = products.get(productId);
         if(Op == null){
-            throw new SupplyManagementException("no product with this id- "+productId);
+            throw new  SupplyManagementException("no product with this id- "+productId);
         }
         synchronized (Op) {
             Op.addReview(rating, userId, title, body);
         }
     }
 
-    public void deleteProduct(String productId) throws SupplyManagementException {
+    public void deleteProduct(String productId) throws  SupplyManagementException {
         Product ret = products.remove(productId);
         if(ret == null){
-            throw new SupplyManagementException("product "+ productId+" failed to delete");
+            throw new  SupplyManagementException("product "+ productId+" failed to delete");
         }
     }
     public static <T,S> HashMap<T, S> deepCopyWorkAround(HashMap<T, S> original)
@@ -143,7 +151,7 @@ public class InventoryManager  implements InventoryProtector {
     }
 
     @Override
-    public void purchaseSuccessful(HashMap<String, Integer> ProductAmount, boolean success) throws SupplyManagementException {
+    public void purchaseSuccessful(HashMap<String, Integer> ProductAmount, boolean success) throws  SupplyManagementException {
         if (success) {
             for (String Id : ProductAmount.keySet()) {
                 synchronized (products.get(Id)) {
@@ -165,7 +173,7 @@ public class InventoryManager  implements InventoryProtector {
 
 
     @Override
-    public float reserve(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) throws CantPurchaseException, StorePolicyViolatedException, SupplyManagementException {
+    public float reserve(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) throws CantPurchaseException,  StorePolicyViolatedException,  SupplyManagementException {
 
             checksIfStorePoliciesMet( ProductAmount, externalConnectionHolder, userInfo);
             for (String Id : ProductAmount.keySet()) {
@@ -183,10 +191,10 @@ public class InventoryManager  implements InventoryProtector {
 
     }
 
-    public Product getProduct(String productId) throws SupplyManagementException {
+    public Product getProduct(String productId) throws  SupplyManagementException {
         Product pro =  products.get(productId);
         if(pro == null){
-            throw new SupplyManagementException("no product with this "+ productId);
+            throw new  SupplyManagementException("no product with this "+ productId);
         }
         return pro;
 

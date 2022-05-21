@@ -1,8 +1,8 @@
 package com.example.demo.User;
 
 
-import main.java.com.example.demo.NotificationsManagement.ComplaintNotification;
-import main.java.com.example.demo.NotificationsManagement.StoreNotification;
+import com.example.demo.NotificationsManagement.ComplaintNotification;
+import com.example.demo.NotificationsManagement.StoreNotification;
 
 import java.util.ArrayList;
 import java.util.List;

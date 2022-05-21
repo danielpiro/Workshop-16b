@@ -1,7 +1,7 @@
-package main.java.com.example.demo.Store.StorePurchase;
+package com.example.demo.Store.StorePurchase;
 
-import CustomExceptions.SupplyManagementException;
-import Store.ProductsCategories;
+import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
+import com.example.demo.Store.ProductsCategories;
 
 public interface PurchasableProduct {
     int getAmount();

@@ -1,8 +1,8 @@
-package main.java.com.example.demo.Store.StorePurchase.Discounts;
+package com.example.demo.Store.StorePurchase.Discounts;
 
-import ExternalConnections.ExternalConnectionHolder;
-import ShoppingCart.UserInfo;
-import main.java.com.example.demo.Store.StorePurchase.PurchasableProduct;
+import com.example.demo.ExternalConnections.ExternalConnectionHolder;
+import com.example.demo.ShoppingCart.UserInfo;
+import com.example.demo.Store.StorePurchase.PurchasableProduct;
 
 import java.util.List;
 

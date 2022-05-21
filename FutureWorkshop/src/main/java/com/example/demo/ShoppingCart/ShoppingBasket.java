@@ -3,8 +3,11 @@ package com.example.demo.ShoppingCart;
 
 
 import com.example.demo.CustomExceptions.Exception.CantPurchaseException;
+import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
+import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.ExternalConnections.ExternalConnectionHolder;
 import com.example.demo.Generic.ThreeGenerics;
+
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -78,6 +81,8 @@ public class ShoppingBasket {
         return sb.toString();
     }
 
+
+    //todo get age
     public float purchase(ExternalConnectionHolder externalConnectionHolder, String userID) throws CantPurchaseException, SupplyManagementException, StorePolicyViolatedException {
 
         float answer = iProtector.reserve(productAmount , externalConnectionHolder, new UserInfo(18,userID));//todo guy edited it but dan need to change this userInfo

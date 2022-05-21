@@ -1,6 +1,7 @@
-package main.java.com.example.demo.NotificationsManagement;
+package com.example.demo.NotificationsManagement;
 
-import GlobalSystemServices.IdGenerator;
+
+import com.example.demo.GlobalSystemServices.IdGenerator;
 
 public class ComplaintNotification  {
     private final String sentFrom;

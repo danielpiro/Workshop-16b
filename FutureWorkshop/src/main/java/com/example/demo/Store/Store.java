@@ -2,12 +2,20 @@ package com.example.demo.Store;
 
 //import org.junit.platform.engine.support.hierarchical.ThrowableCollector;
 
+import com.example.demo.CustomExceptions.Exception.NotifyException;
+import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
+import com.example.demo.CustomExceptions.Exception.UserException;
 import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.History.History;
 import com.example.demo.History.PurchaseHistory;
+import com.example.demo.NotificationsManagement.NotificationManager;
+import com.example.demo.NotificationsManagement.NotificationSubject;
+import com.example.demo.NotificationsManagement.StoreNotification;
+import com.example.demo.NotificationsManagement.getStoreInfo;
 import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.Store.Forum.Forum;
 import com.example.demo.Store.Forum.ForumThread;
+import com.example.demo.Store.StorePurchase.Policies.Policy;
 import com.example.demo.StorePermission.OriginalStoreOwnerRole;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.StorePermission.StoreRoles;
@@ -141,14 +149,14 @@ public class Store implements getStoreInfo {
             throw new NoPermissionException("the user doesn't have a role in store ");
         }
     }
-    public void editProduct(String userId, String productId, int newSupply, String newName, float newPrice , String category) throws NoPermissionException, SupplyManagementException {
+    public void editProduct(String userId, String productId, int newSupply, String newName, float newPrice , String category) throws NoPermissionException, SupplyManagementException, SupplyManagementException {
         if(!checkPermission(userId, Permission.EDIT_EXISTING_PRODUCT)){
             throw new NoPermissionException("the user don't have this permission");
         }
         inventoryManager.editProduct(productId, newSupply, newName, newPrice, category);
     }
 
-    public String addNewProduct(String userId, String productName, float price, int howMuch, String category) throws NoPermissionException, SupplyManagementException {
+    public String addNewProduct(String userId, String productName, float price, int howMuch, String category) throws NoPermissionException,  SupplyManagementException, SupplyManagementException {
         if(!checkPermission(userId, Permission.ADD_NEW_PRODUCT)){
             throw new NoPermissionException("the user don't have this permission");
         }
@@ -156,7 +164,7 @@ public class Store implements getStoreInfo {
 
     }
 
-    public void addProductReview(String userId, String productId, String title, String body, float rating) throws SupplyManagementException {
+    public void addProductReview(String userId, String productId, String title, String body, float rating) throws  SupplyManagementException {
         //TODO: check in history user Bought this product
         inventoryManager.addProductReview(productId, userId, title, body, rating);
 
@@ -184,7 +192,7 @@ public class Store implements getStoreInfo {
         NotificationManager.getNotificationManager().sendNotificationTo(userId, new StoreNotification(this, NotificationSubject.StoreForum,"someone in store replied to your message","message: "+message));
     }
 
-    public void  userPostMessageToForum(String threadId, String userId, String message) throws NoPermissionException, NotifyException, UserException {
+    public void  userPostMessageToForum(String threadId, String userId, String message) throws NoPermissionException,  NotifyException,  UserException {
         String threadUser =  forum.getUserIdOfTread(threadId);
         if(!IdGenerator.getInstance().isIdEqual(threadUser, userId)){
             throw new NoPermissionException("only user that created the forum thread can post messages");
@@ -195,7 +203,7 @@ public class Store implements getStoreInfo {
     }
 
 
-    public void deleteProduct(String userId, String productId) throws NoPermissionException, SupplyManagementException {
+    public void deleteProduct(String userId, String productId) throws NoPermissionException,  SupplyManagementException {
         if(!checkPermission(userId, Permission.ADD_NEW_PRODUCT)){
             throw new NoPermissionException("the user don't have this permission");
         }
@@ -246,7 +254,7 @@ public class Store implements getStoreInfo {
 
     private List<String> getRolesIds(){
         List<String> rolesIds = new ArrayList<>();
-        for (StorePermission.StoreRoles role : StoreRoles){
+        for (StoreRoles role : StoreRoles){
             rolesIds.add(role.getUserId());
         }
         return rolesIds;
@@ -293,13 +301,13 @@ public class Store implements getStoreInfo {
          if(!checkPermission(userId, Permission.VIEW_STORE_HISTORY)){
              throw new NoPermissionException("the user don't have this permission");
          }
-        return History.getInstance().getStoreHistory(storeId);
+        return History.getInstance().getStoreUserHistory(storeId);
     }
     public List<PurchaseHistory> getStoreHistory(String userIdRequesting, String userId) throws NoPermissionException {
         if(!checkPermission(userIdRequesting, Permission.VIEW_STORE_HISTORY)){
             throw new NoPermissionException("the user don't have this permission");
         }
-        return History.getInstance().getStoreHistory(userId,storeId);
+        return History.getInstance().getStoreUserHistory(userId,storeId);
     }
 
     public ForumThread getThread(String userId) {

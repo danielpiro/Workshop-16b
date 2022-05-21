@@ -1,8 +1,15 @@
 package com.example.demo.Controllers;
 
+import com.example.demo.CustomExceptions.Exception.CantPurchaseException;
+import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
+import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
+import com.example.demo.CustomExceptions.Exception.UserException;
 import com.example.demo.ExternalConnections.ExternalConnectionHolder;
 import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.GlobalSystemServices.Log;
+import com.example.demo.NotificationsManagement.ComplaintNotification;
+import com.example.demo.NotificationsManagement.NotificationReceiver;
+import com.example.demo.NotificationsManagement.StoreNotification;
 import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.ShoppingCart.ShoppingCart;
 
@@ -94,7 +101,7 @@ public class UserController implements NotificationReceiver {
             return get_subscriber(user_id).containsStore(storeID);
     }
 
-    public void removeProduct(String user_id,String productID, String storeID, int amount) {
+    public void removeProduct(String user_id,String productID, String storeID, int amount) throws UserException {
         if (get_subscriber(user_id) == null) {
             my_log.error_logger.warning("User "+ user_id +" doesn't exist");
             throw new UserException("User "+user_id+ "doesn't exist");
@@ -102,7 +109,7 @@ public class UserController implements NotificationReceiver {
              get_subscriber(user_id).removeProduct(productID, storeID, amount);
         }
 
-    public void addProduct(String user_id, String productID, String storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
+    public void addProduct(String user_id, String productID, String storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) throws UserException {
         if (get_subscriber(user_id) == null) {
             throw new UserException("User "+user_id+ "doesn't exist");
         }
@@ -124,7 +131,7 @@ public class UserController implements NotificationReceiver {
             }
             return get_subscriber(user_id).getCartInventory();
     }
-    public float purchaseCart(String user_id, ExternalConnectionHolder externalConnectionHolder) throws SupplyManagementException, StorePolicyViolatedException, CantPurchaseException {
+    public float purchaseCart(String user_id, ExternalConnectionHolder externalConnectionHolder) throws SupplyManagementException, StorePolicyViolatedException, CantPurchaseException, UserException {
         if(get_subscriber(user_id)==null){
             throw new UserException("User "+user_id + "doesn't exist");
         }
@@ -278,7 +285,7 @@ public class UserController implements NotificationReceiver {
 
     public Guest getGuest(String id){
         for(Guest g : getGuest_list()){
-            if(g.getId()==id)
+            if(g.getId().equals(id))
                 return g;
         }
         return null;
@@ -395,6 +402,7 @@ public class UserController implements NotificationReceiver {
                 my_log.error_logger.warning("can't send store notification because user " + s + "doesn't exist");
                 throw new UserException("can't send store notification because user " + s + "doesn't exist");
             }
+
               get_subscriber(s).addNotification(storeNotification.getDeepCopy());
         }
     }

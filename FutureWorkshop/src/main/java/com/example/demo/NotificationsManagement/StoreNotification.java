@@ -1,6 +1,7 @@
-package main.java.com.example.demo.NotificationsManagement;
+package com.example.demo.NotificationsManagement;
 
-import GlobalSystemServices.IdGenerator;
+
+import com.example.demo.GlobalSystemServices.IdGenerator;
 
 public class StoreNotification {
     private final getStoreInfo sentFrom;
@@ -44,4 +45,6 @@ public class StoreNotification {
        return new StoreNotification(sentFrom,subject,Title,Body);
     }
     public int getId(){return id;}
+
+
 }

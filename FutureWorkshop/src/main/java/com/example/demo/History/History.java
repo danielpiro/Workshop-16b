@@ -80,7 +80,7 @@ public class History {
         return phList;
     }
 
-    public  synchronized List<PurchaseHistory> getStoreHistory (String storeId) {
+    public  synchronized List<PurchaseHistory> getStoreUserHistory(String storeId) {
 
         List<PurchaseHistory> phList = new LinkedList<PurchaseHistory>();
         for (Map.Entry<Integer, PurchaseHistory> ph : purchaseHistoryHashMap.entrySet()) {
@@ -90,7 +90,7 @@ public class History {
 
         return phList;
     }
-    public List<PurchaseHistory> getStoreHistory(String userId, String storeId) {
+    public List<PurchaseHistory> getStoreUserHistory(String userId, String storeId) {
         List<PurchaseHistory> phList = new LinkedList<PurchaseHistory>();
         for (Map.Entry<Integer, PurchaseHistory> ph : purchaseHistoryHashMap.entrySet()) {
             if (ph.getValue().getStoreID().equals( storeId) && ph.getValue().getUserID().equals(userId))
