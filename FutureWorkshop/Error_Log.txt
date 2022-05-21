@@ -1,0 +1,6 @@
+May 21, 2022 7:22:44 PM com.example.demo.Controllers.UserController sign_up
+WARNING: the id whatwhat is not a valid guest id in the system - failed to sign up
+May 21, 2022 7:28:24 PM com.example.demo.Controllers.UserController sign_up
+WARNING: the id GuestID_0 is not a valid guest id in the system - failed to sign up
+May 21, 2022 7:31:43 PM com.example.demo.Controllers.UserController sign_up
+WARNING: the id GuestID_0 is not a valid guest id in the system - failed to sign up
