@@ -66,7 +66,7 @@ public class StoreController {
 
     }
 
-    public void unfreezeStore(String storeId, String userId) throws NoPermissionException {
+    public void unfreezeStore(String storeId, String userId) throws NoPermissionException, UserException, NotifyException {
         if(checkIfGuest(userId)){
             throw new NoPermissionException("guest cant unfreeze store");
         }
@@ -74,7 +74,7 @@ public class StoreController {
         relevantStore.closeStore(userId);
     }
 
-    public void freezeStore(String storeId, String userId) throws NoPermissionException {
+    public void freezeStore(String storeId, String userId) throws NoPermissionException, UserException, NotifyException {
         if(checkIfGuest(userId)){
             throw new NoPermissionException("guest cant freeze store");
         }
@@ -106,7 +106,7 @@ public class StoreController {
         Store relevantStore = stores.get(storeId);
         relevantStore.editProduct(userId, productId,  newSupply, newName, newPrice, category);
     }
-    public void deleteProduct(String storeId, String userId, String productId) throws NoPermissionException, SupplyManagementException {
+    public void deleteProduct(String storeId, String userId, String productId) throws NoPermissionException, SupplyManagementException, UserException, NotifyException {
         if(checkIfGuest(userId)){
             throw new NoPermissionException("guest cant delete products");
         }
@@ -114,7 +114,7 @@ public class StoreController {
         relevantStore.deleteProduct(userId, productId);
     }
 
-    public void removeRoleInHierarchy(String storeId, String userIdRemoving, String UserAffectedId) throws NoPermissionException{
+    public void removeRoleInHierarchy(String storeId, String userIdRemoving, String UserAffectedId) throws NoPermissionException, UserException, NotifyException {
         Store relevantStore = stores.get(storeId);
         relevantStore.removeRoleInHierarchy(userIdRemoving, UserAffectedId);
     }
@@ -128,11 +128,11 @@ public class StoreController {
         Store relevantStore = stores.get(storeId);
         relevantStore.removeSomePermissions(userIdRemoving,UserAffectedId, PerToRemove);
     }
-    public void createOwner(String storeId, String userIdGiving, String UserGettingPermissionId, List<Permission> permissions) throws NoPermissionException {
+    public void createOwner(String storeId, String userIdGiving, String UserGettingPermissionId, List<Permission> permissions) throws NoPermissionException, UserException, NotifyException {
         Store relevantStore = stores.get(storeId);
         relevantStore.createOwner(userIdGiving, UserGettingPermissionId, permissions);
     }
-    public void createManager(String storeId, String userIdGiving, String UserGettingPermissionId) throws NoPermissionException {
+    public void createManager(String storeId, String userIdGiving, String UserGettingPermissionId) throws NoPermissionException, UserException, NotifyException {
         Store relevantStore = stores.get(storeId);
         relevantStore.createManager(userIdGiving, UserGettingPermissionId);
     }

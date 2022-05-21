@@ -66,7 +66,7 @@ public class Store implements getStoreInfo {
         }
     }
 
-    public void createManager(String userIdGiving, String UserGettingPermission) throws NoPermissionException {
+    public void createManager(String userIdGiving, String UserGettingPermission) throws NoPermissionException, NotifyException, UserException {
         synchronized (StoreRoles) {
             for (StoreRoles roleUser : StoreRoles) {
                 if (roleUser.getUserId().equals(UserGettingPermission)) {
@@ -77,13 +77,15 @@ public class Store implements getStoreInfo {
                 if (roleUser.getUserId().equals(userIdGiving)) {
                     StoreRoles newRole = roleUser.createManager(UserGettingPermission);
                     StoreRoles.add(newRole);
+                    StoreNotification sn = new StoreNotification(this,NotificationSubject.StoreAppointment,"you got manager role",userIdGiving+" made you manager in store name:"+storeName+" store Id"+storeId);
+                    NotificationManager.getNotificationManager().sendNotificationTo(UserGettingPermission,sn);
                     return;
                 }
             }
             throw new NoPermissionException("the user is not manager/owner");
         }
     }
-    public void createOwner(String userIdGiving, String UserGettingPermission, List<Permission> permissions) throws NoPermissionException {
+    public void createOwner(String userIdGiving, String UserGettingPermission, List<Permission> permissions) throws NoPermissionException, NotifyException, UserException {
         synchronized (StoreRoles) {
             for (StoreRoles roleUser : StoreRoles) {
                 if (roleUser.getUserId().equals(UserGettingPermission)) {
@@ -94,15 +96,17 @@ public class Store implements getStoreInfo {
                 if (roleUser.getUserId().equals(userIdGiving)) {
                     StoreRoles newRole = roleUser.createOwner(UserGettingPermission, permissions);
                     StoreRoles.add(newRole);
+                    StoreNotification sn = new StoreNotification(this,NotificationSubject.StoreAppointment,"you got owner role",userIdGiving+" made you owner in store name:"+storeName+" store Id"+storeId);
+                    NotificationManager.getNotificationManager().sendNotificationTo(UserGettingPermission,sn);
                     return;
                 }
             }
             throw new NoPermissionException("the user is not manager/owner");
         }
     }
-    private void removeRolesInStoreTo(List<String> RolesToRemove){
+    private void removeRolesInStoreTo(List<String> RolesIdToRemove){
         synchronized (StoreRoles) {
-            for (String id : RolesToRemove) {
+            for (String id : RolesIdToRemove) {
                 for (int i = 0; i < StoreRoles.size(); i++) {
                     if (IdGenerator.getInstance().isIdEqual(
                             StoreRoles.get(i).getUserId(),
@@ -115,11 +119,13 @@ public class Store implements getStoreInfo {
             }
         }
     }
-    public void removeRoleInHierarchy(String userIdRemoving, String UserAffectedId) throws NoPermissionException {
+    public void removeRoleInHierarchy(String userIdRemoving, String UserAffectedId) throws NoPermissionException, NotifyException, UserException {
         synchronized (StoreRoles){
             for (StoreRoles roleUser : StoreRoles) {
                 if (roleUser.getUserId().equals(userIdRemoving) ) {
                     removeRolesInStoreTo( roleUser.removeRole(UserAffectedId));
+                    StoreNotification sn = new StoreNotification(this,NotificationSubject.StoreAppointment,"your role removed",userIdRemoving+" removed your role in store name:"+storeName+" store Id"+storeId);
+                    NotificationManager.getNotificationManager().sendNotificationTo(UserAffectedId,sn);
                     return;
                 }
             }
@@ -203,26 +209,32 @@ public class Store implements getStoreInfo {
     }
 
 
-    public void deleteProduct(String userId, String productId) throws NoPermissionException,  SupplyManagementException {
+    public void deleteProduct(String userId, String productId) throws NoPermissionException, SupplyManagementException, NotifyException, UserException {
         if(!checkPermission(userId, Permission.ADD_NEW_PRODUCT)){
             throw new NoPermissionException("the user don't have this permission");
         }
         inventoryManager.deleteProduct(productId);
+        StoreNotification sn = new StoreNotification(this,NotificationSubject.StoreDeleted,"your store deleted",userId+" deleted your store name:"+storeName+" store Id"+storeId);
+        NotificationManager.getNotificationManager().sendNotificationTo(getRolesIds(),sn);
 
     }
 
-    public void closeStore(String userId) throws NoPermissionException {
+    public void closeStore(String userId) throws NoPermissionException, NotifyException, UserException {
         if(!checkPermission(userId, Permission.CLOSE_STORE)){
             throw new NoPermissionException("the user don't have this permission");
         }
         storeState = StoreState.CLOSED;
+        StoreNotification sn = new StoreNotification(this,NotificationSubject.StoreDeleted,"your store closed",userId+" closed your store name:"+storeName+" store Id"+storeId);
+        NotificationManager.getNotificationManager().sendNotificationTo(getRolesIds(),sn);
     }
 
-    public void openStore(String userId) throws NoPermissionException {
+    public void openStore(String userId) throws NoPermissionException, NotifyException, UserException {
         if(!checkPermission(userId, Permission.OPEN_STORE)){
             throw new NoPermissionException("the user don't have this permission");
         }
         storeState = StoreState.ACTIVE;
+        StoreNotification sn = new StoreNotification(this,NotificationSubject.StoreDeleted,"your store opened",userId+" opened your store name:"+storeName+" store Id"+storeId);
+        NotificationManager.getNotificationManager().sendNotificationTo(getRolesIds(),sn);
     }
 
     public String addNewPolicy(String userId, Policy policy) throws NoPermissionException {

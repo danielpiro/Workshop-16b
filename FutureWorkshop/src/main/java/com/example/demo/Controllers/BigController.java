@@ -17,6 +17,7 @@ import com.example.demo.ExternalConnections.Payment.PaymentNames;
 import com.example.demo.ExternalConnections.Payment.Visa;
 import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.History.History;
+import com.example.demo.NotificationsManagement.NotificationManager;
 import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.Store;
@@ -58,6 +59,7 @@ public class BigController {
         this.us = new UserController();
         this.sc = new StoreController();
         initiateExternalConnections();
+        NotificationManager.buildNotificationManager(us);
         my_log.logger.info("System Started");
     }
 
@@ -243,7 +245,7 @@ public class BigController {
 
     @PostMapping("/store/freeze")
     public ReturnValue unfreezeStore(@RequestParam String storeId,
-                                     @RequestParam String userId) throws NoPermissionException {
+                                     @RequestParam String userId) throws NoPermissionException, UserException, NotifyException {
         userExistsAndLoggedIn(userId);
         getStoreController().unfreezeStore(storeId, userId);
 
@@ -253,7 +255,7 @@ public class BigController {
 
     @PostMapping("/store/unfreeze")
     public ReturnValue freezeStore(@RequestParam String storeId,
-                                   @RequestParam String userId) throws NoPermissionException {
+                                   @RequestParam String userId) throws NoPermissionException, UserException, NotifyException {
 
         userExistsAndLoggedIn(userId);
         getStoreController().freezeStore(storeId, userId);
@@ -283,7 +285,7 @@ public class BigController {
     @DeleteMapping("/store/product")
     public ReturnValue deleteProductFromStore(@RequestParam String storeId,
                                               @RequestParam String userId,
-                                              @RequestParam String productId) throws NoPermissionException, SupplyManagementException {
+                                              @RequestParam String productId) throws NoPermissionException, SupplyManagementException, UserException, NotifyException {
         userExistsAndLoggedIn(userId);
         getStoreController().deleteProduct(storeId, userId, productId);
         ReturnValue rv = new ReturnValue(true, "", null);
@@ -291,7 +293,7 @@ public class BigController {
     }
 
     @DeleteMapping("/store/permissions")
-    public ReturnValue removePermissionTo(@RequestParam String storeId, @RequestParam String userIdRemoving, @RequestParam String UserAffectedId) throws NoPermissionException {
+    public ReturnValue removePermissionTo(@RequestParam String storeId, @RequestParam String userIdRemoving, @RequestParam String UserAffectedId) throws NoPermissionException, UserException, NotifyException {
         if (getUserController().checkIfUserExists(userIdRemoving) && getUserController().checkIfUserExists(UserAffectedId) && getUserController().checkIfUserIsLoggedIn(userIdRemoving))
             getStoreController().removeRoleInHierarchy(storeId, userIdRemoving, UserAffectedId);
         else
@@ -301,7 +303,7 @@ public class BigController {
     }
 
     @PostMapping("/owner")
-    public ReturnValue createOwner(@Valid @RequestBody MockSmallPermission mockPermission) throws NoPermissionException {
+    public ReturnValue createOwner(@Valid @RequestBody MockSmallPermission mockPermission) throws NoPermissionException, UserException, NotifyException {
         if (getUserController().checkIfUserExists(mockPermission.getUserIdGiving()) && getUserController().checkIfUserExists(mockPermission.getUserGettingPermissionId()) && getUserController().checkIfUserIsLoggedIn(mockPermission.getUserIdGiving())) {
             getStoreController().createOwner(mockPermission.getStoreId(), mockPermission.getUserIdGiving(), mockPermission.getUserGettingPermissionId(), mockPermission.getPermissions());
         } else
@@ -311,7 +313,7 @@ public class BigController {
     }
 
     @PostMapping("/manager")
-    public ReturnValue createManager(@RequestParam String storeId, @RequestParam String userIdGiving, @RequestParam String UserGettingPermissionId) throws NoPermissionException {
+    public ReturnValue createManager(@RequestParam String storeId, @RequestParam String userIdGiving, @RequestParam String UserGettingPermissionId) throws NoPermissionException, UserException, NotifyException {
         if (getUserController().checkIfUserExists(userIdGiving) && getUserController().checkIfUserExists(UserGettingPermissionId) && getUserController().checkIfUserIsLoggedIn(userIdGiving)) {
             getStoreController().createManager(storeId, userIdGiving, UserGettingPermissionId);
         } else

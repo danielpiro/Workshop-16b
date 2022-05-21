@@ -1,5 +1,5 @@
 package com.example.demo.NotificationsManagement;
 
 public enum NotificationSubject {
-    StoreForum,
+    StoreForum, StoreAppointment, StoreState, StoreDeleted
 }
