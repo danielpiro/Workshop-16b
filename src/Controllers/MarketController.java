@@ -318,6 +318,9 @@ public class MarketController {
         }
         sc.deletePolicy(storeId,userId,policyId);
     }
+    private void checkIfUserHaveRoleInStore(){
+        //todo
+    }
     public List<Permission> getUserPermission(String StoreId,String userId){
        return sc.getUserPermission(StoreId,userId);
     }
