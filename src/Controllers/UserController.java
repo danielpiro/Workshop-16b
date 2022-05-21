@@ -453,4 +453,14 @@ public class UserController implements NotificationReceiver {
             get_subscriber(userid).getComplaintNotifications().get(complaintNotificaionId).setReadTrue();
     }
 
+    public String getPermissionType(String username){
+        if(getSystemAdmins().contains(get_subscriber(username)))
+            return "admin";
+        if (get_subscriber(username)!=null)
+            return "subscriber";
+        if (getGuest(username)!=null)
+            return "guest";
+        return null;
+    }
+
 }
