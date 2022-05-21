@@ -1,4 +1,4 @@
-package NotificationsManagement;
+package main.java.com.example.demo.NotificationsManagement;
 
 import Store.StoreState;
 

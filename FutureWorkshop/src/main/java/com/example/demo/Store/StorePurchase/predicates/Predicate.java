@@ -1,8 +1,8 @@
-package Store.StorePurchase.predicates;
+package main.java.com.example.demo.Store.StorePurchase.predicates;
 
 import ExternalConnections.ExternalConnectionHolder;
 import ShoppingCart.UserInfo;
-import Store.StorePurchase.PurchasableProduct;
+import main.java.com.example.demo.Store.StorePurchase.PurchasableProduct;
 
 import java.util.List;
 

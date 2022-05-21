@@ -9,9 +9,9 @@ import ExternalConnections.Payment.PaymentNames;
 import ShoppingCart.UserInfo;
 import Store.InventoryManager;
 import Store.ProductsCategories;
-import Store.StorePurchase.Policies.Policy;
-import Store.StorePurchase.Policies.PolicyBuilder;
-import Store.StorePurchase.PurchasableProduct;
+import main.java.com.example.demo.Store.StorePurchase.Policies.Policy;
+import main.java.com.example.demo.Store.StorePurchase.Policies.PolicyBuilder;
+import main.java.com.example.demo.Store.StorePurchase.PurchasableProduct;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 

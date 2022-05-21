@@ -1,4 +1,4 @@
-package Store.StorePurchase.Policies;
+package main.java.com.example.demo.Store.StorePurchase.Policies;
 
 import ExternalConnections.ExternalConnectionHolder;
 import GlobalSystemServices.IdGenerator;

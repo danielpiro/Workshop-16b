@@ -1,4 +1,4 @@
-package Store.StorePurchase.predicates;
+package main.java.com.example.demo.Store.StorePurchase.predicates;
 
 public enum PredicateProductType {
     General,

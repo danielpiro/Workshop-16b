@@ -1,9 +1,9 @@
-package Store.StorePurchase.Policies;
+package main.java.com.example.demo.Store.StorePurchase.Policies;
 
 import ExternalConnections.ExternalConnectionHolder;
 import ShoppingCart.UserInfo;
-import Store.StorePurchase.PurchasableProduct;
-import Store.StorePurchase.predicates.PolicyPredicate;
+import main.java.com.example.demo.Store.StorePurchase.PurchasableProduct;
+import main.java.com.example.demo.Store.StorePurchase.predicates.PolicyPredicate;
 import Store.Product;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package Store.StorePurchase;
+package main.java.com.example.demo.Store.StorePurchase;
 
 import CustomExceptions.SupplyManagementException;
 import Store.ProductsCategories;

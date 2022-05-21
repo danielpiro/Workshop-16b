@@ -1,8 +1,8 @@
-package Store.StorePurchase.Policies;
+package main.java.com.example.demo.Store.StorePurchase.Policies;
 
 import CustomExceptions.SupplyManagementException;
 import Store.ProductsCategories;
-import Store.StorePurchase.PurchasableProduct;
+import main.java.com.example.demo.Store.StorePurchase.PurchasableProduct;
 
 public class ProductBox implements PurchasableProduct {
     private PurchasableProduct myProduct;

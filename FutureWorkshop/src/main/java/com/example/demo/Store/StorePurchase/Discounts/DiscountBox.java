@@ -1,8 +1,8 @@
-package Store.StorePurchase.Discounts;
+package main.java.com.example.demo.Store.StorePurchase.Discounts;
 
 import CustomExceptions.SupplyManagementException;
 import Store.ProductsCategories;
-import Store.StorePurchase.PurchasableProduct;
+import main.java.com.example.demo.Store.StorePurchase.PurchasableProduct;
 
 public class DiscountBox implements PurchasableProduct {
     private PurchasableProduct myProduct;

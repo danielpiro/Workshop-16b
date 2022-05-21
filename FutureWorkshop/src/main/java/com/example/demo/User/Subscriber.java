@@ -1,9 +1,8 @@
 package com.example.demo.User;
 
 
-import CustomExceptions.UserException;
-import NotificationsManagement.ComplaintNotification;
-import NotificationsManagement.StoreNotification;
+import main.java.com.example.demo.NotificationsManagement.ComplaintNotification;
+import main.java.com.example.demo.NotificationsManagement.StoreNotification;
 
 import java.util.ArrayList;
 import java.util.List;

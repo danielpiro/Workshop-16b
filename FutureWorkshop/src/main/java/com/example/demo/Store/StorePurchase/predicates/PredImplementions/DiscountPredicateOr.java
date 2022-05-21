@@ -1,9 +1,9 @@
-package Store.StorePurchase.predicates.PredImplementions;
+package main.java.com.example.demo.Store.StorePurchase.predicates.PredImplementions;
 
 import ExternalConnections.ExternalConnectionHolder;
 import ShoppingCart.UserInfo;
-import Store.StorePurchase.PurchasableProduct;
-import Store.StorePurchase.predicates.DiscountPredicate;
+import main.java.com.example.demo.Store.StorePurchase.PurchasableProduct;
+import main.java.com.example.demo.Store.StorePurchase.predicates.DiscountPredicate;
 
 import java.util.List;
 
