@@ -1,0 +1,86 @@
+{
+    "policies": [
+        {
+            "id": "xyz1",
+            "creator": "Shlomo",
+            "policyRule": "xor",
+            "policyContext": "store",
+            "ruleType": "Weight",
+            "category": "Dairy",
+            "product": "Milk",
+            "minVal": 100,
+            "maxVal": 200,
+            "initialDate:": "",
+            "endDate": ""
+
+        }
+    ,{
+            "id": "xyz2",
+            "creator": "Gil",
+            "policyRule": "xor",
+            "policyContext": "store",
+            "ruleType": "Time",
+            "category": "Cakes",
+            "product": "Cheese Cake",
+            "less_then": 0,
+            "greater_equal_then": 0,
+            "initialDate:": "",
+            "endDate": ""
+
+        },
+        {
+            "id": "xyz3",
+            "creator": "Shlomi",
+            "policyRule": "xor",
+            "policyContext": "product",
+            "ruleType": "Time",
+            "category": "Dairy",
+            "product": "Milk",
+            "less_then": 100,
+            "greater_equal_then": 200,
+            "initialDate:": "",
+            "endDate": ""
+
+        },
+        {
+            "id": "xyz4",
+            "creator": "Shlomi",
+            "policyRule": "xor",
+            "policyContext": "category",
+            "ruleType": "Quantity",
+            "category": "Dairy",
+            "product": "Milk",
+            "less_then": 100,
+            "greater_equal_then": 200,
+            "initialDate:": "",
+            "endDate": ""
+
+        },
+        {
+            "id": "xyz5",
+            "creator": "Shlomi",
+            "policyRule": "xor",
+            "policyContext": "category",
+            "ruleType": "Quantity",
+            "category": "Dairy",
+            "product": "Milk",
+            "less_then": 100,
+            "greater_equal_then": 200,
+            "initialDate:": "",
+            "endDate": ""
+        },
+        {
+            "id": "xyz6",
+            "creator": "Shlomi",
+            "policyRule": "xor",
+            "policyContext": "category",
+            "ruleType": "Quantity",
+            "category": "Dairy",
+            "product": "Milk",
+            "less_then": 100,
+            "greater_equal_then": 200,
+            "initialDate:": "",
+            "endDate": ""
+        }
+    ]
+}

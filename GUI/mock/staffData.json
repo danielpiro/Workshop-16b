@@ -1,0 +1,47 @@
+{
+    "staff": [
+        {
+            "id": "xyz1",
+            "username": "Shlomo 1",
+            "address": "Ben Gurion 1",
+            "phone": "0501111111"
+
+        },
+        {
+            "id": "xyz2",
+            "username": "Shlomo 2",
+            "address": "Ben Gurion 2",
+            "phone": "0502222222"
+
+        },
+        {
+            "id": "xyz3",
+            "username": "Shlomo 3",
+            "address": "Ben Gurion 3",
+            "phone": "0503333333"
+
+        },
+        {
+            "id": "xyz4",
+            "username": "Shlomo 4",
+            "address": "Ben Gurion 4",
+            "phone": "0504444444"
+
+        },
+        {
+            "id": "xyz5",
+            "username": "Shlomo 5",
+            "address": "Ben Gurion 5",
+            "phone": "0505555555"
+
+        },
+
+        {
+            "id": "xyz6",
+            "username": "Shlomo 6",
+            "address": "Ben Gurion 6",
+            "phone": "0506666666"
+
+        }
+    ]
+}
