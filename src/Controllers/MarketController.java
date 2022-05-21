@@ -319,7 +319,11 @@ public class MarketController {
     public List<Permission> getUserPermission(String StoreId,String userId){
        return sc.getUserPermission(StoreId,userId);
     }
-    public String getTitle(String StoreId,String userIf){
+
+    /**
+     * @return - manger/owner/no title
+     */
+    public String getTitle(String StoreId, String userIf){
         return sc.getTitle(StoreId,userIf);
     }
     public List<Policy> getPolices(String storeId,String userId) throws NoPermissionException {
@@ -329,14 +333,23 @@ public class MarketController {
         }
         return sc.getPolices(storeId,userId);
     }
-    public List<PurchaseHistory> getStoreHistory(String storeId, String userId) throws NoPermissionException{
+    public List<PurchaseHistory> getStoreHistory(String storeId, String userIdRequesting) throws NoPermissionException{
+        if(!getUserController().checkIfUserExists(userIdRequesting)||!getUserController().checkIfUserIsLoggedIn(userIdRequesting)){
+            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
+            return null;
+        }
+        return sc.getStoreHistory(storeId, userIdRequesting);
+    }
+    public List<PurchaseHistory> getStoreHistory(String userIdRequesting, String storeId, String userId) throws NoPermissionException{
         if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
             my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
             return null;
         }
-        return sc.getStoreHistory(storeId, userId);
+        return sc.getStoreHistory(userIdRequesting, storeId, userId);
     }
-
+    public List<Store> getAllStoresByStoreName(String name){
+        return sc.getAllStoresByStoreName(name);
+    }
     private UserController getUserController() {
         return us;
     }

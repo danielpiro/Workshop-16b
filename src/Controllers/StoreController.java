@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 
 public class StoreController {
@@ -240,7 +241,10 @@ public class StoreController {
         Store relevantStore = stores.get(storeId);
         return relevantStore.getStoreHistory(userId);
     }
-
+    public List<PurchaseHistory> getStoreHistory(String userIdRequesting, String storeId, String userId) throws NoPermissionException {
+        Store relevantStore = stores.get(storeId);
+        return relevantStore.getStoreHistory(userIdRequesting,userId);
+    }
 
     public String getTitle(String storeId, String userIf) {
         Store relevantStore = stores.get(storeId);
@@ -250,5 +254,10 @@ public class StoreController {
     public List<Permission> getUserPermission(String storeId, String userId) {
         Store relevantStore = stores.get(storeId);
         return relevantStore.getUserPermission(userId);
+    }
+
+
+    public List<Store> getAllStoresByStoreName(String name) {
+        return stores.values().stream().filter(p->p.getStoreName().equals(name)).collect(Collectors.toList());
     }
 }

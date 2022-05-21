@@ -88,9 +88,19 @@ public class History {
 
         return phList;
     }
+    public List<PurchaseHistory> getStoreHistory(String userId, String storeId) {
+        List<PurchaseHistory> phList = new LinkedList<PurchaseHistory>();
+        for (Map.Entry<Integer, PurchaseHistory> ph : purchaseHistoryHashMap.entrySet()) {
+            if (ph.getValue().getStoreID().equals( storeId) && ph.getValue().getUserID().equals(userId))
+                phList.add(ph.getValue());
+        }
+
+        return phList;
+    }
     public synchronized ConcurrentHashMap<Integer,PurchaseHistory> getAllHistory (String storeId) {
 
         return purchaseHistoryHashMap;
     }
+
 
 }

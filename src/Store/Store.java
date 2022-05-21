@@ -301,6 +301,12 @@ public class Store implements getStoreInfo {
          }
         return History.getInstance().getStoreHistory(storeId);
     }
+    public List<PurchaseHistory> getStoreHistory(String userIdRequesting, String userId) throws NoPermissionException {
+        if(!checkPermission(userIdRequesting, Permission.VIEW_STORE_HISTORY)){
+            throw new NoPermissionException("the user don't have this permission");
+        }
+        return History.getInstance().getStoreHistory(userId,storeId);
+    }
 
     public ForumThread getThread(String userId) {
         return forum.getThreadOfUserId(userId);
@@ -337,4 +343,6 @@ public class Store implements getStoreInfo {
         }
         return new ArrayList<>();
     }
+
+
 }
