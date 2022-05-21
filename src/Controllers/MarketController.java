@@ -62,7 +62,7 @@ public class MarketController {
 
         return getUserController().deleteUser(whosDeleting,whosBeingDeleted);
     }
-    public boolean sign_up(String guestId,String user_name, String password) {
+    public boolean sign_up(String guestId,String user_name, String password){
         my_log.logger.info("user "+user_name+ " is trying to sign up");
         return getUserController().sign_up(guestId,user_name, password);
     }

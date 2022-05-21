@@ -1,6 +1,7 @@
 package Tests.Unit;
 
 import Controllers.MarketController;
+import CustomExceptions.UserException;
 import User.Guest;
 import org.junit.Test;
 
@@ -19,7 +20,7 @@ class BigControllerTest {
     String g4;
     String g5;
     @BeforeEach
-    void setUp() throws IOException {
+    void setUp() throws IOException, UserException {
         bigController = new MarketController();
         g1 =  bigController.addGuest();
         bigController.sign_up(g1,"abed15", "taweel1");
@@ -34,7 +35,7 @@ class BigControllerTest {
     }
 
     @org.junit.jupiter.api.Test
-    public void sign_up() {
+    public void sign_up() throws UserException {
         assertTrue(bigController.sign_up(g4,"name", "pass"));
         assertEquals(bigController.getUser_list().get(bigController.getUser_list().size()-1).getName(),"name");
         assertEquals(5, bigController.getUser_list().size()); //Admin +1 new user + 3 already registered users(in setup)

@@ -1,15 +1,11 @@
 package Tests.Unit;
 
-import User.Encrypt;
 import User.Subscriber;
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
 
 class SubscriberTest {
     private static Subscriber subscriber;
@@ -34,12 +30,6 @@ class SubscriberTest {
 
     }
 
-    @org.junit.jupiter.api.Test
-    void getPassword() {
-        assertEquals("ufxx6789", subscriber.getPassword());// after encryption
-        assertEquals("ufxx6789:", subscriber2.getPassword());// after encryption
-
-    }
 
     @org.junit.jupiter.api.Test
     void getQueries() {

@@ -1,5 +1,6 @@
 package User;
 
+import CustomExceptions.UserException;
 import NotificationsManagement.ComplaintNotification;
 import NotificationsManagement.StoreNotification;
 
@@ -14,17 +15,10 @@ public class Subscriber extends User {
     private List<StoreNotification> storeNotifications;
     private List<ComplaintNotification> complaintNotifications;
     private Object lock = new Object();
-    Encrypt enc = new Encrypt();;
 
-    public Subscriber(String user_name, String password) {
+    public Subscriber(String user_name, String password){
         super(user_name);
-        if(user_name == null){
-            throw new IllegalArgumentException("user_name cant be null");
-        }
-        if(password == null){
-            throw new IllegalArgumentException("password cant be null");
-        }
-        this.password = enc.encrypt(password);
+        this.password = password;
         this.name = user_name;
         Queries= new ArrayList<>();
         lock = new Object();
@@ -55,7 +49,6 @@ public class Subscriber extends User {
         return Queries;
     }
 
-    public Encrypt getEncryption(){return enc;}
 
     public List<StoreNotification> getStoreNotifications() {
         return storeNotifications;

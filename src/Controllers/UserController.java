@@ -148,22 +148,47 @@ public class UserController implements NotificationReceiver {
             }
     }
 */
-    public boolean sign_up(String guest_id,String user_name, String password) {
+    public boolean sign_up(String guest_id,String user_name, String password){
         my_log.logger.info("a guest with id: "+guest_id+ " is trying to sign up with user name : "+user_name);
         if(getGuest(guest_id)==null){
+            my_log.error_logger.warning("the id "+guest_id + " is not a valid guest id in the system - failed to sign up");
+            return false;
+        }
+        if (get_subscriber(user_name) != null) {
+            my_log.error_logger.warning("user "+user_name + " already exists in the system - failed to sign up");
+            return false;
+        }
+        if(user_name == null){
+            my_log.error_logger.warning("user "+user_name + " is null - failed to sign up");
+            return false;
+        }
+        if(password == null){
+            my_log.error_logger.warning("user "+user_name + " password's is null - failed to sign up");
+            return false;
+        }
+        if(user_name.isEmpty()){
+            my_log.error_logger.warning("user "+user_name + " is empty - failed to sign up");
+            return false;
+        }
+        if(password.isEmpty()){
+            my_log.error_logger.warning("user "+user_name + " password's is empty - failed to sign up");
+            return false;
+        }
+        if(user_name.length()<2){
+            my_log.error_logger.warning("user "+user_name + " length is less than 2 - failed to sign up");
+            return false;
+        }
+        if(password.length()<2){
+            my_log.error_logger.warning("user "+user_name + " password's lenth is less than 2 - failed to sign up");
             return false;
         }
         synchronized (signUpLock) {
-            if (get_subscriber(user_name) == null) {
                 Subscriber s = new Subscriber(user_name, password);
                 add_subscriber(s);
                s.setShoppingCart(getGuestShoppingCart(guest_id));
                 removeGuest(guest_id);
                 return true;
-            }
         }
-        my_log.error_logger.warning("user "+user_name + " failed to sign up");
-        return false;
     }
 
     public boolean login(String user_name, String password) {
@@ -223,9 +248,7 @@ public class UserController implements NotificationReceiver {
         }
             if (password.length() > 2) {
                 Subscriber subscriber = get_subscriber(user_name);
-                Encrypt enc = subscriber.getEncryption();
-                String password_dyc = enc.decrypt(subscriber.getPassword());
-                return password_dyc.equals(password);
+                return subscriber.getPassword().equals(password);
             }
             my_log.error_logger.warning("invalid password for user "+user_name );
             return false;
