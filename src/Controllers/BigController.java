@@ -34,12 +34,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MarketController {
+public class BigController {
     private StoreController sc;
     private UserController us;
     Log my_log = Log.getLogger();
 
-    public MarketController() throws IOException {
+    public BigController() throws IOException {
         this.us = new UserController();
         this.sc = new StoreController();
         NotificationManager.buildNotificationManager(us);

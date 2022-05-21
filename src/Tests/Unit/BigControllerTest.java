@@ -1,9 +1,7 @@
 package Tests.Unit;
 
-import Controllers.MarketController;
+import Controllers.BigController;
 import CustomExceptions.UserException;
-import User.Guest;
-import org.junit.Test;
 
 import org.junit.jupiter.api.BeforeEach;
 
@@ -13,7 +11,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BigControllerTest {
-    private static MarketController bigController;
+    private static BigController bigController;
     String g1;
     String g2;
     String g3;
@@ -21,7 +19,7 @@ class BigControllerTest {
     String g5;
     @BeforeEach
     void setUp() throws IOException, UserException {
-        bigController = new MarketController();
+        bigController = new BigController();
         g1 =  bigController.addGuest();
         bigController.sign_up(g1,"abed15", "taweel1");
         g2= bigController.addGuest();

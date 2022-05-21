@@ -1,7 +1,7 @@
 
 package Tests.Bridge;
 
-import Controllers.MarketController;
+import Controllers.BigController;
 import Controllers.Service;
 import CustomExceptions.CantPurchaseException;
 import CustomExceptions.StorePolicyViolatedException;
@@ -29,18 +29,18 @@ import java.util.concurrent.Future;
 
 public class Real implements BridgeInterface{
 
-    private MarketController bigController;
+    private BigController bigController;
     private Service service;
 
     public Real() throws IOException {
         service = new Service();
     }
 
-   public Real(MarketController msApp) {
+   public Real(BigController msApp) {
         this.bigController = msApp;
    }
 
-   public MarketController getBigController() {
+   public BigController getBigController() {
         return bigController;
   }
 
@@ -74,7 +74,7 @@ public class Real implements BridgeInterface{
     /** System requirement - I.1 */
     public String openingMarket(){
         try {
-            this.bigController = new MarketController();
+            this.bigController = new BigController();
             return "system opened successfully";
         }
         catch (Exception e){
