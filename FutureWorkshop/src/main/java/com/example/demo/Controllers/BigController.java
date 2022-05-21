@@ -461,6 +461,7 @@ public class BigController {
 
         ReturnValue rv = new ReturnValue(true, "", getUserController().getPermissionType(username));
         return rv;
+
     }
     @GetMapping("/notification/complaint")
     public ReturnValue readComplaintNotification( @RequestParam String userId,
@@ -469,6 +470,7 @@ public class BigController {
         getUserController().readComplaintNotification(userId,complaintNotificaionId);
         ReturnValue rv = new ReturnValue(true, "", null);
         return rv;
+
     }
     @GetMapping("/notification/store/complaint")
     public ReturnValue readStoreNotification( @RequestParam  String userId,
@@ -487,6 +489,7 @@ public class BigController {
         }
         return sc.addNewPolicy(storeId,userId,policy);
     }
+
     @DeleteMapping("/policy")
     public ReturnValue deletePolicy(@RequestParam  String storeId,
                                     @RequestParam String userId,
@@ -500,6 +503,7 @@ public class BigController {
     private void checkIfUserHaveRoleInStore(){
         //todo
     }
+
 
 //    public List<Permission> getUserPermission(String StoreId, String userId){
 //        return sc.getUserPermission(StoreId,userId);
@@ -529,6 +533,7 @@ public class BigController {
 //    }
 
     @GetMapping("/stores")
+
     public ReturnValue getAllStoresByStoreName(@RequestParam String userId, @RequestParam String name){
         userExistsAndLoggedIn(userId);
         ReturnValue rv = new ReturnValue(true, "", sc.getAllStoresByStoreName(name));
