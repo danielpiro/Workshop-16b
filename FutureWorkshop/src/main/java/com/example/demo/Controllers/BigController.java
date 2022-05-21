@@ -442,10 +442,12 @@ public class BigController {
     public ReturnValue getStoreUserHistory(@RequestParam String userIdRequesting,
                                            @RequestParam  String storeId,
                                            @RequestParam  String userId) throws NoPermissionException{
+
         userExistsAndLoggedIn(userId);
         ReturnValue rv = new ReturnValue(true, "", sc.getStoreHistory(userIdRequesting, storeId, userId));
         return rv;
     }
+
 
     private boolean IsGuest(String userId) {
         for (Guest g : us.getGuest_list()) {
@@ -466,15 +468,18 @@ public class BigController {
     @GetMapping("/notification/complaint")
     public ReturnValue readComplaintNotification( @RequestParam String userId,
                                                   @RequestParam int complaintNotificaionId) throws UserException {
+
         userExistsAndLoggedIn(userId);
         getUserController().readComplaintNotification(userId,complaintNotificaionId);
         ReturnValue rv = new ReturnValue(true, "", null);
         return rv;
 
     }
+
     @GetMapping("/notification/store/complaint")
     public ReturnValue readStoreNotification( @RequestParam  String userId,
                                               @RequestParam int storeNotificaionId) throws UserException {
+
         userExistsAndLoggedIn(userId);
         getUserController().readStoreNotification(userId,storeNotificaionId);
         ReturnValue rv = new ReturnValue(true, "", null);
@@ -492,8 +497,10 @@ public class BigController {
 
     @DeleteMapping("/policy")
     public ReturnValue deletePolicy(@RequestParam  String storeId,
+
                                     @RequestParam String userId,
                                     @RequestParam  String policyId) throws NoPermissionException {
+
         userExistsAndLoggedIn(userId);
         sc.deletePolicy(storeId,userId,policyId);
         ReturnValue rv = new ReturnValue(true, "", null);
@@ -533,6 +540,7 @@ public class BigController {
 //    }
 
     @GetMapping("/stores")
+
 
     public ReturnValue getAllStoresByStoreName(@RequestParam String userId, @RequestParam String name){
         userExistsAndLoggedIn(userId);
