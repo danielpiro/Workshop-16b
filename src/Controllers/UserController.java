@@ -160,7 +160,7 @@ public class UserController implements NotificationReceiver {
             if (get_subscriber(user_name) == null) {
                 Subscriber s = new Subscriber(user_name, password);
                 add_subscriber(s);
-              // s.setShoppingCart(getGuestShoppingCart(guest_id));
+               s.setShoppingCart(getGuestShoppingCart(guest_id));
                 removeGuest(guest_id);
                 return true;
             }
@@ -372,7 +372,7 @@ public class UserController implements NotificationReceiver {
                 my_log.error_logger.warning("can't send store notification because user " + s + "doesn't exist");
                 throw new UserException("can't send store notification because user " + s + "doesn't exist");
             }
-              get_subscriber(s).addNotification(storeNotification);
+              get_subscriber(s).addNotification(storeNotification.getDeepCopy());
         }
     }
 
@@ -392,7 +392,32 @@ public class UserController implements NotificationReceiver {
                 my_log.error_logger.warning("trying to send a complaint to a user " + s + "which is not an admin");
                 throw new UserException("trying to send a complaint to a user " + s + "which is not an admin");
             }
-                get_subscriber(s).addComplaint(complaintNotification);
+                get_subscriber(s).addComplaint(complaintNotification.getDeepCopy());
         }
+    }
+    public void readStoreNotification(String userid,int storeNotificaionId){
+        my_log.logger.info("user "+userid+" wants to read store notification with id "+ storeNotificaionId);
+        if (get_subscriber(userid)==null)
+            my_log.error_logger.warning("user "+userid+" does not exist");
+        if (!get_subscriber(userid).isLogged_in())
+            my_log.error_logger.warning("user "+userid+" is not online");
+        if(storeNotificaionId<0||storeNotificaionId>get_subscriber(userid).getStoreNotifications().size()-1)
+            my_log.error_logger.warning("invalid store notification id");
+        else
+            get_subscriber(userid).getComplaintNotifications().get(storeNotificaionId).setReadTrue();
+
+    }
+    public void readComplaintNotification(String userid,int complaintNotificaionId){
+        my_log.logger.info("user "+userid+" wants to read store notification with id "+ complaintNotificaionId);
+        if (get_subscriber(userid)==null)
+            my_log.error_logger.warning("user "+userid+" does not exist");
+        if (!get_subscriber(userid).isLogged_in())
+            my_log.error_logger.warning("user "+userid+" is not online");
+        if (!getSystemAdmins().contains(get_subscriber(userid)))
+            my_log.error_logger.warning("user "+userid+" is not admin(only admins can recieve and read complaints)");
+        if(complaintNotificaionId<0||complaintNotificaionId>get_subscriber(userid).getComplaintNotifications().size()-1)
+            my_log.error_logger.warning("invalid complaint notification id");
+        else
+            get_subscriber(userid).getComplaintNotifications().get(complaintNotificaionId).setReadTrue();
     }
 }

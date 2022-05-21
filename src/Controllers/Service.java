@@ -50,8 +50,20 @@ public class Service {
         return future;
 
     }
+    public Future readComplaintsNotification(String userid, int complaintNotificaionId) {
+        Future future = executorService.submit(() -> {
+            bigController.readComplaintNotification(userid, complaintNotificaionId);
+        });
+        return future;
+    }
+    public Future readStoreNotification(String userid, int storeNotificaionId) {
+        Future future = executorService.submit(() -> {
+            bigController.readStoreNotification(userid, storeNotificaionId);
+        });
+        return future;
+    }
 
-    public Future getGuest(String id) {
+        public Future getGuest(String id) {
         Future future = executorService.submit(() -> bigController.getGuest(id));
         return future;
 

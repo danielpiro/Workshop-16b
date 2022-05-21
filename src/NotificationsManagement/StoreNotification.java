@@ -1,11 +1,14 @@
 package NotificationsManagement;
 
+import GlobalSystemServices.IdGenerator;
+
 public class StoreNotification {
     private final getStoreInfo sentFrom;
     private final NotificationSubject subject;
     private final String Title;
     private final String Body;
     private boolean read;
+    private final int id;
 
     public StoreNotification(getStoreInfo sentFrom, NotificationSubject subject, String title, String body) {
         this.sentFrom = sentFrom;
@@ -13,6 +16,7 @@ public class StoreNotification {
         Title = title;
         Body = body;
         read = false;
+        id = IdGenerator.getInstance().getStoreNotificationId();
     }
 
     public getStoreInfo getSentFrom() {
@@ -32,4 +36,12 @@ public class StoreNotification {
     public boolean isRead() {
         return read;
     }
+
+    public void setReadTrue() {
+        this.read = true;
+    }
+    public StoreNotification getDeepCopy(){
+       return new StoreNotification(sentFrom,subject,Title,Body);
+    }
+    public int getId(){return id;}
 }

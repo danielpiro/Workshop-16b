@@ -66,8 +66,14 @@ public class MarketController {
         my_log.logger.info("user "+user_name+ " is trying to sign up");
         return getUserController().sign_up(guestId,user_name, password);
     }
+    public void readComplaintNotification(String userid,int complaintNotificaionId) {
+     getUserController().readComplaintNotification(userid,complaintNotificaionId);
+    }
+    public void readStoreNotification(String userid,int storeNotificaionId){
+        getUserController().readStoreNotification(userid,storeNotificaionId);
+    }
 
-    public boolean login(String user_name, String password) {
+        public boolean login(String user_name, String password) {
         return getUserController().login(user_name,password);
     }
 

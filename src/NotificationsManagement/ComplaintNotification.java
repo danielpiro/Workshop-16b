@@ -1,11 +1,14 @@
 package NotificationsManagement;
 
+import GlobalSystemServices.IdGenerator;
+
 public class ComplaintNotification  {
     private final String sentFrom;
     private final NotificationSubject subject;
     private final String Title;
     private final String Body;
     private boolean read;
+    private final int id;
 
     public ComplaintNotification(String sentFrom, NotificationSubject subject, String title, String body) {
         this.sentFrom = sentFrom;
@@ -13,6 +16,7 @@ public class ComplaintNotification  {
         Title = title;
         Body = body;
         read = false;
+        id = IdGenerator.getInstance().getComplaintNotificationId();
     }
 
     public String getSentFrom() {
@@ -31,5 +35,9 @@ public class ComplaintNotification  {
     }
     public boolean isRead() {
         return read;
+    }
+    public void setReadTrue(){this.read = true;}
+    public ComplaintNotification getDeepCopy(){
+        return new ComplaintNotification(sentFrom,subject,Title,Body);
     }
 }

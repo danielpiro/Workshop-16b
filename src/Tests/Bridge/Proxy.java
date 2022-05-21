@@ -262,7 +262,7 @@ public class Proxy implements BridgeInterface {
     /** User requirement - II.1.1 */
     public String getInToTheSystem() {
         if (real != null)
-             real.getInToTheSystem();
+            return real.getInToTheSystem();
         throw new UnsupportedOperationException("Not Implemented Yet!");
     }
 
