@@ -41,7 +41,6 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 
-@CrossOrigin(maxAge = 3600)
 @RestController
 @EnableWebMvc
 @RequestMapping("/api")
@@ -440,12 +439,13 @@ public class BigController {
 
     @GetMapping("/history/store/user")
     public ReturnValue getStoreUserHistory(@RequestParam String userIdRequesting,
-                                           @RequestParam  String storeId,
-                                           @RequestParam  String userId) throws NoPermissionException{
+                                                     @RequestParam  String storeId,
+                                                     @RequestParam  String userId) throws NoPermissionException{
         userExistsAndLoggedIn(userId);
         ReturnValue rv = new ReturnValue(true, "", sc.getStoreHistory(userIdRequesting, storeId, userId));
         return rv;
     }
+
 
     private boolean IsGuest(String userId) {
         for (Guest g : us.getGuest_list()) {
@@ -456,6 +456,7 @@ public class BigController {
         return false;
     }
 
+    //todo check if user is logged in?
     @GetMapping("/permission/type")
     public ReturnValue getPermissionType( @RequestParam String username) {
 
@@ -463,18 +464,20 @@ public class BigController {
         return rv;
 
     }
+
     @GetMapping("/notification/complaint")
     public ReturnValue readComplaintNotification( @RequestParam String userId,
-                                                  @RequestParam int complaintNotificaionId) throws UserException {
+                                           @RequestParam int complaintNotificaionId) throws UserException {
         userExistsAndLoggedIn(userId);
         getUserController().readComplaintNotification(userId,complaintNotificaionId);
         ReturnValue rv = new ReturnValue(true, "", null);
         return rv;
 
     }
+
     @GetMapping("/notification/store/complaint")
     public ReturnValue readStoreNotification( @RequestParam  String userId,
-                                              @RequestParam int storeNotificaionId) throws UserException {
+                                       @RequestParam int storeNotificaionId) throws UserException {
         userExistsAndLoggedIn(userId);
         getUserController().readStoreNotification(userId,storeNotificaionId);
         ReturnValue rv = new ReturnValue(true, "", null);
@@ -492,8 +495,8 @@ public class BigController {
 
     @DeleteMapping("/policy")
     public ReturnValue deletePolicy(@RequestParam  String storeId,
-                                    @RequestParam String userId,
-                                    @RequestParam  String policyId) throws NoPermissionException {
+                             @RequestParam String userId,
+                             @RequestParam  String policyId) throws NoPermissionException {
         userExistsAndLoggedIn(userId);
         sc.deletePolicy(storeId,userId,policyId);
         ReturnValue rv = new ReturnValue(true, "", null);
@@ -504,36 +507,38 @@ public class BigController {
         //todo
     }
 
+    @GetMapping("/permission/user")
 
-//    public List<Permission> getUserPermission(String StoreId, String userId){
-//        return sc.getUserPermission(StoreId,userId);
-//    }
+    public ReturnValue getUserPermission( @RequestParam String StoreId,
+                                               @RequestParam  String userId){
+        ReturnValue rv = new ReturnValue(true, "", sc.getUserPermission(StoreId,userId));
+        return rv;
+
+    }
+
+    //todo check if user is logged in?
     @GetMapping("/title")
     public ReturnValue getTitle( @RequestParam String userId,
-                                 @RequestParam String StoreId,
-                                 @RequestParam  String userIf){
+                            @RequestParam String StoreId,
+                            @RequestParam  String userIf){
         userExistsAndLoggedIn(userId);
         ReturnValue rv = new ReturnValue(true, "", sc.getTitle(StoreId,userIf));
         return rv;
+
     }
+
+
+
     @GetMapping("/policy")
     public ReturnValue getPolices(@RequestParam String storeId,
-                                  @RequestParam  String userId) throws NoPermissionException {
+                                   @RequestParam  String userId) throws NoPermissionException {
         userExistsAndLoggedIn(userId);
         ReturnValue rv = new ReturnValue(true, "", sc.getPolices(storeId,userId));
         return rv;
     }
 
-//    public List<PurchaseHistory> getStoreUserHistory(String userIdRequesting, String storeId, String userId) throws NoPermissionException{
-//        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
-//            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
-//            return null;
-//        }
-//        return sc.getStoreHistory(userIdRequesting, storeId, userId);
-//    }
 
-    @GetMapping("/stores")
-
+    @GetMapping("/store/all")
     public ReturnValue getAllStoresByStoreName(@RequestParam String userId, @RequestParam String name){
         userExistsAndLoggedIn(userId);
         ReturnValue rv = new ReturnValue(true, "", sc.getAllStoresByStoreName(name));
