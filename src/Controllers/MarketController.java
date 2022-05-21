@@ -1,7 +1,9 @@
 package Controllers;
 
 
+import CustomExceptions.CantPurchaseException;
 import CustomExceptions.NotifyException;
+import CustomExceptions.StorePolicyViolatedException;
 import CustomExceptions.SupplyManagementException;
 import ExternalConnections.Delivery.DeliveryNames;
 import ExternalConnections.Delivery.FedEx;
@@ -126,7 +128,7 @@ public class MarketController {
     public String getCartInventory(String user_id) {
         return getUserController().getCartInventory(user_id);
     }
-    public float purchaseCart(String user_id, PaymentNames payment, DeliveryNames delivery) {
+    public float purchaseCart(String user_id, PaymentNames payment, DeliveryNames delivery) throws SupplyManagementException, StorePolicyViolatedException, CantPurchaseException {
         return getUserController().purchaseCart(user_id,new ExternalConnectionHolder(delivery,payment));
     }
 

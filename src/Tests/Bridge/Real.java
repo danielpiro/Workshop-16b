@@ -3,6 +3,8 @@ package Tests.Bridge;
 
 import Controllers.MarketController;
 import Controllers.Service;
+import CustomExceptions.CantPurchaseException;
+import CustomExceptions.StorePolicyViolatedException;
 import CustomExceptions.SupplyManagementException;
 import ExternalConnections.Delivery.Delivery;
 import ExternalConnections.Delivery.DeliveryNames;
@@ -256,8 +258,13 @@ public class Real implements BridgeInterface{
     }
 
     /** User requirement - II.2.5 */
-    public boolean purchaseShoppingCart(String userID,PaymentNames payment,DeliveryNames delivery){
-        float ans= bigController.purchaseCart(userID,payment,delivery);
+    public boolean purchaseShoppingCart(String userID,PaymentNames payment,DeliveryNames delivery) {
+        float ans= 0;
+        try {
+            ans = bigController.purchaseCart(userID,payment,delivery);
+        } catch (SupplyManagementException | StorePolicyViolatedException | CantPurchaseException e) {
+            return false;
+        }
         return ans != -1;
     }
 

@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import CustomExceptions.CantPurchaseException;
+import CustomExceptions.StorePolicyViolatedException;
+import CustomExceptions.SupplyManagementException;
 import ExternalConnections.ExternalConnectionHolder;
 import NotificationsManagement.Notification;
 import NotificationsManagement.NotificationReceiver;
@@ -122,7 +125,7 @@ public class UserController implements NotificationReceiver {
             }
             return get_subscriber(user_id).getCartInventory();
     }
-    public float purchaseCart(String user_id, ExternalConnectionHolder externalConnectionHolder) {
+    public float purchaseCart(String user_id, ExternalConnectionHolder externalConnectionHolder) throws SupplyManagementException, StorePolicyViolatedException, CantPurchaseException {
         if(get_subscriber(user_id)==null){
             throw new IllegalArgumentException("User doesn't exist");
         }

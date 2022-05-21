@@ -7,7 +7,7 @@ import org.junit.runners.model.InitializationError;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotificationManager {
+public class NotificationManager {//todo add to store send notification
     private static NotificationManager systemNotifyManager = null;
     private NotificationReceiver receiver;
 

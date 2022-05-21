@@ -1,5 +1,8 @@
 package User;
 
+import CustomExceptions.CantPurchaseException;
+import CustomExceptions.StorePolicyViolatedException;
+import CustomExceptions.SupplyManagementException;
 import ExternalConnections.ExternalConnectionHolder;
 import ShoppingCart.ShoppingCart;
 import ShoppingCart.InventoryProtector;
@@ -32,7 +35,7 @@ public abstract class User {
     public String getCartInventory() {
      return shoppingCart.getCartInventory();
  }
-    public float purchaseCart(ExternalConnectionHolder externalConnectionHolder) {
+    public float purchaseCart(ExternalConnectionHolder externalConnectionHolder) throws SupplyManagementException, StorePolicyViolatedException, CantPurchaseException {
      float a = shoppingCart.purchaseCart(externalConnectionHolder);
      return a;
  }

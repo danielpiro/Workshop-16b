@@ -108,7 +108,7 @@ public class ShoppingCart {
 
 
     //if successfull returns price, else returns -1
-    public float purchaseCart(ExternalConnectionHolder externalConnectionHolder) {
+    public float purchaseCart(ExternalConnectionHolder externalConnectionHolder) throws SupplyManagementException, StorePolicyViolatedException, CantPurchaseException {
         float total=0;
         int weight = 10;
         int ans =0;
@@ -129,7 +129,7 @@ public class ShoppingCart {
             for (Map.Entry<String, ShoppingBasket> basket : basketCases.entrySet()) {
                 basket.getValue().purchaseSuccessful(false);
             }
-            return -1;
+            throw e;
         }
         Log.getLogger().logger.info("user " + userId + " total cart value " + total);
 
