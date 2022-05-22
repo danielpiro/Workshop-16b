@@ -44,8 +44,7 @@ const Menu = () => {
   const onSumbitLogin = (e) => {
     e.preventDefault();
     let encryptedPassword = 0;
-    const encrypted = async () =>
-      await bcrypt.hashSync(loginInput.password, 8);
+    const encrypted = async () => await bcrypt.hashSync(loginInput.password, 8);
     encrypted().then((res) => (encryptedPassword = res));
     api
       .post(`/users/login/${loginInput.username}/${encryptedPassword}`)
@@ -374,9 +373,9 @@ const Menu = () => {
               </div>
             </div>
           </div>
-
         </div>
-      ) : ( //Subscriber Menu
+      ) : (
+        //Subscriber Menu
         <div className="flex">
           <div className="navbar navbar-expand-lg navbar-dark bg-primary">
             <Link href="/dashboard">

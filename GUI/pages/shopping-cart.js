@@ -3,7 +3,6 @@ import Menu from "../components/menu";
 import CartItem from "../components/cart-item.js";
 import { useCookies } from "react-cookie";
 import api from "../components/api";
-import createNotification from "../components/norification";
 
 const shoppingCart = () => {
   const [cart, setCart] = useState([]);
@@ -38,10 +37,15 @@ const shoppingCart = () => {
     api
       .post(`/cart/purchase/?user_id=GuestID_0&payment=Visa&delivery=UPS`)
       .then((res) => {
-        const { data } = res;
-        console.log(data);
+        if (res.status === 200) {
+          const { data } = res;
+          console.log("200", data);
+        } else {
+          const { data } = res;
+          console.log("not 200", data);
+        }
       })
-      .catch((err) => createNotification("error", err.message)());
+      .catch((err) => console.log(err));
     ///send cart to back to purcash
   };
   return (

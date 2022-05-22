@@ -3,22 +3,39 @@ import SearchBar from "../components/search-bar";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Card from "../components/card";
-import Footer from "../components/footer";
+import api from "../components/api";
 
 const Dashboard = () => {
   const [products, setProducts] = useState([]);
+  const [searchProducts, setSearchProducts] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [storeMap, setStoreMap] = useState([]);
   const [page, setPage] = useState(0);
+
   const [userPermission, setUserPermission] = useState("Guest"); //TODO: Need to change to Guest when logic is ready!
   //      + Edit using new method "setUserPermission"
   useEffect(() => {
-    const fetchApi = async () => {
-      const response = await axios.get("https://dummyjson.com/products");
-      const { data } = response;
-      setIsLoading(!isLoading);
-      setProducts(data.products);
+    setIsLoading(!isLoading);
+    const fetchData = async () => {
+      await axios
+        .get("http://localhost:9191/api/products/all")
+        .then((res) => {
+          if (res.status === 200) {
+            const { data } = res;
+            setIsLoading(!isLoading);
+            setProducts(data.value);
+          }
+        })
+        .then(async () => {
+          return await api.get("/store/all").then((res) => {
+            if (res.status === 200) {
+              setStoreMap(res.data.value);
+            }
+          });
+        })
+        .catch((err) => console.log(err));
     };
-    fetchApi();
+    fetchData();
   }, []);
 
   const onNext = (e) => {
@@ -37,26 +54,29 @@ const Dashboard = () => {
     <>
       <Menu />
       <div className="my-4">
-        <SearchBar setProducts={setProducts} /> {/*TODO: Check search button and setSearchValue*/}
+        <SearchBar setSearchProducts={setSearchProducts} />
       </div>
       <div className="my-4 d-flex justify-content-center">
         {!isLoading ? (
           <div style={{ display: "table", width: "100%" }}>
             <ul className="list-group-dashboard">
-              {products.slice(12 * page, 12 * (page + 1)).map((product) => {
-                return (
-                  <li className=" list-group-item" key={product.id}>
-                    <Card
-                      value={product.id}
-                      title={product.title}
-                      category={product.category}
-                      description={product.description}
-                      price={product.price}
-                      discount={product.discountPercentage}
-                    />
-                  </li>
-                );
-              })}
+              {products
+                .filter((product) => product.name.includes(searchProducts))
+                .slice(12 * page, 12 * (page + 1))
+                .map((product) => {
+                  return (
+                    <li className=" list-group-item" key={product.id}>
+                      <Card
+                        value={product.id}
+                        title={product.name}
+                        price={product.price}
+                        quantity={product.quantity}
+                        storeMap={storeMap}
+                        category={product.category}
+                      />
+                    </li>
+                  );
+                })}
             </ul>
             <nav aria-label="Search results pages">
               <ul className="pagination justify-content-center">

@@ -12,10 +12,14 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class MockSmallProduct {
 
-    @NotNull private String user_id;
-    @NotNull private String productID;
-    @NotNull private String storeID;
-    @NotNull private Integer amount;
+    @NotNull
+    private String user_id;
+    @NotNull
+    private String productID;
+    @NotNull
+    private String storeID;
+    @NotNull
+    private Integer amount;
 
 
 }

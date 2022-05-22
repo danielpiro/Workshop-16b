@@ -1,41 +1,58 @@
-import { allowedStatusCodes } from "next/dist/lib/load-custom-routes";
 import api from "./api";
 import createNotification from "./norification";
+import { useCookies } from "react-cookie";
+import axios from "axios";
 
-const Card = ({ value, title, category, description, price, discount }) => {
+const Card = ({ value, title, price, quantity, storeMap, category }) => {
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "username",
+    "password",
+    "userId",
+    "type",
+  ]);
   const onClickBid = (e) => {
     e.preventDefault();
     createNotification("info", "Will be implemented next milestone...")();
   };
-
+  let storeId = "";
+  const getShopId = (productId) => {
+    storeMap.map((item) => {
+      Object.values(item)[0].map((obj) => {
+        if (obj.id === productId) {
+          storeId = Object.keys(item)[0].toString();
+          return;
+        }
+      });
+    });
+  };
   const addProduct = async (e) => {
     e.preventDefault();
-    const fake = {
-      user_id: "123",
-      productID: "123",
-      storeID: "123",
-      amount: 123,
+    getShopId(value);
+    const obj = {
+      user_id: cookies.userId,
+      productID: value.toString(),
+      storeID: storeId,
+      amount: quantity,
     };
     api
-      .post(
-        `/cart/product/?auctionOrBid=false
-`,
-        fake
-      )
+      .post("/cart/product/?auctionOrBid=false", obj)
       .then((res) => {
         if (res.status === 200) {
           const { data } = res;
-          console.log(data);
+          console.log("is 200", data);
         }
       })
       .catch((err) => console.log(err));
   };
   return (
     <div className="card-body">
-      <h4 className="card-title text-center">{title}</h4>
-      <h5 className="card-category text-center">{category}</h5>
-      <p className="card-description text-center">{description}</p>
-      <h5 className="card-price me-2 text-center mb-5">Price: {price}$</h5>
+      <h4 className="card-title text-center">ID: {value}</h4>
+      <h4 className="card-title text-center">Name: {title}</h4>
+      <h5 className="card-description text-center mb-2">
+        Quantity: {quantity}
+      </h5>
+      <h5 className="card-category text-center mb-2">Category: {category}$</h5>
+      <h5 className="card-price text-center mb-2">Price: {price}$</h5>
 
       <div className="d-flex justify-content-center">
         <button

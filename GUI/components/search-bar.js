@@ -1,6 +1,5 @@
 import { useState } from "react";
-import api from "./api";
-const SearchBar = (props) => {
+const SearchBar = ({ setSearchProducts }) => {
   const [value, setValue] = useState("");
   const onChange = (e) => {
     setValue(e.target.value);
@@ -8,16 +7,7 @@ const SearchBar = (props) => {
 
   const onSearch = (e) => {
     e.preventDefault();
-    // api
-    //   .get(`/search/${value}`)
-    //   .then((res) => {
-    //     if (res.status === 200) {
-    //       props.setProducts(res.data);
-    //     } else {
-    //       alert("not good");
-    //     }
-    //   })
-    //   .catch((err) => console.log(err));
+    setSearchProducts(value);
   };
   return (
     <div className="container">

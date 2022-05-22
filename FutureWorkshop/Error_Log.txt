@@ -1,0 +1,219 @@
+<<<<<<< Updated upstream
+=======
+May 21, 2022 7:22:44 PM com.example.demo.Controllers.UserController sign_up
+WARNING: the id whatwhat is not a valid guest id in the system - failed to sign up
+May 21, 2022 7:28:24 PM com.example.demo.Controllers.UserController sign_up
+WARNING: the id GuestID_0 is not a valid guest id in the system - failed to sign up
+May 21, 2022 7:31:43 PM com.example.demo.Controllers.UserController sign_up
+WARNING: the id GuestID_0 is not a valid guest id in the system - failed to sign up
+May 21, 2022 10:29:31 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user danieldoesn't exist
+May 21, 2022 10:29:31 PM com.example.demo.Controllers.UserController login
+WARNING: user daniel failed login
+May 21, 2022 10:34:07 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user danieldoesn't exist
+May 21, 2022 10:34:07 PM com.example.demo.Controllers.UserController login
+WARNING: user daniel failed login
+May 21, 2022 10:34:38 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user danieldoesn't exist
+May 21, 2022 10:34:38 PM com.example.demo.Controllers.UserController login
+WARNING: user daniel failed login
+May 21, 2022 10:35:00 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user danieldoesn't exist
+May 21, 2022 10:35:00 PM com.example.demo.Controllers.UserController login
+WARNING: user daniel failed login
+May 21, 2022 10:35:01 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user danieldoesn't exist
+May 21, 2022 10:35:01 PM com.example.demo.Controllers.UserController login
+WARNING: user daniel failed login
+May 21, 2022 10:35:02 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user danieldoesn't exist
+May 21, 2022 10:35:02 PM com.example.demo.Controllers.UserController login
+WARNING: user daniel failed login
+May 21, 2022 10:35:02 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user danieldoesn't exist
+May 21, 2022 10:35:02 PM com.example.demo.Controllers.UserController login
+WARNING: user daniel failed login
+May 21, 2022 10:35:02 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user danieldoesn't exist
+May 21, 2022 10:35:02 PM com.example.demo.Controllers.UserController login
+WARNING: user daniel failed login
+May 21, 2022 10:35:02 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user danieldoesn't exist
+May 21, 2022 10:35:02 PM com.example.demo.Controllers.UserController login
+WARNING: user daniel failed login
+May 21, 2022 10:35:02 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user danieldoesn't exist
+May 21, 2022 10:35:02 PM com.example.demo.Controllers.UserController login
+WARNING: user daniel failed login
+May 21, 2022 10:35:02 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user danieldoesn't exist
+May 21, 2022 10:35:02 PM com.example.demo.Controllers.UserController login
+WARNING: user daniel failed login
+May 21, 2022 10:35:03 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user danieldoesn't exist
+May 21, 2022 10:35:03 PM com.example.demo.Controllers.UserController login
+WARNING: user daniel failed login
+May 21, 2022 10:35:03 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user danieldoesn't exist
+May 21, 2022 10:35:03 PM com.example.demo.Controllers.UserController login
+WARNING: user daniel failed login
+May 21, 2022 10:37:11 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user asdasddoesn't exist
+May 21, 2022 10:37:11 PM com.example.demo.Controllers.UserController login
+WARNING: user asdasd failed login
+May 21, 2022 10:37:46 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user asdasddoesn't exist
+May 21, 2022 10:37:46 PM com.example.demo.Controllers.UserController login
+WARNING: user asdasd failed login
+May 21, 2022 10:38:39 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user asdasddoesn't exist
+May 21, 2022 10:38:39 PM com.example.demo.Controllers.UserController login
+WARNING: user asdasd failed login
+May 21, 2022 10:38:42 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user asdasddoesn't exist
+May 21, 2022 10:38:42 PM com.example.demo.Controllers.UserController login
+WARNING: user asdasd failed login
+May 21, 2022 10:48:18 PM com.example.demo.Controllers.UserController sign_up
+WARNING: the id  is not a valid guest id in the system - failed to sign up
+May 21, 2022 11:04:03 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user undefineddoesn't exist
+May 21, 2022 11:04:47 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user undefineddoesn't exist
+May 21, 2022 11:04:56 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user undefineddoesn't exist
+May 21, 2022 11:05:33 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user undefineddoesn't exist
+May 21, 2022 11:06:14 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user asdasddoesn't exist
+May 21, 2022 11:08:53 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user asdasddoesn't exist
+May 21, 2022 11:09:24 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user asdasddoesn't exist
+May 21, 2022 11:09:46 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user asdasddoesn't exist
+May 21, 2022 11:10:28 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user asdasddoesn't exist
+May 21, 2022 11:10:42 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user asdasddoesn't exist
+May 21, 2022 11:12:05 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user asdasddoesn't exist
+May 21, 2022 11:12:34 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user asdasddoesn't exist
+May 21, 2022 11:13:39 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user asdasddoesn't exist
+May 21, 2022 11:13:50 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user asdasddoesn't exist
+May 21, 2022 11:13:50 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user asdasddoesn't exist
+May 21, 2022 11:14:42 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user asdasddoesn't exist
+May 21, 2022 11:15:54 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user asdasddoesn't exist
+May 22, 2022 11:44:58 AM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user abbdbddoesn't exist
+May 22, 2022 11:44:58 AM com.example.demo.Controllers.UserController login
+WARNING: user abbdbd failed login
+May 22, 2022 11:47:03 AM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user amitpppppdoesn't exist
+May 22, 2022 11:47:03 AM com.example.demo.Controllers.UserController login
+WARNING: user amitppppp failed login
+May 22, 2022 12:06:05 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user amadnfhfdoesn't exist
+May 22, 2022 12:06:05 PM com.example.demo.Controllers.UserController login
+WARNING: user amadnfhf failed login
+May 22, 2022 12:08:27 PM com.example.demo.Controllers.UserController sign_up
+WARNING: the id  is not a valid guest id in the system - failed to sign up
+May 22, 2022 12:08:39 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user abcdefdoesn't exist
+May 22, 2022 12:08:39 PM com.example.demo.Controllers.UserController login
+WARNING: user abcdef failed login
+May 22, 2022 12:08:41 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user abcdefdoesn't exist
+May 22, 2022 12:08:41 PM com.example.demo.Controllers.UserController login
+WARNING: user abcdef failed login
+May 22, 2022 12:10:22 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user newStoredoesn't exist
+May 22, 2022 12:12:20 PM com.example.demo.Controllers.UserController sign_up
+WARNING: the id  is not a valid guest id in the system - failed to sign up
+May 22, 2022 6:59:03 PM com.example.demo.Controllers.UserController sign_up
+WARNING: the id  is not a valid guest id in the system - failed to sign up
+May 22, 2022 7:00:21 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user asdasddoesn't exist
+May 22, 2022 7:00:21 PM com.example.demo.Controllers.UserController login
+WARNING: user asdasd failed login
+May 22, 2022 7:01:23 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user asdasddoesn't exist
+May 22, 2022 7:01:23 PM com.example.demo.Controllers.UserController login
+WARNING: user asdasd failed login
+May 22, 2022 7:03:07 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user asdasddoesn't exist
+May 22, 2022 7:03:07 PM com.example.demo.Controllers.UserController login
+WARNING: user asdasd failed login
+May 22, 2022 7:06:13 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user asdasddoesn't exist
+May 22, 2022 7:06:13 PM com.example.demo.Controllers.UserController login
+WARNING: user asdasd failed login
+May 22, 2022 7:08:04 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user asdasddoesn't exist
+May 22, 2022 7:08:04 PM com.example.demo.Controllers.UserController login
+WARNING: user asdasd failed login
+>>>>>>> Stashed changes
+May 22, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user asdasd doesn't exist
+May 22, 2022 7:24:43 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user asdasd doesn't exist
+May 22, 2022 7:25:54 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user asdasd doesn't exist
+May 22, 2022 7:26:35 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user asdasd doesn't exist
+May 22, 2022 7:27:21 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user asdasd doesn't exist
+May 22, 2022 7:28:20 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user asdasd doesn't exist
+May 22, 2022 7:29:11 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user asdasd doesn't exist
+May 22, 2022 7:29:55 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user asdasd doesn't exist
+May 22, 2022 7:51:54 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user GuestID_1 doesn't exist
+May 22, 2022 7:52:35 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user GuestID_1 doesn't exist
+May 22, 2022 7:52:57 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user GuestID_1 doesn't exist
+May 22, 2022 7:57:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user amit already exists in the system - failed to sign up
+May 22, 2022 7:57:48 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user amit already exists in the system - failed to sign up
+May 22, 2022 7:58:20 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user amit already exists in the system - failed to sign up
+May 22, 2022 7:58:27 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user amit already exists in the system - failed to sign up
+May 22, 2022 8:00:19 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user amit already exists in the system - failed to sign up
+May 22, 2022 9:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user asdasd doesn't exist
+May 22, 2022 9:26:03 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user daniel failed login
+May 22, 2022 9:32:10 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user asdasd doesn't exist
+May 22, 2022 9:33:21 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user asdasd1 failed login
+May 22, 2022 9:33:43 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user asdasd doesn't exist
+May 22, 2022 9:34:34 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user asdasd doesn't exist
+May 22, 2022 9:35:47 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user amit failed login
+May 22, 2022 11:07:12 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user aaaaa failed login
+May 22, 2022 11:12:12 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user aaaaa failed login
+May 22, 2022 11:12:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user aaaa failed login
+May 22, 2022 11:15:04 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user asdasd doesn't exist
+May 22, 2022 11:15:10 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user asdasd doesn't exist
+May 22, 2022 11:15:35 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user amit failed login

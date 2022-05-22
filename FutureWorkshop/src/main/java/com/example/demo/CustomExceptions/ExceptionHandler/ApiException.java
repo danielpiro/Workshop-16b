@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 
 import java.time.ZonedDateTime;
 
-public class ApiException {
+public class ApiException extends Throwable {
 
     private  String message;
     private  String errorMessage;

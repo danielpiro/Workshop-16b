@@ -4,6 +4,7 @@ import com.example.demo.CustomExceptions.Exception.NotifyException;
 import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
+import com.example.demo.CustomExceptions.ExceptionHandler.ApiException;
 import com.example.demo.Mock.*;
 import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
 import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
@@ -25,7 +26,10 @@ import com.example.demo.Store.StorePurchase.Policies.Policy;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.User.Guest;
 import com.example.demo.User.Subscriber;
-//import com.example.demo.dto.AdminDto;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -107,11 +111,10 @@ public class BigController {
 
         my_log.info("user" + isDeleting + "is trying to delete user" + whosBeingDeleted);
         //sc.removeRoleInHierarchy(whosBeingDeleted);
-        if(checkIfUserHaveRoleInStore(whosBeingDeleted)) {
+        if (checkIfUserHaveRoleInStore(whosBeingDeleted)) {
             throw new NoPermissionException("cant delete user with store role");
         }
         ReturnValue rv = new ReturnValue(true, "", getUserController().deleteUser(isDeleting, whosBeingDeleted));
-
 
 
         //ResponseEntity re = new ResponseEntity(rv,)/
@@ -144,7 +147,7 @@ public class BigController {
                              @RequestParam String password) throws UserException {
         System.out.println(userNameLogin);
         System.out.println(password);
-        ReturnValue rv = new ReturnValue(true, "", getUserController().login(guestId,userNameLogin, password));
+        ReturnValue rv = new ReturnValue(true, "", getUserController().login(guestId, userNameLogin, password));
         return rv;
     }
 
@@ -204,7 +207,7 @@ public class BigController {
     }
 
     //auction or bid false for now
-    @PostMapping(value = "/cart/product" , consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(value = "/cart/product")
     public ReturnValue addProductFromCart(@Valid @RequestBody MockSmallProduct mockProduct,
                                           @RequestParam boolean auctionOrBid) throws UserException {
 
@@ -363,24 +366,25 @@ public class BigController {
      * @return stores ids
      */
     private List<String> initializeStores(List<String> usersIds) throws NoPermissionException, SupplyManagementException {
-        List<String>  output = new ArrayList<>();
-        for(String userId: usersIds){
-            List<String>  owner = new ArrayList<>();
+        List<String> output = new ArrayList<>();
+        for (String userId : usersIds) {
+            List<String> owner = new ArrayList<>();
             owner.add(userId);
-            String StoreId = sc.openNewStore(userId+" store",owner);
-            sc.addNewProduct(StoreId,userId,"p1",1,1, ProductsCategories.Apps$Games.toString());
-            sc.addNewProduct(StoreId,userId,"p2",2,2, ProductsCategories.Appliances.toString());
-            sc.addNewProduct(StoreId,userId,"p3",3,3, ProductsCategories.Other.toString());
-            sc.addNewProduct(StoreId,userId,"p4",4,4, ProductsCategories.Apps$Games.toString());
+            String StoreId = sc.openNewStore(userId + " store", owner);
+            sc.addNewProduct(StoreId, userId, "p1", 1, 1, ProductsCategories.Apps$Games.toString());
+            sc.addNewProduct(StoreId, userId, "p2", 2, 2, ProductsCategories.Appliances.toString());
+            sc.addNewProduct(StoreId, userId, "p3", 3, 3, ProductsCategories.Other.toString());
+            sc.addNewProduct(StoreId, userId, "p4", 4, 4, ProductsCategories.Apps$Games.toString());
             output.add(StoreId);
         }
         return output;
     }
+
     @PutMapping("/initializeSystem")
     public ReturnValue initializeSystem() throws UserException, SupplyManagementException, NoPermissionException {
         List<String> users = initializeUsers();
-        initializeStores(users);
-        ReturnValue rv = new ReturnValue(true, "", users);
+        List<String> stores = initializeStores(users);
+        ReturnValue rv = new ReturnValue(true, "", List.of(users, stores));
         return rv;
     }
 
@@ -394,9 +398,40 @@ public class BigController {
     }
 
     @GetMapping("/store/all")
-    public HashMap<String, List<Product>> getAllProductsAndStores() {
+    public ReturnValue getAllProductsAndStores() throws UserException, SupplyManagementException, NoPermissionException, JsonProcessingException {
+        List<String> users = initializeUsers();
+        List<String> stores = initializeStores(users);
+        HashMap<String, List<Product>> allProductsAndStores = getStoreController().getAllProductsAndStores();
+        List<Object> products = new ArrayList<>();
+        List<Object> products2 = new ArrayList<>();
+        ObjectMapper objectMapper = new ObjectMapper();
+        for (var entry : allProductsAndStores.entrySet()) {
+            for (var product : entry.getValue()) {
+                String json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"price\":\"%s\",\"quantity\":\"%s\",\"category\":\"%s\"}", product.getId(), product.getName(), product.getPrice(), product.getSupply() , product.getCategory());
+                products.add(objectMapper.readTree(json));
+            }
+            products2.add(objectMapper.readTree(String.format("{\"%s\":%s}", entry.getKey(), products)));
+            products.clear();
+        }
+        ReturnValue rv = new ReturnValue(true, "", products2);
+        return rv;
+    }
 
-        return getStoreController().getAllProductsAndStores();
+    @GetMapping("/products/all")
+    public ReturnValue getAllProducts() throws UserException, SupplyManagementException, NoPermissionException, JsonProcessingException {
+        List<String> users = initializeUsers();
+        initializeStores(users);
+        HashMap<String, List<Product>> allProductsAndStores = getStoreController().getAllProductsAndStores();
+        List<Object> products = new ArrayList<>();
+        ObjectMapper objectMapper = new ObjectMapper();
+        for (var entry : allProductsAndStores.entrySet()) {
+            for (var product : entry.getValue()) {
+                String json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"price\":\"%s\",\"quantity\":\"%s\",\"category\":\"%s\"}", product.getId(), product.getName(), product.getPrice(), product.getSupply() , product.getCategory());
+                products.add(objectMapper.readTree(json));
+            }
+        }
+        ReturnValue rv = new ReturnValue(true, "", products);
+        return rv;
     }
 
 
@@ -531,29 +566,32 @@ public class BigController {
         }
         return sc.addNewPolicy(storeId, userId, policy);
     }
-    public String addNewDiscount(String storeId,String userId, Discount discount) throws NoPermissionException, UserException {// use policyBuilder to create policy
-        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
+
+    public String addNewDiscount(String storeId, String userId, Discount discount) throws NoPermissionException, UserException {// use policyBuilder to create policy
+        if (!getUserController().checkIfUserExists(userId) || !getUserController().checkIfUserIsLoggedIn(userId)) {
             my_log.warning("User doesn't exist or is not logged in or is not logged in");
             return null;
         }
-        return sc.addNewDiscount(storeId,userId,discount);
-    }
-    public void deleteDiscount(String storeId,String userId, String discountId) throws NoPermissionException, UserException {
-        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
-            my_log.warning("User doesn't exist or is not logged in or is not logged in");
-        }
-        sc.deleteDiscount(storeId,userId,discountId);
+        return sc.addNewDiscount(storeId, userId, discount);
     }
 
-    private boolean checkIfUserHaveRoleInStore(String userId){
+    public void deleteDiscount(String storeId, String userId, String discountId) throws NoPermissionException, UserException {
+        if (!getUserController().checkIfUserExists(userId) || !getUserController().checkIfUserIsLoggedIn(userId)) {
+            my_log.warning("User doesn't exist or is not logged in or is not logged in");
+        }
+        sc.deleteDiscount(storeId, userId, discountId);
+    }
+
+    private boolean checkIfUserHaveRoleInStore(String userId) {
         return sc.checkIfUserHaveRoleInAnyStore(userId);
     }
 
-    public List<Permission> getUserPermissionInStore(String StoreId, String userId){
-        return sc.getUserPermission(StoreId,userId);
+    public List<Permission> getUserPermissionInStore(String StoreId, String userId) {
+        return sc.getUserPermission(StoreId, userId);
     }
-    public String getTitleInStore(String StoreId, String userIf){
-        return sc.getTitle(StoreId,userIf);
+
+    public String getTitleInStore(String StoreId, String userIf) {
+        return sc.getTitle(StoreId, userIf);
     }
 
     @DeleteMapping("/policy")
@@ -567,8 +605,6 @@ public class BigController {
     }
 
 
-
-
     @GetMapping("/title")
     public ReturnValue getTitle(@RequestParam String userId,
                                 @RequestParam String StoreId,
@@ -576,13 +612,14 @@ public class BigController {
         userExistsAndLoggedIn(userId);
         ReturnValue rv = new ReturnValue(true, "", sc.getTitle(StoreId, userIf));
         return rv;
-      }
+    }
+
     public List<Discount> getDiscounts(String storeId, String userId) throws NoPermissionException, UserException {
-        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
+        if (!getUserController().checkIfUserExists(userId) || !getUserController().checkIfUserIsLoggedIn(userId)) {
             my_log.warning("User doesn't exist or is not logged in or is not logged in");
             return null;
         }
-        return sc.getDiscounts(storeId,userId);
+        return sc.getDiscounts(storeId, userId);
     }
 
     @GetMapping("/policy")
@@ -592,7 +629,6 @@ public class BigController {
         ReturnValue rv = new ReturnValue(true, "", sc.getPolices(storeId, userId));
         return rv;
     }
-
 
 
     @GetMapping("/stores/all")

@@ -28,6 +28,13 @@ const Login = () => {
         password: cookies.password,
       }));
     }
+    bcrypt.compare(
+      "$2a$08$XVnerQkcdkg.7hYy3.2gkORyg8uZ/WfAMol4QTer0ASIEbuRZifge",
+      "$2a$08$/G2G3JPTfu82qAUoCfPnaOJn3KpVvOsSpj9MC/BzbCyPvziiG6gLK",
+      (err, result) => {
+        console.log(result);
+      }
+    );
   }, []);
 
   const onClickLogin = async (e) => {
@@ -35,25 +42,37 @@ const Login = () => {
     let encryptedPassword = 0;
     const encrypted = async () => await bcrypt.hashSync(loginInput.password, 8);
     await encrypted()
-      .then((res) => (encryptedPassword = res))
-      .then(() => {
-        return api
+      .then((res) => {
+        encryptedPassword = res;
+        return console.log(loginInput.password, "login pass", res);
+      })
+      .then(async () => {
+        return await api
           .post(
-            `/users/login/?userNameLogin=${loginInput.username}&password=${encryptedPassword}`
+            `/users/login/?userNameLogin=${
+              loginInput.username
+            }&password=${encryptedPassword.toString()}`
           )
           .then((res) => {
+            const { data } = res;
             if (res.status === 200) {
-              const { data } = res;
-              console.log(data);
-              // setCookie("userId", data, { path: "/", sameSite: true });
-              // setCookie("username", loginInput.username, {
-              //   path: "/",
-              //   sameSite: true,
-              // });
-              // setCookie("password", loginInput.password, {
-              //   path: "/",
-              //   sameSite: true,
-              // });
+              setCookie("userId", loginInput.username, {
+                path: "/",
+                sameSite: true,
+              });
+              setCookie("username", loginInput.username, {
+                path: "/",
+                sameSite: true,
+              });
+              setCookie("password", loginInput.password, {
+                path: "/",
+                sameSite: true,
+              });
+              setCookie("type", data.value, {
+                path: "/",
+                sameSite: true,
+              });
+              router.push("/dashboard");
             } else {
               const { reason } = res.data;
               createNotification(
@@ -62,7 +81,7 @@ const Login = () => {
               )();
             }
           })
-          .catch((err) => console.log(err));
+          .catch((err) => console.log("in here", err));
       });
   };
 
@@ -100,13 +119,14 @@ const Login = () => {
     const encrypted = async () =>
       await bcrypt.hashSync(registerInput.password, 8);
     encrypted()
-      .then((res) => (encryptedPassword = res))
-      .then(() => {
-        return api
+      .then((res) => {
+        encryptedPassword = res;
+        return console.log(registerInput.password, "reg pass", res);
+      })
+      .then(async () => {
+        return await api
           .post(
-            `/users/signup/?guest_id=${""}&user_name=${
-              registerInput.username
-            }&password=${encryptedPassword}`
+            `/users/signup/?guest_id=${registerInput.username}&user_name=${registerInput.username}&password=${encryptedPassword}`
           )
           .then((res) => {
             if (res.status === 200) {
@@ -127,7 +147,7 @@ const Login = () => {
     <div className="form-signin w-100 m-auto">
       <form>
         <h1 className="h3 mb-4 fw-normal">Sign in</h1>
-        <div class="form-floating">
+        <div className="form-floating">
           <input
             type="email"
             className="form-control"
@@ -141,9 +161,9 @@ const Login = () => {
               }))
             }
           />
-          <label for="floatingInput">Username</label>
+          <label htmlFor="floatingInput">Username</label>
         </div>
-        <div class="form-floating">
+        <div className="form-floating">
           <input
             type="password"
             className="form-control mt-1"
@@ -157,7 +177,7 @@ const Login = () => {
               }))
             }
           />
-          <label for="floatingPassword">Password</label>
+          <label htmlFor="floatingPassword">Password</label>
         </div>
         <div className="container col-auto">
           <ul className="login-button-list">
@@ -212,6 +232,7 @@ const Login = () => {
                 <div>
                   <input
                     placeholder="Enter username"
+                    type="text"
                     value={registerInput.username}
                     onChange={(e) =>
                       setRegisterInput((prevState) => ({
@@ -224,6 +245,7 @@ const Login = () => {
                 <div className="mt-2">
                   <input
                     placeholder="Enter password"
+                    type="password"
                     value={registerInput.password}
                     onChange={(e) =>
                       setRegisterInput((prevState) => ({
