@@ -51,7 +51,7 @@ public class UserController implements NotificationReceiver {
         registeredUsers = 0;
     }
 
-    public void initialize() throws UserException {
+    public List<String> initialize() throws UserException {
         Guest g1= addGuest();
         Guest g2= addGuest();
         Guest g3= addGuest();
@@ -95,6 +95,18 @@ public class UserController implements NotificationReceiver {
         login(g2.name,"4321");
         login(g3.name,"pamaj","pam14444");
         login(g4.name,"spratt","raint42");
+        List<String> userIds = new ArrayList<>();
+        userIds.add("amit");
+        userIds.add("guy");
+        userIds.add("pam123");
+        userIds.add("alex12");
+        userIds.add("ronn");
+        userIds.add("delphin");
+        userIds.add("alan");
+        userIds.add("rotman");
+        userIds.add("dashy");
+        userIds.add("crim");
+        return userIds;
     }
 
     //WE DECIDED THAT ALL THE SYSTEM ADMINS WILL HAVE A SIMILAR USERNAME AS FOLLOWS:

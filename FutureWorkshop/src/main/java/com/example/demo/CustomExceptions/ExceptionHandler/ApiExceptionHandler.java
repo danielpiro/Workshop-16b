@@ -1,7 +1,6 @@
 package com.example.demo.CustomExceptions.ExceptionHandler;
 
-import com.example.demo.CustomExceptions.Exception.CantPurchaseException;
-import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
+import com.example.demo.CustomExceptions.Exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -32,7 +31,8 @@ public class ApiExceptionHandler {
 
     }
 
-    @ExceptionHandler(value = { NoSuchElementException.class , CantPurchaseException.class,IllegalArgumentException.class, NoPermissionException.class})
+    @ExceptionHandler(value = { NoSuchElementException.class , CantPurchaseException.class,IllegalArgumentException.class,
+            NoPermissionException.class, UserException.class, UserDeleted.class, SupplyManagementException.class, NotifyException.class, ExternalServiceDoesNotExist.class})
     public ResponseEntity handleElementDoesntExist (Exception e){
         ReturnValue rv = new ReturnValue(
                 false,

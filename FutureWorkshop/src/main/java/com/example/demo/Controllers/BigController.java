@@ -4,7 +4,6 @@ import com.example.demo.CustomExceptions.Exception.NotifyException;
 import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
-import com.example.demo.History.PurchaseHistory;
 import com.example.demo.Mock.*;
 import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
 import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
@@ -21,7 +20,6 @@ import com.example.demo.NotificationsManagement.NotificationManager;
 import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.ProductsCategories;
-import com.example.demo.Store.Store;
 import com.example.demo.Store.StorePurchase.Discounts.Discount;
 import com.example.demo.Store.StorePurchase.Policies.Policy;
 import com.example.demo.StorePermission.Permission;
@@ -83,10 +81,9 @@ public class BigController {
     //todo guy change by 2.d Version 2.
 
 
-    public ReturnValue initialize() throws UserException {
-        getUserController().initialize();
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
+    private List<String> initializeUsers() throws UserException {
+        return getUserController().initialize();
+
 
     }
 
@@ -142,7 +139,7 @@ public class BigController {
         return rv;
     }
 
-    @PostMapping("/users/login")
+    @PostMapping("/guest/login")
     public ReturnValue login(@RequestParam String guestId, @RequestParam String userNameLogin,
                              @RequestParam String password) throws UserException {
         System.out.println(userNameLogin);
@@ -365,7 +362,7 @@ public class BigController {
      * @param usersIds - create stores for users and add products for them
      * @return stores ids
      */
-    public List<String> initializeStores(List<String> usersIds) throws NoPermissionException, SupplyManagementException {
+    private List<String> initializeStores(List<String> usersIds) throws NoPermissionException, SupplyManagementException {
         List<String>  output = new ArrayList<>();
         for(String userId: usersIds){
             List<String>  owner = new ArrayList<>();
@@ -378,6 +375,13 @@ public class BigController {
             output.add(StoreId);
         }
         return output;
+    }
+    @PutMapping("/initializeSystem")
+    public ReturnValue initializeSystem() throws UserException, SupplyManagementException, NoPermissionException {
+        List<String> users = initializeUsers();
+        initializeStores(users);
+        ReturnValue rv = new ReturnValue(true, "", users);
+        return rv;
     }
 
     @PostMapping("/forum/message")
@@ -589,16 +593,10 @@ public class BigController {
         return rv;
     }
 
-//    public List<PurchaseHistory> getStoreUserHistory(String userIdRequesting, String storeId, String userId) throws NoPermissionException{
-//        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
-//            my_log.warning("User doesn't exist or is not logged in or is not logged in");
-//            return null;
-//        }
-//        return sc.getStoreHistory(userIdRequesting, storeId, userId);
-//    }
+
 
     @GetMapping("/stores/all")
-    public ReturnValue getAllStoresByStoreName(@RequestParam String userId, @RequestParam String name){
+    public ReturnValue getAllStoresByStoreName(@RequestParam String userId, @RequestParam String name) throws UserException {
         userExistsAndLoggedIn(userId);
         ReturnValue rv = new ReturnValue(true, "", sc.getAllStoresByStoreName(name));
         return rv;
