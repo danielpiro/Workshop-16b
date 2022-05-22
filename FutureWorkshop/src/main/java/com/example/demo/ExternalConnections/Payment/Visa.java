@@ -16,7 +16,7 @@ public class Visa extends Payment {
     // 0 is
     @Override
     protected int internalPayment(float total) {
-        Log.getLogger().logger.fine("try to pay with Visa");
+        Log.getLogger().fine("try to pay with Visa");
 
         if(total>=0)
             return (int) total;
@@ -25,7 +25,7 @@ public class Visa extends Payment {
 
     @Override
     public boolean connect(int key) {
-        Log.getLogger().logger.info("Visa connected");
+        Log.getLogger().info("Visa connected");
 
         connected =true;
         return true;

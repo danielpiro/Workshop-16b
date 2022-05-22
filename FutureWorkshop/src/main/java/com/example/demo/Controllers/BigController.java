@@ -111,13 +111,12 @@ public class BigController {
         my_log.info("user" + isDeleting + "is trying to delete user" + whosBeingDeleted);
         //sc.removeRoleInHierarchy(whosBeingDeleted);
         if(checkIfUserHaveRoleInStore(whosBeingDeleted)) {
-
+            throw new NoPermissionException("cant delete user with store role");
         }
-        else{
-            //todo ????
-        }
-
         ReturnValue rv = new ReturnValue(true, "", getUserController().deleteUser(isDeleting, whosBeingDeleted));
+       
+
+        
         //ResponseEntity re = new ResponseEntity(rv,)/
         return rv;
     }
@@ -451,7 +450,7 @@ public class BigController {
 
     private void userExistsAndLoggedIn(String userId) throws UserException {
         if (!getUserController().checkIfUserExists(userId) || !getUserController().checkIfUserIsLoggedIn(userId)) {
-            my_log.logger.warning("User doesn't exist or is not logged in");
+            my_log.warning("User doesn't exist or is not logged in");
             throw new IllegalArgumentException("User doesn't exist or is not logged in");
 
         }
@@ -520,21 +519,21 @@ public class BigController {
     //todo need to use policyBuilder to create policy
     public String addNewPolicy(String storeId, String userId, Policy policy) throws NoPermissionException, UserException {
         if (!getUserController().checkIfUserExists(userId) || !getUserController().checkIfUserIsLoggedIn(userId)) {
-            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
+            my_log.warning("User doesn't exist or is not logged in or is not logged in");
             return null;
         }
         return sc.addNewPolicy(storeId, userId, policy);
     }
-    public String addNewDiscount(String storeId,String userId, Discount discount) throws NoPermissionException {// use policyBuilder to create policy
+    public String addNewDiscount(String storeId,String userId, Discount discount) throws NoPermissionException, UserException {// use policyBuilder to create policy
         if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
-            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
+            my_log.warning("User doesn't exist or is not logged in or is not logged in");
             return null;
         }
         return sc.addNewDiscount(storeId,userId,discount);
     }
-    public void deleteDiscount(String storeId,String userId, String discountId) throws NoPermissionException {
+    public void deleteDiscount(String storeId,String userId, String discountId) throws NoPermissionException, UserException {
         if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
-            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
+            my_log.warning("User doesn't exist or is not logged in or is not logged in");
         }
         sc.deleteDiscount(storeId,userId,discountId);
     }
@@ -549,13 +548,7 @@ public class BigController {
     public String getTitleInStore(String StoreId, String userIf){
         return sc.getTitle(StoreId,userIf);
     }
-    public List<Policy> getPolices(String storeId, String userId) throws NoPermissionException {
-        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
-            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
-            return null;
-        }
-        return sc.getPolices(storeId,userId);
-    }
+   
     @DeleteMapping("/policy")
     public ReturnValue deletePolicy(@RequestParam String storeId,
                                     @RequestParam String userId,
@@ -566,13 +559,9 @@ public class BigController {
         return rv;
     }
 
-    private void checkIfUserHaveRoleInStore() {
-        //todo
-    }
+    
 
-    //    public List<Permission> getUserPermission(String StoreId, String userId){
-//        return sc.getUserPermission(StoreId,userId);
-//    }
+  
     @GetMapping("/title")
     public ReturnValue getTitle(@RequestParam String userId,
                                 @RequestParam String StoreId,
@@ -581,9 +570,9 @@ public class BigController {
         ReturnValue rv = new ReturnValue(true, "", sc.getTitle(StoreId, userIf));
         return rv;
       }
-    public List<Discount> getDiscounts(String storeId, String userId) throws NoPermissionException {
+    public List<Discount> getDiscounts(String storeId, String userId) throws NoPermissionException, UserException {
         if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
-            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
+            my_log.warning("User doesn't exist or is not logged in or is not logged in");
             return null;
         }
         return sc.getDiscounts(storeId,userId);
@@ -599,7 +588,7 @@ public class BigController {
 
 //    public List<PurchaseHistory> getStoreUserHistory(String userIdRequesting, String storeId, String userId) throws NoPermissionException{
 //        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
-//            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
+//            my_log.warning("User doesn't exist or is not logged in or is not logged in");
 //            return null;
 //        }
 //        return sc.getStoreHistory(userIdRequesting, storeId, userId);

@@ -13,7 +13,7 @@ public class UPS extends Delivery {
 
     @Override
     protected int internalDelivery(float total) {
-        Log.getLogger().logger.fine("try to Deliver UPS");
+        Log.getLogger().fine("try to Deliver UPS");
 
         if(total>=0)
             return (int) total;
@@ -22,7 +22,7 @@ public class UPS extends Delivery {
 
     @Override
     public boolean connect(int key) {
-        Log.getLogger().logger.info("UPS connected");
+        Log.getLogger().info("UPS connected");
 
         connected = true;
         return true;

@@ -14,7 +14,7 @@ public class FedEx extends Delivery {
 
     @Override
     protected int internalDelivery(float total) {
-        Log.getLogger().logger.fine("try to Deliver FedEx");
+        Log.getLogger().fine("try to Deliver FedEx");
 
         if(total>=0)
             return (int) total;
@@ -23,7 +23,7 @@ public class FedEx extends Delivery {
 
     @Override
     public boolean connect(int key) {
-        Log.getLogger().logger.info("FedEx connected");
+        Log.getLogger().info("FedEx connected");
 
 
         connected =true;

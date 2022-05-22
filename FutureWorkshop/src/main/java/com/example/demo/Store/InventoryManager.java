@@ -132,7 +132,7 @@ public class InventoryManager  implements InventoryProtector {
                 return;
             }
         }
-        Log.getLogger().logger.warning("cant delete, no Policy with this Id");
+        Log.getLogger().warning("cant delete, no Policy with this Id");
         throw new RuntimeException("no Policy with this Id");
     }
     public List<Policy> getPolicies() {
@@ -149,7 +149,7 @@ public class InventoryManager  implements InventoryProtector {
                 return;
             }
         }
-        Log.getLogger().logger.warning("cant delete, no Policy with this Id");
+        Log.getLogger().warning("cant delete, no Policy with this Id");
         throw new RuntimeException("no Policy with this Id");
     }
     public List<Discount> getDiscounts(){

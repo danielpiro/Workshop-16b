@@ -200,7 +200,7 @@ public class StoreController {
             relevantStore.getProduct(productId);
             return true;
         } catch (Exception e) {
-            Log.getLogger().logger.severe(e.getMessage());
+            Log.getLogger().severe(e.getMessage());
             return false;
         }
     }
