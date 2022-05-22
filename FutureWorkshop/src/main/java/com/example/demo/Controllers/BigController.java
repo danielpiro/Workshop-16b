@@ -114,13 +114,16 @@ public class BigController {
             throw new NoPermissionException("cant delete user with store role");
         }
         ReturnValue rv = new ReturnValue(true, "", getUserController().deleteUser(isDeleting, whosBeingDeleted));
-       
 
-        
+
+
         //ResponseEntity re = new ResponseEntity(rv,)/
         return rv;
     }
 
+
+    //todo remove guest_id from signup, it is always just creating.
+    //todo create login with guest id which takes the cart, also create one without guestid which gives a brand new cart.
 
     @PostMapping("/users/signup")
     public ResponseEntity signup(@RequestParam String user_name,
@@ -548,7 +551,7 @@ public class BigController {
     public String getTitleInStore(String StoreId, String userIf){
         return sc.getTitle(StoreId,userIf);
     }
-   
+
     @DeleteMapping("/policy")
     public ReturnValue deletePolicy(@RequestParam String storeId,
                                     @RequestParam String userId,
@@ -559,9 +562,9 @@ public class BigController {
         return rv;
     }
 
-    
 
-  
+
+
     @GetMapping("/title")
     public ReturnValue getTitle(@RequestParam String userId,
                                 @RequestParam String StoreId,
@@ -594,8 +597,8 @@ public class BigController {
 //        return sc.getStoreHistory(userIdRequesting, storeId, userId);
 //    }
 
-    @GetMapping("/stores")
-    public ReturnValue getAllStoresByStoreName(@RequestParam String userId, @RequestParam String name) throws UserException {
+    @GetMapping("/stores/all")
+    public ReturnValue getAllStoresByStoreName(@RequestParam String userId, @RequestParam String name){
         userExistsAndLoggedIn(userId);
         ReturnValue rv = new ReturnValue(true, "", sc.getAllStoresByStoreName(name));
         return rv;
