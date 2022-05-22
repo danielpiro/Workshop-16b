@@ -3,6 +3,7 @@ package com.example.demo.Tests.Bridge;
 
 
 import com.example.demo.Controllers.BigController;
+import com.example.demo.CustomExceptions.Exception.UserException;
 import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
 import com.example.demo.ExternalConnections.Delivery.Delivery;
 import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
@@ -219,7 +220,7 @@ public class Real   {
 //    }
 
     /** User requirement - II.1.4 */
-    public boolean login(String username, String password){
+    public boolean login(String username, String password) throws UserException {
         ReturnValue<Boolean> returnValue = getBigController().login(username,password);
         return returnValue.getValue();
     }

@@ -38,7 +38,7 @@ public class UserController implements NotificationReceiver {
 
 
 
-    public UserController() throws IOException {
+    public UserController() throws IOException, UserException {
         user_list = new ArrayList<>();
         guest_list=new ArrayList<>();
         system_admins = new ArrayList<>();
@@ -54,14 +54,14 @@ public class UserController implements NotificationReceiver {
         Guest g7= addGuest();
         Guest g8= addGuest();
 
-        
-        sign_up(g1.name,"amit","12345");
-        sign_up(g2.name,"guy","12345678");
-        sign_up(g3.name,"pam123","12345000");
-        sign_up(g4.name,"alex12","0202020");
-        sign_up(g5.name,"ronn","11111");
-        sign_up(g6.name,"delphin","1234");
-        sign_up(g7.name,"alan","4321");
+
+        sign_up("amit","12345");
+        sign_up("guy","12345678");
+        sign_up("pam123","12345000");
+        sign_up("alex12","0202020");
+        sign_up("ronn","11111");
+        sign_up("delphin","1234");
+        sign_up("alan","4321");
 
 
         login("amit","12345");
@@ -76,29 +76,29 @@ public class UserController implements NotificationReceiver {
 
     //WE DECIDED THAT ALL THE SYSTEM ADMINS WILL HAVE A SIMILAR USERNAME AS FOLLOWS:
     // Admin_1 Admin_2 Admin_3 and so on
-    public void addSystemAdmin(String whoIsAdding,String user_toMakeAdmin) {
+    public void addSystemAdmin(String whoIsAdding,String user_toMakeAdmin) throws UserException {
         my_log.info("user "+whoIsAdding+ "is trying to add "+user_toMakeAdmin+ "as admin");
         if (!getUser_list().contains(get_subscriber(whoIsAdding))) {
             my_log.warning("the user that we treated as admin is not a user at all!!");
-            throw new IllegalArgumentException("the user that we treated as admin is not a user at all!!");
+            throw new UserException("the user that we treated as admin is not a user at all!!");
         }
         synchronized (get_subscriber(whoIsAdding).getLock()) {
             if (!getSystemAdmins().contains(get_subscriber(whoIsAdding))) {
                  my_log.warning("the user that is trying to add in not an admin");
-                throw new IllegalArgumentException("the user that is trying to add in not an admin");
+                throw new UserException("the user that is trying to add in not an admin");
             }
             synchronized (get_subscriber(user_toMakeAdmin).getLock()) {
                 if (getSystemAdmins().contains(get_subscriber(user_toMakeAdmin))) {
                      my_log.warning("this user we are trying to add is already a system admin");
-                    throw new IllegalArgumentException("this user we are trying to add is already a system admin");
+                    throw new UserException("this user we are trying to add is already a system admin");
                 }
                 else if (!getUser_list().contains(get_subscriber(user_toMakeAdmin))) {
                      my_log.warning("the given user name is not a valid name for an existing user in the system");
-                    throw new IllegalArgumentException("the given user name is not a valid name for an existing user in the system");
+                    throw new UserException("the given user name is not a valid name for an existing user in the system");
                 }
                 else if (!checkIfUserIsLoggedIn(whoIsAdding)) {
                      my_log.warning("the admin that is trying to add another admin is not logged in");
-                    throw new IllegalArgumentException("the admin that is trying to add another admin is not logged in");
+                    throw new UserException("the admin that is trying to add another admin is not logged in");
                 }
                 getSystemAdmins().add(get_subscriber(user_toMakeAdmin));
             }
@@ -185,60 +185,88 @@ public class UserController implements NotificationReceiver {
             }
     }
 */
-    public boolean sign_up(String guest_id,String user_name, String password){
-        my_log.info("a guest with id: "+guest_id+ " is trying to sign up with user name : "+user_name);
-        if(getGuest(guest_id)==null){
-             my_log.warning("the id "+guest_id + " is not a valid guest id in the system - failed to sign up");
-            return false;
-        }
+    public boolean sign_up(String user_name, String password) throws UserException {
+        my_log.info("is trying to sign up with user name : "+user_name);
         if (get_subscriber(user_name) != null) {
              my_log.warning("user "+user_name + " already exists in the system - failed to sign up");
-            return false;
+             throw new UserException("user "+user_name + " already exists in the system - failed to sign up");
         }
         if(user_name == null){
              my_log.warning("user "+user_name + " is null - failed to sign up");
-            return false;
+            throw new UserException("user "+user_name + " is null - failed to sign up");
         }
         if(password == null){
              my_log.warning("user "+user_name + " password's is null - failed to sign up");
-            return false;
+            throw new UserException("user "+user_name + " password's is null - failed to sign up");
         }
         if(user_name.isEmpty()){
              my_log.warning("user "+user_name + " is empty - failed to sign up");
-            return false;
+            throw new UserException("user "+user_name + " is empty - failed to sign up");
         }
         if(password.isEmpty()){
              my_log.warning("user "+user_name + " password's is empty - failed to sign up");
-            return false;
+            throw new UserException("user "+user_name + " password's is empty - failed to sign up");
         }
         if(user_name.length()<2){
              my_log.warning("user "+user_name + " length is less than 2 - failed to sign up");
-            return false;
+             throw new UserException("user "+user_name + " length is less than 2 - failed to sign up");
         }
         if(password.length()<2){
              my_log.warning("user "+user_name + " password's lenth is less than 2 - failed to sign up");
-            return false;
+             throw new UserException("user "+user_name + " password's lenth is less than 2 - failed to sign up");
         }
         synchronized (signUpLock) {
                 Subscriber s = new Subscriber(user_name, password);
                 add_subscriber(s);
-               s.setShoppingCart(getGuestShoppingCart(guest_id));
-                removeGuest(guest_id);
+               //s.setShoppingCart(getGuestShoppingCart(guest_id));
+                //removeGuest(guest_id);
                 return true;
         }
     }
 
-    public boolean login(String user_name, String password) {
+    public boolean login(String guestId,String user_name, String password) throws UserException {
+        my_log.info("user "+ user_name+ " is trying to login");
+        if(getGuest(guestId)==null)
+            throw new UserException("guest "+guestId+ "does not exist in the system");
+        if (checkIfUserExists(user_name)) {
+            synchronized (get_subscriber(user_name).getLock()) {
+                if (checkIfUserExists(user_name)) {
+                    if (get_subscriber(user_name) == null) {
+                        my_log.warning("user "+user_name+ " failed to login");
+                        throw new UserException("user "+user_name+ " failed to login");
+                    } else if (get_subscriber(user_name).isLogged_in() && check_password(user_name, password)) {
+                        my_log.warning("user "+user_name+ " is already logged in");
+                        throw new UserException("user "+user_name+ " is already logged in");
+                    } else if(!get_subscriber(user_name).isLogged_in() && check_password(user_name, password)) {
+                        get_subscriber(user_name).setLogged_in(true);
+                        get_subscriber(user_name).setShoppingCart(getGuestShoppingCart(guestId));
+                        removeGuest(guestId);
+                        return true;
+                    }
+                }
+                else {
+                    my_log.warning("user "+user_name + " doesn't exist -- failed to login");
+                    return false;
+                    // ("user has been deleted") // add logger
+                }
+            }
+
+        }
+        my_log.warning("user "+user_name + " failed login");
+        return false;
+    }
+
+    public boolean login(String user_name, String password) throws UserException {
         my_log.info("user "+ user_name+ " is trying to login");
         if (checkIfUserExists(user_name)) {
             synchronized (get_subscriber(user_name).getLock()) {
                 if (checkIfUserExists(user_name)) {
                 if (get_subscriber(user_name) == null) {
                      my_log.warning("user "+user_name+ " failed to login");
-                    return false;
+                    throw new UserException("user "+user_name+ " failed to login");
                 } else if (get_subscriber(user_name).isLogged_in() && check_password(user_name, password)) {
                      my_log.warning("user "+user_name+ " is already logged in");
-                    return false;
+                    throw new UserException("user "+user_name+ " is already logged in");
                 } else if(!get_subscriber(user_name).isLogged_in() && check_password(user_name, password)) {
                     get_subscriber(user_name).setLogged_in(true);
                     return true;
@@ -256,16 +284,16 @@ public class UserController implements NotificationReceiver {
         return false;
     }
 
-    public boolean logout(String user_name) {
+    public boolean logout(String user_name) throws UserException {
         my_log.info("user "+ user_name+ " is trying to logout");
             if (get_subscriber(user_name) == null) {
                  my_log.warning("failed to logout because " +user_name + " is null");
-                return false;
+                throw new UserException("failed to logout because " +user_name + " is null");
             }
                 synchronized (get_subscriber(user_name).getLock()) {
                     if (!get_subscriber(user_name).isLogged_in()) {
                          my_log.warning("failed to logout - user "+user_name + " is not logged in");
-                        return false;
+                        throw new UserException("failed to logout - user "+user_name + " is not logged in");
                     } else {
                         my_log.info("user "+user_name + " successfully logged out");
                         get_subscriber(user_name).setLogged_in(false);
@@ -278,10 +306,10 @@ public class UserController implements NotificationReceiver {
         }
 
 
-    public  boolean check_password(String user_name, String password) {
+    public  boolean check_password(String user_name, String password) throws UserException {
         if (get_subscriber(user_name) == null) {
              my_log.warning("User "+user_name + " doesn't exist");
-            return false;
+            throw new UserException("User "+user_name + " doesn't exist");
         }
             if (password.length() > 2) {
                 Subscriber subscriber = get_subscriber(user_name);
@@ -300,10 +328,10 @@ public class UserController implements NotificationReceiver {
         }
         return subscriber;
     }
-    public boolean checkIfUserExists(String userID) {
+    public boolean checkIfUserExists(String userID) throws UserException {
         if (get_subscriber(userID) == null) {
              my_log.warning(" user "+userID + "doesn't exist");
-            return false;
+            throw new UserException(" user "+userID + "doesn't exist");
         }
         synchronized (get_subscriber(userID).getLock()) {
             return true;
@@ -347,7 +375,7 @@ public class UserController implements NotificationReceiver {
             subscriber.getQueries().add(query);
     }
 
-    public boolean deleteUser(String whosDeleting,String whosBeingDeleted) {
+    public boolean deleteUser(String whosDeleting,String whosBeingDeleted) throws UserException {
         synchronized (deleteUser) {
             if (checkIfUserExists(whosDeleting) && checkIfUserIsLoggedIn(whosDeleting) && IdGenerator.getInstance().checkIfAdmin(whosDeleting)) {
                 if (checkIfUserExists(whosDeleting) && !IdGenerator.getInstance().checkIfAdmin(whosBeingDeleted)) {
