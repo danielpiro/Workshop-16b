@@ -417,7 +417,6 @@ public class BigController {
      * @param productRating - the minimum rating of a product
      * @return
      */
-
     @GetMapping("/search/rating")
     public List<Product> SearchProductsAccordingRating(@RequestParam String userId, @RequestParam float productRating) {
 
@@ -481,7 +480,7 @@ public class BigController {
         getUserController().readStoreNotification(userid,storeNotificaionId);
     }
 
-    public String addNewPolicy(String storeId,String userId, Policy policy) throws NoPermissionException {//todo need to use policyBuilder to create policy
+    public String addNewPolicy(String storeId,String userId, Policy policy) throws NoPermissionException {// use policyBuilder to create policy
         if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
             my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
             return null;
@@ -494,7 +493,7 @@ public class BigController {
         }
         sc.deletePolicy(storeId,userId,policyId);
     }
-    public String addNewDiscount(String storeId,String userId, Discount discount) throws NoPermissionException {//todo need to use policyBuilder to create policy
+    public String addNewDiscount(String storeId,String userId, Discount discount) throws NoPermissionException {// use policyBuilder to create policy
         if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
             my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
             return null;
@@ -512,10 +511,10 @@ public class BigController {
         return sc.checkIfUserHaveRoleInAnyStore(userId);
     }
 
-    public List<Permission> getUserPermission(String StoreId, String userId){
+    public List<Permission> getUserPermissionInStore(String StoreId, String userId){
         return sc.getUserPermission(StoreId,userId);
     }
-    public String getTitle(String StoreId, String userIf){
+    public String getTitleInStore(String StoreId, String userIf){
         return sc.getTitle(StoreId,userIf);
     }
     public List<Policy> getPolices(String storeId, String userId) throws NoPermissionException {
