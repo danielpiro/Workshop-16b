@@ -27,15 +27,21 @@ const CloseStore = () => {
 
   const onCloseStore = (e) => {
     e.preventDefault();
-  }
- 
+  };
+
   return (
     <>
       <Menu />
-     <div className="container m-auto w-100">
-        <span className="text-center m-3"> <h3>Close store</h3> </span>
-        <span className="text-center"> <h5>(freezing store actions)</h5> </span>
-        
+      <div className="container m-auto w-100">
+        <span className="text-center m-3">
+          {" "}
+          <h3>Close store</h3>{" "}
+        </span>
+        <span className="text-center">
+          {" "}
+          <h5>(freezing store actions)</h5>{" "}
+        </span>
+
         <nav className="navbar navbar-expand-lg bg-secondery d-flex justify-content-center">
           <form className="row form-inline col-4">
             <input
@@ -54,17 +60,18 @@ const CloseStore = () => {
           </form>
         </nav>
         <ul>
-        <div class="card text-center">
-          <div class="card-body">
-            <h3 class="card-title">Store # ...</h3>
-            <p class="card-text">
-              With supporting text below as a natural lead-in to additional content.
-            </p>
-            <button class="btn btn-primary" onClick={onCloseStore}>
-              Close store
-            </button>
+          <div class="card text-center">
+            <div class="card-body">
+              <h3 class="card-title">Store # ...</h3>
+              <p class="card-text">
+                With supporting text below as a natural lead-in to additional
+                content.
+              </p>
+              <button class="btn btn-primary" onClick={onCloseStore}>
+                Close store
+              </button>
+            </div>
           </div>
-        </div>
           {!isLoading ? (
             store.map((shop) => {
               return (

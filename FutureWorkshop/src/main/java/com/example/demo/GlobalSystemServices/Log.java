@@ -38,6 +38,12 @@ public class Log {
 
     }
 
+    public void warning(String msg){
+        error_logger.warning(msg);
+    }
+    public void info(String msg){
+        logger.info(msg);
+    }
     public static Log getLogger(){
         if(log_instance == null)
             try {

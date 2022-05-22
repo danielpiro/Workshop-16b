@@ -1,38 +1,43 @@
 import Menu from "../components/menu";
-import axios from "axios";
+import api from "../components/api";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
 import createNotification from "../components/norification";
-import Footer from "../components/footer";
 
 const OpenNewStore = () => {
   const router = useRouter();
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [userPermission, setUserPermission] = useState("Admin"); //= useState(""); //TODO: Need to change to Guest when logic is ready!
+  const [isLoading, setIsLoading] = useState(false);
   const [openNewStoreInput, setOpenNewStoreInput] = useState({
     storename: "",
-    storeOwnerUsername: "",
     additionalStoreOwnerUsername: "",
   });
 
-  const onOpeningNewStore = (e) => {
+  const onOpeningNewStore = async (e) => {
     e.preventDefault();
     if (
-      openNewStoreInput.storeOwnerUsername != "" &&
-      openNewStoreInput.storename != ""
+      openNewStoreInput.additionalStoreOwnerUsername !== "" &&
+      openNewStoreInput.storename !== ""
     ) {
-      const isOpened = axios.post(
-        `store/open/${openNewStoreInput.storeOwnerUsername}/${openNewStoreInput.storename}`
-      );
-      if (isOpened) {
-        createNotification("success", "Create new store successfully", () =>
-          router.push("/dashboard")
-        )();
-      } else {
-        createNotification("error", "failure opening new store!")();
-      }
+      await api
+        .post(
+          `/store/open/?userId=${openNewStoreInput.storename}&storeName=${openNewStoreInput.additionalStoreOwnerUsername}`
+        )
+        .then((res) => {
+          if (res.status === 200) {
+            const { data } = res;
+            console.log(data);
+            createNotification("success", "Create new store successfully", () =>
+              router.push("/dashboard")
+            )();
+          } else {
+            const { data } = res;
+            console.log(data);
+            createNotification("error", "failure opening new store!")();
+          }
+        })
+        .catch((err) => console.log("err"));
     } else {
       createNotification(
         "error",
@@ -40,15 +45,6 @@ const OpenNewStore = () => {
       )();
     }
   };
-
-  // useEffect(() => {
-  //   const fetchPermission = async () => {
-  //     const response = await axios.get("users/getUserPermission");
-  //     setIsLoading(!isLoading);
-  //     setUserPermission(response.data);
-  //   };
-  //   fetchPermission();
-  // }, []);
 
   return (
     <>
