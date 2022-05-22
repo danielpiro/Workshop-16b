@@ -108,3 +108,5 @@ May 21, 2022 11:14:42 PM com.example.demo.Controllers.UserController checkIfUser
 WARNING:  user asdasddoesn't exist
 May 21, 2022 11:15:54 PM com.example.demo.Controllers.UserController checkIfUserExists
 WARNING:  user asdasddoesn't exist
+May 22, 2022 10:50:50 AM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user dandoesn't exist

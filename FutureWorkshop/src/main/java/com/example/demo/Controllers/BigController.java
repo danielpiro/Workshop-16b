@@ -60,7 +60,7 @@ public class BigController {
         this.us = new UserController();
         this.sc = new StoreController();
         initiateExternalConnections();
-        my_log.logger.info("System Started");
+        my_log.info("System Started");
     }
 
     public void initiateExternalConnections() {
@@ -85,7 +85,7 @@ public class BigController {
                                   @RequestParam String whosBeingDeleted) throws NoPermissionException {
 
 
-        my_log.logger.info("user" + isDeleting + "is trying to delete user" + whosBeingDeleted);
+        my_log.info("user" + isDeleting + "is trying to delete user" + whosBeingDeleted);
         sc.removeRoleInHierarchy(whosBeingDeleted);
 
         ReturnValue rv = new ReturnValue(true, "", getUserController().deleteUser(isDeleting, whosBeingDeleted));
@@ -101,7 +101,7 @@ public class BigController {
     public ResponseEntity signup(@RequestParam String guest_id,
                                  @RequestParam String user_name,
                                  @RequestParam String password) {
-        my_log.logger.info("user " + user_name + " is trying to sign up");
+        my_log.info("user " + user_name + " is trying to sign up");
         ReturnValue rv = new ReturnValue(true, "", getUserController().sign_up(guest_id, user_name, password));
         return new ResponseEntity(rv, HttpStatus.OK);
     }
