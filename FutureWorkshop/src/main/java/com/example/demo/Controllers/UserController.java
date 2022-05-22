@@ -253,7 +253,7 @@ public class UserController implements NotificationReceiver {
 
         }
         my_log.warning("user "+user_name + " failed login");
-        return false;
+        throw new UserException("user "+user_name + " failed login");
     }
 
     public boolean login(String user_name, String password) throws UserException {
@@ -281,7 +281,7 @@ public class UserController implements NotificationReceiver {
 
         }
          my_log.warning("user "+user_name + " failed login");
-        return false;
+        throw new UserException("user "+user_name + " failed login");
     }
 
     public boolean logout(String user_name) throws UserException {
@@ -316,7 +316,7 @@ public class UserController implements NotificationReceiver {
                 return subscriber.getPassword().equals(password);
             }
              my_log.warning("invalid password for user "+user_name );
-            return false;
+             throw new UserException("invalid password for user "+user_name);
     }
 
     public Subscriber get_subscriber(String user_name){
