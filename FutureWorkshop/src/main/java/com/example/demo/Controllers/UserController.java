@@ -45,6 +45,33 @@ public class UserController implements NotificationReceiver {
         admin = new Subscriber(IdGenerator.getInstance().getAdminId(),"BigBoss");
         add_subscriber(admin);
         add_admin(admin);
+        Guest g1= addGuest();
+        Guest g2= addGuest();
+        Guest g3= addGuest();
+        Guest g4= addGuest();
+        Guest g5= addGuest();
+        Guest g6= addGuest();
+        Guest g7= addGuest();
+        Guest g8= addGuest();
+
+        
+        sign_up(g1.name,"amit","12345");
+        sign_up(g2.name,"guy","12345678");
+        sign_up(g3.name,"pam123","12345000");
+        sign_up(g4.name,"alex12","0202020");
+        sign_up(g5.name,"ronn","11111");
+        sign_up(g6.name,"delphin","1234");
+        sign_up(g7.name,"alan","4321");
+
+
+        login("amit","12345");
+        login("guy","12345678");
+        login("pam123","12345000");
+        login("alex12","0202020");
+        login("ronn","11111");
+        login("delphin","1234");
+        login("alan","4321");
+
     }
 
     //WE DECIDED THAT ALL THE SYSTEM ADMINS WILL HAVE A SIMILAR USERNAME AS FOLLOWS:
