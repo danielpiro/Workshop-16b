@@ -135,6 +135,22 @@ public class InventoryManager  implements InventoryProtector {
         Log.getLogger().logger.warning("cant delete, no Policy with this Id");
         throw new RuntimeException("no Policy with this Id");
     }
+    //todo add fun above
+    public String addNewDiscount(Discount discount){
+        discounts.add(discount);
+        return discount.getDiscountId();
+    }
+    //todo add fun above
+    public void deleteDiscount(String discountId) {
+        for(Discount d : discounts){
+            if(d.getDiscountId().equals(discountId)){
+                discounts.remove(d);
+                return;
+            }
+        }
+        Log.getLogger().logger.warning("cant delete, no Policy with this Id");
+        throw new RuntimeException("no Policy with this Id");
+    }
 
     public List<Policy> getPolicies() {
         return policies;

@@ -2,6 +2,7 @@ package com.example.demo.Store.StorePurchase.Discounts;
 
 
 import com.example.demo.ExternalConnections.ExternalConnectionHolder;
+import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.ShoppingCart.UserInfo;
 import com.example.demo.Store.StorePurchase.PurchasableProduct;
 
@@ -9,12 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdditionDiscount implements   Discount {
-      PercentageDiscount left;
-      PercentageDiscount right;
+    private String id;
+    private  PercentageDiscount left;
+    private  PercentageDiscount right;
 
     public AdditionDiscount(  PercentageDiscount left,   PercentageDiscount right) {
         this.left = left;
         this.right = right;
+        id = IdGenerator.getInstance().getDiscountId();
     }
 
     @Override
@@ -40,5 +43,10 @@ public class AdditionDiscount implements   Discount {
         }
 
         return productsAfterDiscount;
+    }
+
+    @Override
+    public String getDiscountId() {
+        return id;
     }
 }
