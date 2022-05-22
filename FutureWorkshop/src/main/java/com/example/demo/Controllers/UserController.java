@@ -270,7 +270,7 @@ public class UserController implements NotificationReceiver {
         }
     }
 
-    public boolean login(String guestId,String user_name, String password) throws UserException {
+    public String login(String guestId,String user_name, String password) throws UserException {
         my_log.info("user "+ user_name+ " is trying to login");
         if(getGuest(guestId)==null)
             throw new UserException("guest "+guestId+ " does not exist in the system");
@@ -288,12 +288,14 @@ public class UserController implements NotificationReceiver {
                         get_subscriber(user_name).setShoppingCart(getGuestShoppingCart(guestId));
                         removeGuest(guestId);
                         onlineUsers++;
-                        return true;
+                        if(checkIfAdmin(user_name))
+                            return "admin";
+                        return "subscriber";
                     }
                 }
                 else {
                     my_log.warning("user "+user_name + " doesn't exist -- failed to login");
-                    return false;
+                    throw new UserException("user "+user_name + " doesn't exist -- failed to login");
                     // ("user has been deleted") // add logger
                 }
             }
@@ -303,7 +305,7 @@ public class UserController implements NotificationReceiver {
         throw new UserException("user "+user_name + " failed login");
     }
 
-    public boolean login(String user_name, String password) throws UserException {
+    public String login(String user_name, String password) throws UserException {
         my_log.info("user "+ user_name+ " is trying to login");
         if (checkIfUserExists(user_name)) {
             synchronized (get_subscriber(user_name).getLock()) {
@@ -317,12 +319,14 @@ public class UserController implements NotificationReceiver {
                 } else if(!get_subscriber(user_name).isLogged_in() && check_password(user_name, password)) {
                     get_subscriber(user_name).setLogged_in(true);
                     onlineUsers++;
-                    return true;
+                    if(checkIfAdmin(user_name))
+                        return "admin";
+                    return "subscriber";
                 }
             }
                 else {
                      my_log.warning("user "+user_name + " doesn't exist -- failed to login");
-                    return false;
+                    throw new UserException("user "+user_name + " doesn't exist -- failed to login");
                    // ("user has been deleted") // add logger
                 }
             }
@@ -348,7 +352,7 @@ public class UserController implements NotificationReceiver {
                        Guest g = addGuest();
                        g.setShoppingCart(getSubscriberCart(user_name));
                        onlineUsers--;
-                        return true;
+                       return true;
                     }
                 }
 
@@ -495,7 +499,8 @@ public class UserController implements NotificationReceiver {
     public boolean checkIfAdmin(String userId) throws UserException {
         if(getSystemAdmins().contains(get_subscriber(userId)))
         return true;
-        throw new UserException(userId + " is not an admin");
+        return false;
+        //throw new UserException(userId + " is not an admin");
     }
 
     @Override
@@ -506,7 +511,6 @@ public class UserController implements NotificationReceiver {
                  my_log.warning("can't send store notification because user " + s + " doesn't exist");
                 throw new UserException("can't send store notification because user " + s + " doesn't exist");
             }
-
               get_subscriber(s).addNotification(storeNotification.getDeepCopy());
         }
     }
