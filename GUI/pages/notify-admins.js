@@ -2,6 +2,7 @@ import Menu from "../components/menu";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import api from "../components/api";
 
 const NotifyAdmins = () => {
   const router = useRouter();

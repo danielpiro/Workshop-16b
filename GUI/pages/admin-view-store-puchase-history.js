@@ -3,6 +3,7 @@ import SearchBar from "../components/search-bar";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Card from "../components/card";
+import api from "../components/api";
 
 const AdminViewStorePurchaes = () => {
   const [purchases, setProducts] = useState([]);

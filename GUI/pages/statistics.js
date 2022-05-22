@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import createNotification from "../components/norification";
 import { useRouter } from "next/router";
 import Footer from "../components/footer";
+import api from "../components/api";
 
 const Statistics = () => {
   const router = useRouter();
