@@ -1,6 +1,4 @@
-import AdminMenu from "../components/menus/menuAdmin";
-import SubscriberMenu from "../components/menus/menuSubscriber";
-import GuestMenu from "../components/menus/menuGuest";
+import Menu from "../components/menu";
 import { useState, useEffect } from "react";
 import api from "../components/api";
 import StoreCard from "../components/store-card";
@@ -28,28 +26,52 @@ const AddNewStoreSupply = () => {
     });
   };
 
-  const onChange = (e) => {
-    e.preventDefault();
-    setSearchValue(e.target.value);
-  };
+  // const onSelectStore = (e) => { //TODO: define the store we are going to add product to..
+  //   e.preventDefault();
+  //   setStore(e.target.value);
+  // }
 
-  const onAddProduct = (e) => {
+  const onAddProduct = async (e) => {
     e.preventDefault();
-    //console.log(newProduct);
-  }
-
-  var menu;
-  if (userPermission == "Admin") {
-    menu = <AdminMenu />;
-  } else if (userPermission == "Subscriber") {
-    menu = <SubscriberMenu />;
-  } else {
-    menu = <GuestMenu />;
+    //console.log(newProduct); ...........
+    if (store !== "" && newProduct.productName !== "" && newProduct.productType !== ""
+        && newProduct.productQunatity !== "" && newProduct.productPrice !== "") {
+      
+      const fakeProduct = {
+        name: newProduct.productName,
+        type: newProduct.productType,
+        quantity: newProduct.productQunatity,
+        price: newProduct.productPrice,
+      };
+      await api
+        .post(
+          `/store/?` , fakeProduct
+        )
+        .then((res) => {
+          if (res.status === 200) {
+            const { data } = res;
+            console.log(data);
+            createNotification("success", "Added product successfully", () =>
+              router.push("/dashboard")
+            )();
+          } else {
+            const { data } = res;
+            console.log(data);
+            createNotification("error", "failure to add product!")();
+          }
+        })
+        .catch((err) => console.log("err"));
+    } else {
+      createNotification(
+        "error",
+        "at least one of the inputs was not valid, please try again"
+      )();
+    }
   }
 
   return (
     <>
-      {menu}
+      <Menu/>
       <div className="container m-auto w-100">
         <span className="text-center my-4">
           <h3>Add new store's supply</h3>
@@ -61,7 +83,12 @@ const AddNewStoreSupply = () => {
               type="search"
               placeholder="Enter store name"
               aria-label="Search"
-              onChange={onChange}
+              onChange={(e) =>
+                setSearchValue((prevState) => ({
+                    ...prevState,
+                    searchValue: e.target.value,
+                }))
+            }
             />
 
             <div className="d-flex justify-content-center">

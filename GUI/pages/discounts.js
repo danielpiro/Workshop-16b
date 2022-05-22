@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Footer from "../components/footer";
 
 const Discounts = () => {
-  const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
+  //const [userPermission, setUserPermission] = useState("Admin");
 
   return (
     <>

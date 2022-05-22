@@ -10,15 +10,15 @@ const StoreCard = (props) => {
 
   return (
     <div className="d-flex justify-content-center">
-      <div class="card text-center w-50">
-        <div class="card-body">
-          <h3 class="card-title">Store</h3>
-          <p class="card-text">
+      <div className="card text-center w-50">
+        <div className="card-body">
+          <h3 className="card-title">Store</h3>
+          <p className="card-text">
             With supporting text below as a natural lead-in to additional
             content.
           </p>
           <button
-            class="btn btn-primary"
+            className="btn btn-primary"
             data-bs-toggle="modal"
             data-bs-target="#staticBackdrop"
             onClick={onClick}
@@ -29,7 +29,7 @@ const StoreCard = (props) => {
       </div>
 
       <div
-        class="modal fade"
+        className="modal fade"
         id="staticBackdrop"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
@@ -37,26 +37,26 @@ const StoreCard = (props) => {
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog modal-dialog-scrollable">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel">
+        <div className="modal-dialog modal-dialog-scrollable">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="staticBackdropLabel">
                 Store
               </h5>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               <Store />
             </div>
-            <div class="modal-footer">
+            <div className="modal-footer">
               <button
                 type="button"
-                class="btn btn-secondary"
+                className="btn btn-secondary"
                 data-bs-dismiss="modal"
               >
                 Close

@@ -16,6 +16,11 @@ const Menu = () => {
     password: "",
   });
 
+  const [loginInput, setLoginInput] = useState({
+    username: "",
+    password: "",
+  });
+
   const onSumbitRegister = (e) => {
     e.preventDefault();
     let encryptedPassword = 0;
@@ -35,9 +40,30 @@ const Menu = () => {
         }
       });
   };
+
+  const onSumbitLogin = (e) => {
+    e.preventDefault();
+    let encryptedPassword = 0;
+    const encrypted = async () =>
+      await bcrypt.hashSync(loginInput.password, 8);
+    encrypted().then((res) => (encryptedPassword = res));
+    api
+      .post(`/users/login/${loginInput.username}/${encryptedPassword}`)
+      .then((res) => {
+        if (res.status === 200) {
+          createNotification("success", "Login successfully")();
+        } else {
+          createNotification(
+            "error",
+            "Username and password was not valid , please try again"
+          )();
+        }
+      });
+  };
+
   return (
     <>
-      {cookies.type === "admin" ? (
+      {cookies.type === "admin" ? ( //Admin Menu
         <div className="flex">
           <div className="navbar navbar-expand-lg navbar-dark bg-primary">
             <Link href="/dashboard">
@@ -137,7 +163,7 @@ const Menu = () => {
             </div>
           </div>
         </div>
-      ) : cookies.type === "guest" ? (
+      ) : cookies.type === "guest" ? ( //Guest Menu
         <div>
           <div className="flex">
             <div className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -204,6 +230,16 @@ const Menu = () => {
                         data-bs-target="#register"
                       >
                         Become a member
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        type="button"
+                        className="nav-link ms-4"
+                        data-bs-toggle="modal"
+                        data-bs-target="#login"
+                      >
+                        Login
                       </a>
                     </li>
                     <li className="logout-button nav-item">
@@ -277,8 +313,70 @@ const Menu = () => {
               </div>
             </div>
           </div>
+
+          <div
+            className="modal fade"
+            id="login"
+            tabIndex="-1"
+            role="dialog"
+            aria-labelledby="loginTitle"
+            aria-hidden="true"
+          >
+            <div className="modal-dialog modal-dialog-centered" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" id="loginTitle">
+                    Login
+                  </h5>
+                </div>
+                <div className="modal-body">
+                  <div>
+                    <input
+                      placeholder="Enter username"
+                      value={loginInput.username}
+                      onChange={(e) =>
+                        setLoginInput((prevState) => ({
+                          ...prevState,
+                          username: e.target.value,
+                        }))
+                      }
+                    />
+                  </div>
+                  <div className="mt-2">
+                    <input
+                      placeholder="Enter password"
+                      value={loginInput.password}
+                      onChange={(e) =>
+                        setLoginInput((prevState) => ({
+                          ...prevState,
+                          password: e.target.value,
+                        }))
+                      }
+                    />
+                  </div>
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={onSumbitLogin}
+                  >
+                    Login
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
-      ) : (
+      ) : ( //Subscriber Menu
         <div className="flex">
           <div className="navbar navbar-expand-lg navbar-dark bg-primary">
             <Link href="/dashboard">

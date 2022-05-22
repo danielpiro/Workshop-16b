@@ -13,21 +13,27 @@ const FireOwnerToStore = () => {
     storename: "",
   });
 
-  const onHiringOfficial = (e) => {
+  const onHiringOfficial = async (e) => {
     e.preventDefault();
     if (newOfficialInput.username != "" && newOfficialInput.storename != "") {
-      const userToFire = axios.post(
-        `owner/fire/${newOfficialInput.username}/${newOfficialInput.storename}`
-      );
-      //console.log(isOpened.status);
-
-      if (userToFire) {
-        createNotification("success", "Fire owner/manager successfully", () =>
-          router.push("/dashboard")
-        )();
-      } else {
-        createNotification("error", "failure firing owner/manager!")();
-      }
+      await api
+        .post(
+          `owner/fire/?userId=${newOfficialInput.username}&storeId=${newOfficialInput.storename}` //TODO: Need the real path from backend
+        )
+        .then((res) => {
+          if (res.status === 200) {
+            const { data } = res;
+            console.log(data);
+            createNotification("success", "User fired successfully", () =>
+              router.push("/dashboard")
+            )();
+          } else {
+            const { data } = res;
+            console.log(data);
+            createNotification("error", "failure firing user!")();
+          }
+        })
+        .catch((err) => console.log("err"));
     } else {
       createNotification(
         "error",
@@ -36,20 +42,12 @@ const FireOwnerToStore = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchPermission = async () => {
-      const response = await axios.get("users/getUserPermission");
-      setUserPermission(response.data);
-    };
-    fetchPermission();
-  }, []);
-
   return (
     <>
       <Menu />
 
       <div className="card-header">
-        <h3>Hire new owner to a store</h3>
+        <h3>Fire new owner to a store</h3>
       </div>
 
       <div className="container">

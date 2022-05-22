@@ -5,16 +5,7 @@ import Link from "next/link";
 import Footer from "../components/footer";
 
 const StoreManagement = () => {
-  const [userPermission, setUserPermission] = useState("Admin"); //= useState(""); //TODO: Need to change to Guest when logic is ready!
-
-  useEffect(() => {
-    const fetchPermission = async () => {
-      const response = await axios.get("users/getUserPermission");
-      setIsLoading(!isLoading);
-      setUserPermission(response.data);
-    };
-    fetchPermission();
-  }, []);
+  const [userPermission, setUserPermission] = useState("Admin");
 
   return (
     <>
