@@ -80,6 +80,15 @@ public class BigController {
     //todo wrap ReturnValue with Response Entity
     //todo guy change by 2.d Version 2.
 
+
+    public ReturnValue initialize() throws UserException {
+        getUserController().initialize();
+        ReturnValue rv = new ReturnValue(true, "", null);
+        return rv;
+
+    }
+
+
     @DeleteMapping("/users")
     public ReturnValue deleteUser(@RequestParam String isDeleting,
                                   @RequestParam String whosBeingDeleted) throws NoPermissionException, UserException {
