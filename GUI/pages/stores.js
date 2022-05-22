@@ -13,14 +13,6 @@ const Stores = () => {
   const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
   //      + Edit using new method "setUserPermission"
 
-  const onShopStore = (e) => {
-    router.push("/dashboard"); //TODO: Add page of a store with its products
-  };
-
-  const onManageStore = (e) => {
-    router.push("/store-management");
-  };
-
   useEffect(() => {
     const fetchApi = async () => {
       const response = await axios.get("https://dummyjson.com/products");
@@ -35,7 +27,7 @@ const Stores = () => {
     <>
       <Menu />
       <div className="my-4">
-        <SearchBar setStores={setStores} />
+        <SearchBar setStores={setStores} /> {/*TODO: Check search button and setSearchValue*/}
       </div>
       {!isLoading ? (
         <div className="row">

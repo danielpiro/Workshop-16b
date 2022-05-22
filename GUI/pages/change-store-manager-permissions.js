@@ -12,25 +12,6 @@ const ChangeStoreManagerPermissions = () => {
     p7: false, p8: false, p9: false, p10: false, p11: false, p12: false,
   });
 
-  // useEffect(() => {
-  //   const fetchApi = async () => {
-  //     const response = await axios.get("https://fakestoreapi.com/products");
-  //     setIsLoading(!isLoading);
-  //     setProducts(response.data);
-  //     //TODO: Add logic to check if the user has any permission!
-  //     //setUserPermission("Admin/StoreOwner/StoreManager");
-  //   };
-  //   fetchApi();
-  // }, []);
-
-//   useEffect(() => {
-//     const fetchPermission = async () => {
-//       const response = await axios.get("users/getUserPermission");
-//       setUserPermission(response.data);
-//     };
-//     fetchPermission();
-//   }, []);
-
   useEffect(() => {
     const fetchSpecificPermission = async () => {
         // const response = await axios.get("users/getUserSpecificPermission");

@@ -4,37 +4,41 @@ import { useState, useEffect } from "react";
 import createNotification from "../components/norification";
 import { useRouter } from "next/router";
 import Footer from "../components/footer";
+import api from "../components/api";
 
 const UnregisterUser = () => {
   const router = useRouter();
   const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
   const [username, setUsername] = useState("");
 
-  const onUnregistered = (e) => {
+  const onUnregistered = async (e) => {
     e.preventDefault();
-    if (username != "") {
-      const userToUnregister = axios.post(`users/unregister/${username}`);
-      //console.log(isOpened.status);
-
-      if (userToUnregister) {
-        createNotification("success", "Unregistered successfully", () =>
-          router.push("/dashboard")
-        )();
-      } else {
-        createNotification("error", "failure in Unregister!")();
-      }
+    if (searchValue !== "") {
+      await api
+        .delete(
+          `/users/?isDeleting=${""}&whosBeingDeleted=${username}`
+        )
+        .then((res) => {
+          if (res.status === 200) {
+            const { data } = res;
+            console.log(data);
+            createNotification("success", "Unregistered user successfully", () =>
+              router.push("/dashboard")
+            )();
+          } else {
+            const { data } = res;
+            console.log(data);
+            createNotification("error", "failure unregister!")();
+          }
+        })
+        .catch((err) => console.log("err"));
     } else {
-      createNotification("error", "username was not valid, please try again")();
+      createNotification(
+        "error",
+        "username was not valid, please try again"
+      )();
     }
   };
-
-  useEffect(() => {
-    const fetchPermission = async () => {
-      const response = await axios.get("users/getUserPermission");
-      setUserPermission(response.data);
-    };
-    fetchPermission();
-  }, []);
 
   return (
     <>
@@ -54,7 +58,6 @@ const UnregisterUser = () => {
             type="search"
             placeholder="Enter username of the future unregistered user"
             aria-label="Search"
-            value={username}
             onChange={(e) =>
               setNewOfficialInput((prevState) => ({
                 ...prevState,

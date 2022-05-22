@@ -7,7 +7,7 @@ import Footer from "../components/footer";
 
 const HireOwnerToStore = () => {
   const router = useRouter();
-  const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
+  //const [userPermission, setUserPermission] = useState("Admin");
   const [newOfficialInput, setNewOfficialInput] = useState({
     username: "",
     storename: "",
@@ -28,7 +28,7 @@ const HireOwnerToStore = () => {
     }));
   };
 
-  const onHiringOfficial = (e) => {
+  const onHiringOfficial = async (e) => {
     e.preventDefault();
     if (
       newOfficialInput.username != "" &&
@@ -36,41 +36,56 @@ const HireOwnerToStore = () => {
       newOfficialInput.ownerORmanager != ""
     ) {
       if (newOfficialInput.ownerORmanager == "Owner") {
-        const isOpened = axios.post(
-          `owner/${newOfficialInput.username}/${newOfficialInput.storename}`
-        );
-        //console.log(isOpened.status);
+        const fakeOwner = {
+          name: newProduct.productName,
+          storeId: newProduct.productType,
+        };
+        await api
+        .post(
+          `/owner/`, fakeOwner //TODO: Need the real path from backend
+        )
+        .then((res) => {
+          if (res.status === 200) {
+            const { data } = res;
+            console.log(data);
+            createNotification("success", "Hired owner successfully", () =>
+              router.push("/dashboard")
+            )();
+          } else {
+            const { data } = res;
+            console.log(data);
+            createNotification("error", "failure hiring owner!")();
+          }
+        })
+        .catch((err) => console.log("err"));
       }
-      if (newOfficialInput.ownerORmanager == "Manager") {
-        const isOpened = axios.post(
-          `manager/${newOfficialInput.username}/${newOfficialInput.storename}`
-        );
-      }
-
-      if (isOpened) {
-        createNotification(
-          "success",
-          "Create new owner/manager successfully",
-          () => router.push("/dashboard")
-        )();
-      } else {
-        createNotification("error", "failure hiring new owner/manager!")();
+      else if (newOfficialInput.ownerORmanager == "Manager") {
+        await api
+        .post(
+          `/manager/?storeId=${newOfficialInput.storename}&userIdGiving=${""}&UserGettingPermissionId=${newOfficialInput.username}`
+        )
+        .then((res) => {
+          if (res.status === 200) {
+            const { data } = res;
+            console.log(data);
+            createNotification("success", "Hired manager successfully", () =>
+              router.push("/dashboard")
+            )();
+          } else {
+            const { data } = res;
+            console.log(data);
+            createNotification("error", "failure hiring manager!")();
+          }
+        })
+        .catch((err) => console.log("err"));
       }
     } else {
       createNotification(
         "error",
-        "storename or username was not valid, please try again"
+        "at least one of the inputs was not valid, please try again"
       )();
     }
   };
-
-  useEffect(() => {
-    const fetchPermission = async () => {
-      const response = await axios.get("users/getUserPermission");
-      setUserPermission(response.data);
-    };
-    fetchPermission();
-  }, []);
 
   return (
     <>

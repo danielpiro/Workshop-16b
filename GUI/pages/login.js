@@ -74,6 +74,7 @@ const Login = () => {
       .then((res) => {
         if (res.status === 200) {
           const { data } = res;
+          console.log(data);
           setCookie("userId", data.value, {
             path: "/",
             sameSite: true,

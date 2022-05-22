@@ -15,8 +15,7 @@ const shoppingCart = () => {
     "userId",
     "type",
   ]);
-  const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
-  //      + Edit using new method "setUserPermission"
+  //const [userPermission, setUserPermission] = useState("Admin");
 
   useEffect(() => {
     // const fetchCart = async () => {
