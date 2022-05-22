@@ -290,7 +290,7 @@ public class UserController implements NotificationReceiver {
                         onlineUsers++;
                         if(checkIfAdmin(user_name))
                             return "{id:".concat(user_name.concat(",\ntype:admin")).concat("}");
-                        return "{id:".concat(user_name.concat(",\ntype:admin")).concat("}");
+                        return "{id:".concat(user_name.concat(",\ntype:subscriber")).concat("}");
                     }
                 }
                 else {
