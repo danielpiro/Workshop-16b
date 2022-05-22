@@ -47,6 +47,11 @@ const ChangePolicy = () => {
     console.log(policyType);
   };
 
+  const onCreatePredicate = (e) => {
+    e.preventDefault();
+    console.log("creating new predicate");
+  };
+
   //TODO: Make sure we got storeID in advance...
 
   // useEffect(() => {
@@ -2658,17 +2663,27 @@ const ChangePolicy = () => {
                 </div>
               </div>
             </div>
+            <div className="row m-1" style={{display: preds.pred1 == "Create new predicate" || preds.pred2 == "Create new predicate" ? "block" : "none"}}>
+              <button
+              className="btn btn-primary mr-lg-3"
+              style={{ width: "100%" }}
+              onClick={onUpdatePolicy}
+              >
+                Update Policy
+              </button>
+            </div>
           </div>
         </div>
+        
 
         <br />
         <div className="row m-1">
           <button
             className="btn btn-primary mr-lg-3"
             style={{ width: "100%" }}
-            onClick={onUpdatePolicy}
+            onClick={onCreatePredicate}
           >
-            Update Policy
+            Create Predicate
           </button>
         </div>
       </div>
