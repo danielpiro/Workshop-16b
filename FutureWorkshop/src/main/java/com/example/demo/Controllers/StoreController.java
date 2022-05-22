@@ -38,27 +38,29 @@ public class StoreController {
         stores = new ConcurrentHashMap<String, Store>();
     }
 
-    public String openNewStore(String name,List<String> managers) throws NoPermissionException {
+    public String openNewStore(String name,List<String> owners) throws NoPermissionException {
 
-        if (managers.stream().anyMatch(this::checkIfGuest)) {
-            throw new NoPermissionException("guest cant cant open new store");
+        if (owners.stream().anyMatch(this::checkIfGuest)) {
+            Log.getLogger().warning("guest cant open new store");
+            throw new NoPermissionException("guest cant open new store");
         }
 
         String newId = IdGenerator.getInstance().getStoreId();
-        Store newStore= new Store(name, newId, managers);
+        Store newStore= new Store(name, newId, owners);
 
         stores.put(newId, newStore);
 
-
+        Log.getLogger().info("new store opened, storeId: "+newId+" by users: "+owners);
         return newId;
     }
 
     private boolean checkIfGuest(String userId){
-        return userId.startsWith("GuestID");
+        return IdGenerator.getInstance().isGuest(userId);
     }
 
     public void addNewProduct(String storeId, String userId, String productName, float price, int supply, String category) throws NoPermissionException, SupplyManagementException {
         if(checkIfGuest(userId)){
+            Log.getLogger().warning(userId+" is guest and cant add new product");
             throw new NoPermissionException("guest cant add new product");
         }
         Store relevantStore = stores.get(storeId);
@@ -68,6 +70,7 @@ public class StoreController {
 
     public void unfreezeStore(String storeId, String userId) throws NoPermissionException, UserException, NotifyException {
         if(checkIfGuest(userId)){
+            Log.getLogger().warning(userId+" is guest and cant unfreeze store");
             throw new NoPermissionException("guest cant unfreeze store");
         }
         Store relevantStore = stores.get(storeId);
@@ -76,6 +79,7 @@ public class StoreController {
 
     public void freezeStore(String storeId, String userId) throws NoPermissionException, UserException, NotifyException {
         if(checkIfGuest(userId)){
+            Log.getLogger().warning(userId+" is guest and cant freeze store");
             throw new NoPermissionException("guest cant freeze store");
         }
         Store relevantStore = stores.get(storeId);
@@ -84,6 +88,7 @@ public class StoreController {
 
     public List<StoreRoles> getInfoOnManagersOwners(String storeId, String userId) throws NoPermissionException {
         if(checkIfGuest(userId)){
+            Log.getLogger().warning(userId+" is guest and cant get info on managers/owners");
             throw new NoPermissionException("guest cant get info on managers/owners");
         }
         Store relevantStore = stores.get(storeId);
@@ -92,9 +97,11 @@ public class StoreController {
 
     public void deleteStore(String userId, String storeId) throws NoPermissionException {
         if(!IdGenerator.getInstance().checkIfAdmin(userId)){
+            Log.getLogger().warning(userId+" is not admin  and cant delete store");
             throw new NoPermissionException("only admin can delete store");
         }
         stores.remove(storeId);
+        Log.getLogger().info("store deleted, storeId: "+storeId+" by users: "+userId);
     }
 
 
@@ -131,10 +138,12 @@ public class StoreController {
     public void createOwner(String storeId, String userIdGiving, String UserGettingPermissionId, List<Permission> permissions) throws NoPermissionException, UserException, NotifyException {
         Store relevantStore = stores.get(storeId);
         relevantStore.createOwner(userIdGiving, UserGettingPermissionId, permissions);
+        Log.getLogger().info("new owner created, userId: "+UserGettingPermissionId+" by: "+userIdGiving+" in store:"+ storeId);
     }
     public void createManager(String storeId, String userIdGiving, String UserGettingPermissionId) throws NoPermissionException, UserException, NotifyException {
         Store relevantStore = stores.get(storeId);
         relevantStore.createManager(userIdGiving, UserGettingPermissionId);
+        Log.getLogger().info("new owner created, userId: "+UserGettingPermissionId+" by: "+userIdGiving+" in store:"+ storeId);
     }
 
     public InventoryProtector getInventoryProtector(String storeId){
