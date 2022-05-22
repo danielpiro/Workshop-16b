@@ -96,6 +96,9 @@ public class BigController {
 
 
 
+    //todo remove guest_id from signup, it is always just creating.
+    //todo create login with guest id which takes the cart, also create one without guestid which gives a brand new cart.
+
     @PostMapping("/users/signup")
     public ResponseEntity signup(@RequestParam String guest_id,
                                  @RequestParam String user_name,
@@ -538,7 +541,7 @@ public class BigController {
     }
 
 
-    @GetMapping("/store/all")
+    @GetMapping("/stores/all")
     public ReturnValue getAllStoresByStoreName(@RequestParam String userId, @RequestParam String name){
         userExistsAndLoggedIn(userId);
         ReturnValue rv = new ReturnValue(true, "", sc.getAllStoresByStoreName(name));
