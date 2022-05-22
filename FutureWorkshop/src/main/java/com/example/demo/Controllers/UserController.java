@@ -105,6 +105,8 @@ public class UserController implements NotificationReceiver {
         }
     }
     public ShoppingCart getShoppingCart(String user_Id) throws UserException {
+        if(getGuest(user_Id)!=null)
+            return getGuest(user_Id).getShoppingCart();
         if(get_subscriber(user_Id)==null){
              my_log.warning("User "+ user_Id +" doesn't exist");
             throw new UserException("User " +user_Id+ "doesn't exist");
@@ -117,6 +119,8 @@ public class UserController implements NotificationReceiver {
     }
 
     public boolean containsStore(String user_id,String storeID) throws UserException {
+        if ((getGuest(user_id)!=null))
+            return getGuest(user_id).containsStore(storeID);
         if(get_subscriber(user_id)==null){
              my_log.warning("User "+ user_id +" doesn't exist");
             throw new UserException("User "+ user_id+ "doesn't exist");
@@ -129,7 +133,9 @@ public class UserController implements NotificationReceiver {
     }
 
     public void removeProduct(String user_id,String productID, String storeID, int amount) throws UserException {
-        if (get_subscriber(user_id) == null) {
+        if ((getGuest(user_id)!=null))
+          getGuest(user_id).removeProduct(productID,storeID,amount);
+            if (get_subscriber(user_id) == null) {
              my_log.warning("User "+ user_id +" doesn't exist");
             throw new UserException("User "+user_id+ "doesn't exist");
         }
@@ -137,7 +143,9 @@ public class UserController implements NotificationReceiver {
         }
 
     public void addProduct(String user_id, String productID, String storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) throws UserException {
-        if (get_subscriber(user_id) == null) {
+        if ((getGuest(user_id)!=null))
+          get_subscriber(user_id).addProduct(productID,storeID,amount,inventoryProtector,auctionOrBid);
+            if (get_subscriber(user_id) == null) {
             throw new UserException("User "+user_id+ "doesn't exist");
         }
             if (!checkIfUserIsLoggedIn(user_id)) {
@@ -148,7 +156,9 @@ public class UserController implements NotificationReceiver {
 
 
     public String getCartInventory(String user_id) throws UserException {
-        if(get_subscriber(user_id)==null){
+        if ((getGuest(user_id)!=null))
+          return get_subscriber(user_id).getCartInventory();
+            if(get_subscriber(user_id)==null){
              my_log.warning("user "+user_id + " doesn't exist");
             throw new UserException("User " +user_id + "doesn't exist");
         }
@@ -159,7 +169,9 @@ public class UserController implements NotificationReceiver {
             return get_subscriber(user_id).getCartInventory();
     }
     public float purchaseCart(String user_id, ExternalConnectionHolder externalConnectionHolder) throws SupplyManagementException, StorePolicyViolatedException, CantPurchaseException, UserException {
-        if(get_subscriber(user_id)==null){
+        if ((getGuest(user_id)!=null))
+         return get_subscriber(user_id).purchaseCart(externalConnectionHolder);
+            if(get_subscriber(user_id)==null){
             throw new UserException("User "+user_id + "doesn't exist");
         }
             if (!checkIfUserIsLoggedIn(user_id)) {
