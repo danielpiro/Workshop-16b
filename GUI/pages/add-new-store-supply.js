@@ -39,9 +39,9 @@ const AddNewStoreSupply = () => {
   }
 
   var menu;
-  if (userPermission == "Admin") {
+  if (userPermission === "Admin") {
     menu = <AdminMenu />;
-  } else if (userPermission == "Subscriber") {
+  } else if (userPermission === "Subscriber") {
     menu = <SubscriberMenu />;
   } else {
     menu = <GuestMenu />;

@@ -5,27 +5,39 @@ import { useState, useEffect } from "react";
 import Card from "../components/card";
 
 const AdminViewUserPurchaes = () => {
-  //const [purchases, setProducts] = useState([]);
-  //const [isLoading, setIsLoading] = useState(true);
+  const [purchases, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchValue, setSearchValue] = useState("");
-  const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
-  // useEffect(() => {
-  //   const fetchApi = async () => {
-  //     const response = await axios.get("https://fakestoreapi.com/users");
-  //     setIsLoading(!isLoading);
-  //     setProducts(response.data);
-  //     //TODO: Add logic to check if the user has any permission!
-  //     //setUserPermission("Admin/StoreOwner/StoreManager");
-  //   };
-  //   fetchApi();
-  // }, []);
-  const onChange = (e) => {
-    setSearchValue(e.target.value);
-  };
+  //const [userPermission, setUserPermission] = useState("Admin");
 
-  const searchUsernamePurchases = (e) => {
+  const searchUsernamePurchases = async (e) => {
     e.preventDefault();
-    console.log(e.target.value);
+    //console.log(searchValue);
+    if (searchValue !== "") {
+      await api
+        .get(
+          `/history/user/?userId=${searchValue}`
+        )
+        .then((res) => {
+          if (res.status === 200) {
+            const { data } = res;
+            console.log(data);
+            createNotification("success", "Displaying all user's purchases successfully", () =>
+              router.push("/dashboard")
+            )();
+          } else {
+            const { data } = res;
+            console.log(data);
+            createNotification("error", "failure displaying all user's purchases!")();
+          }
+        })
+        .catch((err) => console.log("err"));
+    } else {
+      createNotification(
+        "error",
+        "username was not valid, please try again"
+      )();
+    }
   };
 
   return (
@@ -46,7 +58,12 @@ const AdminViewUserPurchaes = () => {
                 type="search"
                 placeholder="Enter username"
                 aria-label="Search"
-                onChange={onChange}
+                onChange={(e) =>
+                  setSearchValue((prevState) => ({
+                    ...prevState,
+                    searchValue: e.target.value,
+                  }))
+                }
               />
               <div>
                 <button
