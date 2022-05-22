@@ -14,7 +14,6 @@ import com.example.demo.Store.StorePurchase.Policies.Policy;
 import com.example.demo.Store.StoreState;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.StorePermission.StoreRoles;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.naming.NoPermissionException;
 import java.io.IOException;
@@ -266,5 +265,14 @@ public class StoreController {
 
     public List<Store> getAllStoresByStoreName(String name) {
         return stores.values().stream().filter(p->p.getStoreName().equals(name)).collect(Collectors.toList());
+    }
+
+    public boolean checkIfUserHaveRoleInAnyStore(String userId) {
+        for(Store s: stores.values()){
+            if( s.checkIfUserHaveRoleInStore(userId)){
+                return true;
+            }
+        }
+        return false;
     }
 }

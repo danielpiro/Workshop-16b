@@ -85,13 +85,16 @@ public class BigController {
 
 
         my_log.logger.info("user" + isDeleting + "is trying to delete user" + whosBeingDeleted);
-        sc.removeRoleInHierarchy(whosBeingDeleted);
+        //sc.removeRoleInHierarchy(whosBeingDeleted);
+        if(checkIfUserHaveRoleInStore(whosBeingDeleted)) {
+
+        }
+        else{
+            //todo ????
+        }
 
         ReturnValue rv = new ReturnValue(true, "", getUserController().deleteUser(isDeleting, whosBeingDeleted));
-
-
-        //ResponseEntity re = new ResponseEntity(rv,)
-
+        //ResponseEntity re = new ResponseEntity(rv,)/
         return rv;
     }
 
@@ -353,7 +356,7 @@ public class BigController {
             sc.addNewProduct(StoreId,userId,"p2",2,2, ProductsCategories.Appliances.toString());
             sc.addNewProduct(StoreId,userId,"p3",3,3, ProductsCategories.Other.toString());
             sc.addNewProduct(StoreId,userId,"p4",4,4, ProductsCategories.Apps$Games.toString());
-            output.add(StoreId);    
+            output.add(StoreId);
         }
         return output;
     }
@@ -491,8 +494,8 @@ public class BigController {
         sc.deletePolicy(storeId,userId,policyId);
     }
 
-    private void checkIfUserHaveRoleInStore(){
-        //todo
+    private boolean checkIfUserHaveRoleInStore(String userId){
+        return sc.checkIfUserHaveRoleInAnyStore(userId);
     }
 
     public List<Permission> getUserPermission(String StoreId, String userId){

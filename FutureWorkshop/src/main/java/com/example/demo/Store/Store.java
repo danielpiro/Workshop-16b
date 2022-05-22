@@ -348,6 +348,14 @@ public class Store implements getStoreInfo {
         }
         return "no title";
     }
+    public boolean checkIfUserHaveRoleInStore(String userIf) {
+        for(StoreRoles sr:StoreRoles){
+            if(sr.getUserId().equals(userIf)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public List<Permission> getUserPermission(String userId) {
         for(StoreRoles sr:StoreRoles){
