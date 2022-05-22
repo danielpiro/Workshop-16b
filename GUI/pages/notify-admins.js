@@ -6,20 +6,37 @@ import { useRouter } from "next/router";
 const NotifyAdmins = () => {
   const router = useRouter();
   const [userInput, setUserInput] = useState("");
-  const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
+  //const [userPermission, setUserPermission] = useState("Admin"); 
 
-  const onNotify = (e) => {
+  const onNotify = async (e) => {
     e.preventDefault();
-    console.log(userInput);
+    //console.log(userInput);
+    if (userInput !== "") {
+      await api
+        .post(
+          `/market/?userId=${""}&message=${userInput}` //TODO: Need the real path from backend
+        )
+        .then((res) => {
+          if (res.status === 200) {
+            const { data } = res;
+            console.log(data);
+            createNotification("success", "Notify admin done successfully", () =>
+              router.push("/dashboard")
+            )();
+          } else {
+            const { data } = res;
+            console.log(data);
+            createNotification("error", "failure notify admin!")();
+          }
+        })
+        .catch((err) => console.log("err"));
+    } else {
+      createNotification(
+        "error",
+        "user input was not valid, please try again"
+      )();
+    }
   };
-
-  // useEffect(() => {
-  //   const fetchPermission = async () => {
-  //     const response = await axios.get("users/getUserPermission");
-  //     setUserPermission(response.data);
-  //   };
-  //   fetchPermission();
-  // }, []);
 
   return (
     <>

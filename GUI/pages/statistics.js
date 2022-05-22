@@ -12,25 +12,32 @@ const Statistics = () => {
     subscribers: "",
     loggedInUsers: "",
   });
-  const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
-
-  // useEffect(() => {
-  //   const fetchPermission = async () => {
-  //     const response = await axios.get("users/getUserPermission");
-  //     setUserPermission(response.data);
-  //   };
-  //   fetchPermission();
-  // }, []);
-
-  // useEffect(() => {
-  //   const fetchApi = async () => {
-  //     const response = await axios.get("admin/logged-in&registered"); //TODO: Check if the function exists
-  //     setIsLoading(!isLoading);
-  //     const { data } = response;
-  //     //setStats(data.products);
-  //   };
-  //   fetchApi();
-  // }, []);
+  //const [userPermission, setUserPermission] = useState("Admin"); 
+  
+  useEffect(() => {
+    const fetchStats = async () => {
+      await api
+        .post(
+          `/market/stats/` //TODO: Need the real path from backend
+        )
+        .then((res) => {
+          if (res.status === 200) {
+            const { data } = res;
+            console.log(data);
+            createNotification("success", "Display statistics done successfully", () =>
+              router.push("/dashboard")
+            )();
+          } else {
+            const { data } = res;
+            console.log(data);
+            //setStats(data.products);
+            createNotification("error", "failure display statistics!")();
+          }
+        })
+        .catch((err) => console.log("err"));
+    };
+    fetchStats();
+  }, []);
 
   return (
     <>
