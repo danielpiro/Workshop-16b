@@ -22,6 +22,7 @@ import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.ProductsCategories;
 import com.example.demo.Store.Store;
+import com.example.demo.Store.StorePurchase.Discounts.Discount;
 import com.example.demo.Store.StorePurchase.Policies.Policy;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.User.Guest;
@@ -493,6 +494,19 @@ public class BigController {
         }
         sc.deletePolicy(storeId,userId,policyId);
     }
+    public String addNewDiscount(String storeId,String userId, Discount discount) throws NoPermissionException {//todo need to use policyBuilder to create policy
+        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
+            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
+            return null;
+        }
+        return sc.addNewDiscount(storeId,userId,discount);
+    }
+    public void deleteDiscount(String storeId,String userId, String discountId) throws NoPermissionException {
+        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
+            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
+        }
+        sc.deleteDiscount(storeId,userId,discountId);
+    }
 
     private boolean checkIfUserHaveRoleInStore(String userId){
         return sc.checkIfUserHaveRoleInAnyStore(userId);
@@ -510,6 +524,13 @@ public class BigController {
             return null;
         }
         return sc.getPolices(storeId,userId);
+    }
+    public List<Discount> getDiscounts(String storeId, String userId) throws NoPermissionException {
+        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
+            my_log.logger.warning("User doesn't exist or is not logged in or is not logged in");
+            return null;
+        }
+        return sc.getDiscounts(storeId,userId);
     }
 
     public List<PurchaseHistory> getStoreUserHistory(String userIdRequesting, String storeId, String userId) throws NoPermissionException{

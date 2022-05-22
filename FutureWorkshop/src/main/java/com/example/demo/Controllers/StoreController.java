@@ -10,6 +10,7 @@ import com.example.demo.History.PurchaseHistory;
 import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.Store;
+import com.example.demo.Store.StorePurchase.Discounts.Discount;
 import com.example.demo.Store.StorePurchase.Policies.Policy;
 import com.example.demo.Store.StoreState;
 import com.example.demo.StorePermission.Permission;
@@ -179,6 +180,18 @@ public class StoreController {
     public List<Policy> getPolices(String storeId,String userId) throws NoPermissionException {
         Store relevantStore =  stores.get(storeId);
         return relevantStore.getPolices(userId);
+    }
+    public String addNewDiscount(String storeId,String userId, Discount discount) throws NoPermissionException {
+        Store relevantStore =  stores.get(storeId);
+        return relevantStore.addNewDiscount(userId,discount);
+    }
+    public void deleteDiscount(String storeId,String userId, String discountId) throws NoPermissionException {
+        Store relevantStore =  stores.get(storeId);
+        relevantStore.deleteDiscount(userId,discountId);
+    }
+    public List<Discount> getDiscounts(String storeId,String userId) throws NoPermissionException {
+        Store relevantStore =  stores.get(storeId);
+        return relevantStore.getDiscount(userId);
     }
 
     private boolean checkIfProductExists(String storeId, String productId) throws IOException {

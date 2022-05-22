@@ -15,6 +15,7 @@ import com.example.demo.NotificationsManagement.getStoreInfo;
 import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.Store.Forum.Forum;
 import com.example.demo.Store.Forum.ForumThread;
+import com.example.demo.Store.StorePurchase.Discounts.Discount;
 import com.example.demo.Store.StorePurchase.Policies.Policy;
 import com.example.demo.StorePermission.OriginalStoreOwnerRole;
 import com.example.demo.StorePermission.Permission;
@@ -255,7 +256,24 @@ public class Store implements getStoreInfo {
         }
         return inventoryManager.getPolicies();
     }
-
+    public String addNewDiscount(String userId, Discount discount) throws NoPermissionException {
+        if(!checkPermission(userId, Permission.EDIT_STORE_POLICY)){
+            throw new NoPermissionException("the user don't have this permission");
+        }
+        return inventoryManager.addNewDiscount(discount);
+    }
+    public void deleteDiscount(String userId, String discountId) throws NoPermissionException {
+        if(!checkPermission(userId, Permission.EDIT_STORE_POLICY)){
+            throw new NoPermissionException("the user don't have this permission");
+        }
+        inventoryManager.deleteDiscount(discountId);
+    }
+    public List<Discount> getDiscount(String userId) throws NoPermissionException {
+        if(!checkPermission(userId, Permission.EDIT_STORE_POLICY)){
+            throw new NoPermissionException("the user don't have this permission");
+        }
+        return inventoryManager.getDiscounts();
+    }
 
     public List<StoreRoles> getInfoOnManagersOwners(String userId) throws NoPermissionException {
         if(!checkPermission(userId, Permission.INFO_OF_MANAGERS)){
