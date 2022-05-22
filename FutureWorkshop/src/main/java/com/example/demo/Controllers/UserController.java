@@ -289,8 +289,8 @@ public class UserController implements NotificationReceiver {
                         removeGuest(guestId);
                         onlineUsers++;
                         if(checkIfAdmin(user_name))
-                            return "admin";
-                        return "subscriber";
+                            return "{id:".concat(user_name.concat(",\ntype:admin")).concat("}");
+                        return "{id:".concat(user_name.concat(",\ntype:admin")).concat("}");
                     }
                 }
                 else {
@@ -320,8 +320,8 @@ public class UserController implements NotificationReceiver {
                     get_subscriber(user_name).setLogged_in(true);
                     onlineUsers++;
                     if(checkIfAdmin(user_name))
-                        return "admin";
-                    return "subscriber";
+                        return "{id:".concat(user_name.concat(",\ntype:admin")).concat("}");
+                    return "{id:".concat(user_name.concat(",\ntype:subsriber")).concat("}");
                 }
             }
                 else {
