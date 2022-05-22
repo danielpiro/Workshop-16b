@@ -88,6 +88,18 @@ public class BigController {
 
     }
 
+    public ReturnValue getOnlineUsersNum() throws UserException {
+        getUserController().getOnlineUsersNum();
+        ReturnValue rv = new ReturnValue(true, "", null);
+        return rv;
+    }
+
+    public ReturnValue getRegisteredUsersNum() throws UserException {
+        getUserController().getRegisteredUsersNum();
+        ReturnValue rv = new ReturnValue(true, "", null);
+        return rv;
+    }
+
 
     @DeleteMapping("/users")
     public ReturnValue deleteUser(@RequestParam String isDeleting,

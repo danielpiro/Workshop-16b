@@ -35,6 +35,8 @@ public class UserController implements NotificationReceiver {
     Object addingSubscriber = new Object();
     Object guest = new Object();
     Object deleteUser = new Object();
+    private int onlineUsers;
+    private int registeredUsers;
 
 
 
@@ -45,6 +47,8 @@ public class UserController implements NotificationReceiver {
         admin = new Subscriber(IdGenerator.getInstance().getAdminId(),"BigBoss");
         add_subscriber(admin);
         add_admin(admin);
+        onlineUsers=0;
+        registeredUsers = 0;
     }
 
     public void initialize() throws UserException {
@@ -249,8 +253,7 @@ public class UserController implements NotificationReceiver {
         synchronized (signUpLock) {
                 Subscriber s = new Subscriber(user_name, password);
                 add_subscriber(s);
-               //s.setShoppingCart(getGuestShoppingCart(guest_id));
-                //removeGuest(guest_id);
+                registeredUsers++;
                 return true;
         }
     }
@@ -272,6 +275,7 @@ public class UserController implements NotificationReceiver {
                         get_subscriber(user_name).setLogged_in(true);
                         get_subscriber(user_name).setShoppingCart(getGuestShoppingCart(guestId));
                         removeGuest(guestId);
+                        onlineUsers++;
                         return true;
                     }
                 }
@@ -300,6 +304,7 @@ public class UserController implements NotificationReceiver {
                     throw new UserException("user "+user_name+ " is already logged in");
                 } else if(!get_subscriber(user_name).isLogged_in() && check_password(user_name, password)) {
                     get_subscriber(user_name).setLogged_in(true);
+                    onlineUsers++;
                     return true;
                 }
             }
@@ -330,6 +335,7 @@ public class UserController implements NotificationReceiver {
                         get_subscriber(user_name).setLogged_in(false);
                        Guest g = addGuest();
                        g.setShoppingCart(getSubscriberCart(user_name));
+                       onlineUsers--;
                         return true;
                     }
                 }
@@ -559,5 +565,8 @@ public class UserController implements NotificationReceiver {
             return "guest";
         return null;
     }
+    public int getOnlineUsersNum(){return  onlineUsers;}
+
+    public int getRegisteredUsersNum(){return registeredUsers;}
 
 }
