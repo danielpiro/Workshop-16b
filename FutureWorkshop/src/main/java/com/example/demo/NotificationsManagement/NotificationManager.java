@@ -7,7 +7,7 @@ import com.example.demo.CustomExceptions.Exception.UserException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotificationManager {//todo add to store send notification
+public class NotificationManager {//todo add tests
     private static NotificationManager systemNotifyManager = null;
     private NotificationReceiver receiver;
 

@@ -38,13 +38,13 @@ public class ShoppingCart {
     public void removeProduct(String productID, String storeID, int amount) {
         if (basketCases.containsKey(storeID)  ) {
             if (basketCases.get(storeID).removeProduct(productID, amount) >= 0)
-                Log.getLogger().logger.fine("user " + userId + "removed product " + productID + "from store " + storeID + "and amount " + amount);
+                Log.getLogger().fine("user " + userId + "removed product " + productID + "from store " + storeID + "and amount " + amount);
             else {
-                Log.getLogger().logger.warning("user " + userId + "could not remove product " + productID + " because the item does not exist in the basket");
+                Log.getLogger().warning("user " + userId + "could not remove product " + productID + " because the item does not exist in the basket");
                 throw new NoSuchElementException( "couldn't remove item because it is not in the basket");
             }
         } else {
-            Log.getLogger().logger.warning("user " + userId + "could not remove product " + productID + " because cart does not contain that store");
+            Log.getLogger().warning("user " + userId + "could not remove product " + productID + " because cart does not contain that store");
             throw new NoSuchElementException( "couldn't remove item because it is not in the basket");
 
 
@@ -55,12 +55,12 @@ public class ShoppingCart {
     public int removeCompleteyProduct(String productID, String storeID) {
         if (basketCases.containsKey(storeID)) {
             if (basketCases.get(storeID).removeCompleteyProduct(productID) >= 0)
-                Log.getLogger().logger.fine("user " + userId + "removed product " + productID + "from store " + storeID + " completly");
+                Log.getLogger().fine("user " + userId + "removed product " + productID + "from store " + storeID + " completly");
             else
-                Log.getLogger().logger.warning("user " + userId + "could not remove product " + productID + " because the item does not exist in basket");
+                Log.getLogger().warning("user " + userId + "could not remove product " + productID + " because the item does not exist in basket");
 
         } else {
-            Log.getLogger().logger.warning("user " + userId + "could not remove product " + productID + " because cart does not contain that store");
+            Log.getLogger().warning("user " + userId + "could not remove product " + productID + " because cart does not contain that store");
             return -1;
 
         }
@@ -94,7 +94,7 @@ public class ShoppingCart {
             basketCases.put(storeID, sb);
 
         }
-        Log.getLogger().logger.fine("user " + userId +" added product " + productID + "to store " + storeID + " with amount of " + amount);
+        Log.getLogger().fine("user " + userId +" added product " + productID + "to store " + storeID + " with amount of " + amount);
 
 
 
@@ -107,7 +107,7 @@ public class ShoppingCart {
             sb.append("store number " + basket.getKey() + "\n");
             sb.append(basket.getValue().getInventory());
         }
-        Log.getLogger().logger.fine("user " + userId + " printing cart inventory");
+        Log.getLogger().fine("user " + userId + " printing cart inventory");
 
         return sb.toString();
     }
@@ -119,7 +119,7 @@ public class ShoppingCart {
         int weight = 10;
         int ans =0;
 
-        Log.getLogger().logger.info("user " + userId + "trying to purchase Cart");
+        Log.getLogger().info("user " + userId + "trying to purchase Cart");
 
 
         //check if we can purchase from store, that items are in inventory and store policies are complied
@@ -130,7 +130,7 @@ public class ShoppingCart {
             }
         }
         catch (  StorePolicyViolatedException |  SupplyManagementException |CantPurchaseException e) {
-            Log.getLogger().logger.warning("user " + userId + " could not reserve items in cart");
+            Log.getLogger().warning("user " + userId + " could not reserve items in cart");
 
             for (Map.Entry<String, ShoppingBasket> basket : basketCases.entrySet()) {
                 basket.getValue().purchaseSuccessful(false);
@@ -138,7 +138,7 @@ public class ShoppingCart {
             throw new CantPurchaseException ("not enough items in stock in the store");
 
         }
-        Log.getLogger().logger.info("user " + userId + " total cart value " + total);
+        Log.getLogger().info("user " + userId + " total cart value " + total);
 
         ans = externalConnectionHolder.tryToPurchase(total,weight);
 
@@ -147,13 +147,13 @@ public class ShoppingCart {
             for (Map.Entry<String, ShoppingBasket> basket : basketCases.entrySet()) {
                 basket.getValue().purchaseSuccessful(true);
             }
-            Log.getLogger().logger.info("user " + userId + " purchased cart successfully " );
-            Log.getLogger().logger.fine("user " + userId + " price of cart is " + total);
+            Log.getLogger().info("user " + userId + " purchased cart successfully " );
+            Log.getLogger().fine("user " + userId + " price of cart is " + total);
 
             recordPurchase();
         }
         else {
-            Log.getLogger().logger.warning("user " + userId + " could not purchase cart");
+            Log.getLogger().warning("user " + userId + " could not purchase cart");
             throw new CantPurchaseException ("could not complete transaction, because of payment or delivery");
 
         }

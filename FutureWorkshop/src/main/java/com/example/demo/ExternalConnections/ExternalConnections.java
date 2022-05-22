@@ -57,11 +57,11 @@ public class ExternalConnections {
 
         if(payment.connect(123)) {
             payments.add(payment);
-            Log.getLogger().logger.info("adding payment " + payment.getName() + "to external connections");
+            Log.getLogger().info("adding payment " + payment.getName() + "to external connections");
             return true;
         }
         else {
-            Log.getLogger().logger.warning("payment " + payment.getName() + "could not connect");
+            Log.getLogger().warning("payment " + payment.getName() + "could not connect");
 
             return false;
         }
@@ -70,12 +70,12 @@ public class ExternalConnections {
     public  boolean addDelivery (Delivery delivery){
         if(delivery.connect(123)) {
             deliveries.add(delivery);
-            Log.getLogger().logger.info("adding delivery " + delivery.getName() + "to external connections");
+            Log.getLogger().info("adding delivery " + delivery.getName() + "to external connections");
 
             return true;
         }
         else {
-            Log.getLogger().logger.warning("delivery " + delivery.getName() + "could not connect");
+            Log.getLogger().warning("delivery " + delivery.getName() + "could not connect");
 
             return false;
         }
@@ -105,7 +105,7 @@ public class ExternalConnections {
     }
     public  boolean removePayment (PaymentNames payment) {
         synchronized (lockPayment) {
-            Log.getLogger().logger.info("removing payment " + payment + "from external connections");
+            Log.getLogger().info("removing payment " + payment + "from external connections");
 
 
             for (Payment p : payments) {
@@ -120,7 +120,7 @@ public class ExternalConnections {
     public    boolean removeDelivery (DeliveryNames delivery) {
         synchronized (lockDelivery) {
 
-            Log.getLogger().logger.info("removing delivery " + delivery + "from external connections");
+            Log.getLogger().info("removing delivery " + delivery + "from external connections");
 
             for (Delivery p : deliveries) {
                 if (p.getName().equals(delivery.toString())){

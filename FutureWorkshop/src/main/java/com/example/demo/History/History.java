@@ -41,7 +41,7 @@ public class History {
 
     public  boolean insertRecord(String userID, String storeID, int transcationId, String itemName, float itemPrice, int amount, Date timeOfTransaction) {
             synchronized (printAndPut) {
-                Log.getLogger().logger.info("user " + userID + " recording purchase into history");
+                Log.getLogger().info("user " + userID + " recording purchase into history");
 
                 //synchronized because we dont want the same index to be used twice
                 synchronized (History.class) {

@@ -32,7 +32,7 @@ public class ExternalConnectionHolder {
         Payment paymentObject = null;
 
 
-        my_log.logger.fine("trying to purchase with total:" + total + " and delivery weight is" + deliveryDetails);
+        my_log.fine("trying to purchase with total:" + total + " and delivery weight is" + deliveryDetails);
 
 
         for (int i = 0; i < TRYTOCONNECT  && !gotDelivery; i++) {
@@ -62,7 +62,7 @@ public class ExternalConnectionHolder {
         }
 
         if (gotDelivery==false || gotPayment == false){
-            my_log.logger.warning("could not purchase, because couldn't not obtain external connection of " + delivery+ " or " + payment );
+            my_log.warning("could not purchase, because couldn't not obtain external connection of " + delivery+ " or " + payment );
 
             return -1;
         }

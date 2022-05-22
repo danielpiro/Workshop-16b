@@ -10,11 +10,11 @@ import com.example.demo.History.PurchaseHistory;
 import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.Store;
+import com.example.demo.Store.StorePurchase.Discounts.Discount;
 import com.example.demo.Store.StorePurchase.Policies.Policy;
 import com.example.demo.Store.StoreState;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.StorePermission.StoreRoles;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.naming.NoPermissionException;
 import java.io.IOException;
@@ -66,7 +66,7 @@ public class StoreController {
 
     }
 
-    public void unfreezeStore(String storeId, String userId) throws NoPermissionException {
+    public void unfreezeStore(String storeId, String userId) throws NoPermissionException, UserException, NotifyException {
         if(checkIfGuest(userId)){
             throw new NoPermissionException("guest cant unfreeze store");
         }
@@ -74,7 +74,7 @@ public class StoreController {
         relevantStore.closeStore(userId);
     }
 
-    public void freezeStore(String storeId, String userId) throws NoPermissionException {
+    public void freezeStore(String storeId, String userId) throws NoPermissionException, UserException, NotifyException {
         if(checkIfGuest(userId)){
             throw new NoPermissionException("guest cant freeze store");
         }
@@ -106,7 +106,7 @@ public class StoreController {
         Store relevantStore = stores.get(storeId);
         relevantStore.editProduct(userId, productId,  newSupply, newName, newPrice, category);
     }
-    public void deleteProduct(String storeId, String userId, String productId) throws NoPermissionException, SupplyManagementException {
+    public void deleteProduct(String storeId, String userId, String productId) throws NoPermissionException, SupplyManagementException, UserException, NotifyException {
         if(checkIfGuest(userId)){
             throw new NoPermissionException("guest cant delete products");
         }
@@ -114,7 +114,7 @@ public class StoreController {
         relevantStore.deleteProduct(userId, productId);
     }
 
-    public void removeRoleInHierarchy(String storeId, String userIdRemoving, String UserAffectedId) throws NoPermissionException{
+    public void removeRoleInHierarchy(String storeId, String userIdRemoving, String UserAffectedId) throws NoPermissionException, UserException, NotifyException {
         Store relevantStore = stores.get(storeId);
         relevantStore.removeRoleInHierarchy(userIdRemoving, UserAffectedId);
     }
@@ -128,11 +128,11 @@ public class StoreController {
         Store relevantStore = stores.get(storeId);
         relevantStore.removeSomePermissions(userIdRemoving,UserAffectedId, PerToRemove);
     }
-    public void createOwner(String storeId, String userIdGiving, String UserGettingPermissionId, List<Permission> permissions) throws NoPermissionException {
+    public void createOwner(String storeId, String userIdGiving, String UserGettingPermissionId, List<Permission> permissions) throws NoPermissionException, UserException, NotifyException {
         Store relevantStore = stores.get(storeId);
         relevantStore.createOwner(userIdGiving, UserGettingPermissionId, permissions);
     }
-    public void createManager(String storeId, String userIdGiving, String UserGettingPermissionId) throws NoPermissionException {
+    public void createManager(String storeId, String userIdGiving, String UserGettingPermissionId) throws NoPermissionException, UserException, NotifyException {
         Store relevantStore = stores.get(storeId);
         relevantStore.createManager(userIdGiving, UserGettingPermissionId);
     }
@@ -181,6 +181,18 @@ public class StoreController {
         Store relevantStore =  stores.get(storeId);
         return relevantStore.getPolices(userId);
     }
+    public String addNewDiscount(String storeId,String userId, Discount discount) throws NoPermissionException {
+        Store relevantStore =  stores.get(storeId);
+        return relevantStore.addNewDiscount(userId,discount);
+    }
+    public void deleteDiscount(String storeId,String userId, String discountId) throws NoPermissionException {
+        Store relevantStore =  stores.get(storeId);
+        relevantStore.deleteDiscount(userId,discountId);
+    }
+    public List<Discount> getDiscounts(String storeId,String userId) throws NoPermissionException {
+        Store relevantStore =  stores.get(storeId);
+        return relevantStore.getDiscount(userId);
+    }
 
     private boolean checkIfProductExists(String storeId, String productId) throws IOException {
         Store relevantStore =  stores.get(storeId);
@@ -188,7 +200,7 @@ public class StoreController {
             relevantStore.getProduct(productId);
             return true;
         } catch (Exception e) {
-            Log.getLogger().logger.severe(e.getMessage());
+            Log.getLogger().severe(e.getMessage());
             return false;
         }
     }
@@ -266,5 +278,14 @@ public class StoreController {
 
     public List<Store> getAllStoresByStoreName(String name) {
         return stores.values().stream().filter(p->p.getStoreName().equals(name)).collect(Collectors.toList());
+    }
+
+    public boolean checkIfUserHaveRoleInAnyStore(String userId) {
+        for(Store s: stores.values()){
+            if( s.checkIfUserHaveRoleInStore(userId)){
+                return true;
+            }
+        }
+        return false;
     }
 }

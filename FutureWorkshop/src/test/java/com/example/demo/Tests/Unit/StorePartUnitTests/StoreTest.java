@@ -1,9 +1,15 @@
 package com.example.demo.Tests.Unit.StorePartUnitTests;
 
 
+import com.example.demo.Controllers.StoreController;
+import com.example.demo.Controllers.UserController;
 import com.example.demo.CustomExceptions.Exception.NotifyException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
+import com.example.demo.NotificationsManagement.ComplaintNotification;
+import com.example.demo.NotificationsManagement.NotificationManager;
+import com.example.demo.NotificationsManagement.NotificationReceiver;
+import com.example.demo.NotificationsManagement.StoreNotification;
 import com.example.demo.Store.Store;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.StorePermission.StoreManager;
@@ -37,6 +43,17 @@ class StoreTest {
         List<String> managers1 = new LinkedList<>();
         managers1.add(userId1);
         store1 =new Store("store1", "s1Id", managers1);
+        NotificationReceiver r = new NotificationReceiver() {
+            @Override
+            public void sendNotificationTo(List<String> userIds, StoreNotification storeNotification) throws UserException, UserException {
+
+            }
+            @Override
+            public void sendComplaintTo(String senderId, List<String> userIds, ComplaintNotification complaintNotification) throws UserException {
+
+            }
+        };
+        NotificationManager.buildNotificationManager(r);
         //managers1.add(userId2);
         //store2 =new Store("store2", "s2Id", managers1);
 
@@ -71,7 +88,7 @@ class StoreTest {
                 e.printStackTrace();
             }
 
-        } catch (NoPermissionException e) {
+        } catch (NoPermissionException | NotifyException | UserException e) {
             e.printStackTrace();
             fail();
         }
@@ -83,7 +100,7 @@ class StoreTest {
         try {
             store1.createOwner(userId2, userId3, new ArrayList<>());
             fail();
-        } catch (NoPermissionException e) {
+        } catch (NoPermissionException | NotifyException | UserException e) {
             e.printStackTrace();
         }
     }
@@ -92,7 +109,7 @@ class StoreTest {
         try {
             store1.createOwner(userId1, userId1, new ArrayList<>());
             fail();
-        } catch (NoPermissionException e) {
+        } catch (NoPermissionException | NotifyException | UserException e) {
             e.printStackTrace();
         }
     }
@@ -134,7 +151,7 @@ class StoreTest {
             }
 
 
-        } catch (NoPermissionException | SupplyManagementException e) {
+        } catch (NoPermissionException | SupplyManagementException | NotifyException | UserException e) {
             e.printStackTrace();
             fail();
         }
@@ -167,7 +184,7 @@ class StoreTest {
             store1.removeRoleInHierarchy(userId1,userId2);
             assertEquals(store1.getInfoOnManagersOwners(userId1).size(),1);
 
-        } catch (NoPermissionException e) {
+        } catch (NoPermissionException | NotifyException | UserException e) {
             e.printStackTrace();
             fail();
         }
@@ -181,7 +198,7 @@ class StoreTest {
             store1.removeRoleInHierarchy(userId2,userId4);
             assertEquals(store1.getInfoOnManagersOwners(userId1).size(),4);
 
-        } catch (NoPermissionException e) {
+        } catch (NoPermissionException | NotifyException | UserException e) {
             e.printStackTrace();
             fail();
         }
@@ -197,7 +214,7 @@ class StoreTest {
             List<StoreRoles> storeRoles = store1.getInfoOnManagersOwners(userId1);
             assertEquals(storeRoles.size(),4);
 
-        } catch (NoPermissionException e) {
+        } catch (NoPermissionException | NotifyException | UserException e) {
             e.printStackTrace();
             fail();
         }
@@ -213,7 +230,7 @@ class StoreTest {
             List<StoreRoles> storeRoles = store1.getInfoOnManagersOwners(userId1);
             assertEquals(storeRoles.size(),5);
 
-        } catch (NoPermissionException e) {
+        } catch (NoPermissionException | NotifyException | UserException e) {
             e.printStackTrace();
             fail();
         }
@@ -227,7 +244,7 @@ class StoreTest {
             store1.removeRoleInHierarchy(userId6,userId2);
             fail();
 
-        } catch (IllegalArgumentException | NoPermissionException e) {
+        } catch (IllegalArgumentException | NoPermissionException | NotifyException | UserException e) {
             e.printStackTrace();
         }
     }
@@ -281,9 +298,12 @@ class StoreTest {
             store1.userPostMessageToForum(threadId,userId3,"good products");
             assertEquals(store1.getThread(userId3).getTitle(),"test");
 
-        } catch (NoPermissionException | NotifyException | UserException e) {
+        } catch (NoPermissionException | UserException e) {
             e.printStackTrace();
             fail();
+        } catch (NotifyException e) {
+           assertEquals(store1.getThread(userId3).getTitle(),"test");
+
         }
     }
 

@@ -4,6 +4,7 @@ public class IdGenerator {
 
     private static IdGenerator single_instance = null;
 
+
     private String productPrefix = "ProductID_";
     private Long productSuffix;
 
@@ -21,6 +22,9 @@ public class IdGenerator {
 
     private String PolicyPrefix = "PolicyID_";
     private Long PolicySuffix;
+
+    private String DiscountPrefix = "DiscountID_";
+    private Long DiscountSuffix;
     private int complaintNotificationId;
     private int storeNotificationId;
 
@@ -33,15 +37,17 @@ public class IdGenerator {
         PolicySuffix = 0L;
         complaintNotificationId =0;
         storeNotificationId=0;
+        DiscountSuffix = 0L;
     }
 
-    private IdGenerator(Long productSuffix, Long storeSuffix, Long ForumThreadSuffix, Long guestSuffix, Long AdminSuffix, Long PolicySuffix) {
+    private IdGenerator(Long productSuffix, Long storeSuffix, Long ForumThreadSuffix, Long guestSuffix, Long AdminSuffix, Long PolicySuffix, Long discountSuffix) {
         this.productSuffix = productSuffix;
         this.storeSuffix = storeSuffix;
         this.ForumThreadSuffix = ForumThreadSuffix;
         this.GuestSuffix = guestSuffix;
         this.AdminSuffix = AdminSuffix;
         this.PolicySuffix = PolicySuffix;
+        this.DiscountSuffix = discountSuffix;
     }
 
     public static IdGenerator getInstance()
@@ -50,10 +56,10 @@ public class IdGenerator {
             single_instance = new IdGenerator();
         return single_instance;
     }
-    public static IdGenerator getInstance(Long productSuffix, Long storeSuffix, Long ForumThreadSuffix, Long guestSuffix , Long AdminSuffix, Long PolicySuffix)
+    public static IdGenerator getInstance(Long productSuffix, Long storeSuffix, Long ForumThreadSuffix, Long guestSuffix , Long AdminSuffix, Long PolicySuffix, Long discountSuffix)
     {
         if (single_instance == null)
-            single_instance = new IdGenerator(productSuffix, storeSuffix, ForumThreadSuffix, guestSuffix, AdminSuffix, PolicySuffix);
+            single_instance = new IdGenerator(productSuffix, storeSuffix, ForumThreadSuffix, guestSuffix, AdminSuffix, PolicySuffix, discountSuffix);
         return single_instance;
     }
 
@@ -95,7 +101,10 @@ public class IdGenerator {
         storeNotificationId++;
         return (storeNotificationId -1);
     }
-
+    public String getDiscountId() {
+        DiscountSuffix++;
+        return DiscountPrefix+(DiscountSuffix -1);
+    }
 
     public boolean checkIfAdmin(String userId){
         return userId.startsWith("AdminID_");
@@ -104,10 +113,6 @@ public class IdGenerator {
     public boolean isIdEqual(String Id1, String Id2){
         return Id1.equals(Id2);
     }
-
-
-
-
 
 
 

@@ -8,7 +8,7 @@ import java.util.logging.SimpleFormatter;
 
 public class Log {
     private static Log log_instance = null;
-    public Logger logger,error_logger;
+    private Logger logger,error_logger;
     FileHandler fh1,fh2;
     private final String logger1_file_name = "log.txt";
     private final String logger2_file_name = "Error_Log.txt";
@@ -38,6 +38,15 @@ public class Log {
 
     }
 
+    public void warning(String msg){
+        error_logger.warning(msg);
+    }
+    public void info(String msg){
+        logger.info(msg);
+    }
+    public void severe(String message) {
+        error_logger.severe(message);
+    }
     public static Log getLogger(){
         if(log_instance == null)
             try {
@@ -50,4 +59,8 @@ public class Log {
 
     }
 
+
+    public void fine(String s) {
+        logger.fine(s);
+    }
 }

@@ -15,7 +15,7 @@ public class MasterCard extends Payment {
     // todo remove = zero
     @Override
     protected int internalPayment(float total) {
-        Log.getLogger().logger.fine("try to pay with MasterCard");
+        Log.getLogger().fine("try to pay with MasterCard");
 
         if(total>=0)
             return (int) total;
@@ -24,7 +24,7 @@ public class MasterCard extends Payment {
 
     @Override
     public boolean connect(int key) {
-        Log.getLogger().logger.info("MasterCard connected");
+        Log.getLogger().info("MasterCard connected");
 
         connected =true;
         return true;
