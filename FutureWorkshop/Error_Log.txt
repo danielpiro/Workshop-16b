@@ -108,3 +108,29 @@ May 21, 2022 11:14:42 PM com.example.demo.Controllers.UserController checkIfUser
 WARNING:  user asdasddoesn't exist
 May 21, 2022 11:15:54 PM com.example.demo.Controllers.UserController checkIfUserExists
 WARNING:  user asdasddoesn't exist
+May 22, 2022 11:44:58 AM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user abbdbddoesn't exist
+May 22, 2022 11:44:58 AM com.example.demo.Controllers.UserController login
+WARNING: user abbdbd failed login
+May 22, 2022 11:47:03 AM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user amitpppppdoesn't exist
+May 22, 2022 11:47:03 AM com.example.demo.Controllers.UserController login
+WARNING: user amitppppp failed login
+May 22, 2022 12:06:05 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user amadnfhfdoesn't exist
+May 22, 2022 12:06:05 PM com.example.demo.Controllers.UserController login
+WARNING: user amadnfhf failed login
+May 22, 2022 12:08:27 PM com.example.demo.Controllers.UserController sign_up
+WARNING: the id  is not a valid guest id in the system - failed to sign up
+May 22, 2022 12:08:39 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user abcdefdoesn't exist
+May 22, 2022 12:08:39 PM com.example.demo.Controllers.UserController login
+WARNING: user abcdef failed login
+May 22, 2022 12:08:41 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user abcdefdoesn't exist
+May 22, 2022 12:08:41 PM com.example.demo.Controllers.UserController login
+WARNING: user abcdef failed login
+May 22, 2022 12:10:22 PM com.example.demo.Controllers.UserController checkIfUserExists
+WARNING:  user newStoredoesn't exist
+May 22, 2022 12:12:20 PM com.example.demo.Controllers.UserController sign_up
+WARNING: the id  is not a valid guest id in the system - failed to sign up

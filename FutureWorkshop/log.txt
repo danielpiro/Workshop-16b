@@ -556,3 +556,23 @@ May 22, 2022 8:47:05 AM com.example.demo.ExternalConnections.ExternalConnections
 INFO: adding delivery UPSto external connections
 May 22, 2022 8:47:05 AM com.example.demo.Controllers.BigController <init>
 INFO: System Started
+May 22, 2022 11:44:58 AM com.example.demo.Controllers.UserController login
+INFO: user abbdbd is trying to login
+May 22, 2022 11:47:03 AM com.example.demo.Controllers.UserController login
+INFO: user amitppppp is trying to login
+May 22, 2022 12:06:05 PM com.example.demo.Controllers.UserController login
+INFO: user amadnfhf is trying to login
+May 22, 2022 12:08:27 PM com.example.demo.Controllers.BigController signup
+INFO: user abcdefg is trying to sign up
+May 22, 2022 12:08:27 PM com.example.demo.Controllers.UserController sign_up
+INFO: a guest with id:  is trying to sign up with user name : abcdefg
+May 22, 2022 12:08:39 PM com.example.demo.Controllers.UserController login
+INFO: user abcdef is trying to login
+May 22, 2022 12:08:41 PM com.example.demo.Controllers.UserController login
+INFO: user abcdef is trying to login
+May 22, 2022 12:10:22 PM com.example.demo.Controllers.BigController userExistsAndLoggedIn
+WARNING: User doesn't exist or is not logged in
+May 22, 2022 12:12:20 PM com.example.demo.Controllers.BigController signup
+INFO: user amitpeled is trying to sign up
+May 22, 2022 12:12:20 PM com.example.demo.Controllers.UserController sign_up
+INFO: a guest with id:  is trying to sign up with user name : amitpeled

@@ -9,11 +9,30 @@ const DisplayStoreOfficials = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [singleProduct, setSingleProduct] = useState({});
-  const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
-  //      + Edit using new method "setUserPermission"
+  //const [userPermission, setUserPermission] = useState("Admin");
+  
   useEffect(() => {
     const fetchApi = async () => {
       const response = await axios.get("https://dummyjson.com/products");
+      // const response = 
+      //     await api
+      //       .post(
+      //         `/history/user/?userId=${""}`
+      //       )
+      //       .then((res) => {
+      //         if (res.status === 200) {
+      //           const { data } = res;
+      //           console.log(data);
+      //           createNotification("success", "Displaying all purchases successfully", () =>
+      //             router.push("/dashboard")
+      //           )();
+      //         } else {
+      //           const { data } = res;
+      //           console.log(data);
+      //           createNotification("error", "failure displaying all purchases!")();
+      //         }
+      //       })
+      //       .catch((err) => console.log("err"));
       setIsLoading(!isLoading);
       const { data } = response;
       setProducts(data.products);
@@ -37,7 +56,7 @@ const DisplayStoreOfficials = () => {
         <h3>Display Store Officials</h3>
       </div>
       <div className="my-4">
-        <SearchBar setProducts={setProducts} />
+        <SearchBar setProducts={setProducts} /> {/*TODO: Check search button and setSearchValue*/}
       </div>
       <div
         className="my-4"

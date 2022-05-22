@@ -27,7 +27,7 @@ const Stores = () => {
     <>
       <Menu />
       <div className="my-4">
-        <SearchBar setStores={setStores} />
+        <SearchBar setStores={setStores} /> {/*TODO: Check search button*/} 
       </div>
       {!isLoading ? (
         <div className="row">

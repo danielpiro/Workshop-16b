@@ -37,7 +37,7 @@ const Dashboard = () => {
     <>
       <Menu />
       <div className="my-4">
-        <SearchBar setProducts={setProducts} />
+        <SearchBar setProducts={setProducts} /> {/*TODO: Check search button and setSearchValue*/}
       </div>
       <div className="my-4 d-flex justify-content-center">
         {!isLoading ? (
