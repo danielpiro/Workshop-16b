@@ -576,3 +576,21 @@ May 22, 2022 12:12:20 PM com.example.demo.Controllers.BigController signup
 INFO: user amitpeled is trying to sign up
 May 22, 2022 12:12:20 PM com.example.demo.Controllers.UserController sign_up
 INFO: a guest with id:  is trying to sign up with user name : amitpeled
+May 22, 2022 4:18:19 PM com.example.demo.ExternalConnections.Payment.Visa connect
+INFO: Visa connected
+May 22, 2022 4:18:19 PM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment Visato external connections
+May 22, 2022 4:18:19 PM com.example.demo.ExternalConnections.Payment.MasterCard connect
+INFO: MasterCard connected
+May 22, 2022 4:18:19 PM com.example.demo.ExternalConnections.ExternalConnections addPayment
+INFO: adding payment MasterCardto external connections
+May 22, 2022 4:18:19 PM com.example.demo.ExternalConnections.Delivery.FedEx connect
+INFO: FedEx connected
+May 22, 2022 4:18:19 PM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery FedExto external connections
+May 22, 2022 4:18:19 PM com.example.demo.ExternalConnections.Delivery.UPS connect
+INFO: UPS connected
+May 22, 2022 4:18:19 PM com.example.demo.ExternalConnections.ExternalConnections addDelivery
+INFO: adding delivery UPSto external connections
+May 22, 2022 4:18:19 PM com.example.demo.Controllers.BigController <init>
+INFO: System Started
