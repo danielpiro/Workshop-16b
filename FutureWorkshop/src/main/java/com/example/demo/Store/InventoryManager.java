@@ -135,6 +135,9 @@ public class InventoryManager  implements InventoryProtector {
         Log.getLogger().logger.warning("cant delete, no Policy with this Id");
         throw new RuntimeException("no Policy with this Id");
     }
+    public List<Policy> getPolicies() {
+        return policies;
+    }
     //todo add fun above
     public String addNewDiscount(Discount discount){
         discounts.add(discount);
@@ -151,10 +154,10 @@ public class InventoryManager  implements InventoryProtector {
         Log.getLogger().logger.warning("cant delete, no Policy with this Id");
         throw new RuntimeException("no Policy with this Id");
     }
-
-    public List<Policy> getPolicies() {
-        return policies;
+    public List<Discount> getDiscounts(){
+        return discounts;
     }
+
     @Override
     public String getProductName(String productID) {
         return products.get(productID).getName();

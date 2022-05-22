@@ -13,6 +13,9 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+
 public class DiscountTests {
     InventoryManager invMan =  new InventoryManager();
     String Product1Id;
@@ -28,10 +31,21 @@ public class DiscountTests {
         Product4Id = invMan.addNewProduct("t4", 5F, 6, ProductsCategories.Other.toString());;
     }
     @Test
-    void addDiscount(){
+    void addDiscountDelete(){
+        try{
         DiscountPredicate discountPredicate = new AlwaysTrue();
         Discount d = new PercentageDiscount(20, discountPredicate);
-        invMan.addNewDiscount(d);
+        String discountId = invMan.addNewDiscount(d);
+        List<Discount> ds = invMan.getDiscounts();
+        assertTrue(ds.get(0).getDiscountId().equals(discountId));
+        invMan.deleteDiscount(discountId);
+        ds = invMan.getDiscounts();
+        assertEquals(0,ds.size());
+    }catch (Exception e){
+            e.printStackTrace();
+            fail();
+        }
     }
+
 
 }

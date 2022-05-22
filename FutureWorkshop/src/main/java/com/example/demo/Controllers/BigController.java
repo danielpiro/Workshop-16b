@@ -20,6 +20,7 @@ import com.example.demo.History.History;
 import com.example.demo.NotificationsManagement.NotificationManager;
 import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.Store.Product;
+import com.example.demo.Store.ProductsCategories;
 import com.example.demo.Store.Store;
 import com.example.demo.Store.StorePurchase.Policies.Policy;
 import com.example.demo.StorePermission.Permission;
@@ -28,8 +29,6 @@ import com.example.demo.User.Subscriber;
 //import com.example.demo.dto.AdminDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -338,6 +337,25 @@ public class BigController {
 
         ReturnValue rv = new ReturnValue(true, "", getStoreController().addNewThreadToForum(storeId, title, userId));
         return rv;
+    }
+
+    /**
+     * @param usersIds - create stores for users and add products for them
+     * @return stores ids
+     */
+    public List<String> initializeStores(List<String> usersIds) throws NoPermissionException, SupplyManagementException {
+        List<String>  output = new ArrayList<>();
+        for(String userId: usersIds){
+            List<String>  owner = new ArrayList<>();
+            owner.add(userId);
+            String StoreId = sc.openNewStore(userId+" store",owner);
+            sc.addNewProduct(StoreId,userId,"p1",1,1, ProductsCategories.Apps$Games.toString());
+            sc.addNewProduct(StoreId,userId,"p2",2,2, ProductsCategories.Appliances.toString());
+            sc.addNewProduct(StoreId,userId,"p3",3,3, ProductsCategories.Other.toString());
+            sc.addNewProduct(StoreId,userId,"p4",4,4, ProductsCategories.Apps$Games.toString());
+            output.add(StoreId);    
+        }
+        return output;
     }
 
     @PostMapping("/forum/message")
