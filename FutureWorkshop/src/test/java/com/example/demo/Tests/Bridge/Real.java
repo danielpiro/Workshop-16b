@@ -18,6 +18,7 @@ import com.example.demo.Mock.MockFullProduct;
 
 import com.example.demo.Mock.MockPermission;
 import com.example.demo.Mock.MockSmallPermission;
+import com.example.demo.Mock.MockSmallProduct;
 import com.example.demo.Store.Product;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.User.Guest;
@@ -37,15 +38,13 @@ import java.util.concurrent.Future;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-@WebMvcTest
-@AutoConfigureMockMvc
+
 public class Real   {
 
     private BigController bigController;
     //private Service service;
 
-    @Autowired
-    private MockMvc mockMvc;
+
 
     public Real() throws IOException {
         //service = new Service();
@@ -228,22 +227,30 @@ public class Real   {
         return returnValue.getValue();
     }
 
-//    /** User requirement - II.1.3 */
-//    public ReturnValue register(String username, String password){
-//
-//            ReturnValue returnValue = getBigController().
-//            sign_up(username, password);
-//            return returnValue;
-//
-//
-//
-//    }
+    /** User requirement - II.1.3 */
+    public boolean register(String username, String password){
+        boolean  ans=false;
+        try {
+             ans = (Boolean) getBigController().signup(username, password).getValue();
+        }catch (Exception e){
+
+        }
+            return  ans;
+
+
+
+    }
 
     /** User requirement - II.1.4 */
-    public boolean login(String username, String password) throws UserException {
-        ReturnValue<Boolean> returnValue = getBigController().login(username,password);
-        return returnValue.getValue();
+    public boolean login(String username, String password)  {
+        try {
+            ReturnValue<Boolean> returnValue = getBigController().login(username, password);
+            return returnValue.getValue();
+        }catch (Exception e){
+            return false;
+        }
     }
+
 
     /** User requirement - II.2.1 */
     public String receiveSystemInfo(){
@@ -251,11 +258,14 @@ public class Real   {
     }
 
     /** User requirement - II.2.2 */
-    public List<Product> searchProduct(String userId, String productName) throws Exception {
+    public List<Product> searchProduct(String userId, String productName) {
 
-
-        ReturnValue<List<Product>> rv = getBigController().SearchProductsAccordingName(userId,productName);
-        return rv.getValue();
+        try {
+            ReturnValue<List<Product>> rv = getBigController().SearchProductsAccordingName(userId, productName);
+            return rv.getValue();
+        }catch (Exception e){
+            return null;
+        }
 
     }
 
@@ -339,15 +349,15 @@ public class Real   {
     }
 
     /** User requirement - II.4.1 */
-    public boolean addProductToStore(String storeId, String userId, String productName, float price, int supply, String category){
+    public String addProductToStore(String storeId, String userId, String productName, float price, int supply, String category){
         try {
             MockFullProduct mfp = new MockFullProduct(storeId,userId,productName,price,supply,category);
-            bigController.addNewProductToStore(mfp);
-            return true;
+            String m = (String) bigController.addNewProductToStore(mfp).getValue();
+            return m;
         }
         catch (Exception e) {
             
-            return false;
+            return "";
         }
     }
 
@@ -447,7 +457,7 @@ public class Real   {
             bigController.getInfoOnManagersOwners(storeId,userId);
             return true;
         }
-        catch (NoPermissionException | UserException e) {
+        catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -473,8 +483,8 @@ public class Real   {
         return bigController.getAllProductsAndStores();
     }
 
-//    public List<Guest> getGuest_list(){
-//        return bigController.getGuest_list();
-//    }
+    public List<Guest> getGuest_list(){
+        return bigController.getGuest_list();
+    }
 
 }

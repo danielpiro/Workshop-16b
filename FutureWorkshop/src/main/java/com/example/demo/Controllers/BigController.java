@@ -116,11 +116,11 @@ public class BigController {
 
 
     @PostMapping("/users/signup")
-    public ResponseEntity signup(@RequestParam String user_name,
+    public ReturnValue signup(@RequestParam String user_name,
                                  @RequestParam String password) throws UserException {
         my_log.info("user " + user_name + " is trying to sign up");
         ReturnValue rv = new ReturnValue(true, "", getUserController().sign_up(user_name, password));
-        return new ResponseEntity(rv, HttpStatus.OK);
+        return rv;
     }
 
     @PostMapping("/users/login")
@@ -716,6 +716,10 @@ public class BigController {
     private List<Product> getProductById(String storeId, List<String> productId)  {
         return sc.getProductById(storeId,productId);
 
+    }
+
+    public List<Guest> getGuest_list() {
+        return us.getGuest_list();
     }
 
     private UserController getUserController() {
