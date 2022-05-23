@@ -9,6 +9,7 @@ import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.NotificationsManagement.ComplaintNotification;
 import com.example.demo.NotificationsManagement.NotificationReceiver;
+import com.example.demo.NotificationsManagement.NotificationSubject;
 import com.example.demo.NotificationsManagement.StoreNotification;
 import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.ShoppingCart.ShoppingCart;
@@ -517,7 +518,7 @@ public class UserController implements NotificationReceiver {
     }
 
     @Override
-    public void sendComplaintTo(String senderId,List<String> adminIds, ComplaintNotification complaintNotification) throws UserException {
+    public void sendComplaintToAdmins(String senderId,ComplaintNotification complaintNotification) throws UserException {
         my_log.info("user "+senderId+" is wants to send a complaint to system admins");
         if(get_subscriber(senderId)==null)
             throw new UserException("user "+senderId + " doesn't exist");
@@ -525,14 +526,8 @@ public class UserController implements NotificationReceiver {
              my_log.warning("the sender " + senderId + " is not online");
             throw new UserException("the sender " + senderId + " is not online");
         }
-        for (String s : adminIds) {
-            if (!checkIfUserExists(s))
-                throw new UserException("user " +s + " doesn't exist");
-            if (!checkIfAdmin(s)) {
-                 my_log.warning("trying to send a complaint to a user " + s + " which is not an admin");
-                throw new UserException("trying to send a complaint to a user " + s + " which is not an admin");
-            }
-                get_subscriber(s).addComplaint(complaintNotification.getDeepCopy());
+        for (Subscriber s : getSystemAdmins()) {
+                s.addComplaint(complaintNotification.getDeepCopy());
         }
     }
     public StoreNotification readStoreNotification(String userid,int storeNotificaionId) throws UserException {
@@ -545,12 +540,18 @@ public class UserController implements NotificationReceiver {
              my_log.warning("user " + userid + " is not online");
             throw new UserException("user " + userid + " is not online");
         }
-        if(storeNotificaionId<0||storeNotificaionId>get_subscriber(userid).getStoreNotifications().size()-1) {
+        if(storeNotificaionId<0) {
              my_log.warning("invalid store notification id");
             throw new UserException("invalid store notification id");
         }
-            get_subscriber(userid).getStoreNotifications().get(storeNotificaionId).setReadTrue();
-            return get_subscriber(userid).getStoreNotifications().get(storeNotificaionId);
+        for(StoreNotification sn: get_subscriber(userid).getStoreNotifications()) {
+            if (sn.getId() == storeNotificaionId) {
+                sn.setReadTrue();
+                return sn;
+            }
+        }
+        my_log.warning("user " + " failed to read notification with id "+storeNotificaionId);
+        throw new UserException("user " + " failed to read notification with id "+storeNotificaionId);
     }
     public ComplaintNotification readComplaintNotification(String userid,int complaintNotificaionId) throws UserException {
         my_log.info("user "+userid+" wants to read store notification with id "+ complaintNotificaionId);
@@ -566,12 +567,18 @@ public class UserController implements NotificationReceiver {
              my_log.warning("user " + userid + " is not admin(only admins can recieve and read complaints)");
             throw new UserException("user " + userid + " is not admin(only admins can recieve and read complaints)");
         }
-        if(complaintNotificaionId<0||complaintNotificaionId>get_subscriber(userid).getComplaintNotifications().size()-1) {
-             my_log.warning("invalid complaint notification id");
+        if(complaintNotificaionId<0){
+            my_log.warning("invalid complaint notification id");
             throw new UserException("invalid complaint notification id");
         }
-            get_subscriber(userid).getComplaintNotifications().get(complaintNotificaionId).setReadTrue();
-            return get_subscriber(userid).getComplaintNotifications().get(complaintNotificaionId);
+           for(ComplaintNotification cn: get_subscriber(userid).getComplaintNotifications()) {
+               if (cn.getId() == complaintNotificaionId) {
+                   cn.setReadTrue();
+                   return cn;
+               }
+           }
+        my_log.warning("user " + " failed to read notification with id "+complaintNotificaionId);
+        throw new UserException("user " + " failed to read notification with id "+complaintNotificaionId);
     }
 
     public String getPermissionType(String username){

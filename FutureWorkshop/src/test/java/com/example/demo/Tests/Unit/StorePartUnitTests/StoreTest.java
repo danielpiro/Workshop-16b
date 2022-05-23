@@ -49,7 +49,7 @@ class StoreTest {
 
             }
             @Override
-            public void sendComplaintTo(String senderId, List<String> userIds, ComplaintNotification complaintNotification) throws UserException {
+            public void sendComplaintToAdmins(String senderId,  ComplaintNotification complaintNotification) throws UserException {
 
             }
         };

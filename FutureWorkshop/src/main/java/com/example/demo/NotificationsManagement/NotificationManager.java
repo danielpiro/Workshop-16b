@@ -32,8 +32,8 @@ public class NotificationManager {//todo add tests
         userIds.add(userId);
         receiver.sendNotificationTo( userIds, storeNotification);
     }
-    public void sendComplaintTo(String senderId,List<String> userIds, ComplaintNotification ComplaintNotification) throws UserException {
-        receiver.sendComplaintTo( senderId,userIds, ComplaintNotification);
+    public void sendComplaintTo(String senderId, ComplaintNotification ComplaintNotification) throws UserException {
+        receiver.sendComplaintToAdmins( senderId,ComplaintNotification);
     }
 
 

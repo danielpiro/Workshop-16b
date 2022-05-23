@@ -18,7 +18,7 @@ import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.History.History;
 import com.example.demo.NotificationsManagement.ComplaintNotification;
 import com.example.demo.NotificationsManagement.NotificationManager;
-import com.example.demo.NotificationsManagement.StoreNotification;
+import com.example.demo.NotificationsManagement.NotificationSubject;
 import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.ProductsCategories;
@@ -90,14 +90,13 @@ public class BigController {
     }
 
     public ReturnValue getOnlineUsersNum() throws UserException {
-        getUserController().getOnlineUsersNum();
-        ReturnValue rv = new ReturnValue(true, "", null);
+        ReturnValue rv = new ReturnValue(true, "",  getUserController().getOnlineUsersNum());
         return rv;
     }
 
     public ReturnValue getRegisteredUsersNum() throws UserException {
         getUserController().getRegisteredUsersNum();
-        ReturnValue rv = new ReturnValue(true, "", null);
+        ReturnValue rv = new ReturnValue(true, "",getUserController().getRegisteredUsersNum());
         return rv;
     }
 
@@ -506,19 +505,21 @@ public class BigController {
         ReturnValue rv = new ReturnValue(true, "", getUserController().getPermissionType(username));
         return rv;
     }
-    //public void sendComplaintTo(String senderId,List<String> adminIds, ComplaintNotification complaintNotification) throws UserException {
+   // String sentFrom, NotificationSubject subject, String title, String body
         @GetMapping("/notification/complaint")
-        public void sendComplaintTo(@RequestParam String senderId,@RequestParam List<String> adminIds,
-        @RequestParam ComplaintNotification complaintNotification) throws UserException {
+        public void sendComplaintToAdmins(@RequestParam String senderId,
+                                          @RequestParam String sentFrom, @RequestParam String subject, @RequestParam String title,@RequestParam String body) throws UserException {
             userExistsAndLoggedIn(senderId);
-            getUserController().sendComplaintTo(senderId, adminIds,complaintNotification);
+            if(subject.equals("StoreForum"))
+            getUserController().sendComplaintToAdmins(senderId,new ComplaintNotification(sentFrom,NotificationSubject.StoreForum,title,body));
+            else if(subject.equals("StoreAppointment"))
+                getUserController().sendComplaintToAdmins(senderId,new ComplaintNotification(sentFrom,NotificationSubject.StoreAppointment,title,body));
+            else if(subject.equals("StoreState"))
+                getUserController().sendComplaintToAdmins(senderId,new ComplaintNotification(sentFrom,NotificationSubject.StoreState,title,body));
+            else if(subject.equals("StoreDeleted"))
+                getUserController().sendComplaintToAdmins(senderId,new ComplaintNotification(sentFrom,NotificationSubject.StoreDeleted,title,body));
         }
-    //public void sendNotificationTo(List<String> userIds, StoreNotification storeNotification) throws UserException {
-    @GetMapping("/notification/complaint")
-    public void sendNotificationTo(@RequestParam List<String> userIds,
-                                       @RequestParam StoreNotification storeNotification) throws UserException {
-        getUserController().sendNotificationTo(userIds,storeNotification);
-    }
+    //StoreForum, StoreAppointment, StoreState, StoreDeleted
         @GetMapping("/notification/complaint")
     public ReturnValue readComplaintNotification(@RequestParam String userId,
                                                  @RequestParam int complaintNotificaionId) throws UserException {
