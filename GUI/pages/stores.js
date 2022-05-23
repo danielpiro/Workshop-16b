@@ -3,6 +3,7 @@ import SearchBarStores from "../components/search-bar-stores";
 import { useState, useEffect } from "react";
 import StoreCardStores from "../components/store-card-stores";
 import api from "../components/api";
+import Link from "next/link";
 
 const Stores = () => {
   const [stores, setStores] = useState([]);
@@ -20,6 +21,9 @@ const Stores = () => {
           if (res.status === 200) {
             const { data } = res;
             setStores(data.value);
+            stores.map((store) => (
+              <Link href={`stores/view/${store}`} key={store} />
+            ));
           }
         })
         .then(async () => {
@@ -51,6 +55,7 @@ const Stores = () => {
       <div className="my-4">
         <SearchBarStores setStoreSearch={setStoreSearch} />
       </div>
+
       {!isLoading ? (
         <div className="row">
           <ul className="list-group-dashboard">

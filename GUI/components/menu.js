@@ -2,6 +2,8 @@ import Link from "next/link";
 import { useCookies } from "react-cookie";
 import { useState } from "react";
 import createNotification from "./norification";
+import api from "./api";
+import { useRouter } from "next/router";
 
 const Menu = () => {
   const [cookies, setCookie, removeCookie] = useCookies([
@@ -20,46 +22,47 @@ const Menu = () => {
     username: "",
     password: "",
   });
+  const router = useRouter();
 
   const onSumbitRegister = (e) => {
     e.preventDefault();
     let encryptedPassword = 0;
-    const encrypted = async () =>
-      await bcrypt.hashSync(registerInput.password, 8);
-    encrypted().then((res) => (encryptedPassword = res));
-    api
-      .post(`/register/${registerInput.username}/${encryptedPassword}`)
-      .then((res) => {
-        if (res.status === 200) {
-          createNotification("success", "Register successfully")();
-        } else {
-          createNotification(
-            "error",
-            "Username and password was not valid , please try again"
-          )();
-        }
-      });
+    // const encrypted = async () =>
+    //   await bcrypt.hashSync(registerInput.password, 8);
+    // encrypted().then((res) => (encryptedPassword = res));
+    // api
+    //   .post(`/register/${registerInput.username}/${encryptedPassword}`)
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       createNotification("success", "Register successfully")();
+    //     } else {
+    //       createNotification(
+    //         "error",
+    //         "Username and password was not valid , please try again"
+    //       )();
+    //     }
+    //   });
   };
 
-  const onSumbitLogin = (e) => {
+  const logout = async (e) => {
     e.preventDefault();
-    let encryptedPassword = 0;
-    const encrypted = async () => await bcrypt.hashSync(loginInput.password, 8);
-    encrypted().then((res) => (encryptedPassword = res));
-    api
-      .post(`/users/login/${loginInput.username}/${encryptedPassword}`)
+    console.log("in logout");
+    return await api
+      .post(`/users/logout/?user_name=${cookies.username}`)
       .then((res) => {
+        console.log(res.data);
         if (res.status === 200) {
-          createNotification("success", "Login successfully")();
-        } else {
-          createNotification(
-            "error",
-            "Username and password was not valid , please try again"
+          return createNotification(
+            "success",
+            `${cookies.username} logged out successfully`,
+            () => {
+              return router.push("/login");
+            }
           )();
         }
-      });
+      })
+      .catch((err) => console.log(err));
   };
-
   return (
     <>
       {cookies.type === "admin" ? ( //Admin Menu
@@ -91,11 +94,6 @@ const Menu = () => {
                       <a className="nav-link ms-4">Open New Store</a>
                     </Link>
                   </li>
-                  {/* <li className="store-management-button nav-item">
-                <Link href="/store-management">
-                  <a className="nav-link ms-4">Store Management</a>
-                </Link>
-              </li> */}
                   <li className="store-management-button nav-item">
                     <Link href="/stores">
                       <a className="nav-link ms-4">Stores</a>
@@ -110,7 +108,10 @@ const Menu = () => {
                     <Link href="#">
                       <a
                         className="nav-link ms-4"
-                        onClick={createNotification("info", "message")}
+                        onClick={createNotification(
+                          "info",
+                          "Will be implemented next milestone..."
+                        )}
                       >
                         My Bids
                       </a>
@@ -141,7 +142,10 @@ const Menu = () => {
                     <Link href="#">
                       <a
                         className="nav-link ms-4"
-                        onClick={createNotification("info", "message")}
+                        onClick={createNotification(
+                          "info",
+                          "Will be implemented next milestone..."
+                        )}
                       >
                         Notifications
                       </a>
@@ -153,9 +157,9 @@ const Menu = () => {
                     </Link>
                   </li>
                   <li className="logout-button nav-item">
-                    <Link href="/login">
-                      <a className="nav-link ms-4">Logout</a>
-                    </Link>
+                    <a href="#" className="nav-link ms-4" onClick={logout}>
+                      Logout
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -196,7 +200,10 @@ const Menu = () => {
                       <Link href="#">
                         <a
                           className="nav-link ms-4"
-                          onClick={createNotification("info", "message")}
+                          onClick={createNotification(
+                            "info",
+                            "Will be implemented next milestone..."
+                          )}
                         >
                           My Bids
                         </a>
@@ -231,20 +238,10 @@ const Menu = () => {
                         Become a member
                       </a>
                     </li>
-                    <li>
-                      <a
-                        type="button"
-                        className="nav-link ms-4"
-                        data-bs-toggle="modal"
-                        data-bs-target="#login"
-                      >
-                        Login
-                      </a>
-                    </li>
                     <li className="logout-button nav-item">
-                      <Link href="/login">
-                        <a className="nav-link ms-4">Logout</a>
-                      </Link>
+                      <a href="#" className="nav-link ms-4" onClick={logout}>
+                        Logout
+                      </a>
                     </li>
                   </ul>
                 </div>
@@ -312,67 +309,6 @@ const Menu = () => {
               </div>
             </div>
           </div>
-
-          <div
-            className="modal fade"
-            id="login"
-            tabIndex="-1"
-            role="dialog"
-            aria-labelledby="loginTitle"
-            aria-hidden="true"
-          >
-            <div className="modal-dialog modal-dialog-centered" role="document">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title" id="loginTitle">
-                    Login
-                  </h5>
-                </div>
-                <div className="modal-body">
-                  <div>
-                    <input
-                      placeholder="Enter username"
-                      value={loginInput.username}
-                      onChange={(e) =>
-                        setLoginInput((prevState) => ({
-                          ...prevState,
-                          username: e.target.value,
-                        }))
-                      }
-                    />
-                  </div>
-                  <div className="mt-2">
-                    <input
-                      placeholder="Enter password"
-                      value={loginInput.password}
-                      onChange={(e) =>
-                        setLoginInput((prevState) => ({
-                          ...prevState,
-                          password: e.target.value,
-                        }))
-                      }
-                    />
-                  </div>
-                </div>
-                <div className="modal-footer">
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={onSumbitLogin}
-                  >
-                    Login
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       ) : (
         //Subscriber Menu
@@ -413,7 +349,10 @@ const Menu = () => {
                     <Link href="#">
                       <a
                         className="nav-link ms-4"
-                        onClick={createNotification("info", "message")}
+                        onClick={createNotification(
+                          "info",
+                          "Will be implemented next milestone..."
+                        )}
                       >
                         My Bids
                       </a>
@@ -444,16 +383,19 @@ const Menu = () => {
                     <Link href="#">
                       <a
                         className="nav-link ms-4"
-                        onClick={createNotification("info", "message")}
+                        onClick={createNotification(
+                          "info",
+                          "Will be implemented next milestone..."
+                        )}
                       >
                         Notifications
                       </a>
                     </Link>
                   </li>
                   <li className="logout-button nav-item">
-                    <Link href="/login">
-                      <a className="nav-link ms-4">Logout</a>
-                    </Link>
+                    <a href="#" className="nav-link ms-4" onClick={logout}>
+                      Logout
+                    </a>
                   </li>
                 </ul>
               </div>

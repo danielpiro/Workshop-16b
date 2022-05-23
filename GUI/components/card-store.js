@@ -3,13 +3,22 @@ import createNotification from "./norification";
 import { useCookies } from "react-cookie";
 import { useEffect, useState } from "react";
 
-const Card = ({ value, title, price, quantity, storeMap, category }) => {
+const CardStore = ({ store, item }) => {
   const [cookies, setCookie, removeCookie] = useCookies([
     "username",
     "password",
     "userId",
     "type",
   ]);
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    const fetch = () => {
+      return getProducts();
+    };
+    console.log("card-store", item);
+    console.log("card-store", store);
+    fetch();
+  }, []);
   const onClickBid = (e) => {
     e.preventDefault();
     createNotification("info", "Will be implemented next milestone...")();
@@ -26,6 +35,15 @@ const Card = ({ value, title, price, quantity, storeMap, category }) => {
     });
   };
 
+  const getProducts = () => {
+    storeMap.map((item) => {
+      if (Object.keys(item)[0] === store) {
+        setProducts(Object.values(item));
+        return;
+      }
+    });
+  };
+
   const addProduct = async (e) => {
     e.preventDefault();
     getShopId(value);
@@ -35,7 +53,7 @@ const Card = ({ value, title, price, quantity, storeMap, category }) => {
       storeID: storeId,
       amount: 1,
     };
-    return await api
+    api
       .post("/cart/product/?auctionOrBid=false", obj)
       .then((res) => {
         if (res.status === 200) {
@@ -77,4 +95,4 @@ const Card = ({ value, title, price, quantity, storeMap, category }) => {
   );
 };
 
-export default Card;
+export default CardStore;

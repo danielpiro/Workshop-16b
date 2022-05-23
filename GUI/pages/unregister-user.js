@@ -1,41 +1,44 @@
 import Menu from "../components/menu";
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import createNotification from "../components/norification";
 import { useRouter } from "next/router";
-import Footer from "../components/footer";
 import api from "../components/api";
+import { useCookies } from "react-cookie";
 
 const UnregisterUser = () => {
   const router = useRouter();
-  const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
   const [username, setUsername] = useState("");
-
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "username",
+    "password",
+    "userId",
+    "type",
+  ]);
   const onUnregistered = async (e) => {
     e.preventDefault();
-    if (searchValue !== "") {
-      await api
+    if (username !== "") {
+      return await api
         .delete(
-          `/users/?isDeleting=${""}&whosBeingDeleted=${username}`
+          `/users/?isDeleting=${cookies.username}&whosBeingDeleted=${username}`
         )
         .then((res) => {
           if (res.status === 200) {
             const { data } = res;
             console.log(data);
-            createNotification("success", "Unregistered user successfully", () =>
-              router.push("/dashboard")
+            createNotification(
+              "success",
+              "Unregistered user successfully",
+              () => router.push("/dashboard")
             )();
-          } else {
-            const { data } = res;
-            console.log(data);
-            createNotification("error", "failure unregister!")();
           }
         })
-        .catch((err) => console.log("err"));
+        .catch((err) =>
+          createNotification("error", "Unable to Unregistered user")()
+        );
     } else {
       createNotification(
         "error",
-        "username was not valid, please try again"
+        "username was cannot be empty, please try again"
       )();
     }
   };
@@ -43,34 +46,30 @@ const UnregisterUser = () => {
   return (
     <>
       <Menu />
-      <div className="card-header">
-        <h3>Hire new owner to a store</h3>
+      <div className="text-center my-5">
+        <h3>Unregister user</h3>
       </div>
 
-      <div className="container">
-        <br />
-        <div className="row" style={{ display: "flex", width: "80%" }}>
-          <h4>Note: you can unregister a user which isn't owner/manager!</h4>
-        </div>
-        <div className="row" style={{ display: "flex", width: "50%" }}>
-          <input
-            className="form-control mr-sm-2 m-2"
-            type="search"
-            placeholder="Enter username of the future unregistered user"
-            aria-label="Search"
-            onChange={(e) =>
-              setNewOfficialInput((prevState) => ({
-                ...prevState,
-                username: e.target.value,
-              }))
-            }
-          />
-        </div>
+      <div className="container d-flex justify-content-center">
+        <div className="list-group">
+          <div className="text-center">
+            <h5>Note: you can unregister a user which isn't owner/manager!</h5>
+          </div>
+          <div className="my-3">
+            <input
+              className="form-control"
+              type="search"
+              placeholder="Enter username"
+              aria-label="Search"
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
 
-        <div className="row m-1" style={{ display: "flex", width: "15%" }}>
-          <button className="btn btn-primary mr-lg-3" onClick={onUnregistered}>
-            Unregister user
-          </button>
+          <div className="d-flex justify-content-center">
+            <button className="btn btn-primary" onClick={onUnregistered}>
+              Unregister user
+            </button>
+          </div>
         </div>
       </div>
     </>

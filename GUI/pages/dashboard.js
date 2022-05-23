@@ -8,8 +8,9 @@ const Dashboard = () => {
   const [products, setProducts] = useState([]);
   const [searchProducts, setSearchProducts] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [storeMap, setStoreMap] = useState([]);
   const [page, setPage] = useState(0);
+  const [storeMap, setStoreMap] = useState([]);
+
   useEffect(() => {
     setIsLoading(!isLoading);
     const fetchData = async () => {

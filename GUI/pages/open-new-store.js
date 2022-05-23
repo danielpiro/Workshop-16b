@@ -2,11 +2,17 @@ import Menu from "../components/menu";
 import api from "../components/api";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useCookies } from "react-cookie";
 import createNotification from "../components/norification";
+import { useCookies } from "react-cookie";
 
 const OpenNewStore = () => {
   const router = useRouter();
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "username",
+    "password",
+    "userId",
+    "type",
+  ]);
 
   const [isLoading, setIsLoading] = useState(false);
   const [openNewStoreInput, setOpenNewStoreInput] = useState({
@@ -22,7 +28,7 @@ const OpenNewStore = () => {
     ) {
       await api
         .post(
-          `/store/open/?userId=${openNewStoreInput.storename}&storeName=${openNewStoreInput.additionalStoreOwnerUsername}`
+          `/store/open/?userId=${cookies.username}&storeName=${openNewStoreInput.storename}`
         )
         .then((res) => {
           if (res.status === 200) {

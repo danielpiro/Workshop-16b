@@ -1,15 +1,12 @@
-import { useState } from "react";
-import Store from "./store";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
-const StoreCardStores = ({ store, storeMap }) => {
-  const [showStore, setShowStore] = useState(false);
-  const onManageStore = (e) => {
-    e.preventDefault();
-  };
+const StoreCardStores = ({ store }) => {
+  const router = useRouter();
 
-  const onShopStore = (e) => {
+  const onEnterStore = (e) => {
     e.preventDefault();
-    setShowStore(!showStore);
+    router.push(`stores/view/${store}`);
   };
 
   return (
@@ -18,14 +15,13 @@ const StoreCardStores = ({ store, storeMap }) => {
         <h3 className="card-title text-center">Store</h3>
         <p className="card-text text-center">Store ID: {store}</p>
         <div className="d-flex justify-content-center">
-          <button className="btn btn-primary me-3" onClick={onShopStore}>
+          <button className="btn btn-primary me-3" onClick={onEnterStore}>
             Enter store
           </button>
-          <button className="btn btn-primary" onClick={onManageStore}>
-            Manage Store
-          </button>
+          <Link href={{ pathname: "/store-management", query: store }}>
+            <a className="btn btn-primary">Manage Store</a>
+          </Link>
         </div>
-        {showStore ? <Store store={store} storeMap={storeMap} /> : null}
       </div>
     </div>
   );

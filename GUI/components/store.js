@@ -3,18 +3,21 @@ import StoreProduct from "./store-product";
 
 const Store = ({ store, storeMap }) => {
   const [products, setProducts] = useState([]);
-  useEffect(() => {
-    return getProducts();
-  }, []);
+  // useEffect(() => {
+  //   const fetch = () => {
+  //     return getProducts();
+  //   };
+  //   fetch();
+  // }, []);
 
-  const getProducts = () => {
-    storeMap.map((item) => {
-      if (Object.keys(item)[0] === store) {
-        setProducts(Object.values(item));
-        return;
-      }
-    });
-  };
+  // const getProducts = () => {
+  //   storeMap.map((item) => {
+  //     if (Object.keys(item)[0] === store) {
+  //       setProducts(Object.values(item));
+  //       return;
+  //     }
+  //   });
+  // };
 
   return (
     <>
@@ -23,7 +26,7 @@ const Store = ({ store, storeMap }) => {
           <ul>
             {products.map((item) => (
               <li key={item.id}>
-                <StoreProduct item={item} />
+                <Card item={item} />
               </li>
             ))}
           </ul>

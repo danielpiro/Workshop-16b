@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const StoreProduct = () => {
+const StoreProduct = ({ item }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [details, setDetails] = useState({
     name: "",

@@ -1,14 +1,14 @@
 import Menu from "../components/menu";
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import Footer from "../components/footer";
+import { useRouter } from "next/router";
 
 const StoreManagement = () => {
   const [userPermission, setUserPermission] = useState("Admin");
-
+  const router = useRouter();
   return (
     <>
+      {console.log(Object.keys(router.query)[0])}
       <Menu />
       <div
         className="my-4"
@@ -24,7 +24,12 @@ const StoreManagement = () => {
               style={{ display: userPermission == "Admin" ? "block" : "none" }}
             >
               <div className="card-body">
-                <Link href="/add-new-store-supply">
+                <Link
+                  href={{
+                    pathname: "/add-new-store-supply",
+                    query: Object.keys(router.query)[0],
+                  }}
+                >
                   <a>Add new store's supply/products</a>
                 </Link>
               </div>
@@ -36,7 +41,12 @@ const StoreManagement = () => {
               style={{ display: userPermission == "Admin" ? "block" : "none" }}
             >
               <div className="card-body">
-                <Link href="/edit-store-supply">
+                <Link
+                  href={{
+                    pathname: "/edit-store-supply",
+                    query: Object.keys(router.query)[0],
+                  }}
+                >
                   <a>Edit store's supply/products</a>
                 </Link>
               </div>
@@ -51,7 +61,12 @@ const StoreManagement = () => {
               style={{ display: userPermission == "Admin" ? "block" : "none" }}
             >
               <div className="card-body">
-                <Link href="/fire-owner-manager-to-store">
+                <Link
+                  href={{
+                    pathname: "/fire-owner-manager-to-store",
+                    query: Object.keys(router.query)[0],
+                  }}
+                >
                   <a>Fire existing Store Manager in store</a>
                 </Link>
               </div>
@@ -63,7 +78,12 @@ const StoreManagement = () => {
               style={{ display: userPermission == "Admin" ? "block" : "none" }}
             >
               <div className="card-body">
-                <Link href="/change-policy">
+                <Link
+                  href={{
+                    pathname: "/change-policy",
+                    query: Object.keys(router.query)[0],
+                  }}
+                >
                   <a>Change store's policy</a>
                 </Link>
               </div>
@@ -78,7 +98,12 @@ const StoreManagement = () => {
               style={{ display: userPermission == "Admin" ? "block" : "none" }}
             >
               <div className="card-body">
-                <Link href="/hire-owner-manager-to-store">
+                <Link
+                  href={{
+                    pathname: "/hire-owner-manager-to-store",
+                    query: Object.keys(router.query)[0],
+                  }}
+                >
                   <a>Hire new Store Owner/Manager to store</a>
                 </Link>
               </div>
@@ -90,7 +115,12 @@ const StoreManagement = () => {
               style={{ display: userPermission == "Admin" ? "block" : "none" }}
             >
               <div className="card-body">
-                <Link href="/change-store-manager-permissions">
+                <Link
+                  href={{
+                    pathname: "/change-store-manager-permissions",
+                    query: Object.keys(router.query)[0],
+                  }}
+                >
                   <a>Change store's manager permissions</a>
                 </Link>
               </div>
@@ -105,7 +135,12 @@ const StoreManagement = () => {
               style={{ display: userPermission == "Admin" ? "block" : "none" }}
             >
               <div className="card-body">
-                <Link href="/display-store-purchases">
+                <Link
+                  href={{
+                    pathname: "/display-store-purchases",
+                    query: Object.keys(router.query)[0],
+                  }}
+                >
                   <a>Display purchases of store</a>
                 </Link>
               </div>
@@ -117,7 +152,12 @@ const StoreManagement = () => {
               style={{ display: userPermission == "Admin" ? "block" : "none" }}
             >
               <div className="card-body">
-                <Link href="/close-store">
+                <Link
+                  href={{
+                    pathname: "/close-store",
+                    query: Object.keys(router.query)[0],
+                  }}
+                >
                   <a>Close a store</a>
                 </Link>
               </div>
@@ -132,7 +172,12 @@ const StoreManagement = () => {
               style={{ display: userPermission == "Admin" ? "block" : "none" }}
             >
               <div className="card-body">
-                <Link href="/display-store-officials">
+                <Link
+                  href={{
+                    pathname: "/display-store-officials",
+                    query: Object.keys(router.query)[0],
+                  }}
+                >
                   <a>Display officials info in store</a>
                 </Link>
               </div>
@@ -144,7 +189,12 @@ const StoreManagement = () => {
               style={{ display: userPermission == "Admin" ? "block" : "none" }}
             >
               <div className="card-body">
-                <Link href="/discounts">
+                <Link
+                  href={{
+                    pathname: "/discounts",
+                    query: Object.keys(router.query)[0],
+                  }}
+                >
                   <a>Add/Edit discounts</a>
                 </Link>
               </div>

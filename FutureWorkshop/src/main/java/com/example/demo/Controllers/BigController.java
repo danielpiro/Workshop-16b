@@ -91,15 +91,15 @@ public class BigController {
 
     }
 
+    @GetMapping("/statistics/online")
     public ReturnValue getOnlineUsersNum() throws UserException {
-        getUserController().getOnlineUsersNum();
-        ReturnValue rv = new ReturnValue(true, "", null);
+        ReturnValue rv = new ReturnValue(true, "", getUserController().getOnlineUsersNum());
         return rv;
     }
 
+    @GetMapping("/statistics/users")
     public ReturnValue getRegisteredUsersNum() throws UserException {
-        getUserController().getRegisteredUsersNum();
-        ReturnValue rv = new ReturnValue(true, "", null);
+        ReturnValue rv = new ReturnValue(true, "", getUserController().getRegisteredUsersNum());
         return rv;
     }
 
@@ -403,7 +403,7 @@ public class BigController {
         ObjectMapper objectMapper = new ObjectMapper();
         for (var entry : allProductsAndStores.entrySet()) {
             for (var product : entry.getValue()) {
-                String json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"price\":\"%s\",\"quantity\":\"%s\",\"category\":\"%s\"}", product.getId(), product.getName(), product.getPrice(), product.getSupply() , product.getCategory());
+                String json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"price\":\"%s\",\"quantity\":\"%s\",\"category\":\"%s\"}", product.getId(), product.getName(), product.getPrice(), product.getSupply(), product.getCategory());
                 products.add(objectMapper.readTree(json));
             }
             products2.add(objectMapper.readTree(String.format("{\"%s\":%s}", entry.getKey(), products)));
@@ -422,7 +422,7 @@ public class BigController {
         ObjectMapper objectMapper = new ObjectMapper();
         for (var entry : allProductsAndStores.entrySet()) {
             for (var product : entry.getValue()) {
-                String json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"price\":\"%s\",\"quantity\":\"%s\",\"category\":\"%s\"}", product.getId(), product.getName(), product.getPrice(), product.getSupply() , product.getCategory());
+                String json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"price\":\"%s\",\"quantity\":\"%s\",\"category\":\"%s\"}", product.getId(), product.getName(), product.getPrice(), product.getSupply(), product.getCategory());
                 products.add(objectMapper.readTree(json));
             }
         }
@@ -439,6 +439,24 @@ public class BigController {
             stores.add(entry.getKey());
         }
         ReturnValue rv = new ReturnValue(true, "", stores);
+        return rv;
+    }
+
+    @GetMapping("/store/products")
+    public ReturnValue GetStoreProducts(@RequestParam String storeId) throws JsonProcessingException {
+        HashMap<String, List<Product>> allProductsAndStores = getStoreController().getAllProductsAndStores();
+        List<Object> products = new ArrayList<>();
+        ObjectMapper objectMapper = new ObjectMapper();
+        for (var entry : allProductsAndStores.entrySet()) {
+            if (entry.getKey().equals(storeId)){
+                for (var product : entry.getValue()) {
+                    String json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"price\":\"%s\",\"quantity\":\"%s\",\"category\":\"%s\"}", product.getId(), product.getName(), product.getPrice(), product.getSupply(), product.getCategory());
+                    products.add(objectMapper.readTree(json));
+                }
+            }
+
+        }
+        ReturnValue rv = new ReturnValue(true, "", products);
         return rv;
     }
 
