@@ -89,6 +89,10 @@ public class BigController {
 
     }
 
+    public void AddSystemAdmins(@RequestParam String admin,@RequestParam String userToBecomeAdmin) throws UserException{
+        getUserController().addSystemAdmin(admin,userToBecomeAdmin);
+    }
+
     public ReturnValue getOnlineUsersNum() throws UserException {
         ReturnValue rv = new ReturnValue(true, "",  getUserController().getOnlineUsersNum());
         return rv;

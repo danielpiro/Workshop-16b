@@ -484,7 +484,7 @@ public class UserController implements NotificationReceiver {
         }
     }
 
-    public void add_admin(Subscriber s) {
+    private void add_admin(Subscriber s) {
             system_admins.add(s);
         }
     public List<Subscriber> getSystemAdmins() {

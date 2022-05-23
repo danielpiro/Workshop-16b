@@ -108,3 +108,167 @@ May 22, 2022 4:18:19 PM com.example.demo.ExternalConnections.ExternalConnections
 INFO: adding delivery UPSto external connections
 May 22, 2022 4:18:19 PM com.example.demo.Controllers.BigController <init>
 INFO: System Started
+May 23, 2022 10:05:54 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : abed
+May 23, 2022 10:05:54 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user abed is trying to login
+May 23, 2022 10:06:09 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : abed
+May 23, 2022 10:08:58 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : abed
+May 23, 2022 10:08:59 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user abed is trying to login
+May 23, 2022 10:08:59 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user abed is trying to logout
+May 23, 2022 10:08:59 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user abed successfully logged out
+May 23, 2022 10:11:12 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : abed
+May 23, 2022 10:11:12 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : delphin
+May 23, 2022 10:11:12 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : lokum
+May 23, 2022 10:11:30 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : abed
+May 23, 2022 10:11:30 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : delphin
+May 23, 2022 10:11:30 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : lokum
+May 23, 2022 10:12:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : abed
+May 23, 2022 10:12:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : delphin
+May 23, 2022 10:12:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : lokum
+May 23, 2022 10:12:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user delphin is trying to login
+May 23, 2022 10:13:52 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : abed
+May 23, 2022 10:13:53 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : delphin
+May 23, 2022 10:13:53 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : lokum
+May 23, 2022 10:13:53 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user delphin is trying to login
+May 23, 2022 10:13:53 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user delphin is trying to logout
+May 23, 2022 10:13:53 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user delphin successfully logged out
+May 23, 2022 10:15:13 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : abed
+May 23, 2022 10:15:13 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : guy
+May 23, 2022 10:17:30 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : abed
+May 23, 2022 10:17:30 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : guy
+May 23, 2022 10:17:46 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : abed
+May 23, 2022 10:17:46 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : guy
+May 23, 2022 10:18:29 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : abed
+May 23, 2022 10:18:29 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : guy
+May 23, 2022 10:20:19 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : abed
+May 23, 2022 10:20:19 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : guy
+May 23, 2022 10:20:19 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user AdminID_0is trying to add abedas admin
+May 23, 2022 10:21:52 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : abed
+May 23, 2022 10:21:52 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : guy
+May 23, 2022 10:21:52 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user AdminID_0is trying to add abedas admin
+May 23, 2022 10:22:07 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : abed
+May 23, 2022 10:22:07 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : guy
+May 23, 2022 10:22:07 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user AdminID_0is trying to add abedas admin
+May 23, 2022 10:22:07 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : abed
+May 23, 2022 10:22:07 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : guy
+May 23, 2022 10:22:07 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user abed is trying to login
+May 23, 2022 10:22:07 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user abed is trying to logout
+May 23, 2022 10:22:07 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user abed successfully logged out
+May 23, 2022 10:22:07 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : abed
+May 23, 2022 10:22:07 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : guy
+May 23, 2022 10:22:07 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : delphin
+May 23, 2022 10:22:07 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : lokum
+May 23, 2022 10:22:07 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user delphin is trying to login
+May 23, 2022 10:22:07 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user delphin is trying to logout
+May 23, 2022 10:22:07 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user delphin successfully logged out
+May 23, 2022 10:22:25 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : abed
+May 23, 2022 10:22:25 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : guy
+May 23, 2022 10:22:25 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user AdminID_0is trying to add abedas admin
+May 23, 2022 10:22:25 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : abed
+May 23, 2022 10:22:25 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : guy
+May 23, 2022 10:22:25 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user abed is trying to login
+May 23, 2022 10:22:25 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user abed is trying to logout
+May 23, 2022 10:22:25 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user abed successfully logged out
+May 23, 2022 10:22:25 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : abed
+May 23, 2022 10:22:25 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : guy
+May 23, 2022 10:22:25 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : delphin
+May 23, 2022 10:22:25 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : lokum
+May 23, 2022 10:22:25 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user delphin is trying to login
+May 23, 2022 10:22:25 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user delphin is trying to logout
+May 23, 2022 10:22:25 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user delphin successfully logged out
+May 23, 2022 10:22:32 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : abed
+May 23, 2022 10:22:32 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : guy
+May 23, 2022 10:22:32 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user AdminID_0is trying to add abedas admin
+May 23, 2022 10:22:32 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : abed
+May 23, 2022 10:22:32 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : guy
+May 23, 2022 10:22:32 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user abed is trying to login
+May 23, 2022 10:22:32 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user abed is trying to logout
+May 23, 2022 10:22:32 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user abed successfully logged out
+May 23, 2022 10:22:32 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : abed
+May 23, 2022 10:22:32 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : guy
+May 23, 2022 10:22:32 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : delphin
+May 23, 2022 10:22:32 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : lokum
+May 23, 2022 10:22:32 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user delphin is trying to login
+May 23, 2022 10:22:32 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user delphin is trying to logout
+May 23, 2022 10:22:32 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user delphin successfully logged out
