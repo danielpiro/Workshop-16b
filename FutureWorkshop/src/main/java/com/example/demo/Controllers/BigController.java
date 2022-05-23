@@ -23,6 +23,7 @@ import com.example.demo.Store.ProductsCategories;
 import com.example.demo.Store.StorePurchase.Discounts.Discount;
 import com.example.demo.Store.StorePurchase.Policies.Policy;
 import com.example.demo.Store.StorePurchase.Policies.PolicyBuilder;
+import com.example.demo.Store.StorePurchase.PurchasableProduct;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.User.Guest;
 import com.example.demo.User.Subscriber;
@@ -38,6 +39,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -539,77 +541,89 @@ public class BigController {
         return rv;
     }
 
-//
-//    @PostMapping("/policy/add")
-//    public ReturnValue addNewPolicy(@RequestParam String storeId,@RequestParam String userId,@RequestParam String typeOfPolicy,@RequestBody MockPolicy mockPolicy) throws NoPermissionException, UserException {
-//        Policy policy;
-//       userExistsAndLoggedIn(userId);
-//       switch (typeOfPolicy) {
-//           case "CartPolicy":
-//               policy = policyBuilder.newCartPolicy(mockPolicy.getNumOfProducts());
-//               break;
-//           case "CategoryPolicy":
-//               policy = policyBuilder.newCategoryPolicy(mockPolicy.getCategories());
-//               break;
-//           case "ProductWithoutAmountPolicy":
-//               //todo get products from guy
-//               policy = policyBuilder.newProductWithoutAmountPolicy(mockPolicy.getProducts());
-//               break;
-//           case "ProductWithAmountPolicy":
-//               policy = policyBuilder.newProductWithAmountPolicy(mockPolicy.getProductsAmount());
-//               break;
-//           case "UserIdPolicy":
-//               policy = policyBuilder.newUserIdPolicy(mockPolicy.getUserIds());
-//               break;
-//           case "UseAgePolicy":
-//               policy = policyBuilder.newUseAgePolicy(mockPolicy.getStartAge(),mockPolicy.getEndAge());
-//               break;
-//           case "OnHoursOfTheDayPolicy":
-//               policy = policyBuilder.newOnHoursOfTheDayPolicy(mockPolicy.getStartTime(),mockPolicy.getEndTime());
-//               break;
-//           case "OnDaysOfTheWeekPolicy":
-//               policy = policyBuilder.newOnDaysOfTheWeekPolicy(mockPolicy.getStartTime(),mockPolicy.getEndTime());
-//               break;
-//           case "OnDayOfMonthPolicy":
-//               policy = policyBuilder.newOnDayOfMonthPolicy(mockPolicy.getStartTime(),mockPolicy.getEndTime());
-//               break;
-//           case "PricePredicate":
-//               policy = policyBuilder.newPricePredicate(mockPolicy.getPrice());
-//               break;
-//           default:
-//               throw new IllegalStateException("Unexpected type of policy: " + typeOfPolicy);
-//       }
-//
-//        ReturnValue rv = new ReturnValue(true, "", sc.addNewPolicy(storeId, userId, policy));
-//        return rv;
-//    }
-//
-//    @PostMapping("/policy/combine")
-//    public ReturnValue combineTwoPolicy(@RequestParam String storeId,
-//                                   @RequestParam String userId,
-//                                   @RequestParam String typeOfCombination,
-//                                   @RequestParam String policyID1 ,
-//                                   @RequestParam String policyID2) throws NoPermissionException, UserException {
-//
-//        userExistsAndLoggedIn(userId);
-//        Policy policy;
-//
-//        switch (typeOfCombination) {
-//            case "And":
-//                policy=policyBuilder.AndGatePolicy(getpolicy(policyID1),getpolicy(policyID2));
-//                break;
-//            case "Or":
-//                policy=policyBuilder.OrGatePolicy(getpolicy(policyID1),getpolicy(policyID2));
-//                break;
-//            case "Cond":
-//                policy=policyBuilder.ConditioningGatePolicy(getpolicy(policyID1),getpolicy(policyID2));
-//                break;
-//            default:
-//                throw new IllegalStateException("Unexpected type of policy: " + typeOfCombination);
-//        }
-//        ReturnValue rv = new ReturnValue(true, "", sc.addNewPolicy(storeId, userId, policy));
-//        return rv;
-//    }
+
+    @PostMapping("/policy/add")
+    public ReturnValue addNewPolicy(@RequestParam String storeId,@RequestParam String userId,@RequestParam String typeOfPolicy,@RequestBody MockPolicy mockPolicy) throws Exception {
+        Policy policy;
+       userExistsAndLoggedIn(userId);
+       switch (typeOfPolicy) {
+           case "CartPolicy":
+               policy = policyBuilder.newCartPolicy(mockPolicy.getNumOfProducts());
+               break;
+           case "CategoryPolicy":
+               policy = policyBuilder.newCategoryPolicy(mockPolicy.getCategories());
+               break;
+           case "ProductWithoutAmountPolicy":
+               //todo get products from guy
+               List<PurchasableProduct> lp = new LinkedList<>();
+               for(Product p :getProductById(storeId,mockPolicy.getProducts() )){
+                   PurchasableProduct pp = p;
+                   lp.add(pp);
+           }
+               policy = policyBuilder.newProductWithoutAmountPolicy(lp);
+               break;
+           case "ProductWithAmountPolicy":
+               HashMap<PurchasableProduct,Integer> mp = new HashMap<>();
+               for(String s :mockPolicy.getProductsAmount().keySet()){
+
+                   Product product=  (Product) getProductById(storeId ,s).getValue();
+                   PurchasableProduct pp = product;
+                   mp.put(pp,mockPolicy.getProductsAmount().get(s));
+               }
+               policy = policyBuilder.newProductWithAmountPolicy(mp);
+               break;
+           case "UserIdPolicy":
+               policy = policyBuilder.newUserIdPolicy(mockPolicy.getUserIds());
+               break;
+           case "UseAgePolicy":
+               policy = policyBuilder.newUseAgePolicy(mockPolicy.getStartAge(),mockPolicy.getEndAge());
+               break;
+           case "OnHoursOfTheDayPolicy":
+               policy = policyBuilder.newOnHoursOfTheDayPolicy(mockPolicy.getStartTime(),mockPolicy.getEndTime());
+               break;
+           case "OnDaysOfTheWeekPolicy":
+               policy = policyBuilder.newOnDaysOfTheWeekPolicy(mockPolicy.getStartTime(),mockPolicy.getEndTime());
+               break;
+           case "OnDayOfMonthPolicy":
+               policy = policyBuilder.newOnDayOfMonthPolicy(mockPolicy.getStartTime(),mockPolicy.getEndTime());
+               break;
+           case "PricePredicate":
+               policy = policyBuilder.newPricePredicate(mockPolicy.getPrice());
+               break;
+           default:
+               throw new IllegalStateException("Unexpected type of policy: " + typeOfPolicy);
+       }
+
+        ReturnValue rv = new ReturnValue(true, "", sc.addNewPolicy(storeId, userId, policy));
+        return rv;
+    }
+
+    @PostMapping("/policy/combine")
+    public ReturnValue combineTwoPolicy(@RequestParam String storeId,
+                                   @RequestParam String userId,
+                                   @RequestParam String typeOfCombination,
+                                   @RequestParam String policyID1 ,
+                                   @RequestParam String policyID2) throws NoPermissionException, UserException {
+
+        userExistsAndLoggedIn(userId);
+        Policy policy;
+
+        switch (typeOfCombination) {
+            case "And":
+                policy=policyBuilder.AndGatePolicy(getPolicy(storeId,policyID1),getPolicy(storeId,policyID2));
+                break;
+            case "Or":
+                policy=policyBuilder.OrGatePolicy(getPolicy(storeId,policyID1),getPolicy(storeId,policyID2));
+                break;
+            case "Cond":
+                policy=policyBuilder.ConditioningGatePolicy(getPolicy(storeId,policyID1),getPolicy(storeId,policyID2));
+                break;
+            default:
+                throw new IllegalStateException("Unexpected type of policy: " + typeOfCombination);
+        }
+        ReturnValue rv = new ReturnValue(true, "", sc.addNewPolicy(storeId, userId, policy));
+        return rv;
+    }
 
 
     public String addNewDiscount(String storeId,String userId, Discount discount) throws NoPermissionException, UserException {// use policyBuilder to create policy
