@@ -89,8 +89,10 @@ public class BigController {
 
     }
 
-    public void AddSystemAdmins(@RequestParam String admin,@RequestParam String userToBecomeAdmin) throws UserException{
+    public ReturnValue AddSystemAdmins(@RequestParam String admin,@RequestParam String userToBecomeAdmin) throws UserException{
         getUserController().addSystemAdmin(admin,userToBecomeAdmin);
+        ReturnValue rv = new ReturnValue(true, "", null);
+        return rv;
     }
 
     public ReturnValue getOnlineUsersNum() throws UserException {
@@ -161,12 +163,6 @@ public class BigController {
 
     }
 
-    @PostMapping("/market")
-    public ReturnValue sendComplaint(@RequestParam String userId, @RequestParam String StoreName, @RequestParam String complaint) {
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-    }
-
 
     @GetMapping("/market/guest")
     public ReturnValue addGuest() {
@@ -184,9 +180,7 @@ public class BigController {
         return rv;
     }
 
-    private Subscriber getSystemAdmin() {
-        return getUserController().getSystemAdmin();
-    }
+
 
 
     @PostMapping("/cart")
@@ -511,7 +505,7 @@ public class BigController {
     }
    // String sentFrom, NotificationSubject subject, String title, String body
         @GetMapping("/notification/complaint")
-        public void sendComplaintToAdmins(@RequestParam String senderId,
+        public ReturnValue sendComplaintToAdmins(@RequestParam String senderId,
                                           @RequestParam String sentFrom, @RequestParam String subject, @RequestParam String title,@RequestParam String body) throws UserException {
             userExistsAndLoggedIn(senderId);
             if(subject.equals("StoreForum"))
@@ -522,6 +516,8 @@ public class BigController {
                 getUserController().sendComplaintToAdmins(senderId,new ComplaintNotification(sentFrom,NotificationSubject.StoreState,title,body));
             else if(subject.equals("StoreDeleted"))
                 getUserController().sendComplaintToAdmins(senderId,new ComplaintNotification(sentFrom,NotificationSubject.StoreDeleted,title,body));
+            ReturnValue rv = new ReturnValue(true, "", null);
+            return rv;
         }
     //StoreForum, StoreAppointment, StoreState, StoreDeleted
         @GetMapping("/notification/complaint")
