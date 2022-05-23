@@ -12,6 +12,8 @@ import com.example.demo.ExternalConnections.Payment.Payment;
 import com.example.demo.ExternalConnections.Payment.PaymentNames;
 import com.example.demo.History.History;
 import com.example.demo.History.PurchaseHistory;
+import com.example.demo.Mock.MockFullProduct;
+import com.example.demo.Mock.MockSmallProduct;
 import com.example.demo.Store.Product;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.User.Guest;
@@ -259,46 +261,60 @@ public class Real   {
         return increaseProductQuantityInShoppingCart(user_id, productID,  storeID,  amount, auctionOrBid);
     }
 
-    /** User requirement - II.2.4 */
-    public String showShoppingCart(String userId){
-        return bigController.getCartInventory(userId);
-    }
 
     /** User requirement - II.2.4 */
     public boolean increaseProductQuantityInShoppingCart(String user_id,String productID, String storeID, int amount,boolean auctionOrBid )  {
-        int ans = bigController.addProductFromCart( user_id, productID,  storeID,  amount, auctionOrBid);
+        MockSmallProduct msp = new MockSmallProduct(user_id,productID,storeID,amount);
+        int ans =-1;
+        try {
+             ans = (Integer) bigController.addProductFromCart(msp, auctionOrBid).getValue();
+        }catch (Exception e) {
+            return false;
+        }
         return ans >= 0;
     }
 
     /** User requirement - II.2.4 */
     public boolean decreaseProductQuantityInShoppingCart(String userId,String productID, String storeID, int amount){
-        int ans = bigController.removeProductFromCart( userId, productID,  storeID,  amount);
+        int ans =-1;
+        try {
+             ans = (Integer) bigController.removeProductFromCart( new MockSmallProduct(userId,productID,storeID,amount)).getValue();
+        }catch (Exception e) {
+            return false;
+        }
         return ans == 0;
 
     }
 
-    /** User requirement - II.2.4 */
-    public String removeProductFromShoppingCart(String productName){
-        //TODO: call remove completely product once implemented.
-        throw new UnsupportedOperationException("Not Implemented Yet");
-    }
+
 
     /** User requirement - II.2.5 */
     public boolean purchaseShoppingCart(String userID,PaymentNames payment,DeliveryNames delivery){
-        float ans= bigController.purchaseCart(userID,payment,delivery);
+
+        float ans =-1;
+        try {
+            ans = (Float) bigController.purchaseCart(userID,payment,delivery).getValue();
+        }catch (Exception e) {
+            return false;
+        }
         return ans != -1;
     }
 
 
     /** User requirement - II.3.1 */
     public boolean logout(String userid){
-        return getBigController().logout(userid);
+        try {
+            return (Boolean) getBigController().logout(userid).getValue();
+        }catch (Exception e) {
+            return false;
+        }
+
     }
 
     /** User requirement - II.3.2 */
     public String openStore(String userID, String storeName){
         try {
-            return bigController.openNewStore(userID, storeName);
+            return (String) bigController.openNewStore(userID, storeName).getValue();
         }
         catch (Exception e){
             return "failed to open store";
@@ -306,7 +322,7 @@ public class Real   {
     }
     public boolean openStore(String userID, String storeName, HashMap<Product, Integer> products){
         try {
-            String storeId = bigController.openNewStore(storeName, userID);
+            String storeId = (String) bigController.openNewStore(storeName, userID).getValue();
             for (Product p : products.keySet()) {
                 addProductToStore(storeId, userID , p.getName(), p.getPrice(), products.get(p), p.getCategory().toString());
             }
@@ -321,11 +337,12 @@ public class Real   {
     /** User requirement - II.4.1 */
     public boolean addProductToStore(String storeId, String userId, String productName, float price, int supply, String category){
         try {
-            bigController.addNewProductToStore(storeId,userId,productName,price,supply,category);
+            MockFullProduct mfp = new MockFullProduct(storeId,userId,productName,price,supply,category);
+            bigController.addNewProductToStore(mfp);
             return true;
         }
-        catch (NoPermissionException e) {
-            e.printStackTrace();
+        catch (Exception e) {
+            
             return false;
         }
     }
