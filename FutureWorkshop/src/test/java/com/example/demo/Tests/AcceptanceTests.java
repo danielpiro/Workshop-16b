@@ -67,10 +67,18 @@ public class AcceptanceTests {
 
     Real proxy;
     String storeId;
+
+    //todo i think before all?
     @BeforeEach
     void setUp() throws Exception {
         proxy = new Real();
         proxy.openingMarket();
+
+
+
+
+
+
 
 //        admin: user AdminID_0, password BigBoss
 //        user1: store owner of store1 (store original owner)
@@ -119,12 +127,21 @@ public class AcceptanceTests {
      *  Important Note: This test is a must! otherwise all the tests can't have a proper set-up!
      **/
     @Test
-    void opening_market_system_success_case_test() throws NoPermissionException {
+    void opening_market_system_success_case_test() throws Exception {
 //        -Check that all the external services' connection are valid
 //        -Check that there is a system founder
 //        -Check that all users and stores uploaded successfully
 
 //        tearDown(); // Because set-up method is the openMarket
+
+//        String result=  mockMvc.perform(get("/api/search/name?userId=dan&productName=pump" )
+//                .contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+//
+//
+//        ReturnValue rv = new Gson().fromJson(result,ReturnValue.class);
+//        if (rv.isSuccess() == true)
+//            fail();
+
         assertEquals("system opened successfully", proxy.openingMarket());
     }
 
@@ -264,9 +281,11 @@ public class AcceptanceTests {
     }
 
     // additional methods for I.2 requirement
+
     @Test
     void remove_payment_service_success_case() {
 //        assertTrue(proxy.AddPayment(new MasterCard()));
+
         assertTrue(proxy.AddPayment(new Visa()));
     }
     @Test
@@ -514,14 +533,16 @@ public class AcceptanceTests {
         // In this case we search for a specific product for test convenience..
         // List<Product> productList = new ArrayList<>();
 
+//
+//        String result=  mockMvc.perform(get("/api/search/name?userId=amit&productName=p1" )
+//                    .contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
+//
+//
+//        ReturnValue rv = new Gson().fromJson(result,ReturnValue.class);
+//        if (rv.isSuccess() == false)
+//            fail();
+//        System.out.println(rv.getValue());
 
-        String result=  mockMvc.perform(get("/api/search/name?userId=dan&productName=pump" )
-                    .contentType(MediaType.APPLICATION_JSON)).andReturn().getResponse().getContentAsString();
-
-
-        ReturnValue rv = new Gson().fromJson(result,ReturnValue.class);
-        if (rv.isSuccess() == true)
-            fail();
         //rv.getValue()
 
 
@@ -531,7 +552,7 @@ public class AcceptanceTests {
 
 
 
-       // assertEquals("p1", proxy.searchProduct("user1", "p1").get(0).getName());
+        assertEquals("p1", proxy.searchProduct("user1", "p1"));
     }
 
     /**
