@@ -13,6 +13,7 @@ import com.example.demo.NotificationsManagement.StoreNotification;
 import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.ShoppingCart.ShoppingCart;
 
+import com.example.demo.User.Encryption;
 import com.example.demo.User.Guest;
 import com.example.demo.User.Message;
 import com.example.demo.User.Subscriber;
@@ -263,7 +264,7 @@ public class UserController implements NotificationReceiver {
              throw new UserException("user "+user_name + " password's lenth is less than 2 - failed to sign up");
         }
         synchronized (signUpLock) {
-                Subscriber s = new Subscriber(user_name, password);
+                Subscriber s = new Subscriber(user_name, Encryption.encryptThisString(password));
                 add_subscriber(s);
                 registeredUsers++;
                 return true;
@@ -366,7 +367,7 @@ public class UserController implements NotificationReceiver {
         }
             if (password.length() > 2) {
                 Subscriber subscriber = get_subscriber(user_name);
-                return subscriber.getPassword().equals(password);
+                return subscriber.getPassword().equals(Encryption.encryptThisString(password));
             }
              my_log.warning("invalid password for user "+user_name );
              throw new UserException("invalid password for user "+user_name);
