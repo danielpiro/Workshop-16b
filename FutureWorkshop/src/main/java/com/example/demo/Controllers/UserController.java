@@ -407,9 +407,9 @@ public class UserController implements NotificationReceiver {
         }
     }
     public void GuestExitSystem(String name)  throws NoSuchElementException {
-            for (Guest g : getGuest_list())
-                if (g.name.equals(name)) {
-                    getGuest_list().remove(g);
+            for (int i =0;i<getGuest_list().size();i++)
+                if (getGuest_list().get(i).name.equals(name)) {
+                    getGuest_list().remove(i);
                     return;
                 }
             throw new NoSuchElementException("Guest does not exist");
