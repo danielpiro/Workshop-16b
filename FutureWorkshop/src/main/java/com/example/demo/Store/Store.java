@@ -250,28 +250,23 @@ public class Store implements getStoreInfo {
         }
         inventoryManager.deletePolicy(policyId);
     }
-    public List<Policy> getPolices(String userId) throws NoPermissionException {
-        if(!checkPermission(userId, Permission.EDIT_STORE_POLICY)){
-            throw new NoPermissionException("the user don't have this permission");
-        }
+    public List<Policy> getPolices() throws NoPermissionException {
+
         return inventoryManager.getPolicies();
     }
     public String addNewDiscount(String userId, Discount discount) throws NoPermissionException {
-        if(!checkPermission(userId, Permission.EDIT_STORE_POLICY)){
+        if(!checkPermission(userId, Permission.EDIT_STORE_DISCOUNT)){
             throw new NoPermissionException("the user don't have this permission");
         }
         return inventoryManager.addNewDiscount(discount);
     }
     public void deleteDiscount(String userId, String discountId) throws NoPermissionException {
-        if(!checkPermission(userId, Permission.EDIT_STORE_POLICY)){
+        if(!checkPermission(userId, Permission.EDIT_STORE_DISCOUNT)){
             throw new NoPermissionException("the user don't have this permission");
         }
         inventoryManager.deleteDiscount(discountId);
     }
     public List<Discount> getDiscount(String userId) throws NoPermissionException {
-        if(!checkPermission(userId, Permission.EDIT_STORE_POLICY)){
-            throw new NoPermissionException("the user don't have this permission");
-        }
         return inventoryManager.getDiscounts();
     }
 

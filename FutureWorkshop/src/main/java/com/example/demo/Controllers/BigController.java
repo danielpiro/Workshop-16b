@@ -677,11 +677,13 @@ public class BigController {
     }
 
     @GetMapping("/policy")
-    public ReturnValue getPolices(@RequestParam String storeId,
-                                  @RequestParam String userId) throws NoPermissionException, UserException {
-        userExistsAndLoggedIn(userId);
-        ReturnValue rv = new ReturnValue(true, "", sc.getPolices(storeId, userId));
+    public ReturnValue getPolices(@RequestParam String storeId) throws NoPermissionException, UserException {
+        ReturnValue rv = new ReturnValue(true, "", sc.getPolices(storeId));
         return rv;
+    }
+    private Policy getPolicy( String storeId, String policyId) throws NoPermissionException, UserException {
+        return sc.getPolicy(storeId, policyId);
+
     }
 
 
@@ -691,6 +693,15 @@ public class BigController {
         userExistsAndLoggedIn(userId);
         ReturnValue rv = new ReturnValue(true, "", sc.getAllStoresByStoreName(name));
         return rv;
+    }
+    public ReturnValue getProductById(String storeId, String productId) throws Exception {
+
+        ReturnValue rv = new ReturnValue(true, "", sc.getProductById(storeId,productId));
+        return rv;
+    }
+    private List<Product> getProductById(String storeId, List<String> productId)  {
+        return sc.getProductById(storeId,productId);
+
     }
 
     private UserController getUserController() {
