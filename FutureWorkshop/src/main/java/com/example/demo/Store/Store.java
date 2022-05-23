@@ -172,7 +172,7 @@ public class Store implements getStoreInfo {
     }
 
     public void addProductReview(String userId, String productId, String title, String body, float rating) throws  SupplyManagementException {
-        //TODO: check in history user Bought this product
+        
         inventoryManager.addProductReview(productId, userId, title, body, rating);
 
         //updateRating();

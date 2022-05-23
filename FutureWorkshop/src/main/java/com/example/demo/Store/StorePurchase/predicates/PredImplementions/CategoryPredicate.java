@@ -19,13 +19,19 @@ public class CategoryPredicate  implements PolicyPredicate, DiscountPredicate {
 
     @Override
     public boolean predicateStands(List<PurchasableProduct> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) {
-        for (PurchasableProduct p : ProductAmount){
-            if(categories.stream().anyMatch(c -> c.toString().equals(p.getCategory().toString()))){
-                return true;
+        for(ProductsCategories pc : categories){
+            boolean categoryFound = false;
+            for(PurchasableProduct p : ProductAmount){
+                if(pc.equals(p.getCategory())){
+                    categoryFound = true;
+                    break;
+                }
+            }
+            if(!categoryFound){
+                return false;
             }
         }
-        return false;
-
+        return true;
     }
 
 
