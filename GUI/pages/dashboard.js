@@ -1,6 +1,5 @@
 import Menu from "../components/menu";
 import SearchBar from "../components/search-bar";
-import axios from "axios";
 import { useState, useEffect } from "react";
 import Card from "../components/card";
 import api from "../components/api";
@@ -11,14 +10,11 @@ const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [storeMap, setStoreMap] = useState([]);
   const [page, setPage] = useState(0);
-
-  const [userPermission, setUserPermission] = useState("Guest"); //TODO: Need to change to Guest when logic is ready!
-  //      + Edit using new method "setUserPermission"
   useEffect(() => {
     setIsLoading(!isLoading);
     const fetchData = async () => {
-      await axios
-        .get("http://localhost:9191/api/products/all")
+      await api
+        .get("/products/all")
         .then((res) => {
           if (res.status === 200) {
             const { data } = res;
@@ -27,7 +23,7 @@ const Dashboard = () => {
           }
         })
         .then(async () => {
-          return await api.get("/store/all").then((res) => {
+          return await api.get("/store-products/all").then((res) => {
             if (res.status === 200) {
               setStoreMap(res.data.value);
             }
@@ -40,7 +36,6 @@ const Dashboard = () => {
 
   const onNext = (e) => {
     e.preventDefault();
-    console.log("on next", page);
     if (page + 1 > products.length / 12) return;
     setPage(page + 1);
   };

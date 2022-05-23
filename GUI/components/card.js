@@ -1,7 +1,6 @@
 import api from "./api";
 import createNotification from "./norification";
 import { useCookies } from "react-cookie";
-import axios from "axios";
 
 const Card = ({ value, title, price, quantity, storeMap, category }) => {
   const [cookies, setCookie, removeCookie] = useCookies([
@@ -30,9 +29,9 @@ const Card = ({ value, title, price, quantity, storeMap, category }) => {
     getShopId(value);
     const obj = {
       user_id: cookies.userId,
-      productID: value.toString(),
+      productID: value,
       storeID: storeId,
-      amount: quantity,
+      amount: 1,
     };
     api
       .post("/cart/product/?auctionOrBid=false", obj)
@@ -51,7 +50,7 @@ const Card = ({ value, title, price, quantity, storeMap, category }) => {
       <h5 className="card-description text-center mb-2">
         Quantity: {quantity}
       </h5>
-      <h5 className="card-category text-center mb-2">Category: {category}$</h5>
+      <h5 className="card-category text-center mb-2">Category: {category}</h5>
       <h5 className="card-price text-center mb-2">Price: {price}$</h5>
 
       <div className="d-flex justify-content-center">

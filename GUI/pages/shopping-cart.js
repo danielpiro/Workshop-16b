@@ -5,8 +5,8 @@ import { useCookies } from "react-cookie";
 import api from "../components/api";
 
 const shoppingCart = () => {
-  const [cart, setCart] = useState([]);
-  const [storeList, setStoreList] = useState([]);
+  const [cart, setCart] = useState([1, 2, 3, 4]);
+  const [storeList, setStoreList] = useState([1, 2, 3, 4]);
   const [isLoading, setIsLoading] = useState(true);
   const [cookies, setCookie, removeCookie] = useCookies([
     "username",
@@ -14,22 +14,21 @@ const shoppingCart = () => {
     "userId",
     "type",
   ]);
-  //const [userPermission, setUserPermission] = useState("Admin");
 
   useEffect(() => {
-    // const fetchCart = async () => {
-    //   return await api.get("/cart/" + window.id).then((res) => {
-    //     if (res.status === 200) {
-    //       const { data } = res;
-    //       setIsLoading(!isLoading);
-    //       setCart(JSON.parse(data));
-    //     }
-    //   });
-    // };
-    // fetchCart();
-    setCart([1, 2, 3, 4]);
-    setStoreList([1, 2, 3, 4]);
-    console.log(cookies.username);
+    const fetchCart = async () => {
+      return await api
+        .post(`/cart/?user_Id=${cookies.userId}`)
+        .then((res) => {
+          if (res.status === 200) {
+            const { data } = res;
+            console.log(data);
+            setIsLoading(!isLoading);
+          }
+        })
+        .catch((err) => console.log(err));
+    };
+    fetchCart();
   }, []);
 
   const onBuy = (e) => {

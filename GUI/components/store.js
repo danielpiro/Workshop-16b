@@ -1,10 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StoreProduct from "./store-product";
 
-const Store = (props) => {
-  const [products, setProducts] = useState([
-    1, 2, 2, 3, 4, 5, 6, 7, 8, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-  ]);
+const Store = ({ store, storeMap }) => {
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    return getProducts();
+  }, []);
+
+  const getProducts = () => {
+    storeMap.map((item) => {
+      if (Object.keys(item)[0] === store) {
+        setProducts(Object.values(item));
+        return;
+      }
+    });
+  };
 
   return (
     <>
@@ -12,8 +22,8 @@ const Store = (props) => {
         <div className="row ">
           <ul>
             {products.map((item) => (
-              <li key={item}>
-                <StoreProduct />
+              <li key={item.id}>
+                <StoreProduct item={item} />
               </li>
             ))}
           </ul>

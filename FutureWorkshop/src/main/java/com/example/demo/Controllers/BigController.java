@@ -136,8 +136,6 @@ public class BigController {
     @PostMapping("/users/login")
     public ReturnValue login(@RequestParam String userNameLogin,
                              @RequestParam String password) throws UserException {
-        System.out.println(userNameLogin);
-        System.out.println(password);
         ReturnValue rv = new ReturnValue(true, "", getUserController().login(userNameLogin, password));
         return rv;
     }
@@ -145,8 +143,6 @@ public class BigController {
     @PostMapping("/guest/login")
     public ReturnValue login(@RequestParam String guestId, @RequestParam String userNameLogin,
                              @RequestParam String password) throws UserException {
-        System.out.println(userNameLogin);
-        System.out.println(password);
         ReturnValue rv = new ReturnValue(true, "", getUserController().login(guestId, userNameLogin, password));
         return rv;
     }
@@ -397,7 +393,7 @@ public class BigController {
 
     }
 
-    @GetMapping("/store/all")
+    @GetMapping("/store-products/all")
     public ReturnValue getAllProductsAndStores() throws UserException, SupplyManagementException, NoPermissionException, JsonProcessingException {
         List<String> users = initializeUsers();
         List<String> stores = initializeStores(users);
@@ -431,6 +427,18 @@ public class BigController {
             }
         }
         ReturnValue rv = new ReturnValue(true, "", products);
+        return rv;
+    }
+
+    @GetMapping("/store/all")
+    public ReturnValue getAllStores() throws UserException, SupplyManagementException, NoPermissionException, JsonProcessingException {
+        HashMap<String, List<Product>> allProductsAndStores = getStoreController().getAllProductsAndStores();
+        List<Object> stores = new ArrayList<>();
+        ObjectMapper objectMapper = new ObjectMapper();
+        for (var entry : allProductsAndStores.entrySet()) {
+            stores.add(entry.getKey());
+        }
+        ReturnValue rv = new ReturnValue(true, "", stores);
         return rv;
     }
 

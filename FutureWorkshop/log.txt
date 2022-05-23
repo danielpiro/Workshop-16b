@@ -1578,3 +1578,165 @@ May 22, 2022 11:15:25 PM com.example.demo.GlobalSystemServices.Log info
 INFO: is trying to sign up with user name : amit
 May 22, 2022 11:15:35 PM com.example.demo.GlobalSystemServices.Log info
 INFO: user amit is trying to login
+May 23, 2022 9:34:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+May 23, 2022 9:34:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+May 23, 2022 9:34:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+May 23, 2022 9:34:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+May 23, 2022 9:34:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+May 23, 2022 9:34:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+May 23, 2022 9:34:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+May 23, 2022 9:34:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+May 23, 2022 9:34:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+May 23, 2022 9:47:15 AM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+May 23, 2022 9:47:15 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+May 23, 2022 9:47:15 AM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+May 23, 2022 9:47:15 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+May 23, 2022 9:47:15 AM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+May 23, 2022 9:47:15 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+May 23, 2022 9:47:15 AM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+May 23, 2022 9:47:15 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+May 23, 2022 9:47:15 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+May 23, 2022 9:48:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+May 23, 2022 9:48:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+May 23, 2022 9:48:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+May 23, 2022 9:48:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+May 23, 2022 9:48:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+May 23, 2022 9:48:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+May 23, 2022 9:48:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+May 23, 2022 9:48:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+May 23, 2022 9:48:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+May 23, 2022 10:43:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+May 23, 2022 10:43:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+May 23, 2022 10:43:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+May 23, 2022 10:43:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+May 23, 2022 10:43:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+May 23, 2022 10:43:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+May 23, 2022 10:43:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+May 23, 2022 10:43:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+May 23, 2022 10:43:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+May 23, 2022 10:46:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+May 23, 2022 10:46:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+May 23, 2022 10:46:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+May 23, 2022 10:46:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+May 23, 2022 10:46:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+May 23, 2022 10:46:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+May 23, 2022 10:46:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+May 23, 2022 10:46:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+May 23, 2022 10:46:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+May 23, 2022 10:47:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+May 23, 2022 10:47:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+May 23, 2022 10:47:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+May 23, 2022 10:47:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+May 23, 2022 10:47:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+May 23, 2022 10:47:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+May 23, 2022 10:47:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+May 23, 2022 10:47:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+May 23, 2022 10:47:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+May 23, 2022 10:51:30 AM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+May 23, 2022 10:51:30 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+May 23, 2022 10:51:30 AM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+May 23, 2022 10:51:30 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+May 23, 2022 10:51:30 AM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+May 23, 2022 10:51:30 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+May 23, 2022 10:51:30 AM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+May 23, 2022 10:51:30 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+May 23, 2022 10:51:30 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+May 23, 2022 10:55:02 AM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+May 23, 2022 10:55:02 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+May 23, 2022 10:55:02 AM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+May 23, 2022 10:55:02 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+May 23, 2022 10:55:02 AM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+May 23, 2022 10:55:02 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+May 23, 2022 10:55:02 AM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+May 23, 2022 10:55:02 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+May 23, 2022 10:55:02 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+May 23, 2022 10:55:46 AM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+May 23, 2022 10:55:46 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+May 23, 2022 10:55:46 AM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+May 23, 2022 10:55:46 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+May 23, 2022 10:55:46 AM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+May 23, 2022 10:55:46 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+May 23, 2022 10:55:46 AM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+May 23, 2022 10:55:46 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+May 23, 2022 10:55:46 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started

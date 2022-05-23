@@ -217,3 +217,7 @@ May 22, 2022 11:15:10 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user asdasd doesn't exist
 May 22, 2022 11:15:35 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user amit failed login
+May 23, 2022 10:54:43 AM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_0 doesn't exist
+May 23, 2022 10:55:39 AM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_0 doesn't exist

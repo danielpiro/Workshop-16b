@@ -1,45 +1,92 @@
 import Menu from "../components/menu";
-import SearchBar from "../components/search-bar";
-import axios from "axios";
+import SearchBarStores from "../components/search-bar-stores";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import StoreCardStores from "../components/store-card-stores";
+import api from "../components/api";
 
 const Stores = () => {
-  const router = useRouter();
   const [stores, setStores] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  //const [page, setPage] = useState(10);
-  const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
-  //      + Edit using new method "setUserPermission"
+  const [storeSearch, setStoreSearch] = useState("");
+  const [storeMap, setStoreMap] = useState([]);
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
-    const fetchApi = async () => {
-      const response = await axios.get("https://dummyjson.com/products");
-      setIsLoading(!isLoading);
-      const { data } = response;
-      setStores(data.products); //TODO: Set up all stores
+    setIsLoading(!isLoading);
+    const fetchData = async () => {
+      return await api
+        .get("/store/all")
+        .then((res) => {
+          if (res.status === 200) {
+            const { data } = res;
+            setStores(data.value);
+          }
+        })
+        .then(async () => {
+          return await api.get("/store-products/all").then((res) => {
+            if (res.status === 200) {
+              const { data } = res;
+              setStoreMap(data.value);
+            }
+          });
+        })
+        .catch((err) => console.log(err));
     };
-    fetchApi();
+    fetchData();
   }, []);
+  const onNext = (e) => {
+    e.preventDefault();
+    if (page + 1 > stores.length / 12) return;
+    setPage(page + 1);
+  };
 
+  const onPrevious = (e) => {
+    e.preventDefault();
+    if (page - 1 < 0) return;
+    setPage(page - 1);
+  };
   return (
     <>
       <Menu />
       <div className="my-4">
-        <SearchBar setStores={setStores} /> {/*TODO: Check search button and setSearchValue*/}
+        <SearchBarStores setStoreSearch={setStoreSearch} />
       </div>
       {!isLoading ? (
         <div className="row">
           <ul className="list-group-dashboard">
-            {stores.map((store) => {
-              return (
-                <li className="list-group-item" key={store.id}>
-                  <StoreCardStores />
-                </li>
-              );
-            })}
+            {stores
+              .filter((stores) => stores.includes(storeSearch))
+              .slice(12 * page, 12 * (page + 1))
+              .map((store) => {
+                return (
+                  <li className="list-group-item" key={store}>
+                    <StoreCardStores store={store} storeMap={storeMap} />
+                  </li>
+                );
+              })}
           </ul>
+          <nav aria-label="Search results pages">
+            <ul className="pagination justify-content-center">
+              <li className="page-item">
+                <button
+                  className="page-link"
+                  onClick={onPrevious}
+                  disabled={page === 0 ? true : false}
+                >
+                  Previous
+                </button>
+              </li>
+              <li className="page-item">
+                <button
+                  className="page-link ms-3"
+                  onClick={onNext}
+                  disabled={page === stores.length / 12 ? true : false}
+                >
+                  Next
+                </button>
+              </li>
+            </ul>
+          </nav>
         </div>
       ) : (
         <div className="container h-100 my-6">
