@@ -535,7 +535,7 @@ public class UserController implements NotificationReceiver {
                 get_subscriber(s).addComplaint(complaintNotification.getDeepCopy());
         }
     }
-    public void readStoreNotification(String userid,int storeNotificaionId) throws UserException {
+    public StoreNotification readStoreNotification(String userid,int storeNotificaionId) throws UserException {
         my_log.info("user "+userid+" wants to read store notification with id "+ storeNotificaionId);
         if (get_subscriber(userid)==null) {
              my_log.warning("user " + userid + " does not exist");
@@ -549,10 +549,10 @@ public class UserController implements NotificationReceiver {
              my_log.warning("invalid store notification id");
             throw new UserException("invalid store notification id");
         }
-            get_subscriber(userid).getComplaintNotifications().get(storeNotificaionId).setReadTrue();
-
+            get_subscriber(userid).getStoreNotifications().get(storeNotificaionId).setReadTrue();
+            return get_subscriber(userid).getStoreNotifications().get(storeNotificaionId);
     }
-    public void readComplaintNotification(String userid,int complaintNotificaionId) throws UserException {
+    public ComplaintNotification readComplaintNotification(String userid,int complaintNotificaionId) throws UserException {
         my_log.info("user "+userid+" wants to read store notification with id "+ complaintNotificaionId);
         if (get_subscriber(userid)==null) {
              my_log.warning("user " + userid + " does not exist");
@@ -571,6 +571,7 @@ public class UserController implements NotificationReceiver {
             throw new UserException("invalid complaint notification id");
         }
             get_subscriber(userid).getComplaintNotifications().get(complaintNotificaionId).setReadTrue();
+            return get_subscriber(userid).getComplaintNotifications().get(complaintNotificaionId);
     }
 
     public String getPermissionType(String username){

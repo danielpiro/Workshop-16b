@@ -16,7 +16,9 @@ import com.example.demo.ExternalConnections.Payment.PaymentNames;
 import com.example.demo.ExternalConnections.Payment.Visa;
 import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.History.History;
+import com.example.demo.NotificationsManagement.ComplaintNotification;
 import com.example.demo.NotificationsManagement.NotificationManager;
+import com.example.demo.NotificationsManagement.StoreNotification;
 import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.ProductsCategories;
@@ -504,13 +506,24 @@ public class BigController {
         ReturnValue rv = new ReturnValue(true, "", getUserController().getPermissionType(username));
         return rv;
     }
-
+    //public void sendComplaintTo(String senderId,List<String> adminIds, ComplaintNotification complaintNotification) throws UserException {
+        @GetMapping("/notification/complaint")
+        public void sendComplaintTo(@RequestParam String senderId,@RequestParam List<String> adminIds,
+        @RequestParam ComplaintNotification complaintNotification) throws UserException {
+            userExistsAndLoggedIn(senderId);
+            getUserController().sendComplaintTo(senderId, adminIds,complaintNotification);
+        }
+    //public void sendNotificationTo(List<String> userIds, StoreNotification storeNotification) throws UserException {
     @GetMapping("/notification/complaint")
+    public void sendNotificationTo(@RequestParam List<String> userIds,
+                                       @RequestParam StoreNotification storeNotification) throws UserException {
+        getUserController().sendNotificationTo(userIds,storeNotification);
+    }
+        @GetMapping("/notification/complaint")
     public ReturnValue readComplaintNotification(@RequestParam String userId,
                                                  @RequestParam int complaintNotificaionId) throws UserException {
         userExistsAndLoggedIn(userId);
-        getUserController().readComplaintNotification(userId, complaintNotificaionId);
-        ReturnValue rv = new ReturnValue(true, "", null);
+        ReturnValue rv = new ReturnValue(true, "",getUserController().readComplaintNotification(userId, complaintNotificaionId));
         return rv;
     }
 
@@ -518,8 +531,7 @@ public class BigController {
     public ReturnValue readStoreNotification(@RequestParam String userId,
                                              @RequestParam int storeNotificaionId) throws UserException {
         userExistsAndLoggedIn(userId);
-        getUserController().readStoreNotification(userId, storeNotificaionId);
-        ReturnValue rv = new ReturnValue(true, "", null);
+        ReturnValue rv = new ReturnValue(true, "",getUserController().readStoreNotification(userId, storeNotificaionId));
         return rv;
     }
 
