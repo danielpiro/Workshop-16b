@@ -80,7 +80,7 @@ public class History {
         return phList;
     }
 
-    public  synchronized List<PurchaseHistory> getStoreUserHistory(String storeId) {
+    public  synchronized List<PurchaseHistory> getStoreHistory(String storeId) {
 
         List<PurchaseHistory> phList = new LinkedList<PurchaseHistory>();
         for (Map.Entry<Integer, PurchaseHistory> ph : purchaseHistoryHashMap.entrySet()) {
