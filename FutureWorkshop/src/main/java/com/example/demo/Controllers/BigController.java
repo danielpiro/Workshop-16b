@@ -22,6 +22,7 @@ import com.example.demo.Store.Product;
 import com.example.demo.Store.ProductsCategories;
 import com.example.demo.Store.StorePurchase.Discounts.Discount;
 import com.example.demo.Store.StorePurchase.Policies.Policy;
+import com.example.demo.Store.StorePurchase.Policies.PolicyBuilder;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.User.Guest;
 import com.example.demo.User.Subscriber;
@@ -48,6 +49,7 @@ import java.util.concurrent.CompletableFuture;
 public class BigController {
     private StoreController sc;
     private UserController us;
+    private PolicyBuilder policyBuilder;
     Log my_log = Log.getLogger();
 
 
@@ -58,6 +60,7 @@ public class BigController {
     public BigController() throws IOException, UserException {
         this.us = new UserController();
         this.sc = new StoreController();
+        this.policyBuilder = new PolicyBuilder();
         initiateExternalConnections();
         NotificationManager.buildNotificationManager(us);
         my_log.info("System Started");
@@ -77,8 +80,7 @@ public class BigController {
 //    }
 
 
-    //todo wrap ReturnValue with Response Entity
-    //todo guy change by 2.d Version 2.
+
 
 
     private List<String> initializeUsers() throws UserException {
@@ -87,17 +89,8 @@ public class BigController {
 
     }
 
-    public ReturnValue getOnlineUsersNum() throws UserException {
-        getUserController().getOnlineUsersNum();
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-    }
 
-    public ReturnValue getRegisteredUsersNum() throws UserException {
-        getUserController().getRegisteredUsersNum();
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-    }
+
 
 
     @DeleteMapping("/users")
@@ -119,8 +112,6 @@ public class BigController {
     }
 
 
-    //todo remove guest_id from signup, it is always just creating.
-    //todo create login with guest id which takes the cart, also create one without guestid which gives a brand new cart.
 
     @PostMapping("/users/signup")
     public ResponseEntity signup(@RequestParam String user_name,
@@ -282,6 +273,32 @@ public class BigController {
         return rv;
     }
 
+    @GetMapping("/online/amount")
+    public ReturnValue getOnlineUsersNum() throws UserException {
+        getUserController().getOnlineUsersNum();
+        ReturnValue rv = new ReturnValue(true, "", null);
+        return rv;
+    }
+
+    @GetMapping("/registered/amount")
+    public ReturnValue getRegisteredUsersNum() throws UserException {
+        getUserController().getRegisteredUsersNum();
+        ReturnValue rv = new ReturnValue(true, "", null);
+        return rv;
+    }
+
+
+    /**
+     * @param storeId the store you want manager info about
+     * @param userId the requesting user, will make sure you are logged in
+     *               and that you have permission in the specific store
+     * @return
+     * @throws NoPermissionException
+     * @throws UserException
+     */
+
+    @GetMapping("/managers/info")
+
     public ReturnValue getInfoOnManagersOwners(@RequestParam String storeId,
                                                @RequestParam String userId) throws NoPermissionException, UserException {
         userExistsAndLoggedIn(userId);
@@ -376,6 +393,7 @@ public class BigController {
         }
         return output;
     }
+
     @PutMapping("/initializeSystem")
     public ReturnValue initializeSystem() throws UserException, SupplyManagementException, NoPermissionException {
         List<String> users = initializeUsers();
@@ -413,7 +431,6 @@ public class BigController {
 
 
     @GetMapping("/search/category")
-
     public List<Product> SearchProductsAccordingCategory(@RequestParam String userId, @Valid @RequestBody MockCategories mockCategories) throws UserException {
 
         if (!IsGuest(userId))
@@ -424,7 +441,6 @@ public class BigController {
 
 
     @GetMapping("/search/price")
-
     public List<Product> SearchProductsAccordingPrice(@RequestParam String userId, @RequestParam float fromPrice, @RequestParam float toPrice) throws UserException {
 
         if (!IsGuest(userId))
@@ -524,13 +540,79 @@ public class BigController {
     }
 
     //todo need to use policyBuilder to create policy
-    public String addNewPolicy(String storeId, String userId, Policy policy) throws NoPermissionException, UserException {
-        if (!getUserController().checkIfUserExists(userId) || !getUserController().checkIfUserIsLoggedIn(userId)) {
-            my_log.warning("User doesn't exist or is not logged in or is not logged in");
-            return null;
-        }
-        return sc.addNewPolicy(storeId, userId, policy);
+
+    @PostMapping("/policy/add")
+    public ReturnValue addNewPolicy(@RequestParam String storeId,@RequestParam String userId,@RequestParam String typeOfPolicy,@RequestBody MockPolicy mockPolicy) throws NoPermissionException, UserException {
+        Policy policy;
+       userExistsAndLoggedIn(userId);
+       switch (typeOfPolicy) {
+           case "CartPolicy":
+               policy = policyBuilder.newCartPolicy(mockPolicy.getNumOfProducts());
+               break;
+           case "CategoryPolicy":
+               policy = policyBuilder.newCategoryPolicy(mockPolicy.getCategories());
+               break;
+           case "ProductWithoutAmountPolicy":
+               //todo get products from guy
+               policy = policyBuilder.newProductWithoutAmountPolicy(mockPolicy.getProducts());
+               break;
+           case "ProductWithAmountPolicy":
+               policy = policyBuilder.newProductWithAmountPolicy(mockPolicy.getProductsAmount());
+               break;
+           case "UserIdPolicy":
+               policy = policyBuilder.newUserIdPolicy(mockPolicy.getUserIds());
+               break;
+           case "UseAgePolicy":
+               policy = policyBuilder.newUseAgePolicy(mockPolicy.getStartAge(),mockPolicy.getEndAge());
+               break;
+           case "OnHoursOfTheDayPolicy":
+               policy = policyBuilder.newOnHoursOfTheDayPolicy(mockPolicy.getStartTime(),mockPolicy.getEndTime());
+               break;
+           case "OnDaysOfTheWeekPolicy":
+               policy = policyBuilder.newOnDaysOfTheWeekPolicy(mockPolicy.getStartTime(),mockPolicy.getEndTime());
+               break;
+           case "OnDayOfMonthPolicy":
+               policy = policyBuilder.newOnDayOfMonthPolicy(mockPolicy.getStartTime(),mockPolicy.getEndTime());
+               break;
+           case "PricePredicate":
+               policy = policyBuilder.newPricePredicate(mockPolicy.getPrice());
+               break;
+           default:
+               throw new IllegalStateException("Unexpected type of policy: " + typeOfPolicy);
+       }
+
+        ReturnValue rv = new ReturnValue(true, "", sc.addNewPolicy(storeId, userId, policy));
+        return rv;
     }
+
+    @PostMapping("/policy/combine")
+    public ReturnValue combineTwoPolicy(@RequestParam String storeId,
+                                   @RequestParam String userId,
+                                   @RequestParam String typeOfCombination,
+                                   @RequestParam String policyID1 ,
+                                   @RequestParam String policyID2) throws NoPermissionException, UserException {
+
+        userExistsAndLoggedIn(userId);
+        Policy policy;
+
+        switch (typeOfCombination) {
+            case "And":
+                policy=policyBuilder.AndGatePolicy(getpolicy(policyID1),getpolicy(policyID2));
+                break;
+            case "Or":
+                policy=policyBuilder.OrGatePolicy(getpolicy(policyID1),getpolicy(policyID2));
+                break;
+            case "Cond":
+                policy=policyBuilder.ConditioningGatePolicy(getpolicy(policyID1),getpolicy(policyID2));
+                break;
+            default:
+                throw new IllegalStateException("Unexpected type of policy: " + typeOfCombination);
+        }
+        ReturnValue rv = new ReturnValue(true, "", sc.addNewPolicy(storeId, userId, policy));
+        return rv;
+    }
+
+
     public String addNewDiscount(String storeId,String userId, Discount discount) throws NoPermissionException, UserException {// use policyBuilder to create policy
         if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
             my_log.warning("User doesn't exist or is not logged in or is not logged in");
@@ -549,11 +631,19 @@ public class BigController {
         return sc.checkIfUserHaveRoleInAnyStore(userId);
     }
 
-    public List<Permission> getUserPermissionInStore(String StoreId, String userId){
-        return sc.getUserPermission(StoreId,userId);
+
+    @GetMapping("/store/user/Permission")
+    public ReturnValue getUserPermissionInStore(@RequestParam String StoreId,
+                                                     @RequestParam String userId){
+
+        ReturnValue rv = new ReturnValue(true, "", sc.getUserPermission(StoreId,userId));
+        return rv;
     }
-    public String getTitleInStore(String StoreId, String userIf){
-        return sc.getTitle(StoreId,userIf);
+
+    @GetMapping("/store/title")
+    public ReturnValue getTitleInStore(String StoreId, String userIf){
+        ReturnValue rv = new ReturnValue(true, "", sc.getTitle(StoreId,userIf));
+        return rv;
     }
 
     @DeleteMapping("/policy")
