@@ -3,6 +3,8 @@ package com.example.demo.Tests.Bridge;
 
 
 import com.example.demo.Controllers.BigController;
+import com.example.demo.CustomExceptions.Exception.NotifyException;
+import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
 import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
 import com.example.demo.ExternalConnections.Delivery.Delivery;
@@ -13,7 +15,9 @@ import com.example.demo.ExternalConnections.Payment.PaymentNames;
 import com.example.demo.History.History;
 import com.example.demo.History.PurchaseHistory;
 import com.example.demo.Mock.MockFullProduct;
-import com.example.demo.Mock.MockSmallProduct;
+
+import com.example.demo.Mock.MockPermission;
+import com.example.demo.Mock.MockSmallPermission;
 import com.example.demo.Store.Product;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.User.Guest;
@@ -353,7 +357,7 @@ public class Real   {
             bigController.deleteProductFromStore(storeId,userId, productId);
             return true;
         }
-        catch (NoPermissionException e) {
+        catch (NoPermissionException | SupplyManagementException | UserException | NotifyException e) {
             e.printStackTrace();
             return false;
         }
@@ -363,10 +367,10 @@ public class Real   {
     public boolean editProductInStore(String storeId, String userId, String productId,
                                      int newSupply, String newName, float newPrice, String category){
         try {
-            bigController.editProduct(storeId, userId,productId, newSupply,  newName, newPrice, category);
+            bigController.editProduct(productId,new MockFullProduct( storeId,userId, newName, newPrice,newSupply,   category));
             return true;
         }
-        catch (NoPermissionException e) {
+        catch (NoPermissionException | SupplyManagementException | UserException e) {
             e.printStackTrace();
             return false;
         }
@@ -381,10 +385,10 @@ public class Real   {
     /** User requirement - II.4.4 */
     public boolean addNewStoreOwner(String storeId, String userIdGiving, String UserGettingPermissionId, List<Permission> permissions){
         try {
-            bigController.createOwner(storeId, userIdGiving,UserGettingPermissionId,permissions);
+            bigController.createOwner(new MockSmallPermission(storeId, userIdGiving,UserGettingPermissionId,permissions));
             return true;
         }
-        catch (NoPermissionException e) {
+        catch (NoPermissionException | UserException | NotifyException e) {
             e.printStackTrace();
             return false;
         }
@@ -396,7 +400,7 @@ public class Real   {
             bigController.createManager(storeId, userIdGiving, UserGettingPermissionId);
             return true;
         }
-        catch (NoPermissionException e) {
+        catch (NoPermissionException | UserException | NotifyException e) {
             e.printStackTrace();
             return false;
         }
@@ -404,8 +408,13 @@ public class Real   {
 
     /** User requirement - II.4.7 */
     public boolean changeStoreManagerPermissions(String storeId, String userIdRemoving, String UserAffectedId, List<String> PerToRemove) throws NoPermissionException {
-         bigController.removeSomePermissions(storeId, userIdRemoving, UserAffectedId, PerToRemove);
-         return true;
+        try {
+            bigController.removeSomePermissions(new MockPermission(storeId, userIdRemoving, UserAffectedId, PerToRemove));
+            return true;
+        } catch (UserException e) {
+            return false;
+        }
+
     }
 
     /** User requirement - II.4.9 */
@@ -414,7 +423,7 @@ public class Real   {
             bigController.freezeStore(storeId,userId);
             return true;
         }
-        catch (NoPermissionException e) {
+        catch (NotifyException|UserException|NoPermissionException e) {
             e.printStackTrace();
             return false;
         }
@@ -426,7 +435,7 @@ public class Real   {
             bigController.unfreezeStore(storeId,userId);
             return true;
         }
-        catch (NoPermissionException e) {
+        catch (NotifyException|UserException|NoPermissionException e) {
             e.printStackTrace();
             return false;
         }
@@ -438,7 +447,7 @@ public class Real   {
             bigController.getInfoOnManagersOwners(storeId,userId);
             return true;
         }
-        catch (NoPermissionException e) {
+        catch (NoPermissionException | UserException e) {
             e.printStackTrace();
             return false;
         }
@@ -461,11 +470,11 @@ public class Real   {
 
     //Helper Methods
     public HashMap<String,List<Product>> getAllProductsAndStores(String userId){
-        return bigController.getAllProductsAndStores(userId);
+        return bigController.getAllProductsAndStores();
     }
 
-    public List<Guest> getGuest_list(){
-        return bigController.getGuest_list();
-    }
+//    public List<Guest> getGuest_list(){
+//        return bigController.getGuest_list();
+//    }
 
 }

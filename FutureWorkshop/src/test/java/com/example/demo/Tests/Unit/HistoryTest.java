@@ -49,7 +49,7 @@ class HistoryTest {
         List<PurchaseHistory> ph = new LinkedList<PurchaseHistory>();
         history.insertRecord("user1","store1",1,"product1",10,5,null);
         history.insertRecord("user1","store1",1,"product1",10,20,null);
-        ph= history.getStoreUserHistory("store1");
+        ph= history.getStoreHistory("store1");
         assertEquals(ph.size(),2);
     }
 
@@ -58,7 +58,7 @@ class HistoryTest {
         List<PurchaseHistory> ph = new LinkedList<PurchaseHistory>();
         history.insertRecord("user1","store1",1,"product1",10,5,null);
         history.insertRecord("user1","store1",1,"product1",10,20,null);
-        ph= history.getStoreUserHistory("store2");
+        ph= history.getStoreHistory("store2");
         assertNotEquals(ph.size(),2);
     }
 }

@@ -326,7 +326,7 @@ public class Store implements getStoreInfo {
          if(!checkPermission(userId, Permission.VIEW_STORE_HISTORY)){
              throw new NoPermissionException("the user don't have this permission");
          }
-        return History.getInstance().getStoreUserHistory(storeId);
+        return History.getInstance().getStoreHistory(storeId);
     }
     public List<PurchaseHistory> getStoreHistory(String userIdRequesting, String userId) throws NoPermissionException {
         if(!checkPermission(userIdRequesting, Permission.VIEW_STORE_HISTORY)){
