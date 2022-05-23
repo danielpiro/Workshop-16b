@@ -186,9 +186,9 @@ public class StoreController {
         Store relevantStore =  stores.get(storeId);
         relevantStore.deletePolicy(userId,policyId);
     }
-    public List<Policy> getPolices(String storeId,String userId) throws NoPermissionException {
+    public List<Policy> getPolices(String storeId) throws NoPermissionException {
         Store relevantStore =  stores.get(storeId);
-        return relevantStore.getPolices(userId);
+        return relevantStore.getPolices();
     }
     public String addNewDiscount(String storeId,String userId, Discount discount) throws NoPermissionException {
         Store relevantStore =  stores.get(storeId);
@@ -296,5 +296,29 @@ public class StoreController {
             }
         }
         return false;
+    }
+
+    public Product getProductById(String storeId, String productId) throws Exception {
+        Store relevantStore = stores.get(storeId);
+        return relevantStore.getProduct(productId);
+    }
+
+    public List<Product> getProductById(String storeId, List<String> productId) {
+        Store relevantStore = stores.get(storeId);
+        return relevantStore.getAllProducts().stream().filter(
+                p->productId.stream().anyMatch(
+                        id-> p.getId().equals(id)
+                )
+        ).collect(Collectors.toList());
+    }
+
+    public Policy getPolicy(String storeId, String policyId) throws NoPermissionException {
+        Store relevantStore = stores.get(storeId);
+        for(Policy p : relevantStore.getPolices()){
+            if(p.getPolicyId().equals(policyId)){
+                return p;
+            }
+        }
+        throw new IllegalArgumentException("no policy with this name");
     }
 }
