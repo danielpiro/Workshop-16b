@@ -258,8 +258,8 @@ public class Real   {
     /** User requirement - II.1.4 */
     public boolean login(String username, String password)  {
         try {
-            ReturnValue<Boolean> returnValue = getBigController().login(username, password);
-            return returnValue.getValue();
+             getBigController().login(username, password);
+            return true;
         }catch (Exception e){
             return false;
         }

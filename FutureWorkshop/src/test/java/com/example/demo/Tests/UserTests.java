@@ -56,7 +56,8 @@ public class UserTests {
     @org.junit.jupiter.api.Test
     void Admin() throws UserException {
         assertEquals(1,userController.getSystemAdmins().size());
-        userController.addSystemAdmin("AdminID_0","abed");
+        Subscriber admin1 = userController.getSystemAdmin();
+        userController.addSystemAdmin(admin1.getName(),"abed");
         assertTrue(userController.checkIfAdmin("abed"));
         assertEquals(2,userController.getSystemAdmins().size());
 
