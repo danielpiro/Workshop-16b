@@ -19,6 +19,7 @@ import com.example.demo.Mock.MockFullProduct;
 import com.example.demo.Mock.MockPermission;
 import com.example.demo.Mock.MockSmallPermission;
 import com.example.demo.Mock.MockSmallProduct;
+import com.example.demo.NotificationsManagement.StoreNotification;
 import com.example.demo.Store.Product;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.User.Guest;
@@ -28,9 +29,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.naming.NoPermissionException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -169,6 +172,17 @@ public class Real   {
             }
         }
         return deliveryObject.delivery(weight);
+    }
+
+    /** System requirement - I.5 */
+    /** System requirement - I.6 */
+    public void markAsReadStoreNotification(String userId,
+                                       int storeNotificationId){
+
+    }
+
+    public List<StoreNotification> getAllStoreNotificationsOf(String userId){
+        return new ArrayList<>();
     }
 
     /** System requirement - I.5 */

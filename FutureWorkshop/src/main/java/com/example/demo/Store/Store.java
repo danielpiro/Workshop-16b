@@ -133,10 +133,12 @@ public class Store implements getStoreInfo {
             throw new NoPermissionException("the user doesn't have a role in store ");
         }
     }
-    public void removeRoleInHierarchy(String userId) {
+    public void removeRoleInHierarchy(String userId) throws NotifyException, UserException {
         synchronized (StoreRoles) {
             for (StoreRoles roleUser : StoreRoles) {
                 removeRolesInStoreTo(roleUser.removeRole(userId));
+                StoreNotification sn = new StoreNotification(this,NotificationSubject.StoreAppointment,"your role removed"," your role in store name:"+storeName+" store Id"+storeId);
+                NotificationManager.getNotificationManager().sendNotificationTo(userId,sn);
             }
         }
     }
@@ -172,7 +174,7 @@ public class Store implements getStoreInfo {
     }
 
     public void addProductReview(String userId, String productId, String title, String body, float rating) throws  SupplyManagementException {
-        
+
         inventoryManager.addProductReview(productId, userId, title, body, rating);
 
         //updateRating();

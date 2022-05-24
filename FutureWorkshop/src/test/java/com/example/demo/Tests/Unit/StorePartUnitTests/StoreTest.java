@@ -53,7 +53,7 @@ class StoreTest {
 
             }
         };
-        NotificationManager.buildNotificationManager(r);
+        NotificationManager.ForTestsOnlyBuildNotificationManager(r);
         //managers1.add(userId2);
         //store2 =new Store("store2", "s2Id", managers1);
 

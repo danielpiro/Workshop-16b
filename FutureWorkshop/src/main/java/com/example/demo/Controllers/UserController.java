@@ -544,7 +544,7 @@ public class UserController implements NotificationReceiver {
              my_log.warning("invalid store notification id");
             throw new UserException("invalid store notification id");
         }
-            get_subscriber(userid).getComplaintNotifications().get(storeNotificaionId).setReadTrue();
+            get_subscriber(userid).getStoreNotifications().get(storeNotificaionId).setReadTrue();
 
     }
     public void readComplaintNotification(String userid,int complaintNotificaionId) throws UserException {

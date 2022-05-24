@@ -18,6 +18,9 @@ public class NotificationManager {//todo add tests
         if (systemNotifyManager == null)
             systemNotifyManager = new NotificationManager(receiver);
     }
+    public static void ForTestsOnlyBuildNotificationManager( NotificationReceiver receiver){
+            systemNotifyManager = new NotificationManager(receiver);
+    }
     public static NotificationManager getNotificationManager() throws NotifyException {
         if (systemNotifyManager != null)
             return systemNotifyManager;

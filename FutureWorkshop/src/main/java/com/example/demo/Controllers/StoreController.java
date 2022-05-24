@@ -125,7 +125,7 @@ public class StoreController {
         Store relevantStore = stores.get(storeId);
         relevantStore.removeRoleInHierarchy(userIdRemoving, UserAffectedId);
     }
-    public void removeRoleInHierarchy(String UserId) throws NoPermissionException{
+    public void removeRoleInHierarchy(String UserId) throws NoPermissionException, UserException, NotifyException {
         for (Store store : stores.values()) {
             store.removeRoleInHierarchy(UserId);
         }

@@ -8,6 +8,8 @@ import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
 import com.example.demo.ExternalConnections.Payment.PaymentNames;
 import com.example.demo.ExternalConnections.Payment.Visa;
 import com.example.demo.History.PurchaseHistory;
+import com.example.demo.NotificationsManagement.NotificationSubject;
+import com.example.demo.NotificationsManagement.StoreNotification;
 import com.example.demo.Store.Product;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.Tests.Bridge.Proxy;
@@ -275,7 +277,28 @@ public class AcceptanceTests {
 //        - Check that the store manager is logged in (will be true in this case)
 //        - Check the message that just sent (will simulate the realtime message sent)
 
-        fail();
+
+        // "the store has closed successfully"
+        assertTrue(proxy.freezeStoreByOwner(storeId, "user1"));
+        List<StoreNotification> userNotifications=proxy.getAllStoreNotificationsOf("user1");
+
+        assertTrue(userNotifications.stream().anyMatch(
+                noti -> noti.getSentFrom().getId().equals(storeId) &&
+                        noti.getSubject().equals(NotificationSubject.StoreState) &&
+                        noti.getTitle().contains("your store closed") &&
+                        !noti.isRead()
+                )
+        );
+
+        userNotifications=proxy.getAllStoreNotificationsOf("user1");
+        assertTrue(proxy.unfreezeStoreByOwner(storeId, "user1"));
+        assertTrue(userNotifications.stream().anyMatch(
+                noti -> noti.getSentFrom().getId().equals(storeId) &&
+                        noti.getSubject().equals(NotificationSubject.StoreState) &&
+                        noti.getTitle().contains("your store opened")&&
+                        !noti.isRead()
+                )
+        );
     }
     @Disabled
     @Test
@@ -286,7 +309,27 @@ public class AcceptanceTests {
 //        - Check the message that just sent (will simulate the realtime message sent)
 //              -> MESSAGE DIDN'T ARRIVE
 
-        fail();
+        // "the store has closed successfully"
+        assertTrue(proxy.freezeStoreByOwner(storeId, "user1"));
+        List<StoreNotification> userNotifications=proxy.getAllStoreNotificationsOf("user1");
+
+        assertTrue(userNotifications.stream().anyMatch(
+                        noti -> noti.getSentFrom().getId().equals(storeId) &&
+                                noti.getSubject().equals(NotificationSubject.StoreState) &&
+                                noti.getTitle().contains("your store closed")&&
+                                !noti.isRead()
+                )
+        );
+
+        userNotifications=proxy.getAllStoreNotificationsOf("user2");
+        assertFalse(proxy.unfreezeStoreByOwner(storeId, "user1"));
+        assertFalse(userNotifications.stream().anyMatch(
+                        noti -> noti.getSentFrom().getId().equals(storeId) &&
+                                noti.getSubject().equals(NotificationSubject.StoreState) &&
+                                noti.getTitle().contains("your store opened")&&
+                                !noti.isRead()
+                )
+        );
     }
     @Disabled
     @Test
@@ -300,7 +343,27 @@ public class AcceptanceTests {
 //        - Check the message that just sent (will simulate the realtime message sent)
 //              -> MESSAGE DIDN'T ARRIVE
 
-        fail();
+        // "the store has closed successfully"
+        assertFalse(proxy.freezeStoreByOwner(storeId, "user2"));
+        List<StoreNotification> userNotifications=proxy.getAllStoreNotificationsOf("user1");
+
+        assertFalse(userNotifications.stream().anyMatch(
+                        noti -> noti.getSentFrom().getId().equals(storeId) &&
+                                noti.getSubject().equals(NotificationSubject.StoreState) &&
+                                noti.getTitle().contains("your store closed")&&
+                                !noti.isRead()
+                )
+        );
+
+        userNotifications=proxy.getAllStoreNotificationsOf("user1");
+        assertFalse(proxy.unfreezeStoreByOwner(storeId, "user1"));
+        assertFalse(userNotifications.stream().anyMatch(
+                        noti -> noti.getSentFrom().getId().equals(storeId) &&
+                                noti.getSubject().equals(NotificationSubject.StoreState) &&
+                                noti.getTitle().contains("your store opened")&&
+                                !noti.isRead()
+                )
+        );
     }
 
     // A user's permissions was removed
