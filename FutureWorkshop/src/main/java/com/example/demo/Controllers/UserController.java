@@ -594,4 +594,33 @@ public class UserController implements NotificationReceiver {
 
     public int getRegisteredUsersNum(){return registeredUsers;}
 
+    public List<StoreNotification> getUserStoreNotifications(String userId) throws UserException {
+        my_log.info("getting store notifications for user "+userId);
+        if(get_subscriber(userId)==null){
+            my_log.warning("user "+userId +" does not exist - failed to get notifications");
+            throw new UserException("user "+userId +" does not exist - failed to get notifications");
+        }
+        if(!get_subscriber(userId).isLogged_in()){
+            my_log.warning("user "+userId +" is not online - failed to get notifications");
+            throw new UserException("user "+userId +" is not online - failed to get notifications");
+        }
+        return get_subscriber(userId).getStoreNotifications();
+    }
+    public List<ComplaintNotification> getAdminComplaintNotifications(String userId) throws UserException {
+        my_log.info("getting store notifications for user "+userId);
+        if(get_subscriber(userId)==null){
+            my_log.warning("user "+userId +" does not exist - failed to get notifications");
+            throw new UserException("user "+userId +" does not exist - failed to get notifications");
+        }
+        if(!get_subscriber(userId).isLogged_in()){
+            my_log.warning("user "+userId +" is not online - failed to get notifications");
+            throw new UserException("user "+userId +" is not online - failed to get notifications");
+        }
+        if(!checkIfAdmin(userId)){
+            my_log.warning("user "+userId +" is not admin - failed to get complaint notifications");
+            throw new UserException("user "+userId +" is not admin - failed to get complaint notifications");
+        }
+        return get_subscriber(userId).getComplaintNotifications();
+    }
+
 }

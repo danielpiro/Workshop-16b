@@ -88,6 +88,15 @@ public class BigController {
 
 
     }
+    public ReturnValue getUserStoreNotifications(@RequestParam String userId) throws UserException{
+        ReturnValue rv= new ReturnValue(true,"",getUserController().getUserStoreNotifications(userId));
+        return rv;
+    }
+
+    public ReturnValue getAdminComplaintNotifications(@RequestParam String userId) throws UserException{
+        ReturnValue rv= new ReturnValue(true,"",getUserController().getAdminComplaintNotifications(userId));
+        return rv;
+    }
 
     public ReturnValue AddSystemAdmins(@RequestParam String admin,@RequestParam String userToBecomeAdmin) throws UserException{
         getUserController().addSystemAdmin(admin,userToBecomeAdmin);
