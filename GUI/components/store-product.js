@@ -1,59 +1,145 @@
+import api from "./api";
+import createNotification from "./norification";
+import { useCookies } from "react-cookie";
 import { useState } from "react";
-
-const StoreProduct = ({ item }) => {
+const StoreProduct = ({
+  value,
+  title,
+  price,
+  quantity,
+  category,
+  products,
+  setProducts,
+}) => {
   const [isEdit, setIsEdit] = useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "username",
+    "password",
+    "userId",
+    "type",
+  ]);
   const [details, setDetails] = useState({
-    name: "",
-    quantity: "",
-    price: "",
+    productName: title,
+    price: price,
+    supply: quantity,
+    category: category,
   });
-
-  const onEdit = (e) => {
+  const [originalDetails, setOriginalDetails] = useState({
+    productName: title,
+    price: price,
+    supply: quantity,
+    category: category,
+  });
+  const onEdit = async (e) => {
     e.preventDefault();
     setIsEdit(!isEdit);
   };
-
-  const onSave = (e) => {
-    e.preventDefault;
-    setIsEdit(!isEdit);
-    ///send to back....
+  const onRemove = async (e) => {
+    e.preventDefault();
+    return await api
+      .delete(
+        `/store/product/?storeId=${window.location.href
+          .split("/")
+          .pop()}&userId=${cookies.userId}&productId=${value}`
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          const updateProducts = products.filter((item) => item.id !== value);
+          setProducts(updateProducts);
+          createNotification(
+            "success",
+            `product ID: ${value} is been removed...`
+          )();
+        }
+      })
+      .catch((err) => console.log(err));
   };
-
-  const onRemove = (e) => {
-    e.preventDefault;
-    ///....send request to back to remove
+  const onSave = async (e) => {
+    e.preventDefault();
+    const body = {
+      storeId: window.location.href.split("/").pop(),
+      userId: cookies.userId,
+      productName: details.title,
+      price: details.price,
+      supply: details.quantity,
+      category: details.category,
+    };
+    return await api
+      .post(`/store/product/?productId=${value}`, body)
+      .then((res) => {
+        if (res.status === 200) {
+          setOriginalDetails(details);
+          createNotification(
+            "success",
+            `product ID: ${value} is been updated...`,
+            () => setIsEdit(!isEdit)
+          )();
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+  const onCancel = (e) => {
+    e.preventDefault();
+    setDetails(originalDetails);
+    setIsEdit(!isEdit);
   };
   return (
-    <div className="form mb-4">
-      <div className="input-group-lg">
+    <div className="card-body">
+      <div className="text-center">
+        <h4 className="card-body mb-3">ID: {value}</h4>
+      </div>
+      <form className="text-center">
+        Name:
+        <br />
         <input
-          className="card-body"
+          className="card-body text-center mb-3 ms-3"
           type="text"
-          value={details.name === "" ? "Name" : details.name}
+          value={details.productName}
           disabled={!isEdit}
           onChange={(e) =>
             setDetails((prevState) => ({
               ...prevState,
-              name: e.target.value,
+              productName: e.target.value,
             }))
           }
         />
+      </form>
+      <form className="text-center">
+        Category:
         <input
-          className="card-body"
+          className="card-body text-center mb-3 ms-3"
+          value={details.category}
           type="text"
-          value={details.quantity === "" ? "Quantity" : details.quantity}
           disabled={!isEdit}
           onChange={(e) =>
             setDetails((prevState) => ({
               ...prevState,
-              quantity: e.target.value,
+              category: e.target.value,
             }))
           }
         />
+      </form>
+      <form className="text-center">
+        Quantity:
         <input
-          className="card-body mb-3"
+          className="card-body text-center mb-3 ms-3"
+          value={details.supply}
           type="text"
-          value={details.price === "" ? "Price" : details.price}
+          disabled={!isEdit}
+          onChange={(e) =>
+            setDetails((prevState) => ({
+              ...prevState,
+              supply: e.target.value,
+            }))
+          }
+        />
+      </form>
+      <form className="text-center">
+        Price:
+        <input
+          className="card-body text-center mb-3 ms-3"
+          value={details.price}
+          type="text"
           disabled={!isEdit}
           onChange={(e) =>
             setDetails((prevState) => ({
@@ -62,21 +148,37 @@ const StoreProduct = ({ item }) => {
             }))
           }
         />
+      </form>
+      <div className="d-flex justify-content-center">
+        <button
+          className="add-cart-buttom btn btn-outline-primary w-25 mb-3"
+          onClick={onEdit}
+        >
+          Edit product
+        </button>
+        <button
+          className="add-cart-buttom btn btn-outline-primary w-25 mb-3 ms-3"
+          onClick={onRemove}
+        >
+          Remove product
+        </button>
+        {isEdit ? (
+          <>
+            <button
+              className="add-cart-buttom btn btn-outline-primary w-25 mb-3 ms-3"
+              onClick={onSave}
+            >
+              Save
+            </button>
+            <button
+              className="add-cart-buttom btn btn-outline-primary w-25 mb-3 ms-3"
+              onClick={onCancel}
+            >
+              Cancel
+            </button>{" "}
+          </>
+        ) : null}
       </div>
-      <button className="btn btn-primary me-2" title="edit" onClick={onEdit}>
-        Edit
-      </button>
-      <button className="btn btn-primary me-2" title="remove">
-        Remove
-      </button>
-      <button
-        className="btn btn-primary me-2"
-        title="save"
-        hidden={!isEdit}
-        onClick={onSave}
-      >
-        Save
-      </button>
     </div>
   );
 };

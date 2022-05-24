@@ -285,3 +285,11 @@ May 23, 2022 11:30:57 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user aaaa doesn't exist
 May 23, 2022 11:41:22 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: failed to logout because aaaa is null
+May 24, 2022 9:40:10 AM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user  doesn't exist
+May 24, 2022 10:48:22 AM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user aaaa is already logged in
+May 24, 2022 10:48:36 AM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user aaaa is already logged in
+May 24, 2022 11:59:25 AM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user could not remove product ProductID_35 because cart does not contain that store

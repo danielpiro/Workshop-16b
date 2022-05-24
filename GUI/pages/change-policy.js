@@ -1,11 +1,7 @@
 import Menu from "../components/menu";
-import axios from "axios";
-import { useState, useEffect } from "react";
-import Footer from "../components/footer";
-import { useRouter } from "next/router";
+import { useState } from "react";
 
 const ChangePolicy = () => {
-  const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
   const [policyType, setPolicyType] = useState("PolicyType");
   const [combinationType, setCombinationType] = useState("And/Or/Xor");
   const [preds, setPreds] = useState({
@@ -76,13 +72,13 @@ const ChangePolicy = () => {
   return (
     <>
       <Menu />
-      <div className="card-header">
+      <div className="text-center my-5">
         <h3>Change Policy</h3>
       </div>
 
-      <div className="container m-2">
+      <div className="container">
         <div className="row">
-          <div className="col">
+          <div className="col d-flex justify-content-center">
             <div className="dropdown m-1">
               <button
                 className="btn btn-secondary dropdown-toggle"
@@ -2663,18 +2659,26 @@ const ChangePolicy = () => {
                 </div>
               </div>
             </div>
-            <div className="row m-1" style={{display: preds.pred1 == "Create new predicate" || preds.pred2 == "Create new predicate" ? "block" : "none"}}>
+            <div
+              className="row m-1"
+              style={{
+                display:
+                  preds.pred1 == "Create new predicate" ||
+                  preds.pred2 == "Create new predicate"
+                    ? "block"
+                    : "none",
+              }}
+            >
               <button
-              className="btn btn-primary mr-lg-3"
-              style={{ width: "100%" }}
-              onClick={onUpdatePolicy}
+                className="btn btn-primary mr-lg-3"
+                style={{ width: "100%" }}
+                onClick={onUpdatePolicy}
               >
                 Update Policy
               </button>
             </div>
           </div>
         </div>
-        
 
         <br />
         <div className="row m-1">

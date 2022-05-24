@@ -3,7 +3,6 @@ import SearchBar from "../components/search-bar";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Card from "../components/card";
-import Footer from "../components/footer";
 
 const DisplayStorePurchases = () => {
   const [products, setProducts] = useState([]);
@@ -14,7 +13,7 @@ const DisplayStorePurchases = () => {
   useEffect(() => {
     const fetchApi = async () => {
       const response = await axios.get("https://dummyjson.com/products");
-      // const response = 
+      // const response =
       //     await api
       //       .post(
       //         `/history/store/?storeId=${""}&userId=${""}`
@@ -56,7 +55,8 @@ const DisplayStorePurchases = () => {
         <h3>Display Store Purchases</h3>
       </div>
       <div className="my-4">
-        <SearchBar setProducts={setProducts} /> {/*TODO: Check search button and setSearchValue*/}
+        <SearchBar setProducts={setProducts} />{" "}
+        {/*TODO: Check search button and setSearchValue*/}
       </div>
       <div
         className="my-4"

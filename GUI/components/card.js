@@ -53,7 +53,7 @@ const Card = ({ value, title, price, quantity, storeMap, category }) => {
         Quantity: {quantity}
       </h5>
       <h5 className="card-category text-center mb-2">Category: {category}</h5>
-      <h5 className="card-price text-center mb-2">Price: {price}$</h5>
+      <h5 className="card-price text-center mb-4">Price: {price}$</h5>
 
       <div className="d-flex justify-content-center">
         <button

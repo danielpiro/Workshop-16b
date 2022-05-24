@@ -37,6 +37,7 @@ const Login = () => {
       )
       .then((res) => {
         const { data } = res;
+        console.log(data.value);
         if (res.status === 200) {
           setCookie("userId", loginInput.username, {
             path: "/",
@@ -55,15 +56,9 @@ const Login = () => {
             sameSite: true,
           });
           router.push("/dashboard");
-        } else {
-          const { reason } = res.data;
-          createNotification(
-            "error",
-            "Username or password not match , please try again."
-          )();
         }
       })
-      .catch((err) => console.log("in here", err));
+      .catch((err) => console.log(err));
   };
 
   const onClickGuest = async (e) => {
@@ -74,7 +69,6 @@ const Login = () => {
       .then((res) => {
         if (res.status === 200) {
           const { data } = res;
-          console.log(data);
           setCookie("userId", data.value, {
             path: "/",
             sameSite: true,
@@ -102,9 +96,6 @@ const Login = () => {
       )
       .then((res) => {
         if (res.status === 200) {
-          const { data } = res;
-          console.log(data);
-          //need to add type and userid to cookies
           createNotification("success", "Register successfully")();
         } else {
           createNotification(

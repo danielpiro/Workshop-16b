@@ -1,23 +1,31 @@
 import Menu from "../components/menu";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import api from "../components/api";
 import StoreCard from "../components/store-card";
+import { useCookies } from "react-cookie";
 
 const EditStoreSupply = () => {
-  const [store, setStore] = useState([1, 2, 3, 1, 4, 1, 1, 1, 1, 1]);
+  const [store, setStore] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-  const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
-
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "username",
+    "password",
+    "userId",
+    "type",
+  ]);
   const onSearch = (e) => {
     e.preventDefault();
-    //setIsLoading(!isLoading);
-    // api.get("/search/store", { params: { name: searchValue } }).then((res) => {
-    //   if (res.status === 200) {
-    //     setStore([res.data]);
-    //     setIsLoading(!isLoading);
-    //   }
-    // });
+    setIsLoading(!isLoading);
+    api
+      .get(`/stores/all/?userId=${cookies.userId}&name=${searchValue}`)
+      .then((res) => {
+        if (res.status === 200) {
+          setStore([res.data]);
+          setIsLoading(!isLoading);
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   const onChange = (e) => {
@@ -55,7 +63,6 @@ const EditStoreSupply = () => {
                 store.map((shop) => {
                   return (
                     <li key={shop.id} className="mb-3">
-                      {" "}
                       <StoreCard store={shop} />
                     </li>
                   );

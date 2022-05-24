@@ -8,7 +8,6 @@ const StoreManagement = () => {
   const router = useRouter();
   return (
     <>
-      {console.log(Object.keys(router.query)[0])}
       <Menu />
       <div
         className="my-4"
@@ -42,10 +41,8 @@ const StoreManagement = () => {
             >
               <div className="card-body">
                 <Link
-                  href={{
-                    pathname: "/edit-store-supply",
-                    query: Object.keys(router.query)[0],
-                  }}
+                  href={`stores/edit/${Object.keys(router.query)[0]}`}
+                  key={Object.keys(router.query)[0]}
                 >
                   <a>Edit store's supply/products</a>
                 </Link>

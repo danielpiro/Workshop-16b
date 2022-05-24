@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import Menu from "../../../components/menu";
-import Card from "../../../components/card";
+import StoreProduct from "../../../components/store-product";
 import api from "../../../components/api";
 
-const StoreDetails = () => {
+const StoreEdit = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -35,13 +35,14 @@ const StoreDetails = () => {
               {products.map((product) => {
                 return (
                   <li className=" list-group-item" key={product.id}>
-                    {console.log("products", product)}
-                    <Card
+                    <StoreProduct
                       value={product.id}
                       title={product.name}
                       price={product.price}
                       quantity={product.quantity}
                       category={product.category}
+                      products={products}
+                      setProducts={setProducts}
                     />
                   </li>
                 );
@@ -60,4 +61,4 @@ const StoreDetails = () => {
   );
 };
 
-export default StoreDetails;
+export default StoreEdit;
