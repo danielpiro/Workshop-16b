@@ -19,6 +19,7 @@ import com.example.demo.Mock.MockFullProduct;
 import com.example.demo.Mock.MockPermission;
 import com.example.demo.Mock.MockSmallPermission;
 import com.example.demo.Mock.MockSmallProduct;
+import com.example.demo.NotificationsManagement.NotificationManager;
 import com.example.demo.NotificationsManagement.StoreNotification;
 import com.example.demo.Store.Product;
 import com.example.demo.StorePermission.Permission;
@@ -93,6 +94,7 @@ public class Real   {
     public String openingMarket(){
         try {
             this.bigController = new BigController();
+            NotificationManager.ForTestsOnlyBuildNotificationManager(bigController.getUserController());
             return "system opened successfully";
         }
         catch (Exception e){
@@ -268,7 +270,7 @@ public class Real   {
     public boolean login(String username, String password)  {
         try {
             ReturnValue<Boolean> returnValue = getBigController().login(username, password);
-            return returnValue.getValue();
+            return returnValue.isSuccess();
         }catch (Exception e){
             return false;
         }

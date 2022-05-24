@@ -741,7 +741,7 @@ public class BigController {
         return us.getGuest_list();
     }
 
-    private UserController getUserController() {
+    public UserController getUserController() {
         return us;
     }
 

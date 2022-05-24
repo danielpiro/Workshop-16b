@@ -106,7 +106,7 @@ public class AcceptanceTests {
         proxy.addNewStoreOwner(storeId, "user1","userOwnerToDestroy",permission);
         proxy.register("user3", "33333");
         proxy.getInToTheSystem(); // for guest
-
+        proxy.register("user3", "11111");
         String product1 = proxy.addProductToStore(storeId, "user1", "p0", 5.0f, 0, "Other");
         String product2 = proxy.addProductToStore(storeId, "user1", "p1", 10.0f, 5, "Other");
         String product3 = proxy.addProductToStore(storeId, "user1", "p2", 15.0f, 10, "Other");
@@ -321,8 +321,10 @@ public class AcceptanceTests {
                 )
         );
 
-        userNotifications=proxy.getAllStoreNotificationsOf("user2");
-        assertFalse(proxy.unfreezeStoreByOwner(storeId, "user1"));
+
+        assertTrue(proxy.unfreezeStoreByOwner(storeId, "user1"));
+        proxy.login("user3", "11111");
+        userNotifications=proxy.getAllStoreNotificationsOf("user3");
         assertFalse(userNotifications.stream().anyMatch(
                         noti -> noti.getSentFrom().getId().equals(storeId) &&
                                 noti.getSubject().equals(NotificationSubject.StoreState) &&
@@ -331,7 +333,7 @@ public class AcceptanceTests {
                 )
         );
     }
-    @Disabled
+
     @Test
     void realtime_notification_store_closed_and_opened_fail_case_test2() {
 //        - Store owner closed his store (after logged in as store owner)
@@ -344,6 +346,7 @@ public class AcceptanceTests {
 //              -> MESSAGE DIDN'T ARRIVE
 
         // "the store has closed successfully"
+        proxy.login("user2", "22222");
         assertFalse(proxy.freezeStoreByOwner(storeId, "user2"));
         List<StoreNotification> userNotifications=proxy.getAllStoreNotificationsOf("user1");
 
@@ -355,15 +358,8 @@ public class AcceptanceTests {
                 )
         );
 
-        userNotifications=proxy.getAllStoreNotificationsOf("user1");
-        assertFalse(proxy.unfreezeStoreByOwner(storeId, "user1"));
-        assertFalse(userNotifications.stream().anyMatch(
-                        noti -> noti.getSentFrom().getId().equals(storeId) &&
-                                noti.getSubject().equals(NotificationSubject.StoreState) &&
-                                noti.getTitle().contains("your store opened")&&
-                                !noti.isRead()
-                )
-        );
+
+
     }
 
     // A user's permissions was removed
