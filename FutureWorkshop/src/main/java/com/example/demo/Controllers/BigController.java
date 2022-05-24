@@ -302,19 +302,7 @@ public class BigController {
         return rv;
     }
 
-    @GetMapping("/online/amount")
-    public ReturnValue getOnlineUsersNum() throws UserException {
-        getUserController().getOnlineUsersNum();
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-    }
 
-    @GetMapping("/registered/amount")
-    public ReturnValue getRegisteredUsersNum() throws UserException {
-        getUserController().getRegisteredUsersNum();
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-    }
 
 
     /**

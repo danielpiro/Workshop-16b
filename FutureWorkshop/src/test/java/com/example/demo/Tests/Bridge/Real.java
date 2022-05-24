@@ -21,9 +21,11 @@ import com.example.demo.Mock.MockSmallPermission;
 import com.example.demo.Mock.MockSmallProduct;
 import com.example.demo.NotificationsManagement.NotificationManager;
 import com.example.demo.NotificationsManagement.StoreNotification;
+import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.User.Guest;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -526,8 +528,10 @@ public class Real   {
     }
 
     //Helper Methods
-    public HashMap<String,List<Product>> getAllProductsAndStores(String userId){
-        return bigController.getAllProductsAndStores();
+    public HashMap<String,List<Product>> getAllProductsAndStores(String userId) {
+        try {
+            return bigController.getAllProductsAndStores();
+        }catch (Exception e){return null;}
     }
 
     public List<Guest> getGuest_list(){

@@ -362,29 +362,8 @@ public class UserController implements NotificationReceiver {
         }
 
 
-    public  boolean check_password(String user_name, String password) throws UserException {
-        if (get_subscriber(user_name) == null) {
-            my_log.warning("failed to logout because " + user_name + " is null");
-            throw new UserException("failed to logout because " + user_name + " is null");
-        }
-        synchronized (get_subscriber(user_name).getLock()) {
-            if (!get_subscriber(user_name).isLogged_in()) {
-                my_log.warning("failed to logout - user " + user_name + " is not logged in");
-                throw new UserException("failed to logout - user " + user_name + " is not logged in");
-            } else {
-                my_log.info("user " + user_name + " successfully logged out");
-                get_subscriber(user_name).setLogged_in(false);
-                Guest g = addGuest();
-                g.setShoppingCart(getSubscriberCart(user_name));
-                onlineUsers--;
-                return true;
-            if (password.length() > 2) {
-                Subscriber subscriber = get_subscriber(user_name);
-                return subscriber.getPassword().equals(Encryption.encryptThisString(password));
-            }
-        }
 
-    }
+
 
 
     public boolean check_password(String user_name, String password) throws UserException {
