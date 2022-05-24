@@ -181,7 +181,7 @@ public class UserController implements NotificationReceiver {
 
     public void addProduct(String user_id, String productID, String storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) throws UserException {
         if ((getGuest(user_id)!=null))
-          get_subscriber(user_id).addProduct(productID,storeID,amount,inventoryProtector,auctionOrBid);
+          getGuest(user_id).addProduct(productID,storeID,amount,inventoryProtector,auctionOrBid);
             if (get_subscriber(user_id) == null) {
             throw new UserException("User "+user_id+ " doesn't exist");
         }
@@ -194,7 +194,7 @@ public class UserController implements NotificationReceiver {
 
     public String getCartInventory(String user_id) throws UserException {
         if ((getGuest(user_id)!=null))
-          return get_subscriber(user_id).getCartInventory();
+          return getGuest(user_id).getCartInventory();
             if(get_subscriber(user_id)==null){
              my_log.warning("user "+user_id + " doesn't exist");
             throw new UserException("User " +user_id + "doesn't exist");
@@ -207,7 +207,7 @@ public class UserController implements NotificationReceiver {
     }
     public float purchaseCart(String user_id, ExternalConnectionHolder externalConnectionHolder) throws SupplyManagementException, StorePolicyViolatedException, CantPurchaseException, UserException {
         if ((getGuest(user_id)!=null))
-         return get_subscriber(user_id).purchaseCart(externalConnectionHolder);
+         return getGuest(user_id).purchaseCart(externalConnectionHolder);
             if(get_subscriber(user_id)==null){
             throw new UserException("User "+user_id + " doesn't exist");
         }
