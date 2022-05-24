@@ -10,6 +10,7 @@ import com.example.demo.ExternalConnections.Payment.Visa;
 import com.example.demo.History.PurchaseHistory;
 import com.example.demo.NotificationsManagement.NotificationSubject;
 import com.example.demo.NotificationsManagement.StoreNotification;
+import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.Tests.Bridge.Proxy;

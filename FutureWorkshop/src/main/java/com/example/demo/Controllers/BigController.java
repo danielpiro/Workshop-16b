@@ -429,7 +429,7 @@ public class BigController {
     }
 
     @GetMapping("/store-products/all")
-    public ReturnValue getAllProductsAndStores() throws UserException, SupplyManagementException, NoPermissionException, JsonProcessingException {
+    public ReturnValue getAllProductsAndStoresWeb() throws UserException, SupplyManagementException, NoPermissionException, JsonProcessingException {
         List<String> users = initializeUsers();
         List<String> stores = initializeStores(users);
         HashMap<String, List<Product>> allProductsAndStores = getStoreController().getAllProductsAndStores();
@@ -446,6 +446,10 @@ public class BigController {
         }
         ReturnValue rv = new ReturnValue(true, "", products2);
         return rv;
+    }
+
+    public HashMap<String, List<Product>> getAllProductsAndStores() {
+        return sc.getAllProductsAndStores();
     }
 
     @GetMapping("/products/all")
