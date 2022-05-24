@@ -108,16 +108,9 @@ public class BigController {
         return rv;
     }
 
-    public ReturnValue getOnlineUsersNum() throws UserException {
-        ReturnValue rv = new ReturnValue(true, "",  getUserController().getOnlineUsersNum());
-        return rv;
-    }
 
-    public ReturnValue getRegisteredUsersNum() throws UserException {
-        getUserController().getRegisteredUsersNum();
-        ReturnValue rv = new ReturnValue(true, "",getUserController().getRegisteredUsersNum());
-        return rv;
-    }
+
+
 
 
     @DeleteMapping("/users")
@@ -539,23 +532,18 @@ public class BigController {
         ReturnValue rv = new ReturnValue(true, "", getUserController().getPermissionType(username));
         return rv;
     }
-   // String sentFrom, NotificationSubject subject, String title, String body
+
         @GetMapping("/notification/complaint")
         public ReturnValue sendComplaintToAdmins(@RequestParam String senderId,
                                           @RequestParam String sentFrom, @RequestParam String subject, @RequestParam String title,@RequestParam String body) throws UserException {
+            // String sentFrom, NotificationSubject subject, String title, String body
+            //StoreForum, StoreAppointment, StoreState, StoreDeleted, DeliveryDidntArrive, PaymentFailed, ProductShortage
             userExistsAndLoggedIn(senderId);
-            if(subject.equals("StoreForum"))
-            getUserController().sendComplaintToAdmins(senderId,new ComplaintNotification(sentFrom,NotificationSubject.StoreForum,title,body));
-            else if(subject.equals("StoreAppointment"))
-                getUserController().sendComplaintToAdmins(senderId,new ComplaintNotification(sentFrom,NotificationSubject.StoreAppointment,title,body));
-            else if(subject.equals("StoreState"))
-                getUserController().sendComplaintToAdmins(senderId,new ComplaintNotification(sentFrom,NotificationSubject.StoreState,title,body));
-            else if(subject.equals("StoreDeleted"))
-                getUserController().sendComplaintToAdmins(senderId,new ComplaintNotification(sentFrom,NotificationSubject.StoreDeleted,title,body));
+            getUserController().sendComplaintToAdmins(senderId,new ComplaintNotification(sentFrom,NotificationSubject.valueOf(subject),title,body));
             ReturnValue rv = new ReturnValue(true, "", null);
             return rv;
         }
-    //StoreForum, StoreAppointment, StoreState, StoreDeleted
+
         @GetMapping("/notification/complaint")
     public ReturnValue readComplaintNotification(@RequestParam String userId,
                                                  @RequestParam int complaintNotificaionId) throws UserException {
