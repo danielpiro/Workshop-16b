@@ -133,7 +133,8 @@ public class BigController {
     }
 
     @PostMapping("/guest/login")
-    public ReturnValue login(@RequestParam String guestId, @RequestParam String userNameLogin,
+    public ReturnValue login(@RequestParam String guestId,
+                             @RequestParam String userNameLogin,
                              @RequestParam String password) throws UserException {
         System.out.println(userNameLogin);
         System.out.println(password);
@@ -208,6 +209,9 @@ public class BigController {
 
     }
 
+    public boolean removePaymentService (PaymentNames payment){
+        return ExternalConnections.getInstance().removePayment(payment);
+    }
 
     @PostMapping("/cart/purchase")
     public ReturnValue purchaseCart(@RequestParam String user_id,
@@ -222,13 +226,14 @@ public class BigController {
 
     /// Store controller
 
+    //todo didnt return String!!!
     @PostMapping("/store")
     public ReturnValue addNewProductToStore(@Valid @RequestBody MockFullProduct mockProduct) throws NoPermissionException, SupplyManagementException, UserException {
         userExistsAndLoggedIn(mockProduct.getUserId());
 
-        getStoreController().addNewProduct(mockProduct.getStoreId(), mockProduct.getUserId(), mockProduct.getProductName(), mockProduct.getPrice(), mockProduct.getSupply(), mockProduct.getCategory());
+        String ans = getStoreController().addNewProduct(mockProduct.getStoreId(), mockProduct.getUserId(), mockProduct.getProductName(), mockProduct.getPrice(), mockProduct.getSupply(), mockProduct.getCategory());
 
-        ReturnValue rv = new ReturnValue(true, "", null);
+        ReturnValue rv = new ReturnValue(true, "", ans);
         return rv;
 
     }

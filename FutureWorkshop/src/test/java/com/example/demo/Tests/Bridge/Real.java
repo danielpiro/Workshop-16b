@@ -19,6 +19,7 @@ import com.example.demo.Mock.MockFullProduct;
 import com.example.demo.Mock.MockPermission;
 import com.example.demo.Mock.MockSmallPermission;
 import com.example.demo.Mock.MockSmallProduct;
+import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.User.Guest;
@@ -251,6 +252,16 @@ public class Real   {
         }
     }
 
+    /** User requirement - II.1.4 */
+    public boolean loginFromGuest(String userId,String username, String password)  {
+        try {
+            ReturnValue<Boolean> returnValue = getBigController().login(userId,username, password);
+            return returnValue.getValue();
+        }catch (Exception e){
+            return false;
+        }
+    }
+
 
     /** User requirement - II.2.1 */
     public String receiveSystemInfo(){
@@ -287,6 +298,12 @@ public class Real   {
         }
         return ans >= 0;
     }
+    public String getGuest (){
+        return (String) bigController.addGuest().getValue();
+    }
+    public boolean removePaymentService (PaymentNames payment){
+    return bigController.removePaymentService(payment);
+        }
 
     /** User requirement - II.2.4 */
     public boolean decreaseProductQuantityInShoppingCart(String userId,String productID, String storeID, int amount){
@@ -300,7 +317,13 @@ public class Real   {
 
     }
 
-
+    public ShoppingCart getShoppingCart(String userId){
+        try {
+            return (ShoppingCart) bigController.getShoppingCart(userId).getValue();
+        }catch (Exception e){
+            return null;
+        }
+    }
 
     /** User requirement - II.2.5 */
     public boolean purchaseShoppingCart(String userID,PaymentNames payment,DeliveryNames delivery){

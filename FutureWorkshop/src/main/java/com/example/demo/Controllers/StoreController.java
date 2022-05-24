@@ -58,13 +58,13 @@ public class StoreController {
         return IdGenerator.getInstance().isGuest(userId);
     }
 
-    public void addNewProduct(String storeId, String userId, String productName, float price, int supply, String category) throws NoPermissionException, SupplyManagementException {
+    public String addNewProduct(String storeId, String userId, String productName, float price, int supply, String category) throws NoPermissionException, SupplyManagementException {
         if(checkIfGuest(userId)){
             Log.getLogger().warning(userId+" is guest and cant add new product");
             throw new NoPermissionException("guest cant add new product");
         }
         Store relevantStore = stores.get(storeId);
-        relevantStore.addNewProduct(userId, productName, price, supply, category);
+        return relevantStore.addNewProduct(userId, productName, price, supply, category);
 
     }
 

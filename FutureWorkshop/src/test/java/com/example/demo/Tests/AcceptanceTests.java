@@ -8,6 +8,7 @@ import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
 import com.example.demo.ExternalConnections.Payment.PaymentNames;
 import com.example.demo.ExternalConnections.Payment.Visa;
 import com.example.demo.History.PurchaseHistory;
+import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.Tests.Bridge.Proxy;
@@ -42,6 +43,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 
 
 import javax.naming.NoPermissionException;
+import javax.validation.constraints.AssertTrue;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
@@ -105,10 +107,10 @@ public class AcceptanceTests {
         proxy.register("user3", "33333");
         proxy.getInToTheSystem(); // for guest
 
-        String product1 = proxy.addProductToStore(storeId, "user1", "p0", 5.0f, 0, "Other");
-        String product2 = proxy.addProductToStore(storeId, "user1", "p1", 10.0f, 5, "Other");
-        String product3 = proxy.addProductToStore(storeId, "user1", "p2", 15.0f, 10, "Other");
-        String product4 = proxy.addProductToStore(storeId, "user1", "p3", 20.0f, 15, "Other");
+         product1 = proxy.addProductToStore(storeId, "user1", "p0", 5.0f, 0, "Other");
+         product2 = proxy.addProductToStore(storeId, "user1", "p1", 10.0f, 5, "Other");
+         product3 = proxy.addProductToStore(storeId, "user1", "p2", 15.0f, 10, "Other");
+         product4 = proxy.addProductToStore(storeId, "user1", "p3", 20.0f, 15, "Other");
     }
 
     @AfterEach
@@ -148,25 +150,66 @@ public class AcceptanceTests {
         assertEquals("system opened successfully", proxy.openingMarket());
     }
 
-    /**
-     *  System requirement - I.2
-     **/
-    // testing change/edit external service connection
-    @Disabled
     @Test
-    void change_external_service_success_case_test() {
-//        -Check that all actions in the system work well
-//        -Check that the new service is valid
-//        -Check that the change done successfully
+    void cart_invariant_failed_purchase() {
+        proxy.increaseProductQuantityInShoppingCart("user1",product1,storeId,5,false);
+        ShoppingCart sc = proxy.getShoppingCart("user1");
+        String ans1 = sc.getCartInventory();
+        System.out.println(ans1);
+        proxy.removePayment(PaymentNames.Visa);
+        proxy.removePayment(PaymentNames.Visa);
 
-        assertEquals("change services done successfully",
-                proxy.changeExternalService(1, "aaa",
-                        2, "bbb"));
+        proxy.purchaseShoppingCart("user1",PaymentNames.Visa,DeliveryNames.FedEx);
+        sc = proxy.getShoppingCart("user1");
+        String ans2 = sc.getCartInventory();
+        System.out.println(ans2);
+
+        assertEquals(ans1,ans2);
+
+    }
+
+
+    @Test
+    void guest_login_cart_invariant() {
+        String guest = proxy.getGuest();
+
+        proxy.increaseProductQuantityInShoppingCart(guest,product1,storeId,5,false);
+        ShoppingCart sc = proxy.getShoppingCart(guest);
+        String ans1 = sc.getCartInventory();
+
+        System.out.println(ans1);
+        proxy.loginFromGuest(guest,"user3","33333");
+
+
+        sc = proxy.getShoppingCart("user3");
+        String ans2 = sc.getCartInventory();
+        System.out.println(ans2);
+        assertEquals(ans1,ans2);
+        assertTrue( sc.containsStore(storeId));
+
     }
 
 
 
-    // additional methods for I.2 requirement
+
+    @Test
+    void relogin_cart_invariant() {
+       proxy.login("user1","11111");
+       proxy.increaseProductQuantityInShoppingCart("user1",product1,storeId,5,false);
+       ShoppingCart sc = proxy.getShoppingCart("user1");
+        String ans1 = sc.getCartInventory();
+        proxy.logout("user1");
+        proxy.login("user1","11111");
+
+         sc = proxy.getShoppingCart("user1");
+        String ans2 = sc.getCartInventory();
+
+        assertEquals(ans1,ans2);
+        assertTrue( sc.containsStore(storeId));
+
+    }
+
+
 
     @Test
     void remove_payment_service_success_case() {

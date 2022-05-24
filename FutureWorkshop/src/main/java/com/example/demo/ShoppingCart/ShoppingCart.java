@@ -94,7 +94,7 @@ public class ShoppingCart {
             basketCases.put(storeID, sb);
 
         }
-        Log.getLogger().fine("user " + userId +" added product " + productID + "to store " + storeID + " with amount of " + amount);
+        Log.getLogger().info("user " + userId +" added product " + productID + "to store " + storeID + " with amount of " + amount);
 
 
 
