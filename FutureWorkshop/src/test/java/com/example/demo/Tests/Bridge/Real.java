@@ -178,11 +178,20 @@ public class Real   {
     /** System requirement - I.6 */
     public void markAsReadStoreNotification(String userId,
                                        int storeNotificationId){
-
+        try {
+            bigController.readStoreNotification(userId,storeNotificationId);
+        } catch (UserException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<StoreNotification> getAllStoreNotificationsOf(String userId){
-        return new ArrayList<>();
+        try {
+            ReturnValue<List<StoreNotification>> returnValue =bigController.getUserStoreNotifications(userId);
+            return returnValue.getValue();
+        } catch (UserException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /** System requirement - I.5 */

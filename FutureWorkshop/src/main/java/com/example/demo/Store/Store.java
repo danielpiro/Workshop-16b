@@ -227,7 +227,7 @@ public class Store implements getStoreInfo {
             throw new NoPermissionException("the user don't have this permission");
         }
         storeState = StoreState.CLOSED;
-        StoreNotification sn = new StoreNotification(this,NotificationSubject.StoreDeleted,"your store closed",userId+" closed your store name:"+storeName+" store Id"+storeId);
+        StoreNotification sn = new StoreNotification(this,NotificationSubject.StoreState,"your store closed",userId+" closed your store name:"+storeName+" store Id"+storeId);
         NotificationManager.getNotificationManager().sendNotificationTo(getRolesIds(),sn);
     }
 
@@ -236,7 +236,7 @@ public class Store implements getStoreInfo {
             throw new NoPermissionException("the user don't have this permission");
         }
         storeState = StoreState.ACTIVE;
-        StoreNotification sn = new StoreNotification(this,NotificationSubject.StoreDeleted,"your store opened",userId+" opened your store name:"+storeName+" store Id"+storeId);
+        StoreNotification sn = new StoreNotification(this,NotificationSubject.StoreState,"your store opened",userId+" opened your store name:"+storeName+" store Id"+storeId);
         NotificationManager.getNotificationManager().sendNotificationTo(getRolesIds(),sn);
     }
 

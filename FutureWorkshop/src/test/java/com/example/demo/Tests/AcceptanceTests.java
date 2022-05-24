@@ -266,7 +266,7 @@ public class AcceptanceTests {
     }
 
     // A store was closed, then re-opened
-    @Disabled
+
     @Test
     void realtime_notification_store_closed_and_opened_success_case_test() {
 //        - Store owner closed his store (after logged in as store owner)

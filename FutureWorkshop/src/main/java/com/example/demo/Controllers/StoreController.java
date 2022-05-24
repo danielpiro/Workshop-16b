@@ -74,7 +74,7 @@ public class StoreController {
             throw new NoPermissionException("guest cant unfreeze store");
         }
         Store relevantStore = stores.get(storeId);
-        relevantStore.closeStore(userId);
+        relevantStore.openStore(userId);
     }
 
     public void freezeStore(String storeId, String userId) throws NoPermissionException, UserException, NotifyException {
@@ -83,7 +83,7 @@ public class StoreController {
             throw new NoPermissionException("guest cant freeze store");
         }
         Store relevantStore = stores.get(storeId);
-        relevantStore.openStore(userId);
+        relevantStore.closeStore(userId);
     }
 
     public List<StoreRoles> getInfoOnManagersOwners(String storeId, String userId) throws NoPermissionException {
