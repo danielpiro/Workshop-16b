@@ -1,1674 +1,308 @@
-May 23, 2022 4:20:33 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user dan doesn't exist
-May 23, 2022 4:29:49 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user amit doesn't exist
-May 23, 2022 4:32:06 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user amit doesn't exist
-May 23, 2022 4:33:15 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user amit doesn't exist
-May 23, 2022 4:34:38 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user amit doesn't exist
-May 23, 2022 4:35:22 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user amit doesn't exist
-May 23, 2022 4:35:42 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user GuestID_1 doesn't exist
-May 23, 2022 6:33:54 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user2 doesn't exist
-May 23, 2022 6:33:54 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userOwnerToDestroy doesn't exist
-May 23, 2022 6:33:54 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user2 doesn't exist
-May 23, 2022 6:33:54 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userOwnerToDestroy doesn't exist
-May 23, 2022 6:33:54 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user2 doesn't exist
-May 23, 2022 6:33:54 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userOwnerToDestroy doesn't exist
-May 23, 2022 6:33:54 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user2 doesn't exist
-May 23, 2022 6:33:54 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userOwnerToDestroy doesn't exist
-May 23, 2022 6:33:54 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user2 doesn't exist
-May 23, 2022 6:33:54 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userOwnerToDestroy doesn't exist
-May 23, 2022 6:33:54 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user2 doesn't exist
-May 23, 2022 6:33:54 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userOwnerToDestroy doesn't exist
-May 23, 2022 6:33:54 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user2 doesn't exist
-May 23, 2022 6:33:54 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userOwnerToDestroy doesn't exist
-May 23, 2022 6:33:54 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user2 doesn't exist
-May 23, 2022 6:33:54 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userOwnerToDestroy doesn't exist
-May 23, 2022 6:33:54 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user2 doesn't exist
-May 23, 2022 6:33:54 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userOwnerToDestroy doesn't exist
-May 23, 2022 6:33:54 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user2 doesn't exist
-May 23, 2022 6:33:54 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userOwnerToDestroy doesn't exist
-May 23, 2022 6:33:54 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user2 doesn't exist
-May 23, 2022 6:33:54 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userOwnerToDestroy doesn't exist
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user44 doesn't exist
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:31 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:17:31 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user44 doesn't exist
+May 24, 2022 4:17:31 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:17:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User user00 doesn't exist
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user user1 already exists in the system - failed to sign up
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user null is null - failed to sign up
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user user0 password's is null - failed to sign up
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user4 doesn't exist
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:31 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:17:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user44 doesn't exist
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:31 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:17:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user12 doesn't exist
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user44 doesn't exist
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user10 doesn't exist
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:31 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user10 failed login
+May 24, 2022 4:17:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user user1 failed login
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user user1 is already logged in
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user22 doesn't exist
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:31 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:17:32 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user44 doesn't exist
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:32 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:32 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:17:32 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user12 doesn't exist
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:32 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user1... doesn't exist
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:32 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:32 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user10 doesn't exist
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:32 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:32 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:17:32 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: failed to logout because user100 is null
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:32 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:32 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user22 doesn't exist
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:32 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 6:44:30 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:32 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 6:52:08 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:32 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 6:52:08 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:17:32 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: the user that we treated as admin is not a user at all!!
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user44 doesn't exist
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user44 doesn't exist
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User user00 doesn't exist
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user user1 already exists in the system - failed to sign up
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user null is null - failed to sign up
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user user0 password's is null - failed to sign up
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user4 doesn't exist
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user44 doesn't exist
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user12 doesn't exist
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user44 doesn't exist
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user10 doesn't exist
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user10 failed login
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user user1 failed login
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user user1 is already logged in
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user22 doesn't exist
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user44 doesn't exist
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user12 doesn't exist
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:03 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user1... doesn't exist
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:04 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:04 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user10 doesn't exist
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:04 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:04 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:18:04 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: failed to logout because user100 is null
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:04 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:04 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user22 doesn't exist
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:04 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 6:52:09 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:04 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:04 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:53 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:18:53 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user44 doesn't exist
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:53 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:18:53 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user44 doesn't exist
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:53 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:18:53 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User user00 doesn't exist
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user user1 already exists in the system - failed to sign up
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user null is null - failed to sign up
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user user0 password's is null - failed to sign up
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user4 doesn't exist
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user44 doesn't exist
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user12 doesn't exist
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user44 doesn't exist
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user10 doesn't exist
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user10 failed login
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user user1 failed login
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user user1 is already logged in
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user22 doesn't exist
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user44 doesn't exist
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user12 doesn't exist
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user1... doesn't exist
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user10 doesn't exist
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: failed to logout because user100 is null
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user22 doesn't exist
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:17:12 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:19:46 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:18:54 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:19:46 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user44 doesn't exist
-May 23, 2022 7:19:46 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user44 doesn't exist
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User user00 doesn't exist
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user user1 already exists in the system - failed to sign up
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user null is null - failed to sign up
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user user0 password's is null - failed to sign up
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user4 doesn't exist
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user44 doesn't exist
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user12 doesn't exist
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user44 doesn't exist
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user10 doesn't exist
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user10 failed login
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user user1 failed login
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user user1 is already logged in
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user22 doesn't exist
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user44 doesn't exist
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user12 doesn't exist
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user1... doesn't exist
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user10 doesn't exist
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: failed to logout because user100 is null
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user22 doesn't exist
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User user00 doesn't exist
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 already exists in the system - failed to sign up
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user null is null - failed to sign up
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user0 password's is null - failed to sign up
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user4 doesn't exist
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 failed login
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 is already logged in
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user1... doesn't exist
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: failed to logout because user100 is null
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:20:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:21:35 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:21:35 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:21:35 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:21:35 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User user00 doesn't exist
-May 23, 2022 7:21:35 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 already exists in the system - failed to sign up
-May 23, 2022 7:21:35 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user null is null - failed to sign up
-May 23, 2022 7:21:35 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user0 password's is null - failed to sign up
-May 23, 2022 7:21:35 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user4 doesn't exist
-May 23, 2022 7:21:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:21:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:21:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:21:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:21:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 failed login
-May 23, 2022 7:21:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 is already logged in
-May 23, 2022 7:21:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:21:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:21:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:21:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:21:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:21:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:21:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user1... doesn't exist
-May 23, 2022 7:21:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:21:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:21:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:21:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: failed to logout because user100 is null
-May 23, 2022 7:21:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:21:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:21:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:21:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:26:09 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:26:09 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User user00 doesn't exist
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 already exists in the system - failed to sign up
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user null is null - failed to sign up
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user0 password's is null - failed to sign up
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user4 doesn't exist
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 failed login
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 is already logged in
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user1... doesn't exist
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: failed to logout because user100 is null
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:26:10 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User user00 doesn't exist
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 already exists in the system - failed to sign up
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user null is null - failed to sign up
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user0 password's is null - failed to sign up
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user4 doesn't exist
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 failed login
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 is already logged in
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user1... doesn't exist
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: failed to logout because user100 is null
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:42:04 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:45:11 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:45:11 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:45:11 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:45:11 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User user00 doesn't exist
-May 23, 2022 7:45:11 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 already exists in the system - failed to sign up
-May 23, 2022 7:45:11 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user null is null - failed to sign up
-May 23, 2022 7:45:11 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user0 password's is null - failed to sign up
-May 23, 2022 7:45:11 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user4 doesn't exist
-May 23, 2022 7:45:11 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:45:11 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:45:11 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:45:11 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:45:11 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 failed login
-May 23, 2022 7:45:11 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 is already logged in
-May 23, 2022 7:45:12 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:45:12 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:45:12 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:45:12 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:45:12 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:45:12 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:45:12 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user1... doesn't exist
-May 23, 2022 7:45:12 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:45:12 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:45:12 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:45:12 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: failed to logout because user100 is null
-May 23, 2022 7:45:12 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:45:12 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:45:12 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:45:12 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:46:16 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:46:16 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:46:16 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:46:16 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User user00 doesn't exist
-May 23, 2022 7:46:26 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 already exists in the system - failed to sign up
-May 23, 2022 7:46:26 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user null is null - failed to sign up
-May 23, 2022 7:46:26 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user0 password's is null - failed to sign up
-May 23, 2022 7:46:26 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user4 doesn't exist
-May 23, 2022 7:46:26 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:46:26 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:46:26 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:46:27 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:46:27 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 failed login
-May 23, 2022 7:46:27 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 is already logged in
-May 23, 2022 7:46:27 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:46:27 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:46:50 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:46:50 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:46:50 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:47:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:48:18 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user1... doesn't exist
-May 23, 2022 7:48:18 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:48:18 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:48:18 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:48:18 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: failed to logout because user100 is null
-May 23, 2022 7:48:18 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:48:18 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:48:32 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:48:32 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:48:32 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:48:32 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User user00 doesn't exist
-May 23, 2022 7:48:32 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 already exists in the system - failed to sign up
-May 23, 2022 7:48:32 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user null is null - failed to sign up
-May 23, 2022 7:48:32 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user0 password's is null - failed to sign up
-May 23, 2022 7:48:32 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user4 doesn't exist
-May 23, 2022 7:48:32 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:48:32 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:48:32 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:48:32 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:48:32 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 failed login
-May 23, 2022 7:48:32 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 is already logged in
-May 23, 2022 7:48:32 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:48:32 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:48:32 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:48:32 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:48:32 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:48:32 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:48:32 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user1... doesn't exist
-May 23, 2022 7:48:33 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:48:33 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:48:33 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:48:33 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: failed to logout because user100 is null
-May 23, 2022 7:48:33 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:48:33 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:48:33 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:48:33 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User user00 doesn't exist
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 already exists in the system - failed to sign up
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user null is null - failed to sign up
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user0 password's is null - failed to sign up
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user4 doesn't exist
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 failed login
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 is already logged in
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user1... doesn't exist
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: failed to logout because user100 is null
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:50:08 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User user00 doesn't exist
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 already exists in the system - failed to sign up
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user null is null - failed to sign up
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user0 password's is null - failed to sign up
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user4 doesn't exist
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 failed login
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 is already logged in
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user1... doesn't exist
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: failed to logout because user100 is null
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:50:55 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:53:35 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:53:35 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:53:35 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:53:35 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User user00 doesn't exist
-May 23, 2022 7:53:35 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 already exists in the system - failed to sign up
-May 23, 2022 7:53:35 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user null is null - failed to sign up
-May 23, 2022 7:53:35 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user0 password's is null - failed to sign up
-May 23, 2022 7:53:35 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user4 doesn't exist
-May 23, 2022 7:53:35 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:53:35 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:53:35 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:53:35 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:53:35 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 failed login
-May 23, 2022 7:53:35 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 is already logged in
-May 23, 2022 7:53:35 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:53:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:53:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:53:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:53:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:53:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:53:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user1... doesn't exist
-May 23, 2022 7:53:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:53:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:53:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:53:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: failed to logout because user100 is null
-May 23, 2022 7:53:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:53:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:53:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:53:36 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:55:12 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:55:12 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:55:12 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User user00 doesn't exist
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 already exists in the system - failed to sign up
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user null is null - failed to sign up
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user0 password's is null - failed to sign up
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user4 doesn't exist
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 failed login
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 is already logged in
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user1... doesn't exist
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: failed to logout because user100 is null
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:55:13 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User user00 doesn't exist
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 already exists in the system - failed to sign up
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user null is null - failed to sign up
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user0 password's is null - failed to sign up
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user4 doesn't exist
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 failed login
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 is already logged in
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user1... doesn't exist
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: failed to logout because user100 is null
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:56:43 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:56:44 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:57:26 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:57:26 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:57:26 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:57:26 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User user00 doesn't exist
-May 23, 2022 7:57:26 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 already exists in the system - failed to sign up
-May 23, 2022 7:57:26 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user null is null - failed to sign up
-May 23, 2022 7:57:26 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user0 password's is null - failed to sign up
-May 23, 2022 7:57:26 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user4 doesn't exist
-May 23, 2022 7:57:26 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:57:26 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:57:26 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:57:26 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:57:26 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 failed login
-May 23, 2022 7:57:26 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 is already logged in
-May 23, 2022 7:57:26 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:57:26 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:57:27 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:57:27 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:57:27 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:57:27 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:57:27 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user1... doesn't exist
-May 23, 2022 7:57:27 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:57:27 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:57:27 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:57:27 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: failed to logout because user100 is null
-May 23, 2022 7:57:27 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:57:27 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:57:27 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:57:27 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User user00 doesn't exist
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 already exists in the system - failed to sign up
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user null is null - failed to sign up
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user0 password's is null - failed to sign up
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user4 doesn't exist
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 failed login
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 is already logged in
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user1... doesn't exist
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: failed to logout because user100 is null
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 23, 2022 7:57:59 PM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 8:04:55 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 8:04:55 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 8:04:55 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 8:04:55 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User user00 doesn't exist
-May 24, 2022 8:04:55 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 already exists in the system - failed to sign up
-May 24, 2022 8:04:55 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user null is null - failed to sign up
-May 24, 2022 8:04:55 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user0 password's is null - failed to sign up
-May 24, 2022 8:04:55 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user4 doesn't exist
-May 24, 2022 8:04:55 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 8:04:55 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 24, 2022 8:04:55 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 8:04:55 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 24, 2022 8:04:55 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 failed login
-May 24, 2022 8:04:55 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 is already logged in
-May 24, 2022 8:04:55 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 8:04:55 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 24, 2022 8:04:56 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 8:04:56 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 8:04:56 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 8:04:56 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 24, 2022 8:04:56 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user1... doesn't exist
-May 24, 2022 8:04:56 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 8:04:56 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 24, 2022 8:04:56 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 8:04:56 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: failed to logout because user100 is null
-May 24, 2022 8:04:56 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 8:04:56 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 24, 2022 8:04:56 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 8:04:56 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 8:04:56 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 8:04:56 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 8:04:56 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 8:04:56 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 8:04:56 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 8:04:56 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 8:04:56 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 8:04:56 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId1 doesn't exist
-May 24, 2022 8:04:56 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:07:16 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:07:16 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:07:16 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:07:16 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User user00 doesn't exist
-May 24, 2022 9:07:16 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 already exists in the system - failed to sign up
-May 24, 2022 9:07:16 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user null is null - failed to sign up
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user0 password's is null - failed to sign up
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user4 doesn't exist
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 failed login
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 is already logged in
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user1... doesn't exist
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: failed to logout because user100 is null
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId1 doesn't exist
-May 24, 2022 9:07:17 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:08:13 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:08:13 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:08:13 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:08:13 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User user00 doesn't exist
-May 24, 2022 9:08:13 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 already exists in the system - failed to sign up
-May 24, 2022 9:08:13 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user null is null - failed to sign up
-May 24, 2022 9:08:13 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user0 password's is null - failed to sign up
-May 24, 2022 9:08:13 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user4 doesn't exist
-May 24, 2022 9:08:13 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:08:13 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 24, 2022 9:08:13 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:08:13 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 24, 2022 9:08:13 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 failed login
-May 24, 2022 9:08:13 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 is already logged in
-May 24, 2022 9:08:13 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:08:13 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 24, 2022 9:08:13 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:08:13 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:08:13 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:08:13 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 24, 2022 9:08:13 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user1... doesn't exist
-May 24, 2022 9:08:14 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:08:14 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 24, 2022 9:08:14 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:08:14 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: failed to logout because user100 is null
-May 24, 2022 9:08:14 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:08:14 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 24, 2022 9:08:14 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:08:14 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:08:14 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:08:14 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:08:14 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:08:14 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:08:14 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:08:14 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:08:14 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:08:14 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId1 doesn't exist
-May 24, 2022 9:08:14 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User user00 doesn't exist
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 already exists in the system - failed to sign up
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user null is null - failed to sign up
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user0 password's is null - failed to sign up
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user4 doesn't exist
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 failed login
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 is already logged in
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user1... doesn't exist
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: failed to logout because user100 is null
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:08:18 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:08:19 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:08:19 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:08:19 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:08:19 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:08:19 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:08:19 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:08:19 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:08:23 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId1 doesn't exist
-May 24, 2022 9:08:23 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User user00 doesn't exist
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 already exists in the system - failed to sign up
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user null is null - failed to sign up
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user0 password's is null - failed to sign up
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user4 doesn't exist
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 failed login
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 is already logged in
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user1... doesn't exist
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: failed to logout because user100 is null
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId1 doesn't exist
-May 24, 2022 9:10:00 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User user00 doesn't exist
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 already exists in the system - failed to sign up
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user null is null - failed to sign up
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user0 password's is null - failed to sign up
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user4 doesn't exist
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 failed login
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 is already logged in
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user1... doesn't exist
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: failed to logout because user100 is null
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:11:45 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:12:01 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:12:23 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:12:23 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:12:23 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:12:23 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:12:23 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:12:23 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:12:23 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId1 doesn't exist
-May 24, 2022 9:12:23 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:12:25 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:12:25 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:12:25 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:12:25 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User user00 doesn't exist
-May 24, 2022 9:12:26 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 already exists in the system - failed to sign up
-May 24, 2022 9:12:26 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user null is null - failed to sign up
-May 24, 2022 9:12:26 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user0 password's is null - failed to sign up
-May 24, 2022 9:12:26 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user4 doesn't exist
-May 24, 2022 9:12:26 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:12:26 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 24, 2022 9:12:26 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:12:26 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 24, 2022 9:12:26 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 failed login
-May 24, 2022 9:12:26 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 is already logged in
-May 24, 2022 9:12:26 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:12:26 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 24, 2022 9:12:26 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:12:26 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:12:26 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:12:26 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 24, 2022 9:12:26 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user1... doesn't exist
-May 24, 2022 9:12:26 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:12:26 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 24, 2022 9:12:26 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:12:26 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: failed to logout because user100 is null
-May 24, 2022 9:12:26 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:12:26 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 24, 2022 9:12:26 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:12:26 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:13:29 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:13:29 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:13:29 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:13:29 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user userId2 doesn't exist
-May 24, 2022 9:14:49 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:14:49 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:14:49 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:14:49 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User user00 doesn't exist
-May 24, 2022 9:14:49 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 already exists in the system - failed to sign up
-May 24, 2022 9:14:49 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user null is null - failed to sign up
-May 24, 2022 9:14:49 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user0 password's is null - failed to sign up
-May 24, 2022 9:14:49 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user4 doesn't exist
-May 24, 2022 9:14:50 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:14:50 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 24, 2022 9:14:50 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:14:50 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 24, 2022 9:14:50 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 failed login
-May 24, 2022 9:14:50 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: user user1 is already logged in
-May 24, 2022 9:14:50 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:14:50 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 24, 2022 9:14:50 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:14:50 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user44 doesn't exist
-May 24, 2022 9:14:50 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:14:50 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user12 doesn't exist
-May 24, 2022 9:14:50 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user1... doesn't exist
-May 24, 2022 9:14:50 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:14:50 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user10 doesn't exist
-May 24, 2022 9:14:50 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:14:50 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: failed to logout because user100 is null
-May 24, 2022 9:14:50 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:14:50 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING:  user user22 doesn't exist
-May 24, 2022 9:14:50 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: User doesn't exist or is not logged in
-May 24, 2022 9:14:50 AM com.example.demo.GlobalSystemServices.Log warning
+May 24, 2022 4:19:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
 May 24, 2022 3:30:56 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in

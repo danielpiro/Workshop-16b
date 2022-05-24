@@ -486,7 +486,7 @@ public class BigController {
     private void userExistsAndLoggedIn(String userId) throws UserException {
         if (!getUserController().checkIfUserExists(userId) || !getUserController().checkIfUserIsLoggedIn(userId)) {
             my_log.warning("User doesn't exist or is not logged in");
-            throw new IllegalArgumentException("User doesn't exist or is not logged in");
+            throw new UserException("User doesn't exist or is not logged in");
 
         }
     }
