@@ -1,9 +1,11 @@
+import api from "../components/api";
 import Menu from "../components/menu";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import createNotification from "../components/norification";
 import { useRouter } from "next/router";
 import Footer from "../components/footer";
+import { Cookies } from "react-cookie";
 
 const HireOwnerToStore = () => {
   const router = useRouter();
@@ -36,13 +38,15 @@ const HireOwnerToStore = () => {
       newOfficialInput.ownerORmanager != ""
     ) {
       if (newOfficialInput.ownerORmanager == "Owner") {
-        const fakeOwner = {
-          name: newProduct.productName,
-          storeId: newProduct.productType,
+        const newOwner = {
+          storeId: window.location.href.split("/").pop(),
+          userIdGiving: Cookies.username,
+          userGettingPermission: newOfficialInput.username,
+          permissions: ["VIEW_STORE_HISTORY"], //TODO: Not sure how we can get permissions here (should be done in backend) 
         };
         await api
         .post(
-          `/owner/`, fakeOwner //TODO: Need the real path from backend
+          `/owner/`, newOwner
         )
         .then((res) => {
           if (res.status === 200) {
@@ -60,9 +64,11 @@ const HireOwnerToStore = () => {
         .catch((err) => console.log("err"));
       }
       else if (newOfficialInput.ownerORmanager == "Manager") {
+        const storeID = window.location.href.split("?").pop().slice(0, -1);
         await api
         .post(
-          `/manager/?storeId=${newOfficialInput.storename}&userIdGiving=${""}&UserGettingPermissionId=${newOfficialInput.username}`
+          `/manager/?storeId=${storeID}&userIdGiving=${Cookies.username}&UserGettingPermissionId=${newOfficialInput.username}`
+          // `/manager/?storeId=${storeID}&userIdGiving=${"daniel"}&UserGettingPermissionId=${newOfficialInput.username}` -> TODO: API doesn't work
         )
         .then((res) => {
           if (res.status === 200) {

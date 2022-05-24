@@ -55,6 +55,11 @@ const Login = () => {
             path: "/",
             sameSite: true,
           });
+          createNotification(
+            "success",
+            "Login done successfully",
+            () => router.push("/dashboard")
+          )();
           router.push("/dashboard");
         }
       })

@@ -1,3 +1,4 @@
+import api from "../components/api";
 import Menu from "../components/menu";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -18,7 +19,7 @@ const FireOwnerToStore = () => {
     if (newOfficialInput.username != "" && newOfficialInput.storename != "") {
       await api
         .post(
-          `owner/fire/?userId=${newOfficialInput.username}&storeId=${newOfficialInput.storename}` //TODO: Need the real path from backend
+          `owner/fire/?userId=${newOfficialInput.username}&storeId=${window.location.href.split("?").pop().slice(0, -1)}` //TODO: Need the real path from backend
         )
         .then((res) => {
           if (res.status === 200) {
