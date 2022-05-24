@@ -291,8 +291,8 @@ public class UserController implements NotificationReceiver {
                         removeGuest(guestId);
                         onlineUsers++;
                         if(checkIfAdmin(user_name))
-                            return "{id:".concat(user_name.concat(",\ntype:admin")).concat("}");
-                        return "{id:".concat(user_name.concat(",\ntype:subscriber")).concat("}");
+                            return "admin";
+                        return "subscriber";
                     }
                 }
                 else {
@@ -322,8 +322,8 @@ public class UserController implements NotificationReceiver {
                     get_subscriber(user_name).setLogged_in(true);
                     onlineUsers++;
                     if(checkIfAdmin(user_name))
-                        return "{id:".concat(user_name.concat(",\ntype:admin")).concat("}");
-                    return "{id:".concat(user_name.concat(",\ntype:subsriber")).concat("}");
+                        return "admin";
+                    return "subscriber";
                 }
             }
                 else {
@@ -386,7 +386,7 @@ public class UserController implements NotificationReceiver {
     public boolean checkIfUserExists(String userID) throws UserException {
         if (get_subscriber(userID) == null) {
              my_log.warning(" user "+userID + " doesn't exist");
-            throw new UserException(" user "+userID + " doesn't exist");
+             return false;
         }
         synchronized (get_subscriber(userID).getLock()) {
             return true;
