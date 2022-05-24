@@ -63,6 +63,10 @@ public class IdGenerator {
         return single_instance;
     }
 
+    public boolean isGuest(String userId) {
+        return userId.startsWith(GuestPrefix);
+    }
+
     public String getProductId(){
         productSuffix++;
         return productPrefix+(productSuffix-1L);

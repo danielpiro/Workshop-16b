@@ -49,11 +49,11 @@ class StoreTest {
 
             }
             @Override
-            public void sendComplaintTo(String senderId, List<String> userIds, ComplaintNotification complaintNotification) throws UserException {
+            public void sendComplaintToAdmins(String senderId,  ComplaintNotification complaintNotification) throws UserException {
 
             }
         };
-        NotificationManager.buildNotificationManager(r);
+        NotificationManager.ForTestsOnlyBuildNotificationManager(r);
         //managers1.add(userId2);
         //store2 =new Store("store2", "s2Id", managers1);
 

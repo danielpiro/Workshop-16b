@@ -38,52 +38,57 @@ public class StoreController {
         stores = new ConcurrentHashMap<String, Store>();
     }
 
-    public String openNewStore(String name,List<String> managers) throws NoPermissionException {
+    public String openNewStore(String name,List<String> owners) throws NoPermissionException {
 
-        if (managers.stream().anyMatch(this::checkIfGuest)) {
-            throw new NoPermissionException("guest cant cant open new store");
+        if (owners.stream().anyMatch(this::checkIfGuest)) {
+            Log.getLogger().warning("guest cant open new store");
+            throw new NoPermissionException("guest cant open new store");
         }
 
         String newId = IdGenerator.getInstance().getStoreId();
-        Store newStore= new Store(name, newId, managers);
+        Store newStore= new Store(name, newId, owners);
 
         stores.put(newId, newStore);
 
-
+        Log.getLogger().info("new store opened, storeId: "+newId+" by users: "+owners);
         return newId;
     }
 
     private boolean checkIfGuest(String userId){
-        return userId.startsWith("GuestID");
+        return IdGenerator.getInstance().isGuest(userId);
     }
 
-    public void addNewProduct(String storeId, String userId, String productName, float price, int supply, String category) throws NoPermissionException, SupplyManagementException {
+    public String addNewProduct(String storeId, String userId, String productName, float price, int supply, String category) throws NoPermissionException, SupplyManagementException {
         if(checkIfGuest(userId)){
+            Log.getLogger().warning(userId+" is guest and cant add new product");
             throw new NoPermissionException("guest cant add new product");
         }
         Store relevantStore = stores.get(storeId);
-        relevantStore.addNewProduct(userId, productName, price, supply, category);
+        return relevantStore.addNewProduct(userId, productName, price, supply, category);
 
     }
 
     public void unfreezeStore(String storeId, String userId) throws NoPermissionException, UserException, NotifyException {
         if(checkIfGuest(userId)){
+            Log.getLogger().warning(userId+" is guest and cant unfreeze store");
             throw new NoPermissionException("guest cant unfreeze store");
-        }
-        Store relevantStore = stores.get(storeId);
-        relevantStore.closeStore(userId);
-    }
-
-    public void freezeStore(String storeId, String userId) throws NoPermissionException, UserException, NotifyException {
-        if(checkIfGuest(userId)){
-            throw new NoPermissionException("guest cant freeze store");
         }
         Store relevantStore = stores.get(storeId);
         relevantStore.openStore(userId);
     }
 
+    public void freezeStore(String storeId, String userId) throws NoPermissionException, UserException, NotifyException {
+        if(checkIfGuest(userId)){
+            Log.getLogger().warning(userId+" is guest and cant freeze store");
+            throw new NoPermissionException("guest cant freeze store");
+        }
+        Store relevantStore = stores.get(storeId);
+        relevantStore.closeStore(userId);
+    }
+
     public List<StoreRoles> getInfoOnManagersOwners(String storeId, String userId) throws NoPermissionException {
         if(checkIfGuest(userId)){
+            Log.getLogger().warning(userId+" is guest and cant get info on managers/owners");
             throw new NoPermissionException("guest cant get info on managers/owners");
         }
         Store relevantStore = stores.get(storeId);
@@ -92,9 +97,11 @@ public class StoreController {
 
     public void deleteStore(String userId, String storeId) throws NoPermissionException {
         if(!IdGenerator.getInstance().checkIfAdmin(userId)){
+            Log.getLogger().warning(userId+" is not admin  and cant delete store");
             throw new NoPermissionException("only admin can delete store");
         }
         stores.remove(storeId);
+        Log.getLogger().info("store deleted, storeId: "+storeId+" by users: "+userId);
     }
 
 
@@ -118,7 +125,7 @@ public class StoreController {
         Store relevantStore = stores.get(storeId);
         relevantStore.removeRoleInHierarchy(userIdRemoving, UserAffectedId);
     }
-    public void removeRoleInHierarchy(String UserId) throws NoPermissionException{
+    public void removeRoleInHierarchy(String UserId) throws NoPermissionException, UserException, NotifyException {
         for (Store store : stores.values()) {
             store.removeRoleInHierarchy(UserId);
         }
@@ -131,10 +138,12 @@ public class StoreController {
     public void createOwner(String storeId, String userIdGiving, String UserGettingPermissionId, List<Permission> permissions) throws NoPermissionException, UserException, NotifyException {
         Store relevantStore = stores.get(storeId);
         relevantStore.createOwner(userIdGiving, UserGettingPermissionId, permissions);
+        Log.getLogger().info("new owner created, userId: "+UserGettingPermissionId+" by: "+userIdGiving+" in store:"+ storeId);
     }
     public void createManager(String storeId, String userIdGiving, String UserGettingPermissionId) throws NoPermissionException, UserException, NotifyException {
         Store relevantStore = stores.get(storeId);
         relevantStore.createManager(userIdGiving, UserGettingPermissionId);
+        Log.getLogger().info("new owner created, userId: "+UserGettingPermissionId+" by: "+userIdGiving+" in store:"+ storeId);
     }
 
     public InventoryProtector getInventoryProtector(String storeId){
@@ -177,9 +186,9 @@ public class StoreController {
         Store relevantStore =  stores.get(storeId);
         relevantStore.deletePolicy(userId,policyId);
     }
-    public List<Policy> getPolices(String storeId,String userId) throws NoPermissionException {
+    public List<Policy> getPolices(String storeId) throws NoPermissionException {
         Store relevantStore =  stores.get(storeId);
-        return relevantStore.getPolices(userId);
+        return relevantStore.getPolices();
     }
     public String addNewDiscount(String storeId,String userId, Discount discount) throws NoPermissionException {
         Store relevantStore =  stores.get(storeId);
@@ -287,5 +296,29 @@ public class StoreController {
             }
         }
         return false;
+    }
+
+    public Product getProductById(String storeId, String productId) throws Exception {
+        Store relevantStore = stores.get(storeId);
+        return relevantStore.getProduct(productId);
+    }
+
+    public List<Product> getProductById(String storeId, List<String> productId) {
+        Store relevantStore = stores.get(storeId);
+        return relevantStore.getAllProducts().stream().filter(
+                p->productId.stream().anyMatch(
+                        id-> p.getId().equals(id)
+                )
+        ).collect(Collectors.toList());
+    }
+
+    public Policy getPolicy(String storeId, String policyId) throws NoPermissionException {
+        Store relevantStore = stores.get(storeId);
+        for(Policy p : relevantStore.getPolices()){
+            if(p.getPolicyId().equals(policyId)){
+                return p;
+            }
+        }
+        throw new IllegalArgumentException("no policy with this name");
     }
 }

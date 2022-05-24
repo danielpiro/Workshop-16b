@@ -12,7 +12,7 @@ import com.example.demo.Store.StorePurchase.predicates.PredicateUserType;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
-// todo add the missing policies
+
 public class PolicyBuilder {
 
     /**

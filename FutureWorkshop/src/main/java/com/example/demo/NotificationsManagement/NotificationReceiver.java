@@ -7,5 +7,5 @@ import java.util.List;
 public interface NotificationReceiver {
 
     void sendNotificationTo(List<String> userIds,  StoreNotification storeNotification) throws UserException, UserException;
-    void sendComplaintTo(String senderId,List<String> userIds, ComplaintNotification complaintNotification) throws UserException;
+    void sendComplaintToAdmins(String senderId,ComplaintNotification complaintNotification) throws UserException;
 }

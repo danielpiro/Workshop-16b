@@ -133,10 +133,12 @@ public class Store implements getStoreInfo {
             throw new NoPermissionException("the user doesn't have a role in store ");
         }
     }
-    public void removeRoleInHierarchy(String userId) {
+    public void removeRoleInHierarchy(String userId) throws NotifyException, UserException {
         synchronized (StoreRoles) {
             for (StoreRoles roleUser : StoreRoles) {
                 removeRolesInStoreTo(roleUser.removeRole(userId));
+                StoreNotification sn = new StoreNotification(this,NotificationSubject.StoreAppointment,"your role removed"," your role in store name:"+storeName+" store Id"+storeId);
+                NotificationManager.getNotificationManager().sendNotificationTo(userId,sn);
             }
         }
     }
@@ -172,7 +174,7 @@ public class Store implements getStoreInfo {
     }
 
     public void addProductReview(String userId, String productId, String title, String body, float rating) throws  SupplyManagementException {
-        //TODO: check in history user Bought this product
+
         inventoryManager.addProductReview(productId, userId, title, body, rating);
 
         //updateRating();
@@ -225,7 +227,7 @@ public class Store implements getStoreInfo {
             throw new NoPermissionException("the user don't have this permission");
         }
         storeState = StoreState.CLOSED;
-        StoreNotification sn = new StoreNotification(this,NotificationSubject.StoreDeleted,"your store closed",userId+" closed your store name:"+storeName+" store Id"+storeId);
+        StoreNotification sn = new StoreNotification(this,NotificationSubject.StoreState,"your store closed",userId+" closed your store name:"+storeName+" store Id"+storeId);
         NotificationManager.getNotificationManager().sendNotificationTo(getRolesIds(),sn);
     }
 
@@ -234,7 +236,7 @@ public class Store implements getStoreInfo {
             throw new NoPermissionException("the user don't have this permission");
         }
         storeState = StoreState.ACTIVE;
-        StoreNotification sn = new StoreNotification(this,NotificationSubject.StoreDeleted,"your store opened",userId+" opened your store name:"+storeName+" store Id"+storeId);
+        StoreNotification sn = new StoreNotification(this,NotificationSubject.StoreState,"your store opened",userId+" opened your store name:"+storeName+" store Id"+storeId);
         NotificationManager.getNotificationManager().sendNotificationTo(getRolesIds(),sn);
     }
 
@@ -250,28 +252,23 @@ public class Store implements getStoreInfo {
         }
         inventoryManager.deletePolicy(policyId);
     }
-    public List<Policy> getPolices(String userId) throws NoPermissionException {
-        if(!checkPermission(userId, Permission.EDIT_STORE_POLICY)){
-            throw new NoPermissionException("the user don't have this permission");
-        }
+    public List<Policy> getPolices() throws NoPermissionException {
+
         return inventoryManager.getPolicies();
     }
     public String addNewDiscount(String userId, Discount discount) throws NoPermissionException {
-        if(!checkPermission(userId, Permission.EDIT_STORE_POLICY)){
+        if(!checkPermission(userId, Permission.EDIT_STORE_DISCOUNT)){
             throw new NoPermissionException("the user don't have this permission");
         }
         return inventoryManager.addNewDiscount(discount);
     }
     public void deleteDiscount(String userId, String discountId) throws NoPermissionException {
-        if(!checkPermission(userId, Permission.EDIT_STORE_POLICY)){
+        if(!checkPermission(userId, Permission.EDIT_STORE_DISCOUNT)){
             throw new NoPermissionException("the user don't have this permission");
         }
         inventoryManager.deleteDiscount(discountId);
     }
     public List<Discount> getDiscount(String userId) throws NoPermissionException {
-        if(!checkPermission(userId, Permission.EDIT_STORE_POLICY)){
-            throw new NoPermissionException("the user don't have this permission");
-        }
         return inventoryManager.getDiscounts();
     }
 
@@ -331,7 +328,7 @@ public class Store implements getStoreInfo {
          if(!checkPermission(userId, Permission.VIEW_STORE_HISTORY)){
              throw new NoPermissionException("the user don't have this permission");
          }
-        return History.getInstance().getStoreUserHistory(storeId);
+        return History.getInstance().getStoreHistory(storeId);
     }
     public List<PurchaseHistory> getStoreHistory(String userIdRequesting, String userId) throws NoPermissionException {
         if(!checkPermission(userIdRequesting, Permission.VIEW_STORE_HISTORY)){

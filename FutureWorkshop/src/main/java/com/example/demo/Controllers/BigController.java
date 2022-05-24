@@ -17,12 +17,16 @@ import com.example.demo.ExternalConnections.Payment.PaymentNames;
 import com.example.demo.ExternalConnections.Payment.Visa;
 import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.History.History;
+import com.example.demo.NotificationsManagement.ComplaintNotification;
 import com.example.demo.NotificationsManagement.NotificationManager;
+import com.example.demo.NotificationsManagement.NotificationSubject;
 import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.ProductsCategories;
 import com.example.demo.Store.StorePurchase.Discounts.Discount;
 import com.example.demo.Store.StorePurchase.Policies.Policy;
+import com.example.demo.Store.StorePurchase.Policies.PolicyBuilder;
+import com.example.demo.Store.StorePurchase.PurchasableProduct;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.User.Guest;
 import com.example.demo.User.Subscriber;
@@ -41,6 +45,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -52,6 +57,7 @@ import java.util.concurrent.CompletableFuture;
 public class BigController {
     private StoreController sc;
     private UserController us;
+    private PolicyBuilder policyBuilder;
     Log my_log = Log.getLogger();
 
 
@@ -62,6 +68,7 @@ public class BigController {
     public BigController() throws IOException, UserException {
         this.us = new UserController();
         this.sc = new StoreController();
+        this.policyBuilder = new PolicyBuilder();
         initiateExternalConnections();
         NotificationManager.buildNotificationManager(us);
         my_log.info("System Started");
@@ -81,8 +88,7 @@ public class BigController {
 //    }
 
 
-    //todo wrap ReturnValue with Response Entity
-    //todo guy change by 2.d Version 2.
+
 
 
     private List<String> initializeUsers() throws UserException {
@@ -90,8 +96,12 @@ public class BigController {
 
 
     }
+    public ReturnValue getUserStoreNotifications(@RequestParam String userId) throws UserException{
+        ReturnValue rv= new ReturnValue(true,"",getUserController().getUserStoreNotifications(userId));
+        return rv;
+    }
 
-    @GetMapping("/statistics/online")
+      @GetMapping("/statistics/online")
     public ReturnValue getOnlineUsersNum() throws UserException {
         ReturnValue rv = new ReturnValue(true, "", getUserController().getOnlineUsersNum());
         return rv;
@@ -102,6 +112,22 @@ public class BigController {
         ReturnValue rv = new ReturnValue(true, "", getUserController().getRegisteredUsersNum());
         return rv;
     }
+
+
+    public ReturnValue getAdminComplaintNotifications(@RequestParam String userId) throws UserException{
+        ReturnValue rv= new ReturnValue(true,"",getUserController().getAdminComplaintNotifications(userId));
+        return rv;
+    }
+
+    public ReturnValue AddSystemAdmins(@RequestParam String admin,@RequestParam String userToBecomeAdmin) throws UserException{
+        getUserController().addSystemAdmin(admin,userToBecomeAdmin);
+        ReturnValue rv = new ReturnValue(true, "", null);
+        return rv;
+    }
+
+
+
+
 
 
     @DeleteMapping("/users")
@@ -122,15 +148,13 @@ public class BigController {
     }
 
 
-    //todo remove guest_id from signup, it is always just creating.
-    //todo create login with guest id which takes the cart, also create one without guestid which gives a brand new cart.
 
     @PostMapping("/users/signup")
-    public ResponseEntity signup(@RequestParam String user_name,
+    public ReturnValue signup(@RequestParam String user_name,
                                  @RequestParam String password) throws UserException {
         my_log.info("user " + user_name + " is trying to sign up");
         ReturnValue rv = new ReturnValue(true, "", getUserController().sign_up(user_name, password));
-        return new ResponseEntity(rv, HttpStatus.OK);
+        return rv;
     }
 
     @PostMapping("/users/login")
@@ -141,7 +165,8 @@ public class BigController {
     }
 
     @PostMapping("/guest/login")
-    public ReturnValue login(@RequestParam String guestId, @RequestParam String userNameLogin,
+    public ReturnValue login(@RequestParam String guestId,
+                             @RequestParam String userNameLogin,
                              @RequestParam String password) throws UserException {
         ReturnValue rv = new ReturnValue(true, "", getUserController().login(guestId, userNameLogin, password));
         return rv;
@@ -153,12 +178,6 @@ public class BigController {
         ReturnValue rv = new ReturnValue(true, "", getUserController().logout(user_name));
         return rv;
 
-    }
-
-    @PostMapping("/market")
-    public ReturnValue sendComplaint(@RequestParam String userId, @RequestParam String StoreName, @RequestParam String complaint) {
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
     }
 
 
@@ -178,9 +197,7 @@ public class BigController {
         return rv;
     }
 
-    private Subscriber getSystemAdmin() {
-        return getUserController().getSystemAdmin();
-    }
+
 
 
     @PostMapping("/cart")
@@ -214,6 +231,9 @@ public class BigController {
 
     }
 
+    public boolean removePaymentService (PaymentNames payment){
+        return ExternalConnections.getInstance().removePayment(payment);
+    }
 
     @PostMapping("/cart/purchase")
     public ReturnValue purchaseCart(@RequestParam String user_id,
@@ -228,13 +248,14 @@ public class BigController {
 
     /// Store controller
 
+    //todo didnt return String!!!
     @PostMapping("/store")
     public ReturnValue addNewProductToStore(@Valid @RequestBody MockFullProduct mockProduct) throws NoPermissionException, SupplyManagementException, UserException {
         userExistsAndLoggedIn(mockProduct.getUserId());
 
-        getStoreController().addNewProduct(mockProduct.getStoreId(), mockProduct.getUserId(), mockProduct.getProductName(), mockProduct.getPrice(), mockProduct.getSupply(), mockProduct.getCategory());
+        String ans = getStoreController().addNewProduct(mockProduct.getStoreId(), mockProduct.getUserId(), mockProduct.getProductName(), mockProduct.getPrice(), mockProduct.getSupply(), mockProduct.getCategory());
 
-        ReturnValue rv = new ReturnValue(true, "", null);
+        ReturnValue rv = new ReturnValue(true, "", ans);
         return rv;
 
     }
@@ -280,6 +301,32 @@ public class BigController {
         ReturnValue rv = new ReturnValue(true, "", null);
         return rv;
     }
+
+    @GetMapping("/online/amount")
+    public ReturnValue getOnlineUsersNum() throws UserException {
+        getUserController().getOnlineUsersNum();
+        ReturnValue rv = new ReturnValue(true, "", null);
+        return rv;
+    }
+
+    @GetMapping("/registered/amount")
+    public ReturnValue getRegisteredUsersNum() throws UserException {
+        getUserController().getRegisteredUsersNum();
+        ReturnValue rv = new ReturnValue(true, "", null);
+        return rv;
+    }
+
+
+    /**
+     * @param storeId the store you want manager info about
+     * @param userId the requesting user, will make sure you are logged in
+     *               and that you have permission in the specific store
+     * @return
+     * @throws NoPermissionException
+     * @throws UserException
+     */
+
+    @GetMapping("/managers/info")
 
     public ReturnValue getInfoOnManagersOwners(@RequestParam String storeId,
                                                @RequestParam String userId) throws NoPermissionException, UserException {
@@ -462,19 +509,18 @@ public class BigController {
 
 
     @GetMapping("/search/name")
-    public CompletableFuture<ReturnValue> SearchProductsAccordingName(@RequestParam String userId, @RequestParam String productName) throws UserException {
+    public ReturnValue SearchProductsAccordingName(@RequestParam String userId, @RequestParam String productName) throws UserException {
         System.out.println("");
         if (!IsGuest(userId))
             userExistsAndLoggedIn(userId);
 
         ReturnValue rv = new ReturnValue(true, "", getStoreController().SearchProductsAccordingName(productName));
 
-        return CompletableFuture.completedFuture(rv);
+        return rv;
     }
 
 
     @GetMapping("/search/category")
-
     public List<Product> SearchProductsAccordingCategory(@RequestParam String userId, @Valid @RequestBody MockCategories mockCategories) throws UserException {
 
         if (!IsGuest(userId))
@@ -485,7 +531,6 @@ public class BigController {
 
 
     @GetMapping("/search/price")
-
     public List<Product> SearchProductsAccordingPrice(@RequestParam String userId, @RequestParam float fromPrice, @RequestParam float toPrice) throws UserException {
 
         if (!IsGuest(userId))
@@ -519,7 +564,7 @@ public class BigController {
     private void userExistsAndLoggedIn(String userId) throws UserException {
         if (!getUserController().checkIfUserExists(userId) || !getUserController().checkIfUserIsLoggedIn(userId)) {
             my_log.warning("User doesn't exist or is not logged in");
-            throw new IllegalArgumentException("User doesn't exist or is not logged in");
+            throw new UserException("User doesn't exist or is not logged in");
 
         }
     }
@@ -566,12 +611,22 @@ public class BigController {
         return rv;
     }
 
-    @GetMapping("/notification/complaint")
+        @GetMapping("/notification/complaint")
+        public ReturnValue sendComplaintToAdmins(@RequestParam String senderId,
+                                          @RequestParam String sentFrom, @RequestParam String subject, @RequestParam String title,@RequestParam String body) throws UserException {
+            // String sentFrom, NotificationSubject subject, String title, String body
+            //StoreForum, StoreAppointment, StoreState, StoreDeleted, DeliveryDidntArrive, PaymentFailed, ProductShortage
+            userExistsAndLoggedIn(senderId);
+            getUserController().sendComplaintToAdmins(senderId,new ComplaintNotification(sentFrom,NotificationSubject.valueOf(subject),title,body));
+            ReturnValue rv = new ReturnValue(true, "", null);
+            return rv;
+        }
+
+        @GetMapping("/notification/complaint")
     public ReturnValue readComplaintNotification(@RequestParam String userId,
                                                  @RequestParam int complaintNotificaionId) throws UserException {
         userExistsAndLoggedIn(userId);
-        getUserController().readComplaintNotification(userId, complaintNotificaionId);
-        ReturnValue rv = new ReturnValue(true, "", null);
+        ReturnValue rv = new ReturnValue(true, "",getUserController().readComplaintNotification(userId, complaintNotificaionId));
         return rv;
     }
 
@@ -579,22 +634,97 @@ public class BigController {
     public ReturnValue readStoreNotification(@RequestParam String userId,
                                              @RequestParam int storeNotificaionId) throws UserException {
         userExistsAndLoggedIn(userId);
-        getUserController().readStoreNotification(userId, storeNotificaionId);
-        ReturnValue rv = new ReturnValue(true, "", null);
+        ReturnValue rv = new ReturnValue(true, "",getUserController().readStoreNotification(userId, storeNotificaionId));
         return rv;
     }
 
-    //todo need to use policyBuilder to create policy
-    public String addNewPolicy(String storeId, String userId, Policy policy) throws NoPermissionException, UserException {
-        if (!getUserController().checkIfUserExists(userId) || !getUserController().checkIfUserIsLoggedIn(userId)) {
-            my_log.warning("User doesn't exist or is not logged in or is not logged in");
-            return null;
-        }
-        return sc.addNewPolicy(storeId, userId, policy);
+
+    @PostMapping("/policy/add")
+    public ReturnValue addNewPolicy(@RequestParam String storeId,@RequestParam String userId,@RequestParam String typeOfPolicy,@RequestBody MockPolicy mockPolicy) throws Exception {
+        Policy policy;
+       userExistsAndLoggedIn(userId);
+       switch (typeOfPolicy) {
+           case "CartPolicy":
+               policy = policyBuilder.newCartPolicy(mockPolicy.getNumOfProducts());
+               break;
+           case "CategoryPolicy":
+               policy = policyBuilder.newCategoryPolicy(mockPolicy.getCategories());
+               break;
+           case "ProductWithoutAmountPolicy":
+               //todo get products from guy
+               List<PurchasableProduct> lp = new LinkedList<>();
+               for(Product p :getProductById(storeId,mockPolicy.getProducts() )){
+                   PurchasableProduct pp = p;
+                   lp.add(pp);
+           }
+               policy = policyBuilder.newProductWithoutAmountPolicy(lp);
+               break;
+           case "ProductWithAmountPolicy":
+               HashMap<PurchasableProduct,Integer> mp = new HashMap<>();
+               for(String s :mockPolicy.getProductsAmount().keySet()){
+
+                   Product product=  (Product) getProductById(storeId ,s).getValue();
+                   PurchasableProduct pp = product;
+                   mp.put(pp,mockPolicy.getProductsAmount().get(s));
+               }
+               policy = policyBuilder.newProductWithAmountPolicy(mp);
+               break;
+           case "UserIdPolicy":
+               policy = policyBuilder.newUserIdPolicy(mockPolicy.getUserIds());
+               break;
+           case "UseAgePolicy":
+               policy = policyBuilder.newUseAgePolicy(mockPolicy.getStartAge(),mockPolicy.getEndAge());
+               break;
+           case "OnHoursOfTheDayPolicy":
+               policy = policyBuilder.newOnHoursOfTheDayPolicy(mockPolicy.getStartTime(),mockPolicy.getEndTime());
+               break;
+           case "OnDaysOfTheWeekPolicy":
+               policy = policyBuilder.newOnDaysOfTheWeekPolicy(mockPolicy.getStartTime(),mockPolicy.getEndTime());
+               break;
+           case "OnDayOfMonthPolicy":
+               policy = policyBuilder.newOnDayOfMonthPolicy(mockPolicy.getStartTime(),mockPolicy.getEndTime());
+               break;
+           case "PricePredicate":
+               policy = policyBuilder.newPricePredicate(mockPolicy.getPrice());
+               break;
+           default:
+               throw new IllegalStateException("Unexpected type of policy: " + typeOfPolicy);
+       }
+
+        ReturnValue rv = new ReturnValue(true, "", sc.addNewPolicy(storeId, userId, policy));
+        return rv;
     }
 
-    public String addNewDiscount(String storeId, String userId, Discount discount) throws NoPermissionException, UserException {// use policyBuilder to create policy
-        if (!getUserController().checkIfUserExists(userId) || !getUserController().checkIfUserIsLoggedIn(userId)) {
+    @PostMapping("/policy/combine")
+    public ReturnValue combineTwoPolicy(@RequestParam String storeId,
+                                   @RequestParam String userId,
+                                   @RequestParam String typeOfCombination,
+                                   @RequestParam String policyID1 ,
+                                   @RequestParam String policyID2) throws NoPermissionException, UserException {
+
+        userExistsAndLoggedIn(userId);
+        Policy policy;
+
+        switch (typeOfCombination) {
+            case "And":
+                policy=policyBuilder.AndGatePolicy(getPolicy(storeId,policyID1),getPolicy(storeId,policyID2));
+                break;
+            case "Or":
+                policy=policyBuilder.OrGatePolicy(getPolicy(storeId,policyID1),getPolicy(storeId,policyID2));
+                break;
+            case "Cond":
+                policy=policyBuilder.ConditioningGatePolicy(getPolicy(storeId,policyID1),getPolicy(storeId,policyID2));
+                break;
+            default:
+                throw new IllegalStateException("Unexpected type of policy: " + typeOfCombination);
+        }
+        ReturnValue rv = new ReturnValue(true, "", sc.addNewPolicy(storeId, userId, policy));
+        return rv;
+    }
+
+
+    public String addNewDiscount(String storeId,String userId, Discount discount) throws NoPermissionException, UserException {// use policyBuilder to create policy
+        if(!getUserController().checkIfUserExists(userId)||!getUserController().checkIfUserIsLoggedIn(userId)){
             my_log.warning("User doesn't exist or is not logged in or is not logged in");
             return null;
         }
@@ -612,12 +742,19 @@ public class BigController {
         return sc.checkIfUserHaveRoleInAnyStore(userId);
     }
 
-    public List<Permission> getUserPermissionInStore(String StoreId, String userId) {
-        return sc.getUserPermission(StoreId, userId);
+
+    @GetMapping("/store/user/Permission")
+    public ReturnValue getUserPermissionInStore(@RequestParam String StoreId,
+                                                     @RequestParam String userId){
+
+        ReturnValue rv = new ReturnValue(true, "", sc.getUserPermission(StoreId,userId));
+        return rv;
     }
 
-    public String getTitleInStore(String StoreId, String userIf) {
-        return sc.getTitle(StoreId, userIf);
+    @GetMapping("/store/title")
+    public ReturnValue getTitleInStore(String StoreId, String userIf){
+        ReturnValue rv = new ReturnValue(true, "", sc.getTitle(StoreId,userIf));
+        return rv;
     }
 
     @DeleteMapping("/policy")
@@ -638,7 +775,8 @@ public class BigController {
         userExistsAndLoggedIn(userId);
         ReturnValue rv = new ReturnValue(true, "", sc.getTitle(StoreId, userIf));
         return rv;
-    }
+      }
+
 
     public List<Discount> getDiscounts(String storeId, String userId) throws NoPermissionException, UserException {
         if (!getUserController().checkIfUserExists(userId) || !getUserController().checkIfUserIsLoggedIn(userId)) {
@@ -649,11 +787,13 @@ public class BigController {
     }
 
     @GetMapping("/policy")
-    public ReturnValue getPolices(@RequestParam String storeId,
-                                  @RequestParam String userId) throws NoPermissionException, UserException {
-        userExistsAndLoggedIn(userId);
-        ReturnValue rv = new ReturnValue(true, "", sc.getPolices(storeId, userId));
+    public ReturnValue getPolices(@RequestParam String storeId) throws NoPermissionException, UserException {
+        ReturnValue rv = new ReturnValue(true, "", sc.getPolices(storeId));
         return rv;
+    }
+    private Policy getPolicy( String storeId, String policyId) throws NoPermissionException, UserException {
+        return sc.getPolicy(storeId, policyId);
+
     }
 
 
@@ -663,8 +803,21 @@ public class BigController {
         ReturnValue rv = new ReturnValue(true, "", sc.getAllStoresByStoreName(name));
         return rv;
     }
+    public ReturnValue getProductById(String storeId, String productId) throws Exception {
 
-    private UserController getUserController() {
+        ReturnValue rv = new ReturnValue(true, "", sc.getProductById(storeId,productId));
+        return rv;
+    }
+    private List<Product> getProductById(String storeId, List<String> productId)  {
+        return sc.getProductById(storeId,productId);
+
+    }
+
+    public List<Guest> getGuest_list() {
+        return us.getGuest_list();
+    }
+
+    public UserController getUserController() {
         return us;
     }
 

@@ -18,6 +18,9 @@ public class NotificationManager {//todo add tests
         if (systemNotifyManager == null)
             systemNotifyManager = new NotificationManager(receiver);
     }
+    public static void ForTestsOnlyBuildNotificationManager( NotificationReceiver receiver){
+            systemNotifyManager = new NotificationManager(receiver);
+    }
     public static NotificationManager getNotificationManager() throws NotifyException {
         if (systemNotifyManager != null)
             return systemNotifyManager;
@@ -32,8 +35,8 @@ public class NotificationManager {//todo add tests
         userIds.add(userId);
         receiver.sendNotificationTo( userIds, storeNotification);
     }
-    public void sendComplaintTo(String senderId,List<String> userIds, ComplaintNotification ComplaintNotification) throws UserException {
-        receiver.sendComplaintTo( senderId,userIds, ComplaintNotification);
+    public void sendComplaintTo(String senderId, ComplaintNotification ComplaintNotification) throws UserException {
+        receiver.sendComplaintToAdmins( senderId,ComplaintNotification);
     }
 
 

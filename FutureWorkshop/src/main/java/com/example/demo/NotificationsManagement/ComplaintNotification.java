@@ -41,4 +41,5 @@ public class ComplaintNotification  {
     public ComplaintNotification getDeepCopy(){
         return new ComplaintNotification(sentFrom,subject,Title,Body);
     }
+    public int getId(){return id;}
 }

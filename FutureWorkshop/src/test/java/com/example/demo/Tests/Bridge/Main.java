@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException, UserException {
+    public static void main(String[] args) throws Exception {
         System.out.println("Unit Tests running...");
         Real real = new Real(new BigController());
         real.searchProduct("dan","rotman");
