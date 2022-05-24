@@ -614,7 +614,7 @@ public class BigController {
             return rv;
         }
 
-        @GetMapping("/notification/complaint")
+        @GetMapping("/notification/read/complaint")
     public ReturnValue readComplaintNotification(@RequestParam String userId,
                                                  @RequestParam int complaintNotificaionId) throws UserException {
         userExistsAndLoggedIn(userId);
