@@ -16,7 +16,9 @@ import com.example.demo.ExternalConnections.Payment.PaymentNames;
 import com.example.demo.ExternalConnections.Payment.Visa;
 import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.History.History;
+import com.example.demo.NotificationsManagement.ComplaintNotification;
 import com.example.demo.NotificationsManagement.NotificationManager;
+import com.example.demo.NotificationsManagement.NotificationSubject;
 import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.ProductsCategories;
@@ -90,9 +92,32 @@ public class BigController {
 
 
     }
+    public ReturnValue getUserStoreNotifications(@RequestParam String userId) throws UserException{
+        ReturnValue rv= new ReturnValue(true,"",getUserController().getUserStoreNotifications(userId));
+        return rv;
+    }
 
+    public ReturnValue getAdminComplaintNotifications(@RequestParam String userId) throws UserException{
+        ReturnValue rv= new ReturnValue(true,"",getUserController().getAdminComplaintNotifications(userId));
+        return rv;
+    }
 
+    public ReturnValue AddSystemAdmins(@RequestParam String admin,@RequestParam String userToBecomeAdmin) throws UserException{
+        getUserController().addSystemAdmin(admin,userToBecomeAdmin);
+        ReturnValue rv = new ReturnValue(true, "", null);
+        return rv;
+    }
 
+    public ReturnValue getOnlineUsersNum() throws UserException {
+        ReturnValue rv = new ReturnValue(true, "",  getUserController().getOnlineUsersNum());
+        return rv;
+    }
+
+    public ReturnValue getRegisteredUsersNum() throws UserException {
+        getUserController().getRegisteredUsersNum();
+        ReturnValue rv = new ReturnValue(true, "",getUserController().getRegisteredUsersNum());
+        return rv;
+    }
 
 
     @DeleteMapping("/users")
@@ -149,12 +174,6 @@ public class BigController {
 
     }
 
-    @PostMapping("/market")
-    public ReturnValue sendComplaint(@RequestParam String userId, @RequestParam String StoreName, @RequestParam String complaint) {
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-    }
-
 
     @GetMapping("/market/guest")
     public ReturnValue addGuest() {
@@ -172,9 +191,7 @@ public class BigController {
         return rv;
     }
 
-    private Subscriber getSystemAdmin() {
-        return getUserController().getSystemAdmin();
-    }
+
 
 
     @PostMapping("/cart")
@@ -522,13 +539,28 @@ public class BigController {
         ReturnValue rv = new ReturnValue(true, "", getUserController().getPermissionType(username));
         return rv;
     }
-
-    @GetMapping("/notification/complaint")
+   // String sentFrom, NotificationSubject subject, String title, String body
+        @GetMapping("/notification/complaint")
+        public ReturnValue sendComplaintToAdmins(@RequestParam String senderId,
+                                          @RequestParam String sentFrom, @RequestParam String subject, @RequestParam String title,@RequestParam String body) throws UserException {
+            userExistsAndLoggedIn(senderId);
+            if(subject.equals("StoreForum"))
+            getUserController().sendComplaintToAdmins(senderId,new ComplaintNotification(sentFrom,NotificationSubject.StoreForum,title,body));
+            else if(subject.equals("StoreAppointment"))
+                getUserController().sendComplaintToAdmins(senderId,new ComplaintNotification(sentFrom,NotificationSubject.StoreAppointment,title,body));
+            else if(subject.equals("StoreState"))
+                getUserController().sendComplaintToAdmins(senderId,new ComplaintNotification(sentFrom,NotificationSubject.StoreState,title,body));
+            else if(subject.equals("StoreDeleted"))
+                getUserController().sendComplaintToAdmins(senderId,new ComplaintNotification(sentFrom,NotificationSubject.StoreDeleted,title,body));
+            ReturnValue rv = new ReturnValue(true, "", null);
+            return rv;
+        }
+    //StoreForum, StoreAppointment, StoreState, StoreDeleted
+        @GetMapping("/notification/complaint")
     public ReturnValue readComplaintNotification(@RequestParam String userId,
                                                  @RequestParam int complaintNotificaionId) throws UserException {
         userExistsAndLoggedIn(userId);
-        getUserController().readComplaintNotification(userId, complaintNotificaionId);
-        ReturnValue rv = new ReturnValue(true, "", null);
+        ReturnValue rv = new ReturnValue(true, "",getUserController().readComplaintNotification(userId, complaintNotificaionId));
         return rv;
     }
 
@@ -536,8 +568,7 @@ public class BigController {
     public ReturnValue readStoreNotification(@RequestParam String userId,
                                              @RequestParam int storeNotificaionId) throws UserException {
         userExistsAndLoggedIn(userId);
-        getUserController().readStoreNotification(userId, storeNotificaionId);
-        ReturnValue rv = new ReturnValue(true, "", null);
+        ReturnValue rv = new ReturnValue(true, "",getUserController().readStoreNotification(userId, storeNotificaionId));
         return rv;
     }
 
