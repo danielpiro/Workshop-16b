@@ -293,3 +293,51 @@ May 24, 2022 10:48:36 AM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user aaaa is already logged in
 May 24, 2022 11:59:25 AM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user could not remove product ProductID_35 because cart does not contain that store
+May 24, 2022 2:19:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user undefined doesn't exist
+May 24, 2022 2:20:55 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user undefined doesn't exist
+May 24, 2022 2:21:47 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user undefined doesn't exist
+May 24, 2022 2:49:45 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user pam123 already exists in the system - failed to sign up
+May 24, 2022 2:51:58 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user pam123 already exists in the system - failed to sign up
+May 24, 2022 2:52:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user pam123 already exists in the system - failed to sign up
+May 24, 2022 2:52:46 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user pam123 already exists in the system - failed to sign up
+May 24, 2022 2:57:50 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user pam123 doesn't exist
+May 24, 2022 2:58:50 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user pam123 doesn't exist
+May 24, 2022 2:58:54 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user pam123 doesn't exist
+May 24, 2022 2:59:03 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user pam123 doesn't exist
+May 24, 2022 2:59:10 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user pam123 doesn't exist
+May 24, 2022 2:59:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user pam123 already exists in the system - failed to sign up
+May 24, 2022 2:59:48 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user pam123 already exists in the system - failed to sign up
+May 24, 2022 2:59:53 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user pam123 already exists in the system - failed to sign up
+May 24, 2022 3:03:32 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user pam123 already exists in the system - failed to sign up
+May 24, 2022 3:03:53 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user pam123 already exists in the system - failed to sign up
+May 24, 2022 3:05:36 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user pam123 already exists in the system - failed to sign up
+May 24, 2022 3:05:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user pam123 already exists in the system - failed to sign up
+May 24, 2022 3:09:02 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user pam123 already exists in the system - failed to sign up
+May 24, 2022 3:10:50 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user pam123 already exists in the system - failed to sign up
+May 24, 2022 3:11:17 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user pam123 already exists in the system - failed to sign up
+May 24, 2022 3:12:00 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user pam123 already exists in the system - failed to sign up
+May 24, 2022 3:12:08 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user pam123 already exists in the system - failed to sign up
