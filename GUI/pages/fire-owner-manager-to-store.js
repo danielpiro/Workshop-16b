@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import createNotification from "../components/norification";
 import { useRouter } from "next/router";
 import Footer from "../components/footer";
+import { useCookies } from "react-cookie";
 
 const FireOwnerToStore = () => {
   const router = useRouter();
@@ -13,6 +14,13 @@ const FireOwnerToStore = () => {
     username: "",
     storename: "",
   });
+
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "username",
+    "password",
+    "userId",
+    "type",
+  ]);
 
   const onHiringOfficial = async (e) => {
     e.preventDefault();

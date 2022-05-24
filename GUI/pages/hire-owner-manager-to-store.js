@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import createNotification from "../components/norification";
 import { useRouter } from "next/router";
 import Footer from "../components/footer";
-import { Cookies } from "react-cookie";
+import { useCookies } from "react-cookie";
 
 const HireOwnerToStore = () => {
   const router = useRouter();
@@ -15,6 +15,13 @@ const HireOwnerToStore = () => {
     storename: "",
     ownerORmanager: "Manager/Owner",
   });
+
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "username",
+    "password",
+    "userId",
+    "type",
+  ]);
 
   const setManager = () => {
     setNewOfficialInput((prevState) => ({
@@ -67,8 +74,7 @@ const HireOwnerToStore = () => {
         const storeID = window.location.href.split("?").pop().slice(0, -1);
         await api
         .post(
-          `/manager/?storeId=${storeID}&userIdGiving=${Cookies.username}&UserGettingPermissionId=${newOfficialInput.username}`
-          // `/manager/?storeId=${storeID}&userIdGiving=${"daniel"}&UserGettingPermissionId=${newOfficialInput.username}` -> TODO: API doesn't work
+          `/manager/?storeId=${storeID}&userIdGiving=${cookies.username}&UserGettingPermissionId=${newOfficialInput.username}`
         )
         .then((res) => {
           if (res.status === 200) {
