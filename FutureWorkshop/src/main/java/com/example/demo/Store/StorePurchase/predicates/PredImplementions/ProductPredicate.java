@@ -44,16 +44,43 @@ public class ProductPredicate implements PolicyPredicate, DiscountPredicate {
                 ));
     }
     public boolean productWithAmount(List<PurchasableProduct> ProductAmount){
+        boolean output = true;
         for (PurchasableProduct p1:ProductAmount){
             for(PurchasableProduct p2: products.keySet()){
                 if(p1.getId().equals(p2.getId()) && p1.getAmount()<p2.getAmount()){
-                    return false;
+                    output = false;
                 }
             }
         }
-        return true;
+        return output;
 
     }
 
 
+    @Override
+    public boolean predicateStandsForProduct(PurchasableProduct ProductAmount) {
+        switch (type){
+            case General:
+                return productWithoutAmount(ProductAmount);
+            case Products_Above_Amount:
+                return productWithAmount(ProductAmount);
+        }
+        throw new RuntimeException("PredicateProductType doesn't exist ");
+    }
+
+    private boolean productWithAmount(PurchasableProduct productAmount) {
+
+        for(PurchasableProduct p2: products.keySet()){
+            if(productAmount.getId().equals(p2.getId()) && productAmount.getAmount()<p2.getAmount()){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean productWithoutAmount(PurchasableProduct productAmount) {
+        return products.keySet().stream().anyMatch(
+                productsCantBuy -> productsCantBuy.getId().equals(productAmount.getId())
+        );
+    }
 }

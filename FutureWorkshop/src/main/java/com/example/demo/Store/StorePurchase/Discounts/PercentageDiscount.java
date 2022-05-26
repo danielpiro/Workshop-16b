@@ -16,6 +16,9 @@ public class PercentageDiscount implements Discount{//simple discount, for examp
     private DiscountPredicate discountOnPredicate;//discount on what "discount on all store/category/product/products/price"
 
     public PercentageDiscount(float discountPercent, DiscountPredicate discountOnPredicate) {
+        if(discountPercent<0 || discountPercent >100){
+            throw new IllegalArgumentException();
+        }
         this.discountPercent = discountPercent;
         this.discountOnPredicate = discountOnPredicate;
         id = IdGenerator.getInstance().getDiscountId();
@@ -26,8 +29,8 @@ public class PercentageDiscount implements Discount{//simple discount, for examp
         float newPrice;
         for (PurchasableProduct pp:productsAmount){
 
-            if(discountOnPredicate.predicateStands(productsAmount,externalConnectionHolder,userInfo)) {
-                newPrice = pp.getPrice() * (discountPercent / 100);
+            if(discountOnPredicate.predicateStandsForProduct(pp)) {
+                newPrice = pp.getPrice() * ((100-discountPercent) / 100);
             }
             else {
                 newPrice =  pp.getPrice();
@@ -35,7 +38,6 @@ public class PercentageDiscount implements Discount{//simple discount, for examp
             productsAfterDiscount.add(new DiscountBox(pp, newPrice, pp.getAmount()));
 
         }
-
         return productsAfterDiscount;
     }
 

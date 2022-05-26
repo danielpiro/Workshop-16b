@@ -20,4 +20,8 @@ public class AlwaysTrue implements PolicyPredicate, DiscountPredicate {
     }
 
 
+    @Override
+    public boolean predicateStandsForProduct(PurchasableProduct ProductAmount) {
+        return true;
+    }
 }

@@ -10,6 +10,10 @@ import com.example.demo.Store.StorePurchase.predicates.PolicyPredicate;
 
 import java.util.List;
 
+/**
+ * for predicate: checks if price of cart is higher than "price"
+ * for discount: checks if price of product is higher than "price"
+ */
 public class PricePredicate implements DiscountPredicate, PolicyPredicate {
     private float price;
 
@@ -24,5 +28,10 @@ public class PricePredicate implements DiscountPredicate, PolicyPredicate {
             totalPrice += (pp.getPrice()*(float) pp.getAmount());
         }
         return price<totalPrice;
+    }
+
+    @Override
+    public boolean predicateStandsForProduct(PurchasableProduct ProductAmount) {
+        return price<ProductAmount.getPrice();
     }
 }

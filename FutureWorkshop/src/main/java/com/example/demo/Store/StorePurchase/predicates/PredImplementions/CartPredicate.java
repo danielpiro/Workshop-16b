@@ -9,6 +9,9 @@ import com.example.demo.Store.StorePurchase.predicates.PolicyPredicate;
 
 import java.util.List;
 
+/**
+ * checks number of product in cart
+ */
 public class CartPredicate implements PolicyPredicate {
     private int numOfProducts;
 

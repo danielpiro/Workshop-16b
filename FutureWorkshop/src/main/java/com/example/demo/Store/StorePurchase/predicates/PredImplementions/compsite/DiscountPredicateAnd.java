@@ -1,4 +1,4 @@
-package com.example.demo.Store.StorePurchase.predicates.PredImplementions;
+package com.example.demo.Store.StorePurchase.predicates.PredImplementions.compsite;
 
 import com.example.demo.ExternalConnections.ExternalConnectionHolder;
 import com.example.demo.ShoppingCart.UserInfo;
@@ -7,6 +7,7 @@ import com.example.demo.Store.StorePurchase.predicates.DiscountPredicate;
 
 
 import java.util.List;
+
 
 public class DiscountPredicateAnd implements DiscountPredicate {
     DiscountPredicate left;
@@ -17,8 +18,10 @@ public class DiscountPredicateAnd implements DiscountPredicate {
         this.right = right;
     }
 
+
+
     @Override
-    public boolean predicateStands(List<PurchasableProduct> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) {
-        return left.predicateStands(ProductAmount,externalConnectionHolder,userInfo) && right.predicateStands(ProductAmount,externalConnectionHolder,userInfo);
+    public boolean predicateStandsForProduct(PurchasableProduct ProductAmount) {
+        return left.predicateStandsForProduct(ProductAmount) && right.predicateStandsForProduct(ProductAmount);
     }
 }

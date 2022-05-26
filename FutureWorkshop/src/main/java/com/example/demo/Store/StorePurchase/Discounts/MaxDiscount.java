@@ -24,6 +24,7 @@ public class MaxDiscount implements Discount{
     public List<PurchasableProduct> applyDiscount(List<PurchasableProduct> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) {
         List<PurchasableProduct> leftAfterDiscount = left.applyDiscount(ProductAmount,externalConnectionHolder,userInfo);
         List<PurchasableProduct> rightAfterDiscount = right.applyDiscount(ProductAmount,externalConnectionHolder,userInfo);
+
         float leftTotalPrice = 0 ;
         for(PurchasableProduct pp: leftAfterDiscount){
             leftTotalPrice += (pp.getPrice()*(float) pp.getAmount());
