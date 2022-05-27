@@ -5,8 +5,8 @@ const ChangePolicy = () => {
   const [policyType, setPolicyType] = useState("PolicyType");
   const [combinationType, setCombinationType] = useState("And/Or/Xor");
   const [preds, setPreds] = useState({
-    pred1: "Choose predict #1",
-    pred2: "Choose predict #2",
+    pred1: "Choose predicate #1",
+    pred2: "Choose predicate #2",
   });
   const [predsFeatures1, setPredsFeature1] = useState({
     allowORforbid: "Allow/Forbid",
@@ -43,7 +43,12 @@ const ChangePolicy = () => {
     console.log(policyType);
   };
 
-  const onCreatePredicate = (e) => {
+  const onCreatePredicate1 = (e) => {
+    e.preventDefault();
+    console.log("creating new predicate");
+  };
+
+  const onCreatePredicate2 = (e) => {
     e.preventDefault();
     console.log("creating new predicate");
   };
@@ -214,6 +219,20 @@ const ChangePolicy = () => {
                     onClick={() =>
                       setPreds((prevState) => ({
                         ...prevState,
+                        pred1: "",
+                      }))
+                    }
+                  >
+                    {/* Empty choice */}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="dropdown-item"
+                    href="#"
+                    onClick={() =>
+                      setPreds((prevState) => ({
+                        ...prevState,
                         pred1: "Create new predicate",
                       }))
                     }
@@ -255,7 +274,14 @@ const ChangePolicy = () => {
                   <a
                     className="dropdown-item"
                     href="#"
-                    onClick={() => setCombinationType("None of the above")}
+                    onClick={() => {
+                      setCombinationType("None of the above");
+                      setPreds((prevState) => ({
+                        ...prevState,
+                        pred2: "",
+                        }))
+                      }  
+                    }
                   >
                     None of the above
                   </a>
@@ -289,7 +315,7 @@ const ChangePolicy = () => {
                 </li>
               </ul>
             </div>
-            <div className="dropdown m-1">
+            <div className="dropdown m-1" style={{display: combinationType=="None of the above"? "none" : "block"}}>
               <button
                 className="btn btn-secondary dropdown-toggle"
                 type="button"
@@ -303,6 +329,20 @@ const ChangePolicy = () => {
                 className="dropdown-menu"
                 aria-labelledby="dropdownMenuButton1"
               >
+                <li>
+                  <a
+                    className="dropdown-item"
+                    href="#"
+                    onClick={() =>
+                      setPreds((prevState) => ({
+                        ...prevState,
+                        pred2: "",
+                      }))
+                    }
+                  >
+                    {/* Empty choice */}
+                  </a>
+                </li>
                 <li>
                   <a
                     className="dropdown-item"
@@ -1497,7 +1537,24 @@ const ChangePolicy = () => {
                 </div>
               </div>
             </div>
-
+            <div
+              className="row m-1"
+              style={{
+                display:
+                preds.pred1 == "Create new predicate" &&
+                combinationType != ""
+                    ? "block"
+                    : "none",
+              }}
+            >
+              <button
+                className="btn btn-primary mr-lg-3"
+                style={{ width: "100%" }}
+                onClick={onCreatePredicate1}
+              >
+                Create Predicate 1
+              </button>
+            </div>
             <div
               className="row"
               style={{
@@ -2664,8 +2721,8 @@ const ChangePolicy = () => {
               className="row m-1"
               style={{
                 display:
-                  preds.pred1 == "Create new predicate" ||
-                  preds.pred2 == "Create new predicate"
+                preds.pred2 == "Create new predicate" &&
+                combinationType != ""
                     ? "block"
                     : "none",
               }}
@@ -2673,9 +2730,9 @@ const ChangePolicy = () => {
               <button
                 className="btn btn-primary mr-lg-3"
                 style={{ width: "100%" }}
-                onClick={onUpdatePolicy}
+                onClick={onCreatePredicate2}
               >
-                Update Policy
+                Create Predicate 2
               </button>
             </div>
           </div>
@@ -2686,9 +2743,9 @@ const ChangePolicy = () => {
           <button
             className="btn btn-primary mr-lg-3"
             style={{ width: "100%" }}
-            onClick={onCreatePredicate}
+            onClick={onUpdatePolicy}
           >
-            Create Predicate
+            Update Policy
           </button>
         </div>
       </div>
