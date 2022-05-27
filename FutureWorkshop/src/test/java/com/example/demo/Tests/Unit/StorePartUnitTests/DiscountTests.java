@@ -7,13 +7,10 @@ import com.example.demo.ExternalConnections.ExternalConnectionHolder;
 import com.example.demo.ExternalConnections.Payment.PaymentNames;
 import com.example.demo.ShoppingCart.UserInfo;
 import com.example.demo.Store.InventoryManager;
-import com.example.demo.Store.Product;
 import com.example.demo.Store.ProductsCategories;
 import com.example.demo.Store.StorePurchase.Discounts.ConditionalPercentageDiscount;
 import com.example.demo.Store.StorePurchase.Discounts.Discount;
 import com.example.demo.Store.StorePurchase.Discounts.PercentageDiscount;
-import com.example.demo.Store.StorePurchase.Policies.Policy;
-import com.example.demo.Store.StorePurchase.Policies.PolicyBuilder;
 import com.example.demo.Store.StorePurchase.PurchasableProduct;
 import com.example.demo.Store.StorePurchase.predicates.DiscountPredicate;
 import com.example.demo.Store.StorePurchase.predicates.PolicyPredicate;
@@ -21,9 +18,9 @@ import com.example.demo.Store.StorePurchase.predicates.PredImplementions.*;
 import com.example.demo.Store.StorePurchase.predicates.PredImplementions.compsite.DiscountPredicateAnd;
 import com.example.demo.Store.StorePurchase.predicates.PredImplementions.compsite.DiscountPredicateOr;
 import com.example.demo.Store.StorePurchase.predicates.PredImplementions.compsite.PolicyPredicateAnd;
+import com.example.demo.Store.StorePurchase.predicates.PredImplementions.compsite.PolicyPredicateXor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.testng.annotations.Ignore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -148,6 +145,7 @@ public class DiscountTests {
             category.add(ProductsCategories.Handmade);
             DiscountPredicate discountPredicate = new CategoryPredicate(category);
             Discount d =  new PercentageDiscount(20, discountPredicate);
+
             HashMap<String, Integer> productsAmount = getProductsAmountHashMap();
             float priceBeforeDiscount = addProductsToCartInventoryManagerAndApplyDiscount(invMan, productsAmount);
             invMan.purchaseSuccessful(productsAmount,false);
@@ -171,6 +169,7 @@ public class DiscountTests {
             category.add(ProductsCategories.Apps$Games);
             DiscountPredicate discountPredicate = new CategoryPredicate(category);
             Discount d =  new PercentageDiscount(50, discountPredicate);
+
             HashMap<String, Integer> productsAmount = getProductsAmountHashMap();
 
             invMan.purchaseSuccessful(productsAmount,false);
@@ -184,7 +183,7 @@ public class DiscountTests {
         }
         catch (SupplyManagementException|StorePolicyViolatedException e) {
             e.printStackTrace();
-
+            fail();
         }
     }
 
@@ -198,6 +197,7 @@ public class DiscountTests {
             products.add(invMan.getProduct(Product1Id));
             DiscountPredicate discountPredicate = new ProductPredicate(products);
             Discount d =  new PercentageDiscount(50, discountPredicate);
+
             HashMap<String, Integer> productsAmount = getProductsAmountHashMap();
 
             invMan.purchaseSuccessful(productsAmount,false);
@@ -211,7 +211,7 @@ public class DiscountTests {
         }
         catch (SupplyManagementException|StorePolicyViolatedException e) {
             e.printStackTrace();
-
+            fail();
         }
     }
 
@@ -221,13 +221,7 @@ public class DiscountTests {
     @Test
     void applyPercentageDiscount5(){
         try{
-            List<PurchasableProduct> products = new ArrayList<>();
-            products.add(invMan.getProduct(Product1Id));
-            DiscountPredicate discountPredicateOnId = new ProductPredicate(products);
-            List<ProductsCategories> category = new ArrayList<>();
-            category.add(ProductsCategories.Apps$Games);
-            DiscountPredicate discountPredicateOnCategory = new CategoryPredicate(category);
-            Discount d =  new PercentageDiscount(50,new DiscountPredicateAnd(discountPredicateOnId,discountPredicateOnCategory));
+            Discount d = Discount_50Percent__IdPred_and_categoryPred(Product1Id,ProductsCategories.Apps$Games);
             HashMap<String, Integer> productsAmount = getProductsAmountHashMap();
 
             invMan.purchaseSuccessful(productsAmount,false);
@@ -241,8 +235,19 @@ public class DiscountTests {
         }
         catch (SupplyManagementException|StorePolicyViolatedException e) {
             e.printStackTrace();
-
+            fail();
         }
+    }
+
+    private Discount Discount_50Percent__IdPred_and_categoryPred(String product1Id, ProductsCategories productsCategories) throws SupplyManagementException {
+        List<PurchasableProduct> products = new ArrayList<>();
+        products.add(invMan.getProduct(product1Id));
+        DiscountPredicate discountPredicateOnId = new ProductPredicate(products);
+        List<ProductsCategories> category = new ArrayList<>();
+        category.add(productsCategories);
+        DiscountPredicate discountPredicateOnCategory = new CategoryPredicate(category);
+        Discount d =  new PercentageDiscount(50,new DiscountPredicateAnd(discountPredicateOnId,discountPredicateOnCategory));
+        return d;
     }
 
     /**
@@ -251,13 +256,8 @@ public class DiscountTests {
     @Test
     void applyPercentageDiscount6(){
         try{
-            List<PurchasableProduct> products = new ArrayList<>();
-            products.add(invMan.getProduct(Product4Id));
-            DiscountPredicate discountPredicateOnId = new ProductPredicate(products);
-            List<ProductsCategories> category = new ArrayList<>();
-            category.add(ProductsCategories.Apps$Games);
-            DiscountPredicate discountPredicateOnCategory = new CategoryPredicate(category);
-            Discount d =  new PercentageDiscount(50,new DiscountPredicateAnd(discountPredicateOnId,discountPredicateOnCategory));
+            Discount d = Discount_50Percent__IdPred_and_categoryPred(Product4Id,ProductsCategories.Apps$Games);
+
             HashMap<String, Integer> productsAmount = getProductsAmountHashMap();
 
             invMan.purchaseSuccessful(productsAmount,false);
@@ -271,9 +271,11 @@ public class DiscountTests {
         }
         catch (SupplyManagementException|StorePolicyViolatedException e) {
             e.printStackTrace();
-
+            fail();
         }
     }
+
+    
 
     /**
      * discount on products that have (category and (productId or productId) )  (two product will be discounted)
@@ -281,21 +283,7 @@ public class DiscountTests {
     @Test
     void applyPercentageDiscount7(){
         try{
-            List<PurchasableProduct> products = new ArrayList<>();
-            products.add(invMan.getProduct(Product1Id));
-            DiscountPredicate discountPredicateOnId1 = new ProductPredicate(products);
-
-            List<PurchasableProduct> products2 = new ArrayList<>();
-            products2.add(invMan.getProduct(Product2Id));
-            DiscountPredicate discountPredicateOnId2 = new ProductPredicate(products2);
-
-            List<ProductsCategories> category = new ArrayList<>();
-            category.add(ProductsCategories.Apps$Games);
-            DiscountPredicate discountPredicateOnCategory = new CategoryPredicate(category);
-
-            DiscountPredicate discountPredicateOr = new DiscountPredicateOr(discountPredicateOnId1,discountPredicateOnId2);
-            DiscountPredicate discountPredicateAnd = new DiscountPredicateAnd(discountPredicateOnCategory,discountPredicateOr);
-            Discount d =  new PercentageDiscount(50,discountPredicateAnd);
+            Discount d = discount_50percent__categoryPred_and_IdPred_or_IdPred(Product1Id,Product2Id,ProductsCategories.Apps$Games);
 
             HashMap<String, Integer> productsAmount = getProductsAmountHashMap();
 
@@ -310,9 +298,11 @@ public class DiscountTests {
         }
         catch (SupplyManagementException|StorePolicyViolatedException e) {
             e.printStackTrace();
-
+            fail();
         }
     }
+
+
 
     /**
      * discount on products that have (category and (productId xor productId) )  (no product will be discounted)
@@ -320,22 +310,7 @@ public class DiscountTests {
     @Test
     void applyPercentageDiscount8(){
         try{
-
-            List<PurchasableProduct> products = new ArrayList<>();
-            products.add(invMan.getProduct(Product1Id));
-            DiscountPredicate discountPredicateOnId1 = new ProductPredicate(products);
-
-            List<PurchasableProduct> products2 = new ArrayList<>();
-            products2.add(invMan.getProduct(Product3Id));
-            DiscountPredicate discountPredicateOnId2 = new ProductPredicate(products2);
-
-            List<ProductsCategories> category = new ArrayList<>();
-            category.add(ProductsCategories.Other);
-            DiscountPredicate discountPredicateOnCategory = new CategoryPredicate(category);
-
-            DiscountPredicate discountPredicateOr = new DiscountPredicateOr(discountPredicateOnId1,discountPredicateOnId2);
-            DiscountPredicate discountPredicateAnd = new DiscountPredicateAnd(discountPredicateOnCategory,discountPredicateOr);
-            Discount d =  new PercentageDiscount(50,discountPredicateAnd);
+            Discount d = discount_50percent__categoryPred_and_IdPred_or_IdPred(Product1Id,Product3Id,ProductsCategories.Other);
 
             HashMap<String, Integer> productsAmount = getProductsAmountHashMap();
 
@@ -350,10 +325,82 @@ public class DiscountTests {
         }
         catch (SupplyManagementException|StorePolicyViolatedException e) {
             e.printStackTrace();
-
+            fail();
         }
     }
 
+    private Discount discount_50percent__categoryPred_and_IdPred_or_IdPred(String pId1,String pId2,ProductsCategories pCategory) throws SupplyManagementException {
+        List<PurchasableProduct> products = new ArrayList<>();
+        products.add(invMan.getProduct(pId1));
+        DiscountPredicate discountPredicateOnId1 = new ProductPredicate(products);
+
+        List<PurchasableProduct> products2 = new ArrayList<>();
+        products2.add(invMan.getProduct(pId2));
+        DiscountPredicate discountPredicateOnId2 = new ProductPredicate(products2);
+
+        List<ProductsCategories> category = new ArrayList<>();
+        category.add(pCategory);
+        DiscountPredicate discountPredicateOnCategory = new CategoryPredicate(category);
+
+        DiscountPredicate discountPredicateOr = new DiscountPredicateOr(discountPredicateOnId1,discountPredicateOnId2);
+        DiscountPredicate discountPredicateAnd = new DiscountPredicateAnd(discountPredicateOnCategory,discountPredicateOr);
+        Discount d =  new PercentageDiscount(50,discountPredicateAnd);
+        return d;
+    }
+
+    /**
+     * add two discounts to inventory and check if they are applied one after the other
+     */
+    @Test
+    void nestedPercentageDiscount1(){
+        try {
+            Discount d1 = discount_50percent__categoryPred_and_IdPred_or_IdPred(Product1Id,Product2Id,ProductsCategories.Apps$Games);
+            Discount d2 = Discount_50Percent__IdPred_and_categoryPred(Product1Id,ProductsCategories.Apps$Games);
+            HashMap<String, Integer> productsAmount = getProductsAmountHashMap();
+
+            invMan.purchaseSuccessful(productsAmount,false);
+            invMan.addNewDiscount(d1);
+            invMan.addNewDiscount(d2);
+            float priceAfterDiscount = addProductsToCartInventoryManagerAndApplyDiscount(invMan, productsAmount);
+            float expectedPrice = (invMan.getProductPrice(Product1Id)*0.5F*0.5F)*3+
+                    (invMan.getProductPrice(Product2Id)*0.5F)*1+
+                    (invMan.getProductPrice(Product3Id))*2+
+                    invMan.getProductPrice(Product4Id)*6;
+            assertEquals(expectedPrice,priceAfterDiscount);
+
+        } catch (SupplyManagementException | StorePolicyViolatedException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+    /**
+     * add two discounts (only one will work) to inventory and check if only one applied
+     */
+    @Test
+    void nestedPercentageDiscount2(){
+        try {
+            Discount d1 = discount_50percent__categoryPred_and_IdPred_or_IdPred(Product1Id,Product2Id,ProductsCategories.Apps$Games);
+            Discount d2 = Discount_50Percent__IdPred_and_categoryPred(Product4Id,ProductsCategories.Apps$Games);
+            HashMap<String, Integer> productsAmount = getProductsAmountHashMap();
+
+            invMan.purchaseSuccessful(productsAmount,false);
+            invMan.addNewDiscount(d1);
+            invMan.addNewDiscount(d2);
+            float priceAfterDiscount = addProductsToCartInventoryManagerAndApplyDiscount(invMan, productsAmount);
+            float expectedPrice = (invMan.getProductPrice(Product1Id)*0.5F)*3+
+                    (invMan.getProductPrice(Product2Id)*0.5F)*1+
+                    (invMan.getProductPrice(Product3Id))*2+
+                    invMan.getProductPrice(Product4Id)*6;
+            assertEquals(expectedPrice,priceAfterDiscount);
+
+        } catch (SupplyManagementException | StorePolicyViolatedException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+    /**
+     * and composite policy that equals true
+     */
     @Test
     void applyConditionalDiscount1(){
 
@@ -368,13 +415,33 @@ public class DiscountTests {
         PolicyPredicate haveCategory = new CategoryPredicate(category);
 
         PolicyPredicate andAll = new PolicyPredicateAnd(atLeast2Products,new PolicyPredicateAnd(atLeastPrice4,haveCategory));
-        applyConditionalDiscount(andAll);
+        applyConditionalDiscount(andAll,true);
+    }
+
+    /**
+     * all predicates are true but test using xor gate, so test should fail
+     */
+    @Test
+    void applyConditionalDiscount2(){
+
+
+        PolicyPredicate atLeast2Products = new CartPredicate(2);
+
+        PolicyPredicate atLeastPrice4 = new PricePredicate(4);
+
+        List<ProductsCategories> category = new ArrayList<>();
+        category.add(ProductsCategories.Apps$Games);
+        category.add(ProductsCategories.Appliances);
+        PolicyPredicate haveCategory = new CategoryPredicate(category);
+
+        PolicyPredicate andXor = new PolicyPredicateAnd(atLeast2Products,new PolicyPredicateXor(atLeastPrice4,haveCategory));
+        applyConditionalDiscount(andXor,false);
     }
 
     /**
      * apply ConditionalDiscount (uses the percentage discount from test "applyPercentageDiscount7" to build ConditionalDiscount)
      */
-    void applyConditionalDiscount(PolicyPredicate policyPredicate){
+    void applyConditionalDiscount(PolicyPredicate policyPredicate,boolean shouldPass){
         try{
             List<PurchasableProduct> products = new ArrayList<>();
             products.add(invMan.getProduct(Product1Id));
@@ -395,7 +462,7 @@ public class DiscountTests {
 
             ConditionalPercentageDiscount conditionalPercentageDiscount = new ConditionalPercentageDiscount(percentageDiscount,policyPredicate);
             HashMap<String, Integer> productsAmount = getProductsAmountHashMap();
-
+            float priceBeforeDiscount = addProductsToCartInventoryManagerAndApplyDiscount(invMan, productsAmount);
             invMan.purchaseSuccessful(productsAmount,false);
             invMan.addNewDiscount(conditionalPercentageDiscount);
 
@@ -404,11 +471,20 @@ public class DiscountTests {
                     (invMan.getProductPrice(Product2Id)*0.5F)*1+
                     (invMan.getProductPrice(Product3Id))*2+
                     invMan.getProductPrice(Product4Id)*6;
-            assertEquals(expectedPrice,priceAfterDiscount);
+
+            if(shouldPass)
+                assertEquals(expectedPrice,priceAfterDiscount);
+            else
+                assertEquals(priceBeforeDiscount,priceAfterDiscount);
         }
         catch (SupplyManagementException|StorePolicyViolatedException e) {
             e.printStackTrace();
 
         }
     }
+
+
+    //todo add additionDiscount test and maxDiscount test
 }
+
+
