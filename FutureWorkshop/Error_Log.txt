@@ -465,3 +465,45 @@ May 24, 2022 7:35:03 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: failed to logout - user amit is not logged in
 May 24, 2022 7:35:07 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: failed to logout - user amit is not logged in
+May 27, 2022 2:32:37 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user abc doesn't exist
+May 27, 2022 2:32:37 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user abc failed login
+May 27, 2022 2:32:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user abc doesn't exist
+May 27, 2022 2:32:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user abc failed login
+May 27, 2022 2:34:45 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user abc doesn't exist
+May 27, 2022 2:34:45 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user abc failed login
+May 27, 2022 2:34:48 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user abc doesn't exist
+May 27, 2022 2:34:48 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user abc failed login
+May 27, 2022 2:35:06 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user abc doesn't exist
+May 27, 2022 2:35:06 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user abc failed login
+May 27, 2022 2:35:07 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user abc doesn't exist
+May 27, 2022 2:35:07 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user abc failed login
+May 27, 2022 2:35:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user abc doesn't exist
+May 27, 2022 2:35:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user abc failed login
+May 27, 2022 2:36:28 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user abc doesn't exist
+May 27, 2022 2:36:28 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user abc failed login
+May 27, 2022 2:37:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user abc doesn't exist
+May 27, 2022 2:37:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user abc failed login
+May 27, 2022 2:38:11 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user pam123 already exists in the system - failed to sign up
+May 27, 2022 2:38:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user pam123 already exists in the system - failed to sign up
+May 27, 2022 2:42:53 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user pam123 already exists in the system - failed to sign up

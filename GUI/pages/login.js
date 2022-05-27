@@ -62,8 +62,18 @@ const Login = () => {
           )();
           router.push("/dashboard");
         }
+        else {
+          console.log("amit")
+          createNotification(
+            "error",
+            "Cannot Login, please try again"
+          )();
+        }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => createNotification(
+            "error",
+            "Cannot Login, please try again\n" + err
+          )());
   };
 
   const onClickGuest = async (e) => {

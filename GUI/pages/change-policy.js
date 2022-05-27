@@ -49,6 +49,7 @@ const ChangePolicy = () => {
   };
 
   //TODO: Make sure we got storeID in advance...
+  //TDOO: Check that al the permissions in the system are written
 
   // useEffect(() => {
   //   const fetchApi = async () => {
