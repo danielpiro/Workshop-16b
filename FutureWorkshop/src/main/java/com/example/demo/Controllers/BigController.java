@@ -430,13 +430,13 @@ public class BigController {
 
     @GetMapping("/store-products/all")
     public ReturnValue getAllProductsAndStoresWeb() throws UserException, SupplyManagementException, NoPermissionException, JsonProcessingException {
-        List<String> users = initializeUsers();
-        List<String> stores = initializeStores(users);
-        HashMap<String, List<Product>> allProductsAndStores = getStoreController().getAllProductsAndStores();
+//        List<String> users = initializeUsers();
+//        List<String> stores = initializeStores(users);
+        HashMap<String, List<Product>> allProductsAndStores = getStoreController().getAllProductsAndStores(); //THIS HASHMAP IS EMPTY!
         List<Object> products = new ArrayList<>();
         List<Object> products2 = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
-        for (var entry : allProductsAndStores.entrySet()) {
+        for (var entry : allProductsAndStores.entrySet()) { //THIS FOR LOOP IS AN EXAMPLE OF LIST OF OBJECTS THE FRONTEND NEEDS!
             for (var product : entry.getValue()) {
                 String json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"price\":\"%s\",\"quantity\":\"%s\",\"category\":\"%s\"}", product.getId(), product.getName(), product.getPrice(), product.getSupply(), product.getCategory());
                 products.add(objectMapper.readTree(json));
@@ -454,8 +454,8 @@ public class BigController {
 
     @GetMapping("/products/all")
     public ReturnValue getAllProducts() throws UserException, SupplyManagementException, NoPermissionException, JsonProcessingException {
-        List<String> users = initializeUsers();
-        initializeStores(users);
+//        List<String> users = initializeUsers();
+//        initializeStores(users);
         HashMap<String, List<Product>> allProductsAndStores = getStoreController().getAllProductsAndStores();
         List<Object> products = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();

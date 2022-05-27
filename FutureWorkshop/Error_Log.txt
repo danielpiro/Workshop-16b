@@ -507,3 +507,35 @@ May 27, 2022 2:38:39 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user pam123 already exists in the system - failed to sign up
 May 27, 2022 2:42:53 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user pam123 already exists in the system - failed to sign up
+May 27, 2022 3:28:38 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user pam123 already exists in the system - failed to sign up
+May 27, 2022 3:33:12 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: failed to logout because undefined is null
+May 27, 2022 3:33:44 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: failed to logout because undefined is null
+May 27, 2022 3:33:44 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: failed to logout because undefined is null
+May 27, 2022 3:33:44 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: failed to logout because undefined is null
+May 27, 2022 3:33:45 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: failed to logout because undefined is null
+May 27, 2022 3:33:45 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: failed to logout because undefined is null
+May 27, 2022 3:33:51 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: failed to logout because undefined is null
+May 27, 2022 3:33:52 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: failed to logout because undefined is null
+May 27, 2022 3:33:52 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: failed to logout because undefined is null
+May 27, 2022 3:33:52 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: failed to logout because undefined is null
+May 27, 2022 3:33:52 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: failed to logout because undefined is null
+May 27, 2022 3:39:52 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user pam123 already exists in the system - failed to sign up
+May 27, 2022 3:40:03 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user pam123 already exists in the system - failed to sign up
+May 27, 2022 3:40:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user pam123 already exists in the system - failed to sign up
+May 27, 2022 3:41:10 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user pam123 already exists in the system - failed to sign up

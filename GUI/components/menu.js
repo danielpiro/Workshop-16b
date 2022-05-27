@@ -44,9 +44,29 @@ const Menu = () => {
     //   });
   };
 
+  const logoutGuest = async (e) => {
+    e.preventDefault();
+    //console.log("in logout");
+    return await api
+      .post(`/users/?guestId=${cookies.userId}`)
+      .then((res) => {
+        console.log(res.data);
+        if (res.status === 200) {
+          return createNotification(
+            "success",
+            `${cookies.userId} logged out successfully`,
+            () => {
+              return router.push("/login");
+            }
+          )();
+        }
+      })
+      .catch((err) => console.log(err));
+  }; 
+
   const logout = async (e) => {
     e.preventDefault();
-    console.log("in logout");
+    //console.log("in logout");
     return await api
       .post(`/users/logout/?user_name=${cookies.username}`)
       .then((res) => {
@@ -63,6 +83,7 @@ const Menu = () => {
       })
       .catch((err) => console.log(err));
   };
+
   return (
     <>
       {cookies.type === "admin" ? ( //Admin Menu
@@ -239,7 +260,7 @@ const Menu = () => {
                       </a>
                     </li>
                     <li className="logout-button nav-item">
-                      <a href="#" className="nav-link ms-4" onClick={logout}>
+                      <a href="#" className="nav-link ms-4" onClick={logoutGuest}>
                         Logout
                       </a>
                     </li>
