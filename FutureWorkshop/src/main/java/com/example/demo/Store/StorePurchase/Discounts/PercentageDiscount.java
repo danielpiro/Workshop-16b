@@ -17,7 +17,7 @@ public class PercentageDiscount implements Discount{//simple discount, for examp
 
     public PercentageDiscount(float discountPercent, DiscountPredicate discountOnPredicate) {
         if(discountPercent<0 || discountPercent >100){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("discount percent is between  0<= percent <= 100");
         }
         this.discountPercent = discountPercent;
         this.discountOnPredicate = discountOnPredicate;
@@ -46,9 +46,12 @@ public class PercentageDiscount implements Discount{//simple discount, for examp
         return id;
     }
 
-    public float getDiscountPercent() {
+
+    public float getDiscountPercentage() {
         return discountPercent;
     }
+
+
 
     public DiscountPredicate getDiscountOnPredicate() {
         return discountOnPredicate;
