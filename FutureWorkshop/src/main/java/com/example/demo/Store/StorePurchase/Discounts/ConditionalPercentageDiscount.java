@@ -5,16 +5,17 @@ import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.ShoppingCart.UserInfo;
 import com.example.demo.Store.StorePurchase.PurchasableProduct;
 import com.example.demo.Store.StorePurchase.predicates.DiscountPredicate;
+import com.example.demo.Store.StorePurchase.predicates.PolicyPredicate;
 
 
 import java.util.List;
 
-public class ConditionalPercentageDiscount implements   Discount {
+public class ConditionalPercentageDiscount implements Discount {
     private String id;
     private PercentageDiscount discount;
-    DiscountPredicate pred; //discount only if predicate stands on Products examples " (DiscountPredicate = "purchase is above 200")(PercentageDiscount = " 5% on all fruits") "
+    PolicyPredicate pred; //discount only if predicate stands on cart " (DiscountPredicate = "purchase is above 200")(PercentageDiscount = " 5% on all fruits") "
 
-    public ConditionalPercentageDiscount(  PercentageDiscount discount, DiscountPredicate pred) {
+    public ConditionalPercentageDiscount(  PercentageDiscount discount, PolicyPredicate pred) {
         this.discount = discount;
         this.pred = pred;
         id = IdGenerator.getInstance().getDiscountId();
@@ -32,4 +33,6 @@ public class ConditionalPercentageDiscount implements   Discount {
     public String getDiscountId() {
         return id;
     }
+
+
 }

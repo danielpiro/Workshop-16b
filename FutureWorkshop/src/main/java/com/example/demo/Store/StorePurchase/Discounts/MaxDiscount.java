@@ -5,7 +5,9 @@ import com.example.demo.ExternalConnections.ExternalConnectionHolder;
 import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.ShoppingCart.UserInfo;
 import com.example.demo.Store.StorePurchase.PurchasableProduct;
+import com.example.demo.Store.StorePurchase.predicates.DiscountPredicate;
 
+import javax.transaction.NotSupportedException;
 import java.util.List;
 
 public class MaxDiscount implements Discount{
@@ -24,6 +26,7 @@ public class MaxDiscount implements Discount{
     public List<PurchasableProduct> applyDiscount(List<PurchasableProduct> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) {
         List<PurchasableProduct> leftAfterDiscount = left.applyDiscount(ProductAmount,externalConnectionHolder,userInfo);
         List<PurchasableProduct> rightAfterDiscount = right.applyDiscount(ProductAmount,externalConnectionHolder,userInfo);
+
         float leftTotalPrice = 0 ;
         for(PurchasableProduct pp: leftAfterDiscount){
             leftTotalPrice += (pp.getPrice()*(float) pp.getAmount());
@@ -41,5 +44,7 @@ public class MaxDiscount implements Discount{
     public String getDiscountId() {
         return id;
     }
+
+
 
 }

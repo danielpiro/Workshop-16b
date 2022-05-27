@@ -10,6 +10,10 @@ import com.example.demo.Store.StorePurchase.predicates.PolicyPredicate;
 
 import java.util.List;
 
+/**
+ * 1) for Policy: checks that cart contains all categories
+ * 2) for Discount:  checks that product category is one of preloaded categories
+ */
 public class CategoryPredicate  implements PolicyPredicate, DiscountPredicate {
     List<ProductsCategories> categories;
 
@@ -35,6 +39,8 @@ public class CategoryPredicate  implements PolicyPredicate, DiscountPredicate {
     }
 
 
-
-
+    @Override
+    public boolean predicateStandsForProduct(PurchasableProduct ProductAmount) {
+        return categories.stream().anyMatch(c-> c.toString().equals(ProductAmount.getCategory().toString()));
+    }
 }
