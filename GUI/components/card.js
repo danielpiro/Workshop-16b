@@ -3,7 +3,7 @@ import createNotification from "./norification";
 import { useCookies } from "react-cookie";
 import { useEffect, useState } from "react";
 
-const Card = ({ value, title, price, quantity, storeMap, category }) => {
+const Card = ({ value, title, price, quantity, category, storeId }) => {
   const [cookies, setCookie, removeCookie] = useCookies([
     "username",
     "password",
@@ -14,21 +14,9 @@ const Card = ({ value, title, price, quantity, storeMap, category }) => {
     e.preventDefault();
     createNotification("info", "Will be implemented next milestone...")();
   };
-  let storeId = "";
-  const getShopId = (productId) => {
-    storeMap.map((item) => {
-      Object.values(item)[0].map((obj) => {
-        if (obj.id === productId) {
-          storeId = Object.keys(item)[0].toString();
-          return;
-        }
-      });
-    });
-  };
 
   const addProduct = async (e) => {
     e.preventDefault();
-    getShopId(value);
     const obj = {
       user_id: cookies.userId,
       productID: value,
@@ -38,9 +26,11 @@ const Card = ({ value, title, price, quantity, storeMap, category }) => {
     return await api
       .post("/cart/product/?auctionOrBid=false", obj)
       .then((res) => {
-        if (res.status === 200) {
-          const { data } = res;
-          console.log("is 200", data);
+        const { data } = res;
+        if (data.success) {
+          createNotification("success", "Added product successfully")();
+        } else {
+          createNotification("error", data.reason)();
         }
       })
       .catch((err) => console.log(err));

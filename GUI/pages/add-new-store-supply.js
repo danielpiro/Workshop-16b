@@ -8,11 +8,11 @@ const AddNewStoreSupply = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [newProduct, setNewProduct] = useState({
-      productName: "",
-      productType: "",
-      productQunatity: "",
-      productPrice: "",
-  })
+    productName: "",
+    productType: "",
+    productQunatity: "",
+    productPrice: "",
+  });
   const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
 
   const onSearch = (e) => {
@@ -34,9 +34,13 @@ const AddNewStoreSupply = () => {
   const onAddProduct = async (e) => {
     e.preventDefault();
     //console.log(newProduct); ...........
-    if (store !== "" && newProduct.productName !== "" && newProduct.productType !== ""
-        && newProduct.productQunatity !== "" && newProduct.productPrice !== "") {
-      
+    if (
+      store !== "" &&
+      newProduct.productName !== "" &&
+      newProduct.productType !== "" &&
+      newProduct.productQunatity !== "" &&
+      newProduct.productPrice !== ""
+    ) {
       const fakeProduct = {
         name: newProduct.productName,
         type: newProduct.productType,
@@ -44,9 +48,7 @@ const AddNewStoreSupply = () => {
         price: newProduct.productPrice,
       };
       await api
-        .post(
-          `/store/?` , fakeProduct
-        )
+        .post(`/store/?`, fakeProduct)
         .then((res) => {
           if (res.status === 200) {
             const { data } = res;
@@ -67,11 +69,11 @@ const AddNewStoreSupply = () => {
         "at least one of the inputs was not valid, please try again"
       )();
     }
-  }
+  };
 
   return (
     <>
-      <Menu/>
+      <Menu />
       <div className="container m-auto w-100">
         <span className="text-center my-4">
           <h3>Add new store's supply</h3>
@@ -85,10 +87,10 @@ const AddNewStoreSupply = () => {
               aria-label="Search"
               onChange={(e) =>
                 setSearchValue((prevState) => ({
-                    ...prevState,
-                    searchValue: e.target.value,
+                  ...prevState,
+                  searchValue: e.target.value,
                 }))
-            }
+              }
             />
 
             <div className="d-flex justify-content-center">
@@ -118,64 +120,94 @@ const AddNewStoreSupply = () => {
         </ul>
 
         <div className="container">
-            <div className="row d-flex justify-content-center m-3" style={{width: "50%"}}>
-                <div className="input-group mb-3">
-                    <span className="input-group-text" id="basic-addon1">New Product Name</span>
-                    <input 
-                        type="text" className="form-control" placeholder="Enter New Product Name" 
-                        aria-label="ProductName" aria-describedby="basic-addon1" 
-                        value={newProduct.productName}
-                        onChange={(e) =>
-                            setNewProduct((prevState) => ({
-                                ...prevState,
-                                productName: e.target.value,
-                            }))
-                        }
-                    />
-                </div>
-                <div className="input-group mb-3">
-                    <span className="input-group-text" id="basic-addon1">New Product Type</span>
-                    <input type="text" className="form-control" placeholder="Enter New Product Type" 
-                        aria-label="ProductType" aria-describedby="basic-addon1" 
-                        value={newProduct.productType}
-                        onChange={(e) =>
-                            setNewProduct((prevState) => ({
-                                ...prevState,
-                                productType: e.target.value,
-                            }))
-                        }
-                    />
-                </div>
-                <div className="input-group mb-3">
-                    <span className="input-group-text" id="basic-addon1">New Product Quantity</span>
-                    <input type="text" className="form-control" placeholder="Enter New Product Quantity" 
-                        aria-label="ProductQuantity" aria-describedby="basic-addon1" 
-                        value={newProduct.productQunatity}
-                        onChange={(e) =>
-                            setNewProduct((prevState) => ({
-                                ...prevState,
-                                productQunatity: e.target.value,
-                            }))
-                        }
-                    />
-                </div>
-                <div className="input-group mb-3">
-                    <span className="input-group-text" id="basic-addon1">New Product Price</span>
-                    <input 
-                        type="text" className="form-control" placeholder="Enter New Product Price" 
-                        aria-label="ProductPrice" aria-describedby="basic-addon1" 
-                        value={newProduct.productPrice}
-                        onChange={(e) =>
-                            setNewProduct((prevState) => ({
-                                ...prevState,
-                                productPrice: e.target.value,
-                            }))
-                        }/>
-                </div> 
-                <button className="btn btn-primary mr-lg-3" style={{ width: "50%" }} onClick={onAddProduct}>
-                    Add New Product To Store
-                </button> 
+          <div
+            className="row d-flex justify-content-center m-3"
+            style={{ width: "50%" }}
+          >
+            <div className="input-group mb-3">
+              <span className="input-group-text" id="basic-addon1">
+                New Product Name
+              </span>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter New Product Name"
+                aria-label="ProductName"
+                aria-describedby="basic-addon1"
+                value={newProduct.productName}
+                onChange={(e) =>
+                  setNewProduct((prevState) => ({
+                    ...prevState,
+                    productName: e.target.value,
+                  }))
+                }
+              />
             </div>
+            <div className="input-group mb-3">
+              <span className="input-group-text" id="basic-addon1">
+                New Product Type
+              </span>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter New Product Type"
+                aria-label="ProductType"
+                aria-describedby="basic-addon1"
+                value={newProduct.productType}
+                onChange={(e) =>
+                  setNewProduct((prevState) => ({
+                    ...prevState,
+                    productType: e.target.value,
+                  }))
+                }
+              />
+            </div>
+            <div className="input-group mb-3">
+              <span className="input-group-text" id="basic-addon1">
+                New Product Quantity
+              </span>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter New Product Quantity"
+                aria-label="ProductQuantity"
+                aria-describedby="basic-addon1"
+                value={newProduct.productQunatity}
+                onChange={(e) =>
+                  setNewProduct((prevState) => ({
+                    ...prevState,
+                    productQunatity: e.target.value,
+                  }))
+                }
+              />
+            </div>
+            <div className="input-group mb-3">
+              <span className="input-group-text" id="basic-addon1">
+                New Product Price
+              </span>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter New Product Price"
+                aria-label="ProductPrice"
+                aria-describedby="basic-addon1"
+                value={newProduct.productPrice}
+                onChange={(e) =>
+                  setNewProduct((prevState) => ({
+                    ...prevState,
+                    productPrice: e.target.value,
+                  }))
+                }
+              />
+            </div>
+            <button
+              className="btn btn-primary mr-lg-3"
+              style={{ width: "50%" }}
+              onClick={onAddProduct}
+            >
+              Add New Product To Store
+            </button>
+          </div>
         </div>
       </div>
     </>

@@ -20,9 +20,9 @@ const shoppingCart = () => {
       return await api
         .post(`/cart/?user_Id=${cookies.userId}`)
         .then((res) => {
-          if (res.status === 200) {
-            const { data } = res;
-            console.log(data);
+          const { data } = res;
+          if (data.success) {
+            console.log(data.value);
             setIsLoading(!isLoading);
           }
         })

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import StoreCardStores from "../components/store-card-stores";
 import api from "../components/api";
 import Link from "next/link";
+import createNotification from "../components/norification";
 
 const Stores = () => {
   const [stores, setStores] = useState([]);
@@ -18,19 +19,23 @@ const Stores = () => {
       return await api
         .get("/store/all")
         .then((res) => {
-          if (res.status === 200) {
-            const { data } = res;
+          const { data } = res;
+          if (data.success) {
             setStores(data.value);
             stores.map((store) => (
               <Link href={`stores/view/${store}`} key={store} />
             ));
+          } else {
+            createNotification("error", data.reason)();
           }
         })
         .then(async () => {
           return await api.get("/store-products/all").then((res) => {
-            if (res.status === 200) {
-              const { data } = res;
+            const { data } = res;
+            if (data.success) {
               setStoreMap(data.value);
+            } else {
+              createNotification("error", data.reason)();
             }
           });
         })

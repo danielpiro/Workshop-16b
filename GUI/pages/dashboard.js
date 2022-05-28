@@ -17,15 +17,16 @@ const Dashboard = () => {
       await api
         .get("/products/all")
         .then((res) => {
-          if (res.status === 200) {
-            const { data } = res;
+          const { data } = res;
+          if (data.success) {
             setIsLoading(!isLoading);
             setProducts(data.value);
           }
         })
         .then(async () => {
           return await api.get("/store-products/all").then((res) => {
-            if (res.status === 200) {
+            const { data } = res;
+            if (data.success) {
               setStoreMap(res.data.value);
             }
           });

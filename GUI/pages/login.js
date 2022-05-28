@@ -38,7 +38,7 @@ const Login = () => {
       .then((res) => {
         const { data } = res;
         console.log(data.value);
-        if (res.status === 200) {
+        if (data.success) {
           setCookie("userId", loginInput.username, {
             path: "/",
             sameSite: true,
@@ -55,26 +55,15 @@ const Login = () => {
             path: "/",
             sameSite: true,
           });
-          createNotification(
-            "success",
-            "Login done successfully",
-            () => router.push("/dashboard")
+          createNotification("success", data.reason, () =>
+            router.push("/dashboard")
           )();
           router.push("/dashboard");
-        }
-        else {
-          console.log("amit")
-          createNotification(
-            "error",
-            "Cannot Login, please try again"
-          )();
+        } else {
+          createNotification("error", data.reason)();
         }
       })
-      .catch((err) => console.log(err))
-      // createNotification(
-      //       "error",
-      //       "Cannot Login, please try again\n" + err
-      //     )());
+      .catch((err) => console.log(err));
   };
 
   const onClickGuest = async (e) => {
@@ -83,8 +72,8 @@ const Login = () => {
     return await api
       .get(`/market/guest`)
       .then((res) => {
-        if (res.status === 200) {
-          const { data } = res;
+        const { data } = res;
+        if (data.success) {
           setCookie("userId", data.value, {
             path: "/",
             sameSite: true,
@@ -95,13 +84,10 @@ const Login = () => {
             () => router.push("/dashboard")
           )();
         } else {
-          createNotification(
-            "error",
-            "Cannot create guest account , please try again"
-          )();
+          createNotification("error", data.reason)();
         }
       })
-      .catch((err) => createNotification("error", err.message)());
+      .catch((err) => console.log(err));
   };
 
   const onSumbitRegister = async (e) => {
@@ -111,15 +97,14 @@ const Login = () => {
         `/users/signup/?user_name=${registerInput.username}&password=${registerInput.password}`
       )
       .then((res) => {
-        if (res.status === 200) {
-          createNotification("success", "Register successfully")();
+        const { data } = res;
+        if (data.success) {
+          createNotification("success", data.reason)();
         } else {
-          createNotification(
-            "error",
-            "Username and password was not valid , please try again"
-          )();
+          createNotification("error", data.reason)();
         }
-      });
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <div className="form-signin w-100 m-auto">
