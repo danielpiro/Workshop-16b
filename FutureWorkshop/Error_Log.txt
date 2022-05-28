@@ -18,3 +18,21 @@ May 28, 2022 11:09:21 AM com.example.demo.GlobalSystemServices.Log warning
 WARNING: could not purchase, because couldn't not obtain external connection of Visa
 May 28, 2022 11:09:31 AM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user user1 could not reserve items in cart
+May 28, 2022 3:29:34 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user1 could not reserve items in cart
+May 28, 2022 3:30:02 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user dan doesn't exist
+May 28, 2022 3:31:03 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user dan doesn't exist
+May 28, 2022 3:31:37 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user dan doesn't exist
+May 28, 2022 3:33:57 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user dan doesn't exist
+May 28, 2022 5:46:20 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user GuestID_1 doesn't exist
+May 28, 2022 5:47:07 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user GuestID_1 doesn't exist
+May 28, 2022 5:48:07 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user GuestID_1 doesn't exist
+May 28, 2022 5:50:05 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user GuestID_1 doesn't exist

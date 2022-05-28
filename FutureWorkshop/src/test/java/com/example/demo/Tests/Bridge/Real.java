@@ -501,7 +501,7 @@ public class Real   {
 
     //Helper Methods
     public HashMap<String,List<Product>> getAllProductsAndStores(String userId){
-        return bigController.getAllProductsAndStores();
+        return bigController.getAllProductsAndStoresTest();
     }
 
     public List<Guest> getGuest_list(){

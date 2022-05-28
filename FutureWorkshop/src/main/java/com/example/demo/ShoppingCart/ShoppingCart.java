@@ -10,6 +10,7 @@ import com.example.demo.ExternalConnections.ExternalConnectionHolder;
 import com.example.demo.Generic.ThreeGenerics;
 import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.History.History;
+import com.example.demo.Store.Product;
 
 
 import java.util.*;
@@ -17,7 +18,7 @@ import java.util.*;
 public class ShoppingCart {
 
     //storeID, and the basket
-    private HashMap<String, ShoppingBasket> basketCases;
+    public HashMap<String, ShoppingBasket> basketCases;
 
 
 
@@ -94,7 +95,7 @@ public class ShoppingCart {
             basketCases.put(storeID, sb);
 
         }
-        Log.getLogger().info("user " + userId +" added product " + productID + "to store " + storeID + " with amount of " + amount);
+        Log.getLogger().info("user: " + userId +" added product: " + productID + " from store: " + storeID + " with amount of: " + amount);
 
 
 
@@ -207,6 +208,9 @@ public class ShoppingCart {
 
 
     }
+
+
+
 
     public void addCarts (ShoppingCart shoppingCart){
 

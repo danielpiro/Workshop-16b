@@ -17,7 +17,7 @@ import java.util.Map;
 public class ShoppingBasket {
 
     private String Store;
-    private HashMap<String, Integer> productAmount;
+    public HashMap<String, Integer> productAmount;
     private HashMap<String, Integer> productAmountAuctionOrBid;
     private InventoryProtector iProtector;
 

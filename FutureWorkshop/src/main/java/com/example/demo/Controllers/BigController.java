@@ -18,6 +18,8 @@ import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.History.History;
 import com.example.demo.NotificationsManagement.NotificationManager;
 import com.example.demo.ShoppingCart.InventoryProtector;
+import com.example.demo.ShoppingCart.ShoppingBasket;
+import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.ProductsCategories;
 import com.example.demo.Store.StorePurchase.Discounts.Discount;
@@ -28,6 +30,7 @@ import com.example.demo.StorePermission.Permission;
 import com.example.demo.User.Guest;
 import com.example.demo.User.Subscriber;
 //import com.example.demo.dto.AdminDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -37,10 +40,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import javax.naming.NoPermissionException;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 
@@ -59,12 +59,13 @@ public class BigController {
 //        this.us = us;
 //        this.sc = sc;
 //    }
-    public BigController() throws IOException, UserException {
+    public BigController() throws IOException, UserException, NoPermissionException, SupplyManagementException {
         this.us = new UserController();
         this.sc = new StoreController();
         this.policyBuilder = new PolicyBuilder();
         initiateExternalConnections();
         NotificationManager.buildNotificationManager(us);
+        initializeSystem();
         my_log.info("System Started");
     }
 
@@ -179,16 +180,37 @@ public class BigController {
 
 
     @PostMapping("/cart")
-    public ReturnValue getShoppingCart(@RequestParam String user_Id) throws UserException {
-        ReturnValue rv = new ReturnValue(true, "", getUserController().getShoppingCart(user_Id));
+    public ReturnValue getShoppingCart(@RequestParam String user_Id) throws Exception {
+        ShoppingCart shoppingCart =  getUserController().getShoppingCart(user_Id);
+
+            List<Object> products = new ArrayList<>();
+            List<Object> products2 = new ArrayList<>();
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            for(var basket:shoppingCart.basketCases.entrySet()){
+                for(var pamount: basket.getValue().productAmount.entrySet()){
+                    Product product = sc.getProductById(basket.getKey(),pamount.getKey());
+
+                    String json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"price\":\"%s\",\"amount\":\"%d\",\"category\":\"%s\"}", product.getId(), product.getName(), product.getPrice(), pamount.getValue(), product.getCategory());
+                    products.add(objectMapper.readTree(json));
+
+                }
+                products2.add(objectMapper.readTree(String.format("{\"%s\":%s}", basket.getKey(), products)));
+                products.clear();
+
+            }
+        ReturnValue rv = new ReturnValue(true, "", products2);
         return rv;
-    }
+
+        }
+
+
 
 //    public boolean containsStore(String user_id, String storeID) {
 //        return getUserController().containsStore(user_id, storeID);
 //    }
 
-    @DeleteMapping("/cart")
+    @DeleteMapping(value = "/cart" , consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ReturnValue removeProductFromCart(@Valid @RequestBody MockSmallProduct mockSmallProduct) throws UserException {
 
         getUserController().removeProduct(mockSmallProduct.getUser_id(), mockSmallProduct.getProductID(), mockSmallProduct.getStoreID(), mockSmallProduct.getAmount());
@@ -227,7 +249,8 @@ public class BigController {
     /// Store controller
 
     //todo didnt return String!!!
-    @PostMapping("/store")
+
+    @PostMapping(value = "/store" , consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ReturnValue addNewProductToStore(@Valid @RequestBody MockFullProduct mockProduct) throws NoPermissionException, SupplyManagementException, UserException {
         userExistsAndLoggedIn(mockProduct.getUserId());
 
@@ -238,7 +261,7 @@ public class BigController {
 
     }
 
-    @DeleteMapping("/permissions")
+    @DeleteMapping(value = "/permissions" , consumes = {MediaType.APPLICATION_JSON_VALUE} )
     public ReturnValue removeSomePermissions(@Valid @RequestBody MockPermission mockPermission) throws NoPermissionException, UserException {
         userExistsAndLoggedIn(mockPermission.getUserIdRemoving());
 
@@ -315,7 +338,7 @@ public class BigController {
         return rv;
     }
 
-    @PostMapping("/store/product")
+    @PostMapping(value = "/store/product" , consumes = {MediaType.APPLICATION_JSON_VALUE} )
     public ReturnValue editProduct(@RequestParam String productId, @Valid @RequestBody MockFullProduct mockProduct) throws NoPermissionException, SupplyManagementException, UserException {
         userExistsAndLoggedIn(mockProduct.getUserId());
         getStoreController().editProduct(mockProduct.getStoreId(), mockProduct.getUserId(), productId, mockProduct.getSupply(), mockProduct.getProductName(), mockProduct.getPrice(), mockProduct.getCategory());
@@ -344,7 +367,7 @@ public class BigController {
         return rv;
     }
 
-    @PostMapping("/owner")
+    @PostMapping(value = "/owner" , consumes = {MediaType.APPLICATION_JSON_VALUE} )
     public ReturnValue createOwner(@Valid @RequestBody MockSmallPermission mockPermission) throws NoPermissionException, UserException, NotifyException {
         if (getUserController().checkIfUserExists(mockPermission.getUserIdGiving()) && getUserController().checkIfUserExists(mockPermission.getUserGettingPermissionId()) && getUserController().checkIfUserIsLoggedIn(mockPermission.getUserIdGiving())) {
             getStoreController().createOwner(mockPermission.getStoreId(), mockPermission.getUserIdGiving(), mockPermission.getUserGettingPermissionId(), mockPermission.getPermissions());
@@ -365,7 +388,7 @@ public class BigController {
     }
 
 
-    @PostMapping("/product")
+    @PostMapping(value = "/product" , consumes = {MediaType.APPLICATION_JSON_VALUE} )
     public ReturnValue addReviewToProduct(@Valid @RequestBody MockProductReview mockProd) throws NoPermissionException, SupplyManagementException, UserException {
         userExistsAndLoggedIn(mockProd.getUserId());
         getStoreController().addReviewToProduct(mockProd.getStoreId(), mockProd.getUserId(), mockProd.getProductId(), mockProd.getTitle(), mockProd.getBody(), mockProd.getRating());
@@ -418,11 +441,27 @@ public class BigController {
 
     }
 
-    @GetMapping("/store/all")
-    public HashMap<String, List<Product>> getAllProductsAndStores() {
+    public HashMap<String, List<Product>> getAllProductsAndStoresTest() {
 
-        return getStoreController().getAllProductsAndStores();
+        HashMap<String, List<Product>> ans = getStoreController().getAllProductsAndStores();
+        return ans;
     }
+
+    @GetMapping("/store/all")
+    public List<MockProductReturn> getAllProductsAndStores() {
+
+        HashMap<String, List<Product>> all = getStoreController().getAllProductsAndStores();
+        List<MockProductReturn> allProducts = new LinkedList<>();
+        for (Map.Entry<String, List<Product>> storeList : all.entrySet()) {
+
+            for(Product p : storeList.getValue()){
+                allProducts.add(p.productToReturn(storeList.getKey()));
+            }
+        }
+        return allProducts;
+    }
+
+
 
 
     @GetMapping("/search/name")
@@ -437,7 +476,7 @@ public class BigController {
     }
 
 
-    @GetMapping("/search/category")
+    @GetMapping(value = "/search/category" , consumes = {MediaType.APPLICATION_JSON_VALUE} )
     public List<Product> SearchProductsAccordingCategory(@RequestParam String userId, @Valid @RequestBody MockCategories mockCategories) throws UserException {
 
         if (!IsGuest(userId))

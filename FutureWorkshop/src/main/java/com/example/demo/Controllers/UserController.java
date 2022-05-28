@@ -92,7 +92,7 @@ public class UserController implements NotificationReceiver {
         login("yoav","yoav123");
 
         login(g1.name,"delphin","1234");
-        login(g2.name,"4321");
+        login(g2.name,"alan","4321");
         login(g3.name,"pamaj","pam14444");
         login(g4.name,"spratt","raint42");
         List<String> userIds = new ArrayList<>();
