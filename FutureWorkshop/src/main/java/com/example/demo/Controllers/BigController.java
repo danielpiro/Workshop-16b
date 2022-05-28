@@ -4,7 +4,6 @@ import com.example.demo.CustomExceptions.Exception.NotifyException;
 import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
-import com.example.demo.CustomExceptions.ExceptionHandler.ApiException;
 import com.example.demo.Mock.*;
 import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
 import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
@@ -27,16 +26,10 @@ import com.example.demo.Store.StorePurchase.Discounts.Discount;
 import com.example.demo.Store.StorePurchase.Policies.Policy;
 import com.example.demo.Store.StorePurchase.Policies.PolicyBuilder;
 import com.example.demo.Store.StorePurchase.PurchasableProduct;
-import com.example.demo.StorePermission.Permission;
 import com.example.demo.User.Guest;
-import com.example.demo.User.Subscriber;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -47,7 +40,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 
 @CrossOrigin(maxAge = 3600)
@@ -734,7 +726,16 @@ public class BigController {
         return sc.checkIfUserHaveRoleInAnyStore(userId);
     }
 
-
+    @GetMapping("/store/user/OwnerStores")
+    public ReturnValue getStoreOwnerBuyUser(@RequestParam String userID){
+        ReturnValue rv = new ReturnValue(true, "", sc.getStoreOwnerBuyUser(userID));
+        return rv;
+    }
+    @GetMapping("/store/user/ManagerStores")
+    public ReturnValue getStoreManagerBuyUser(@RequestParam String userID){
+        ReturnValue rv = new ReturnValue(true, "", sc.getStoreManagerBuyUser(userID));
+        return rv;
+    }
     @GetMapping("/store/user/Permission")
     public ReturnValue getUserPermissionInStore(@RequestParam String StoreId,
                                                      @RequestParam String userId){

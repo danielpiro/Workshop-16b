@@ -321,4 +321,12 @@ public class StoreController {
         }
         throw new IllegalArgumentException("no policy with this name");
     }
+
+    public List<Store> getStoreOwnerBuyUser(String userID) {
+        return stores.values().stream().filter(s-> s.isUserOwner(userID)).collect(Collectors.toList());
+    }
+
+    public List<Store> getStoreManagerBuyUser(String userID) {
+        return stores.values().stream().filter(s-> s.isUserManager(userID)).collect(Collectors.toList());
+    }
 }
