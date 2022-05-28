@@ -539,3 +539,27 @@ May 27, 2022 3:40:26 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user pam123 already exists in the system - failed to sign up
 May 27, 2022 3:41:10 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user pam123 already exists in the system - failed to sign up
+May 28, 2022 3:25:33 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: failed to logout because undefined is null
+May 28, 2022 3:25:50 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user abc doesn't exist
+May 28, 2022 3:25:50 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user abc failed login
+May 28, 2022 3:29:02 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user abc doesn't exist
+May 28, 2022 3:29:02 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user abc failed login
+May 28, 2022 3:35:50 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user abc doesn't exist
+May 28, 2022 3:35:50 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user abc failed login
+May 28, 2022 3:36:36 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user abc doesn't exist
+May 28, 2022 3:36:36 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user abc failed login
+May 28, 2022 3:36:53 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: failed to logout because abc is null
+May 28, 2022 3:39:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user aaaa doesn't exist
+May 28, 2022 3:39:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user aaaa failed login

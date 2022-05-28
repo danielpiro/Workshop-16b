@@ -65,13 +65,15 @@ public class BigController {
 //        this.us = us;
 //        this.sc = sc;
 //    }
-    public BigController() throws IOException, UserException {
+    public BigController() throws IOException, UserException, SupplyManagementException, NoPermissionException {
         this.us = new UserController();
         this.sc = new StoreController();
         this.policyBuilder = new PolicyBuilder();
         initiateExternalConnections();
         NotificationManager.buildNotificationManager(us);
         my_log.info("System Started");
+
+        initializeSystem();
     }
 
     public void initiateExternalConnections() {
@@ -477,7 +479,7 @@ public class BigController {
         for (var entry : allProductsAndStores.entrySet()) {
             stores.add(entry.getKey());
         }
-        ReturnValue rv = new ReturnValue(true, "", stores);
+        ReturnValue rv = new ReturnValue(true, "", allProductsAndStores.get("StoreID_7").get(0));
         return rv;
     }
 

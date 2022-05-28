@@ -70,10 +70,11 @@ const Login = () => {
           )();
         }
       })
-      .catch((err) => createNotification(
-            "error",
-            "Cannot Login, please try again\n" + err
-          )());
+      .catch((err) => console.log(err))
+      // createNotification(
+      //       "error",
+      //       "Cannot Login, please try again\n" + err
+      //     )());
   };
 
   const onClickGuest = async (e) => {
