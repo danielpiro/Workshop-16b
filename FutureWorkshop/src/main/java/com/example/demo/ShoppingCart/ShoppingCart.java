@@ -192,4 +192,17 @@ public class ShoppingCart {
 
 
     }
+
+    //     HashMap<String, ShoppingBasket> basketCases;
+    public  boolean equals(ShoppingCart shoppingCart) {
+        for (Map.Entry<String, ShoppingBasket> basket : basketCases.entrySet()) {
+
+            if  (!basket.getValue().equals(shoppingCart.basketCases.get(basket.getKey())))
+                return false;
+
+        }
+        return true;
+
+
+    }
 }

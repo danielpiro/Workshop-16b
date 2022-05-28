@@ -124,5 +124,9 @@ public class ShoppingBasket {
 
     }
 
+    public boolean equals(ShoppingBasket shoppingBasket) {
+        return this.productAmount.equals(shoppingBasket.productAmount);
 
+
+    }
 }
