@@ -22,6 +22,7 @@ import com.example.demo.NotificationsManagement.NotificationSubject;
 import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.ProductsCategories;
+import com.example.demo.Store.Store;
 import com.example.demo.Store.StorePurchase.Discounts.Discount;
 import com.example.demo.Store.StorePurchase.Policies.Policy;
 import com.example.demo.Store.StorePurchase.Policies.PolicyBuilder;
@@ -736,6 +737,15 @@ public class BigController {
         ReturnValue rv = new ReturnValue(true, "", sc.getStoreManagerBuyUser(userID));
         return rv;
     }
+    @GetMapping("/store/user/ManagerOwnerStores")
+    public ReturnValue getStoreManagerOwnerBuyUser(@RequestParam String userID){
+        List<Store> managerOf=sc.getStoreManagerBuyUser(userID);
+        managerOf.addAll(sc.getStoreOwnerBuyUser(userID));
+        List<Store> managerAndOwnerOf = managerOf;
+        ReturnValue rv = new ReturnValue(true, "", managerAndOwnerOf);
+        return rv;
+    }
+
     @GetMapping("/store/user/Permission")
     public ReturnValue getUserPermissionInStore(@RequestParam String StoreId,
                                                      @RequestParam String userId){
