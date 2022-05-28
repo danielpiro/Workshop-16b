@@ -4,6 +4,7 @@ package com.example.demo.Tests.Bridge;
 
 import com.example.demo.Controllers.BigController;
 import com.example.demo.CustomExceptions.Exception.NotifyException;
+import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
 import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
@@ -19,24 +20,19 @@ import com.example.demo.Mock.MockFullProduct;
 import com.example.demo.Mock.MockPermission;
 import com.example.demo.Mock.MockSmallPermission;
 import com.example.demo.Mock.MockSmallProduct;
-import com.example.demo.NotificationsManagement.NotificationManager;
-import com.example.demo.NotificationsManagement.StoreNotification;
 import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.User.Guest;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.naming.NoPermissionException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -96,7 +92,6 @@ public class Real   {
     public String openingMarket(){
         try {
             this.bigController = new BigController();
-            NotificationManager.ForTestsOnlyBuildNotificationManager(bigController.getUserController());
             return "system opened successfully";
         }
         catch (Exception e){
@@ -179,26 +174,6 @@ public class Real   {
     }
 
     /** System requirement - I.5 */
-    /** System requirement - I.6 */
-    public void markAsReadStoreNotification(String userId,
-                                       int storeNotificationId){
-        try {
-            bigController.readStoreNotification(userId,storeNotificationId);
-        } catch (UserException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public List<StoreNotification> getAllStoreNotificationsOf(String userId){
-        try {
-            ReturnValue<List<StoreNotification>> returnValue =bigController.getUserStoreNotifications(userId);
-            return returnValue.getValue();
-        } catch (UserException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /** System requirement - I.5 */
     public String realtimeNotificationProductBought(){
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
@@ -272,7 +247,7 @@ public class Real   {
     public boolean login(String username, String password)  {
         try {
             ReturnValue<Boolean> returnValue = getBigController().login(username, password);
-            return returnValue.isSuccess();
+            return returnValue.getValue();
         }catch (Exception e){
             return false;
         }
@@ -352,14 +327,11 @@ public class Real   {
     }
 
     /** User requirement - II.2.5 */
-    public boolean purchaseShoppingCart(String userID,PaymentNames payment,DeliveryNames delivery){
+    public boolean purchaseShoppingCart(String userID,PaymentNames payment,DeliveryNames delivery) throws SupplyManagementException, StorePolicyViolatedException, UserException {
 
         float ans =-1;
-        try {
             ans = (Float) bigController.purchaseCart(userID,payment,delivery).getValue();
-        }catch (Exception e) {
-            return false;
-        }
+
         return ans != -1;
     }
 
@@ -405,7 +377,7 @@ public class Real   {
             return m;
         }
         catch (Exception e) {
-
+            
             return "";
         }
     }
@@ -528,10 +500,8 @@ public class Real   {
     }
 
     //Helper Methods
-    public HashMap<String,List<Product>> getAllProductsAndStores(String userId) {
-        try {
-            return bigController.getAllProductsAndStores();
-        }catch (Exception e){return null;}
+    public HashMap<String,List<Product>> getAllProductsAndStores(String userId){
+        return bigController.getAllProductsAndStoresTest();
     }
 
     public List<Guest> getGuest_list(){

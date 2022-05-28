@@ -27,8 +27,8 @@ public class ApiExceptionHandler {
                 "one of the variables you entered wasn't correct",
                 null
         );
+
         return rv;
-        //return new ResponseEntity<>(rv,HttpStatus.BAD_REQUEST);
 
     }
 
@@ -40,8 +40,8 @@ public class ApiExceptionHandler {
                 e.getMessage(),
                 null
         );
+
         return rv;
-        //return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
 
     }
 
@@ -53,8 +53,8 @@ public class ApiExceptionHandler {
                 "the store policy was violated" ,
                 e.getMessage()
         );
+
         return rv;
-        //return new ResponseEntity<>(e.getMessage(),HttpStatus.PRECONDITION_FAILED);
 
     }
 
