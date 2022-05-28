@@ -4,6 +4,7 @@ package com.example.demo.Tests.Bridge;
 
 import com.example.demo.Controllers.BigController;
 import com.example.demo.CustomExceptions.Exception.NotifyException;
+import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
 import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
@@ -326,14 +327,11 @@ public class Real   {
     }
 
     /** User requirement - II.2.5 */
-    public boolean purchaseShoppingCart(String userID,PaymentNames payment,DeliveryNames delivery){
+    public boolean purchaseShoppingCart(String userID,PaymentNames payment,DeliveryNames delivery) throws SupplyManagementException, StorePolicyViolatedException, UserException {
 
         float ans =-1;
-        try {
             ans = (Float) bigController.purchaseCart(userID,payment,delivery).getValue();
-        }catch (Exception e) {
-            return false;
-        }
+
         return ans != -1;
     }
 

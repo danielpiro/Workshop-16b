@@ -1,0 +1,1010 @@
+May 28, 2022 10:42:36 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 1to store first with amount of 1
+May 28, 2022 10:42:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 2to store first with amount of 2
+May 28, 2022 10:42:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 3to store first with amount of 3
+May 28, 2022 10:42:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 4to store first with amount of 4
+May 28, 2022 10:42:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 1to store first with amount of 1
+May 28, 2022 10:42:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 3to store first with amount of 3
+May 28, 2022 10:42:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 4to store first with amount of 5
+May 28, 2022 10:42:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 6to store first with amount of 6
+May 28, 2022 10:43:08 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 1to store first with amount of 1
+May 28, 2022 10:43:08 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 2to store first with amount of 2
+May 28, 2022 10:43:08 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 3to store first with amount of 3
+May 28, 2022 10:43:08 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 4to store first with amount of 4
+May 28, 2022 10:43:08 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 1to store first with amount of 1
+May 28, 2022 10:43:08 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 3to store first with amount of 3
+May 28, 2022 10:43:08 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 4to store first with amount of 5
+May 28, 2022 10:43:08 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 6to store first with amount of 6
+May 28, 2022 10:43:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 1to store first with amount of 1
+May 28, 2022 10:43:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 2to store first with amount of 2
+May 28, 2022 10:43:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 3to store first with amount of 3
+May 28, 2022 10:43:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 4to store first with amount of 4
+May 28, 2022 10:43:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 1to store second with amount of 1
+May 28, 2022 10:43:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 3to store second with amount of 3
+May 28, 2022 10:43:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 4to store second with amount of 5
+May 28, 2022 10:43:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 6to store second with amount of 6
+May 28, 2022 10:43:49 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 1to store first with amount of 1
+May 28, 2022 10:43:49 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 2to store first with amount of 2
+May 28, 2022 10:43:49 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 3to store first with amount of 3
+May 28, 2022 10:43:49 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 4to store first with amount of 4
+May 28, 2022 10:43:49 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 1to store first with amount of 1
+May 28, 2022 10:43:49 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 3to store second with amount of 3
+May 28, 2022 10:43:49 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 4to store second with amount of 5
+May 28, 2022 10:43:49 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 6to store second with amount of 6
+May 28, 2022 10:44:34 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 1to store first with amount of 1
+May 28, 2022 10:44:34 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 2to store first with amount of 2
+May 28, 2022 10:44:34 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 3to store first with amount of 3
+May 28, 2022 10:44:34 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 4to store first with amount of 4
+May 28, 2022 10:44:34 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 1to store first with amount of 1
+May 28, 2022 10:44:34 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 2to store first with amount of 2
+May 28, 2022 10:44:34 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 3to store first with amount of 3
+May 28, 2022 10:44:34 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 4to store first with amount of 4
+May 28, 2022 10:44:44 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 1to store first with amount of 1
+May 28, 2022 10:44:44 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 2to store first with amount of 2
+May 28, 2022 10:44:44 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 3to store first with amount of 3
+May 28, 2022 10:44:44 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 4to store first with amount of 4
+May 28, 2022 10:44:44 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 1to store first with amount of 1
+May 28, 2022 10:44:44 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 2to store first with amount of 3
+May 28, 2022 10:44:44 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 3to store first with amount of 3
+May 28, 2022 10:44:44 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 4to store first with amount of 4
+May 28, 2022 10:44:56 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 1to store first with amount of 1
+May 28, 2022 10:44:56 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 2to store third with amount of 2
+May 28, 2022 10:44:56 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 3to store first with amount of 3
+May 28, 2022 10:44:56 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 4to store first with amount of 4
+May 28, 2022 10:44:56 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 1to store first with amount of 1
+May 28, 2022 10:44:56 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 2to store second with amount of 2
+May 28, 2022 10:44:56 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 3to store first with amount of 3
+May 28, 2022 10:44:56 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 4to store first with amount of 4
+May 28, 2022 10:49:42 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 1to store first with amount of 1
+May 28, 2022 10:49:42 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 2to store third with amount of 2
+May 28, 2022 10:49:42 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 3to store first with amount of 3
+May 28, 2022 10:49:42 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 4to store first with amount of 4
+May 28, 2022 10:49:42 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 1to store first with amount of 1
+May 28, 2022 10:49:42 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 2to store second with amount of 2
+May 28, 2022 10:49:42 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 3to store first with amount of 3
+May 28, 2022 10:49:42 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 4to store first with amount of 4
+May 28, 2022 10:50:04 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 1to store first with amount of 1
+May 28, 2022 10:50:04 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 2to store first with amount of 2
+May 28, 2022 10:50:04 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 3to store second with amount of 3
+May 28, 2022 10:50:04 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 4to store first with amount of 4
+May 28, 2022 10:50:04 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 1to store first with amount of 1
+May 28, 2022 10:50:04 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 2to store second with amount of 2
+May 28, 2022 10:50:04 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 3to store first with amount of 3
+May 28, 2022 10:50:04 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 4to store first with amount of 4
+May 28, 2022 10:50:13 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 1to store first with amount of 1
+May 28, 2022 10:50:13 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 2to store first with amount of 2
+May 28, 2022 10:50:13 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 3to store second with amount of 3
+May 28, 2022 10:50:13 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user dan added product 4to store first with amount of 4
+May 28, 2022 10:50:13 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 1to store first with amount of 1
+May 28, 2022 10:50:13 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 2to store first with amount of 2
+May 28, 2022 10:50:13 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 3to store second with amount of 3
+May 28, 2022 10:50:13 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy added product 4to store first with amount of 4
+May 28, 2022 10:56:39 AM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+May 28, 2022 10:56:39 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+May 28, 2022 10:56:39 AM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+May 28, 2022 10:56:39 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+May 28, 2022 10:56:39 AM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+May 28, 2022 10:56:39 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+May 28, 2022 10:56:39 AM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+May 28, 2022 10:56:39 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+May 28, 2022 10:56:39 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+May 28, 2022 10:56:39 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to sign up
+May 28, 2022 10:56:39 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user1
+May 28, 2022 10:56:39 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to login
+May 28, 2022 10:56:39 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_0 by users: [user1]
+May 28, 2022 10:56:39 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user2 is trying to sign up
+May 28, 2022 10:56:39 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user2
+May 28, 2022 10:56:39 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user userOwnerToDestroy is trying to sign up
+May 28, 2022 10:56:39 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : userOwnerToDestroy
+May 28, 2022 10:56:39 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 10:56:39 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: user2 by: user1 in store:StoreID_0
+May 28, 2022 10:56:39 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 10:56:39 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: userOwnerToDestroy by: user1 in store:StoreID_0
+May 28, 2022 10:56:39 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user3 is trying to sign up
+May 28, 2022 10:56:39 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user3
+May 28, 2022 10:56:49 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 added product ProductID_0to store StoreID_0 with amount of 5
+May 28, 2022 10:56:49 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 10:56:49 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 10:56:49 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1trying to purchase Cart
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to sign up
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user1
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to login
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_0 by users: [user1]
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user2 is trying to sign up
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user2
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user userOwnerToDestroy is trying to sign up
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : userOwnerToDestroy
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: user2 by: user1 in store:StoreID_0
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: userOwnerToDestroy by: user1 in store:StoreID_0
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user3 is trying to sign up
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user3
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 added product ProductID_0to store StoreID_0 with amount of 1
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1trying to purchase Cart
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to sign up
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user1
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to login
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_0 by users: [user1]
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user2 is trying to sign up
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user2
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user userOwnerToDestroy is trying to sign up
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : userOwnerToDestroy
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: user2 by: user1 in store:StoreID_0
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: userOwnerToDestroy by: user1 in store:StoreID_0
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user3 is trying to sign up
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user3
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 added product ProductID_1to store StoreID_0 with amount of 1
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1trying to purchase Cart
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 total cart value 10.0
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 purchased cart successfully 
+May 28, 2022 10:58:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 recording purchase into history
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to sign up
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user1
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to login
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_0 by users: [user1]
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user2 is trying to sign up
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user2
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user userOwnerToDestroy is trying to sign up
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : userOwnerToDestroy
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: user2 by: user1 in store:StoreID_0
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: userOwnerToDestroy by: user1 in store:StoreID_0
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user3 is trying to sign up
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user3
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 added product ProductID_1to store StoreID_0 with amount of 1
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1trying to purchase Cart
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 total cart value 10.0
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 purchased cart successfully 
+May 28, 2022 10:58:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 recording purchase into history
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to sign up
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user1
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to login
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_0 by users: [user1]
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user2 is trying to sign up
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user2
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user userOwnerToDestroy is trying to sign up
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : userOwnerToDestroy
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: user2 by: user1 in store:StoreID_0
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: userOwnerToDestroy by: user1 in store:StoreID_0
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user3 is trying to sign up
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user3
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 added product ProductID_1to store StoreID_0 with amount of 1
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1trying to purchase Cart
+May 28, 2022 10:59:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 total cart value 10.0
+May 28, 2022 11:00:45 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 purchased cart successfully 
+May 28, 2022 11:00:45 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 recording purchase into history
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to sign up
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user1
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to login
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_0 by users: [user1]
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user2 is trying to sign up
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user2
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user userOwnerToDestroy is trying to sign up
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : userOwnerToDestroy
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: user2 by: user1 in store:StoreID_0
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: userOwnerToDestroy by: user1 in store:StoreID_0
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user3 is trying to sign up
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user3
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 added product ProductID_1to store StoreID_0 with amount of 1
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1trying to purchase Cart
+May 28, 2022 11:00:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 total cart value 10.0
+May 28, 2022 11:01:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 purchased cart successfully 
+May 28, 2022 11:01:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 recording purchase into history
+May 28, 2022 11:01:23 AM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+May 28, 2022 11:01:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+May 28, 2022 11:01:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+May 28, 2022 11:01:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+May 28, 2022 11:01:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+May 28, 2022 11:01:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+May 28, 2022 11:01:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+May 28, 2022 11:01:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+May 28, 2022 11:01:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+May 28, 2022 11:01:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to sign up
+May 28, 2022 11:01:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user1
+May 28, 2022 11:01:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to login
+May 28, 2022 11:01:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_0 by users: [user1]
+May 28, 2022 11:01:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user2 is trying to sign up
+May 28, 2022 11:01:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user2
+May 28, 2022 11:01:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user userOwnerToDestroy is trying to sign up
+May 28, 2022 11:01:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : userOwnerToDestroy
+May 28, 2022 11:01:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 11:01:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: user2 by: user1 in store:StoreID_0
+May 28, 2022 11:01:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 11:01:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: userOwnerToDestroy by: user1 in store:StoreID_0
+May 28, 2022 11:01:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user3 is trying to sign up
+May 28, 2022 11:01:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user3
+May 28, 2022 11:01:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 added product ProductID_1to store StoreID_0 with amount of 1
+May 28, 2022 11:01:24 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 11:02:28 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 11:02:28 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1trying to purchase Cart
+May 28, 2022 11:02:28 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 total cart value 10.0
+May 28, 2022 11:02:28 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 purchased cart successfully 
+May 28, 2022 11:02:28 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 recording purchase into history
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to sign up
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user1
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to login
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_0 by users: [user1]
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user2 is trying to sign up
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user2
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user userOwnerToDestroy is trying to sign up
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : userOwnerToDestroy
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: user2 by: user1 in store:StoreID_0
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: userOwnerToDestroy by: user1 in store:StoreID_0
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user3 is trying to sign up
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user3
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 added product ProductID_1to store StoreID_0 with amount of 1
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1trying to purchase Cart
+May 28, 2022 11:02:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 total cart value 10.0
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to sign up
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user1
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to login
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_0 by users: [user1]
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user2 is trying to sign up
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user2
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user userOwnerToDestroy is trying to sign up
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : userOwnerToDestroy
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: user2 by: user1 in store:StoreID_0
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: userOwnerToDestroy by: user1 in store:StoreID_0
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user3 is trying to sign up
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user3
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 added product ProductID_1to store StoreID_0 with amount of 1
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1trying to purchase Cart
+May 28, 2022 11:06:03 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 total cart value 10.0
+May 28, 2022 11:06:22 AM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+May 28, 2022 11:06:22 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+May 28, 2022 11:06:22 AM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+May 28, 2022 11:06:22 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+May 28, 2022 11:06:22 AM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+May 28, 2022 11:06:22 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+May 28, 2022 11:06:22 AM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+May 28, 2022 11:06:22 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+May 28, 2022 11:06:22 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+May 28, 2022 11:06:22 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to sign up
+May 28, 2022 11:06:22 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user1
+May 28, 2022 11:06:22 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to login
+May 28, 2022 11:06:22 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_0 by users: [user1]
+May 28, 2022 11:06:22 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user2 is trying to sign up
+May 28, 2022 11:06:22 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user2
+May 28, 2022 11:06:23 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user userOwnerToDestroy is trying to sign up
+May 28, 2022 11:06:23 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : userOwnerToDestroy
+May 28, 2022 11:06:23 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 11:06:23 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: user2 by: user1 in store:StoreID_0
+May 28, 2022 11:06:23 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 11:06:23 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: userOwnerToDestroy by: user1 in store:StoreID_0
+May 28, 2022 11:06:23 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user3 is trying to sign up
+May 28, 2022 11:06:23 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user3
+May 28, 2022 11:06:23 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 added product ProductID_1to store StoreID_0 with amount of 1
+May 28, 2022 11:06:23 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 11:06:23 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 11:06:23 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1trying to purchase Cart
+May 28, 2022 11:06:23 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 total cart value 10.0
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to sign up
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user1
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to login
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_0 by users: [user1]
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user2 is trying to sign up
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user2
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user userOwnerToDestroy is trying to sign up
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : userOwnerToDestroy
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: user2 by: user1 in store:StoreID_0
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: userOwnerToDestroy by: user1 in store:StoreID_0
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user3 is trying to sign up
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user3
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 added product ProductID_1to store StoreID_0 with amount of 1
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1trying to purchase Cart
+May 28, 2022 11:07:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 total cart value 10.0
+May 28, 2022 11:08:06 AM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+May 28, 2022 11:08:06 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+May 28, 2022 11:08:06 AM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+May 28, 2022 11:08:06 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+May 28, 2022 11:08:06 AM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+May 28, 2022 11:08:06 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+May 28, 2022 11:08:06 AM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+May 28, 2022 11:08:06 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+May 28, 2022 11:08:06 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+May 28, 2022 11:08:06 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to sign up
+May 28, 2022 11:08:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user1
+May 28, 2022 11:08:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to login
+May 28, 2022 11:08:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_0 by users: [user1]
+May 28, 2022 11:08:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user2 is trying to sign up
+May 28, 2022 11:08:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user2
+May 28, 2022 11:08:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user userOwnerToDestroy is trying to sign up
+May 28, 2022 11:08:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : userOwnerToDestroy
+May 28, 2022 11:08:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 11:08:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: user2 by: user1 in store:StoreID_0
+May 28, 2022 11:08:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 11:08:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: userOwnerToDestroy by: user1 in store:StoreID_0
+May 28, 2022 11:08:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user3 is trying to sign up
+May 28, 2022 11:08:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user3
+May 28, 2022 11:08:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 added product ProductID_1to store StoreID_0 with amount of 1
+May 28, 2022 11:08:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 11:08:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 11:08:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1trying to purchase Cart
+May 28, 2022 11:08:07 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 total cart value 10.0
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to sign up
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user1
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to login
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_0 by users: [user1]
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user2 is trying to sign up
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user2
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user userOwnerToDestroy is trying to sign up
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : userOwnerToDestroy
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: user2 by: user1 in store:StoreID_0
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: userOwnerToDestroy by: user1 in store:StoreID_0
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user3 is trying to sign up
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user3
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 added product ProductID_1to store StoreID_0 with amount of 1
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1trying to purchase Cart
+May 28, 2022 11:08:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 total cart value 10.0
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to sign up
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user1
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to login
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_0 by users: [user1]
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user2 is trying to sign up
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user2
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user userOwnerToDestroy is trying to sign up
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : userOwnerToDestroy
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: user2 by: user1 in store:StoreID_0
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: userOwnerToDestroy by: user1 in store:StoreID_0
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user3 is trying to sign up
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user3
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 added product ProductID_1to store StoreID_0 with amount of 1
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: removing payment Visafrom external connections
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1trying to purchase Cart
+May 28, 2022 11:09:19 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 total cart value 10.0
+May 28, 2022 11:09:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+May 28, 2022 11:09:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+May 28, 2022 11:09:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+May 28, 2022 11:09:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+May 28, 2022 11:09:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+May 28, 2022 11:09:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+May 28, 2022 11:09:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+May 28, 2022 11:09:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+May 28, 2022 11:09:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+May 28, 2022 11:09:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to sign up
+May 28, 2022 11:09:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user1
+May 28, 2022 11:09:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 is trying to login
+May 28, 2022 11:09:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_0 by users: [user1]
+May 28, 2022 11:09:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user2 is trying to sign up
+May 28, 2022 11:09:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user2
+May 28, 2022 11:09:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user userOwnerToDestroy is trying to sign up
+May 28, 2022 11:09:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : userOwnerToDestroy
+May 28, 2022 11:09:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 11:09:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: user2 by: user1 in store:StoreID_0
+May 28, 2022 11:09:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+May 28, 2022 11:09:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: userOwnerToDestroy by: user1 in store:StoreID_0
+May 28, 2022 11:09:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user3 is trying to sign up
+May 28, 2022 11:09:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : user3
+May 28, 2022 11:09:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1 added product ProductID_0to store StoreID_0 with amount of 1
+May 28, 2022 11:09:31 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user user1trying to purchase Cart

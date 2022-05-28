@@ -1,0 +1,20 @@
+May 28, 2022 10:56:49 AM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user1 could not reserve items in cart
+May 28, 2022 10:57:21 AM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user1 could not reserve items in cart
+May 28, 2022 11:03:36 AM com.example.demo.GlobalSystemServices.Log warning
+WARNING: could not purchase, because couldn't not obtain external connection of FedEx or Visa
+May 28, 2022 11:03:36 AM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user1 could not purchase cart
+May 28, 2022 11:06:35 AM com.example.demo.GlobalSystemServices.Log warning
+WARNING: could not purchase, because couldn't not obtain external connection of Visa
+May 28, 2022 11:07:35 AM com.example.demo.GlobalSystemServices.Log warning
+WARNING: could not purchase, because couldn't not obtain external connection of Visa
+May 28, 2022 11:08:09 AM com.example.demo.GlobalSystemServices.Log warning
+WARNING: could not purchase, because couldn't not obtain external connection of Visa
+May 28, 2022 11:08:57 AM com.example.demo.GlobalSystemServices.Log warning
+WARNING: could not purchase, because couldn't not obtain external connection of Visa
+May 28, 2022 11:09:21 AM com.example.demo.GlobalSystemServices.Log warning
+WARNING: could not purchase, because couldn't not obtain external connection of Visa
+May 28, 2022 11:09:31 AM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user1 could not reserve items in cart

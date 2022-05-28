@@ -89,7 +89,7 @@ public class ExternalConnections {
                     return p;
                 }
             }
-            throw new ExternalServiceDoesNotExist("name");
+            throw new ExternalServiceDoesNotExist(name.toString());
         }
     }
 
@@ -110,6 +110,7 @@ public class ExternalConnections {
 
             for (Payment p : payments) {
                 if (p.getName().equals(payment.toString())){
+                    payments.remove(p);
                     return true;
                 }
             }
@@ -122,8 +123,9 @@ public class ExternalConnections {
 
             Log.getLogger().info("removing delivery " + delivery + "from external connections");
 
-            for (Delivery p : deliveries) {
-                if (p.getName().equals(delivery.toString())){
+            for (Delivery d : deliveries) {
+                if (d.getName().equals(delivery.toString())){
+                    deliveries.remove(d);
                     return true;
                 }
             }
