@@ -38,3 +38,305 @@ May 28, 2022 5:50:05 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user GuestID_1 doesn't exist
 May 29, 2022 3:23:16 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User GuestID_0 doesn't exist
+May 29, 2022 3:32:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_0 doesn't exist
+May 29, 2022 3:50:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_0 doesn't exist
+May 29, 2022 4:34:57 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user aaaa could not reserve items in cart
+May 29, 2022 4:53:47 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user aaaa could not reserve items in cart
+May 29, 2022 5:19:10 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user aaaa could not reserve items in cart
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+May 29, 2022 5:25:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist

@@ -184,11 +184,13 @@ public class BigController {
             for (var pamount : basket.getValue().productAmount.entrySet()) {
                 Product product = sc.getProductById(basket.getKey(), pamount.getKey());
 
-                String json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"price\":\"%s\",\"amount\":\"%d\",\"category\":\"%s\",\"storeId\":\"%s\"}", product.getId(), product.getName(), product.getPrice(), pamount.getValue(), product.getCategory() , basket.getKey());
+                String json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"price\":\"%s\",\"amount\":\"%d\",\"category\":\"%s\",\"storeId\":\"%s\"}", product.getId(), product.getName(), product.getPrice(), pamount.getValue(), product.getCategory(), basket.getKey());
                 products.add(objectMapper.readTree(json));
 
             }
-            products2.add(objectMapper.readTree(String.format("{\"%s\":%s}", basket.getKey(), products)));
+            if (!products.isEmpty()) {
+                products2.add(objectMapper.readTree(String.format("{\"%s\":%s}", basket.getKey(), products)));
+            }
             products.clear();
 
         }
@@ -202,7 +204,7 @@ public class BigController {
 //        return getUserController().containsStore(user_id, storeID);
 //    }
 
-    @DeleteMapping(value = "/cart", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(value = "/cart/delete", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ReturnValue removeProductFromCart(@Valid @RequestBody MockSmallProduct mockSmallProduct) throws UserException {
 
         getUserController().removeProduct(mockSmallProduct.getUser_id(), mockSmallProduct.getProductID(), mockSmallProduct.getStoreID(), mockSmallProduct.getAmount());
@@ -339,7 +341,7 @@ public class BigController {
     }
 
 
-    @DeleteMapping("/store/product")
+    @PostMapping("/store/product/delete")
     public ReturnValue deleteProductFromStore(@RequestParam String storeId,
                                               @RequestParam String userId,
                                               @RequestParam String productId) throws NoPermissionException, SupplyManagementException, UserException, NotifyException {
@@ -447,7 +449,7 @@ public class BigController {
         ObjectMapper objectMapper = new ObjectMapper();
         for (var entry : allProductsAndStores.entrySet()) {
             for (var product : entry.getValue()) {
-                String json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"price\":\"%s\",\"quantity\":\"%s\",\"category\":\"%s\",\"storeId\":\"%s\"}", product.getId(), product.getName(), product.getPrice(), product.getSupply(), product.getCategory() , entry.getKey());
+                String json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"price\":\"%s\",\"quantity\":\"%s\",\"category\":\"%s\",\"storeId\":\"%s\"}", product.getId(), product.getName(), product.getPrice(), product.getSupply(), product.getCategory(), entry.getKey());
                 products.add(objectMapper.readTree(json));
             }
             products2.add(objectMapper.readTree(String.format("{\"%s\":%s}", entry.getKey(), products)));
@@ -496,7 +498,7 @@ public class BigController {
         for (var entry : allProductsAndStores.entrySet()) {
             if (entry.getKey().equals(storeId)) {
                 for (var product : entry.getValue()) {
-                    String json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"price\":\"%s\",\"quantity\":\"%s\",\"category\":\"%s\"}", product.getId(), product.getName(), product.getPrice(), product.getSupply(), product.getCategory());
+                    String json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"price\":\"%s\",\"quantity\":\"%s\",\"category\":\"%s\",\"storeId\":\"%s\"}", product.getId(), product.getName(), product.getPrice(), product.getSupply(), product.getCategory() , entry.getKey());
                     products.add(objectMapper.readTree(json));
                 }
             }

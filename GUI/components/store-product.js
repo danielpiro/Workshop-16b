@@ -38,8 +38,8 @@ const StoreProduct = ({
   const onRemove = async (e) => {
     e.preventDefault();
     return await api
-      .delete(
-        `/store/product/?storeId=${storeId}&userId=${cookies.userId}&productId=${value}`
+      .post(
+        `/store/product/delete/?storeId=${storeId}&userId=${cookies.userId}&productId=${value}`
       )
       .then((res) => {
         const { data } = res;
@@ -58,7 +58,7 @@ const StoreProduct = ({
   };
   const onSave = async (e) => {
     e.preventDefault();
-    const body = {
+    const obj = {
       storeId: storeId,
       userId: cookies.userId,
       productName: details.title,
@@ -66,8 +66,9 @@ const StoreProduct = ({
       supply: details.quantity,
       category: details.category,
     };
+
     return await api
-      .post(`/store/product/?productId=${value}`, body)
+      .post(`/store/product/?productId=${value}`, obj)
       .then((res) => {
         const { data } = res;
         if (data.success) {

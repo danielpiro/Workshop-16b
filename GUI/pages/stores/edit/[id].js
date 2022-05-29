@@ -44,11 +44,12 @@ const StoreEdit = () => {
     const product = {
       storeId: router.query.id,
       userId: cookies.userId,
-      productName: newProduct.title,
+      productName: newProduct.productName,
       price: newProduct.price,
-      supply: newProduct.quantity,
+      supply: newProduct.supply,
       category: newProduct.category,
     };
+    console.log(product);
     return api
       .post("/store", product)
       .then((res) => {
@@ -93,7 +94,7 @@ const StoreEdit = () => {
                         category={product.category}
                         products={products}
                         setProducts={setProducts}
-                        storeId={router.query.id}
+                        storeId={product.storeId}
                       />
                     </li>
                   );
@@ -189,7 +190,12 @@ const StoreEdit = () => {
                 >
                   Close
                 </button>
-                <button type="button" class="btn btn-primary" onClick={onAdd}>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  onClick={onAdd}
+                  data-bs-dismiss="modal"
+                >
                   Save
                 </button>
               </div>
