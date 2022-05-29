@@ -23,8 +23,9 @@ const Card = ({ value, title, price, quantity, category, storeId }) => {
       storeID: storeId,
       amount: 1,
     };
+    console.log(obj);
     return await api
-      .post("/cart/product/?auctionOrBid=false", obj)
+      .post(`/cart/product/?auctionOrBid=${false}`, obj)
       .then((res) => {
         const { data } = res;
         if (data.success) {

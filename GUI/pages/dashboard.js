@@ -9,7 +9,6 @@ const Dashboard = () => {
   const [searchProducts, setSearchProducts] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(0);
-  const [storeMap, setStoreMap] = useState([]);
 
   useEffect(() => {
     setIsLoading(!isLoading);
@@ -22,14 +21,6 @@ const Dashboard = () => {
             setIsLoading(!isLoading);
             setProducts(data.value);
           }
-        })
-        .then(async () => {
-          return await api.get("/store-products/all").then((res) => {
-            const { data } = res;
-            if (data.success) {
-              setStoreMap(res.data.value);
-            }
-          });
         })
         .catch((err) => console.log(err));
     };
@@ -68,7 +59,7 @@ const Dashboard = () => {
                         title={product.name}
                         price={product.price}
                         quantity={product.quantity}
-                        storeMap={storeMap}
+                        storeId={product.storeId}
                         category={product.category}
                       />
                     </li>

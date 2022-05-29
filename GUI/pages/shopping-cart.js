@@ -5,8 +5,7 @@ import { useCookies } from "react-cookie";
 import api from "../components/api";
 
 const shoppingCart = () => {
-  const [cart, setCart] = useState([1, 2, 3, 4]);
-  const [storeList, setStoreList] = useState([1, 2, 3, 4]);
+  const [cart, setCart] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [cookies, setCookie, removeCookie] = useCookies([
     "username",
@@ -22,7 +21,7 @@ const shoppingCart = () => {
         .then((res) => {
           const { data } = res;
           if (data.success) {
-            console.log(data.value);
+            setCart(data.value);
             setIsLoading(!isLoading);
           }
         })
@@ -57,18 +56,29 @@ const shoppingCart = () => {
         <div className="row">
           <div className="col-sm">
             <ul className="list-group list-group-flush">
-              {storeList.map((item) => {
+              {cart.map((item) => {
                 return (
                   <div
                     className="container card mb-5"
                     style={{ width: "45rem" }}
                   >
-                    <h3 className="text-center mt-3">Store name</h3>
+                    <h3 className="text-center mt-3">{Object.keys(item)}</h3>
                     <hr />
                     <ul>
-                      {cart.map((item2) => {
-                        return <CartItem />;
-                      })}
+                      {Object.values(item).map((productList) =>
+                        productList.map((product) => {
+                          return (
+                            <CartItem
+                              id={product.id}
+                              amount={product.amount}
+                              category={product.category}
+                              name={product.name}
+                              price={product.price}
+                              storeId={Object.keys(item)[0]}
+                            />
+                          );
+                        })
+                      )}
                     </ul>
                   </div>
                 );

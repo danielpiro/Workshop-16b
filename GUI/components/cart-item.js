@@ -1,5 +1,55 @@
-const CartItem = (props) => {
-  const onRemove = (e) => {
+import api from "./api";
+import { useCookies } from "react-cookie";
+import createNotification from "./norification";
+const CartItem = ({ id, name, amount, price, category, storeId }) => {
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "username",
+    "password",
+    "userId",
+    "type",
+  ]);
+  const onRemove = async (e) => {
+    e.preventDefault();
+    const obj = {
+      user_id: cookies.userId,
+      productID: id,
+      storeID: storeId,
+      amount: amount,
+    };
+    console.log(obj);
+    return await api
+      .delete("/cart/", obj)
+      .then((res) => {
+        const { data } = res;
+        if (data.success) {
+          createNotification("success", "Remove products successfully");
+        } else {
+          createNotification("error", data.reason);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+  const onDec = async (e) => {
+    e.preventDefault();
+    const obj = {
+      user_id: cookies.userId,
+      productID: id,
+      storeID: storeId,
+      amount: 1,
+    };
+    return await api
+      .delete("/cart", obj)
+      .then((res) => {
+        const { data } = res;
+        if (data.success) {
+          createNotification("success", "Remove products successfully");
+        } else {
+          createNotification("error", data.reason);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+  const onInc = (e) => {
     e.preventDefault();
   };
   return (
@@ -7,11 +57,13 @@ const CartItem = (props) => {
       <div className="row">
         <div className="col-sm-8">
           <div className="card-body">
-            <h5 className="card-title">Card title</h5>
+            <h5 className="card-title">ID: {id}</h5>
             <p className="card-text">
-              This is a wider card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
+              Name: {name}
+              <br />
+              Category: {category}
+              <br />
+              Price: {price}
             </p>
           </div>
         </div>
@@ -19,6 +71,13 @@ const CartItem = (props) => {
           <button className="btn btn-primary" onClick={onRemove}>
             Remove
           </button>
+          <button className="btn btn-primary ms-3" onClick={onDec}>
+            -
+          </button>
+          <button className="btn btn-primary ms-4" onClick={onInc}>
+            +
+          </button>
+          <div className="text-center">{amount}</div>
         </div>
       </div>
     </>

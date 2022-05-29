@@ -510,9 +510,8 @@ public class UserController implements NotificationReceiver {
               get_subscriber(s).addNotification(storeNotification.getDeepCopy());
         }
     }
-
     @Override
-    public void sendComplaintTo(String senderId,List<String> adminIds, ComplaintNotification complaintNotification) throws UserException {
+    public void sendComplaintToAdmins(String senderId, ComplaintNotification complaintNotification) throws UserException {
         my_log.info("user "+senderId+" is wants to send a complaint to system admins");
         if(get_subscriber(senderId)==null)
             throw new UserException("user "+senderId + " doesn't exist");
@@ -520,15 +519,15 @@ public class UserController implements NotificationReceiver {
              my_log.warning("the sender " + senderId + " is not online");
             throw new UserException("the sender " + senderId + " is not online");
         }
-        for (String s : adminIds) {
-            if (!checkIfUserExists(s))
-                throw new UserException("user " +s + " doesn't exist");
-            if (!checkIfAdmin(s)) {
-                 my_log.warning("trying to send a complaint to a user " + s + " which is not an admin");
-                throw new UserException("trying to send a complaint to a user " + s + " which is not an admin");
-            }
-                get_subscriber(s).addComplaint(complaintNotification.getDeepCopy());
-        }
+//        for (String s : adminIds) {
+//            if (!checkIfUserExists(s))
+//                throw new UserException("user " +s + " doesn't exist");
+//            if (!checkIfAdmin(s)) {
+//                 my_log.warning("trying to send a complaint to a user " + s + " which is not an admin");
+//                throw new UserException("trying to send a complaint to a user " + s + " which is not an admin");
+//            }
+//                get_subscriber(s).addComplaint(complaintNotification.getDeepCopy());
+//        }
     }
     public void readStoreNotification(String userid,int storeNotificaionId) throws UserException {
         my_log.info("user "+userid+" wants to read store notification with id "+ storeNotificaionId);
