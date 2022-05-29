@@ -94,17 +94,12 @@ public class BigController {
     @DeleteMapping("/users")
     public ReturnValue deleteUser(@RequestParam String isDeleting,
                                   @RequestParam String whosBeingDeleted) throws NoPermissionException, UserException {
-
-
         my_log.info("user" + isDeleting + "is trying to delete user" + whosBeingDeleted);
         //sc.removeRoleInHierarchy(whosBeingDeleted);
         if (checkIfUserHaveRoleInStore(whosBeingDeleted)) {
             throw new NoPermissionException("cant delete user with store role");
         }
         ReturnValue rv = new ReturnValue(true, "", getUserController().deleteUser(isDeleting, whosBeingDeleted));
-
-
-        //ResponseEntity re = new ResponseEntity(rv,)/
         return rv;
     }
 
@@ -120,8 +115,6 @@ public class BigController {
     @PostMapping("/users/login")
     public ReturnValue login(@RequestParam String userNameLogin,
                              @RequestParam String password) throws UserException {
-        System.out.println(userNameLogin);
-        System.out.println(password);
         ReturnValue rv = new ReturnValue(true, "", getUserController().login(userNameLogin, password));
         return rv;
     }
@@ -130,8 +123,6 @@ public class BigController {
     public ReturnValue login(@RequestParam String guestId,
                              @RequestParam String userNameLogin,
                              @RequestParam String password) throws UserException {
-        System.out.println(userNameLogin);
-        System.out.println(password);
         ReturnValue rv = new ReturnValue(true, "", getUserController().login(guestId, userNameLogin, password));
         return rv;
     }
@@ -498,7 +489,7 @@ public class BigController {
         for (var entry : allProductsAndStores.entrySet()) {
             if (entry.getKey().equals(storeId)) {
                 for (var product : entry.getValue()) {
-                    String json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"price\":\"%s\",\"quantity\":\"%s\",\"category\":\"%s\",\"storeId\":\"%s\"}", product.getId(), product.getName(), product.getPrice(), product.getSupply(), product.getCategory() , entry.getKey());
+                    String json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"price\":\"%s\",\"quantity\":\"%s\",\"category\":\"%s\",\"storeId\":\"%s\"}", product.getId(), product.getName(), product.getPrice(), product.getSupply(), product.getCategory(), entry.getKey());
                     products.add(objectMapper.readTree(json));
                 }
             }
@@ -553,7 +544,7 @@ public class BigController {
         return getStoreController().SearchProductsAccordingRating(productRating);
     }
 
-    @DeleteMapping("/store")
+    @PostMapping("/store/delete")
     public ReturnValue deleteStore(@RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException {
         userExistsAndLoggedIn(userId);
         getStoreController().deleteStore(userId, storeId);

@@ -37,7 +37,6 @@ const Login = () => {
       )
       .then((res) => {
         const { data } = res;
-        console.log(data.value);
         if (data.success) {
           setCookie("userId", loginInput.username, {
             path: "/",
@@ -51,17 +50,26 @@ const Login = () => {
             path: "/",
             sameSite: true,
           });
-          setCookie("type", data.value, {
-            path: "/",
-            sameSite: true,
-          });
-          createNotification("success", data.reason, () =>
+
+          createNotification("success", "Logged in successfully", () =>
             router.push("/dashboard")
           )();
-          router.push("/dashboard");
         } else {
           createNotification("error", data.reason)();
         }
+      })
+      .then(async () => {
+        return await api
+          .get(`/permission/type/?username=${loginInput.username}`)
+          .then((res) => {
+            const { data } = res;
+            if (data.success) {
+              setCookie("type", data.value, {
+                path: "/",
+                sameSite: true,
+              });
+            }
+          });
       })
       .catch((err) => console.log(err));
   };
@@ -90,7 +98,7 @@ const Login = () => {
       .catch((err) => console.log(err));
   };
 
-  const onSumbitRegister = async (e) => {
+  const onClickRegister = async (e) => {
     e.preventDefault();
     return await api
       .post(
@@ -230,7 +238,7 @@ const Login = () => {
                 <button
                   type="button"
                   className="btn btn-primary"
-                  onClick={onSumbitRegister}
+                  onClick={onClickRegister}
                 >
                   Submit
                 </button>

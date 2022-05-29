@@ -180,7 +180,7 @@ const shoppingCart = () => {
                     >
                       <li>
                         <button
-                          class="dropdown-item"
+                          className="dropdown-item"
                           id="Visa"
                           onClick={(e) => {
                             e.preventDefault();

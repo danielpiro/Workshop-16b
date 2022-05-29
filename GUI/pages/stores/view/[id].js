@@ -64,4 +64,8 @@ const StoreDetails = () => {
   );
 };
 
+export function getServerSideProps(context) {
+  return { props: {} };
+}
+
 export default StoreDetails;

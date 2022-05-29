@@ -207,4 +207,8 @@ const StoreEdit = () => {
   );
 };
 
+export function getServerSideProps(context) {
+  return { props: {} };
+}
+
 export default StoreEdit;
