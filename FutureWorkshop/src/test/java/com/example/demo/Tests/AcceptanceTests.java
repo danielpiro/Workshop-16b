@@ -154,19 +154,38 @@ public class AcceptanceTests {
 
     @Test
     void cart_invariant_failed_purchase() {
-        proxy.increaseProductQuantityInShoppingCart("user1",product1,storeId,5,false);
-        ShoppingCart sc = proxy.getShoppingCart("user1");
-        String ans1 = sc.getCartInventory();
-        System.out.println(ans1);
+        proxy.increaseProductQuantityInShoppingCart("user1",product2,storeId,1,false);
+        ShoppingCart scBefore = proxy.getShoppingCart("user1");
         proxy.removePayment(PaymentNames.Visa);
         proxy.removePayment(PaymentNames.Visa);
 
-        proxy.purchaseShoppingCart("user1",PaymentNames.Visa,DeliveryNames.FedEx);
-        sc = proxy.getShoppingCart("user1");
-        String ans2 = sc.getCartInventory();
-        System.out.println(ans2);
+        try {
+            proxy.purchaseShoppingCart("user1", PaymentNames.Visa, DeliveryNames.FedEx);
+        }catch (Exception e){
+            if (!e.getMessage().equals("could not purchase, because couldn't not obtain external connection of"+ PaymentNames.Visa))
+                fail();
+        }
+        ShoppingCart scAfter = proxy.getShoppingCart("user1");
 
-        assertEquals(ans1,ans2);
+        assertTrue(scBefore.equals(scAfter));
+
+    }
+
+    @Test
+    void cart_invariant_failed_purchase_not_enough_in_stock() {
+        proxy.increaseProductQuantityInShoppingCart("user1",product1,storeId,1,false);
+        ShoppingCart scBefore = proxy.getShoppingCart("user1");
+
+
+        try {
+            proxy.purchaseShoppingCart("user1", PaymentNames.Visa, DeliveryNames.FedEx);
+        }catch (Exception e){
+            if (!e.getMessage().equals( "not enough items in stock in the store"))
+                fail();
+        }
+        ShoppingCart scAfter = proxy.getShoppingCart("user1");
+
+        assertTrue(scBefore.equals(scAfter));
 
     }
 
@@ -309,7 +328,6 @@ public class AcceptanceTests {
     }
 
     // A store was closed, then re-opened
-
     @Test
     void realtime_notification_store_closed_and_opened_success_case_test() {
 //        - Store owner closed his store (after logged in as store owner)

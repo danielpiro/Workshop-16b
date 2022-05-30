@@ -10,6 +10,7 @@ const StoreProduct = ({
   category,
   products,
   setProducts,
+  storeId,
 }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies([
@@ -37,43 +38,48 @@ const StoreProduct = ({
   const onRemove = async (e) => {
     e.preventDefault();
     return await api
-      .delete(
-        `/store/product/?storeId=${window.location.href
-          .split("/")
-          .pop()}&userId=${cookies.userId}&productId=${value}`
+      .post(
+        `/store/product/delete/?storeId=${storeId}&userId=${cookies.userId}&productId=${value}`
       )
       .then((res) => {
-        if (res.status === 200) {
-          const updateProducts = products.filter((item) => item.id !== value);
-          setProducts(updateProducts);
+        const { data } = res;
+        if (data.success) {
+          // const updateProducts = products.filter((item) => item.id !== value);
+          // setProducts(updateProducts);
           createNotification(
             "success",
             `product ID: ${value} is been removed...`
           )();
+        } else {
+          createNotification("error", data.reason)();
         }
       })
       .catch((err) => console.log(err));
   };
   const onSave = async (e) => {
     e.preventDefault();
-    const body = {
-      storeId: window.location.href.split("/").pop(),
+    const obj = {
+      storeId: storeId,
       userId: cookies.userId,
       productName: details.title,
       price: details.price,
       supply: details.quantity,
       category: details.category,
     };
+
     return await api
-      .post(`/store/product/?productId=${value}`, body)
+      .post(`/store/product/?productId=${value}`, obj)
       .then((res) => {
-        if (res.status === 200) {
-          setOriginalDetails(details);
+        const { data } = res;
+        if (data.success) {
+          // setOriginalDetails(details);
           createNotification(
             "success",
             `product ID: ${value} is been updated...`,
             () => setIsEdit(!isEdit)
           )();
+        } else {
+          createNotification("error", data.reason)();
         }
       })
       .catch((err) => console.log(err));
@@ -83,6 +89,7 @@ const StoreProduct = ({
     setDetails(originalDetails);
     setIsEdit(!isEdit);
   };
+
   return (
     <div className="card-body">
       <div className="text-center">

@@ -17,36 +17,74 @@ const Menu = () => {
     username: "",
     password: "",
   });
-
-  const [loginInput, setLoginInput] = useState({
-    username: "",
-    password: "",
-  });
   const router = useRouter();
 
-  const onSumbitRegister = (e) => {
+  const onUpgrade = async (e) => {
     e.preventDefault();
-    let encryptedPassword = 0;
-    // const encrypted = async () =>
-    //   await bcrypt.hashSync(registerInput.password, 8);
-    // encrypted().then((res) => (encryptedPassword = res));
-    // api
-    //   .post(`/register/${registerInput.username}/${encryptedPassword}`)
-    //   .then((res) => {
-    //     if (res.status === 200) {
-    //       createNotification("success", "Register successfully")();
-    //     } else {
-    //       createNotification(
-    //         "error",
-    //         "Username and password was not valid , please try again"
-    //       )();
-    //     }
-    //   });
+    return await api
+      .post(
+        `/users/signup/?user_name=${registerInput.username}&password=${registerInput.password}`
+      )
+      .then((res) => {
+        const { data } = res;
+        if (!data.success) {
+          return createNotification("error", data.reason)();
+        }
+      })
+      .then(async () => {
+        return await api
+          .post(
+            `/guest/login/?guestId=${cookies.userId}&userNameLogin=${registerInput.username}&password=${registerInput.password}`
+          )
+          .then((res) => {
+            const { data } = res;
+            if (data.success) {
+              setCookie("userId", registerInput.username, {
+                path: "/",
+                sameSite: true,
+              });
+              setCookie("username", registerInput.username, {
+                path: "/",
+                sameSite: true,
+              });
+              setCookie("password", registerInput.password, {
+                path: "/",
+                sameSite: true,
+              });
+              setCookie("type", "subscriber", {
+                path: "/",
+                sameSite: true,
+              });
+              createNotification(
+                "success",
+                "Upgrade successfully , Thanks for becoming a member"
+              )();
+            }
+          });
+      });
+  };
+
+  const logoutGuest = async (e) => {
+    e.preventDefault();
+    return await api
+      .post(`/users/?guestId=${cookies.userId}`)
+      .then((res) => {
+        console.log(res.data);
+        if (res.status === 200) {
+          return createNotification(
+            "success",
+            `${cookies.userId} logged out successfully`,
+            () => {
+              return router.push("/login");
+            }
+          )();
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   const logout = async (e) => {
     e.preventDefault();
-    console.log("in logout");
     return await api
       .post(`/users/logout/?user_name=${cookies.username}`)
       .then((res) => {
@@ -63,6 +101,7 @@ const Menu = () => {
       })
       .catch((err) => console.log(err));
   };
+
   return (
     <>
       {cookies.type === "admin" ? ( //Admin Menu
@@ -239,7 +278,11 @@ const Menu = () => {
                       </a>
                     </li>
                     <li className="logout-button nav-item">
-                      <a href="#" className="nav-link ms-4" onClick={logout}>
+                      <a
+                        href="#"
+                        className="nav-link ms-4"
+                        onClick={logoutGuest}
+                      >
                         Logout
                       </a>
                     </li>
@@ -301,7 +344,8 @@ const Menu = () => {
                   <button
                     type="button"
                     className="btn btn-primary"
-                    onClick={onSumbitRegister}
+                    data-bs-dismiss="modal"
+                    onClick={onUpgrade}
                   >
                     Submit
                   </button>

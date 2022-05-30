@@ -22,19 +22,18 @@ const UnregisterUser = () => {
           `/users/?isDeleting=${cookies.username}&whosBeingDeleted=${username}`
         )
         .then((res) => {
-          if (res.status === 200) {
-            const { data } = res;
-            console.log(data);
+          const { data } = res;
+          if (data.success) {
             createNotification(
               "success",
               "Unregistered user successfully",
               () => router.push("/dashboard")
             )();
+          } else {
+            createNotification("error", data.reason)();
           }
         })
-        .catch((err) =>
-          createNotification("error", "Unable to Unregistered user")()
-        );
+        .catch((err) => console.log(err));
     } else {
       createNotification(
         "error",

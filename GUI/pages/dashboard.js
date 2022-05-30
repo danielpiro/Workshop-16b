@@ -9,7 +9,8 @@ const Dashboard = () => {
   const [searchProducts, setSearchProducts] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(0);
-  const [storeMap, setStoreMap] = useState([]);
+  const [searchBy , setSearchBy] = useState("");
+
 
   useEffect(() => {
     setIsLoading(!isLoading);
@@ -17,18 +18,11 @@ const Dashboard = () => {
       await api
         .get("/products/all")
         .then((res) => {
-          if (res.status === 200) {
-            const { data } = res;
+          const { data } = res;
+          if (data.success) {
             setIsLoading(!isLoading);
             setProducts(data.value);
           }
-        })
-        .then(async () => {
-          return await api.get("/store-products/all").then((res) => {
-            if (res.status === 200) {
-              setStoreMap(res.data.value);
-            }
-          });
         })
         .catch((err) => console.log(err));
     };
@@ -50,14 +44,22 @@ const Dashboard = () => {
     <>
       <Menu />
       <div className="my-4">
-        <SearchBar setSearchProducts={setSearchProducts} />
+        <SearchBar setSearchProducts={setSearchProducts} setSearchBy={setSearchBy} />
       </div>
       <div className="my-4 d-flex justify-content-center">
         {!isLoading ? (
           <div style={{ display: "table", width: "100%" }}>
             <ul className="list-group-dashboard">
               {products
-                .filter((product) => product.name.includes(searchProducts))
+                .filter((product) => {
+                  if(searchBy === 'name'){
+                    return product.name.toLowerCase().includes(searchProducts);
+                  }else if(searchBy === 'category'){
+                    return product.category.toLowerCase().includes(searchProducts);
+                  }else{
+                    return product.price.toLowerCase().includes(searchProducts);
+                  }
+                })
                 .slice(12 * page, 12 * (page + 1))
                 .map((product) => {
                   return (
@@ -67,7 +69,7 @@ const Dashboard = () => {
                         title={product.name}
                         price={product.price}
                         quantity={product.quantity}
-                        storeMap={storeMap}
+                        storeId={product.storeId}
                         category={product.category}
                       />
                     </li>

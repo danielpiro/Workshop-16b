@@ -20,7 +20,8 @@ const EditStoreSupply = () => {
     api
       .get(`/stores/all/?userId=${cookies.userId}&name=${searchValue}`)
       .then((res) => {
-        if (res.status === 200) {
+        const { data } = res;
+        if (data.success) {
           setStore([res.data]);
           setIsLoading(!isLoading);
         }

@@ -2,23 +2,27 @@ import { useEffect, useState } from "react";
 import Menu from "../../../components/menu";
 import Card from "../../../components/card";
 import api from "../../../components/api";
+import { useRouter } from "next/router";
+import createNotification from "../../../components/norification";
 
 const StoreDetails = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  const router = useRouter();
   useEffect(() => {
     const fetch = async () => {
       return await api
-        .get(
-          `/store/products/?storeId=${window.location.href.split("/").pop()}`
-        )
+        .get(`/store/products/?storeId=${router.query.id}`)
         .then((res) => {
-          if (res.status === 200) {
-            setProducts(res.data.value);
+          const { data } = res;
+          if (data.success) {
+            setProducts(data.value);
             setIsLoading(!isLoading);
+          } else {
+            createNotification("error", data.reason)();
           }
-        });
+        })
+        .catch((err) => console.log(err));
     };
     fetch();
   }, []);
@@ -26,7 +30,7 @@ const StoreDetails = () => {
     <>
       <Menu />
       <div className="text-center my-5">
-        <h1>{window.location.href.split("/").pop()}</h1>
+        <h1>{router.query.id}</h1>
       </div>
       <div className="row my-4 d-flex justify-content-center">
         {!isLoading ? (
@@ -35,13 +39,13 @@ const StoreDetails = () => {
               {products.map((product) => {
                 return (
                   <li className=" list-group-item" key={product.id}>
-                    {console.log("products", product)}
                     <Card
                       value={product.id}
                       title={product.name}
                       price={product.price}
                       quantity={product.quantity}
                       category={product.category}
+                      storeId={router.query.id}
                     />
                   </li>
                 );
@@ -59,5 +63,9 @@ const StoreDetails = () => {
     </>
   );
 };
+
+export function getServerSideProps(context) {
+  return { props: {} };
+}
 
 export default StoreDetails;

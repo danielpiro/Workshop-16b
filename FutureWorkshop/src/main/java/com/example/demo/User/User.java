@@ -26,7 +26,9 @@ public abstract class User {
     }
 
 
-    public boolean containsStore(String storeID){
+
+
+        public boolean containsStore(String storeID){
      return shoppingCart.containsStore(storeID);
  }
 

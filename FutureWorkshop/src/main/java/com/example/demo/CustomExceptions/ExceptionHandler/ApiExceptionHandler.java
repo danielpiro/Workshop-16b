@@ -7,53 +7,54 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.naming.NoPermissionException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.NoSuchElementException;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class ApiExceptionHandler {
 
 
     @ExceptionHandler(value = { MissingServletRequestParameterException.class,
                                 MethodArgumentNotValidException.class})
 
-    public ResponseEntity handleWrongArgument (){
+    public ReturnValue handleWrongArgument (){
         ReturnValue rv = new ReturnValue(
                 false,
                 "one of the variables you entered wasn't correct",
                 null
         );
 
-        return new ResponseEntity<>(rv,HttpStatus.BAD_REQUEST);
+        return rv;
 
     }
 
     @ExceptionHandler(value = { NoSuchElementException.class , CantPurchaseException.class,IllegalArgumentException.class,
             NoPermissionException.class, UserException.class, UserDeleted.class, SupplyManagementException.class, NotifyException.class, ExternalServiceDoesNotExist.class})
-    public ResponseEntity handleElementDoesntExist (Exception e){
+    public ReturnValue handleElementDoesntExist (Exception e){
         ReturnValue rv = new ReturnValue(
                 false,
                 e.getMessage(),
                 null
         );
 
-        return new ResponseEntity<>(rv,HttpStatus.BAD_REQUEST);
+        return rv;
 
     }
 
     //when this happens, the policy id is in the value field.
     @ExceptionHandler(value = { StorePolicyViolatedException.class })
-    public ResponseEntity handlePolicyException (Exception e){
+    public ReturnValue handlePolicyException (Exception e){
         ReturnValue rv = new ReturnValue(
                 false,
                 "the store policy was violated" ,
                 e.getMessage()
         );
 
-        return new ResponseEntity<>(rv,HttpStatus.PRECONDITION_FAILED);
+        return rv;
 
     }
 

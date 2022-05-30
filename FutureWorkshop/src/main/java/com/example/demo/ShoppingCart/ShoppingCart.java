@@ -10,6 +10,7 @@ import com.example.demo.ExternalConnections.ExternalConnectionHolder;
 import com.example.demo.Generic.ThreeGenerics;
 import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.History.History;
+import com.example.demo.Store.Product;
 
 
 import java.util.*;
@@ -17,7 +18,7 @@ import java.util.*;
 public class ShoppingCart {
 
     //storeID, and the basket
-    private HashMap<String, ShoppingBasket> basketCases;
+    public HashMap<String, ShoppingBasket> basketCases;
 
 
 
@@ -94,7 +95,7 @@ public class ShoppingCart {
             basketCases.put(storeID, sb);
 
         }
-        Log.getLogger().info("user " + userId +" added product " + productID + "to store " + storeID + " with amount of " + amount);
+        Log.getLogger().info("user: " + userId +" added product: " + productID + " from store: " + storeID + " with amount of: " + amount);
 
 
 
@@ -115,9 +116,9 @@ public class ShoppingCart {
 
     //if successfull returns price, else returns -1
     public float purchaseCart(ExternalConnectionHolder externalConnectionHolder) throws SupplyManagementException, StorePolicyViolatedException, CantPurchaseException {
-        float total=0;
+        float total = 0;
         int weight = 10;
-        int ans =0;
+        int ans = 0;
 
         Log.getLogger().info("user " + userId + "trying to purchase Cart");
 
@@ -125,41 +126,35 @@ public class ShoppingCart {
         //check if we can purchase from store, that items are in inventory and store policies are complied
         try {
             for (Map.Entry<String, ShoppingBasket> basket : basketCases.entrySet()) {
-                total += basket.getValue().purchase(externalConnectionHolder,userId);
+                total += basket.getValue().purchase(externalConnectionHolder, userId);
 
             }
-        }
-        catch (  StorePolicyViolatedException |  SupplyManagementException |CantPurchaseException e) {
+        } catch (StorePolicyViolatedException | SupplyManagementException | CantPurchaseException e) {
             Log.getLogger().warning("user " + userId + " could not reserve items in cart");
 
             for (Map.Entry<String, ShoppingBasket> basket : basketCases.entrySet()) {
                 basket.getValue().purchaseSuccessful(false);
             }
-            throw new CantPurchaseException ("not enough items in stock in the store");
+            throw new CantPurchaseException("not enough items in stock in the store");
 
         }
         Log.getLogger().info("user " + userId + " total cart value " + total);
 
-        ans = externalConnectionHolder.tryToPurchase(total,weight);
+        externalConnectionHolder.tryToPurchase(total, weight);
 
         //if transaction succeeded we need to save it in history.
-        if (ans >=0){
-            for (Map.Entry<String, ShoppingBasket> basket : basketCases.entrySet()) {
-                basket.getValue().purchaseSuccessful(true);
-            }
-            Log.getLogger().info("user " + userId + " purchased cart successfully " );
-            Log.getLogger().fine("user " + userId + " price of cart is " + total);
 
-            recordPurchase();
+        for (Map.Entry<String, ShoppingBasket> basket : basketCases.entrySet()) {
+            basket.getValue().purchaseSuccessful(true);
         }
-        else {
-            Log.getLogger().warning("user " + userId + " could not purchase cart");
-            throw new CantPurchaseException ("could not complete transaction, because of payment or delivery");
+        Log.getLogger().info("user " + userId + " purchased cart successfully ");
+        Log.getLogger().fine("user " + userId + " price of cart is " + total);
 
-        }
+        recordPurchase();
+
 
         //check if the order complies with Purchase and Delivery selected.
-        return total;
+        return total + weight;
     }
 
 
@@ -190,6 +185,38 @@ public class ShoppingCart {
 
         return true;
 
+
+    }
+
+    //     HashMap<String, ShoppingBasket> basketCases;
+    public  boolean equals(ShoppingCart shoppingCart) {
+
+        // there are different keys
+        if(!shoppingCart.basketCases.keySet().equals(basketCases.keySet()))
+            return false;
+
+
+        //else make sure all value are the same.
+        for (Map.Entry<String, ShoppingBasket> basket : basketCases.entrySet()) {
+
+
+            if  (!basket.getValue().equals(shoppingCart.basketCases.get(basket.getKey())))
+                return false;
+
+        }
+        return true;
+
+
+    }
+
+
+
+
+    public void addCarts (ShoppingCart shoppingCart){
+
+        shoppingCart.basketCases.forEach(
+                (key, value) -> basketCases.merge( key, value, (v1, v2) ->  v1.addBaskets(v2))
+        );
 
     }
 }

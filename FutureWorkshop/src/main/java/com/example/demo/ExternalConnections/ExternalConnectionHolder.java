@@ -1,6 +1,7 @@
 package com.example.demo.ExternalConnections;
 
 
+import com.example.demo.CustomExceptions.Exception.CantPurchaseException;
 import com.example.demo.ExternalConnections.Delivery.Delivery;
 import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
 import com.example.demo.ExternalConnections.Payment.Payment;
@@ -61,10 +62,13 @@ public class ExternalConnectionHolder {
 
         }
 
-        if (gotDelivery==false || gotPayment == false){
-            my_log.warning("could not purchase, because couldn't not obtain external connection of " + delivery+ " or " + payment );
-
-            return -1;
+        if (gotDelivery==false) {
+            my_log.warning("could not purchase, because couldn't not obtain external connection of " + delivery);
+            throw new CantPurchaseException("could not purchase, because couldn't not obtain external connection of" + delivery);
+        }
+        if( gotPayment == false){
+            my_log.warning("could not purchase, because couldn't not obtain external connection of " + payment );
+            throw new CantPurchaseException("could not purchase, because couldn't not obtain external connection of" + payment);
         }
 
         answer = deliveryObject.delivery(deliveryDetails);

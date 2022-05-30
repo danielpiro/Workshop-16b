@@ -12,10 +12,11 @@ const Statistics = () => {
   useEffect(() => {
     const fetchStats = async () => {
       return await api
-        .get("/statistics/online")
+        .get("/online/amount")
         .then((res) => {
-          if (res.status === 200) {
-            const { data } = res;
+          const { data } = res;
+          console.log('amount' , data);
+          if (data.success) {
             setStats((prevState) => ({
               ...prevState,
               loggedInUsers: data.value,
@@ -23,9 +24,10 @@ const Statistics = () => {
           }
         })
         .then(async () => {
-          return await api.get("/statistics/users").then((res) => {
-            if (res.status === 200) {
-              const { data } = res;
+          return await api.get("/registered/amount").then((res) => {
+            const { data } = res;
+            console.log('online' , data);
+            if (data.success) {
               setStats((prevState) => ({
                 ...prevState,
                 subscribers: data.value,

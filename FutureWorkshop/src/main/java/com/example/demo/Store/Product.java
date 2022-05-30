@@ -2,6 +2,7 @@ package com.example.demo.Store;
 
 
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
+import com.example.demo.Mock.MockProductReturn;
 import com.example.demo.Store.BuyinfOptions.BuyOption;
 import com.example.demo.Store.BuyinfOptions.ImmediateBuy;
 import com.example.demo.Store.StorePurchase.PurchasableProduct;
@@ -15,6 +16,7 @@ public class Product implements PurchasableProduct {
     private String name;
     private float price;
     private float rating;//star system changing according to reviews
+
     private List<Review> reviews;
     private int supply = 0;
     private BuyOption buyOption;
@@ -120,6 +122,13 @@ public class Product implements PurchasableProduct {
 
     public List<Review> getReviews() {
         return Collections.unmodifiableList(reviews);
+    }
+
+
+    public MockProductReturn productToReturn(String storeId) {
+
+        MockProductReturn mpr = new MockProductReturn(this.getId(),storeId,this.getName(),this.getPrice(),this.getSupply(),this.getCategory().toString(),this.getRating());
+        return mpr;
     }
 
     public void moveFromSupplyToReserved(int howMuch){
