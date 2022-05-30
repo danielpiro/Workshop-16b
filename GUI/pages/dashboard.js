@@ -9,6 +9,8 @@ const Dashboard = () => {
   const [searchProducts, setSearchProducts] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(0);
+  const [searchBy , setSearchBy] = useState("");
+
 
   useEffect(() => {
     setIsLoading(!isLoading);
@@ -42,14 +44,22 @@ const Dashboard = () => {
     <>
       <Menu />
       <div className="my-4">
-        <SearchBar setSearchProducts={setSearchProducts} />
+        <SearchBar setSearchProducts={setSearchProducts} setSearchBy={setSearchBy} />
       </div>
       <div className="my-4 d-flex justify-content-center">
         {!isLoading ? (
           <div style={{ display: "table", width: "100%" }}>
             <ul className="list-group-dashboard">
               {products
-                .filter((product) => product.name.includes(searchProducts))
+                .filter((product) => {
+                  if(searchBy === 'name'){
+                    return product.name.toLowerCase().includes(searchProducts);
+                  }else if(searchBy === 'category'){
+                    return product.category.toLowerCase().includes(searchProducts);
+                  }else{
+                    return product.price.toLowerCase().includes(searchProducts);
+                  }
+                })
                 .slice(12 * page, 12 * (page + 1))
                 .map((product) => {
                   return (

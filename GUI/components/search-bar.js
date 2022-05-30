@@ -1,6 +1,7 @@
 import { useState } from "react";
-const SearchBar = ({ setSearchProducts }) => {
+const SearchBar = ({ setSearchProducts , setSearchBy }) => {
   const [value, setValue] = useState("");
+  const [searchOption , setSearchOption] = useState("Filter")
   const onChange = (e) => {
     setValue(e.target.value);
   };
@@ -9,6 +10,13 @@ const SearchBar = ({ setSearchProducts }) => {
     e.preventDefault();
     setSearchProducts(value);
   };
+
+  const onSearchOption = (e) => {
+    e.preventDefault();
+    setSearchBy(e.target.id);
+    setSearchOption(e.target.id);
+  }
+
   return (
     <div className="container">
       <nav className="navbar navbar-expand-lg bg-secondery align-items-center justify-content-center rounded-3">
@@ -29,6 +37,16 @@ const SearchBar = ({ setSearchProducts }) => {
                 Search
               </button>
             </div>
+            <div className="dropdown">
+  <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    {searchOption}
+  </button>
+  <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <li key={"name"}><a className="dropdown-item" href="#" id="name" onClick={onSearchOption}>Name</a></li>
+    <li key={"category"}><a className="dropdown-item" href="#" id="category" onClick={onSearchOption}>Category</a></li>
+    <li key={"price"}><a className="dropdown-item" href="#" id="price" onClick={onSearchOption}>Price</a></li>
+  </ul>
+</div>
           </div>
         </form>
       </nav>

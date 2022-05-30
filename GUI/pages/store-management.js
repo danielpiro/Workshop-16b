@@ -2,10 +2,34 @@ import Menu from "../components/menu";
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import api from "../components/api";
+import createNotification from "../components/norification";
+import { useCookies } from "react-cookie";
 
 const StoreManagement = () => {
   const [userPermission, setUserPermission] = useState("Admin");
   const router = useRouter();
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "username",
+    "password",
+    "userId",
+    "type",
+  ]);
+  const removeStore = async (e) => {
+        e.preventDefault();
+        const id = Object.keys(router.query)[0];
+        return await api.post(`/store/delete/?userId=${cookies.userId}&storeId=${id}`).then(res => {
+          const {data} = res;
+          if(data.success){
+            createNotification('success' , "Remove " + id + " successfully" , () => {
+              return router.push('/stores')
+            })()
+          }else{
+            createNotification('error' , data.reason)()
+          }
+        })
+
+  }
   return (
     <>
       <Menu />
@@ -23,14 +47,7 @@ const StoreManagement = () => {
               style={{ display: userPermission == "Admin" ? "block" : "none" }}
             >
               <div className="card-body">
-                <Link
-                  href={{
-                    pathname: "/add-new-store-supply",
-                    query: Object.keys(router.query)[0],
-                  }}
-                >
-                  <a>Add new store's supply/products</a>
-                </Link>
+                  <a href="#" onClick={removeStore}>Remove store</a>
               </div>
             </div>
           </div>
@@ -44,7 +61,7 @@ const StoreManagement = () => {
                   href={`stores/edit/${Object.keys(router.query)[0]}`}
                   key={Object.keys(router.query)[0]}
                 >
-                  <a>Edit store's supply/products</a>
+                  <a>Add/Edit store's products</a>
                 </Link>
               </div>
             </div>

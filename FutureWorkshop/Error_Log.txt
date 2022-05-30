@@ -540,3 +540,113 @@ May 29, 2022 11:36:02 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: failed to logout because abc is null
 May 29, 2022 11:40:07 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: failed to logout because aaaa is null
+מאי 30, 2022 11:44:28 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 11:53:15 לפנה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: User GuestID_8 doesn't exist
+מאי 30, 2022 1:23:32 אחה״צ com.example.demo.GlobalSystemServices.Log warning
+WARNING: aaaa is not admin  and cant delete store
