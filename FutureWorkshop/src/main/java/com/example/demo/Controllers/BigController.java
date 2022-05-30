@@ -290,15 +290,15 @@ public class BigController {
 
     @GetMapping("/online/amount")
     public ReturnValue getOnlineUsersNum() throws UserException {
-        getUserController().getOnlineUsersNum();
-        ReturnValue rv = new ReturnValue(true, "", null);
+
+        ReturnValue rv = new ReturnValue(true, "", getUserController().getOnlineUsersNum());
         return rv;
     }
 
     @GetMapping("/registered/amount")
     public ReturnValue getRegisteredUsersNum() throws UserException {
-        getUserController().getRegisteredUsersNum();
-        ReturnValue rv = new ReturnValue(true, "", null);
+
+        ReturnValue rv = new ReturnValue(true, "",  getUserController().getRegisteredUsersNum());
         return rv;
     }
 

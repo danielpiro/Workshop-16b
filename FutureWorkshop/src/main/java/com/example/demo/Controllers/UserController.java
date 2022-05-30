@@ -44,7 +44,7 @@ public class UserController implements NotificationReceiver {
         user_list = new ArrayList<>();
         guest_list=new ArrayList<>();
         system_admins = new ArrayList<>();
-        admin = new Subscriber(IdGenerator.getInstance().getAdminId(),"BigBoss");
+        admin = new Subscriber("admin","admin");
         add_subscriber(admin);
         add_admin(admin);
         onlineUsers=0;
