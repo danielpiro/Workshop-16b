@@ -348,11 +348,9 @@ public class BigController {
         List<Store> stores =ownerOrManager ? sc.getStoreManagerBuyUser(user) : sc.getStoreOwnerBuyUser(user);
         for (Store store: stores){
             List<Permission> permissions = sc.getUserPermission(store.getId(), user);
-            for (Permission p: permissions){
-                storePermissions.add(
-                        objectMapper.readTree(
-                                String.format("{\"storeId\":\"%s\",\"permission\":\"%s\"}",store.getId(),p.toString())));
-            }
+            storePermissions.add(
+                    objectMapper.readTree(
+                            String.format("{\"storeId\":\"%s\",\"permission\":\"%s\"}",store.getId(),permissions)));
         }
         return storePermissions;
     }
@@ -803,14 +801,7 @@ public class BigController {
     }
 
 
-    @GetMapping("/title")//todo what the fuck
-    public ReturnValue getTitle(@RequestParam String userId,
-                                @RequestParam String StoreId,
-                                @RequestParam String userIf) throws UserException {
-        userExistsAndLoggedIn(userId);
-        ReturnValue rv = new ReturnValue(true, "", sc.getTitle(StoreId, userIf));
-        return rv;
-    }
+
 
 
     public List<Discount> getDiscounts(String storeId, String userId) throws NoPermissionException, UserException {
