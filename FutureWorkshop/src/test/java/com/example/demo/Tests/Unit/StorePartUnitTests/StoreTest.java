@@ -40,9 +40,9 @@ class StoreTest {
 
     @BeforeEach
     void setUp() {
-        List<String> managers1 = new LinkedList<>();
-        managers1.add(userId1);
-        store1 =new Store("store1", "s1Id", managers1);
+        List<String> originalOwner = new LinkedList<>();
+        originalOwner.add(userId1);
+        store1 =new Store("store1", "s1Id", originalOwner);
         NotificationReceiver r = new NotificationReceiver() {
             @Override
             public void sendNotificationTo(List<String> userIds, StoreNotification storeNotification) throws UserException, UserException {

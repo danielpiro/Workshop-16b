@@ -6963,3 +6963,5 @@ May 30, 2022 5:02:42 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User sdfg doesn't exist
 May 30, 2022 5:03:02 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User sdfg doesn't exist
+May 31, 2022 7:03:55 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user abed15 is already logged in
