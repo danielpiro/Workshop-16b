@@ -27,7 +27,6 @@ import com.example.demo.Store.StorePurchase.Policies.Policy;
 import com.example.demo.Store.StorePurchase.Policies.PolicyBuilder;
 import com.example.demo.Store.StorePurchase.PurchasableProduct;
 import com.example.demo.StorePermission.Permission;
-import com.example.demo.StorePermission.StoreRoles;
 import com.example.demo.User.Guest;
 import com.example.demo.User.Subscriber;
 //import com.example.demo.dto.AdminDto;
@@ -319,29 +318,45 @@ public class BigController {
 
     /**
      * @param user
-     * @return store ids and permmitions of user in store (for owners)
+     * @return store ids and permmitions of user in store (for managers)
      * @throws NoPermissionException
      * @throws UserException
      */
     @GetMapping("store/manager/permmitions")
     public ReturnValue getStoresManagedByUser(@RequestParam String user) throws NoPermissionException, UserException, JsonProcessingException {
+        List<Object> storePermissions = getStorePermissionToReturn(user, true);
+
+        ReturnValue rv = new ReturnValue(true, "", storePermissions);
+        return rv;
+    }
+    /**
+     * @param user
+     * @return store ids and permmitions of user in store (for owners)
+     * @throws NoPermissionException
+     * @throws UserException
+     */
+    @GetMapping("store/owner/permmitions")
+    public ReturnValue getStoresOwnedByUser(@RequestParam String user) throws NoPermissionException, UserException, JsonProcessingException {
+        List<Object> storePermissions = getStorePermissionToReturn(user, false);
+        ReturnValue rv = new ReturnValue(true, "", storePermissions);
+        return rv;
+    }
+
+    private List<Object> getStorePermissionToReturn(String user,boolean ownerOrManager) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         List<Object> storePermissions = new ArrayList<>();
-
-        List<Store> stores =sc.getStoreManagerBuyUser(user);
+        List<Store> stores =ownerOrManager ? sc.getStoreManagerBuyUser(user) : sc.getStoreOwnerBuyUser(user);
         for (Store store: stores){
-            List<Permission> permissions = sc.getUserPermission(store.getId(),user);
+            List<Permission> permissions = sc.getUserPermission(store.getId(), user);
             for (Permission p: permissions){
-
                 storePermissions.add(
                         objectMapper.readTree(
                                 String.format("{\"storeId\":\"%s\",\"permission\":\"%s\"}",store.getId(),p.toString())));
             }
         }
-
-        ReturnValue rv = new ReturnValue(true, "", storePermissions);
-        return rv;
+        return storePermissions;
     }
+
     @PostMapping(value = "/store/product", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ReturnValue editProduct(@RequestParam String productId, @Valid @RequestBody MockFullProduct mockProduct) throws NoPermissionException, SupplyManagementException, UserException {
         userExistsAndLoggedIn(mockProduct.getUserId());
