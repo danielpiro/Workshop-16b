@@ -20,18 +20,6 @@ const OpenNewStore = () => {
   });
   const [addAnotherStoreOwner, setAddAnotherStoreOwner] = useState(false);
 
-  const onCheckBoxClicked = (e) => {
-    e.preventDefault();
-    if (document.getElementById("addStoreOwnerCheckBox").checked === false){
-      setAddAnotherStoreOwner(false);
-      //console.log(addAnotherStoreOwner);
-    }
-    else{
-      setAddAnotherStoreOwner(true);
-      //console.log(addAnotherStoreOwner);
-    }
-  }
-
   const onOpeningNewStore = async (e) => {
     e.preventDefault();
     if ( openNewStoreInput.storename !== "") { //openNewStoreInput.additionalStoreOwnerUsername !== ""
@@ -87,9 +75,9 @@ const OpenNewStore = () => {
               }
             />
           </div>
-
+            
           <div className="mb-3 form-check">
-            <input className="form-check-input" type="checkbox" value="" id="addStoreOwnerCheckBox" onChange={onCheckBoxClicked}/>
+            <input className="form-check-input" type="checkbox" value="" id="addStoreOwnerCheckBox"/>
             <label className="form-check-label" for="flexCheckDefault">
               Add Additional Store Owner
             </label>

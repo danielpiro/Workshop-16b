@@ -13,6 +13,7 @@ import com.example.demo.NotificationsManagement.StoreNotification;
 import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.ShoppingCart.ShoppingCart;
 
+import com.example.demo.User.Encryption;
 import com.example.demo.User.Guest;
 import com.example.demo.User.Message;
 import com.example.demo.User.Subscriber;
@@ -44,7 +45,7 @@ public class UserController implements NotificationReceiver {
         user_list = new ArrayList<>();
         guest_list=new ArrayList<>();
         system_admins = new ArrayList<>();
-        admin = new Subscriber("admin","admin");
+        admin = new Subscriber("admin",Encryption.encryptThisString("admin"));
         add_subscriber(admin);
         add_admin(admin);
         onlineUsers=0;
@@ -263,7 +264,7 @@ public class UserController implements NotificationReceiver {
              throw new UserException("user "+user_name + " password's lenth is less than 2 - failed to sign up");
         }
         synchronized (signUpLock) {
-                Subscriber s = new Subscriber(user_name, password);
+                Subscriber s = new Subscriber(user_name, Encryption.encryptThisString(password));
                 add_subscriber(s);
                 registeredUsers++;
                 return true;
@@ -362,7 +363,7 @@ public class UserController implements NotificationReceiver {
         }
             if (password.length() > 2) {
                 Subscriber subscriber = get_subscriber(user_name);
-                return subscriber.getPassword().equals(password);
+                return subscriber.getPassword().equals(Encryption.encryptThisString(password));
             }
              my_log.warning("invalid password for user "+user_name );
              throw new UserException("invalid password for user "+user_name);
@@ -425,9 +426,9 @@ public class UserController implements NotificationReceiver {
     }
 
     public boolean deleteUser(String whosDeleting,String whosBeingDeleted) throws UserException {
-        synchronized (deleteUser) {
-            if (checkIfUserExists(whosDeleting) && checkIfUserIsLoggedIn(whosDeleting) && IdGenerator.getInstance().checkIfAdmin(whosDeleting)) {
-                if (checkIfUserExists(whosDeleting) && !IdGenerator.getInstance().checkIfAdmin(whosBeingDeleted)) {
+        //synchronized (deleteUser) {
+            if (checkIfUserExists(whosDeleting) && checkIfUserIsLoggedIn(whosDeleting) && checkIfAdmin(whosDeleting)) {
+                if (checkIfUserExists(whosBeingDeleted) && !checkIfAdmin(whosBeingDeleted)) {
                     for (Subscriber s : getUser_list()) {
                         if (s.getName().equals(whosBeingDeleted)) {
                             getUser_list().remove(s);
@@ -438,7 +439,7 @@ public class UserController implements NotificationReceiver {
             }
             my_log.info(" user " + whosBeingDeleted + " failed to delete user " + whosBeingDeleted);
             throw new UserException(" user " + whosBeingDeleted + " failed to delete user " + whosBeingDeleted);
-        }
+        //}
     }
 
     public boolean checkIfGuestExists(String guestId){
@@ -565,6 +566,37 @@ public class UserController implements NotificationReceiver {
             throw new UserException("invalid complaint notification id");
         }
             get_subscriber(userid).getComplaintNotifications().get(complaintNotificaionId).setReadTrue();
+    }
+
+    public List<StoreNotification> getUserStoreNotifications(String userId) throws UserException { //Abed changes
+        my_log.info("getting store notifications for user "+userId);
+        if(get_subscriber(userId)==null){
+            my_log.warning("user "+userId +" does not exist - failed to get notifications");
+            throw new UserException("user "+userId +" does not exist - failed to get notifications");
+        }
+        if(!get_subscriber(userId).isLogged_in()){
+            my_log.warning("user "+userId +" is not online - failed to get notifications");
+            throw new UserException("user "+userId +" is not online - failed to get notifications");
+        }
+        return get_subscriber(userId).getStoreNotifications();
+    }
+
+    public List<ComplaintNotification> getAdminComplaintNotifications(String userId) throws UserException { //Abed changes
+        my_log.info("getting store notifications for user "+userId);
+        my_log.info("getting store notifications for user "+userId);
+        if(get_subscriber(userId)==null){
+            my_log.warning("user "+userId +" does not exist - failed to get notifications");
+            throw new UserException("user "+userId +" does not exist - failed to get notifications");
+        }
+        if(!get_subscriber(userId).isLogged_in()){
+            my_log.warning("user "+userId +" is not online - failed to get notifications");
+            throw new UserException("user "+userId +" is not online - failed to get notifications");
+        }
+        if(!checkIfAdmin(userId)){
+            my_log.warning("user "+userId +" is not admin - failed to get complaint notifications");
+            throw new UserException("user "+userId +" is not admin - failed to get complaint notifications");
+        }
+        return get_subscriber(userId).getComplaintNotifications();
     }
 
     public String getPermissionType(String username){
