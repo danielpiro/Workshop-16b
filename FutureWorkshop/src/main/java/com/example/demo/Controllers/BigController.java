@@ -534,49 +534,49 @@ public class BigController {
     }
 
 
-    @GetMapping("/search/name")
-    public ReturnValue SearchProductsAccordingName(@RequestParam String userId, @RequestParam String productName) throws UserException {
-        System.out.println("");
-        if (!IsGuest(userId))
-            userExistsAndLoggedIn(userId);
-
-        ReturnValue rv = new ReturnValue(true, "", getStoreController().SearchProductsAccordingName(productName));
-
-        return rv;
-    }
-
-
-    @GetMapping(value = "/search/category", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public List<Product> SearchProductsAccordingCategory(@RequestParam String userId, @Valid @RequestBody MockCategories mockCategories) throws UserException {
-
-        if (!IsGuest(userId))
-            userExistsAndLoggedIn(userId);
-        return getStoreController().SearchProductsAccordingCategory(mockCategories.getCategories());
-
-    }
+//    @GetMapping("/search/name")
+//    public ReturnValue SearchProductsAccordingName(@RequestParam String userId, @RequestParam String productName) throws UserException {
+//        System.out.println("");
+//        if (!IsGuest(userId))
+//            userExistsAndLoggedIn(userId);
+//
+//        ReturnValue rv = new ReturnValue(true, "", getStoreController().SearchProductsAccordingName(productName));
+//
+//        return rv;
+//    }
 
 
-    @GetMapping("/search/price")
-    public List<Product> SearchProductsAccordingPrice(@RequestParam String userId, @RequestParam float fromPrice, @RequestParam float toPrice) throws UserException {
-
-        if (!IsGuest(userId))
-            userExistsAndLoggedIn(userId);
-        return getStoreController().SearchProductsAccordingPrice(fromPrice, toPrice);
-
-    }
-
-    /**
-     * @param userId
-     * @param productRating - the minimum rating of a product
-     * @return
-     */
-    @GetMapping("/search/rating")
-    public List<Product> SearchProductsAccordingRating(@RequestParam String userId, @RequestParam float productRating) throws UserException {
-
-        if (!IsGuest(userId))
-            userExistsAndLoggedIn(userId);
-        return getStoreController().SearchProductsAccordingRating(productRating);
-    }
+//    @GetMapping(value = "/search/category", consumes = {MediaType.APPLICATION_JSON_VALUE})
+//    public List<Product> SearchProductsAccordingCategory(@RequestParam String userId, @Valid @RequestBody MockCategories mockCategories) throws UserException {
+//
+//        if (!IsGuest(userId))
+//            userExistsAndLoggedIn(userId);
+//        return getStoreController().SearchProductsAccordingCategory(mockCategories.getCategories());
+//
+//    }
+//
+//
+//    @GetMapping("/search/price")
+//    public List<Product> SearchProductsAccordingPrice(@RequestParam String userId, @RequestParam float fromPrice, @RequestParam float toPrice) throws UserException {
+//
+//        if (!IsGuest(userId))
+//            userExistsAndLoggedIn(userId);
+//        return getStoreController().SearchProductsAccordingPrice(fromPrice, toPrice);
+//
+//    }
+//
+//    /**
+//     * @param userId
+//     * @param productRating - the minimum rating of a product
+//     * @return
+//     */
+//    @GetMapping("/search/rating")
+//    public List<Product> SearchProductsAccordingRating(@RequestParam String userId, @RequestParam float productRating) throws UserException {
+//
+//        if (!IsGuest(userId))
+//            userExistsAndLoggedIn(userId);
+//        return getStoreController().SearchProductsAccordingRating(productRating);
+//    }
 
     @PostMapping("/store/delete")
     public ReturnValue deleteStore(@RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException {
@@ -759,36 +759,36 @@ public class BigController {
         return sc.checkIfUserHaveRoleInAnyStore(userId);
     }
 
-    @GetMapping("/store/user/OwnerStores")
-    public ReturnValue getStoreOwnerBuyUser(@RequestParam String userID){
-        ReturnValue rv = new ReturnValue(true, "", sc.getStoreOwnerBuyUser(userID));
-        return rv;
-    }
-    @GetMapping("/store/user/ManagerStores")
-    public ReturnValue getStoreManagerBuyUser(@RequestParam String userID){
-        ReturnValue rv = new ReturnValue(true, "", sc.getStoreManagerBuyUser(userID));
-        return rv;
-    }
-    @GetMapping("/store/user/ManagerOwnerStores")
-    public ReturnValue getStoreManagerOwnerBuyUser(@RequestParam String userID){
-        List<Store> managerOf=sc.getStoreManagerBuyUser(userID);
-        managerOf.addAll(sc.getStoreOwnerBuyUser(userID));
-        List<Store> managerAndOwnerOf = managerOf;
-        ReturnValue rv = new ReturnValue(true, "", managerAndOwnerOf);
-        return rv;
-    }
+//    @GetMapping("/store/user/OwnerStores")
+//    public ReturnValue getStoreOwnerBuyUser(@RequestParam String userID){
+//        ReturnValue rv = new ReturnValue(true, "", sc.getStoreOwnerBuyUser(userID));
+//        return rv;
+//    }
+//    @GetMapping("/store/user/ManagerStores")
+//    public ReturnValue getStoreManagerBuyUser(@RequestParam String userID){
+//        ReturnValue rv = new ReturnValue(true, "", sc.getStoreManagerBuyUser(userID));
+//        return rv;
+//    }
+//    @GetMapping("/store/user/ManagerOwnerStores")
+//    public ReturnValue getStoreManagerOwnerBuyUser(@RequestParam String userID){
+//        List<Store> managerOf=sc.getStoreManagerBuyUser(userID);
+//        managerOf.addAll(sc.getStoreOwnerBuyUser(userID));
+//        List<Store> managerAndOwnerOf = managerOf;
+//        ReturnValue rv = new ReturnValue(true, "", managerAndOwnerOf);
+//        return rv;
+//    }
 
-    @GetMapping("/store/user/Permission")
-    public ReturnValue getUserPermissionInStore(@RequestParam String StoreId,
-                                                @RequestParam String userId) {
-
-        ReturnValue rv = new ReturnValue(true, "", sc.getUserPermission(StoreId, userId));
-        return rv;
-    }
+//    @GetMapping("/store/user/Permission")
+//    public ReturnValue getUserPermissionInStore(@RequestParam String StoreId,
+//                                                @RequestParam String userId) {
+//
+//        ReturnValue rv = new ReturnValue(true, "", sc.getUserPermission(StoreId, userId));
+//        return rv;
+//    }
 
     @GetMapping("/store/title")
-    public ReturnValue getTitleInStore(String StoreId, String userIf) {
-        ReturnValue rv = new ReturnValue(true, "", sc.getTitle(StoreId, userIf));
+    public ReturnValue getTitleInStore(String StoreId, String userId) {
+        ReturnValue rv = new ReturnValue(true, "", sc.getTitle(StoreId, userId));
         return rv;
     }
 
@@ -803,7 +803,7 @@ public class BigController {
     }
 
 
-    @GetMapping("/title")
+    @GetMapping("/title")//todo what the fuck
     public ReturnValue getTitle(@RequestParam String userId,
                                 @RequestParam String StoreId,
                                 @RequestParam String userIf) throws UserException {
