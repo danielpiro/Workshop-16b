@@ -179,15 +179,18 @@ public class UserController implements NotificationReceiver {
         }
 
     public void addProduct(String user_id, String productID, String storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) throws UserException {
-        if ((getGuest(user_id)!=null))
-          getGuest(user_id).addProduct(productID,storeID,amount,inventoryProtector,auctionOrBid);
-            if (get_subscriber(user_id) == null) {
+        if ((getGuest(user_id)!=null)) {
+            getGuest(user_id).addProduct(productID, storeID, amount, inventoryProtector, auctionOrBid);
+        }
+        else if (get_subscriber(user_id) == null && getGuest(user_id) == null) {
             throw new UserException("User "+user_id+ " doesn't exist");
         }
+        else if (get_subscriber(user_id) != null) {
             if (!checkIfUserIsLoggedIn(user_id)) {
-                throw new UserException("User "+user_id+ " is not logged in");
+                throw new UserException("User " + user_id + " is not logged in");
             }
-             get_subscriber(user_id).addProduct(productID, storeID, amount, inventoryProtector, auctionOrBid);
+            get_subscriber(user_id).addProduct(productID, storeID, amount, inventoryProtector, auctionOrBid);
+        }
     }
 
 
@@ -380,8 +383,8 @@ public class UserController implements NotificationReceiver {
     }
     public boolean checkIfUserExists(String userID) throws UserException {
         if (get_subscriber(userID) == null) {
-             my_log.warning(" user "+userID + " doesn't exist");
-            throw new UserException(" user "+userID + " doesn't exist");
+            my_log.warning(" user "+userID + " doesn't exist");
+            return false; //throw new UserException(" user "+userID + " doesn't exist");
         }
         synchronized (get_subscriber(userID).getLock()) {
             return true;
@@ -426,7 +429,7 @@ public class UserController implements NotificationReceiver {
     }
 
     public boolean deleteUser(String whosDeleting,String whosBeingDeleted) throws UserException {
-        //synchronized (deleteUser) {
+        synchronized (deleteUser) {
             if (checkIfUserExists(whosDeleting) && checkIfUserIsLoggedIn(whosDeleting) && checkIfAdmin(whosDeleting)) {
                 if (checkIfUserExists(whosBeingDeleted) && !checkIfAdmin(whosBeingDeleted)) {
                     for (Subscriber s : getUser_list()) {
@@ -439,7 +442,7 @@ public class UserController implements NotificationReceiver {
             }
             my_log.info(" user " + whosBeingDeleted + " failed to delete user " + whosBeingDeleted);
             throw new UserException(" user " + whosBeingDeleted + " failed to delete user " + whosBeingDeleted);
-        //}
+        }
     }
 
     public boolean checkIfGuestExists(String guestId){
@@ -495,8 +498,8 @@ public class UserController implements NotificationReceiver {
     }
     public boolean checkIfAdmin(String userId) throws UserException {
         if(getSystemAdmins().contains(get_subscriber(userId)))
-        return true;
-        throw new UserException(userId + " is not an admin");
+            return true;
+        return false; //throw new UserException(userId + " is not an admin");
     }
 
     @Override
