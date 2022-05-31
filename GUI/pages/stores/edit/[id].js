@@ -20,7 +20,7 @@ const StoreEdit = () => {
     productName: "",
     price: "",
     supply: "",
-    category: "",
+    category: "SelectCategory",
   });
   useEffect(() => {
     const fetch = async () => {
@@ -130,9 +130,9 @@ const StoreEdit = () => {
                   aria-label="Close"
                 ></button>
               </div>
-              <div class="modal-body">
+              <div class="modal-body m-1">
                 <form className="form-control">
-                  <div className="text-center">
+                  <div className="text-center m-1">
                     Name:{" "}
                     <input
                       value={newProduct.productName}
@@ -144,9 +144,47 @@ const StoreEdit = () => {
                       }
                     />
                   </div>
-                  <div className="text-center">
+                  <div className="text-center m-1">
                     Category:{" "}
-                    <input
+                    <div class="dropdown">
+                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" 
+                              data-bs-toggle="dropdown" aria-expanded="false">
+                        {newProduct.category}
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#" onClick={(e) =>
+                                                                setNewProduct((prevState) => ({
+                                                                  ...prevState,
+                                                                  category: e.target.value,
+                                                                }))
+                                                              }>{/*Empty*/}</a></li>
+                        <li><a class="dropdown-item" href="#" onClick={(e) =>
+                                                                setNewProduct((prevState) => ({
+                                                                  ...prevState,
+                                                                  category: "Other",
+                                                                }))
+                                                              }>Other</a></li>
+                        <li><a class="dropdown-item" href="#" onClick={(e) =>
+                                                                setNewProduct((prevState) => ({
+                                                                  ...prevState,
+                                                                  category: "Appliances",
+                                                                }))
+                                                              }>Appliances</a></li>
+                        <li><a class="dropdown-item" href="#" onClick={(e) =>
+                                                                setNewProduct((prevState) => ({
+                                                                  ...prevState,
+                                                                  category: "Apps$Games",
+                                                                }))
+                                                              }>Apps$Games</a></li>
+                        <li><a class="dropdown-item" href="#" onClick={(e) =>
+                                                                setNewProduct((prevState) => ({
+                                                                  ...prevState,
+                                                                  category: "Handmade",
+                                                                }))
+                                                              }>Handmade</a></li>
+                      </ul>
+                  </div>
+                    {/* <input
                       value={newProduct.category}
                       onChange={(e) =>
                         setNewProduct((prevState) => ({
@@ -154,9 +192,9 @@ const StoreEdit = () => {
                           category: e.target.value,
                         }))
                       }
-                    />
+                    /> */}
                   </div>
-                  <div className="text-center">
+                  <div className="text-center m-1">
                     Supply:{" "}
                     <input
                       value={newProduct.supply}
@@ -168,7 +206,7 @@ const StoreEdit = () => {
                       }
                     />
                   </div>
-                  <div className="text-center">
+                  <div className="text-center m-1">
                     Price:{" "}
                     <input
                       value={newProduct.price}

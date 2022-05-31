@@ -30624,3 +30624,39 @@ May 31, 2022 10:18:36 AM com.example.demo.GlobalSystemServices.Log info
 INFO: is trying to sign up with user name : amitpeled
 May 31, 2022 10:18:36 AM com.example.demo.GlobalSystemServices.Log info
 INFO: user amitpeled is trying to login
+May 31, 2022 10:59:25 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user amitpeled is trying to logout
+May 31, 2022 10:59:25 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user amitpeled successfully logged out
+May 31, 2022 10:59:40 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user admin is trying to login
+May 31, 2022 11:00:08 AM com.example.demo.GlobalSystemServices.Log info
+INFO: useradminis trying to delete useramitpeled
+May 31, 2022 11:00:08 AM com.example.demo.GlobalSystemServices.Log info
+INFO:  user amitpeled failed to delete user amitpeled
+May 31, 2022 11:00:27 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user admin is trying to logout
+May 31, 2022 11:00:27 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user admin successfully logged out
+May 31, 2022 11:00:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user abcabc is trying to sign up
+May 31, 2022 11:00:37 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : abcabc
+May 31, 2022 11:00:39 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user admin is trying to login
+May 31, 2022 11:00:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO: useradminis trying to delete userabcabc
+May 31, 2022 11:00:53 AM com.example.demo.GlobalSystemServices.Log info
+INFO:  user abcabc failed to delete user abcabc
+May 31, 2022 11:05:21 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user: admin added product: ProductID_33 from store: StoreID_8 with amount of: 1
+May 31, 2022 11:05:25 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user: admin added product: ProductID_33 from store: StoreID_8 with amount of: 1
+May 31, 2022 11:05:35 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user admintrying to purchase Cart
+May 31, 2022 11:05:35 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user admin total cart value 4.0
+May 31, 2022 11:05:35 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user admin purchased cart successfully 
+May 31, 2022 11:05:35 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user admin recording purchase into history
