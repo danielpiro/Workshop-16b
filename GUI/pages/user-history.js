@@ -5,10 +5,10 @@ import { useCookies } from "react-cookie";
 import createNotification from "../components/norification";
 import Card from "../components/card";
 
-const AdminViewUserPurchase = () => {
+const UserHistory = () => {
   const [purchases, setPurchases] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
+  //const [searchValue, setSearchValue] = useState("");
   const [cookies, setCookie, removeCookie] = useCookies([
     "username",
     "password",
@@ -75,4 +75,4 @@ const AdminViewUserPurchase = () => {
   );
 };
 
-export default AdminViewUserPurchase;
+export default UserHistory;
