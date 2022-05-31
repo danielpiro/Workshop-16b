@@ -329,6 +329,22 @@ public class BigController {
         ReturnValue rv = new ReturnValue(true, "", storePermissions);
         return rv;
     }
+
+    /**
+     * @param user
+     * @param storeId
+     * @return store id and permmitions of user in store (for managers)
+     * @throws NoPermissionException
+     * @throws UserException
+     * @throws JsonProcessingException
+     */
+    @GetMapping("store/manager/permmitions/OfStore")
+    public ReturnValue getStoresManagedByUser(@RequestParam String user,@RequestParam String storeId) throws NoPermissionException, UserException, JsonProcessingException {
+        List<Object> storePermissions = getStorePermissionToReturn(user,storeId, true);
+
+        ReturnValue rv = new ReturnValue(true, "", storePermissions);
+        return rv;
+    }
     /**
      * @param user
      * @return store ids and permmitions of user in store (for owners)
@@ -338,6 +354,21 @@ public class BigController {
     @GetMapping("store/owner/permmitions")
     public ReturnValue getStoresOwnedByUser(@RequestParam String user) throws NoPermissionException, UserException, JsonProcessingException {
         List<Object> storePermissions = getStorePermissionToReturn(user, false);
+        ReturnValue rv = new ReturnValue(true, "", storePermissions);
+        return rv;
+    }
+
+    /**
+     * @param user
+     * @param storeId
+     * @return store  and permmitions of user in store (for owners)
+     * @throws NoPermissionException
+     * @throws UserException
+     * @throws JsonProcessingException
+     */
+    @GetMapping("store/owner/permmitions/OfStore")
+    public ReturnValue getStoresOwnedByUser(@RequestParam String user,@RequestParam String storeId) throws NoPermissionException, UserException, JsonProcessingException {
+        List<Object> storePermissions = getStorePermissionToReturn(user,storeId, false);
         ReturnValue rv = new ReturnValue(true, "", storePermissions);
         return rv;
     }
@@ -352,6 +383,20 @@ public class BigController {
                     objectMapper.readTree(
                             String.format("{\"storeId\":\"%s\",\"permission\":\"%s\"}",store.getId(),permissions)));
         }
+        return storePermissions;
+    }
+    private List<Object> getStorePermissionToReturn(String user,String storeId,boolean ownerOrManager) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Object> storePermissions = new ArrayList<>();
+        Store store =ownerOrManager ? sc.getStoreManagerBuyUser(user,storeId) : sc.getStoreOwnerBuyUser(user,storeId);
+        List<Permission> permissions = new ArrayList<>();
+        if(store != null){
+            permissions = sc.getUserPermission(store.getId(), user);
+        }
+        storePermissions.add(
+                objectMapper.readTree(
+                        String.format("{\"storeId\":\"%s\",\"permission\":\"%s\"}",store.getId(),permissions)));
+
         return storePermissions;
     }
 
