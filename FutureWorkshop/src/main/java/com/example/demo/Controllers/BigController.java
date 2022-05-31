@@ -18,7 +18,6 @@ import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.History.History;
 import com.example.demo.NotificationsManagement.NotificationManager;
 import com.example.demo.ShoppingCart.InventoryProtector;
-import com.example.demo.ShoppingCart.ShoppingBasket;
 import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.ProductsCategories;
@@ -27,14 +26,13 @@ import com.example.demo.Store.StorePurchase.Discounts.Discount;
 import com.example.demo.Store.StorePurchase.Policies.Policy;
 import com.example.demo.Store.StorePurchase.Policies.PolicyBuilder;
 import com.example.demo.Store.StorePurchase.PurchasableProduct;
+import com.example.demo.StorePermission.Permission;
 import com.example.demo.User.Guest;
 import com.example.demo.User.Subscriber;
 //import com.example.demo.dto.AdminDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -42,7 +40,6 @@ import javax.naming.NoPermissionException;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
 
 
 @CrossOrigin(maxAge = 3600)
@@ -90,7 +87,19 @@ public class BigController {
 
     }
 
+    @GetMapping("/online/amount")
+    public ReturnValue getOnlineUsersNum() throws UserException {
 
+        ReturnValue rv = new ReturnValue(true, "", getUserController().getOnlineUsersNum());
+        return rv;
+    }
+
+    @GetMapping("/registered/amount")
+    public ReturnValue getRegisteredUsersNum() throws UserException {
+
+        ReturnValue rv = new ReturnValue(true, "",  getUserController().getRegisteredUsersNum());
+        return rv;
+    }
     @DeleteMapping("/users")
     public ReturnValue deleteUser(@RequestParam String isDeleting,
                                   @RequestParam String whosBeingDeleted) throws NoPermissionException, UserException {
@@ -232,9 +241,6 @@ public class BigController {
     }
 
     /// Store controller
-
-    //todo didnt return String!!!
-
     @PostMapping(value = "/store", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ReturnValue addNewProductToStore(@Valid @RequestBody MockFullProduct mockProduct) throws NoPermissionException, SupplyManagementException, UserException {
         userExistsAndLoggedIn(mockProduct.getUserId());
@@ -288,39 +294,67 @@ public class BigController {
         return rv;
     }
 
-    @GetMapping("/online/amount")
-    public ReturnValue getOnlineUsersNum() throws UserException {
 
-        ReturnValue rv = new ReturnValue(true, "", getUserController().getOnlineUsersNum());
-        return rv;
-    }
 
-    @GetMapping("/registered/amount")
-    public ReturnValue getRegisteredUsersNum() throws UserException {
+//not in use- if front want to use contact guy
+//    /**
+//     * @param storeId the store you want manager info about
+//     * @param userIdRequesting  the requesting user, will make sure you are logged in
+//     *                and that you have permission in the specific store
+//     * @return
+//     * @throws NoPermissionException
+//     * @throws UserException
+//     */
 
-        ReturnValue rv = new ReturnValue(true, "",  getUserController().getRegisteredUsersNum());
-        return rv;
-    }
-
+//    @GetMapping("/managers/info")
+//    public ReturnValue getInfoOnManagersOwners(@RequestParam String storeId,
+//                                               @RequestParam String userIdRequesting) throws NoPermissionException, UserException {
+//        userExistsAndLoggedIn(userIdRequesting);
+//
+//        List<StoreRoles> storeRoles = getStoreController().getInfoOnManagersOwners(storeId, userIdRequesting);
+//        ReturnValue rv = new ReturnValue(true, "", );
+//        return rv;
+//    }
 
     /**
-     * @param storeId the store you want manager info about
-     * @param userId  the requesting user, will make sure you are logged in
-     *                and that you have permission in the specific store
-     * @return
+     * @param user
+     * @return store ids and permmitions of user in store (for managers)
      * @throws NoPermissionException
      * @throws UserException
      */
+    @GetMapping("store/manager/permmitions")
+    public ReturnValue getStoresManagedByUser(@RequestParam String user) throws NoPermissionException, UserException, JsonProcessingException {
+        List<Object> storePermissions = getStorePermissionToReturn(user, true);
 
-    @GetMapping("/managers/info")
-
-    public ReturnValue getInfoOnManagersOwners(@RequestParam String storeId,
-                                               @RequestParam String userId) throws NoPermissionException, UserException {
-        userExistsAndLoggedIn(userId);
-
-
-        ReturnValue rv = new ReturnValue(true, "", getStoreController().getInfoOnManagersOwners(storeId, userId));
+        ReturnValue rv = new ReturnValue(true, "", storePermissions);
         return rv;
+    }
+    /**
+     * @param user
+     * @return store ids and permmitions of user in store (for owners)
+     * @throws NoPermissionException
+     * @throws UserException
+     */
+    @GetMapping("store/owner/permmitions")
+    public ReturnValue getStoresOwnedByUser(@RequestParam String user) throws NoPermissionException, UserException, JsonProcessingException {
+        List<Object> storePermissions = getStorePermissionToReturn(user, false);
+        ReturnValue rv = new ReturnValue(true, "", storePermissions);
+        return rv;
+    }
+
+    private List<Object> getStorePermissionToReturn(String user,boolean ownerOrManager) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Object> storePermissions = new ArrayList<>();
+        List<Store> stores =ownerOrManager ? sc.getStoreManagerBuyUser(user) : sc.getStoreOwnerBuyUser(user);
+        for (Store store: stores){
+            List<Permission> permissions = sc.getUserPermission(store.getId(), user);
+            for (Permission p: permissions){
+                storePermissions.add(
+                        objectMapper.readTree(
+                                String.format("{\"storeId\":\"%s\",\"permission\":\"%s\"}",store.getId(),p.toString())));
+            }
+        }
+        return storePermissions;
     }
 
     @PostMapping(value = "/store/product", consumes = {MediaType.APPLICATION_JSON_VALUE})
@@ -500,49 +534,49 @@ public class BigController {
     }
 
 
-    @GetMapping("/search/name")
-    public ReturnValue SearchProductsAccordingName(@RequestParam String userId, @RequestParam String productName) throws UserException {
-        System.out.println("");
-        if (!IsGuest(userId))
-            userExistsAndLoggedIn(userId);
-
-        ReturnValue rv = new ReturnValue(true, "", getStoreController().SearchProductsAccordingName(productName));
-
-        return rv;
-    }
-
-
-    @GetMapping(value = "/search/category", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public List<Product> SearchProductsAccordingCategory(@RequestParam String userId, @Valid @RequestBody MockCategories mockCategories) throws UserException {
-
-        if (!IsGuest(userId))
-            userExistsAndLoggedIn(userId);
-        return getStoreController().SearchProductsAccordingCategory(mockCategories.getCategories());
-
-    }
+//    @GetMapping("/search/name")
+//    public ReturnValue SearchProductsAccordingName(@RequestParam String userId, @RequestParam String productName) throws UserException {
+//        System.out.println("");
+//        if (!IsGuest(userId))
+//            userExistsAndLoggedIn(userId);
+//
+//        ReturnValue rv = new ReturnValue(true, "", getStoreController().SearchProductsAccordingName(productName));
+//
+//        return rv;
+//    }
 
 
-    @GetMapping("/search/price")
-    public List<Product> SearchProductsAccordingPrice(@RequestParam String userId, @RequestParam float fromPrice, @RequestParam float toPrice) throws UserException {
-
-        if (!IsGuest(userId))
-            userExistsAndLoggedIn(userId);
-        return getStoreController().SearchProductsAccordingPrice(fromPrice, toPrice);
-
-    }
-
-    /**
-     * @param userId
-     * @param productRating - the minimum rating of a product
-     * @return
-     */
-    @GetMapping("/search/rating")
-    public List<Product> SearchProductsAccordingRating(@RequestParam String userId, @RequestParam float productRating) throws UserException {
-
-        if (!IsGuest(userId))
-            userExistsAndLoggedIn(userId);
-        return getStoreController().SearchProductsAccordingRating(productRating);
-    }
+//    @GetMapping(value = "/search/category", consumes = {MediaType.APPLICATION_JSON_VALUE})
+//    public List<Product> SearchProductsAccordingCategory(@RequestParam String userId, @Valid @RequestBody MockCategories mockCategories) throws UserException {
+//
+//        if (!IsGuest(userId))
+//            userExistsAndLoggedIn(userId);
+//        return getStoreController().SearchProductsAccordingCategory(mockCategories.getCategories());
+//
+//    }
+//
+//
+//    @GetMapping("/search/price")
+//    public List<Product> SearchProductsAccordingPrice(@RequestParam String userId, @RequestParam float fromPrice, @RequestParam float toPrice) throws UserException {
+//
+//        if (!IsGuest(userId))
+//            userExistsAndLoggedIn(userId);
+//        return getStoreController().SearchProductsAccordingPrice(fromPrice, toPrice);
+//
+//    }
+//
+//    /**
+//     * @param userId
+//     * @param productRating - the minimum rating of a product
+//     * @return
+//     */
+//    @GetMapping("/search/rating")
+//    public List<Product> SearchProductsAccordingRating(@RequestParam String userId, @RequestParam float productRating) throws UserException {
+//
+//        if (!IsGuest(userId))
+//            userExistsAndLoggedIn(userId);
+//        return getStoreController().SearchProductsAccordingRating(productRating);
+//    }
 
     @PostMapping("/store/delete")
     public ReturnValue deleteStore(@RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException {
@@ -725,36 +759,36 @@ public class BigController {
         return sc.checkIfUserHaveRoleInAnyStore(userId);
     }
 
-    @GetMapping("/store/user/OwnerStores")
-    public ReturnValue getStoreOwnerBuyUser(@RequestParam String userID){
-        ReturnValue rv = new ReturnValue(true, "", sc.getStoreOwnerBuyUser(userID));
-        return rv;
-    }
-    @GetMapping("/store/user/ManagerStores")
-    public ReturnValue getStoreManagerBuyUser(@RequestParam String userID){
-        ReturnValue rv = new ReturnValue(true, "", sc.getStoreManagerBuyUser(userID));
-        return rv;
-    }
-    @GetMapping("/store/user/ManagerOwnerStores")
-    public ReturnValue getStoreManagerOwnerBuyUser(@RequestParam String userID){
-        List<Store> managerOf=sc.getStoreManagerBuyUser(userID);
-        managerOf.addAll(sc.getStoreOwnerBuyUser(userID));
-        List<Store> managerAndOwnerOf = managerOf;
-        ReturnValue rv = new ReturnValue(true, "", managerAndOwnerOf);
-        return rv;
-    }
+//    @GetMapping("/store/user/OwnerStores")
+//    public ReturnValue getStoreOwnerBuyUser(@RequestParam String userID){
+//        ReturnValue rv = new ReturnValue(true, "", sc.getStoreOwnerBuyUser(userID));
+//        return rv;
+//    }
+//    @GetMapping("/store/user/ManagerStores")
+//    public ReturnValue getStoreManagerBuyUser(@RequestParam String userID){
+//        ReturnValue rv = new ReturnValue(true, "", sc.getStoreManagerBuyUser(userID));
+//        return rv;
+//    }
+//    @GetMapping("/store/user/ManagerOwnerStores")
+//    public ReturnValue getStoreManagerOwnerBuyUser(@RequestParam String userID){
+//        List<Store> managerOf=sc.getStoreManagerBuyUser(userID);
+//        managerOf.addAll(sc.getStoreOwnerBuyUser(userID));
+//        List<Store> managerAndOwnerOf = managerOf;
+//        ReturnValue rv = new ReturnValue(true, "", managerAndOwnerOf);
+//        return rv;
+//    }
 
-    @GetMapping("/store/user/Permission")
-    public ReturnValue getUserPermissionInStore(@RequestParam String StoreId,
-                                                @RequestParam String userId) {
-
-        ReturnValue rv = new ReturnValue(true, "", sc.getUserPermission(StoreId, userId));
-        return rv;
-    }
+//    @GetMapping("/store/user/Permission")
+//    public ReturnValue getUserPermissionInStore(@RequestParam String StoreId,
+//                                                @RequestParam String userId) {
+//
+//        ReturnValue rv = new ReturnValue(true, "", sc.getUserPermission(StoreId, userId));
+//        return rv;
+//    }
 
     @GetMapping("/store/title")
-    public ReturnValue getTitleInStore(String StoreId, String userIf) {
-        ReturnValue rv = new ReturnValue(true, "", sc.getTitle(StoreId, userIf));
+    public ReturnValue getTitleInStore(String StoreId, String userId) {
+        ReturnValue rv = new ReturnValue(true, "", sc.getTitle(StoreId, userId));
         return rv;
     }
 
@@ -769,7 +803,7 @@ public class BigController {
     }
 
 
-    @GetMapping("/title")
+    @GetMapping("/title")//todo what the fuck
     public ReturnValue getTitle(@RequestParam String userId,
                                 @RequestParam String StoreId,
                                 @RequestParam String userIf) throws UserException {
