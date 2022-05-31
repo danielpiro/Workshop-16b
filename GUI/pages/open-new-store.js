@@ -77,7 +77,13 @@ const OpenNewStore = () => {
           </div>
             
           <div className="mb-3 form-check">
-            <input className="form-check-input" type="checkbox" value="" id="addStoreOwnerCheckBox"/>
+            <input className="form-check-input" type="checkbox" value="" id="addStoreOwnerCheckBox" 
+                   onChange={(e) => {
+                    setAddAnotherStoreOwner(e.target.checked);
+                    //console.log(e.target.checked);
+                   } 
+                  }
+            />
             <label className="form-check-label" for="flexCheckDefault">
               Add Additional Store Owner
             </label>
