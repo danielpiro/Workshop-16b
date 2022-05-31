@@ -383,8 +383,8 @@ public class Store implements getStoreInfo {
 
 
     public boolean isUserOwner(String userID) {
-        return StoreRoles.stream().anyMatch(role ->role.getTitle().equals("owner") &&
-                role.getTitle().equals("original owner") &&
+        return StoreRoles.stream().anyMatch(role ->(role.getTitle().equals("owner") ||
+                role.getTitle().equals("original owner")) &&
                 role.getUserId().equals(userID) );
     }
 
