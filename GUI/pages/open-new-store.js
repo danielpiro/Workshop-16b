@@ -13,30 +13,39 @@ const OpenNewStore = () => {
     "userId",
     "type",
   ]);
-
-  const [isLoading, setIsLoading] = useState(false);
+  //const [isLoading, setIsLoading] = useState(false);
   const [openNewStoreInput, setOpenNewStoreInput] = useState({
     storename: "",
     additionalStoreOwnerUsername: "",
   });
+  const [addAnotherStoreOwner, setAddAnotherStoreOwner] = useState(false);
+
+  const onCheckBoxClicked = (e) => {
+    e.preventDefault();
+    if (document.getElementById("addStoreOwnerCheckBox").checked === false){
+      setAddAnotherStoreOwner(false);
+      //console.log(addAnotherStoreOwner);
+    }
+    else{
+      setAddAnotherStoreOwner(true);
+      //console.log(addAnotherStoreOwner);
+    }
+  }
 
   const onOpeningNewStore = async (e) => {
     e.preventDefault();
-    if (
-      openNewStoreInput.additionalStoreOwnerUsername !== "" &&
-      openNewStoreInput.storename !== ""
-    ) {
+    if ( openNewStoreInput.storename !== "") { //openNewStoreInput.additionalStoreOwnerUsername !== ""
       await api
         .post(
           `/store/open/?userId=${cookies.username}&storeName=${openNewStoreInput.storename}`
         )
         .then((res) => {
-          if (res.status === 200) {
-            const { data } = res;
-            console.log(data);
-            createNotification("success", "Create new store successfully", () =>
-              router.push("/dashboard")
-            )();
+          const { data } = res;
+            if (data.success) {
+              console.log(data);
+              createNotification("success", "Create new store successfully", () =>
+                router.push("/dashboard")
+              )();
           } else {
             const { data } = res;
             console.log(data);
@@ -78,7 +87,15 @@ const OpenNewStore = () => {
               }
             />
           </div>
-          <div className="mb-3">
+
+          <div className="mb-3 form-check">
+            <input className="form-check-input" type="checkbox" value="" id="addStoreOwnerCheckBox" onChange={onCheckBoxClicked}/>
+            <label className="form-check-label" for="flexCheckDefault">
+              Add Additional Store Owner
+            </label>
+          </div>
+
+          <div className="mb-3" style={{display: addAnotherStoreOwner===true ? "block" : "none"}}>
             <label for="formGroupExampleInput2" className="form-label fs-4">
               Additional Store Owner Name
             </label>

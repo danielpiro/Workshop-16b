@@ -157,6 +157,11 @@ const Menu = () => {
                     </Link>
                   </li>
                   <li className="history-button nav-item">
+                    <Link href="/user-history">
+                      <a className="nav-link ms-4">History</a>
+                    </Link>
+                  </li>
+                  {/* <li className="history-button nav-item">
                     <Link href="#">
                       <a
                         className="nav-link ms-4"
@@ -171,7 +176,7 @@ const Menu = () => {
                         History
                       </a>
                     </Link>
-                  </li>
+                  </li> */}
                   <li className="notify-admins-button nav-item">
                     <Link href="/notify-admins">
                       <a className="nav-link ms-4">Notify Admins</a>
@@ -249,22 +254,8 @@ const Menu = () => {
                       </Link>
                     </li>
                     <li className="history-button nav-item">
-                      <Link href="#">
-                        <a
-                          className="nav-link ms-4"
-                          onClick={() => {
-                            setCookie("type", "manager", {
-                              path: "/",
-                              sameSite: true,
-                            });
-                            return createNotification(
-                              "info",
-                              "in manager menu"
-                            )();
-                          }}
-                        >
-                          History
-                        </a>
+                      <Link href="/user-history">
+                        <a className="nav-link ms-4">History</a>
                       </Link>
                     </li>
                     <li>
@@ -404,19 +395,8 @@ const Menu = () => {
                     </Link>
                   </li>
                   <li className="history-button nav-item">
-                    <Link href="#">
-                      <a
-                        className="nav-link ms-4"
-                        onClick={() => {
-                          setCookie("type", "admin", {
-                            path: "/",
-                            sameSite: true,
-                          });
-                          return createNotification("info", "in admin menu")();
-                        }}
-                      >
-                        History
-                      </a>
+                    <Link href="/user-history">
+                      <a className="nav-link ms-4">History</a>
                     </Link>
                   </li>
                   <li className="notify-admins-button nav-item">

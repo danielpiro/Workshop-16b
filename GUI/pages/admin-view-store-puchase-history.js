@@ -2,6 +2,7 @@ import Menu from "../components/menu";
 import { useState } from "react";
 import api from "../components/api";
 import { useCookies } from "react-cookie";
+import Card from "../components/card";
 
 const AdminViewStorePurchaes = () => {
   const [purchases, setPurchases] = useState([]);
@@ -20,17 +21,17 @@ const AdminViewStorePurchaes = () => {
       setIsLoading(!isLoading);
       await api
         .get(
-          `/history/store/?storeId=${searchValue}&userId=${cookies.userId}` //TODO: ask backend for storeIDs!
+          `/history/store/?storeId=${searchValue}&userId=${cookies.userId}`
         )
         .then((res) => {
-          if (res.status === 200) {
-            const { data } = res;
-            setPurchases(data.value);
-            setIsLoading(!isLoading);
-            createNotification(
-              "success",
-              "Displaying all store's purchases successfully"
-            )();
+          const { data } = res;
+            if (data.success) {
+              setPurchases(data.value);
+              setIsLoading(!isLoading);
+              createNotification(
+                "success",
+                "Displaying all store's purchases successfully"
+              )();
           }
         })
         .catch((err) => console.log(err));
