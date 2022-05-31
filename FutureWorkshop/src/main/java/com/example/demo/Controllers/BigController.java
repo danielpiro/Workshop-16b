@@ -348,11 +348,9 @@ public class BigController {
         List<Store> stores =ownerOrManager ? sc.getStoreManagerBuyUser(user) : sc.getStoreOwnerBuyUser(user);
         for (Store store: stores){
             List<Permission> permissions = sc.getUserPermission(store.getId(), user);
-            for (Permission p: permissions){
-                storePermissions.add(
-                        objectMapper.readTree(
-                                String.format("{\"storeId\":\"%s\",\"permission\":\"%s\"}",store.getId(),p.toString())));
-            }
+            storePermissions.add(
+                    objectMapper.readTree(
+                            String.format("{\"storeId\":\"%s\",\"permission\":\"%s\"}",store.getId(),permissions)));
         }
         return storePermissions;
     }
