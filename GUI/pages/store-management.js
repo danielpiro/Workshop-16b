@@ -131,11 +131,11 @@ const StoreManagement = () => {
               <div className="card-body">
                 <Link
                   href={{
-                    pathname: "/change-store-manager-permissions",
+                    pathname: "/discounts",
                     query: Object.keys(router.query)[0],
                   }}
                 >
-                  <a>Change store's manager permissions</a>
+                  <a>Add/Edit discounts</a>
                 </Link>
               </div>
             </div>
@@ -172,7 +172,7 @@ const StoreManagement = () => {
                     query: Object.keys(router.query)[0],
                   }}
                 >
-                  <a>Close a store</a>
+                  <a>Close a store (Freeze store)</a>
                 </Link>
               </div>
             </div>
@@ -200,9 +200,9 @@ const StoreManagement = () => {
           <div className="col">
             <div
               className="card"
-              style={{ display: userPermission == "Admin" ? "block" : "none" }}
+              style={{ display: userPermission == "Admin" ? "none" : "none" }}
             >
-              <div className="card-body">
+              {/* <div className="card-body">
                 <Link
                   href={{
                     pathname: "/discounts",
@@ -211,7 +211,7 @@ const StoreManagement = () => {
                 >
                   <a>Add/Edit discounts</a>
                 </Link>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
