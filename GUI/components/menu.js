@@ -304,7 +304,7 @@ const Menu = () => {
               <div className="modal-content">
                 <div className="modal-header">
                   <h5 className="modal-title" id="registerTitle">
-                    Register
+                    Become a member
                   </h5>
                 </div>
                 <div className="modal-body">
@@ -324,6 +324,7 @@ const Menu = () => {
                     <input
                       placeholder="Enter password"
                       value={registerInput.password}
+                      type="password"
                       onChange={(e) =>
                         setRegisterInput((prevState) => ({
                           ...prevState,
