@@ -803,14 +803,7 @@ public class BigController {
     }
 
 
-    @GetMapping("/title")//todo what the fuck
-    public ReturnValue getTitle(@RequestParam String userId,
-                                @RequestParam String StoreId,
-                                @RequestParam String userIf) throws UserException {
-        userExistsAndLoggedIn(userId);
-        ReturnValue rv = new ReturnValue(true, "", sc.getTitle(StoreId, userIf));
-        return rv;
-    }
+
 
 
     public List<Discount> getDiscounts(String storeId, String userId) throws NoPermissionException, UserException {
