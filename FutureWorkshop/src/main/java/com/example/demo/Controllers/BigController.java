@@ -18,7 +18,6 @@ import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.History.History;
 import com.example.demo.NotificationsManagement.NotificationManager;
 import com.example.demo.ShoppingCart.InventoryProtector;
-import com.example.demo.ShoppingCart.ShoppingBasket;
 import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.ProductsCategories;
@@ -27,14 +26,14 @@ import com.example.demo.Store.StorePurchase.Discounts.Discount;
 import com.example.demo.Store.StorePurchase.Policies.Policy;
 import com.example.demo.Store.StorePurchase.Policies.PolicyBuilder;
 import com.example.demo.Store.StorePurchase.PurchasableProduct;
+import com.example.demo.StorePermission.Permission;
+import com.example.demo.StorePermission.StoreRoles;
 import com.example.demo.User.Guest;
 import com.example.demo.User.Subscriber;
 //import com.example.demo.dto.AdminDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -42,7 +41,6 @@ import javax.naming.NoPermissionException;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
 
 
 @CrossOrigin(maxAge = 3600)
@@ -90,7 +88,19 @@ public class BigController {
 
     }
 
+    @GetMapping("/online/amount")
+    public ReturnValue getOnlineUsersNum() throws UserException {
 
+        ReturnValue rv = new ReturnValue(true, "", getUserController().getOnlineUsersNum());
+        return rv;
+    }
+
+    @GetMapping("/registered/amount")
+    public ReturnValue getRegisteredUsersNum() throws UserException {
+
+        ReturnValue rv = new ReturnValue(true, "",  getUserController().getRegisteredUsersNum());
+        return rv;
+    }
     @DeleteMapping("/users")
     public ReturnValue deleteUser(@RequestParam String isDeleting,
                                   @RequestParam String whosBeingDeleted) throws NoPermissionException, UserException {
@@ -232,9 +242,6 @@ public class BigController {
     }
 
     /// Store controller
-
-    //todo didnt return String!!!
-
     @PostMapping(value = "/store", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ReturnValue addNewProductToStore(@Valid @RequestBody MockFullProduct mockProduct) throws NoPermissionException, SupplyManagementException, UserException {
         userExistsAndLoggedIn(mockProduct.getUserId());
@@ -288,41 +295,53 @@ public class BigController {
         return rv;
     }
 
-    @GetMapping("/online/amount")
-    public ReturnValue getOnlineUsersNum() throws UserException {
 
-        ReturnValue rv = new ReturnValue(true, "", getUserController().getOnlineUsersNum());
-        return rv;
-    }
 
-    @GetMapping("/registered/amount")
-    public ReturnValue getRegisteredUsersNum() throws UserException {
+//not in use- if front want to use contact guy
+//    /**
+//     * @param storeId the store you want manager info about
+//     * @param userIdRequesting  the requesting user, will make sure you are logged in
+//     *                and that you have permission in the specific store
+//     * @return
+//     * @throws NoPermissionException
+//     * @throws UserException
+//     */
 
-        ReturnValue rv = new ReturnValue(true, "",  getUserController().getRegisteredUsersNum());
-        return rv;
-    }
-
+//    @GetMapping("/managers/info")
+//    public ReturnValue getInfoOnManagersOwners(@RequestParam String storeId,
+//                                               @RequestParam String userIdRequesting) throws NoPermissionException, UserException {
+//        userExistsAndLoggedIn(userIdRequesting);
+//
+//        List<StoreRoles> storeRoles = getStoreController().getInfoOnManagersOwners(storeId, userIdRequesting);
+//        ReturnValue rv = new ReturnValue(true, "", );
+//        return rv;
+//    }
 
     /**
-     * @param storeId the store you want manager info about
-     * @param userId  the requesting user, will make sure you are logged in
-     *                and that you have permission in the specific store
-     * @return
+     * @param user
+     * @return store ids and permmitions of user in store (for owners)
      * @throws NoPermissionException
      * @throws UserException
      */
+    @GetMapping("store/manager/permmitions")
+    public ReturnValue getStoresManagedByUser(@RequestParam String user) throws NoPermissionException, UserException, JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Object> storePermissions = new ArrayList<>();
 
-    @GetMapping("/managers/info")
+        List<Store> stores =sc.getStoreManagerBuyUser(user);
+        for (Store store: stores){
+            List<Permission> permissions = sc.getUserPermission(store.getId(),user);
+            for (Permission p: permissions){
 
-    public ReturnValue getInfoOnManagersOwners(@RequestParam String storeId,
-                                               @RequestParam String userId) throws NoPermissionException, UserException {
-        userExistsAndLoggedIn(userId);
+                storePermissions.add(
+                        objectMapper.readTree(
+                                String.format("{\"storeId\":\"%s\",\"permission\":\"%s\"}",store.getId(),p.toString())));
+            }
+        }
 
-
-        ReturnValue rv = new ReturnValue(true, "", getStoreController().getInfoOnManagersOwners(storeId, userId));
+        ReturnValue rv = new ReturnValue(true, "", storePermissions);
         return rv;
     }
-
     @PostMapping(value = "/store/product", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ReturnValue editProduct(@RequestParam String productId, @Valid @RequestBody MockFullProduct mockProduct) throws NoPermissionException, SupplyManagementException, UserException {
         userExistsAndLoggedIn(mockProduct.getUserId());
