@@ -6,7 +6,6 @@ import Footer from "../../components/footer";
 const ChangeStoreManagerPermissions = () => {
   // const [isLoading, setIsLoading] = useState(true);
   // const [searchValue, setSearchValue] = useState("");
-  const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
   const [permission, setPermissions] = useState({
     p1: false, p2: false, p3: false, p4: false, p5: false, p6: false,
     p7: false, p8: false, p9: false, p10: false, p11: false, p12: false,
