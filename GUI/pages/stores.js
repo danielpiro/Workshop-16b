@@ -52,9 +52,10 @@ const Stores = () => {
           return await api.get(`store/owner/permmitions?user=${cookies.userId}`).then((res) => {
             const { data } = res;
             if (data.success) {
-              console.log(data.value);
+              console.log(data.value[0].storeId);
+              console.log(data.value[0].permission);
             } else {
-              console.log(data.reason)();
+              console.log(data.reason);
             }
           });
         })

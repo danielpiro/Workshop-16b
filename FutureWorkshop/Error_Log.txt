@@ -7171,3 +7171,7 @@ May 31, 2022 1:04:01 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User GuestID_10 doesn't exist
 May 31, 2022 1:28:06 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: failed to logout - user admin is not logged in
+May 31, 2022 8:09:47 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: abc is not admin  and cant delete store
+May 31, 2022 8:40:05 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: abc is not admin  and cant delete store

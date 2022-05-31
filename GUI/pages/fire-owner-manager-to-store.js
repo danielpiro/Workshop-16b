@@ -9,11 +9,7 @@ import { useCookies } from "react-cookie";
 
 const FireOwnerToStore = () => {
   const router = useRouter();
-  const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
-  const [newOfficialInput, setNewOfficialInput] = useState({
-    username: "",
-    storename: "",
-  });
+  const [usernameFired, setUsernameFired] = useState("");
 
   const [cookies, setCookie, removeCookie] = useCookies([
     "username",
@@ -27,17 +23,17 @@ const FireOwnerToStore = () => {
     if (newOfficialInput.username != "" && newOfficialInput.storename != "") {
       await api
         .post(
-          `owner/fire/?userId=${newOfficialInput.username}&storeId=${window.location.href.split("?").pop().slice(0, -1)}` //TODO: Need the real path from backend
+          `owner/fire/?userId=${usernameFired}&storeId=${window.location.href.split("?").pop().slice(0, -1)}` 
         )
         .then((res) => {
-          if (res.status === 200) {
-            const { data } = res;
-            console.log(data);
-            createNotification("success", "User fired successfully", () =>
-              router.push("/dashboard")
-            )();
+          const { data } = res;
+            if (data.success) {
+              console.log(data);
+              createNotification("success", "User fired successfully", () =>
+                router.push("/dashboard")
+              )();
           } else {
-            const { data } = res;
+            //const { data } = res;
             console.log(data);
             createNotification("error", "failure firing user!")();
           }
@@ -56,7 +52,7 @@ const FireOwnerToStore = () => {
       <Menu />
 
       <div className="card-header">
-        <h3>Fire new owner to a store</h3>
+        <h3>Fire new owner fron the store</h3>
       </div>
 
       <div className="container">
@@ -66,30 +62,10 @@ const FireOwnerToStore = () => {
             type="search"
             placeholder="Enter username of the future fired owner/manager"
             aria-label="Search"
-            value={newOfficialInput.username}
-            onChange={(e) =>
-              setNewOfficialInput((prevState) => ({
-                ...prevState,
-                username: e.target.value,
-              }))
-            }
+            onChange={(e) => setUsernameFired(e.target.value)}
           />
         </div>
-        <div className="row" style={{ display: "flex", width: "50%" }}>
-          <input
-            className="form-control mr-sm-2 m-2"
-            type="search"
-            placeholder="Enter the store name"
-            aria-label="Search"
-            value={newOfficialInput.storename}
-            onChange={(e) =>
-              setNewOfficialInput((prevState) => ({
-                ...prevState,
-                storename: e.target.value,
-              }))
-            }
-          />
-        </div>
+        
         <br />
         <div className="row m-1" style={{ display: "flex", width: "15%" }}>
           <button
