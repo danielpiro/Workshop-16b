@@ -12,14 +12,10 @@ import com.example.demo.NotificationsManagement.NotificationReceiver;
 import com.example.demo.NotificationsManagement.StoreNotification;
 import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.ShoppingCart.ShoppingCart;
-
 import com.example.demo.User.Encryption;
 import com.example.demo.User.Guest;
-import com.example.demo.User.Message;
 import com.example.demo.User.Subscriber;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -143,15 +139,15 @@ public class UserController implements NotificationReceiver {
     public ShoppingCart getShoppingCart(String user_Id) throws UserException {
         if(getGuest(user_Id)!=null)
             return getGuest(user_Id).getShoppingCart();
-        if(get_subscriber(user_Id)==null){
+        else if(get_subscriber(user_Id)==null){
              my_log.warning("User "+ user_Id +" doesn't exist");
             throw new UserException("User " +user_Id+ " doesn't exist");
         }
-            if (!checkIfUserIsLoggedIn(user_Id)) {
+            else if (!checkIfUserIsLoggedIn(user_Id)) {
                  my_log.warning("User "+user_Id+ " is not logged in");
                 throw new UserException("User "+user_Id+ "is not logged in");
             }
-            return get_subscriber(user_Id).getShoppingCart();
+             return get_subscriber(user_Id).getShoppingCart();
     }
 
     public boolean containsStore(String user_id,String storeID) throws UserException {
@@ -171,9 +167,14 @@ public class UserController implements NotificationReceiver {
     public void removeProduct(String user_id,String productID, String storeID, int amount) throws UserException {
         if ((getGuest(user_id)!=null))
           getGuest(user_id).removeProduct(productID,storeID,amount);
-            if (get_subscriber(user_id) == null) {
+        else if (get_subscriber(user_id) == null&& getGuest(user_id) == null) {
              my_log.warning("User "+ user_id +" doesn't exist");
             throw new UserException("User "+user_id+ " doesn't exist");
+        }
+        else if(get_subscriber(user_id) != null){
+            if(!checkIfUserIsLoggedIn(user_id)){
+                throw new UserException("User " + user_id + " is not logged in");
+            }
         }
              get_subscriber(user_id).removeProduct(productID, storeID, amount);
         }
@@ -196,12 +197,12 @@ public class UserController implements NotificationReceiver {
 
     public String getCartInventory(String user_id) throws UserException {
         if ((getGuest(user_id)!=null))
-          return get_subscriber(user_id).getCartInventory();
-            if(get_subscriber(user_id)==null){
+          return getGuest(user_id).getCartInventory();
+           else if(get_subscriber(user_id)==null){
              my_log.warning("user "+user_id + " doesn't exist");
             throw new UserException("User " +user_id + "doesn't exist");
         }
-            if (checkIfUserIsLoggedIn(user_id)) {
+           else if (!checkIfUserIsLoggedIn(user_id)) {
                  my_log.warning("user "+user_id + " is not logged in");
                 throw new UserException("User " +user_id + " is not logged in");
             }
@@ -209,11 +210,11 @@ public class UserController implements NotificationReceiver {
     }
     public float purchaseCart(String user_id, ExternalConnectionHolder externalConnectionHolder) throws SupplyManagementException, StorePolicyViolatedException, CantPurchaseException, UserException {
         if ((getGuest(user_id)!=null))
-         return get_subscriber(user_id).purchaseCart(externalConnectionHolder);
-            if(get_subscriber(user_id)==null){
+         return getGuest(user_id).purchaseCart(externalConnectionHolder);
+          else  if(get_subscriber(user_id)==null){
             throw new UserException("User "+user_id + " doesn't exist");
         }
-            if (!checkIfUserIsLoggedIn(user_id)) {
+          else  if (!checkIfUserIsLoggedIn(user_id)) {
                  my_log.warning("user "+user_id + " is not logged in");
                 throw new UserException("User "+user_id +" is not logged in");
             }
