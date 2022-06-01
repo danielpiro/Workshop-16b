@@ -61,7 +61,6 @@ public class BigController {
     private UserController us;
     private PolicyBuilder policyBuilder;
 
-    private static BigController instance = null;
 
     Log my_log = Log.getLogger();
 
@@ -70,7 +69,7 @@ public class BigController {
 //        this.us = us;
 //        this.sc = sc;
 //    }
-    private BigController() throws IOException, UserException, NoPermissionException, SupplyManagementException {
+    public BigController() throws IOException, UserException, NoPermissionException, SupplyManagementException {
         this.us = new UserController();
         this.sc = new StoreController();
         this.policyBuilder = new PolicyBuilder();
@@ -80,28 +79,7 @@ public class BigController {
         my_log.info("System Started");
     }
 
-    public static BigController getInstance() throws SupplyManagementException, NoPermissionException, IOException, UserException {
-        if(instance ==null){
-            instance = new BigController();
-        }
-        return instance;
-    }
 
-    @Autowired
-    private SimpMessagingTemplate simpMessagingTemplate;
-
-    @MessageMapping("/message")
-    @SendTo("/chatroom/public")
-    public realTimeNotification receivePublicMessage(@Payload realTimeNotification realTimeNotification){
-        return realTimeNotification;
-    }
-
-    @MessageMapping("/private-message")
-    public realTimeNotification recievePrivateMessage(@Payload realTimeNotification realTimeNotification){
-        simpMessagingTemplate.convertAndSendToUser(realTimeNotification.getReceiverName(),"/private", realTimeNotification);
-        System.out.println(realTimeNotification.toString());
-        return realTimeNotification;
-    }
 
     public void initiateExternalConnections() {
         ExternalConnections externalConnections = ExternalConnections.getInstance();

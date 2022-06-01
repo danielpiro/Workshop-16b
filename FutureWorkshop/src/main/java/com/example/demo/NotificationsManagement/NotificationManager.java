@@ -3,6 +3,7 @@ package com.example.demo.NotificationsManagement;
 
 import com.example.demo.Controllers.BigController;
 import com.example.demo.Controllers.model.realTimeNotification;
+import com.example.demo.Controllers.notificationController;
 import com.example.demo.CustomExceptions.Exception.NotifyException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
@@ -58,8 +59,8 @@ public class NotificationManager {//todo add tests
 
     public void sendNotificationTo(List<String> userIds,  StoreNotification storeNotification) throws UserException, SupplyManagementException, NoPermissionException, IOException {
         receiver.sendNotificationTo( userIds, storeNotification);
-        BigController.getInstance().receivePublicMessage(new realTimeNotification(storeNotification.getSentFrom().getStoreName(),storeNotification.getSubject().toString(),storeNotification.getTitle(),storeNotification.getBody(),new SimpleDateFormat(pattern).format( Calendar.getInstance().getTime())));
-        BigController.getInstance().recievePrivateMessage(new realTimeNotification(storeNotification.getSentFrom().getStoreName(),storeNotification.getSubject().toString(),storeNotification.getTitle(),storeNotification.getBody(),new SimpleDateFormat(pattern).format( Calendar.getInstance().getTime())));
+        notificationController.getInstance().receivePublicMessage(new realTimeNotification(storeNotification.getSentFrom().getStoreName(),storeNotification.getSubject().toString(),storeNotification.getTitle(),storeNotification.getBody(),new SimpleDateFormat(pattern).format( Calendar.getInstance().getTime())));
+        notificationController.getInstance().recievePrivateMessage(new realTimeNotification(storeNotification.getSentFrom().getStoreName(),storeNotification.getSubject().toString(),storeNotification.getTitle(),storeNotification.getBody(),new SimpleDateFormat(pattern).format( Calendar.getInstance().getTime())));
     }
     public void sendNotificationTo(String userId,  StoreNotification storeNotification) throws UserException {
         List<String> userIds = new ArrayList<>();

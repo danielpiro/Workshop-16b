@@ -91,7 +91,7 @@ public class Real   {
     /** System requirement - I.1 */
     public String openingMarket(){
         try {
-            this.bigController =  BigController.getInstance();
+            this.bigController = new BigController();
             return "system opened successfully";
         }
         catch (Exception e){
