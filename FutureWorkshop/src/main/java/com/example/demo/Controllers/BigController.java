@@ -89,15 +89,33 @@ public class BigController {
 
 
     }
-
-    //TODO GUY
-    public ReturnValue getPriceOfCartBeforeDiscount( String user_id,ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException, UserException {
-        ReturnValue rv = new ReturnValue(true, "", getUserController().getPriceOfCartBeforeDiscount(user_id,externalConnectionHolder));
+    /**
+     * @param user_id
+     * @param payment
+     * @param delivery
+     * @return price of cart with discounts  and doesn't buy the cart
+     * @throws StorePolicyViolatedException
+     * @throws UserException
+     */
+    @PostMapping("/cart/priceWithDiscount")
+    public ReturnValue getPriceOfCartBeforeDiscount(@RequestParam String user_id,@RequestParam PaymentNames payment,
+                                                    @RequestParam DeliveryNames delivery) throws StorePolicyViolatedException, UserException {
+        ReturnValue rv = new ReturnValue(true, "", getUserController().getPriceOfCartBeforeDiscount(user_id,new ExternalConnectionHolder(delivery, payment)));
         return rv;
     }
-    //TODO GUY
-    public ReturnValue getPriceOfCartAfterDiscount( String user_id,ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException, UserException {
-        ReturnValue rv = new ReturnValue(true, "", getUserController().getPriceOfCartAfterDiscount(user_id,externalConnectionHolder));
+
+    /**
+     * @param user_id
+     * @param payment
+     * @param delivery
+     * @return price of cart without discounts  and doesn't buy the cart
+     * @throws StorePolicyViolatedException
+     * @throws UserException
+     */
+    @PostMapping("/cart/priceWithoutDiscount")
+    public ReturnValue getPriceOfCartAfterDiscount(@RequestParam String user_id,@RequestParam PaymentNames payment,
+                                                    @RequestParam DeliveryNames delivery) throws StorePolicyViolatedException, UserException {
+        ReturnValue rv = new ReturnValue(true, "", getUserController().getPriceOfCartAfterDiscount(user_id,new ExternalConnectionHolder(delivery, payment)));
         return rv;
     }
 
