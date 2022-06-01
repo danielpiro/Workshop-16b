@@ -115,6 +115,22 @@ public class ShoppingCart {
         return sb.toString();
     }
 
+    float getPriceOfCartAfterDiscount( ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException {
+        float total =0;
+        for (Map.Entry<String, ShoppingBasket> basket : basketCases.entrySet()) {
+            total+= basket.getValue().getPriceOfCartAfterDiscount(externalConnectionHolder,userId);
+
+        }
+        return total;
+    }
+    float getPriceOfCartBeforeDiscount( ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException {
+        float total =0;
+        for (Map.Entry<String, ShoppingBasket> basket : basketCases.entrySet()) {
+            total+= basket.getValue().getPriceOfCartBeforeDiscount(externalConnectionHolder,userId);
+        }
+        return total;
+    }
+
 
     //if successfull returns price, else returns -1
     public float purchaseCart(ExternalConnectionHolder externalConnectionHolder) throws SupplyManagementException, StorePolicyViolatedException, CantPurchaseException {
