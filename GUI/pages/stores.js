@@ -55,7 +55,7 @@ const Stores = () => {
             const { data } = res;
             if (data.success) {
               console.log(data);
-              data.value.forEach(store => {
+              data.value.map(store => {
                 // console.log(store.storeId);
                 // console.log(store.permission);
                 allowToManageStores.push(store.storeId);
@@ -71,7 +71,7 @@ const Stores = () => {
             const { data } = res;
             if (data.success) {
               console.log(data);
-              data.value.forEach(store => {
+              data.value.map(store => {
                 // console.log(store.storeId);
                 // console.log(store.permission);
                 owningStores.push(store.storeId);

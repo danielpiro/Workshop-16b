@@ -1,7 +1,6 @@
 import Menu from "../../components/menu";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Footer from "../../components/footer";
 
 const ChangeStoreManagerPermissions = () => {
   // const [isLoading, setIsLoading] = useState(true);

@@ -4,7 +4,6 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import createNotification from "../components/norification";
 import { useRouter } from "next/router";
-import Footer from "../components/footer";
 import { useCookies } from "react-cookie";
 
 const HireOwnerToStore = () => {
@@ -29,39 +28,75 @@ const HireOwnerToStore = () => {
   });
 
   useEffect(() => {
-    const fetchSpecificPermission = async () => {
-        // const response = await axios.get("users/getUserSpecificPermission");
-        // setPermissions(response.data);
-        const response = await {per1: true, per2: false, per3: true, per4: false, per5: true, per6: false,
-            per7: true, per8: false, per9: true, per10: false, per11: true, per12: false,};
-        setPermissions((prevState) => ({...prevState, p1: response.per1,}));
-        setPermissions((prevState) => ({...prevState, p2: response.per2,}));
-        setPermissions((prevState) => ({...prevState, p3: response.per3,}));
-        setPermissions((prevState) => ({...prevState, p4: response.per4,}));
-        setPermissions((prevState) => ({...prevState, p5: response.per5,}));
-        setPermissions((prevState) => ({...prevState, p6: response.per6,}));
-        setPermissions((prevState) => ({...prevState, p7: response.per7,}));
-        setPermissions((prevState) => ({...prevState, p8: response.per8,}));
-        setPermissions((prevState) => ({...prevState, p9: response.per9,}));
-        setPermissions((prevState) => ({...prevState, p10: response.per10,}));
-        setPermissions((prevState) => ({...prevState, p11: response.per11,}));
-        setPermissions((prevState) => ({...prevState, p12: response.per12,})); 
-        if(response.per1) checkPermission("Permission1"); else disablePermission("Permission1");
-        if(response.per2) checkPermission("Permission2"); else disablePermission("Permission2");
-        if(response.per3) checkPermission("Permission3"); else disablePermission("Permission3");
-        if(response.per4) checkPermission("Permission4"); else disablePermission("Permission4");
-        if(response.per5) checkPermission("Permission5"); else disablePermission("Permission5");
-        if(response.per6) checkPermission("Permission6"); else disablePermission("Permission6");
-        if(response.per7) checkPermission("Permission7"); else disablePermission("Permission7");
-        if(response.per8) checkPermission("Permission8"); else disablePermission("Permission8");
-        if(response.per9) checkPermission("Permission9"); else disablePermission("Permission9");
-        if(response.per10) checkPermission("Permission10"); else disablePermission("Permission10");
-        if(response.per11) checkPermission("Permission11"); else disablePermission("Permission11");
-        if(response.per12) checkPermission("Permission12"); else disablePermission("Permission12");
-        
+    const fetchData = async () => {
+      return await api.get(`store/owner/permmitions?user=${cookies.userId}`).then((res) => {
+        const { data } = res;
+        if (data.success) {
+          console.log(data);
+          data.value.forEach(store => {
+            // console.log(store.storeId);
+            // console.log(store.permission);
+            allowToManageStores.push(store.storeId);
+            
+          });
+        } else {
+          console.log(data.reason);
+        }
+      })
+      .then(async () => { //Added by Amit
+        return await api.get(`store/manager/permmitions?user=${cookies.userId}`).then((res) => {
+          const { data } = res;
+          if (data.success) {
+            console.log(data);
+            data.value.forEach(store => {
+              // console.log(store.storeId);
+              // console.log(store.permission);
+              owningStores.push(store.storeId);
+            });
+          } else {
+            console.log(data.reason);
+          }
+        });
+      })
+      .catch((err) => console.log(err));
     };
-    fetchSpecificPermission();
+    fetchData();
   }, []);
+
+  // useEffect(() => {
+  //   const fetchSpecificPermission = async () => {
+  //       // const response = await axios.get("users/getUserSpecificPermission");
+  //       // setPermissions(response.data);
+  //       const response = await {per1: true, per2: false, per3: true, per4: false, per5: true, per6: false,
+  //           per7: true, per8: false, per9: true, per10: false, per11: true, per12: false,};
+  //       setPermissions((prevState) => ({...prevState, p1: response.per1,}));
+  //       setPermissions((prevState) => ({...prevState, p2: response.per2,}));
+  //       setPermissions((prevState) => ({...prevState, p3: response.per3,}));
+  //       setPermissions((prevState) => ({...prevState, p4: response.per4,}));
+  //       setPermissions((prevState) => ({...prevState, p5: response.per5,}));
+  //       setPermissions((prevState) => ({...prevState, p6: response.per6,}));
+  //       setPermissions((prevState) => ({...prevState, p7: response.per7,}));
+  //       setPermissions((prevState) => ({...prevState, p8: response.per8,}));
+  //       setPermissions((prevState) => ({...prevState, p9: response.per9,}));
+  //       setPermissions((prevState) => ({...prevState, p10: response.per10,}));
+  //       setPermissions((prevState) => ({...prevState, p11: response.per11,}));
+  //       setPermissions((prevState) => ({...prevState, p12: response.per12,})); 
+  //       if(response.per1) checkPermission("Permission1"); else disablePermission("Permission1");
+  //       if(response.per2) checkPermission("Permission2"); else disablePermission("Permission2");
+  //       if(response.per3) checkPermission("Permission3"); else disablePermission("Permission3");
+  //       if(response.per4) checkPermission("Permission4"); else disablePermission("Permission4");
+  //       if(response.per5) checkPermission("Permission5"); else disablePermission("Permission5");
+  //       if(response.per6) checkPermission("Permission6"); else disablePermission("Permission6");
+  //       if(response.per7) checkPermission("Permission7"); else disablePermission("Permission7");
+  //       if(response.per8) checkPermission("Permission8"); else disablePermission("Permission8");
+  //       if(response.per9) checkPermission("Permission9"); else disablePermission("Permission9");
+  //       if(response.per10) checkPermission("Permission10"); else disablePermission("Permission10");
+  //       if(response.per11) checkPermission("Permission11"); else disablePermission("Permission11");
+  //       if(response.per12) checkPermission("Permission12"); else disablePermission("Permission12");
+        
+  //   };
+  //   fetchSpecificPermission();
+  // }, []);
 
   const isEnablePermission = (permissionID) => {
     return document.getElementById(permissionID).disabled == false;
