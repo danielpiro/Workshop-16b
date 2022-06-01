@@ -89,33 +89,25 @@ public class BigController {
 
 
     }
-    /**
-     * @param user_id
-     * @param payment
-     * @param delivery
-     * @return price of cart with discounts  and doesn't buy the cart
-     * @throws StorePolicyViolatedException
-     * @throws UserException
-     */
-    @PostMapping("/cart/priceWithDiscount")
-    public ReturnValue getPriceOfCartBeforeDiscount(@RequestParam String user_id,@RequestParam PaymentNames payment,
-                                                    @RequestParam DeliveryNames delivery) throws StorePolicyViolatedException, UserException {
-        ReturnValue rv = new ReturnValue(true, "", getUserController().getPriceOfCartBeforeDiscount(user_id,new ExternalConnectionHolder(delivery, payment)));
-        return rv;
-    }
+
 
     /**
      * @param user_id
      * @param payment
      * @param delivery
-     * @return price of cart without discounts  and doesn't buy the cart
+     * @return price of cart   and doesn't buy the cart
      * @throws StorePolicyViolatedException
      * @throws UserException
      */
-    @PostMapping("/cart/priceWithoutDiscount")
-    public ReturnValue getPriceOfCartAfterDiscount(@RequestParam String user_id,@RequestParam PaymentNames payment,
-                                                    @RequestParam DeliveryNames delivery) throws StorePolicyViolatedException, UserException {
-        ReturnValue rv = new ReturnValue(true, "", getUserController().getPriceOfCartAfterDiscount(user_id,new ExternalConnectionHolder(delivery, payment)));
+    @PostMapping("/cart/price")
+    public ReturnValue getPriceOfCartDiscount(@RequestParam String user_id,@RequestParam PaymentNames payment,
+                                                    @RequestParam DeliveryNames delivery) throws StorePolicyViolatedException, UserException, JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        float afterDiscount =  getUserController().getPriceOfCartAfterDiscount(user_id,new ExternalConnectionHolder(delivery, payment));
+        float beforeDiscount = getUserController().getPriceOfCartBeforeDiscount(user_id,new ExternalConnectionHolder(delivery, payment));
+        String json = String.format("{\"priceBeforeDiscount\":\"%s\",\"priceAfterDiscount\":\"%s\"}",beforeDiscount,afterDiscount);
+
+        ReturnValue rv = new ReturnValue(true, "", objectMapper.readTree(json));
         return rv;
     }
 
@@ -432,7 +424,7 @@ public class BigController {
     private List<Object> getStorePermissionToReturn(String user,boolean ownerOrManager) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         List<Object> storePermissions = new ArrayList<>();
-        List<Store> stores =ownerOrManager ? sc.getStoreManagerBuyUser(user) : sc.getStoreOwnerBuyUser(user);
+        List<Store> stores =ownerOrManager ? sc.getStoreManagerByUser(user) : sc.getStoreOwnerByUser(user);
         for (Store store: stores){
             List<Permission> permissions = sc.getUserPermission(store.getId(), user);
             storePermissions.add(
@@ -444,7 +436,7 @@ public class BigController {
     private List<Object> getStorePermissionToReturn(String user,String storeId,boolean ownerOrManager) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         List<Object> storePermissions = new ArrayList<>();
-        Store store =ownerOrManager ? sc.getStoreManagerBuyUser(user,storeId) : sc.getStoreOwnerBuyUser(user,storeId);
+        Store store =ownerOrManager ? sc.getStoreManagerByUser(user,storeId) : sc.getStoreOwnerByUser(user,storeId);
         List<Permission> permissions = new ArrayList<>();
         if(store != null){
             permissions = sc.getUserPermission(store.getId(), user);

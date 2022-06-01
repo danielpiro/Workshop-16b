@@ -322,15 +322,15 @@ public class StoreController {
         throw new IllegalArgumentException("no policy with this name");
     }
 
-    public List<Store> getStoreOwnerBuyUser(String userID) {
+    public List<Store> getStoreOwnerByUser(String userID) {
         return stores.values().stream().filter(s-> s.isUserOwner(userID)).collect(Collectors.toList());
     }
 
-    public List<Store> getStoreManagerBuyUser(String userID) {
+    public List<Store> getStoreManagerByUser(String userID) {
         return stores.values().stream().filter(s-> s.isUserManager(userID)).collect(Collectors.toList());
     }
 
-    public Store getStoreManagerBuyUser(String user, String storeId) {
+    public Store getStoreManagerByUser(String user, String storeId) {
         Store s = stores.get(storeId);
         if(s.isUserManager(user)){
           return s;
@@ -338,7 +338,7 @@ public class StoreController {
         return null;
     }
 
-    public Store getStoreOwnerBuyUser(String user, String storeId) {
+    public Store getStoreOwnerByUser(String user, String storeId) {
         Store s = stores.get(storeId);
         if(s.isUserOwner(user)){
             return s;
