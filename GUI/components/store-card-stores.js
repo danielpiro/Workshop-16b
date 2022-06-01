@@ -18,9 +18,11 @@ const StoreCardStores = ({ store, allowToManageStores, owningStores }) => {
           <button className="btn btn-primary me-3" onClick={onEnterStore}>
             Enter store
           </button>
-          <Link href={{ pathname: "/store-management", query: store }}>
-            <a className="btn btn-primary">Manage Store</a>
-          </Link>
+          <div style={{display: allowToManageStores.includes(store) || owningStores.includes(store) ? "block" : "none"}}>
+            <Link href={{ pathname: "/store-management", query: store }}>
+              <a className="btn btn-primary">Manage Store</a>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

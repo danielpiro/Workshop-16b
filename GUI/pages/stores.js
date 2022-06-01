@@ -56,8 +56,10 @@ const Stores = () => {
             if (data.success) {
               console.log(data);
               data.value.forEach(store => {
-                console.log(store.storeId);
-                console.log(store.permission);
+                // console.log(store.storeId);
+                // console.log(store.permission);
+                allowToManageStores.push(store.storeId);
+                
               });
             } else {
               console.log(data.reason);
@@ -70,8 +72,9 @@ const Stores = () => {
             if (data.success) {
               console.log(data);
               data.value.forEach(store => {
-                console.log(store.storeId);
-                console.log(store.permission);
+                // console.log(store.storeId);
+                // console.log(store.permission);
+                owningStores.push(store.storeId);
               });
             } else {
               console.log(data.reason);
