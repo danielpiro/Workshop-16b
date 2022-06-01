@@ -3,46 +3,47 @@ import SearchBar from "../components/search-bar";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Card from "../components/card";
+import api from "../components/api";
+import { useCookies } from "react-cookie";
+import createNotification from "../components/norification";
 
 const DisplayStorePurchases = () => {
-  const [products, setProducts] = useState([]);
+  const [purchases, setPurchases] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [singleProduct, setSingleProduct] = useState({});
-  //const [userPermission, setUserPermission] = useState("Admin");
+  const [singlePurchase, setSinglePurchase] = useState({});
+
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "username",
+    "password",
+    "userId",
+    "type",
+  ]);
 
   useEffect(() => {
     const fetchApi = async () => {
-      const response = await axios.get("https://dummyjson.com/products");
-      // const response =
-      //     await api
-      //       .post(
-      //         `/history/store/?storeId=${""}&userId=${""}`
-      //       )
-      //       .then((res) => {
-      //         if (res.status === 200) {
-      //           const { data } = res;
-      //           console.log(data);
-      //           createNotification("success", "Displaying all purchases successfully", () =>
-      //             router.push("/dashboard")
-      //           )();
-      //         } else {
-      //           const { data } = res;
-      //           console.log(data);
-      //           createNotification("error", "failure displaying all purchases!")();
-      //         }
-      //       })
-      //       .catch((err) => console.log("err"));
       setIsLoading(!isLoading);
-      const { data } = response;
-      setProducts(data.products);
+      await api
+        .get(`/history/user/?storeId=${window.location.href.split("?").pop()}&userId=${cookies.userId}`)
+        .then((res) => {
+            const { data } = res;
+            if (data.success) {
+                setPurchases(data.value);
+                setIsLoading(!isLoading);
+                createNotification("success", "Displaying all user's purchases successfully")();
+            }
+            else{
+              createNotification("error", data.reason)();
+            }
+        })
+        .catch((err) => createNotification(err)());
     };
     fetchApi();
   }, []);
 
   const getSingleProduct = (id) => {
-    products.map((product) => {
-      if (product.id === id) {
-        return setSingleProduct(product);
+    purchases.map((purchase) => {
+      if (purchase.id === id) {
+        return setSinglePurchase(purchase);
       }
       return null;
     });
@@ -54,10 +55,6 @@ const DisplayStorePurchases = () => {
       <div className="card-header">
         <h3>Display Store Purchases</h3>
       </div>
-      <div className="my-4">
-        <SearchBar setProducts={setProducts} />{" "}
-        {/*TODO: Check search button and setSearchValue*/}
-      </div>
       <div
         className="my-4"
         style={{ display: "flex", justifyContent: "center" }}
@@ -65,19 +62,18 @@ const DisplayStorePurchases = () => {
       {!isLoading ? (
         <div style={{ display: "table", width: "100%" }}>
           <ul className="list-group" style={{ display: "table-cell" }}>
-            {products.map((product) => {
+            {purchases.map((purchase) => {
               return (
-                <li className=" list-group-item" key={product.id}>
+                <li className=" list-group-item" key={purchase.id}>
                   <Card
-                    value={product.id}
-                    image={product.images[0]}
-                    title={product.title}
-                    category={product.category}
-                    description={product.description}
-                    price={product.price}
-                    discount={product.discountPercentage}
-                    getSingleProduct={getSingleProduct}
-                    singleProduct={singleProduct}
+                    value={purchase.id}
+                    title={purchase.title}
+                    category={purchase.category}
+                    description={purchase.description}
+                    price={purchase.price}
+                    discount={purchase.discountPercentage}
+                    getSinglePurchase={setSinglePurchase}
+                    singlePurchase={singlePurchase}
                   />
                 </li>
               );

@@ -16,7 +16,7 @@ public class ProductPredicate implements PolicyPredicate, DiscountPredicate {
     HashMap<PurchasableProduct,Integer> products;
     PredicateProductType type;
     public ProductPredicate(List<PurchasableProduct> products){
-        type = PredicateProductType.General;
+        type = PredicateProductType.WithoutAmount;
         this.products = new HashMap<>();
         for(PurchasableProduct p: products){
           this.products.put(p,0);
@@ -30,7 +30,7 @@ public class ProductPredicate implements PolicyPredicate, DiscountPredicate {
     @Override
     public boolean predicateStands(List<PurchasableProduct> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) {
         switch (type){
-            case General:
+            case WithoutAmount:
                 return productWithoutAmount(ProductAmount);
             case Products_Above_Amount:
                 return productWithAmount(ProductAmount);
@@ -60,7 +60,7 @@ public class ProductPredicate implements PolicyPredicate, DiscountPredicate {
     @Override
     public boolean predicateStandsForProduct(PurchasableProduct ProductAmount) {
         switch (type){
-            case General:
+            case WithoutAmount:
                 return productWithoutAmount(ProductAmount);
             case Products_Above_Amount:
                 return productWithAmount(ProductAmount);
@@ -82,5 +82,13 @@ public class ProductPredicate implements PolicyPredicate, DiscountPredicate {
         return products.keySet().stream().anyMatch(
                 productsCantBuy -> productsCantBuy.getId().equals(productAmount.getId())
         );
+    }
+
+    @Override
+    public String toString() {
+        return "ProductPredicate{" +
+                "products=" + products +
+                ", type=" + type +
+                '}';
     }
 }

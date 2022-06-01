@@ -3,6 +3,7 @@ import { useState } from "react";
 import api from "../components/api";
 import { useCookies } from "react-cookie";
 import createNotification from "../components/norification";
+import Card from "../components/card";
 
 const AdminViewUserPurchase = () => {
   const [purchases, setPurchases] = useState([]);
@@ -20,11 +21,10 @@ const AdminViewUserPurchase = () => {
     if (searchValue !== "") {
       setIsLoading(!isLoading);
       await api
-        .get(`/history/user/?userId=${cookies.userId}`)
+        .get(`/history/user/?userId=${searchValue}`)
         .then((res) => {
           const { data } = res;
           if (data.reason) {
-            const { data } = res;
             setPurchases(data.value);
             setIsLoading(!isLoading);
             createNotification(

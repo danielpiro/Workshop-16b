@@ -48,4 +48,23 @@ public class UserPredicate implements PolicyPredicate {
         return startAge<=userInfo.getAge() && userInfo.getAge()<= endAge;
     }
 
+    @Override
+    public String toString() {
+        switch (type){
+            case OnUserId:
+                return "UserPredicate{" +
+                        "userIds=" + userIds +
+                        ", type=" + type +
+                        '}';
+            case UserAge:
+                return "UserPredicate{" +
+                        "userIds=" + userIds +
+                        ", type=" + type +
+                        ", startAge=" + startAge +
+                        ", endAge=" + endAge +
+                        '}';
+
+        }
+        throw new RuntimeException("PredicateUserType doesn't exist ");
+    }
 }

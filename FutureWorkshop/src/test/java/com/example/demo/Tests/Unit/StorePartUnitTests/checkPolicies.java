@@ -34,7 +34,7 @@ public class checkPolicies {
     Policy notNowHour = builder.newOnHoursOfTheDayPolicy(LocalDateTime.now().plusHours(1),LocalDateTime.now().plusHours(2));
     Policy nowDayOfWeek = builder.newOnDaysOfTheWeekPolicy(LocalDateTime.now().minusDays(1), LocalDateTime.now().plusDays(1));
     Policy notNowDayOfWeek = builder.newOnDaysOfTheWeekPolicy(LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(2));
-    Policy nowDayOfMonth = builder.newOnDayOfMonthPolicy(LocalDateTime.now().minusDays(1),LocalDateTime.now().plusDays(1));
+    Policy nowDayOfMonth = builder.newOnDayOfMonthPolicy(LocalDateTime.now().minusDays(0),LocalDateTime.now().plusDays(1));
     Policy notNowDayOfMonth = builder.newOnDaysOfTheWeekPolicy(LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(2));
     Policy cartP= builder.newCartPolicy(2);
     Policy priceP = builder.newPricePredicate(3);
@@ -206,7 +206,7 @@ public class checkPolicies {
 
         String Id1 = invMan.addNewProduct("t1", 5.5F, 4, "Appliances");
         String Id2 = invMan.addNewProduct("t2", 15.5F, 1, "Other");
-        String Id3 = invMan.addNewProduct("t3", 100F, 50, "Baby");
+        String Id3 = invMan.addNewProduct("t3", 100F, 50, "Handmade");
         HashMap<String, Integer> productAmount = new HashMap<>();
         productAmount.put(Id1, 2);
         productAmount.put(Id2, 1);

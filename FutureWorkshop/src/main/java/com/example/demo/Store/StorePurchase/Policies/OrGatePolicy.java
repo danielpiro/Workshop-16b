@@ -21,4 +21,12 @@ public class OrGatePolicy extends Policy {
     public boolean checkIfPolicyStands(HashMap<Product, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) {
         return left.checkIfPolicyStands(ProductAmount,externalConnectionHolder,userInfo) || right.checkIfPolicyStands(ProductAmount,externalConnectionHolder,userInfo);
     }
+
+    @Override
+    public String toString() {
+        return "OrGatePolicy{" +
+                "left=" + left +
+                ", right=" + right +
+                '}';
+    }
 }

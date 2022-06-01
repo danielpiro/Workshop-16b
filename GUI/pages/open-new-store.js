@@ -1,6 +1,6 @@
 import Menu from "../components/menu";
 import api from "../components/api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import createNotification from "../components/norification";
 import { useCookies } from "react-cookie";
@@ -13,34 +13,34 @@ const OpenNewStore = () => {
     "userId",
     "type",
   ]);
-
+  //const [isLoading, setIsLoading] = useState(false);
   const [openNewStoreInput, setOpenNewStoreInput] = useState({
     storename: "",
     additionalStoreOwnerUsername: "",
   });
+  const [addAnotherStoreOwner, setAddAnotherStoreOwner] = useState(false);
 
   const onOpeningNewStore = async (e) => {
     e.preventDefault();
-    if (
-      openNewStoreInput.additionalStoreOwnerUsername !== "" &&
-      openNewStoreInput.storename !== ""
-    ) {
+    if ( openNewStoreInput.storename !== "") { //openNewStoreInput.additionalStoreOwnerUsername !== ""
       await api
         .post(
           `/store/open/?userId=${cookies.username}&storeName=${openNewStoreInput.storename}`
         )
         .then((res) => {
           const { data } = res;
-          if (data.success) {
-            const { data } = res;
-            createNotification("success", "Create new store successfully", () =>
-              router.push("/dashboard")
-            )();
+            if (data.success) {
+              console.log(data);
+              createNotification("success", "Create new store successfully", () =>
+                router.push("/dashboard")
+              )();
           } else {
-            createNotification("error", data.reason)();
+            const { data } = res;
+            console.log(data);
+            createNotification("error", "failure opening new store!")();
           }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log("err"));
     } else {
       createNotification(
         "error",
@@ -75,7 +75,21 @@ const OpenNewStore = () => {
               }
             />
           </div>
-          <div className="mb-3">
+            
+          <div className="mb-3 form-check">
+            <input className="form-check-input" type="checkbox" value="" id="addStoreOwnerCheckBox" 
+                   onChange={(e) => {
+                    setAddAnotherStoreOwner(e.target.checked);
+                    //console.log(e.target.checked);
+                   } 
+                  }
+            />
+            <label className="form-check-label" for="flexCheckDefault">
+              Add Additional Store Owner
+            </label>
+          </div>
+
+          <div className="mb-3" style={{display: addAnotherStoreOwner===true ? "block" : "none"}}>
             <label for="formGroupExampleInput2" className="form-label fs-4">
               Additional Store Owner Name
             </label>

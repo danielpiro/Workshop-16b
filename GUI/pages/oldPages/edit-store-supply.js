@@ -1,7 +1,7 @@
-import Menu from "../components/menu";
+import Menu from "../../components/menu";
 import { useState } from "react";
-import api from "../components/api";
-import StoreCard from "../components/store-card";
+import api from "../../components/api";
+import StoreCard from "../../components/store-card";
 import { useCookies } from "react-cookie";
 
 const EditStoreSupply = () => {

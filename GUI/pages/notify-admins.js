@@ -2,6 +2,7 @@ import Menu from "../components/menu";
 import { useState } from "react";
 import api from "../components/api";
 import { useCookies } from "react-cookie";
+import createNotification from "../components/norification";
 
 const NotifyAdmins = () => {
   const [userInput, setUserInput] = useState("");
@@ -21,8 +22,8 @@ const NotifyAdmins = () => {
           `/market/?userId=${cookies.userId}&StoreName=fakeStoreName&complaint=${userInput}` //TODO: Need the real path from backend
         )
         .then((res) => {
-          if (res.status === 200) {
             const { data } = res;
+            if (data.success) {
             console.log(data);
             createNotification("success", "Notify admin done successfully")();
           }

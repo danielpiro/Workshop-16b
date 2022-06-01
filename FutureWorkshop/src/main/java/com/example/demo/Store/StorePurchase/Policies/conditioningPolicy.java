@@ -22,4 +22,12 @@ public class conditioningPolicy extends Policy {
     public boolean checkIfPolicyStands(HashMap<Product, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) {
         return !left.checkIfPolicyStands(ProductAmount, externalConnectionHolder, userInfo) || right.checkIfPolicyStands(ProductAmount, externalConnectionHolder, userInfo);
     }
+
+    @Override
+    public String toString() {
+        return "conditioningPolicy{" +
+                "if=" + left +
+                ", then=" + right +
+                '}';
+    }
 }

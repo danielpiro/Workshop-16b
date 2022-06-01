@@ -329,4 +329,20 @@ public class StoreController {
     public List<Store> getStoreManagerBuyUser(String userID) {
         return stores.values().stream().filter(s-> s.isUserManager(userID)).collect(Collectors.toList());
     }
+
+    public Store getStoreManagerBuyUser(String user, String storeId) {
+        Store s = stores.get(storeId);
+        if(s.isUserManager(user)){
+          return s;
+        }
+        return null;
+    }
+
+    public Store getStoreOwnerBuyUser(String user, String storeId) {
+        Store s = stores.get(storeId);
+        if(s.isUserOwner(user)){
+            return s;
+        }
+        return null;
+    }
 }

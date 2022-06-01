@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const StoreCardStores = ({ store }) => {
+const StoreCardStores = ({ store, allowToManageStores, owningStores }) => {
   const router = useRouter();
 
   const onEnterStore = (e) => {
@@ -12,8 +12,8 @@ const StoreCardStores = ({ store }) => {
   return (
     <div className="container d-flex justify-content-center ">
       <div className="card-body">
-        <h3 className="card-title text-center">Store</h3>
-        <p className="card-text text-center">Store ID: {store}</p>
+        <p className="card-title text-center">Store-Card</p>
+        <h4 className="card-text text-center">Store ID: {store}</h4>
         <div className="d-flex justify-content-center">
           <button className="btn btn-primary me-3" onClick={onEnterStore}>
             Enter store
