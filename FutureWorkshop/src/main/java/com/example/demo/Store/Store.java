@@ -22,6 +22,7 @@ import com.example.demo.StorePermission.Permission;
 import com.example.demo.StorePermission.StoreRoles;
 
 import javax.naming.NoPermissionException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -201,7 +202,7 @@ public class Store implements getStoreInfo {
         NotificationManager.getNotificationManager().sendNotificationTo(userId, new StoreNotification(this, NotificationSubject.StoreForum,"someone in store replied to your message","message: "+message));
     }
 
-    public void  userPostMessageToForum(String threadId, String userId, String message) throws NoPermissionException,  NotifyException,  UserException {
+    public void  userPostMessageToForum(String threadId, String userId, String message) throws NoPermissionException, NotifyException, UserException, SupplyManagementException, IOException {
         String threadUser =  forum.getUserIdOfTread(threadId);
         if(!IdGenerator.getInstance().isIdEqual(threadUser, userId)){
             throw new NoPermissionException("only user that created the forum thread can post messages");
@@ -212,7 +213,7 @@ public class Store implements getStoreInfo {
     }
 
 
-    public void deleteProduct(String userId, String productId) throws NoPermissionException, SupplyManagementException, NotifyException, UserException {
+    public void deleteProduct(String userId, String productId) throws NoPermissionException, SupplyManagementException, NotifyException, UserException, IOException {
         if(!checkPermission(userId, Permission.ADD_NEW_PRODUCT)){
             throw new NoPermissionException("the user don't have this permission");
         }
@@ -222,7 +223,7 @@ public class Store implements getStoreInfo {
 
     }
 
-    public void closeStore(String userId) throws NoPermissionException, NotifyException, UserException {
+    public void closeStore(String userId) throws NoPermissionException, NotifyException, UserException, SupplyManagementException, IOException {
         if(!checkPermission(userId, Permission.CLOSE_STORE)){
             throw new NoPermissionException("the user don't have this permission");
         }
@@ -231,7 +232,7 @@ public class Store implements getStoreInfo {
         NotificationManager.getNotificationManager().sendNotificationTo(getRolesIds(),sn);
     }
 
-    public void openStore(String userId) throws NoPermissionException, NotifyException, UserException {
+    public void openStore(String userId) throws NoPermissionException, NotifyException, UserException, SupplyManagementException, IOException {
         if(!checkPermission(userId, Permission.OPEN_STORE)){
             throw new NoPermissionException("the user don't have this permission");
         }

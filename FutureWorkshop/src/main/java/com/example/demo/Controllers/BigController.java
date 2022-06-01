@@ -1,5 +1,6 @@
 package com.example.demo.Controllers;
 
+import com.example.demo.Controllers.model.realTimeNotification;
 import com.example.demo.CustomExceptions.Exception.NotifyException;
 import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
@@ -18,7 +19,6 @@ import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.History.History;
 import com.example.demo.NotificationsManagement.NotificationManager;
 import com.example.demo.ShoppingCart.InventoryProtector;
-import com.example.demo.ShoppingCart.ShoppingBasket;
 import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.ProductsCategories;
@@ -32,27 +32,37 @@ import com.example.demo.User.Subscriber;
 //import com.example.demo.dto.AdminDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 
 import javax.naming.NoPermissionException;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
+
 
 
 @CrossOrigin(maxAge = 3600)
 @RestController
 @EnableWebMvc
 @RequestMapping("/api")
+@EnableWebSocketMessageBroker
+@Controller
 public class BigController {
     private StoreController sc;
     private UserController us;
     private PolicyBuilder policyBuilder;
+
+    private static BigController instance = null;
+
     Log my_log = Log.getLogger();
 
 
@@ -60,7 +70,7 @@ public class BigController {
 //        this.us = us;
 //        this.sc = sc;
 //    }
-    public BigController() throws IOException, UserException, NoPermissionException, SupplyManagementException {
+    private BigController() throws IOException, UserException, NoPermissionException, SupplyManagementException {
         this.us = new UserController();
         this.sc = new StoreController();
         this.policyBuilder = new PolicyBuilder();
@@ -68,6 +78,29 @@ public class BigController {
         NotificationManager.buildNotificationManager(us);
         initializeSystem();
         my_log.info("System Started");
+    }
+
+    public static BigController getInstance() throws SupplyManagementException, NoPermissionException, IOException, UserException {
+        if(instance ==null){
+            instance = new BigController();
+        }
+        return instance;
+    }
+
+    @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate;
+
+    @MessageMapping("/message")
+    @SendTo("/chatroom/public")
+    public realTimeNotification receivePublicMessage(@Payload realTimeNotification realTimeNotification){
+        return realTimeNotification;
+    }
+
+    @MessageMapping("/private-message")
+    public realTimeNotification recievePrivateMessage(@Payload realTimeNotification realTimeNotification){
+        simpMessagingTemplate.convertAndSendToUser(realTimeNotification.getReceiverName(),"/private", realTimeNotification);
+        System.out.println(realTimeNotification.toString());
+        return realTimeNotification;
     }
 
     public void initiateExternalConnections() {
@@ -269,7 +302,7 @@ public class BigController {
 
     @PostMapping("/store/freeze")
     public ReturnValue unfreezeStore(@RequestParam String storeId,
-                                     @RequestParam String userId) throws NoPermissionException, UserException, NotifyException {
+                                     @RequestParam String userId) throws NoPermissionException, UserException, NotifyException, SupplyManagementException, IOException {
         userExistsAndLoggedIn(userId);
         getStoreController().unfreezeStore(storeId, userId);
 
@@ -279,7 +312,7 @@ public class BigController {
 
     @PostMapping("/store/unfreeze")
     public ReturnValue freezeStore(@RequestParam String storeId,
-                                   @RequestParam String userId) throws NoPermissionException, UserException, NotifyException {
+                                   @RequestParam String userId) throws NoPermissionException, UserException, NotifyException, SupplyManagementException, IOException {
 
         userExistsAndLoggedIn(userId);
         getStoreController().freezeStore(storeId, userId);
@@ -335,7 +368,7 @@ public class BigController {
     @PostMapping("/store/product/delete")
     public ReturnValue deleteProductFromStore(@RequestParam String storeId,
                                               @RequestParam String userId,
-                                              @RequestParam String productId) throws NoPermissionException, SupplyManagementException, UserException, NotifyException {
+                                              @RequestParam String productId) throws NoPermissionException, SupplyManagementException, UserException, NotifyException, IOException {
         userExistsAndLoggedIn(userId);
         getStoreController().deleteProduct(storeId, userId, productId);
         ReturnValue rv = new ReturnValue(true, "", null);

@@ -68,7 +68,7 @@ public class StoreController {
 
     }
 
-    public void unfreezeStore(String storeId, String userId) throws NoPermissionException, UserException, NotifyException {
+    public void unfreezeStore(String storeId, String userId) throws NoPermissionException, UserException, NotifyException, SupplyManagementException, IOException {
         if(checkIfGuest(userId)){
             Log.getLogger().warning(userId+" is guest and cant unfreeze store");
             throw new NoPermissionException("guest cant unfreeze store");
@@ -77,7 +77,7 @@ public class StoreController {
         relevantStore.openStore(userId);
     }
 
-    public void freezeStore(String storeId, String userId) throws NoPermissionException, UserException, NotifyException {
+    public void freezeStore(String storeId, String userId) throws NoPermissionException, UserException, NotifyException, SupplyManagementException, IOException {
         if(checkIfGuest(userId)){
             Log.getLogger().warning(userId+" is guest and cant freeze store");
             throw new NoPermissionException("guest cant freeze store");
@@ -113,7 +113,7 @@ public class StoreController {
         Store relevantStore = stores.get(storeId);
         relevantStore.editProduct(userId, productId,  newSupply, newName, newPrice, category);
     }
-    public void deleteProduct(String storeId, String userId, String productId) throws NoPermissionException, SupplyManagementException, UserException, NotifyException {
+    public void deleteProduct(String storeId, String userId, String productId) throws NoPermissionException, SupplyManagementException, UserException, NotifyException, IOException {
         if(checkIfGuest(userId)){
             throw new NoPermissionException("guest cant delete products");
         }
@@ -174,7 +174,7 @@ public class StoreController {
         }
         stores.get(storeId).RolePostMessageToForum(threadId, userId, message);
     }
-    public void  userPostMessageToForum(String storeId, String threadId, String userId, String message) throws NoPermissionException, NotifyException, UserException {
+    public void  userPostMessageToForum(String storeId, String threadId, String userId, String message) throws NoPermissionException, NotifyException, UserException, SupplyManagementException, IOException {
         Store relevantStore = stores.get(storeId);
         relevantStore.userPostMessageToForum(threadId, userId, message);
     }
