@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const StoreCardStores = ({ store }) => {
+const StoreCardStores = ({ store, allowToManageStores, owningStores }) => {
   const router = useRouter();
 
   const onEnterStore = (e) => {

@@ -7751,3 +7751,5 @@ Jun 01, 2022 11:23:38 AM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
 Jun 01, 2022 11:23:38 AM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
+Jun 01, 2022 1:21:41 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user  could not reserve items in cart

@@ -13,6 +13,8 @@ const Stores = () => {
   const [storeSearch, setStoreSearch] = useState("");
   const [storeMap, setStoreMap] = useState([]);
   const [page, setPage] = useState(0);
+  const [allowToManageStores, setAllowToManageStores] = useState([]);
+  const [owningStores, setOwningStores] = useState([]);
 
   const [cookies, setCookie, removeCookie] = useCookies([
     "username",
@@ -52,8 +54,25 @@ const Stores = () => {
           return await api.get(`store/owner/permmitions?user=${cookies.userId}`).then((res) => {
             const { data } = res;
             if (data.success) {
-              console.log(data.value[0].storeId);
-              console.log(data.value[0].permission);
+              console.log(data);
+              data.value.forEach(store => {
+                console.log(store.storeId);
+                console.log(store.permission);
+              });
+            } else {
+              console.log(data.reason);
+            }
+          });
+        })
+        .then(async () => { //Added by Amit
+          return await api.get(`store/manager/permmitions?user=${cookies.userId}`).then((res) => {
+            const { data } = res;
+            if (data.success) {
+              console.log(data);
+              data.value.forEach(store => {
+                console.log(store.storeId);
+                console.log(store.permission);
+              });
             } else {
               console.log(data.reason);
             }
@@ -90,7 +109,7 @@ const Stores = () => {
               .map((store) => {
                 return (
                   <li className="list-group-item" key={store}>
-                    <StoreCardStores store={store} storeMap={storeMap} />
+                    <StoreCardStores store={store} storeMap={storeMap} allowToManageStores={allowToManageStores} owningStores={owningStores}/>
                   </li>
                 );
               })}
