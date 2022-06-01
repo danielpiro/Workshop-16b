@@ -309,12 +309,34 @@ public class BigController {
 //     * @throws UserException
 //     */
 
-    public ReturnValue getInfoOnManagersOwnersForTests(String storeId,
-                                                       String userIdRequesting) throws NoPermissionException, UserException {
+    public ReturnValue getInfoOnManagersOwnersForTests(@RequestParam String storeId,
+                                                       @RequestParam String userIdRequesting) throws NoPermissionException, UserException {
         userExistsAndLoggedIn(userIdRequesting);
-
         List<StoreRoles> storeRoles = getStoreController().getInfoOnManagersOwners(storeId, userIdRequesting);
+
         ReturnValue rv = new ReturnValue(true, "", storeRoles);
+        return rv;
+    }
+    @GetMapping("store/allRoles")
+    public ReturnValue getManagersOwnersOfStore(String storeId,
+                                                       String userIdRequesting) throws NoPermissionException, UserException, JsonProcessingException {
+        userExistsAndLoggedIn(userIdRequesting);
+        List<StoreRoles> storeRoles = getStoreController().getInfoOnManagersOwners(storeId, userIdRequesting);
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<String> managersUsers = new ArrayList<>();
+        List<String> ownersUsers = new ArrayList<>();
+        for (StoreRoles sr: storeRoles){
+            if(sr.getTitle().equals("manger")){
+                managersUsers.add(sr.getUserId());
+            }
+            else{
+                ownersUsers.add(sr.getUserId());
+            }
+        }
+
+
+        ReturnValue rv = new ReturnValue(true, "", objectMapper.readTree(
+                String.format("{\"managers\":\"%s\",\"owners\":\"%s\"}",managersUsers,ownersUsers)));
         return rv;
     }
 
@@ -893,7 +915,7 @@ public class BigController {
         return sc.getDiscounts(storeId, userId);
     }
 
-    @GetMapping("Store/AllPolices")
+    @GetMapping("Store/Polices")
     public ReturnValue getPolices(@RequestParam String storeId) throws NoPermissionException, UserException, JsonProcessingException {
         List<Policy> policies = sc.getPolices(storeId);
         ObjectMapper objectMapper = new ObjectMapper();
