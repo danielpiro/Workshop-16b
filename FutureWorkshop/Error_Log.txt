@@ -6963,3 +6963,11 @@ May 30, 2022 5:02:42 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User sdfg doesn't exist
 May 30, 2022 5:03:02 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User sdfg doesn't exist
+May 30, 2022 10:59:59 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: admin is not admin  and cant delete store
+May 30, 2022 11:00:08 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: admin is not admin  and cant delete store
+May 30, 2022 11:01:11 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: admin is not admin  and cant delete store
+May 30, 2022 11:59:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user admin could not reserve items in cart

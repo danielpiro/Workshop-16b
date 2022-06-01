@@ -22,7 +22,8 @@ const AdminViewUserPurchase = () => {
       await api
         .get(`/history/user/?userId=${cookies.userId}`)
         .then((res) => {
-          if (res.status === 200) {
+          const { data } = res;
+          if (data.reason) {
             const { data } = res;
             setPurchases(data.value);
             setIsLoading(!isLoading);
@@ -30,6 +31,8 @@ const AdminViewUserPurchase = () => {
               "success",
               "Displaying all user's purchases successfully"
             )();
+          } else {
+            createNotification("error", data.reason)();
           }
         })
         .catch((err) => console.log(err));

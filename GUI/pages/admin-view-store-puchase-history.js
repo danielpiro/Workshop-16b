@@ -2,6 +2,7 @@ import Menu from "../components/menu";
 import { useState } from "react";
 import api from "../components/api";
 import { useCookies } from "react-cookie";
+import createNotification from "../components/norification";
 
 const AdminViewStorePurchaes = () => {
   const [purchases, setPurchases] = useState([]);
@@ -23,7 +24,8 @@ const AdminViewStorePurchaes = () => {
           `/history/store/?storeId=${searchValue}&userId=${cookies.userId}` //TODO: ask backend for storeIDs!
         )
         .then((res) => {
-          if (res.status === 200) {
+          const { data } = res;
+          if (data.success) {
             const { data } = res;
             setPurchases(data.value);
             setIsLoading(!isLoading);
@@ -31,6 +33,8 @@ const AdminViewStorePurchaes = () => {
               "success",
               "Displaying all store's purchases successfully"
             )();
+          } else {
+            createNotification("error", data.reason)();
           }
         })
         .catch((err) => console.log(err));

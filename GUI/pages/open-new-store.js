@@ -1,6 +1,6 @@
 import Menu from "../components/menu";
 import api from "../components/api";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import createNotification from "../components/norification";
 import { useCookies } from "react-cookie";
@@ -14,7 +14,6 @@ const OpenNewStore = () => {
     "type",
   ]);
 
-  const [isLoading, setIsLoading] = useState(false);
   const [openNewStoreInput, setOpenNewStoreInput] = useState({
     storename: "",
     additionalStoreOwnerUsername: "",
@@ -31,19 +30,17 @@ const OpenNewStore = () => {
           `/store/open/?userId=${cookies.username}&storeName=${openNewStoreInput.storename}`
         )
         .then((res) => {
-          if (res.status === 200) {
+          const { data } = res;
+          if (data.success) {
             const { data } = res;
-            console.log(data);
             createNotification("success", "Create new store successfully", () =>
               router.push("/dashboard")
             )();
           } else {
-            const { data } = res;
-            console.log(data);
-            createNotification("error", "failure opening new store!")();
+            createNotification("error", data.reason)();
           }
         })
-        .catch((err) => console.log("err"));
+        .catch((err) => console.log(err));
     } else {
       createNotification(
         "error",

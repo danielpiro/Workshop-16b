@@ -20,15 +20,15 @@ const StoreProduct = ({
     "type",
   ]);
   const [details, setDetails] = useState({
-    productName: title,
+    name: title,
     price: price,
-    supply: quantity,
+    quantity: quantity,
     category: category,
   });
   const [originalDetails, setOriginalDetails] = useState({
-    productName: title,
+    name: title,
     price: price,
-    supply: quantity,
+    quantity: quantity,
     category: category,
   });
   const onEdit = async (e) => {
@@ -44,8 +44,8 @@ const StoreProduct = ({
       .then((res) => {
         const { data } = res;
         if (data.success) {
-          // const updateProducts = products.filter((item) => item.id !== value);
-          // setProducts(updateProducts);
+          const updateProducts = products.filter((item) => item.id !== value);
+          setProducts(updateProducts);
           createNotification(
             "success",
             `product ID: ${value} is been removed...`
@@ -61,18 +61,17 @@ const StoreProduct = ({
     const obj = {
       storeId: storeId,
       userId: cookies.userId,
-      productName: details.title,
+      productName: details.name,
       price: details.price,
       supply: details.quantity,
       category: details.category,
     };
-
     return await api
       .post(`/store/product/?productId=${value}`, obj)
       .then((res) => {
         const { data } = res;
         if (data.success) {
-          // setOriginalDetails(details);
+          setOriginalDetails(details);
           createNotification(
             "success",
             `product ID: ${value} is been updated...`,
@@ -101,12 +100,12 @@ const StoreProduct = ({
         <input
           className="card-body text-center mb-3 ms-3"
           type="text"
-          value={details.productName}
+          value={details.name}
           disabled={!isEdit}
           onChange={(e) =>
             setDetails((prevState) => ({
               ...prevState,
-              productName: e.target.value,
+              name: e.target.value,
             }))
           }
         />
@@ -130,13 +129,13 @@ const StoreProduct = ({
         Quantity:
         <input
           className="card-body text-center mb-3 ms-3"
-          value={details.supply}
+          value={details.quantity}
           type="text"
           disabled={!isEdit}
           onChange={(e) =>
             setDetails((prevState) => ({
               ...prevState,
-              supply: e.target.value,
+              quantity: e.target.value,
             }))
           }
         />
@@ -182,7 +181,7 @@ const StoreProduct = ({
               onClick={onCancel}
             >
               Cancel
-            </button>{" "}
+            </button>
           </>
         ) : null}
       </div>

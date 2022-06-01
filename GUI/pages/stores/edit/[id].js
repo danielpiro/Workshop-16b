@@ -17,26 +17,26 @@ const StoreEdit = () => {
   ]);
   const router = useRouter();
   const [newProduct, setNewProduct] = useState({
-    productName: "",
+    name: "",
     price: "",
-    supply: "",
+    quantity: "",
     category: "",
   });
+  const fetch = async () => {
+    return await api
+      .get(`/store/products/?storeId=${router.query.id}`)
+      .then((res) => {
+        const { data } = res;
+        if (data.success) {
+          setProducts(res.data.value);
+          setIsLoading(!isLoading);
+        } else {
+          createNotification("error", data.reason)();
+        }
+      });
+  };
   useEffect(() => {
-    const fetch = async () => {
-      return await api
-        .get(`/store/products/?storeId=${router.query.id}`)
-        .then((res) => {
-          const { data } = res;
-          if (data.success) {
-            setProducts(res.data.value);
-            setIsLoading(!isLoading);
-          } else {
-            createNotification("error", data.reason)();
-          }
-        });
-    };
-    fetch();
+    return fetch();
   }, []);
 
   const onAdd = async (e) => {
@@ -44,18 +44,32 @@ const StoreEdit = () => {
     const product = {
       storeId: router.query.id,
       userId: cookies.userId,
-      productName: newProduct.productName,
+      productName: newProduct.name,
       price: newProduct.price,
-      supply: newProduct.supply,
+      supply: newProduct.quantity,
       category: newProduct.category,
     };
-    console.log(product);
     return api
       .post("/store", product)
       .then((res) => {
         const { data } = res;
         if (data.success) {
-          console.log(data);
+          createNotification("success", "Added product successfully")();
+          const productDashboard = {
+            storeId: router.query.id,
+            userId: cookies.userId,
+            name: newProduct.name,
+            price: newProduct.price,
+            quantity: newProduct.quantity,
+            category: newProduct.category,
+          };
+          setProducts([...products, productDashboard]);
+          setNewProduct({
+            name: "",
+            price: "",
+            quantity: "",
+            category: "",
+          });
         } else {
           createNotification("error", data.reason)();
         }
@@ -73,7 +87,7 @@ const StoreEdit = () => {
           <>
             <div className="container d-flex justify-content-center">
               <button
-                className="btn btn-primary"
+                className="btn btn-primary mb-3"
                 type="button"
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModal"
@@ -133,20 +147,22 @@ const StoreEdit = () => {
               <div class="modal-body">
                 <form className="form-control">
                   <div className="text-center">
-                    Name:{" "}
+                    Name:
                     <input
-                      value={newProduct.productName}
+                      className="ms-3"
+                      value={newProduct.name}
                       onChange={(e) =>
                         setNewProduct((prevState) => ({
                           ...prevState,
-                          productName: e.target.value,
+                          name: e.target.value,
                         }))
                       }
                     />
                   </div>
                   <div className="text-center">
-                    Category:{" "}
+                    Category:
                     <input
+                      className="ms-3"
                       value={newProduct.category}
                       onChange={(e) =>
                         setNewProduct((prevState) => ({
@@ -157,20 +173,22 @@ const StoreEdit = () => {
                     />
                   </div>
                   <div className="text-center">
-                    Supply:{" "}
+                    Supply:
                     <input
-                      value={newProduct.supply}
+                      className="ms-3"
+                      value={newProduct.quantity}
                       onChange={(e) =>
                         setNewProduct((prevState) => ({
                           ...prevState,
-                          supply: e.target.value,
+                          quantity: e.target.value,
                         }))
                       }
                     />
                   </div>
                   <div className="text-center">
-                    Price:{" "}
+                    Price:
                     <input
+                      className="ms-3"
                       value={newProduct.price}
                       onChange={(e) =>
                         setNewProduct((prevState) => ({

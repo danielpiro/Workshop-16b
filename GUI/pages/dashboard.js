@@ -9,8 +9,7 @@ const Dashboard = () => {
   const [searchProducts, setSearchProducts] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(0);
-  const [searchBy , setSearchBy] = useState("");
-
+  const [searchBy, setSearchBy] = useState("");
 
   useEffect(() => {
     setIsLoading(!isLoading);
@@ -44,7 +43,10 @@ const Dashboard = () => {
     <>
       <Menu />
       <div className="my-4">
-        <SearchBar setSearchProducts={setSearchProducts} setSearchBy={setSearchBy} />
+        <SearchBar
+          setSearchProducts={setSearchProducts}
+          setSearchBy={setSearchBy}
+        />
       </div>
       <div className="my-4 d-flex justify-content-center">
         {!isLoading ? (
@@ -52,11 +54,13 @@ const Dashboard = () => {
             <ul className="list-group-dashboard">
               {products
                 .filter((product) => {
-                  if(searchBy === 'name'){
+                  if (searchBy === "name") {
                     return product.name.toLowerCase().includes(searchProducts);
-                  }else if(searchBy === 'category'){
-                    return product.category.toLowerCase().includes(searchProducts);
-                  }else{
+                  } else if (searchBy === "category") {
+                    return product.category
+                      .toLowerCase()
+                      .includes(searchProducts);
+                  } else {
                     return product.price.toLowerCase().includes(searchProducts);
                   }
                 })
@@ -64,6 +68,7 @@ const Dashboard = () => {
                 .map((product) => {
                   return (
                     <li className=" list-group-item" key={product.id}>
+                      {console.log(product)}
                       <Card
                         value={product.id}
                         title={product.name}

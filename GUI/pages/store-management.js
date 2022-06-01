@@ -16,20 +16,26 @@ const StoreManagement = () => {
     "type",
   ]);
   const removeStore = async (e) => {
-        e.preventDefault();
-        const id = Object.keys(router.query)[0];
-        return await api.post(`/store/delete/?userId=${cookies.userId}&storeId=${id}`).then(res => {
-          const {data} = res;
-          if(data.success){
-            createNotification('success' , "Remove " + id + " successfully" , () => {
-              return router.push('/stores')
-            })()
-          }else{
-            createNotification('error' , data.reason)()
-          }
-        })
-
-  }
+    e.preventDefault();
+    const id = Object.keys(router.query)[0];
+    return await api
+      .post(`/store/delete/?userId=${cookies.userId}&storeId=${id}`)
+      .then((res) => {
+        const { data } = res;
+        console.log(cookies);
+        if (data.success) {
+          createNotification(
+            "success",
+            "Remove " + id + " successfully",
+            () => {
+              return router.push("/stores");
+            }
+          )();
+        } else {
+          createNotification("error", data.reason)();
+        }
+      });
+  };
   return (
     <>
       <Menu />
@@ -47,7 +53,9 @@ const StoreManagement = () => {
               style={{ display: userPermission == "Admin" ? "block" : "none" }}
             >
               <div className="card-body">
-                  <a href="#" onClick={removeStore}>Remove store</a>
+                <a href="#" onClick={removeStore}>
+                  Remove store
+                </a>
               </div>
             </div>
           </div>

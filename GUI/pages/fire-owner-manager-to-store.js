@@ -27,22 +27,22 @@ const FireOwnerToStore = () => {
     if (newOfficialInput.username != "" && newOfficialInput.storename != "") {
       await api
         .post(
-          `owner/fire/?userId=${newOfficialInput.username}&storeId=${window.location.href.split("?").pop().slice(0, -1)}` //TODO: Need the real path from backend
+          `owner/fire/?userId=${
+            newOfficialInput.username
+          }&storeId=${window.location.href.split("?").pop().slice(0, -1)}` //TODO: Need the real path from backend
         )
         .then((res) => {
-          if (res.status === 200) {
-            const { data } = res;
+          const { data } = res;
+          if (data.success) {
             console.log(data);
             createNotification("success", "User fired successfully", () =>
               router.push("/dashboard")
             )();
           } else {
-            const { data } = res;
-            console.log(data);
-            createNotification("error", "failure firing user!")();
+            createNotification("error", data.reason)();
           }
         })
-        .catch((err) => console.log("err"));
+        .catch((err) => console.log(err));
     } else {
       createNotification(
         "error",

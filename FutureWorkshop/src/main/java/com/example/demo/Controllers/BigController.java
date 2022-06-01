@@ -91,7 +91,7 @@ public class BigController {
     }
 
 
-    @DeleteMapping("/users")
+    @PostMapping("/users/delete")
     public ReturnValue deleteUser(@RequestParam String isDeleting,
                                   @RequestParam String whosBeingDeleted) throws NoPermissionException, UserException {
         my_log.info("user" + isDeleting + "is trying to delete user" + whosBeingDeleted);

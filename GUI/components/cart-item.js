@@ -64,6 +64,12 @@ const CartItem = ({
   };
   const onInc = async (e) => {
     e.preventDefault();
+    if (currentAmount + 1 > amount) {
+      return createNotification(
+        "error",
+        "Cannot add more , reached quantity stock limit"
+      )();
+    }
     const obj = {
       user_id: cookies.userId,
       productID: id,
@@ -93,6 +99,8 @@ const CartItem = ({
               Name: {name}
               <br />
               Category: {category}
+              <br />
+              quantity: {amount}
               <br />
               Price: {price}
             </p>

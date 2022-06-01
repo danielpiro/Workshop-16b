@@ -1,7 +1,6 @@
 import api from "./api";
 import createNotification from "./norification";
 import { useCookies } from "react-cookie";
-import { useEffect, useState } from "react";
 
 const Card = ({ value, title, price, quantity, category, storeId }) => {
   const [cookies, setCookie, removeCookie] = useCookies([

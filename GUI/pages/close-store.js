@@ -7,33 +7,31 @@ const CloseStore = () => {
   const [store, setStore] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-  const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
 
   const onSearch = async (e) => {
     e.preventDefault();
     setIsLoading(!isLoading);
-    if(searchValue !== ""){
+    if (searchValue !== "") {
       await api
-        .post(
-          `/store/freeze/storeId=${store}?&userId=${""}`
-        )
+        .post(`/store/freeze/storeId=${store}?&userId=${""}`)
         .then((res) => {
-          if (res.status === 200) {
+          const { data } = res;
+          if (data.success) {
             const { data } = res;
             console.log(data);
             createNotification("success", "Close store done successfully", () =>
               router.push("/dashboard")
             )();
           } else {
-            const { data } = res;
-            console.log(data);
-            createNotification("error", "failure closing store!")();
+            createNotification("error", data.reason)();
           }
         })
-        .catch((err) => console.log("err"));
-    }
-    else{
-      createNotification("error", "store name is not valid, please try again!")();
+        .catch((err) => console.log(err));
+    } else {
+      createNotification(
+        "error",
+        "store name is not valid, please try again!"
+      )();
     }
   };
 
