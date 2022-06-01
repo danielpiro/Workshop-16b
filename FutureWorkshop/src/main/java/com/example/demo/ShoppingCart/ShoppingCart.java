@@ -8,11 +8,13 @@ import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.ExternalConnections.ExternalConnectionHolder;
 import com.example.demo.Generic.ThreeGenerics;
+import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.History.History;
 import com.example.demo.Store.Product;
 
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class ShoppingCart {
@@ -164,17 +166,17 @@ public class ShoppingCart {
 
 
         History history = History.getInstance();
-        int indexPurchase = history.getIndexPurchase();
 
-        Date date = new Date();
-        date.getTime();
+
+
+
         List<ThreeGenerics<String,Float,Integer>> namePriceAmount = new LinkedList<>();
 
             for (Map.Entry<String, ShoppingBasket> basket : basketCases.entrySet()) {
                 namePriceAmount = basket.getValue().recordPurchase();
                 for (ThreeGenerics<String, Float,Integer> singleNamePriceAmount : namePriceAmount) {
-                    history.insertRecord(userId, basket.getValue().getStore(), indexPurchase, singleNamePriceAmount.getOb1(),
-                            singleNamePriceAmount.getOb2(), singleNamePriceAmount.getOb3(), date);
+                    history.insertRecord(userId, basket.getValue().getStore(), singleNamePriceAmount.getOb1(),
+                            singleNamePriceAmount.getOb2(), singleNamePriceAmount.getOb3(), LocalDateTime.now());
                 }
 
 

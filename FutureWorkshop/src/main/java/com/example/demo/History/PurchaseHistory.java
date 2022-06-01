@@ -1,16 +1,19 @@
 package com.example.demo.History;
 
+import com.example.demo.GlobalSystemServices.IdGenerator;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class PurchaseHistory {
 
     private String userID;
     private String storeID;
-    private int purchaseID;
+    private String purchaseID;
     private String itemName;
     private float itemPrice;
     private int itemAmount;
-    private Date timeOfTransaction;
+    private LocalDateTime timeOfTransaction;
 
     @Override
     public String toString() {
@@ -23,13 +26,24 @@ public class PurchaseHistory {
                 ", timeOfTransaction=" + timeOfTransaction;
     }
 
-    public PurchaseHistory(String userID, String storeID, int transactionId, String itemName, float itemPrice, int amount, Date timeOfTransaction) {
+
+    public PurchaseHistory(String userID, String storeID, String itemName, float itemPrice, int amount, LocalDateTime timeOfTransaction) {
         this.userID = userID;
         this.storeID = storeID;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.itemAmount= amount;
         this.timeOfTransaction = timeOfTransaction;
+        this.purchaseID = IdGenerator.getInstance().getPurchaseID();
+    }
+    public PurchaseHistory(String userID, String storeID, String transactionId, String itemName, float itemPrice, int amount, LocalDateTime timeOfTransaction) {
+        this.userID = userID;
+        this.storeID = storeID;
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;
+        this.itemAmount= amount;
+        this.timeOfTransaction = timeOfTransaction;
+        this.purchaseID = transactionId;
     }
 
     public String getUserID() {
@@ -40,7 +54,7 @@ public class PurchaseHistory {
         return storeID;
     }
 
-    public int getPurchaseID() {
+    public String getPurchaseID() {
         return purchaseID;
     }
 
@@ -51,8 +65,10 @@ public class PurchaseHistory {
     public float getItemPrice() {
         return itemPrice;
     }
-
-    public Date getTimeOfTransaction() {
+    public int getItemAmount() {
+        return this.itemAmount;
+    }
+    public LocalDateTime getTimeOfTransaction() {
         return timeOfTransaction;
     }
 }

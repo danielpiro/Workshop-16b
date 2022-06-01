@@ -43,4 +43,11 @@ public class CategoryPredicate  implements PolicyPredicate, DiscountPredicate {
     public boolean predicateStandsForProduct(PurchasableProduct ProductAmount) {
         return categories.stream().anyMatch(c-> c.toString().equals(ProductAmount.getCategory().toString()));
     }
+
+    @Override
+    public String toString() {
+        return "CategoryPredicate{" +
+                "categories=" + categories +
+                '}';
+    }
 }

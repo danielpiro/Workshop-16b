@@ -28,4 +28,11 @@ public class OnePredPolicy extends Policy {
         }
         return pPredicate.predicateStands(PurchasableAmount,externalConnectionHolder,userInfo);
     }
+
+    @Override
+    public String toString() {
+        return "OnePredPolicy{" +
+                "pPredicate=" + pPredicate +
+                '}';
+    }
 }

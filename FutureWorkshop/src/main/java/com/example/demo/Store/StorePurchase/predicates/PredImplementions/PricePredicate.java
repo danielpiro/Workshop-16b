@@ -34,4 +34,11 @@ public class PricePredicate implements DiscountPredicate, PolicyPredicate {
     public boolean predicateStandsForProduct(PurchasableProduct ProductAmount) {
         return price<ProductAmount.getPrice();
     }
+
+    @Override
+    public String toString() {
+        return "PricePredicate{" +
+                "price=" + price +
+                '}';
+    }
 }

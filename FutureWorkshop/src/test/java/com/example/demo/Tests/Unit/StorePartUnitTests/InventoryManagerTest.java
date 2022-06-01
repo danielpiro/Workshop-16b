@@ -63,9 +63,9 @@ class InventoryManagerTest {
     @Test
     void addNewProductGood() {
         try {
-            invMan.addNewProduct("t1", 5.5F, 4, "Appliances");
-            invMan.addNewProduct("t2", 15.5F, 1, "Other");
-            invMan.addNewProduct("t3", 100F, 50, "Baby");
+            invMan.addNewProduct("t1", 5.5F, 4, ProductsCategories.Appliances.toString());
+            invMan.addNewProduct("t2", 15.5F, 1, ProductsCategories.Other.toString());
+            invMan.addNewProduct("t3", 100F, 50, ProductsCategories.Baby.toString());
             List<Product> pL1 = invMan.getAllProducts(p -> p.getName().equals("t1"));
             List<Product> pL2 = invMan.getAllProducts(p -> p.getSupply() == 1);
             List<Product> pL3 = invMan.getAllProducts(p -> p.getPrice() == 100F);
