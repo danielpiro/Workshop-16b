@@ -1,9 +1,9 @@
 package com.example.demo.Controllers;
 
-import com.example.demo.CustomExceptions.Exception.NotifyException;
-import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
-import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
-import com.example.demo.CustomExceptions.Exception.UserException;
+import com.example.demo.CustomExceptions.Exception.*;
+import com.example.demo.Database.DTOobjects.ProductDTO;
+import com.example.demo.Database.DTOobjects.ReviewDTO;
+import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.Mock.*;
 import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
 import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
@@ -18,10 +18,10 @@ import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.History.History;
 import com.example.demo.NotificationsManagement.NotificationManager;
 import com.example.demo.ShoppingCart.InventoryProtector;
-import com.example.demo.ShoppingCart.ShoppingBasket;
 import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.ProductsCategories;
+import com.example.demo.Store.Review;
 import com.example.demo.Store.Store;
 import com.example.demo.Store.StorePurchase.Discounts.Discount;
 import com.example.demo.Store.StorePurchase.Policies.Policy;
@@ -32,9 +32,7 @@ import com.example.demo.User.Subscriber;
 //import com.example.demo.dto.AdminDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -42,7 +40,6 @@ import javax.naming.NoPermissionException;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
 
 
 @CrossOrigin(maxAge = 3600)
@@ -54,16 +51,18 @@ public class BigController {
     private UserController us;
     private PolicyBuilder policyBuilder;
     Log my_log = Log.getLogger();
+    private DatabaseService databaseService;
 
 
     //    public BigController(UserController us , StoreController sc) throws IOException {
 //        this.us = us;
 //        this.sc = sc;
 //    }
-    public BigController() throws IOException, UserException, NoPermissionException, SupplyManagementException {
+    public BigController(DatabaseService databaseService) throws IOException, UserException, NoPermissionException, SupplyManagementException {
         this.us = new UserController();
         this.sc = new StoreController();
         this.policyBuilder = new PolicyBuilder();
+        this.databaseService = databaseService;
         initiateExternalConnections();
         NotificationManager.buildNotificationManager(us);
         initializeSystem();
@@ -90,8 +89,50 @@ public class BigController {
 
     }
 
+    @PostMapping("/save/product")
+    public void pr() throws UserException, SupplyManagementException, ResourceNotFoundException {
 
-    @DeleteMapping("/users")
+
+       // databaseService.deleteReviewByProductID("dan");
+        Product p = new Product("dan","lives",8,8, ProductsCategories.Apps$Games.toString());
+//
+//        Review r = new Review(7,"amit","best","box of cookies ever");
+          p.addReview(7,"amit","best","box of cookies ever");
+          p.addReview(5,"amit","best","box of cookies ever");
+//        //ReviewDTO dto = databaseService.saveReview(r);
+//        //System.out.println(dto.getBody());
+        ProductDTO dto =databaseService.saveProduct(p);
+//
+//        Product pAfter = databaseService.getProductByID("dan");
+//        System.out.println("managed to find" + dto.getId());
+//        List<ReviewDTO> dtoList = databaseService.getReviewListByProductID("dan");
+//        for(ReviewDTO rd :dtoList){
+//            System.out.println(rd.getId());
+//        }
+
+
+
+
+    }
+
+    @PostMapping("/delete/product")
+    public void deletepr() throws UserException, SupplyManagementException, ResourceNotFoundException {
+
+        databaseService.deleteProductById("dan");
+
+    }
+    @PostMapping("/update/product")
+    public void updatepr() throws UserException, SupplyManagementException, ResourceNotFoundException {
+
+        Product p = new Product("dan","updated",3,3, ProductsCategories.Appliances.toString());
+        p.addReview(7,"amit","best","box of cookies ever");
+        p.addReview(5,"amit","best","box of cookies ever");
+        ProductDTO dto =databaseService.saveProduct(p);
+    }
+
+
+
+        @DeleteMapping("/users")
     public ReturnValue deleteUser(@RequestParam String isDeleting,
                                   @RequestParam String whosBeingDeleted) throws NoPermissionException, UserException {
         my_log.info("user" + isDeleting + "is trying to delete user" + whosBeingDeleted);
