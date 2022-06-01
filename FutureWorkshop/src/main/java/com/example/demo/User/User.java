@@ -48,7 +48,12 @@ public abstract class User {
  }
 
 
+    public float getPriceOfCartBeforeDiscount( ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException {
+    return shoppingCart.getPriceOfCartBeforeDiscount(externalConnectionHolder);
+    }
 
-
+    public float getPriceOfCartAfterDiscount( ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException {
+        return shoppingCart.getPriceOfCartAfterDiscount(externalConnectionHolder);
+    }
 
     }

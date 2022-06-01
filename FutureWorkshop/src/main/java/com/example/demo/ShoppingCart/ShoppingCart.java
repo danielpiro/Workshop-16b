@@ -115,7 +115,7 @@ public class ShoppingCart {
         return sb.toString();
     }
 
-    float getPriceOfCartAfterDiscount( ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException {
+    public float getPriceOfCartAfterDiscount( ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException {
         float total =0;
         for (Map.Entry<String, ShoppingBasket> basket : basketCases.entrySet()) {
             total+= basket.getValue().getPriceOfCartAfterDiscount(externalConnectionHolder,userId);
@@ -123,7 +123,7 @@ public class ShoppingCart {
         }
         return total;
     }
-    float getPriceOfCartBeforeDiscount( ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException {
+    public float getPriceOfCartBeforeDiscount( ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException {
         float total =0;
         for (Map.Entry<String, ShoppingBasket> basket : basketCases.entrySet()) {
             total+= basket.getValue().getPriceOfCartBeforeDiscount(externalConnectionHolder,userId);

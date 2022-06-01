@@ -580,4 +580,29 @@ public class UserController implements NotificationReceiver {
 
     public int getRegisteredUsersNum(){return registeredUsers;}
 
+    public float getPriceOfCartAfterDiscount( String user_id,ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException, UserException {
+        if ((getGuest(user_id)!=null))
+            return get_subscriber(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder);
+        if(get_subscriber(user_id)==null){
+            throw new UserException("User "+user_id + " doesn't exist");
+        }
+        if (!checkIfUserIsLoggedIn(user_id)) {
+            my_log.warning("user "+user_id + " is not logged in");
+            throw new UserException("User "+user_id +" is not logged in");
+        }
+        return get_subscriber(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder);
+    }
+    public float getPriceOfCartBeforeDiscount( String user_id,ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException, UserException {
+        if ((getGuest(user_id)!=null))
+            return get_subscriber(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder);
+        if(get_subscriber(user_id)==null){
+            throw new UserException("User "+user_id + " doesn't exist");
+        }
+        if (!checkIfUserIsLoggedIn(user_id)) {
+            my_log.warning("user "+user_id + " is not logged in");
+            throw new UserException("User "+user_id +" is not logged in");
+        }
+        return get_subscriber(user_id).getPriceOfCartBeforeDiscount(externalConnectionHolder);
+    }
+
 }
