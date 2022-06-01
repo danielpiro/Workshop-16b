@@ -90,7 +90,19 @@ public class BigController {
 
     }
 
-    @GetMapping("/online/amount")
+    //TODO GUY
+    public ReturnValue getPriceOfCartBeforeDiscount( String user_id,ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException, UserException {
+        ReturnValue rv = new ReturnValue(true, "", getUserController().getPriceOfCartBeforeDiscount(user_id,externalConnectionHolder));
+        return rv;
+    }
+    //TODO GUY
+    public ReturnValue getPriceOfCartAfterDiscount( String user_id,ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException, UserException {
+        ReturnValue rv = new ReturnValue(true, "", getUserController().getPriceOfCartAfterDiscount(user_id,externalConnectionHolder));
+        return rv;
+    }
+
+
+        @GetMapping("/online/amount")
     public ReturnValue getOnlineUsersNum() throws UserException {
 
         ReturnValue rv = new ReturnValue(true, "", getUserController().getOnlineUsersNum());
