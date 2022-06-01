@@ -30,6 +30,14 @@ const shoppingCart = () => {
       })
       .catch((err) => console.log(err));
   };
+  // const fetchQuantity = async () => {
+  //   return await api.get(`/product/quantity/?storeId=${}&productId=${}`).then(res => {
+  //     const {data} = res;
+  //     if(data.success){
+  //       console.log(data);
+  //     }
+  //   });
+  // }
   useEffect(() => {
     fetchCart();
   }, []);
@@ -96,6 +104,7 @@ const shoppingCart = () => {
                               price={product.price}
                               storeId={Object.keys(item)[0]}
                               fetchCart={fetchCart}
+                              quantity={product.quantity}
                             />
                           );
                         })

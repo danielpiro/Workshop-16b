@@ -20,7 +20,7 @@ const StoreEdit = () => {
     name: "",
     price: "",
     quantity: "",
-    category: "",
+    category: "Select category",
   });
   const fetch = async () => {
     return await api
@@ -62,6 +62,7 @@ const StoreEdit = () => {
             price: newProduct.price,
             quantity: newProduct.quantity,
             category: newProduct.category,
+            id: data.value,
           };
           setProducts([...products, productDashboard]);
           setNewProduct({
@@ -98,10 +99,13 @@ const StoreEdit = () => {
             <div className="w-100">
               <ul className="list-group-dashboard">
                 {products.map((product) => {
+                  {
+                    console.log("after new");
+                  }
                   return (
                     <li className=" list-group-item" key={product.id}>
                       <StoreProduct
-                        value={product.id}
+                        id={product.id}
                         title={product.name}
                         price={product.price}
                         quantity={product.quantity}
@@ -160,17 +164,92 @@ const StoreEdit = () => {
                     />
                   </div>
                   <div className="text-center">
-                    Category:
-                    <input
-                      className="ms-3"
-                      value={newProduct.category}
-                      onChange={(e) =>
-                        setNewProduct((prevState) => ({
-                          ...prevState,
-                          category: e.target.value,
-                        }))
-                      }
-                    />
+                    <div className="me-5">Category:</div>
+
+                    <div className="dropdown">
+                      <button
+                        className="btn btn-primary dropdown-toggle"
+                        type="button"
+                        id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        {newProduct.category}
+                      </button>
+                      <ul
+                        className="dropdown-menu"
+                        aria-labelledby="dropdownMenuButton1"
+                      >
+                        <li>
+                          <a
+                            className="dropdown-item"
+                            href="#"
+                            onClick={(e) =>
+                              setNewProduct((prevState) => ({
+                                ...prevState,
+                                category: e.target.value,
+                              }))
+                            }
+                          ></a>
+                        </li>
+                        <li>
+                          <a
+                            className="dropdown-item"
+                            href="#"
+                            onClick={(e) =>
+                              setNewProduct((prevState) => ({
+                                ...prevState,
+                                category: "Other",
+                              }))
+                            }
+                          >
+                            Other
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            className="dropdown-item"
+                            href="#"
+                            onClick={(e) =>
+                              setNewProduct((prevState) => ({
+                                ...prevState,
+                                category: "Appliances",
+                              }))
+                            }
+                          >
+                            Appliances
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            className="dropdown-item"
+                            href="#"
+                            onClick={(e) =>
+                              setNewProduct((prevState) => ({
+                                ...prevState,
+                                category: "Apps$Games",
+                              }))
+                            }
+                          >
+                            Apps$Games
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            className="dropdown-item"
+                            href="#"
+                            onClick={(e) =>
+                              setNewProduct((prevState) => ({
+                                ...prevState,
+                                category: "Handmade",
+                              }))
+                            }
+                          >
+                            Handmade
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                   <div className="text-center">
                     Supply:

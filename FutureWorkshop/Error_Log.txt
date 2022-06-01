@@ -6971,3 +6971,11 @@ May 30, 2022 11:01:11 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: admin is not admin  and cant delete store
 May 30, 2022 11:59:24 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user admin could not reserve items in cart
+Jun 01, 2022 2:13:20 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user admin is already logged in
+Jun 01, 2022 2:29:09 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User aaaa doesn't exist
+Jun 01, 2022 2:47:35 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: admin is not admin  and cant delete store
+Jun 01, 2022 2:47:48 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: admin is not admin  and cant delete store

@@ -3,7 +3,7 @@ import createNotification from "./norification";
 import { useCookies } from "react-cookie";
 import { useState } from "react";
 const StoreProduct = ({
-  value,
+  id,
   title,
   price,
   quantity,
@@ -39,16 +39,16 @@ const StoreProduct = ({
     e.preventDefault();
     return await api
       .post(
-        `/store/product/delete/?storeId=${storeId}&userId=${cookies.userId}&productId=${value}`
+        `/store/product/delete/?storeId=${storeId}&userId=${cookies.userId}&productId=${id}`
       )
       .then((res) => {
         const { data } = res;
         if (data.success) {
-          const updateProducts = products.filter((item) => item.id !== value);
+          const updateProducts = products.filter((item) => item.id !== id);
           setProducts(updateProducts);
           createNotification(
             "success",
-            `product ID: ${value} is been removed...`
+            `product ID: ${id} is been removed...`
           )();
         } else {
           createNotification("error", data.reason)();
@@ -66,15 +66,16 @@ const StoreProduct = ({
       supply: details.quantity,
       category: details.category,
     };
+    console.log(id);
     return await api
-      .post(`/store/product/?productId=${value}`, obj)
+      .post(`/store/product/?productId=${id}`, obj)
       .then((res) => {
         const { data } = res;
         if (data.success) {
           setOriginalDetails(details);
           createNotification(
             "success",
-            `product ID: ${value} is been updated...`,
+            `product ID: ${id} is been updated...`,
             () => setIsEdit(!isEdit)
           )();
         } else {
@@ -92,7 +93,7 @@ const StoreProduct = ({
   return (
     <div className="card-body">
       <div className="text-center">
-        <h4 className="card-body mb-3">ID: {value}</h4>
+        <h4 className="card-body mb-3">ID: {id}</h4>
       </div>
       <form className="text-center">
         Name:

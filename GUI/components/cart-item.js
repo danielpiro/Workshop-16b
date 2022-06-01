@@ -1,7 +1,7 @@
 import api from "./api";
 import { useCookies } from "react-cookie";
 import createNotification from "./norification";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const CartItem = ({
   id,
   name,
@@ -10,6 +10,7 @@ const CartItem = ({
   category,
   storeId,
   fetchCart,
+  quantity,
 }) => {
   const [currentAmount, setCurrentAmount] = useState(parseInt(amount));
   const [cookies, setCookie, removeCookie] = useCookies([
@@ -53,8 +54,12 @@ const CartItem = ({
       .then((res) => {
         const { data } = res;
         if (data.success) {
-          setCurrentAmount(currentAmount - 1);
           fetchCart();
+          if (currentAmount === 0) {
+            setCurrentAmount(currentAmount);
+          } else {
+            setCurrentAmount(currentAmount - 1);
+          }
           createNotification("success", "Remove products successfully")();
         } else {
           createNotification("error", data.reason)();
@@ -64,7 +69,7 @@ const CartItem = ({
   };
   const onInc = async (e) => {
     e.preventDefault();
-    if (currentAmount + 1 > amount) {
+    if (currentAmount + 1 > quantity) {
       return createNotification(
         "error",
         "Cannot add more , reached quantity stock limit"
@@ -100,7 +105,7 @@ const CartItem = ({
               <br />
               Category: {category}
               <br />
-              quantity: {amount}
+              quantity: {quantity}
               <br />
               Price: {price}
             </p>

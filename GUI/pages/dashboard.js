@@ -68,7 +68,6 @@ const Dashboard = () => {
                 .map((product) => {
                   return (
                     <li className=" list-group-item" key={product.id}>
-                      {console.log(product)}
                       <Card
                         value={product.id}
                         title={product.name}
