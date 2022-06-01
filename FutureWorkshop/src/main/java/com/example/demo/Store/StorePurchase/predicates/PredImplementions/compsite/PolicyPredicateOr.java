@@ -29,4 +29,12 @@ public class PolicyPredicateOr implements PolicyPredicate {
     public PolicyPredicate getPolicyPredicate2() {
         return p2;
     }
+
+    @Override
+    public String toString() {
+        return "PolicyPredicateOr{" +
+                "p1=" + p1 +
+                ", p2=" + p2 +
+                '}';
+    }
 }

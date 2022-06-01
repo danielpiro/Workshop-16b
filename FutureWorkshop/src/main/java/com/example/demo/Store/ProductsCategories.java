@@ -7,5 +7,5 @@ public enum ProductsCategories {
 
     Handmade,
 
-
+    Baby,
     }

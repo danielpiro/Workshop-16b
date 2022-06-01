@@ -24,6 +24,10 @@ public class CartPredicate implements PolicyPredicate {
         return numOfProducts<= ProductAmount.size();
     }
 
-
-
+    @Override
+    public String toString() {
+        return "CartPredicate{" +
+                "MinimumNumOfProducts=" + numOfProducts +
+                '}';
+    }
 }

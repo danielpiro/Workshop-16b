@@ -26,7 +26,7 @@ class HistoryTest {
 
     @Test
     void insertRecord() {
-        assertTrue(history.insertRecord("user1","store1",1,"product1",10,5,null));
+        assertTrue(history.insertRecord("user1","store1","product1",10,5,null));
 
     }
 
@@ -38,8 +38,8 @@ class HistoryTest {
     @Test
     void getUserHistory() {
         List<PurchaseHistory> ph = new LinkedList<PurchaseHistory>();
-        history.insertRecord("user1","store1",1,"product1",10,5,null);
-        history.insertRecord("user1","store1",1,"product1",10,20,null);
+        history.insertRecord("user1","store1","product1",10,5,null);
+        history.insertRecord("user1","store1","product1",10,20,null);
          ph= history.getUserHistory("user1");
          assertEquals(ph.size(),2);
     }
@@ -47,8 +47,8 @@ class HistoryTest {
     @Test
     void getStoreHistorySuccess() {
         List<PurchaseHistory> ph = new LinkedList<PurchaseHistory>();
-        history.insertRecord("user1","store1",1,"product1",10,5,null);
-        history.insertRecord("user1","store1",1,"product1",10,20,null);
+        history.insertRecord("user1","store1","product1",10,5,null);
+        history.insertRecord("user1","store1","product1",10,20,null);
         ph= history.getStoreHistory("store1");
         assertEquals(ph.size(),2);
     }
@@ -56,8 +56,8 @@ class HistoryTest {
     @Test
     void getStoreHistoryFail() {
         List<PurchaseHistory> ph = new LinkedList<PurchaseHistory>();
-        history.insertRecord("user1","store1",1,"product1",10,5,null);
-        history.insertRecord("user1","store1",1,"product1",10,20,null);
+        history.insertRecord("user1","store1","product1",10,5,null);
+        history.insertRecord("user1","store1","product1",10,20,null);
         ph= history.getStoreHistory("store2");
         assertNotEquals(ph.size(),2);
     }

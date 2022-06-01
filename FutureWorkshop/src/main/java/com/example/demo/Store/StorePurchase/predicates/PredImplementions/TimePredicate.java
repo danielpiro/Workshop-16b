@@ -50,5 +50,12 @@ public class TimePredicate implements PolicyPredicate {
         return today >= StartTime.getDayOfWeek().getValue() &&  today <= endTime.getDayOfWeek().getValue() ;
     }
 
-
+    @Override
+    public String toString() {
+        return "TimePredicate{" +
+                "StartTime=" + StartTime +
+                ", endTime=" + endTime +
+                ", type=" + type +
+                '}';
+    }
 }

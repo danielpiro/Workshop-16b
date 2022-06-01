@@ -4,6 +4,7 @@ package com.example.demo.History;
 
 import com.example.demo.GlobalSystemServices.Log;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -11,7 +12,6 @@ public class History {
     private static History history;
     private ConcurrentHashMap<Integer, PurchaseHistory> purchaseHistoryHashMap;
     private int indexRecord;
-    private int indexPurchase;
     private Object lockId;
     private Object printAndPut;
 
@@ -19,7 +19,6 @@ public class History {
     public History() {
         this.purchaseHistoryHashMap = new ConcurrentHashMap<Integer, PurchaseHistory>();
         this.indexRecord = 0;
-        this.indexPurchase = 0;
         lockId = new Object();
         printAndPut = new Object();
     }
@@ -39,18 +38,31 @@ public class History {
     }
 
 
-    public  boolean insertRecord(String userID, String storeID, int transcationId, String itemName, float itemPrice, int amount, Date timeOfTransaction) {
-            synchronized (printAndPut) {
-                Log.getLogger().info("user " + userID + " recording purchase into history");
+    public  boolean insertRecord(String userID, String storeID, String transcationId, String itemName, float itemPrice, int amount, LocalDateTime timeOfTransaction) {
+        synchronized (printAndPut) {
+            Log.getLogger().info("user " + userID + " recording purchase into history");
 
-                //synchronized because we dont want the same index to be used twice
-                synchronized (History.class) {
-                    PurchaseHistory ph = new PurchaseHistory(userID, storeID, transcationId, itemName, itemPrice, amount, timeOfTransaction);
-                    purchaseHistoryHashMap.put(indexRecord, ph);
-                    indexRecord++;
-                    return true;
-                }
+            //synchronized because we dont want the same index to be used twice
+            synchronized (History.class) {
+                PurchaseHistory ph = new PurchaseHistory(userID, storeID, transcationId, itemName, itemPrice, amount, timeOfTransaction);
+                purchaseHistoryHashMap.put(indexRecord, ph);
+                indexRecord++;
+                return true;
             }
+        }
+    }
+    public  boolean insertRecord(String userID, String storeID, String itemName, float itemPrice, int amount, LocalDateTime timeOfTransaction) {
+        synchronized (printAndPut) {
+            Log.getLogger().info("user " + userID + " recording purchase into history");
+
+            //synchronized because we dont want the same index to be used twice
+            synchronized (History.class) {
+                PurchaseHistory ph = new PurchaseHistory(userID, storeID, itemName, itemPrice, amount, timeOfTransaction);
+                purchaseHistoryHashMap.put(indexRecord, ph);
+                indexRecord++;
+                return true;
+            }
+        }
     }
 
     public  void printHistory() {
@@ -62,12 +74,7 @@ public class History {
             }
         }
     }
-    public int getIndexPurchase(){
-        synchronized (lockId){
-            indexPurchase++;
-            return indexPurchase;
-        }
-    }
+
 
     public synchronized List<PurchaseHistory> getUserHistory (String userID) {
 

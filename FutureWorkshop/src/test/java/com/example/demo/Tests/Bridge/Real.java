@@ -24,19 +24,12 @@ import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.User.Guest;
-import com.google.gson.Gson;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 
 import javax.naming.NoPermissionException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
@@ -475,7 +468,7 @@ public class Real   {
     /** User requirement - II.4.11 */
     public boolean showStoreOfficials(String storeId, String userId){
         try {
-            bigController.getInfoOnManagersOwners(storeId,userId);
+            bigController.getInfoOnManagersOwnersForTests(storeId,userId);
             return true;
         }
         catch (Exception e) {

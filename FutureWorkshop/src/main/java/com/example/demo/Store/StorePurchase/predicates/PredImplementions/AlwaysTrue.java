@@ -24,4 +24,9 @@ public class AlwaysTrue implements PolicyPredicate, DiscountPredicate {
     public boolean predicateStandsForProduct(PurchasableProduct ProductAmount) {
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "AlwaysTruePred{}";
+    }
 }

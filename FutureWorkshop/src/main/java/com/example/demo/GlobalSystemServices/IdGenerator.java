@@ -28,6 +28,9 @@ public class IdGenerator {
     private int complaintNotificationId;
     private int storeNotificationId;
 
+    private long PurchaseIDSuffix;
+    private String PurchaseIDPrefix = "PurchaseID_";
+
     private IdGenerator(){
         productSuffix = 0L;
         storeSuffix = 0L;
@@ -38,9 +41,10 @@ public class IdGenerator {
         complaintNotificationId =0;
         storeNotificationId=0;
         DiscountSuffix = 0L;
+        PurchaseIDSuffix = 0L;
     }
 
-    private IdGenerator(Long productSuffix, Long storeSuffix, Long ForumThreadSuffix, Long guestSuffix, Long AdminSuffix, Long PolicySuffix, Long discountSuffix) {
+    private IdGenerator(Long productSuffix, Long storeSuffix, Long ForumThreadSuffix, Long guestSuffix, Long AdminSuffix, Long PolicySuffix, Long discountSuffix,long PurchaseIDSuffix) {
         this.productSuffix = productSuffix;
         this.storeSuffix = storeSuffix;
         this.ForumThreadSuffix = ForumThreadSuffix;
@@ -48,6 +52,7 @@ public class IdGenerator {
         this.AdminSuffix = AdminSuffix;
         this.PolicySuffix = PolicySuffix;
         this.DiscountSuffix = discountSuffix;
+        this.PurchaseIDSuffix = PurchaseIDSuffix;
     }
 
     public static IdGenerator getInstance()
@@ -56,10 +61,10 @@ public class IdGenerator {
             single_instance = new IdGenerator();
         return single_instance;
     }
-    public static IdGenerator getInstance(Long productSuffix, Long storeSuffix, Long ForumThreadSuffix, Long guestSuffix , Long AdminSuffix, Long PolicySuffix, Long discountSuffix)
+    public static IdGenerator getInstance(Long productSuffix, Long storeSuffix, Long ForumThreadSuffix, Long guestSuffix , Long AdminSuffix, Long PolicySuffix, Long discountSuffix,long PurchaseIDSuffix)
     {
         if (single_instance == null)
-            single_instance = new IdGenerator(productSuffix, storeSuffix, ForumThreadSuffix, guestSuffix, AdminSuffix, PolicySuffix, discountSuffix);
+            single_instance = new IdGenerator(productSuffix, storeSuffix, ForumThreadSuffix, guestSuffix, AdminSuffix, PolicySuffix, discountSuffix,PurchaseIDSuffix);
         return single_instance;
     }
 
@@ -109,7 +114,10 @@ public class IdGenerator {
         DiscountSuffix++;
         return DiscountPrefix+(DiscountSuffix -1);
     }
-
+    public String getPurchaseID() {
+        PurchaseIDSuffix++;
+        return PurchaseIDPrefix+(PurchaseIDSuffix -1);
+    }
     public boolean checkIfAdmin(String userId){
         return userId.startsWith("AdminID_");
     }

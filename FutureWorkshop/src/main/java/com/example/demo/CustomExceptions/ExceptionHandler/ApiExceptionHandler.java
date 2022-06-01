@@ -1,6 +1,7 @@
 package com.example.demo.CustomExceptions.ExceptionHandler;
 
 import com.example.demo.CustomExceptions.Exception.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -57,6 +58,17 @@ public class ApiExceptionHandler {
         return rv;
 
     }
+    @ExceptionHandler(value = { JsonProcessingException.class })
+    public ReturnValue handleInternalProblem (Exception e){
+        ReturnValue rv = new ReturnValue(
+                false,
+                "internal problem" ,
+                e.getMessage()
+        );
+        return rv;
+
+    }
+
 
 
 
