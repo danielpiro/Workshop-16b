@@ -24,6 +24,7 @@ public interface InventoryProtector {
 
     //return total price of items, if cant purchase return negative number. also send user payment and delivery
     public float reserve (HashMap<String,Integer> ProductAmount , ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) throws CantPurchaseException, StorePolicyViolatedException, SupplyManagementException;
-
+    float getPriceOfCartAfterDiscount(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) throws StorePolicyViolatedException;
+    float getPriceOfCartBeforeDiscount(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) throws StorePolicyViolatedException;
     public boolean checkIfProductExist(String productId);
 }

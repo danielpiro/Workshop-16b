@@ -231,7 +231,7 @@ public class BigController {
     public boolean removePaymentService(PaymentNames payment) {
         return ExternalConnections.getInstance().removePayment(payment);
     }
-
+    //todo add check price
     @PostMapping("/cart/purchase")
     public ReturnValue purchaseCart(@RequestParam String user_id,
                                     @RequestParam PaymentNames payment,
@@ -242,6 +242,8 @@ public class BigController {
         ReturnValue rv = new ReturnValue(true, "", a);
         return rv;
     }
+
+
 
     /// Store controller
     @PostMapping(value = "/store", consumes = {MediaType.APPLICATION_JSON_VALUE})
