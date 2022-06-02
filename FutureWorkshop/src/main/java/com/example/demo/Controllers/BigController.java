@@ -1,6 +1,5 @@
 package com.example.demo.Controllers;
 
-import com.example.demo.Controllers.model.realTimeNotification;
 import com.example.demo.CustomExceptions.Exception.NotifyException;
 import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
@@ -32,12 +31,7 @@ import com.example.demo.User.Subscriber;
 //import com.example.demo.dto.AdminDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -99,6 +93,13 @@ public class BigController {
         return getUserController().initialize();
 
 
+    }
+
+    @PostMapping("/users/addadmin")
+    public ReturnValue addSystemAdmin(String whoIsAdding, String user_toMakeAdmin) throws UserException {
+        getUserController().addSystemAdmin(whoIsAdding, user_toMakeAdmin);
+        ReturnValue rv = new ReturnValue(true, "", null);
+        return rv;
     }
 
 
