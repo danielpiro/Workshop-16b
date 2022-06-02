@@ -22,6 +22,7 @@ const UserHistory = () => {
         .get(`/history/user/?userId=${cookies.userId}`)
         .then((res) => {
             const { data } = res;
+            console.log(data)
             if (data.success) {
                 setPurchases(data.value);
                 setIsLoading(!isLoading);
@@ -50,15 +51,14 @@ const UserHistory = () => {
       {purchases.length > 0 ? (
         <div style={{ display: "table", width: "100%" }}>
           <ul className="list-group" style={{ display: "table-cell" }}>
-            {purchases.map((product) => {
+            {purchases.map((purchase) => {
               return (
-                <li className=" list-group-item" key={product.id}>
-                  <Card
-                    value={product.id}
-                    image={product.image}
-                    title={product.title}
-                    description={product.description}
-                  />
+                <li className=" list-group-item" key={purchase.id}>
+                  <div className="card-body">
+                    <h4 className="card-title text-center">UserID: {purchase.userId}</h4>
+                    <h4 className="card-title text-center">StoreID: {purchase.storeId}</h4>
+                    <h4 className="card-title text-center">PurchaseID: {purchase.purchaseId}</h4>
+                  </div>
                 </li>
               );
             })}

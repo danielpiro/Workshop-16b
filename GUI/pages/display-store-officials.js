@@ -8,8 +8,8 @@ import { useCookies } from "react-cookie";
 import createNotification from "../components/norification";
 
 const DisplayStoreOfficials = () => {
-  const [owners, setOwners] = useState(["owner1", "owner2"]);
-  const [managers, setManagers] = useState(["owner1", "owner2"]);
+  const [owners, setOwners] = useState([""]);
+  const [managers, setManagers] = useState([""]);
   const [isLoading, setIsLoading] = useState(true);
   //const [singlePurchase, setSinglePurchase] = useState({});
 
