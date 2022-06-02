@@ -120,6 +120,20 @@ public class InventoryManager  implements InventoryProtector {
         }
         return finalPrice;
     }
+    private float calculatePriceWithoutDiscount(HashMap<String, Integer> ProductIdAmount){
+        //convert products to PurchasableProduct
+        List<PurchasableProduct> productsConverted = new ArrayList<>();
+        for (String Id : ProductIdAmount.keySet()) {
+            Product p = products.get(Id);
+            PurchasableProduct pp = new DiscountBox(p,p.getPrice(),ProductIdAmount.get(Id));
+            productsConverted.add(pp);
+        }
+        float finalPrice = 0f;
+        for (PurchasableProduct product: productsConverted) {
+            finalPrice += product.getPrice() * product.getAmount();
+        }
+        return finalPrice;
+    }
 
     public String addNewPolicy(Policy policy){
         policies.add(policy);
@@ -206,6 +220,18 @@ public class InventoryManager  implements InventoryProtector {
             return calculatePriceWithDiscount(ProductAmount,externalConnectionHolder,userInfo);
 
 
+    }
+
+    @Override
+    public float getPriceOfCartAfterDiscount(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) throws StorePolicyViolatedException {
+        checksIfStorePoliciesMet( ProductAmount, externalConnectionHolder, userInfo);
+        return calculatePriceWithDiscount(ProductAmount,externalConnectionHolder,userInfo);
+    }
+
+    @Override
+    public float getPriceOfCartBeforeDiscount(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) throws StorePolicyViolatedException {
+        checksIfStorePoliciesMet( ProductAmount, externalConnectionHolder, userInfo);
+        return calculatePriceWithoutDiscount(ProductAmount);
     }
 
     public Product getProduct(String productId) throws  SupplyManagementException {
