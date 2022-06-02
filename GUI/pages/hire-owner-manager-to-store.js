@@ -23,21 +23,68 @@ const HireOwnerToStore = () => {
   ]);
 
   const [permission, setPermissions] = useState({
-    p1: false, p2: false, p3: false, p4: false, p5: false, p6: false,
-    p7: false, p8: false, p9: false, p10: false, p11: false, p12: false,
+    viewStoreHistory: false, editExistingProduct: false, addNewProduct: false, editProduct: false, 
+    removeProduct: false, editStorePolicy: false, editStoreDiscount: false, addReviewToProduct: false,
+    viewForum: false, ReplyToForum: false, closeStore: false, openStore: false, infoOfManagers: false,
   });
 
   useEffect(() => {
+    const storeID = window.location.href.split("?").pop().slice(0, -1);
     const fetchData = async () => {
       return await api.get(`store/owner/permmitions?user=${cookies.userId}`).then((res) => {
         const { data } = res;
         if (data.success) {
-          console.log(data);
-          data.value.forEach(store => {
-            // console.log(store.storeId);
-            // console.log(store.permission);
-            allowToManageStores.push(store.storeId);
-            
+          data.value.map(store => {
+            if(store.storeId === storeID){
+              console.log(store.permission)
+              let perArray = store.permission.slice(1, -1).split(","); //continue here
+              perArray.map(per => {
+                console.log(per);
+                switch(per){
+                  case 'VIEW_STORE_HISTORY':
+                    //..
+                    break;
+                  case 'EDIT_EXISTING_PRODUCT':
+                  //..
+                  break;
+                  case 'ADD_NEW_PRODUCT':
+                    //..
+                    break;
+                  case 'EDIT_PRODUCT':
+                  //..
+                  break;
+                  case 'REMOVE_PRODUCT':
+                    //..
+                    break;
+                  case 'EDIT_STORE_POLICY':
+                  //..
+                  break;
+                  case 'EDIT_STORE_DISCOUNT':
+                    //..
+                    break;
+                  case 'ADD_REVIEW_TO_PRODUCT':
+                  //..
+                  break;
+                  case 'VIEW_FORUM':
+                    //..
+                    break;
+                  case 'REPLY_TO_FORUM':
+                  //..
+                  break;
+                  case 'CLOSE_STORE':
+                    //..
+                    break;
+                  case 'OPEN_STORE':
+                  //..
+                  break;
+                  case 'INFO_OF_MANAGERS':
+                  //..
+                  break;
+                  default:
+                    console.log("Error loading permissions");
+                }
+              })
+            }          
           });
         } else {
           console.log(data.reason);
@@ -47,11 +94,10 @@ const HireOwnerToStore = () => {
         return await api.get(`store/manager/permmitions?user=${cookies.userId}`).then((res) => {
           const { data } = res;
           if (data.success) {
-            console.log(data);
-            data.value.forEach(store => {
+            //console.log(data);
+            data.value.map(store => {
               // console.log(store.storeId);
               // console.log(store.permission);
-              owningStores.push(store.storeId);
             });
           } else {
             console.log(data.reason);
@@ -275,7 +321,7 @@ const HireOwnerToStore = () => {
               <input
                 className="form-check-input"
                 type="checkbox"
-                id="Permission1"
+                id="VIEW_STORE_HISTORY"
               />
               <label className="form-check-label" for="flexSwitchCheckDefault">
                 View store history
@@ -285,7 +331,7 @@ const HireOwnerToStore = () => {
               <input
                 className="form-check-input"
                 type="checkbox"
-                id="Permission2"
+                id="EDIT_EXISITING_PRODUCT"
               />
               <label className="form-check-label" for="flexSwitchCheckChecked">
                 Edit existing product
@@ -295,7 +341,7 @@ const HireOwnerToStore = () => {
               <input
                 className="form-check-input"
                 type="checkbox"
-                id="Permission3"
+                id="ADD_NEW_PRODUCT"
               />
               <label className="form-check-label" for="flexSwitchCheckDefault">
                 Add new product
@@ -305,7 +351,7 @@ const HireOwnerToStore = () => {
               <input
                 className="form-check-input"
                 type="checkbox"
-                id="Permission4"
+                id="EDIT_PRODUCT"
               />
               <label className="form-check-label" for="flexSwitchCheckChecked">
                 Edit product
@@ -315,7 +361,7 @@ const HireOwnerToStore = () => {
               <input
                 className="form-check-input"
                 type="checkbox"
-                id="Permission5"
+                id="REMOVE_PRODUCT"
               />
               <label className="form-check-label" for="flexSwitchCheckDefault">
                 Remove product
@@ -325,7 +371,17 @@ const HireOwnerToStore = () => {
               <input
                 className="form-check-input"
                 type="checkbox"
-                id="Permission6"
+                id="EDIT_STORE_POLICY"
+              />
+              <label className="form-check-label" for="flexSwitchCheckChecked">
+                Edit store policy
+              </label>
+            </div>
+            <div className="form-check form-switch">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="EDIT_STORE_DISCOUNT"
               />
               <label className="form-check-label" for="flexSwitchCheckChecked">
                 Edit store discount
@@ -335,7 +391,7 @@ const HireOwnerToStore = () => {
               <input
                 className="form-check-input"
                 type="checkbox"
-                id="Permission7"
+                id="ADD_REVIEW_TO_PRODUCT"
               />
               <label className="form-check-label" for="flexSwitchCheckDefault">
                 Add review to product
@@ -345,7 +401,7 @@ const HireOwnerToStore = () => {
               <input
                 className="form-check-input"
                 type="checkbox"
-                id="Permission8"
+                id="VIEW_FORUM"
               />
               <label className="form-check-label" for="flexSwitchCheckChecked">
                 View forum
@@ -355,7 +411,7 @@ const HireOwnerToStore = () => {
               <input
                 className="form-check-input"
                 type="checkbox"
-                id="Permission9"
+                id="REPLY_TO_FORUM"
               />
               <label className="form-check-label" for="flexSwitchCheckDefault">
                 Reply to forum
@@ -365,7 +421,7 @@ const HireOwnerToStore = () => {
               <input
                 className="form-check-input"
                 type="checkbox"
-                id="Permission10"
+                id="CLOSE_STORE"
               />
               <label className="form-check-label" for="flexSwitchCheckChecked">
                 Close store
@@ -375,7 +431,7 @@ const HireOwnerToStore = () => {
               <input
                 className="form-check-input"
                 type="checkbox"
-                id="Permission11"
+                id="OPEN_STORE"
               />
               <label className="form-check-label" for="flexSwitchCheckChecked">
                 Open store
@@ -385,7 +441,7 @@ const HireOwnerToStore = () => {
               <input
                 className="form-check-input"
                 type="checkbox"
-                id="Permission12"
+                id="INFO_OF_MANAGERS"
               />
               <label className="form-check-label" for="flexSwitchCheckChecked">
                 Info of managers
