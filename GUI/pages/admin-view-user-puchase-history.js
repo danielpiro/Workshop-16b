@@ -24,7 +24,8 @@ const AdminViewUserPurchase = () => {
         .get(`/history/user/?userId=${searchValue}`)
         .then((res) => {
           const { data } = res;
-          if (data.reason) {
+          if (data.success) {
+            console.log(data);
             setPurchases(data.value);
             setIsLoading(!isLoading);
             createNotification(
@@ -53,7 +54,7 @@ const AdminViewUserPurchase = () => {
             <input
               className="form-control mr-sm-2"
               type="search"
-              placeholder="Enter store name"
+              placeholder="Enter username"
               aria-label="Search"
               onChange={(e) => setSearchValue(e.target.value)}
             />
@@ -81,12 +82,11 @@ const AdminViewUserPurchase = () => {
             {purchases.map((product) => {
               return (
                 <li className=" list-group-item" key={product.id}>
-                  <Card
-                    value={product.id}
-                    image={product.image}
-                    title={product.title}
-                    description={product.description}
-                  />
+                  <div className="card-body">
+                    <h4 className="card-title text-center">UserID: {purchase.userId}</h4>
+                    <h4 className="card-title text-center">StoreID: {purchase.storeId}</h4>
+                    <h4 className="card-title text-center">PurchaseID: {purchase.purchaseId}</h4>
+                  </div>
                 </li>
               );
             })}
