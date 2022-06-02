@@ -78,10 +78,16 @@ public class BigController {
         externalConnections.addDelivery(new UPS());
     }
 
-    //    @PostMapping(value = "/add/admin" , consumes = {MediaType.APPLICATION_JSON_VALUE})
-//    public void addSystemAdmin(@RequestBody(required = true)  whoIsAdding, String user_toMakeAdmin) {
-//        getUserController().addSystemAdmin(whoIsAdding,user_toMakeAdmin);
-//    }
+    @PostMapping("/add/admin")
+    public ReturnValue addSystemAdmin(@RequestParam String whoIsAdding, @RequestParam String user_toMakeAdmin) {
+        try{
+            getUserController().addSystemAdmin(whoIsAdding,user_toMakeAdmin);
+            return new ReturnValue(true, "", true);
+        }
+        catch(Exception e){
+            return new ReturnValue(false, e.getMessage(), "");
+        }
+    }
 
 
     private List<String> initializeUsers() throws UserException {
