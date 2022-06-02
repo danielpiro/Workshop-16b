@@ -424,7 +424,7 @@ public class BigController {
     private List<Object> getStorePermissionToReturn(String user, boolean ownerOrManager) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         List<Object> storePermissions = new ArrayList<>();
-        List<Store> stores = ownerOrManager ? sc.getStoreManagerBuyUser(user) : sc.getStoreOwnerBuyUser(user);
+        List<Store> stores = ownerOrManager ? sc.getStoreManagerByUser(user) : sc.getStoreOwnerByUser(user);
         for (Store store : stores) {
             List<Permission> permissions = sc.getUserPermission(store.getId(), user);
             storePermissions.add(
@@ -437,7 +437,7 @@ public class BigController {
     private List<Object> getStorePermissionToReturn(String user, String storeId, boolean ownerOrManager) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         List<Object> storePermissions = new ArrayList<>();
-        Store store = ownerOrManager ? sc.getStoreManagerBuyUser(user, storeId) : sc.getStoreOwnerBuyUser(user, storeId);
+        Store store = ownerOrManager ? sc.getStoreManagerByUser(user, storeId) : sc.getStoreOwnerByUser(user, storeId);
         List<Permission> permissions = new ArrayList<>();
         if (store != null) {
             permissions = sc.getUserPermission(store.getId(), user);

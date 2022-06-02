@@ -27,8 +27,45 @@ const Stores = () => {
     setIsLoading(!isLoading);
     const fetchData = async () => {
       return await api
-        .get("/store/all")
-        .then((res) => {
+        
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(!isLoading);
+    const fetchData = async () => { //Added by Amit
+      return await api.get(`store/owner/permmitions?user=${cookies.userId}`).then((res) => {
+        const { data } = res;
+        if (data.success) {
+          console.log(data);
+          data.value.map(store => {
+            // console.log(store.storeId);
+            // console.log(store.permission);
+            allowToManageStores.push(store.storeId);
+            
+          });
+        } else {
+          console.log(data.reason);
+        }
+      })
+      .then(async () => { //Added by Amit
+        return await api.get(`store/manager/permmitions?user=${cookies.userId}`).then((res) => {
+          const { data } = res;
+          if (data.success) {
+            console.log(data);
+            data.value.map(store => {
+              // console.log(store.storeId);
+              // console.log(store.permission);
+              owningStores.push(store.storeId);
+            });
+          } else {
+            console.log(data.reason);
+          }
+        });
+      })
+      .then(async () => {
+        return await api.get("/store/all").then((res) => {
           const { data } = res;
           if (data.success) {
             setStores(data.value);
@@ -49,42 +86,75 @@ const Stores = () => {
             }
           });
         })
-        .then(async () => { //Added by Amit
-          //return await api.get(`store/manager/permmitions?user=${cookies.userId}`).then((res) => {
-          return await api.get(`store/owner/permmitions?user=${cookies.userId}`).then((res) => {
-            const { data } = res;
-            if (data.success) {
-              console.log(data);
-              data.value.map(store => {
-                // console.log(store.storeId);
-                // console.log(store.permission);
-                allowToManageStores.push(store.storeId);
-                
-              });
-            } else {
-              console.log(data.reason);
-            }
-          });
-        })
-        .then(async () => { //Added by Amit
-          return await api.get(`store/manager/permmitions?user=${cookies.userId}`).then((res) => {
-            const { data } = res;
-            if (data.success) {
-              console.log(data);
-              data.value.map(store => {
-                // console.log(store.storeId);
-                // console.log(store.permission);
-                owningStores.push(store.storeId);
-              });
-            } else {
-              console.log(data.reason);
-            }
-          });
-        })
-        .catch((err) => console.log(err));
+      .catch((err) => console.log(err));
+      })
     };
     fetchData();
   }, []);
+
+  // useEffect(() => {
+  //   setIsLoading(!isLoading);
+  //   const fetchData = async () => {
+  //     return await api
+  //       .get("/store/all")
+  //       .then((res) => {
+  //         const { data } = res;
+  //         if (data.success) {
+  //           setStores(data.value);
+  //           stores.map((store) => (
+  //             <Link href={`stores/view/${store}`} key={store} />
+  //           ));
+  //         } else {
+  //           createNotification("error", data.reason)();
+  //         }
+  //       })
+  //       .then(async () => {
+  //         return await api.get("/store-products/all").then((res) => {
+  //           const { data } = res;
+  //           if (data.success) {
+  //             setStoreMap(data.value);
+  //           } else {
+  //             createNotification("error", data.reason)();
+  //           }
+  //         });
+  //       })
+  //       .then(async () => { //Added by Amit
+  //         //return await api.get(`store/manager/permmitions?user=${cookies.userId}`).then((res) => {
+  //         return await api.get(`store/owner/permmitions?user=${cookies.userId}`).then((res) => {
+  //           const { data } = res;
+  //           if (data.success) {
+  //             console.log(data);
+  //             data.value.map(store => {
+  //               // console.log(store.storeId);
+  //               // console.log(store.permission);
+  //               allowToManageStores.push(store.storeId);
+                
+  //             });
+  //           } else {
+  //             console.log(data.reason);
+  //           }
+  //         });
+  //       })
+  //       .then(async () => { //Added by Amit
+  //         return await api.get(`store/manager/permmitions?user=${cookies.userId}`).then((res) => {
+  //           const { data } = res;
+  //           if (data.success) {
+  //             console.log(data);
+  //             data.value.map(store => {
+  //               // console.log(store.storeId);
+  //               // console.log(store.permission);
+  //               owningStores.push(store.storeId);
+  //             });
+  //           } else {
+  //             console.log(data.reason);
+  //           }
+  //         });
+  //       })
+  //       .catch((err) => console.log(err));
+  //   };
+  //   fetchData();
+  // }, []);
+
   const onNext = (e) => {
     e.preventDefault();
     if (page + 1 > stores.length / 12) return;
