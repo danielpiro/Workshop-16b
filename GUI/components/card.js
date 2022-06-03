@@ -1,8 +1,10 @@
 import api from "./api";
 import createNotification from "./norification";
 import { useCookies } from "react-cookie";
+import { useState } from "react";
 
 const Card = ({ value, title, price, quantity, category, storeId }) => {
+  const [cart, setCart] = useState([]);
   const [cookies, setCookie, removeCookie] = useCookies([
     "username",
     "password",
@@ -23,15 +25,23 @@ const Card = ({ value, title, price, quantity, category, storeId }) => {
       amount: 1,
     };
     return await api
-      .post(`/cart/product/?auctionOrBid=${false}`, obj)
+      .post(`/cart/?user_Id=${cookies.userId}`)
       .then((res) => {
         const { data } = res;
         if (data.success) {
-          createNotification("success", "Added product successfully")();
-        } else {
-          createNotification("error", data.reason)();
+          setCart(data.value);
         }
       })
+      .then(() =>
+        api.post(`/cart/product/?auctionOrBid=${false}`, obj).then((res) => {
+          const { data } = res;
+          if (data.success) {
+            createNotification("success", "Added product successfully")();
+          } else {
+            createNotification("error", data.reason)();
+          }
+        })
+      )
       .catch((err) => console.log(err));
   };
   return (

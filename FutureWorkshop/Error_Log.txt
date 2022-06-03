@@ -6979,3 +6979,7 @@ Jun 01, 2022 2:47:35 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: admin is not admin  and cant delete store
 Jun 01, 2022 2:47:48 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: admin is not admin  and cant delete store
+Jun 02, 2022 7:54:36 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user admin could not reserve items in cart
+Jun 02, 2022 7:54:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user admin could not reserve items in cart

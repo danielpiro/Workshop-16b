@@ -10,7 +10,6 @@ const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(0);
   const [searchBy, setSearchBy] = useState("");
-
   useEffect(() => {
     setIsLoading(!isLoading);
     const fetchData = async () => {

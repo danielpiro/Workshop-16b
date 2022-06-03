@@ -1,7 +1,6 @@
 import api from "./api";
 import { useCookies } from "react-cookie";
 import createNotification from "./norification";
-import { useEffect, useState } from "react";
 const CartItem = ({
   id,
   name,
@@ -12,7 +11,6 @@ const CartItem = ({
   fetchCart,
   quantity,
 }) => {
-  const [currentAmount, setCurrentAmount] = useState(parseInt(amount));
   const [cookies, setCookie, removeCookie] = useCookies([
     "username",
     "password",
@@ -26,7 +24,7 @@ const CartItem = ({
       user_id: cookies.userId,
       productID: id,
       storeID: storeId,
-      amount: currentAmount,
+      amount: amount,
     };
     return await api
       .post("/cart/delete", obj)
@@ -55,11 +53,6 @@ const CartItem = ({
         const { data } = res;
         if (data.success) {
           fetchCart();
-          if (currentAmount === 0) {
-            setCurrentAmount(currentAmount);
-          } else {
-            setCurrentAmount(currentAmount - 1);
-          }
           createNotification("success", "Remove products successfully")();
         } else {
           createNotification("error", data.reason)();
@@ -69,7 +62,7 @@ const CartItem = ({
   };
   const onInc = async (e) => {
     e.preventDefault();
-    if (currentAmount + 1 > quantity) {
+    if (amount + 1 > quantity) {
       return createNotification(
         "error",
         "Cannot add more , reached quantity stock limit"
@@ -86,7 +79,7 @@ const CartItem = ({
       .then((res) => {
         const { data } = res;
         if (data.success) {
-          setCurrentAmount(currentAmount + 1);
+          fetchCart();
           createNotification("success", "Added product successfully")();
         } else {
           createNotification("error", data.reason)();
@@ -121,7 +114,7 @@ const CartItem = ({
           <button className="btn btn-primary ms-3" onClick={onInc}>
             +
           </button>
-          <div className="text-center mt-3">{currentAmount}</div>
+          <div className="text-center mt-3">{amount}</div>
         </div>
       </div>
     </>
