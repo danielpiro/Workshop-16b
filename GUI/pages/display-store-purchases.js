@@ -56,7 +56,9 @@ const DisplayStorePurchases = () => {
       <div
         className="my-4"
         style={{ display: "flex", justifyContent: "center" }}
-      ></div>
+      >
+        <h3><u>Store Purchases:</u></h3>
+      </div>
       {!isLoading ? (
         <div style={{ display: "table", width: "100%" }}>
           <ul className="list-group" style={{ display: "table-cell" }}>
