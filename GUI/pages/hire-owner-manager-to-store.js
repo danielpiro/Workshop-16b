@@ -8,10 +8,8 @@ import { useCookies } from "react-cookie";
 
 const HireOwnerToStore = () => {
   const router = useRouter();
-  //const [userPermission, setUserPermission] = useState("Admin");
   const [newOfficialInput, setNewOfficialInput] = useState({
     username: "",
-    //storename: "",
     ownerORmanager: "Manager/Owner",
   });
 
@@ -36,11 +34,9 @@ const HireOwnerToStore = () => {
         if (data.success) {
           data.value.map(store => {
             if(store.storeId === storeID){
-              //console.log(store.permission)
-              let perArray = store.permission.slice(1, -1).split(","); //continue here
+              let perArray = store.permission.slice(1, -1).split(",");
               perArray.map(per => {
                 let edittedPer = per.trim();
-                //console.log(edittedPer);
                 switch(edittedPer){
                   case 'VIEW_STORE_HISTORY':
                     checkPermission(edittedPer);
@@ -95,13 +91,13 @@ const HireOwnerToStore = () => {
                     setPermissions((prevState) => ({...prevState, infoOfManagers: true,}));
                     break;
                   default:
-                    console.log("Error loading permissions");
+                    createNotification("error", "Error loading permissions")();
                 }
               })
             }          
           });
         } else {
-          console.log(data.reason);
+          createNotification("error", data.reason)();
         }
       })
       .then(async () => { //Added by Amit
@@ -110,11 +106,9 @@ const HireOwnerToStore = () => {
           if (data.success) {
             data.value.map(store => {
               if(store.storeId === storeID){
-                //console.log(store.permission)
                 let perArray = store.permission.slice(1, -1).split(","); //continue here
                 perArray.map(per => {
                   let edittedPer = per.trim();
-                  //console.log(edittedPer);
                   switch(edittedPer){
                     case 'VIEW_STORE_HISTORY':
                       checkPermission(edittedPer);
@@ -130,7 +124,7 @@ const HireOwnerToStore = () => {
                       break;
                     case 'EDIT_PRODUCT':
                       checkPermission(edittedPer);
-                      setPermissions((prevState) => ({...prevState, editProduct: true,}));
+                      setPermissions((prevState) => ({...prevState, editProduct: true,})); 
                       break;
                     case 'REMOVE_PRODUCT':
                       checkPermission(edittedPer);
@@ -169,38 +163,36 @@ const HireOwnerToStore = () => {
                       setPermissions((prevState) => ({...prevState, infoOfManagers: true,}));
                       break;
                     default:
-                      console.log("Error loading permissions");
+                      createNotification("error", "Error loading permissions")();
                   }
                 })
               }          
             });
           } else {
-            console.log(data.reason);
+            createNotification("error", data.reason)();
           }
         });
       })
+      .then(async () => { //Added by Amit //TODO: Need to be checked!!!
+        console.log(permission)
+        //disabled the unallowed permissions
+        if(!permission.viewStoreHistory) disablePermission("VIEW_STORE_HISTORY"); else enablePermission("VIEW_STORE_HISTORY");
+        if(!permission.editExistingProduct) disablePermission("EDIT_EXISTING_PRODUCT"); else enablePermission("EDIT_EXISTING_PRODUCT");
+        if(!permission.addNewProduct) disablePermission("ADD_NEW_PRODUCT"); else enablePermission("ADD_NEW_PRODUCT");
+        if(!permission.editProduct) disablePermission("EDIT_PRODUCT"); else enablePermission("EDIT_PRODUCT");
+        if(!permission.removeProduct) disablePermission("REMOVE_PRODUCT"); else enablePermission("REMOVE_PRODUCT");
+        if(!permission.editStorePolicy) disablePermission("EDIT_STORE_POLICY"); else enablePermission("EDIT_STORE_POLICY");
+        if(!permission.editStoreDiscount) disablePermission("EDIT_STORE_DISCOUNT"); else enablePermission("EDIT_STORE_DISCOUNT");
+        if(!permission.addReviewToProduct) disablePermission("ADD_REVIEW_TO_PRODUCT"); else enablePermission("ADD_REVIEW_TO_PRODUCT");
+        if(!permission.viewForum) disablePermission("VIEW_FORUM"); else enablePermission("VIEW_FORUM");
+        if(!permission.ReplyToForum) disablePermission("REPLY_TO_FORUM"); else enablePermission("REPLY_TO_FORUM");
+        if(!permission.closeStore) disablePermission("CLOSE_STORE"); else enablePermission("CLOSE_STORE");
+        if(!permission.openStore) disablePermission("OPEN_STORE"); else enablePermission("OPEN_STORE");
+        if(!permission.infoOfManagers) disablePermission("INFO_OF_MANAGERS"); else enablePermission("INFO_OF_MANAGERS");
+      })
       .catch((err) => console.log(err));
     };
-    fetchData();
-    // const disableUnallowedPermissions = () => {
-    //   console.log(permission)
-    //   //disabled the unallowed permissions
-    //   if(!permission.viewStoreHistory) disablePermission("VIEW_STORE_HISTORY");
-    //   if(!permission.editExistingProduct) disablePermission("EDIT_EXISTING_PRODUCT");
-    //   if(!permission.addNewProduct) disablePermission("ADD_NEW_PRODUCT");
-    //   if(!permission.editProduct) disablePermission("EDIT_PRODUCT");
-    //   if(!permission.removeProduct) disablePermission("REMOVE_PRODUCT");
-    //   if(!permission.editStorePolicy) disablePermission("EDIT_STORE_POLICY");
-    //   if(!permission.editStoreDiscount) disablePermission("EDIT_STORE_DISCOUNT");
-    //   if(!permission.addReviewToProduct) disablePermission("ADD_REVIEW_TO_PRODUCT");
-    //   if(!permission.viewForum) disablePermission("VIEW_FORUM");
-    //   if(!permission.ReplyToForum) disablePermission("REPLY_TO_FORUM");
-    //   if(!permission.closeStore) disablePermission("CLOSE_STORE");
-    //   if(!permission.openStore) disablePermission("OPEN_STORE");
-    //   if(!permission.infoOfManagers) disablePermission("INFO_OF_MANAGERS");
-    //   console.log(permission)
-    // }
-    // setTimeout(disableUnallowedPermissions, 5000)       
+    setTimeout(fetchData, 4000);      
   }, []);
 
   // const isEnablePermission = (permissionID) => {
@@ -209,12 +201,12 @@ const HireOwnerToStore = () => {
   // const isCheckPermission = (permissionID) => {
   //   return document.getElementById(permissionID).checked == true;
   // }
-  // const enablePermission = (permissionID) => {
-  //   document.getElementById(permissionID).disabled = false;
-  // }
   // const uncheckPermission = (permissionID) => {
   //   document.getElementById(permissionID).checked = false;
   // }
+  const enablePermission = (permissionID) => {
+    document.getElementById(permissionID).disabled = false;
+  }
   const disablePermission = (permissionID) => {
     document.getElementById(permissionID).disabled = true;
   }
@@ -270,13 +262,11 @@ const HireOwnerToStore = () => {
         .then((res) => {
           const { data } = res;
           if (data.success) {
-            console.log(data);
+            //console.log(data);
             createNotification("success", "Hired owner successfully", () =>
               router.push("/dashboard")
             )();
           } else {
-            const { data } = res;
-            console.log(data);
             createNotification("error", data.reason)(); //failed to hire new owner
           }
         })
@@ -291,16 +281,15 @@ const HireOwnerToStore = () => {
         .then((res) => {
           const { data } = res;
           if (data.success) {
-            console.log(data);
+            //console.log(data);
             createNotification("success", "Hired manager successfully", () =>
               router.push("/dashboard")
             )();
           } else {
-            console.log(data);
             createNotification("error", data.reason)(); //"failure hiring manager!"
           }
         })
-        .catch((err) => console.log("failure hiring manager!"));
+        .catch((err) => console.log("failure hiring manager!", err));
       }
     } else {
       createNotification(

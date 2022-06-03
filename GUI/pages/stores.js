@@ -38,7 +38,7 @@ const Stores = () => {
       return await api.get(`store/owner/permmitions?user=${cookies.userId}`).then((res) => {
         const { data } = res;
         if (data.success) {
-          console.log(data);
+          //console.log(data);
           data.value.map(store => {
             // console.log(store.storeId);
             // console.log(store.permission);
@@ -53,7 +53,7 @@ const Stores = () => {
         return await api.get(`store/manager/permmitions?user=${cookies.userId}`).then((res) => {
           const { data } = res;
           if (data.success) {
-            console.log(data);
+            //console.log(data);
             data.value.map(store => {
               // console.log(store.storeId);
               // console.log(store.permission);
