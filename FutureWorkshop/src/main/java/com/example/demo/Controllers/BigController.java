@@ -90,7 +90,29 @@ public class BigController {
 
     }
 
-    @GetMapping("/online/amount")
+
+    /**
+     * @param user_id
+     * @param payment
+     * @param delivery
+     * @return price of cart   and doesn't buy the cart
+     * @throws StorePolicyViolatedException
+     * @throws UserException
+     */
+    @PostMapping("/cart/price")
+    public ReturnValue getPriceOfCartDiscount(@RequestParam String user_id,@RequestParam PaymentNames payment,
+                                                    @RequestParam DeliveryNames delivery) throws StorePolicyViolatedException, UserException, JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        float afterDiscount =  getUserController().getPriceOfCartAfterDiscount(user_id,new ExternalConnectionHolder(delivery, payment));
+        float beforeDiscount = getUserController().getPriceOfCartBeforeDiscount(user_id,new ExternalConnectionHolder(delivery, payment));
+        String json = String.format("{\"priceBeforeDiscount\":\"%s\",\"priceAfterDiscount\":\"%s\"}",beforeDiscount,afterDiscount);
+
+        ReturnValue rv = new ReturnValue(true, "", objectMapper.readTree(json));
+        return rv;
+    }
+
+
+        @GetMapping("/online/amount")
     public ReturnValue getOnlineUsersNum() throws UserException {
 
         ReturnValue rv = new ReturnValue(true, "", getUserController().getOnlineUsersNum());
@@ -231,7 +253,7 @@ public class BigController {
     public boolean removePaymentService(PaymentNames payment) {
         return ExternalConnections.getInstance().removePayment(payment);
     }
-
+    //todo add check price
     @PostMapping("/cart/purchase")
     public ReturnValue purchaseCart(@RequestParam String user_id,
                                     @RequestParam PaymentNames payment,
@@ -242,6 +264,8 @@ public class BigController {
         ReturnValue rv = new ReturnValue(true, "", a);
         return rv;
     }
+
+
 
     /// Store controller
     @PostMapping(value = "/store", consumes = {MediaType.APPLICATION_JSON_VALUE})
@@ -308,12 +332,34 @@ public class BigController {
 //     * @throws UserException
 //     */
 
-    public ReturnValue getInfoOnManagersOwnersForTests(String storeId,
-                                                       String userIdRequesting) throws NoPermissionException, UserException {
+    public ReturnValue getInfoOnManagersOwnersForTests(@RequestParam String storeId,
+                                                       @RequestParam String userIdRequesting) throws NoPermissionException, UserException {
         userExistsAndLoggedIn(userIdRequesting);
-
         List<StoreRoles> storeRoles = getStoreController().getInfoOnManagersOwners(storeId, userIdRequesting);
+
         ReturnValue rv = new ReturnValue(true, "", storeRoles);
+        return rv;
+    }
+    @GetMapping("store/allRoles")
+    public ReturnValue getManagersOwnersOfStore(String storeId,
+                                                       String userIdRequesting) throws NoPermissionException, UserException, JsonProcessingException {
+        userExistsAndLoggedIn(userIdRequesting);
+        List<StoreRoles> storeRoles = getStoreController().getInfoOnManagersOwners(storeId, userIdRequesting);
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<String> managersUsers = new ArrayList<>();
+        List<String> ownersUsers = new ArrayList<>();
+        for (StoreRoles sr: storeRoles){
+            if(sr.getTitle().equals("manger")){
+                managersUsers.add(sr.getUserId());
+            }
+            else{
+                ownersUsers.add(sr.getUserId());
+            }
+        }
+
+
+        ReturnValue rv = new ReturnValue(true, "", objectMapper.readTree(
+                String.format("{\"managers\":\"%s\",\"owners\":\"%s\"}",managersUsers,ownersUsers)));
         return rv;
     }
 
@@ -378,8 +424,8 @@ public class BigController {
     private List<Object> getStorePermissionToReturn(String user, boolean ownerOrManager) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         List<Object> storePermissions = new ArrayList<>();
-        List<Store> stores = ownerOrManager ? sc.getStoreManagerBuyUser(user) : sc.getStoreOwnerBuyUser(user);
-        for (Store store : stores) {
+        List<Store> stores =ownerOrManager ? sc.getStoreManagerByUser(user) : sc.getStoreOwnerByUser(user);
+        for (Store store: stores){
             List<Permission> permissions = sc.getUserPermission(store.getId(), user);
             storePermissions.add(
                     objectMapper.readTree(
@@ -391,7 +437,7 @@ public class BigController {
     private List<Object> getStorePermissionToReturn(String user, String storeId, boolean ownerOrManager) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         List<Object> storePermissions = new ArrayList<>();
-        Store store = ownerOrManager ? sc.getStoreManagerBuyUser(user, storeId) : sc.getStoreOwnerBuyUser(user, storeId);
+        Store store =ownerOrManager ? sc.getStoreManagerByUser(user,storeId) : sc.getStoreOwnerByUser(user,storeId);
         List<Permission> permissions = new ArrayList<>();
         if (store != null) {
             permissions = sc.getUserPermission(store.getId(), user);
@@ -570,16 +616,19 @@ public class BigController {
     }
 
     @GetMapping("/store/all")
-    public ReturnValue getAllStores() {
-        HashMap<String, List<Product>> allProductsAndStores = getStoreController().getAllProductsAndStores();
+    public ReturnValue getAllStores() throws JsonProcessingException {
+        List<Store> allStores = getStoreController().getAllStores();
         List<Object> stores = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
-        for (var entry : allProductsAndStores.entrySet()) {
-            stores.add(entry.getKey());
+        for (var store : allStores) {
+            stores.add(
+                    objectMapper.readTree(
+                            String.format("{\"storeId\":\"%s\",\"storeName\":\"%s\",\"storeState\":\"%s\",\"storeRating\":\"%s\"}",store.getId(),store.getStoreName(),store.getStoreState(),store.getStoreRating())));
         }
         ReturnValue rv = new ReturnValue(true, "", stores);
         return rv;
     }
+
 
     @GetMapping("/store/products")
     public ReturnValue getStoreProducts(@RequestParam String storeId) throws JsonProcessingException {
@@ -891,7 +940,7 @@ public class BigController {
         return sc.getDiscounts(storeId, userId);
     }
 
-    @GetMapping("Store/AllPolices")
+    @GetMapping("Store/Polices")
     public ReturnValue getPolices(@RequestParam String storeId) throws NoPermissionException, UserException, JsonProcessingException {
         List<Policy> policies = sc.getPolices(storeId);
         ObjectMapper objectMapper = new ObjectMapper();

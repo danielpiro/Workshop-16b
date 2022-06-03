@@ -32,6 +32,15 @@ public class ShoppingBasket {
         return 1;
     }
 
+    float getPriceOfCartAfterDiscount( ExternalConnectionHolder externalConnectionHolder,String userID) throws StorePolicyViolatedException
+    {
+        return iProtector.getPriceOfCartAfterDiscount(productAmount,externalConnectionHolder,new UserInfo(18, userID));
+    }
+    float getPriceOfCartBeforeDiscount( ExternalConnectionHolder externalConnectionHolder, String userID) throws StorePolicyViolatedException{
+        return iProtector.getPriceOfCartBeforeDiscount(productAmount,externalConnectionHolder,new UserInfo(18, userID));
+    }
+
+
     public int addProductAuction(String productID, int amount) {
         if (productAmountAuctionOrBid.containsKey(productID)) {
             int currentAmount = productAmountAuctionOrBid.get(productID);
