@@ -25,8 +25,9 @@ const AdminViewStorePurchaes = () => {
         .then((res) => {
           const { data } = res;
           if (data.success) {
+            console.log(data.value);
             setPurchases(data.value);
-            setIsLoading(!isLoading);
+            //setIsLoading(!isLoading);
             createNotification(
               "success",
               "Displaying all store's purchases successfully"

@@ -25,9 +25,9 @@ const AdminViewUserPurchase = () => {
         .then((res) => {
           const { data } = res;
           if (data.success) {
-            console.log(data);
+            console.log(data.value);
             setPurchases(data.value);
-            setIsLoading(!isLoading);
+            //setIsLoading(!isLoading);
             createNotification(
               "success",
               "Displaying all user's purchases successfully"
@@ -79,9 +79,9 @@ const AdminViewUserPurchase = () => {
       {purchases.length > 0 ? (
         <div style={{ display: "table", width: "100%" }}>
           <ul className="list-group" style={{ display: "table-cell" }}>
-            {purchases.map((product) => {
+            {purchases.map((purchase) => {
               return (
-                <li className=" list-group-item" key={product.id}>
+                <li className=" list-group-item" key={purchase.id}>
                   <div className="card-body">
                     <h4 className="card-title text-center">UserID: {purchase.userId}</h4>
                     <h4 className="card-title text-center">StoreID: {purchase.storeId}</h4>
