@@ -19,6 +19,7 @@ import com.example.demo.StorePermission.StoreRoles;
 import javax.naming.NoPermissionException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -287,6 +288,9 @@ public class StoreController {
 
     public List<Store> getAllStoresByStoreName(String name) {
         return stores.values().stream().filter(p->p.getStoreName().equals(name)).collect(Collectors.toList());
+    }
+    public List<Store> getAllStores() {
+        return List.copyOf(stores.values());
     }
 
     public boolean checkIfUserHaveRoleInAnyStore(String userId) {

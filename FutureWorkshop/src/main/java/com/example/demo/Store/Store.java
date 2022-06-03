@@ -36,6 +36,9 @@ public class Store implements getStoreInfo {
     private InventoryManager inventoryManager;
     private Forum forum;
     private StoreState storeState;
+
+
+
     private float storeRating; //rating between 1 - 5
     private List<Review> reviews;
 
@@ -379,6 +382,10 @@ public class Store implements getStoreInfo {
             }
         }
         return new ArrayList<>();
+    }
+
+    public float getStoreRating() {
+        return storeRating;
     }
 
 

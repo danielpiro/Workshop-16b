@@ -615,16 +615,19 @@ public class BigController {
     }
 
     @GetMapping("/store/all")
-    public ReturnValue getAllStores() {
-        HashMap<String, List<Product>> allProductsAndStores = getStoreController().getAllProductsAndStores();
+    public ReturnValue getAllStores() throws JsonProcessingException {
+        List<Store> allStores = getStoreController().getAllStores();
         List<Object> stores = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
-        for (var entry : allProductsAndStores.entrySet()) {
-            stores.add(entry.getKey());
+        for (var store : allStores) {
+            stores.add(
+                    objectMapper.readTree(
+                            String.format("{\"storeId\":\"%s\",\"storeName\":\"%s\",\"storeState\":\"%s\",\"storeRating\":\"%s\"}",store.getId(),store.getStoreName(),store.getStoreState(),store.getStoreRating())));
         }
         ReturnValue rv = new ReturnValue(true, "", stores);
         return rv;
     }
+
 
     @GetMapping("/store/products")
     public ReturnValue getStoreProducts(@RequestParam String storeId) throws JsonProcessingException {
