@@ -384,6 +384,8 @@ public class Real   {
         catch (NoPermissionException | SupplyManagementException | UserException | NotifyException e) {
             e.printStackTrace();
             return false;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -447,7 +449,7 @@ public class Real   {
             bigController.freezeStore(storeId,userId);
             return true;
         }
-        catch (NotifyException|UserException|NoPermissionException e) {
+        catch (NotifyException | UserException | NoPermissionException | SupplyManagementException | IOException e) {
             e.printStackTrace();
             return false;
         }
@@ -459,7 +461,7 @@ public class Real   {
             bigController.unfreezeStore(storeId,userId);
             return true;
         }
-        catch (NotifyException|UserException|NoPermissionException e) {
+        catch (NotifyException | UserException | NoPermissionException | SupplyManagementException | IOException e) {
             e.printStackTrace();
             return false;
         }

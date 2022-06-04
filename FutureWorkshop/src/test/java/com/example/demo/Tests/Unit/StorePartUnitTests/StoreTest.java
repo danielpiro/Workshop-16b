@@ -18,6 +18,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.naming.NoPermissionException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -154,6 +155,8 @@ class StoreTest {
         } catch (NoPermissionException | SupplyManagementException | NotifyException | UserException e) {
             e.printStackTrace();
             fail();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
     private void setUpBeforePermissionTests(){
@@ -301,7 +304,7 @@ class StoreTest {
         } catch (NoPermissionException | UserException e) {
             e.printStackTrace();
             fail();
-        } catch (NotifyException e) {
+        } catch (NotifyException | SupplyManagementException | IOException e) {
            assertEquals(store1.getThread(userId3).getTitle(),"test");
 
         }

@@ -35,8 +35,10 @@ import com.example.demo.User.Subscriber;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 
 import javax.naming.NoPermissionException;
 import javax.validation.Valid;
@@ -49,10 +51,14 @@ import java.util.*;
 @RestController
 @EnableWebMvc
 @RequestMapping("/api")
+@EnableWebSocketMessageBroker
+@Controller
 public class BigController {
     private StoreController sc;
     private UserController us;
     private PolicyBuilder policyBuilder;
+
+
     Log my_log = Log.getLogger();
 
 
@@ -69,6 +75,8 @@ public class BigController {
         initializeSystem();
         my_log.info("System Started");
     }
+
+
 
     public void initiateExternalConnections() {
         ExternalConnections externalConnections = ExternalConnections.getInstance();
@@ -88,6 +96,13 @@ public class BigController {
         return getUserController().initialize();
 
 
+    }
+
+    @PostMapping("/users/addadmin")
+    public ReturnValue addSystemAdmin(String whoIsAdding, String user_toMakeAdmin) throws UserException {
+        getUserController().addSystemAdmin(whoIsAdding, user_toMakeAdmin);
+        ReturnValue rv = new ReturnValue(true, "", null);
+        return rv;
     }
 
 
@@ -302,7 +317,7 @@ public class BigController {
 
     @PostMapping("/store/freeze")
     public ReturnValue unfreezeStore(@RequestParam String storeId,
-                                     @RequestParam String userId) throws NoPermissionException, UserException, NotifyException {
+                                     @RequestParam String userId) throws NoPermissionException, UserException, NotifyException, SupplyManagementException, IOException {
         userExistsAndLoggedIn(userId);
         getStoreController().unfreezeStore(storeId, userId);
 
@@ -312,7 +327,7 @@ public class BigController {
 
     @PostMapping("/store/unfreeze")
     public ReturnValue freezeStore(@RequestParam String storeId,
-                                   @RequestParam String userId) throws NoPermissionException, UserException, NotifyException {
+                                   @RequestParam String userId) throws NoPermissionException, UserException, NotifyException, SupplyManagementException, IOException {
 
         userExistsAndLoggedIn(userId);
         getStoreController().freezeStore(storeId, userId);
@@ -461,7 +476,7 @@ public class BigController {
     @PostMapping("/store/product/delete")
     public ReturnValue deleteProductFromStore(@RequestParam String storeId,
                                               @RequestParam String userId,
-                                              @RequestParam String productId) throws NoPermissionException, SupplyManagementException, UserException, NotifyException {
+                                              @RequestParam String productId) throws NoPermissionException, SupplyManagementException, UserException, NotifyException, IOException {
         userExistsAndLoggedIn(userId);
         getStoreController().deleteProduct(storeId, userId, productId);
         ReturnValue rv = new ReturnValue(true, "", null);
