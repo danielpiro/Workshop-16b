@@ -33,7 +33,8 @@ const StoreEdit = () => {
         } else {
           createNotification("error", data.reason)();
         }
-      });
+      })
+      .catch((err) => console.log(err));
   };
   useEffect(() => {
     return fetch();
@@ -99,9 +100,6 @@ const StoreEdit = () => {
             <div className="w-100">
               <ul className="list-group-dashboard">
                 {products.map((product) => {
-                  {
-                    console.log("after new");
-                  }
                   return (
                     <li className=" list-group-item" key={product.id}>
                       <StoreProduct

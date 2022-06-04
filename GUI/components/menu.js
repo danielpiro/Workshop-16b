@@ -61,7 +61,8 @@ const Menu = () => {
               )();
             }
           });
-      });
+      })
+      .catch((err) => console.log(err));
   };
 
   const logoutGuest = async (e) => {
@@ -69,8 +70,8 @@ const Menu = () => {
     return await api
       .post(`/users/?guestId=${cookies.userId}`)
       .then((res) => {
-        console.log(res.data);
-        if (res.status === 200) {
+        const { data } = res;
+        if (data.success) {
           return createNotification(
             "success",
             `${cookies.userId} logged out successfully`,
@@ -78,6 +79,8 @@ const Menu = () => {
               return router.push("/login");
             }
           )();
+        } else {
+          createNotification("error", data.reason)();
         }
       })
       .catch((err) => console.log(err));
@@ -88,8 +91,8 @@ const Menu = () => {
     return await api
       .post(`/users/logout/?user_name=${cookies.username}`)
       .then((res) => {
-        console.log(res.data);
-        if (res.status === 200) {
+        const { data } = res;
+        if (data.success) {
           return createNotification(
             "success",
             `${cookies.username} logged out successfully`,
@@ -97,6 +100,8 @@ const Menu = () => {
               return router.push("/login");
             }
           )();
+        } else {
+          createNotification("error", data.reason)();
         }
       })
       .catch((err) => console.log(err));
@@ -123,27 +128,33 @@ const Menu = () => {
               </button>
               <div className="collapse navbar-collapse justify-content-center align-content-center">
                 <ul className="navbar-nav" id="navmenu">
-                  <li className="shopping-cart-button nav-item">
+                  <li className="shopping-cart-button nav-item" key="cart">
                     <Link href="/shopping-cart">
                       <a className="nav-link ms-4">Shopping Cart</a>
                     </Link>
                   </li>
-                  <li className="open-new-store-button nav-item">
+                  <li
+                    className="open-new-store-button nav-item"
+                    key="new store"
+                  >
                     <Link href="/open-new-store">
                       <a className="nav-link ms-4">Open New Store</a>
                     </Link>
                   </li>
-                  <li className="store-management-button nav-item">
+                  <li className="store-management-button nav-item" key="stores">
                     <Link href="/stores">
                       <a className="nav-link ms-4">Stores</a>
                     </Link>
                   </li>
-                  <li className="admin-actions-button nav-item">
+                  <li
+                    className="admin-actions-button nav-item"
+                    key="admin action"
+                  >
                     <Link href="/admin-actions">
                       <a className="nav-link ms-4">Admin Actions</a>
                     </Link>
                   </li>
-                  <li className="my-bids-button nav-item">
+                  <li className="my-bids-button nav-item" key="bids">
                     <Link href="#">
                       <a
                         className="nav-link ms-4"
@@ -156,33 +167,20 @@ const Menu = () => {
                       </a>
                     </Link>
                   </li>
-                  <li className="history-button nav-item">
+                  <li className="history-button nav-item" key="history">
                     <Link href="/user-history">
                       <a className="nav-link ms-4">History</a>
                     </Link>
                   </li>
-                  {/* <li className="history-button nav-item">
-                    <Link href="#">
-                      <a
-                        className="nav-link ms-4"
-                        onClick={() => {
-                          setCookie("type", "guest", {
-                            path: "/",
-                            sameSite: true,
-                          });
-                          return createNotification("info", "in guest menu")();
-                        }}
-                      >
-                        History
-                      </a>
-                    </Link>
-                  </li> */}
-                  <li className="notify-admins-button nav-item">
+                  <li className="notify-admins-button nav-item" key="notify">
                     <Link href="/notify-admins">
                       <a className="nav-link ms-4">Notify Admins</a>
                     </Link>
                   </li>
-                  <li className="notifications-button nav-item">
+                  <li
+                    className="notifications-button nav-item"
+                    key="notifications"
+                  >
                     <Link href="#">
                       <a
                         className="nav-link ms-4"
@@ -195,12 +193,12 @@ const Menu = () => {
                       </a>
                     </Link>
                   </li>
-                  <li className="statistics-button nav-item">
+                  <li className="statistics-button nav-item" key="stats">
                     <Link href="/statistics">
                       <a className="nav-link ms-4">Statistics</a>
                     </Link>
                   </li>
-                  <li className="logout-button nav-item">
+                  <li className="logout-button nav-item" key="logout">
                     <a href="#" className="nav-link ms-4" onClick={logout}>
                       Logout
                     </a>

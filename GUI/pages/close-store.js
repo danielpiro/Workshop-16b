@@ -24,22 +24,25 @@ const CloseStore = () => {
     setIsLoading(!isLoading);
     await api
       .post(
-        `/store/unfreeze/?storeId=${window.location.href.split("?").pop()}&userId=${cookies.userId}`
+        `/store/unfreeze/?storeId=${window.location.href
+          .split("?")
+          .pop()}&userId=${cookies.userId}`
       )
       .then((res) => {
         const { data } = res;
-          if (data.success) {
-            console.log(data);
-            createNotification("success", "Close store done successfully", () =>
-              router.push("/dashboard")
-            )();
+        if (data.success) {
+          createNotification("success", "Close store done successfully", () =>
+            router.push("/dashboard")
+          )();
         } else {
-          // const { data } = res;
           console.log(data.reason);
-          createNotification("error", `failure closing store! ${data.reason}`)();
+          createNotification(
+            "error",
+            `failure closing store! ${data.reason}`
+          )();
         }
       })
-      .catch((err) => createNotification("error", data.reason)()); //console.log("err"));
+      .catch((err) => console.log(err));
   };
 
   const onReOpenStore = async (e) => {
@@ -47,22 +50,24 @@ const CloseStore = () => {
     setIsLoading(!isLoading);
     await api
       .post(
-        `/store/freeze/?storeId=${window.location.href.split("?").pop()}&userId=${cookies.userId}`
+        `/store/freeze/?storeId=${window.location.href
+          .split("?")
+          .pop()}&userId=${cookies.userId}`
       )
       .then((res) => {
         const { data } = res;
-          if (data.success) {
-            console.log(data);
-            createNotification("success", "Close store done successfully", () =>
-              router.push("/dashboard")
-            )();
+        if (data.success) {
+          createNotification("success", "Close store done successfully", () =>
+            router.push("/dashboard")
+          )();
         } else {
-          // const { data } = res;
-          console.log(data.reason);
-          createNotification("error", `failure closing store! ${data.reason}`)();
+          createNotification(
+            "error",
+            `failure closing store! ${data.reason}`
+          )();
         }
       })
-      .catch((err) => createNotification("error", data.reason)()); //console.log("err"));
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -82,7 +87,7 @@ const CloseStore = () => {
 
             <div className="d-flex justify-content-center">
               <button className="btn btn-primary my-3" onClick={onCloseStore}>
-              Temporary close Store
+                Temporary close Store
               </button>
             </div>
           </div>
@@ -99,7 +104,7 @@ const CloseStore = () => {
 
             <div className="d-flex justify-content-center">
               <button className="btn btn-primary my-3" onClick={onReOpenStore}>
-              Re-Open Store
+                Re-Open Store
               </button>
             </div>
           </div>

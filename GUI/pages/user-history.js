@@ -16,23 +16,24 @@ const UserHistory = () => {
     "type",
   ]);
 
-  useEffect( async () => {
+  useEffect(async () => {
     setIsLoading(!isLoading);
-      await api
-        .get(`/history/user/?userId=${cookies.userId}`)
-        .then((res) => {
-            const { data } = res;
-            console.log(data)
-            if (data.success) {
-                setPurchases(data.value);
-                setIsLoading(!isLoading);
-                createNotification(
-                "success",
-                "Displaying all user's purchases successfully"
-                )();
-          }
-        })
-        .catch((err) => createNotification("error", data.reason)());
+    await api
+      .get(`/history/user/?userId=${cookies.userId}`)
+      .then((res) => {
+        const { data } = res;
+        if (data.success) {
+          setPurchases(data.value);
+          setIsLoading(!isLoading);
+          createNotification(
+            "success",
+            "Displaying all user's purchases successfully"
+          )();
+        } else {
+          createNotification("error", data.reason)();
+        }
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   return (
@@ -55,9 +56,15 @@ const UserHistory = () => {
               return (
                 <li className=" list-group-item" key={purchase.id}>
                   <div className="card-body">
-                    <h4 className="card-title text-center">UserID: {purchase.userId}</h4>
-                    <h4 className="card-title text-center">StoreID: {purchase.storeId}</h4>
-                    <h4 className="card-title text-center">PurchaseID: {purchase.purchaseId}</h4>
+                    <h4 className="card-title text-center">
+                      UserID: {purchase.userId}
+                    </h4>
+                    <h4 className="card-title text-center">
+                      StoreID: {purchase.storeId}
+                    </h4>
+                    <h4 className="card-title text-center">
+                      PurchaseID: {purchase.purchaseId}
+                    </h4>
                   </div>
                 </li>
               );

@@ -22,7 +22,6 @@ const StoreManagement = () => {
       .post(`/store/delete/?userId=${cookies.userId}&storeId=${id}`)
       .then((res) => {
         const { data } = res;
-        console.log(cookies);
         if (data.success) {
           createNotification(
             "success",

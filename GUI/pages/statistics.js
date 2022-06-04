@@ -15,7 +15,6 @@ const Statistics = () => {
         .get("/online/amount")
         .then((res) => {
           const { data } = res;
-          console.log('amount' , data);
           if (data.success) {
             setStats((prevState) => ({
               ...prevState,
@@ -26,7 +25,6 @@ const Statistics = () => {
         .then(async () => {
           return await api.get("/registered/amount").then((res) => {
             const { data } = res;
-            console.log('online' , data);
             if (data.success) {
               setStats((prevState) => ({
                 ...prevState,

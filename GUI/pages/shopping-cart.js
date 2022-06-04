@@ -125,70 +125,64 @@ const shoppingCart = () => {
             </ul>
           </div>
           <div className="col-sm">
-            <form className="row g-3 sticky-sm-top">
-              <div className="text-center">
-                <h4>Subtotal: {priceBefore}$</h4>
+            <form className="form-control-plaintext row sticky-sm-top mb-5">
+              <div className="text-center mb-2">
+                <h5>Subtotal: {priceBefore}$</h5>
               </div>
-              <div className="text-center">
-                <h4>Total: {priceAfter}$</h4>
+              <div className="text-center mb-3">
+                <h5>Total: {priceAfter}$</h5>
               </div>
-              <div className="col-12 d-flex justify-content-center mt-3">
-                <div className="form-control">
-                  <h5>Delivery option</h5>
-                  <div className="dropdown">
-                    <button
-                      className="btn btn-secondary dropdown-toggle"
-                      type="button"
-                      id="dropdownMenuButton1"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      {deliveryAndPaymnetDetails.delivery}
-                    </button>
-                    <ul
-                      className="dropdown-menu"
-                      aria-labelledby="dropdownMenuButton1"
-                    >
-                      <li>
-                        <button
-                          className="dropdown-item"
-                          id="UPS"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            return setDeliveryAndPaymnetDetails(
-                              (prevState) => ({
-                                ...prevState,
-                                delivery: e.target.id,
-                              })
-                            );
-                          }}
-                        >
-                          UPS
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          className="dropdown-item"
-                          id="FedEx"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setDeliveryAndPaymnetDetails((prevState) => ({
-                              ...prevState,
-                              delivery: e.target.id,
-                            }));
-                          }}
-                        >
-                          FedEx
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
+              <div className="d-flex justify-content-center">
+                <div className="dropdown">
+                  <button
+                    className="btn btn-primary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    {deliveryAndPaymnetDetails.delivery}
+                  </button>
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton1"
+                  >
+                    <li>
+                      <button
+                        className="dropdown-item"
+                        id="UPS"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          return setDeliveryAndPaymnetDetails((prevState) => ({
+                            ...prevState,
+                            delivery: e.target.id,
+                          }));
+                        }}
+                      >
+                        UPS
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        className="dropdown-item"
+                        id="FedEx"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setDeliveryAndPaymnetDetails((prevState) => ({
+                            ...prevState,
+                            delivery: e.target.id,
+                          }));
+                        }}
+                      >
+                        FedEx
+                      </button>
+                    </li>
+                  </ul>
                 </div>
-                <div className="form-control">
-                  <h5>Payment type</h5>
+                <div className="d-flex justify-content-center ms-3 mb-3">
                   <div className="dropdown">
                     <button
-                      className="btn btn-secondary dropdown-toggle"
+                      className="btn btn-primary dropdown-toggle"
                       type="button"
                       id="dropdownMenuButton1"
                       data-bs-toggle="dropdown"

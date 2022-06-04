@@ -49,7 +49,7 @@ const Dashboard = () => {
       </div>
       <div className="my-4 d-flex justify-content-center">
         {!isLoading ? (
-          <div style={{ display: "table", width: "100%" }}>
+          <div className="table-borderless w-75">
             <ul className="list-group-dashboard">
               {products
                 .filter((product) => {

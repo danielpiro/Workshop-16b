@@ -26,15 +26,6 @@ const Stores = () => {
   useEffect(() => {
     setIsLoading(!isLoading);
     const fetchData = async () => {
-      return await api;
-    };
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    setIsLoading(!isLoading);
-    const fetchData = async () => {
-      //Added by Amit
       return await api
         .get(`store/owner/permmitions?user=${cookies.userId}`)
         .then((res) => {
@@ -44,11 +35,10 @@ const Stores = () => {
               allowToManageStores.push(store.storeId);
             });
           } else {
-            console.log(data.reason);
+            createNotification("error", data.reason)();
           }
         })
         .then(async () => {
-          //Added by Amit
           return await api
             .get(`store/manager/permmitions?user=${cookies.userId}`)
             .then((res) => {
@@ -58,7 +48,7 @@ const Stores = () => {
                   owningStores.push(store.storeId);
                 });
               } else {
-                console.log(data.reason);
+                createNotification("error", data.reason)();
               }
             });
         })
@@ -70,7 +60,10 @@ const Stores = () => {
               if (data.success) {
                 setStores(data.value);
                 stores.map((store) => (
-                  <Link href={`stores/view/${store}`} key={store} />
+                  <Link
+                    href={`stores/view/${store.storeId}`}
+                    key={store.storeId}
+                  />
                 ));
               } else {
                 createNotification("error", data.reason)();
@@ -92,69 +85,6 @@ const Stores = () => {
     fetchData();
   }, []);
 
-  // useEffect(() => {
-  //   setIsLoading(!isLoading);
-  //   const fetchData = async () => {
-  //     return await api
-  //       .get("/store/all")
-  //       .then((res) => {
-  //         const { data } = res;
-  //         if (data.success) {
-  //           setStores(data.value);
-  //           stores.map((store) => (
-  //             <Link href={`stores/view/${store}`} key={store} />
-  //           ));
-  //         } else {
-  //           createNotification("error", data.reason)();
-  //         }
-  //       })
-  //       .then(async () => {
-  //         return await api.get("/store-products/all").then((res) => {
-  //           const { data } = res;
-  //           if (data.success) {
-  //             setStoreMap(data.value);
-  //           } else {
-  //             createNotification("error", data.reason)();
-  //           }
-  //         });
-  //       })
-  //       .then(async () => { //Added by Amit
-  //         //return await api.get(`store/manager/permmitions?user=${cookies.userId}`).then((res) => {
-  //         return await api.get(`store/owner/permmitions?user=${cookies.userId}`).then((res) => {
-  //           const { data } = res;
-  //           if (data.success) {
-  //             console.log(data);
-  //             data.value.map(store => {
-  //               // console.log(store.storeId);
-  //               // console.log(store.permission);
-  //               allowToManageStores.push(store.storeId);
-
-  //             });
-  //           } else {
-  //             console.log(data.reason);
-  //           }
-  //         });
-  //       })
-  //       .then(async () => { //Added by Amit
-  //         return await api.get(`store/manager/permmitions?user=${cookies.userId}`).then((res) => {
-  //           const { data } = res;
-  //           if (data.success) {
-  //             console.log(data);
-  //             data.value.map(store => {
-  //               // console.log(store.storeId);
-  //               // console.log(store.permission);
-  //               owningStores.push(store.storeId);
-  //             });
-  //           } else {
-  //             console.log(data.reason);
-  //           }
-  //         });
-  //       })
-  //       .catch((err) => console.log(err));
-  //   };
-  //   fetchData();
-  // }, []);
-
   const onNext = (e) => {
     e.preventDefault();
     if (page + 1 > stores.length / 12) return;
@@ -174,46 +104,48 @@ const Stores = () => {
       </div>
 
       {!isLoading ? (
-        <div className="row">
-          <ul className="list-group-dashboard">
-            {stores
-              .filter((stores) => stores.includes(storeSearch))
-              .slice(12 * page, 12 * (page + 1))
-              .map((store) => {
-                return (
-                  <li className="list-group-item" key={store}>
-                    <StoreCardStores
-                      store={store}
-                      storeMap={storeMap}
-                      allowToManageStores={allowToManageStores}
-                      owningStores={owningStores}
-                    />
-                  </li>
-                );
-              })}
-          </ul>
-          <nav aria-label="Search results pages">
-            <ul className="pagination justify-content-center">
-              <li className="page-item">
-                <button
-                  className="page-link"
-                  onClick={onPrevious}
-                  disabled={page === 0 ? true : false}
-                >
-                  Previous
-                </button>
-              </li>
-              <li className="page-item">
-                <button
-                  className="page-link ms-3"
-                  onClick={onNext}
-                  disabled={page === stores.length / 12 ? true : false}
-                >
-                  Next
-                </button>
-              </li>
+        <div className="my-4 d-flex justify-content-center">
+          <div className="table-borderless w-75">
+            <ul className="list-group-dashboard">
+              {stores
+                .filter((stores) => stores.storeId.includes(storeSearch))
+                .slice(12 * page, 12 * (page + 1))
+                .map((store) => {
+                  return (
+                    <li className="list-group-item" key={store.storeId}>
+                      <StoreCardStores
+                        store={store}
+                        storeMap={storeMap}
+                        allowToManageStores={allowToManageStores}
+                        owningStores={owningStores}
+                      />
+                    </li>
+                  );
+                })}
             </ul>
-          </nav>
+            <nav aria-label="Search results pages">
+              <ul className="pagination justify-content-center">
+                <li className="page-item">
+                  <button
+                    className="page-link"
+                    onClick={onPrevious}
+                    disabled={page === 0 ? true : false}
+                  >
+                    Previous
+                  </button>
+                </li>
+                <li className="page-item">
+                  <button
+                    className="page-link ms-3"
+                    onClick={onNext}
+                    disabled={page === stores.length / 12 ? true : false}
+                  >
+                    Next
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
       ) : (
         <div className="container h-100 my-6">

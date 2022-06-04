@@ -78,11 +78,12 @@ public class BigController {
         externalConnections.addDelivery(new UPS());
     }
 
-    //    @PostMapping(value = "/add/admin" , consumes = {MediaType.APPLICATION_JSON_VALUE})
-//    public void addSystemAdmin(@RequestBody(required = true)  whoIsAdding, String user_toMakeAdmin) {
-//        getUserController().addSystemAdmin(whoIsAdding,user_toMakeAdmin);
-//    }
-
+    @PostMapping("/users/add/admin")
+    public ReturnValue addSystemAdmin(String whoIsAdding, String user_toMakeAdmin) throws UserException {
+        getUserController().addSystemAdmin(whoIsAdding, user_toMakeAdmin);
+        ReturnValue rv = new ReturnValue(true, "", null);
+        return rv;
+    }
 
     private List<String> initializeUsers() throws UserException {
         return getUserController().initialize();
@@ -531,7 +532,7 @@ public class BigController {
             sc.addNewProduct(StoreId, userId, "p4", 4, 4, ProductsCategories.Apps$Games.toString());
             History.getInstance().insertRecord(userId,StoreId,"p1-forTest",1,2, LocalDateTime.now());
             History.getInstance().insertRecord(userId,StoreId,"p1-forTest",1,2, LocalDateTime.now());
-            addPolicyToStore(userId, StoreId);
+            //addPolicyToStore(userId, StoreId);
             output.add(StoreId);
         }
         return output;

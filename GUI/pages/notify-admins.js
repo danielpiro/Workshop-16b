@@ -22,10 +22,9 @@ const NotifyAdmins = () => {
           `/market/?userId=${cookies.userId}&StoreName=fakeStoreName&complaint=${userInput}` //TODO: Need the real path from backend
         )
         .then((res) => {
-            const { data } = res;
-            if (data.success) {
-            console.log(data);
-            createNotification("success", "Notify admin done successfully")();
+          const { data } = res;
+          if (data.success) {
+            createNotification("success", data.reason)();
           }
         })
         .catch((err) => console.log(err));
