@@ -8,6 +8,8 @@ import createNotification from "../components/norification";
 const shoppingCart = () => {
   const [cart, setCart] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [priceBefore, setPriceBefore] = useState("");
+  const [priceAfter, setPriceAfter] = useState("");
   const [deliveryAndPaymnetDetails, setDeliveryAndPaymnetDetails] = useState({
     delivery: "Delivery",
     payment: "Payment",
@@ -28,16 +30,23 @@ const shoppingCart = () => {
           setIsLoading(!isLoading);
         }
       })
+      .then(async () => {
+        return await api
+          .post(
+            `/cart/price/?user_id=${cookies.userId}&payment=Visa&delivery=UPS`
+          )
+          .then((res) => {
+            const { data } = res;
+            if (data.success) {
+              setPriceBefore(data.priceBeforeDiscount);
+              setPriceAfter(data.priceAfterDiscount);
+            } else {
+              createNotification("error", data.reason)();
+            }
+          });
+      })
       .catch((err) => console.log(err));
   };
-  // const fetchQuantity = async () => {
-  //   return await api.get(`/product/quantity/?storeId=${}&productId=${}`).then(res => {
-  //     const {data} = res;
-  //     if(data.success){
-  //       console.log(data);
-  //     }
-  //   });
-  // }
   useEffect(() => {
     fetchCart();
   }, []);
@@ -117,9 +126,8 @@ const shoppingCart = () => {
           </div>
           <div className="col-sm">
             <form className="row g-3 sticky-sm-top">
-              <div className="text-center">Subtotal: Price from back</div>
-              <div className="text-center">Discount: Price from back</div>
-              <div className="text-center">Total: total to pay</div>
+              <div className="text-center">Subtotal: {priceBefore}</div>
+              <div className="text-center">Total: {priceAfter}</div>
               <div className="col-12 d-flex justify-content-center mt-3">
                 <div className="form-control">
                   <h5>Delivery option</h5>
