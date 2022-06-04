@@ -3,14 +3,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 const AdminActions = () => {
-  // const router = useRouter();
-  // const onClickOfUser = (e) =>{
-  //   e.preventDefault();
-  // }
-
-  // const onClickOfStore = (e) =>{
-  //   e.preventDefault();
-  // }
 
   return (
     <>
@@ -36,10 +28,18 @@ const AdminActions = () => {
             </div>
           </div>
           <br />
-          <div className="card">
+          <div className="card  mb-3">
             <div className="card-body">
               <Link href="/unregister-user">
                 <a>Unregister user</a>
+              </Link>
+            </div>
+          </div>
+          <br />
+          <div className="card  mb-3">
+            <div className="card-body">
+              <Link href="/assign-new-admin">
+                <a>Assign user to admin in the system</a>
               </Link>
             </div>
           </div>

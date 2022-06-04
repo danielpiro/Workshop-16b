@@ -19,25 +19,23 @@ const DisplayStorePurchases = () => {
     "type",
   ]);
 
-  useEffect(() => {
-    const fetchApi = async () => {
-      setIsLoading(!isLoading);
+  useEffect( async () => {
+    setIsLoading(!isLoading);
       await api
-        .get(`/history/user/?storeId=${window.location.href.split("?").pop()}&userId=${cookies.userId}`)
+        .get(`/history/store/?storeId=${window.location.href.split("?").pop()}&userId=${cookies.userId}`)
         .then((res) => {
             const { data } = res;
+            console.log(data)
             if (data.success) {
                 setPurchases(data.value);
-                setIsLoading(!isLoading);
-                createNotification("success", "Displaying all user's purchases successfully")();
-            }
-            else{
-              createNotification("error", data.reason)();
-            }
+                //setIsLoading(!isLoading);
+                createNotification(
+                "success",
+                "Displaying all user's purchases successfully"
+                )();
+          }
         })
-        .catch((err) => createNotification(err)());
-    };
-    fetchApi();
+        .catch((err) => createNotification("error", data.reason)());
   }, []);
 
   const getSingleProduct = (id) => {
@@ -58,23 +56,20 @@ const DisplayStorePurchases = () => {
       <div
         className="my-4"
         style={{ display: "flex", justifyContent: "center" }}
-      ></div>
+      >
+        <h3><u>Store Purchases:</u></h3>
+      </div>
       {!isLoading ? (
         <div style={{ display: "table", width: "100%" }}>
           <ul className="list-group" style={{ display: "table-cell" }}>
             {purchases.map((purchase) => {
               return (
                 <li className=" list-group-item" key={purchase.id}>
-                  <Card
-                    value={purchase.id}
-                    title={purchase.title}
-                    category={purchase.category}
-                    description={purchase.description}
-                    price={purchase.price}
-                    discount={purchase.discountPercentage}
-                    getSinglePurchase={setSinglePurchase}
-                    singlePurchase={singlePurchase}
-                  />
+                  <div className="card-body">
+                    <h4 className="card-title text-center">UserID: {purchase.userID}</h4>
+                    <h4 className="card-title text-center">StoreID: {purchase.storeID}</h4>
+                    <h4 className="card-title text-center">PurchaseID: {purchase.purchaseID}</h4>
+                  </div>
                 </li>
               );
             })}

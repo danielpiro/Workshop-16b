@@ -6979,9 +6979,27 @@ Jun 01, 2022 2:47:35 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: admin is not admin  and cant delete store
 Jun 01, 2022 2:47:48 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: admin is not admin  and cant delete store
-Jun 02, 2022 7:54:36 PM com.example.demo.GlobalSystemServices.Log warning
+Jun 02, 2022 7:28:05 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 02, 2022 7:28:18 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 02, 2022 7:29:06 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 02, 2022 7:29:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user admin could not reserve items in cart
-Jun 02, 2022 7:54:40 PM com.example.demo.GlobalSystemServices.Log warning
+Jun 02, 2022 7:29:50 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user admin could not reserve items in cart
-Jun 04, 2022 10:17:52 AM com.example.demo.GlobalSystemServices.Log warning
-WARNING: failed to logout - user admin is not logged in
+Jun 02, 2022 7:29:54 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user admin could not reserve items in cart
+Jun 02, 2022 7:29:57 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user admin could not reserve items in cart
+Jun 02, 2022 7:30:19 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user admin could not reserve items in cart
+Jun 02, 2022 7:30:45 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user admin could not reserve items in cart
+Jun 03, 2022 10:08:40 AM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user  could not reserve items in cart
+Jun 03, 2022 10:09:31 AM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user aaa doesn't exist
+Jun 03, 2022 10:09:31 AM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user aaa failed login

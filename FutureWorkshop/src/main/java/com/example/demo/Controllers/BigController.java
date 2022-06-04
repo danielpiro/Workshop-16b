@@ -86,10 +86,16 @@ public class BigController {
         externalConnections.addDelivery(new UPS());
     }
 
-    //    @PostMapping(value = "/add/admin" , consumes = {MediaType.APPLICATION_JSON_VALUE})
-//    public void addSystemAdmin(@RequestBody(required = true)  whoIsAdding, String user_toMakeAdmin) {
-//        getUserController().addSystemAdmin(whoIsAdding,user_toMakeAdmin);
-//    }
+    @PostMapping("/add/admin")
+    public ReturnValue addSystemAdmin(@RequestParam String whoIsAdding, @RequestParam String user_toMakeAdmin) {
+        try{
+            getUserController().addSystemAdmin(whoIsAdding,user_toMakeAdmin);
+            return new ReturnValue(true, "", true);
+        }
+        catch(Exception e){
+            return new ReturnValue(false, e.getMessage(), "");
+        }
+    }
 
 
     private List<String> initializeUsers() throws UserException {
@@ -439,8 +445,8 @@ public class BigController {
     private List<Object> getStorePermissionToReturn(String user, boolean ownerOrManager) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         List<Object> storePermissions = new ArrayList<>();
-        List<Store> stores =ownerOrManager ? sc.getStoreManagerByUser(user) : sc.getStoreOwnerByUser(user);
-        for (Store store: stores){
+        List<Store> stores = ownerOrManager ? sc.getStoreManagerByUser(user) : sc.getStoreOwnerByUser(user);
+        for (Store store : stores) {
             List<Permission> permissions = sc.getUserPermission(store.getId(), user);
             storePermissions.add(
                     objectMapper.readTree(
@@ -452,7 +458,7 @@ public class BigController {
     private List<Object> getStorePermissionToReturn(String user, String storeId, boolean ownerOrManager) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         List<Object> storePermissions = new ArrayList<>();
-        Store store =ownerOrManager ? sc.getStoreManagerByUser(user,storeId) : sc.getStoreOwnerByUser(user,storeId);
+        Store store = ownerOrManager ? sc.getStoreManagerByUser(user, storeId) : sc.getStoreOwnerByUser(user, storeId);
         List<Permission> permissions = new ArrayList<>();
         if (store != null) {
             permissions = sc.getUserPermission(store.getId(), user);

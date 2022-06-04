@@ -8,8 +8,8 @@ import { useCookies } from "react-cookie";
 import createNotification from "../components/norification";
 
 const DisplayStoreOfficials = () => {
-  const [owners, setOwners] = useState(["owner1", "owner2"]);
-  const [managers, setManagers] = useState(["owner1", "owner2"]);
+  const [owners, setOwners] = useState([]);
+  const [managers, setManagers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   //const [singlePurchase, setSinglePurchase] = useState({});
 
@@ -24,14 +24,16 @@ const DisplayStoreOfficials = () => {
     const fetchApi = async () => {
       setIsLoading(!isLoading);
       await api
-        .get(`/store/owners/?storeId=${window.location.href.split("?").pop()}`) //TODO!!!
+        .get(`/store/allRoles/?storeId=${window.location.href.split("?").pop()}&userIdRequesting=${cookies.userId}`)
         .then((res) => {
             const { data } = res;
             if (data.success) {
-                setOwners(data.value.owners);
-                setManagers(data.value.managers);
-                setIsLoading(!isLoading);
-                //createNotification("success", "Displaying all user's purchases successfully")();
+                //console.log(data.value);
+                let owners = data.value.owners.slice(1,-1).split(',');
+                let managers = data.value.managers.slice(1,-1).split(',');
+                setOwners(owners);
+                setManagers(managers);
+                createNotification("success", "Displaying all user's purchases successfully")();
             }
             else{
               createNotification("error", data.reason)();
