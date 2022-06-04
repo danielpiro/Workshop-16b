@@ -238,6 +238,7 @@ const Login = () => {
                 <button
                   type="button"
                   className="btn btn-primary"
+                  data-bs-dismiss="modal"
                   onClick={onClickRegister}
                 >
                   Submit

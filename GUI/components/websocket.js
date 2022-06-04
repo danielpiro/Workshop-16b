@@ -1,64 +1,51 @@
 import { over } from "stompjs";
 import SockJS from "sockjs-client";
 
-const WebSockets = () => {
-  const [userData, setUserData] = useState({
-    username: "",
-    connected: false,
-    message: "",
-  });
+export const WebSocket = ({ id, message }) => {
   const connect = () => {
-    let Sock = new SockJS("http://localhost:9191/ws");
-    stompClient = over(Sock);
-    stompClient.connect({}, onConnected, onError);
+    console.log("in connect");
+    const Sock = new SockJS("http://localhost:9191/ws");
+    const stompClient = over(Sock);
+    stompClient.connect({}, onConnected, (err) => console.log("is error", err));
   };
+
+  connect();
+
   const onConnected = () => {
-    setUserData({ ...userData, connected: true });
+    console.log("in connected");
     stompClient.subscribe("/chatroom/public", onMessageReceived);
-    stompClient.subscribe(
-      "/user/" + userData.username + "/private",
-      onPrivateMessage
-    );
+    stompClient.subscribe("/user/" + id + "/private", onPrivateMessage);
     userJoin();
   };
+
   const userJoin = () => {
-    var chatMessage = {
-      senderName: userData.username,
+    console.log("in userjoin");
+    let chatMessage = {
+      senderName: id,
       status: "JOIN",
     };
     stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
-  };
-  const onMessageReceived = (payload) => {
-    var payloadData = JSON.parse(payload.body);
-    switch (payloadData.status) {
-      case "JOIN":
-        if (!privateChats.get(payloadData.senderName)) {
-          privateChats.set(payloadData.senderName, []);
-          setPrivateChats(new Map(privateChats));
-        }
-        break;
-      case "MESSAGE":
-        publicChats.push(payloadData);
-        setPublicChats([...publicChats]);
-        break;
-    }
+    sendValue();
   };
 
-  const handleMessage = (event) => {
-    const { value } = event.target;
-    setUserData({ ...userData, message: value });
+  const onMessageReceived = (payload) => {
+    console.log("recieved", payload);
+  };
+
+  const onPrivateMessage = (payload) => {
+    console.log("send", payload);
   };
 
   const sendValue = () => {
+    console.log("in sendvalue");
     if (stompClient) {
-      var chatMessage = {
-        senderName: userData.username,
-        message: userData.message,
+      let chatMessage = {
+        senderName: id,
+        message: message,
         status: "MESSAGE",
       };
       console.log(chatMessage);
       stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
-      setUserData({ ...userData, message: "" });
     }
   };
 };

@@ -38,8 +38,8 @@ const shoppingCart = () => {
           .then((res) => {
             const { data } = res;
             if (data.success) {
-              setPriceBefore(data.priceBeforeDiscount);
-              setPriceAfter(data.priceAfterDiscount);
+              setPriceBefore(data.value.priceBeforeDiscount);
+              setPriceAfter(data.value.priceAfterDiscount);
             } else {
               createNotification("error", data.reason)();
             }
@@ -72,7 +72,8 @@ const shoppingCart = () => {
       .then((res) => {
         const { data } = res;
         if (data.success) {
-          createNotification("success", "Purcash was successfull")();
+          createNotification("success", "Purchase was successfull")();
+          fetchCart();
         } else {
           createNotification("error", data.reason)();
         }
@@ -103,7 +104,6 @@ const shoppingCart = () => {
                     <ul>
                       {Object.values(item).map((productList) =>
                         productList.map((product) => {
-                          console.log(product);
                           return (
                             <CartItem
                               id={product.id}
@@ -126,8 +126,12 @@ const shoppingCart = () => {
           </div>
           <div className="col-sm">
             <form className="row g-3 sticky-sm-top">
-              <div className="text-center">Subtotal: {priceBefore}</div>
-              <div className="text-center">Total: {priceAfter}</div>
+              <div className="text-center">
+                <h4>Subtotal: {priceBefore}$</h4>
+              </div>
+              <div className="text-center">
+                <h4>Total: {priceAfter}$</h4>
+              </div>
               <div className="col-12 d-flex justify-content-center mt-3">
                 <div className="form-control">
                   <h5>Delivery option</h5>

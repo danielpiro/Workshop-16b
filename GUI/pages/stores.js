@@ -26,68 +26,68 @@ const Stores = () => {
   useEffect(() => {
     setIsLoading(!isLoading);
     const fetchData = async () => {
-      return await api
-        
+      return await api;
     };
     fetchData();
   }, []);
 
   useEffect(() => {
     setIsLoading(!isLoading);
-    const fetchData = async () => { //Added by Amit
-      return await api.get(`store/owner/permmitions?user=${cookies.userId}`).then((res) => {
-        const { data } = res;
-        if (data.success) {
-          //console.log(data);
-          data.value.map(store => {
-            // console.log(store.storeId);
-            // console.log(store.permission);
-            allowToManageStores.push(store.storeId);
-            
-          });
-        } else {
-          console.log(data.reason);
-        }
-      })
-      .then(async () => { //Added by Amit
-        return await api.get(`store/manager/permmitions?user=${cookies.userId}`).then((res) => {
+    const fetchData = async () => {
+      //Added by Amit
+      return await api
+        .get(`store/owner/permmitions?user=${cookies.userId}`)
+        .then((res) => {
           const { data } = res;
           if (data.success) {
-            //console.log(data);
-            data.value.map(store => {
-              // console.log(store.storeId);
-              // console.log(store.permission);
-              owningStores.push(store.storeId);
+            data.value.map((store) => {
+              allowToManageStores.push(store.storeId);
             });
           } else {
             console.log(data.reason);
           }
-        });
-      })
-      .then(async () => {
-        return await api.get("/store/all").then((res) => {
-          const { data } = res;
-          if (data.success) {
-            setStores(data.value);
-            stores.map((store) => (
-              <Link href={`stores/view/${store}`} key={store} />
-            ));
-          } else {
-            createNotification("error", data.reason)();
-          }
         })
         .then(async () => {
-          return await api.get("/store-products/all").then((res) => {
-            const { data } = res;
-            if (data.success) {
-              setStoreMap(data.value);
-            } else {
-              createNotification("error", data.reason)();
-            }
-          });
+          //Added by Amit
+          return await api
+            .get(`store/manager/permmitions?user=${cookies.userId}`)
+            .then((res) => {
+              const { data } = res;
+              if (data.success) {
+                data.value.map((store) => {
+                  owningStores.push(store.storeId);
+                });
+              } else {
+                console.log(data.reason);
+              }
+            });
         })
-      .catch((err) => console.log(err));
-      })
+        .then(async () => {
+          return await api
+            .get("/store/all")
+            .then((res) => {
+              const { data } = res;
+              if (data.success) {
+                setStores(data.value);
+                stores.map((store) => (
+                  <Link href={`stores/view/${store}`} key={store} />
+                ));
+              } else {
+                createNotification("error", data.reason)();
+              }
+            })
+            .then(async () => {
+              return await api.get("/store-products/all").then((res) => {
+                const { data } = res;
+                if (data.success) {
+                  setStoreMap(data.value);
+                } else {
+                  createNotification("error", data.reason)();
+                }
+              });
+            })
+            .catch((err) => console.log(err));
+        });
     };
     fetchData();
   }, []);
@@ -128,7 +128,7 @@ const Stores = () => {
   //               // console.log(store.storeId);
   //               // console.log(store.permission);
   //               allowToManageStores.push(store.storeId);
-                
+
   //             });
   //           } else {
   //             console.log(data.reason);
@@ -182,7 +182,12 @@ const Stores = () => {
               .map((store) => {
                 return (
                   <li className="list-group-item" key={store}>
-                    <StoreCardStores store={store} storeMap={storeMap} allowToManageStores={allowToManageStores} owningStores={owningStores}/>
+                    <StoreCardStores
+                      store={store}
+                      storeMap={storeMap}
+                      allowToManageStores={allowToManageStores}
+                      owningStores={owningStores}
+                    />
                   </li>
                 );
               })}

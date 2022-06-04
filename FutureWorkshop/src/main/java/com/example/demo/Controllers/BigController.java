@@ -35,10 +35,8 @@ import com.example.demo.User.Subscriber;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 
 import javax.naming.NoPermissionException;
 import javax.validation.Valid;
@@ -51,14 +49,10 @@ import java.util.*;
 @RestController
 @EnableWebMvc
 @RequestMapping("/api")
-@EnableWebSocketMessageBroker
-@Controller
 public class BigController {
     private StoreController sc;
     private UserController us;
     private PolicyBuilder policyBuilder;
-
-
     Log my_log = Log.getLogger();
 
 
@@ -76,8 +70,6 @@ public class BigController {
         my_log.info("System Started");
     }
 
-
-
     public void initiateExternalConnections() {
         ExternalConnections externalConnections = ExternalConnections.getInstance();
         externalConnections.addPayment(new Visa());
@@ -86,29 +78,16 @@ public class BigController {
         externalConnections.addDelivery(new UPS());
     }
 
-    @PostMapping("/add/admin")
-    public ReturnValue addSystemAdmin(@RequestParam String whoIsAdding, @RequestParam String user_toMakeAdmin) {
-        try{
-            getUserController().addSystemAdmin(whoIsAdding,user_toMakeAdmin);
-            return new ReturnValue(true, "", true);
-        }
-        catch(Exception e){
-            return new ReturnValue(false, e.getMessage(), "");
-        }
-    }
+    //    @PostMapping(value = "/add/admin" , consumes = {MediaType.APPLICATION_JSON_VALUE})
+//    public void addSystemAdmin(@RequestBody(required = true)  whoIsAdding, String user_toMakeAdmin) {
+//        getUserController().addSystemAdmin(whoIsAdding,user_toMakeAdmin);
+//    }
 
 
     private List<String> initializeUsers() throws UserException {
         return getUserController().initialize();
 
 
-    }
-
-    @PostMapping("/users/addadmin")
-    public ReturnValue addSystemAdmin(String whoIsAdding, String user_toMakeAdmin) throws UserException {
-        getUserController().addSystemAdmin(whoIsAdding, user_toMakeAdmin);
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
     }
 
 
@@ -122,7 +101,7 @@ public class BigController {
      */
     @PostMapping("/cart/price")
     public ReturnValue getPriceOfCartDiscount(@RequestParam String user_id,@RequestParam PaymentNames payment,
-                                                    @RequestParam DeliveryNames delivery) throws StorePolicyViolatedException, UserException, JsonProcessingException {
+                                              @RequestParam DeliveryNames delivery) throws StorePolicyViolatedException, UserException, JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         float afterDiscount =  getUserController().getPriceOfCartAfterDiscount(user_id,new ExternalConnectionHolder(delivery, payment));
         float beforeDiscount = getUserController().getPriceOfCartBeforeDiscount(user_id,new ExternalConnectionHolder(delivery, payment));
@@ -133,7 +112,7 @@ public class BigController {
     }
 
 
-        @GetMapping("/online/amount")
+    @GetMapping("/online/amount")
     public ReturnValue getOnlineUsersNum() throws UserException {
 
         ReturnValue rv = new ReturnValue(true, "", getUserController().getOnlineUsersNum());
@@ -143,11 +122,10 @@ public class BigController {
     @GetMapping("/registered/amount")
     public ReturnValue getRegisteredUsersNum() throws UserException {
 
-        ReturnValue rv = new ReturnValue(true, "", getUserController().getRegisteredUsersNum());
+        ReturnValue rv = new ReturnValue(true, "",  getUserController().getRegisteredUsersNum());
         return rv;
     }
-
-    @PostMapping("/users/delete")
+    @DeleteMapping("/users")
     public ReturnValue deleteUser(@RequestParam String isDeleting,
                                   @RequestParam String whosBeingDeleted) throws NoPermissionException, UserException {
         my_log.info("user" + isDeleting + "is trying to delete user" + whosBeingDeleted);
@@ -226,11 +204,12 @@ public class BigController {
         List<Object> products = new ArrayList<>();
         List<Object> products2 = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
+
         for (var basket : shoppingCart.basketCases.entrySet()) {
             for (var pamount : basket.getValue().productAmount.entrySet()) {
                 Product product = sc.getProductById(basket.getKey(), pamount.getKey());
-                int quantity = sc.getProductById(basket.getKey(), product.getId()).getSupply();
-                String json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"price\":\"%s\",\"amount\":\"%d\",\"category\":\"%s\",\"storeId\":\"%s\",\"quantity\":\"%d\"}", product.getId(), product.getName(), product.getPrice(), pamount.getValue(), product.getCategory(), basket.getKey(), quantity);
+
+                String json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"price\":\"%s\",\"amount\":\"%d\",\"category\":\"%s\",\"storeId\":\"%s\"}", product.getId(), product.getName(), product.getPrice(), pamount.getValue(), product.getCategory(), basket.getKey());
                 products.add(objectMapper.readTree(json));
 
             }
@@ -300,7 +279,7 @@ public class BigController {
 
     }
 
-    @PostMapping(value = "/permissions/delete", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @DeleteMapping(value = "/permissions", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ReturnValue removeSomePermissions(@Valid @RequestBody MockPermission mockPermission) throws NoPermissionException, UserException {
         userExistsAndLoggedIn(mockPermission.getUserIdRemoving());
 
@@ -343,6 +322,7 @@ public class BigController {
     }
 
 
+
 //not in use- if front want to use contact guy
 //    /**
 //     * @param storeId the store you want manager info about
@@ -363,7 +343,7 @@ public class BigController {
     }
     @GetMapping("store/allRoles")
     public ReturnValue getManagersOwnersOfStore(String storeId,
-                                                       String userIdRequesting) throws NoPermissionException, UserException, JsonProcessingException {
+                                                String userIdRequesting) throws NoPermissionException, UserException, JsonProcessingException {
         userExistsAndLoggedIn(userIdRequesting);
         List<StoreRoles> storeRoles = getStoreController().getInfoOnManagersOwners(storeId, userIdRequesting);
         ObjectMapper objectMapper = new ObjectMapper();
@@ -407,13 +387,12 @@ public class BigController {
      * @throws JsonProcessingException
      */
     @GetMapping("store/manager/permmitions/OfStore")
-    public ReturnValue getStoresManagedByUser(@RequestParam String user, @RequestParam String storeId) throws NoPermissionException, UserException, JsonProcessingException {
-        List<Object> storePermissions = getStorePermissionToReturn(user, storeId, true);
+    public ReturnValue getStoresManagedByUser(@RequestParam String user,@RequestParam String storeId) throws NoPermissionException, UserException, JsonProcessingException {
+        List<Object> storePermissions = getStorePermissionToReturn(user,storeId, true);
 
         ReturnValue rv = new ReturnValue(true, "", storePermissions);
         return rv;
     }
-
     /**
      * @param user
      * @return store ids and permmitions of user in store (for owners)
@@ -436,36 +415,35 @@ public class BigController {
      * @throws JsonProcessingException
      */
     @GetMapping("store/owner/permmitions/OfStore")
-    public ReturnValue getStoresOwnedByUser(@RequestParam String user, @RequestParam String storeId) throws NoPermissionException, UserException, JsonProcessingException {
-        List<Object> storePermissions = getStorePermissionToReturn(user, storeId, false);
+    public ReturnValue getStoresOwnedByUser(@RequestParam String user,@RequestParam String storeId) throws NoPermissionException, UserException, JsonProcessingException {
+        List<Object> storePermissions = getStorePermissionToReturn(user,storeId, false);
         ReturnValue rv = new ReturnValue(true, "", storePermissions);
         return rv;
     }
 
-    private List<Object> getStorePermissionToReturn(String user, boolean ownerOrManager) throws JsonProcessingException {
+    private List<Object> getStorePermissionToReturn(String user,boolean ownerOrManager) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         List<Object> storePermissions = new ArrayList<>();
-        List<Store> stores = ownerOrManager ? sc.getStoreManagerByUser(user) : sc.getStoreOwnerByUser(user);
-        for (Store store : stores) {
+        List<Store> stores =ownerOrManager ? sc.getStoreManagerByUser(user) : sc.getStoreOwnerByUser(user);
+        for (Store store: stores){
             List<Permission> permissions = sc.getUserPermission(store.getId(), user);
             storePermissions.add(
                     objectMapper.readTree(
-                            String.format("{\"storeId\":\"%s\",\"permission\":\"%s\"}", store.getId(), permissions)));
+                            String.format("{\"storeId\":\"%s\",\"permission\":\"%s\"}",store.getId(),permissions)));
         }
         return storePermissions;
     }
-
-    private List<Object> getStorePermissionToReturn(String user, String storeId, boolean ownerOrManager) throws JsonProcessingException {
+    private List<Object> getStorePermissionToReturn(String user,String storeId,boolean ownerOrManager) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         List<Object> storePermissions = new ArrayList<>();
-        Store store = ownerOrManager ? sc.getStoreManagerByUser(user, storeId) : sc.getStoreOwnerByUser(user, storeId);
+        Store store =ownerOrManager ? sc.getStoreManagerByUser(user,storeId) : sc.getStoreOwnerByUser(user,storeId);
         List<Permission> permissions = new ArrayList<>();
-        if (store != null) {
+        if(store != null){
             permissions = sc.getUserPermission(store.getId(), user);
         }
         storePermissions.add(
                 objectMapper.readTree(
-                        String.format("{\"storeId\":\"%s\",\"permission\":\"%s\"}", store.getId(), permissions)));
+                        String.format("{\"storeId\":\"%s\",\"permission\":\"%s\"}",store.getId(),permissions)));
 
         return storePermissions;
     }
@@ -489,7 +467,7 @@ public class BigController {
         return rv;
     }
 
-    @PostMapping("/store/permissions/delete")
+    @DeleteMapping("/store/permissions")
     public ReturnValue removePermissionTo(@RequestParam String storeId, @RequestParam String userIdRemoving, @RequestParam String UserAffectedId) throws NoPermissionException, UserException, NotifyException {
         if (getUserController().checkIfUserExists(userIdRemoving) && getUserController().checkIfUserExists(UserAffectedId) && getUserController().checkIfUserIsLoggedIn(userIdRemoving))
             getStoreController().removeRoleInHierarchy(storeId, userIdRemoving, UserAffectedId);
@@ -551,8 +529,8 @@ public class BigController {
             sc.addNewProduct(StoreId, userId, "p2", 2, 2, ProductsCategories.Appliances.toString());
             sc.addNewProduct(StoreId, userId, "p3", 3, 3, ProductsCategories.Other.toString());
             sc.addNewProduct(StoreId, userId, "p4", 4, 4, ProductsCategories.Apps$Games.toString());
-            History.getInstance().insertRecord(userId, StoreId, "p1-forTest", 1, 2, LocalDateTime.now());
-            History.getInstance().insertRecord(userId, StoreId, "p1-forTest", 1, 2, LocalDateTime.now());
+            History.getInstance().insertRecord(userId,StoreId,"p1-forTest",1,2, LocalDateTime.now());
+            History.getInstance().insertRecord(userId,StoreId,"p1-forTest",1,2, LocalDateTime.now());
             addPolicyToStore(userId, StoreId);
             output.add(StoreId);
         }
@@ -561,17 +539,17 @@ public class BigController {
 
     private void addPolicyToStore(String userId, String StoreId) throws NoPermissionException {
         Policy CartPolicy = policyBuilder.newCartPolicy(2);
-        List<ProductsCategories> pc = new ArrayList<>();
+        List<ProductsCategories> pc= new ArrayList<>();
         pc.add(ProductsCategories.Baby);
         Policy CategoryPolicy = policyBuilder.newCategoryPolicy(pc);
         Policy PricePolicy = policyBuilder.newPricePredicate(3);
         Random rand = new Random();
-        if (rand.nextInt(10) < 4) {
-            sc.addNewPolicy(StoreId, userId, CategoryPolicy);
-        } else if (rand.nextInt(10) >= 4 && rand.nextInt(10) < 7) {
-            sc.addNewPolicy(StoreId, userId, policyBuilder.AndGatePolicy(CartPolicy, CategoryPolicy));
-        } else {
-            sc.addNewPolicy(StoreId, userId, policyBuilder.OrGatePolicy(PricePolicy, policyBuilder.AndGatePolicy(CartPolicy, CategoryPolicy)));
+        if(rand.nextInt(10)<4) {
+            sc.addNewPolicy(StoreId, userId,CategoryPolicy);
+        }else if(rand.nextInt(10)>=4 && rand.nextInt(10)<7){
+            sc.addNewPolicy(StoreId, userId,policyBuilder.AndGatePolicy(CartPolicy,CategoryPolicy));
+        }else{
+            sc.addNewPolicy(StoreId, userId,policyBuilder.OrGatePolicy(PricePolicy,policyBuilder.AndGatePolicy(CartPolicy,CategoryPolicy)));
         }
 
     }
@@ -745,9 +723,11 @@ public class BigController {
         userExistsAndLoggedIn(userId);
         List<PurchaseHistory> purchaseHistories = History.getInstance().getUserHistory(userId);
         List<Object> historyParsed = parsePurchaseHistories(purchaseHistories);
-        ReturnValue rv = new ReturnValue(true, "", historyParsed);
+        ReturnValue rv = new ReturnValue(true, "",historyParsed );
         return rv;
     }
+
+
 
 
     @GetMapping("/history/store/user")
@@ -755,22 +735,20 @@ public class BigController {
                                            @RequestParam String storeId,
                                            @RequestParam String userId) throws NoPermissionException, UserException, JsonProcessingException {
         userExistsAndLoggedIn(userId);
-        List<PurchaseHistory> purchaseHistories = sc.getStoreHistory(userIdRequesting, storeId, userId);
+        List<PurchaseHistory> purchaseHistories =sc.getStoreHistory(userIdRequesting, storeId, userId);
         List<Object> historyParsed = parsePurchaseHistories(purchaseHistories);
-        ReturnValue rv = new ReturnValue(true, "", historyParsed);
+        ReturnValue rv = new ReturnValue(true, "",historyParsed );
         return rv;
     }
-
     private List<Object> parsePurchaseHistories(List<PurchaseHistory> purchaseHistories) throws JsonProcessingException {
         List<Object> historyParsed = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
-        for (PurchaseHistory ph : purchaseHistories) {
-            String json = String.format("{\"userId\":\"%s\",\"storeId\":\"%s\",\"purchaseId\":\"%s\",\"itemName\":\"%s\",\"itemPrice\":\"%s\",\"itemAmount\":\"%s\",\"timeOfTransaction\":\"%s\"}", ph.getUserID(), ph.getStoreID(), ph.getPurchaseID(), ph.getItemName(), ph.getItemPrice(), ph.getItemAmount(), ph.getTimeOfTransaction());
+        for(PurchaseHistory ph: purchaseHistories){
+            String json = String.format("{\"userId\":\"%s\",\"storeId\":\"%s\",\"purchaseId\":\"%s\",\"itemName\":\"%s\",\"itemPrice\":\"%s\",\"itemAmount\":\"%s\",\"timeOfTransaction\":\"%s\"}", ph.getUserID(),ph.getStoreID(),ph.getPurchaseID(),ph.getItemName(),ph.getItemPrice(),ph.getItemAmount(),ph.getTimeOfTransaction());
             historyParsed.add(objectMapper.readTree(json));
         }
         return historyParsed;
     }
-
     private boolean IsGuest(String userId) {
         for (Guest g : us.getGuest_list()) {
             if (g.name.equals(userId)) {
@@ -942,7 +920,7 @@ public class BigController {
         return rv;
     }
 
-    @PostMapping("/policy/delete")
+    @DeleteMapping("/policy")
     public ReturnValue deletePolicy(@RequestParam String storeId,
                                     @RequestParam String userId,
                                     @RequestParam String policyId) throws NoPermissionException, UserException {
@@ -951,6 +929,9 @@ public class BigController {
         ReturnValue rv = new ReturnValue(true, "", null);
         return rv;
     }
+
+
+
 
 
     public List<Discount> getDiscounts(String storeId, String userId) throws NoPermissionException, UserException {
@@ -966,12 +947,12 @@ public class BigController {
         List<Policy> policies = sc.getPolices(storeId);
         ObjectMapper objectMapper = new ObjectMapper();
         List<Object> storePolices = new ArrayList<>();
-        for (Policy p : policies) {
+        for(Policy p : policies){
             storePolices.add(
                     objectMapper.readTree(
-                            String.format("{\"PolicyId\":\"%s\",\"PolicyDescription\":\"%s\"}", p.getPolicyId(), p)));
+                            String.format("{\"PolicyId\":\"%s\",\"PolicyDescription\":\"%s\"}",p.getPolicyId(),p)));
         }
-        ReturnValue rv = new ReturnValue(true, "", storePolices);
+        ReturnValue rv = new ReturnValue(true, "",storePolices);
         return rv;
     }
 
