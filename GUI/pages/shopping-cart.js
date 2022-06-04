@@ -104,6 +104,7 @@ const shoppingCart = () => {
                     <ul>
                       {Object.values(item).map((productList) =>
                         productList.map((product) => {
+                          console.log(product);
                           return (
                             <CartItem
                               id={product.id}

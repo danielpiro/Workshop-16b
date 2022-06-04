@@ -9,21 +9,21 @@ const StoreDetails = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  const fetch = async () => {
+    return await api
+      .get(`/store/products/?storeId=${router.query.id}`)
+      .then((res) => {
+        const { data } = res;
+        if (data.success) {
+          setProducts(data.value);
+          setIsLoading(!isLoading);
+        } else {
+          createNotification("error", data.reason)();
+        }
+      })
+      .catch((err) => console.log(err));
+  };
   useEffect(() => {
-    const fetch = async () => {
-      return await api
-        .get(`/store/products/?storeId=${router.query.id}`)
-        .then((res) => {
-          const { data } = res;
-          if (data.success) {
-            setProducts(data.value);
-            setIsLoading(!isLoading);
-          } else {
-            createNotification("error", data.reason)();
-          }
-        })
-        .catch((err) => console.log(err));
-    };
     fetch();
   }, []);
   return (

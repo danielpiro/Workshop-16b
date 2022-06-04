@@ -20,19 +20,19 @@ const StoreCardStores = ({ store, allowToManageStores, owningStores }) => {
           <button className="btn btn-primary me-3" onClick={onEnterStore}>
             Enter store
           </button>
-          <div
-            style={{
-              display:
-                allowToManageStores.includes(store) ||
-                owningStores.includes(store)
-                  ? "block"
-                  : "none",
-            }}
-          >
-            <Link href={{ pathname: "/store-management", query: store }}>
-              <a className="btn btn-primary">Manage Store</a>
-            </Link>
-          </div>
+          <Link href={{ pathname: "/store-management", query: store.storeId }}>
+            <a
+              className="btn btn-primary"
+              hidden={
+                !(
+                  allowToManageStores.includes(store.storeId) ||
+                  owningStores.includes(store.storeId)
+                )
+              }
+            >
+              Manage Store
+            </a>
+          </Link>
         </div>
       </div>
     </div>

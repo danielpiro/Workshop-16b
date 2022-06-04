@@ -63,6 +63,7 @@ const Dashboard = () => {
                     return product.price.toLowerCase().includes(searchProducts);
                   }
                 })
+                .filter((product) => product.quantity > 0)
                 .slice(12 * page, 12 * (page + 1))
                 .map((product) => {
                   return (

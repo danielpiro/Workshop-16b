@@ -3,7 +3,6 @@ import { useState } from "react";
 import api from "../components/api";
 import { useCookies } from "react-cookie";
 import createNotification from "../components/norification";
-import Card from "../components/card";
 
 const AdminViewUserPurchase = () => {
   const [purchases, setPurchases] = useState([]);
@@ -18,8 +17,8 @@ const AdminViewUserPurchase = () => {
 
   const searchUsernamePurchases = async (e) => {
     e.preventDefault();
+    setIsLoading(!isLoading);
     if (searchValue !== "") {
-      setIsLoading(!isLoading);
       await api
         .get(`/history/user/?userId=${searchValue}`)
         .then((res) => {
@@ -83,9 +82,15 @@ const AdminViewUserPurchase = () => {
               return (
                 <li className=" list-group-item" key={purchase.id}>
                   <div className="card-body">
-                    <h4 className="card-title text-center">UserID: {purchase.userId}</h4>
-                    <h4 className="card-title text-center">StoreID: {purchase.storeId}</h4>
-                    <h4 className="card-title text-center">PurchaseID: {purchase.purchaseId}</h4>
+                    <h4 className="card-title text-center">
+                      UserID: {purchase.userId}
+                    </h4>
+                    <h4 className="card-title text-center">
+                      StoreID: {purchase.storeId}
+                    </h4>
+                    <h4 className="card-title text-center">
+                      PurchaseID: {purchase.purchaseId}
+                    </h4>
                   </div>
                 </li>
               );

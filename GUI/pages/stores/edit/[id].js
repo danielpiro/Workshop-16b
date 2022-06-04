@@ -111,6 +111,7 @@ const StoreEdit = () => {
                         products={products}
                         setProducts={setProducts}
                         storeId={product.storeId}
+                        fetch={fetch}
                       />
                     </li>
                   );
@@ -178,18 +179,6 @@ const StoreEdit = () => {
                         className="dropdown-menu"
                         aria-labelledby="dropdownMenuButton1"
                       >
-                        <li>
-                          <a
-                            className="dropdown-item"
-                            href="#"
-                            onClick={(e) =>
-                              setNewProduct((prevState) => ({
-                                ...prevState,
-                                category: e.target.value,
-                              }))
-                            }
-                          ></a>
-                        </li>
                         <li>
                           <a
                             className="dropdown-item"

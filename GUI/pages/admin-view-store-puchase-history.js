@@ -18,8 +18,8 @@ const AdminViewStorePurchaes = () => {
 
   const searchUsernamePurchases = async (e) => {
     e.preventDefault();
+    setIsLoading(!isLoading);
     if (searchValue !== "") {
-      setIsLoading(!isLoading);
       await api
         .get(`/history/store/?storeId=${searchValue}&userId=${cookies.userId}`)
         .then((res) => {

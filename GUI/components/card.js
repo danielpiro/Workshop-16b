@@ -1,11 +1,9 @@
 import api from "./api";
 import createNotification from "./norification";
 import { useCookies } from "react-cookie";
-import { useState } from "react";
 import { WebSocket } from "./websocket";
 
 const Card = ({ value, title, price, quantity, category, storeId }) => {
-  const [cart, setCart] = useState([]);
   const [cookies, setCookie, removeCookie] = useCookies([
     "username",
     "password",
@@ -30,7 +28,6 @@ const Card = ({ value, title, price, quantity, category, storeId }) => {
       .then((res) => {
         const { data } = res;
         if (data.success) {
-          setCart(data.value);
           const prop = {
             message: "added to cart now",
             id: cookies.userId,

@@ -7003,3 +7003,31 @@ Jun 03, 2022 10:09:31 AM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user aaa doesn't exist
 Jun 03, 2022 10:09:31 AM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user aaa failed login
+Jun 04, 2022 4:39:50 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user admin could not reserve items in cart
+Jun 04, 2022 5:08:21 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user aaaa already exists in the system - failed to sign up
+Jun 04, 2022 5:08:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user aaaa is already logged in
+Jun 04, 2022 5:14:34 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user asd doesn't exist
+Jun 04, 2022 5:14:34 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 04, 2022 5:14:53 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user asd doesn't exist
+Jun 04, 2022 5:14:53 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 04, 2022 5:15:08 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 04, 2022 5:15:10 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user aaaaa doesn't exist
+Jun 04, 2022 5:15:10 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 04, 2022 5:15:38 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 04, 2022 5:16:00 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 04, 2022 5:22:06 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user aaa doesn't exist
+Jun 04, 2022 5:22:06 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user aaa failed login

@@ -11,6 +11,7 @@ const StoreProduct = ({
   products,
   setProducts,
   storeId,
+  fetch,
 }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies([
@@ -37,6 +38,7 @@ const StoreProduct = ({
   };
   const onRemove = async (e) => {
     e.preventDefault();
+    console.log(storeId, id);
     return await api
       .post(
         `/store/product/delete/?storeId=${storeId}&userId=${cookies.userId}&productId=${id}`
