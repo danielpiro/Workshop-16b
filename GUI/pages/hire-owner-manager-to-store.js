@@ -1,6 +1,5 @@
 import api from "../components/api";
 import Menu from "../components/menu";
-import axios from "axios";
 import { useState, useEffect } from "react";
 import createNotification from "../components/norification";
 import { useRouter } from "next/router";
@@ -21,178 +20,295 @@ const HireOwnerToStore = () => {
   ]);
 
   const [permission, setPermissions] = useState({
-    viewStoreHistory: false, editExistingProduct: false, addNewProduct: false, editProduct: false, 
-    removeProduct: false, editStorePolicy: false, editStoreDiscount: false, addReviewToProduct: false,
-    viewForum: false, ReplyToForum: false, closeStore: false, openStore: false, infoOfManagers: false,
+    viewStoreHistory: false,
+    editExistingProduct: false,
+    addNewProduct: false,
+    editProduct: false,
+    removeProduct: false,
+    editStorePolicy: false,
+    editStoreDiscount: false,
+    addReviewToProduct: false,
+    viewForum: false,
+    ReplyToForum: false,
+    closeStore: false,
+    openStore: false,
+    infoOfManagers: false,
   });
 
   useEffect(() => {
     const storeID = window.location.href.split("?").pop().slice(0, -1);
-    const fetchData = async () => { 
-      return await api.get(`store/owner/permmitions?user=${cookies.userId}`).then((res) => {
-        const { data } = res;
-        if (data.success) {
-          data.value.map(store => {
-            if(store.storeId === storeID){
-              let perArray = store.permission.slice(1, -1).split(",");
-              perArray.map(per => {
-                let edittedPer = per.trim();
-                switch(edittedPer){
-                  case 'VIEW_STORE_HISTORY':
-                    checkPermission(edittedPer);
-                    setPermissions((prevState) => ({...prevState, viewStoreHistory: true,}));
-                    break;
-                  case 'EDIT_EXISTING_PRODUCT':
-                    checkPermission(edittedPer);
-                    setPermissions((prevState) => ({...prevState, editExistingProduct: true,}));
-                    break;
-                  case 'ADD_NEW_PRODUCT':
-                    checkPermission(edittedPer);
-                    setPermissions((prevState) => ({...prevState, addNewProduct: true,}));
-                    break;
-                  case 'EDIT_PRODUCT':
-                    checkPermission(edittedPer);
-                    setPermissions((prevState) => ({...prevState, editProduct: true,}));
-                    break;
-                  case 'REMOVE_PRODUCT':
-                    checkPermission(edittedPer);
-                    setPermissions((prevState) => ({...prevState, removeProduct: true,}));
-                    break;
-                  case 'EDIT_STORE_POLICY':
-                    checkPermission(edittedPer);
-                    setPermissions((prevState) => ({...prevState, editStorePolicy: true,}));
-                    break;
-                  case 'EDIT_STORE_DISCOUNT':
-                    checkPermission(edittedPer);
-                    setPermissions((prevState) => ({...prevState, editStoreDiscount: true,}));
-                    break;
-                  case 'ADD_REVIEW_TO_PRODUCT':
-                    checkPermission(edittedPer);
-                    setPermissions((prevState) => ({...prevState, addReviewToProduct: true,}));
-                    break;
-                  case 'VIEW_FORUM':
-                    checkPermission(edittedPer);
-                    setPermissions((prevState) => ({...prevState, viewForum: true,}));
-                    break;
-                  case 'REPLY_TO_FORUM':
-                    checkPermission(edittedPer);
-                    setPermissions((prevState) => ({...prevState, ReplyToForum: true,}));
-                    break;
-                  case 'CLOSE_STORE':
-                    checkPermission(edittedPer);
-                    setPermissions((prevState) => ({...prevState, closeStore: true,}));
-                    break;
-                  case 'OPEN_STORE':
-                    checkPermission(edittedPer);
-                    setPermissions((prevState) => ({...prevState, openStore: true,}));
-                    break;
-                  case 'INFO_OF_MANAGERS':
-                    checkPermission(edittedPer);
-                    setPermissions((prevState) => ({...prevState, infoOfManagers: true,}));
-                    break;
-                  default:
-                    createNotification("error", "Error loading permissions")();
-                }
-              })
-            }          
-          });
-        } else {
-          createNotification("error", data.reason)();
-        }
-      })
-      .then(async () => { //Added by Amit
-        return await api.get(`store/manager/permmitions?user=${cookies.userId}`).then((res) => {
+    const fetchData = async () => {
+      return await api
+        .get(`store/owner/permmitions?user=${cookies.userId}`)
+        .then((res) => {
           const { data } = res;
           if (data.success) {
-            data.value.map(store => {
-              if(store.storeId === storeID){
-                let perArray = store.permission.slice(1, -1).split(","); //continue here
-                perArray.map(per => {
+            console.log("before", data.value, permission);
+            data.value.map((store) => {
+              if (store.storeId === storeID) {
+                let perArray = store.permission.slice(1, -1).split(",");
+                perArray.map((per) => {
                   let edittedPer = per.trim();
-                  switch(edittedPer){
-                    case 'VIEW_STORE_HISTORY':
-                      checkPermission(edittedPer);
-                      setPermissions((prevState) => ({...prevState, viewStoreHistory: true,}));
+                  switch (edittedPer) {
+                    case "VIEW_STORE_HISTORY":
+                      setPermissions((prevState) => ({
+                        ...prevState,
+                        viewStoreHistory: true,
+                      }));
                       break;
-                    case 'EDIT_EXISTING_PRODUCT':
-                      checkPermission(edittedPer);
-                      setPermissions((prevState) => ({...prevState, editExistingProduct: true,}));
+                    case "EDIT_EXISTING_PRODUCT":
+                      setPermissions((prevState) => ({
+                        ...prevState,
+                        editExistingProduct: true,
+                      }));
                       break;
-                    case 'ADD_NEW_PRODUCT':
+                    case "ADD_NEW_PRODUCT":
                       checkPermission(edittedPer);
-                      setPermissions((prevState) => ({...prevState, addNewProduct: true,}));
+                      setPermissions((prevState) => ({
+                        ...prevState,
+                        addNewProduct: true,
+                      }));
                       break;
-                    case 'EDIT_PRODUCT':
+                    case "EDIT_PRODUCT":
                       checkPermission(edittedPer);
-                      setPermissions((prevState) => ({...prevState, editProduct: true,})); 
+                      setPermissions((prevState) => ({
+                        ...prevState,
+                        editProduct: true,
+                      }));
                       break;
-                    case 'REMOVE_PRODUCT':
+                    case "REMOVE_PRODUCT":
                       checkPermission(edittedPer);
-                      setPermissions((prevState) => ({...prevState, removeProduct: true,}));
+                      setPermissions((prevState) => ({
+                        ...prevState,
+                        removeProduct: true,
+                      }));
                       break;
-                    case 'EDIT_STORE_POLICY':
+                    case "EDIT_STORE_POLICY":
                       checkPermission(edittedPer);
-                      setPermissions((prevState) => ({...prevState, editStorePolicy: true,}));
+                      setPermissions((prevState) => ({
+                        ...prevState,
+                        editStorePolicy: true,
+                      }));
                       break;
-                    case 'EDIT_STORE_DISCOUNT':
+                    case "EDIT_STORE_DISCOUNT":
                       checkPermission(edittedPer);
-                      setPermissions((prevState) => ({...prevState, editStoreDiscount: true,}));
+                      setPermissions((prevState) => ({
+                        ...prevState,
+                        editStoreDiscount: true,
+                      }));
                       break;
-                    case 'ADD_REVIEW_TO_PRODUCT':
+                    case "ADD_REVIEW_TO_PRODUCT":
                       checkPermission(edittedPer);
-                      setPermissions((prevState) => ({...prevState, addReviewToProduct: true,}));
+                      setPermissions((prevState) => ({
+                        ...prevState,
+                        addReviewToProduct: true,
+                      }));
                       break;
-                    case 'VIEW_FORUM':
+                    case "VIEW_FORUM":
                       checkPermission(edittedPer);
-                      setPermissions((prevState) => ({...prevState, viewForum: true,}));
+                      setPermissions((prevState) => ({
+                        ...prevState,
+                        viewForum: true,
+                      }));
                       break;
-                    case 'REPLY_TO_FORUM':
+                    case "REPLY_TO_FORUM":
                       checkPermission(edittedPer);
-                      setPermissions((prevState) => ({...prevState, ReplyToForum: true,}));
+                      setPermissions((prevState) => ({
+                        ...prevState,
+                        ReplyToForum: true,
+                      }));
                       break;
-                    case 'CLOSE_STORE':
+                    case "CLOSE_STORE":
                       checkPermission(edittedPer);
-                      setPermissions((prevState) => ({...prevState, closeStore: true,}));
+                      setPermissions((prevState) => ({
+                        ...prevState,
+                        closeStore: true,
+                      }));
                       break;
-                    case 'OPEN_STORE':
+                    case "OPEN_STORE":
                       checkPermission(edittedPer);
-                      setPermissions((prevState) => ({...prevState, openStore: true,}));
+                      setPermissions((prevState) => ({
+                        ...prevState,
+                        openStore: true,
+                      }));
                       break;
-                    case 'INFO_OF_MANAGERS':
+                    case "INFO_OF_MANAGERS":
                       checkPermission(edittedPer);
-                      setPermissions((prevState) => ({...prevState, infoOfManagers: true,}));
+                      setPermissions((prevState) => ({
+                        ...prevState,
+                        infoOfManagers: true,
+                      }));
                       break;
                     default:
-                      createNotification("error", "Error loading permissions")();
+                      createNotification(
+                        "error",
+                        "Error loading permissions"
+                      )();
                   }
-                })
-              }          
+                  console.log("after", data.value, permission);
+                });
+              }
             });
           } else {
             createNotification("error", data.reason)();
           }
-        });
-      })
-      .then(async () => { //Added by Amit //TODO: Need to be checked!!!
-        console.log(permission)
-        //disabled the unallowed permissions
-        if(!permission.viewStoreHistory) disablePermission("VIEW_STORE_HISTORY"); else enablePermission("VIEW_STORE_HISTORY");
-        if(!permission.editExistingProduct) disablePermission("EDIT_EXISTING_PRODUCT"); else enablePermission("EDIT_EXISTING_PRODUCT");
-        if(!permission.addNewProduct) disablePermission("ADD_NEW_PRODUCT"); else enablePermission("ADD_NEW_PRODUCT");
-        if(!permission.editProduct) disablePermission("EDIT_PRODUCT"); else enablePermission("EDIT_PRODUCT");
-        if(!permission.removeProduct) disablePermission("REMOVE_PRODUCT"); else enablePermission("REMOVE_PRODUCT");
-        if(!permission.editStorePolicy) disablePermission("EDIT_STORE_POLICY"); else enablePermission("EDIT_STORE_POLICY");
-        if(!permission.editStoreDiscount) disablePermission("EDIT_STORE_DISCOUNT"); else enablePermission("EDIT_STORE_DISCOUNT");
-        if(!permission.addReviewToProduct) disablePermission("ADD_REVIEW_TO_PRODUCT"); else enablePermission("ADD_REVIEW_TO_PRODUCT");
-        if(!permission.viewForum) disablePermission("VIEW_FORUM"); else enablePermission("VIEW_FORUM");
-        if(!permission.ReplyToForum) disablePermission("REPLY_TO_FORUM"); else enablePermission("REPLY_TO_FORUM");
-        if(!permission.closeStore) disablePermission("CLOSE_STORE"); else enablePermission("CLOSE_STORE");
-        if(!permission.openStore) disablePermission("OPEN_STORE"); else enablePermission("OPEN_STORE");
-        if(!permission.infoOfManagers) disablePermission("INFO_OF_MANAGERS"); else enablePermission("INFO_OF_MANAGERS");
-      })
-      .catch((err) => console.log(err));
+        })
+        .then(async () => {
+          //Added by Amit
+          return await api
+            .get(`store/manager/permmitions?user=${cookies.userId}`)
+            .then((res) => {
+              const { data } = res;
+              if (data.success) {
+                data.value.map((store) => {
+                  if (store.storeId === storeID) {
+                    let perArray = store.permission.slice(1, -1).split(","); //continue here
+                    perArray.map((per) => {
+                      let edittedPer = per.trim();
+                      switch (edittedPer) {
+                        case "VIEW_STORE_HISTORY":
+                          checkPermission(edittedPer);
+                          setPermissions((prevState) => ({
+                            ...prevState,
+                            viewStoreHistory: true,
+                          }));
+                          break;
+                        case "EDIT_EXISTING_PRODUCT":
+                          checkPermission(edittedPer);
+                          setPermissions((prevState) => ({
+                            ...prevState,
+                            editExistingProduct: true,
+                          }));
+                          break;
+                        case "ADD_NEW_PRODUCT":
+                          checkPermission(edittedPer);
+                          setPermissions((prevState) => ({
+                            ...prevState,
+                            addNewProduct: true,
+                          }));
+                          break;
+                        case "EDIT_PRODUCT":
+                          checkPermission(edittedPer);
+                          setPermissions((prevState) => ({
+                            ...prevState,
+                            editProduct: true,
+                          }));
+                          break;
+                        case "REMOVE_PRODUCT":
+                          checkPermission(edittedPer);
+                          setPermissions((prevState) => ({
+                            ...prevState,
+                            removeProduct: true,
+                          }));
+                          break;
+                        case "EDIT_STORE_POLICY":
+                          checkPermission(edittedPer);
+                          setPermissions((prevState) => ({
+                            ...prevState,
+                            editStorePolicy: true,
+                          }));
+                          break;
+                        case "EDIT_STORE_DISCOUNT":
+                          checkPermission(edittedPer);
+                          setPermissions((prevState) => ({
+                            ...prevState,
+                            editStoreDiscount: true,
+                          }));
+                          break;
+                        case "ADD_REVIEW_TO_PRODUCT":
+                          checkPermission(edittedPer);
+                          setPermissions((prevState) => ({
+                            ...prevState,
+                            addReviewToProduct: true,
+                          }));
+                          break;
+                        case "VIEW_FORUM":
+                          checkPermission(edittedPer);
+                          setPermissions((prevState) => ({
+                            ...prevState,
+                            viewForum: true,
+                          }));
+                          break;
+                        case "REPLY_TO_FORUM":
+                          checkPermission(edittedPer);
+                          setPermissions((prevState) => ({
+                            ...prevState,
+                            ReplyToForum: true,
+                          }));
+                          break;
+                        case "CLOSE_STORE":
+                          checkPermission(edittedPer);
+                          setPermissions((prevState) => ({
+                            ...prevState,
+                            closeStore: true,
+                          }));
+                          break;
+                        case "OPEN_STORE":
+                          checkPermission(edittedPer);
+                          setPermissions((prevState) => ({
+                            ...prevState,
+                            openStore: true,
+                          }));
+                          break;
+                        case "INFO_OF_MANAGERS":
+                          checkPermission(edittedPer);
+                          setPermissions((prevState) => ({
+                            ...prevState,
+                            infoOfManagers: true,
+                          }));
+                          break;
+                        default:
+                          createNotification(
+                            "error",
+                            "Error loading permissions"
+                          )();
+                      }
+                    });
+                  }
+                });
+              } else {
+                createNotification("error", data.reason)();
+              }
+            });
+        })
+        .then(async () => {
+          //Added by Amit //TODO: Need to be checked!!!
+          //disabled the unallowed permissions
+          if (!permission.viewStoreHistory)
+            disablePermission("VIEW_STORE_HISTORY");
+          else enablePermission("VIEW_STORE_HISTORY");
+          if (!permission.editExistingProduct)
+            disablePermission("EDIT_EXISTING_PRODUCT");
+          else enablePermission("EDIT_EXISTING_PRODUCT");
+          if (!permission.addNewProduct) disablePermission("ADD_NEW_PRODUCT");
+          else enablePermission("ADD_NEW_PRODUCT");
+          if (!permission.editProduct) disablePermission("EDIT_PRODUCT");
+          else enablePermission("EDIT_PRODUCT");
+          if (!permission.removeProduct) disablePermission("REMOVE_PRODUCT");
+          else enablePermission("REMOVE_PRODUCT");
+          if (!permission.editStorePolicy)
+            disablePermission("EDIT_STORE_POLICY");
+          else enablePermission("EDIT_STORE_POLICY");
+          if (!permission.editStoreDiscount)
+            disablePermission("EDIT_STORE_DISCOUNT");
+          else enablePermission("EDIT_STORE_DISCOUNT");
+          if (!permission.addReviewToProduct)
+            disablePermission("ADD_REVIEW_TO_PRODUCT");
+          else enablePermission("ADD_REVIEW_TO_PRODUCT");
+          if (!permission.viewForum) disablePermission("VIEW_FORUM");
+          else enablePermission("VIEW_FORUM");
+          if (!permission.ReplyToForum) disablePermission("REPLY_TO_FORUM");
+          else enablePermission("REPLY_TO_FORUM");
+          if (!permission.closeStore) disablePermission("CLOSE_STORE");
+          else enablePermission("CLOSE_STORE");
+          if (!permission.openStore) disablePermission("OPEN_STORE");
+          else enablePermission("OPEN_STORE");
+          if (!permission.infoOfManagers) disablePermission("INFO_OF_MANAGERS");
+          else enablePermission("INFO_OF_MANAGERS");
+        })
+        .catch((err) => console.log(err));
     };
-    setTimeout(fetchData, 4000);      
+    setTimeout(fetchData, 4000);
   }, []);
 
   // const isEnablePermission = (permissionID) => {
@@ -206,13 +322,13 @@ const HireOwnerToStore = () => {
   // }
   const enablePermission = (permissionID) => {
     document.getElementById(permissionID).disabled = false;
-  }
+  };
   const disablePermission = (permissionID) => {
     document.getElementById(permissionID).disabled = true;
-  }
+  };
   const checkPermission = (permissionID) => {
     document.getElementById(permissionID).checked = true;
-  }
+  };
 
   const setManager = () => {
     setNewOfficialInput((prevState) => ({
@@ -236,19 +352,27 @@ const HireOwnerToStore = () => {
     ) {
       if (newOfficialInput.ownerORmanager == "Owner") {
         let newOwnerPermissions = [];
-        if(permission.viewStoreHistory) newOwnerPermissions.push("VIEW_STORE_HISTORY");
-        if(permission.editExistingProduct) newOwnerPermissions.push("EDIT_EXISTING_PRODUCT");
-        if(permission.addNewProduct) newOwnerPermissions.push("ADD_NEW_PRODUCT");
-        if(permission.editProduct) newOwnerPermissions.push("EDIT_PRODUCT");
-        if(permission.removeProduct) newOwnerPermissions.push("REMOVE_PRODUCT");
-        if(permission.editStorePolicy) newOwnerPermissions.push("EDIT_STORE_POLICY");
-        if(permission.editStoreDiscount) newOwnerPermissions.push("EDIT_STORE_DISCOUNT");
-        if(permission.addReviewToProduct) newOwnerPermissions.push("ADD_REVIEW_TO_PRODUCT");
-        if(permission.viewForum) newOwnerPermissions.push("VIEW_FORUM");
-        if(permission.ReplyToForum) newOwnerPermissions.push("REPLY_TO_FORUM");
-        if(permission.closeStore) newOwnerPermissions.push("CLOSE_STORE");
-        if(permission.openStore) newOwnerPermissions.push("OPEN_STORE");
-        if(permission.infoOfManagers) newOwnerPermissions.push("INFO_OF_MANAGERS");
+        if (permission.viewStoreHistory)
+          newOwnerPermissions.push("VIEW_STORE_HISTORY");
+        if (permission.editExistingProduct)
+          newOwnerPermissions.push("EDIT_EXISTING_PRODUCT");
+        if (permission.addNewProduct)
+          newOwnerPermissions.push("ADD_NEW_PRODUCT");
+        if (permission.editProduct) newOwnerPermissions.push("EDIT_PRODUCT");
+        if (permission.removeProduct)
+          newOwnerPermissions.push("REMOVE_PRODUCT");
+        if (permission.editStorePolicy)
+          newOwnerPermissions.push("EDIT_STORE_POLICY");
+        if (permission.editStoreDiscount)
+          newOwnerPermissions.push("EDIT_STORE_DISCOUNT");
+        if (permission.addReviewToProduct)
+          newOwnerPermissions.push("ADD_REVIEW_TO_PRODUCT");
+        if (permission.viewForum) newOwnerPermissions.push("VIEW_FORUM");
+        if (permission.ReplyToForum) newOwnerPermissions.push("REPLY_TO_FORUM");
+        if (permission.closeStore) newOwnerPermissions.push("CLOSE_STORE");
+        if (permission.openStore) newOwnerPermissions.push("OPEN_STORE");
+        if (permission.infoOfManagers)
+          newOwnerPermissions.push("INFO_OF_MANAGERS");
         const newOwner = {
           storeId: window.location.href.split("?").pop().slice(0, -1),
           userIdGiving: cookies.username,
@@ -256,40 +380,37 @@ const HireOwnerToStore = () => {
           permissions: newOwnerPermissions,
         };
         await api
-        .post(
-          `/owner/`, newOwner
-        )
-        .then((res) => {
-          const { data } = res;
-          if (data.success) {
-            //console.log(data);
-            createNotification("success", "Hired owner successfully", () =>
-              router.push("/dashboard")
-            )();
-          } else {
-            createNotification("error", data.reason)(); //failed to hire new owner
-          }
-        })
-        .catch((err) => console.log("failed to hire new owner"));
-      }
-      else if (newOfficialInput.ownerORmanager == "Manager") {
+          .post(`/owner/`, newOwner)
+          .then((res) => {
+            const { data } = res;
+            if (data.success) {
+              //console.log(data);
+              createNotification("success", "Hired owner successfully", () =>
+                router.push("/dashboard")
+              )();
+            } else {
+              createNotification("error", data.reason)(); //failed to hire new owner
+            }
+          })
+          .catch((err) => console.log("failed to hire new owner"));
+      } else if (newOfficialInput.ownerORmanager == "Manager") {
         const storeID = window.location.href.split("?").pop().slice(0, -1);
         await api
-        .post(
-          `/manager/?storeId=${storeID}&userIdGiving=${cookies.username}&UserGettingPermissionId=${newOfficialInput.username}`
-        )
-        .then((res) => {
-          const { data } = res;
-          if (data.success) {
-            //console.log(data);
-            createNotification("success", "Hired manager successfully", () =>
-              router.push("/dashboard")
-            )();
-          } else {
-            createNotification("error", data.reason)(); //"failure hiring manager!"
-          }
-        })
-        .catch((err) => console.log("failure hiring manager!", err));
+          .post(
+            `/manager/?storeId=${storeID}&userIdGiving=${cookies.username}&UserGettingPermissionId=${newOfficialInput.username}`
+          )
+          .then((res) => {
+            const { data } = res;
+            if (data.success) {
+              //console.log(data);
+              createNotification("success", "Hired manager successfully", () =>
+                router.push("/dashboard")
+              )();
+            } else {
+              createNotification("error", data.reason)(); //"failure hiring manager!"
+            }
+          })
+          .catch((err) => console.log("failure hiring manager!", err));
       }
     } else {
       createNotification(
@@ -324,48 +445,64 @@ const HireOwnerToStore = () => {
               }
             />
             <div className="dropdown m-1">
-            <button
-              className="btn btn-secondary dropdown-toggle"
-              type="button"
-              id="dropdownMenuButton1"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              {newOfficialInput.ownerORmanager}
-            </button>
-            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li>
-                <a className="dropdown-item" href="#" onClick={setManager}>
-                  Manager
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#" onClick={setOwner}>
-                  Owner
-                </a>
-              </li>
-            </ul>
+              <button
+                className="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton1"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                {newOfficialInput.ownerORmanager}
+              </button>
+              <ul
+                className="dropdown-menu"
+                aria-labelledby="dropdownMenuButton1"
+              >
+                <li>
+                  <a className="dropdown-item" href="#" onClick={setManager}>
+                    Manager
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#" onClick={setOwner}>
+                    Owner
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <br />
+            <div className="row m-1" style={{ display: "flex", width: "30%" }}>
+              <button
+                className="btn btn-primary mr-lg-3"
+                onClick={onHiringOfficial}
+              >
+                Hire new Manager/Owner
+              </button>
+            </div>
           </div>
-          <br />
-          <div className="row m-1" style={{ display: "flex", width: "30%" }}>
-            <button
-              className="btn btn-primary mr-lg-3"
-              onClick={onHiringOfficial}
-            >
-              Hire new Manager/Owner
-            </button>
-          </div>
-          </div>
-          
-          <div className="col m-2" style={{display: newOfficialInput.ownerORmanager === "Owner" ? "block" : "none"}}>
-            <h4><u>Permission for new owner</u></h4>
+
+          <div
+            className="col m-2"
+            style={{
+              display:
+                newOfficialInput.ownerORmanager === "Owner" ? "block" : "none",
+            }}
+          >
+            <h4>
+              <u>Permission for new owner</u>
+            </h4>
             <div className="form-check form-switch">
               <input
                 className="form-check-input"
                 type="checkbox"
                 id="VIEW_STORE_HISTORY"
+                disabled={permission.viewStoreHistory}
+                checked={true}
               />
-              <label className="form-check-label" for="flexSwitchCheckDefault">
+              <label
+                className="form-check-label"
+                htmlFor="flexSwitchCheckDefault"
+              >
                 View store history
               </label>
             </div>
@@ -374,8 +511,12 @@ const HireOwnerToStore = () => {
                 className="form-check-input"
                 type="checkbox"
                 id="EDIT_EXISTING_PRODUCT"
+                disabled={permission.editExistingProduct}
               />
-              <label className="form-check-label" for="flexSwitchCheckChecked">
+              <label
+                className="form-check-label"
+                htmlFor="flexSwitchCheckChecked"
+              >
                 Edit existing product
               </label>
             </div>
@@ -385,7 +526,10 @@ const HireOwnerToStore = () => {
                 type="checkbox"
                 id="ADD_NEW_PRODUCT"
               />
-              <label className="form-check-label" for="flexSwitchCheckDefault">
+              <label
+                className="form-check-label"
+                htmlFor="flexSwitchCheckDefault"
+              >
                 Add new product
               </label>
             </div>
@@ -395,7 +539,10 @@ const HireOwnerToStore = () => {
                 type="checkbox"
                 id="EDIT_PRODUCT"
               />
-              <label className="form-check-label" for="flexSwitchCheckChecked">
+              <label
+                className="form-check-label"
+                htmlFor="flexSwitchCheckChecked"
+              >
                 Edit product
               </label>
             </div>
@@ -405,7 +552,10 @@ const HireOwnerToStore = () => {
                 type="checkbox"
                 id="REMOVE_PRODUCT"
               />
-              <label className="form-check-label" for="flexSwitchCheckDefault">
+              <label
+                className="form-check-label"
+                htmlFor="flexSwitchCheckDefault"
+              >
                 Remove product
               </label>
             </div>
@@ -415,7 +565,10 @@ const HireOwnerToStore = () => {
                 type="checkbox"
                 id="EDIT_STORE_POLICY"
               />
-              <label className="form-check-label" for="flexSwitchCheckChecked">
+              <label
+                className="form-check-label"
+                htmlFor="flexSwitchCheckChecked"
+              >
                 Edit store policy
               </label>
             </div>
@@ -425,7 +578,10 @@ const HireOwnerToStore = () => {
                 type="checkbox"
                 id="EDIT_STORE_DISCOUNT"
               />
-              <label className="form-check-label" for="flexSwitchCheckChecked">
+              <label
+                className="form-check-label"
+                htmlFor="flexSwitchCheckChecked"
+              >
                 Edit store discount
               </label>
             </div>
@@ -435,7 +591,10 @@ const HireOwnerToStore = () => {
                 type="checkbox"
                 id="ADD_REVIEW_TO_PRODUCT"
               />
-              <label className="form-check-label" for="flexSwitchCheckDefault">
+              <label
+                className="form-check-label"
+                htmlFor="flexSwitchCheckDefault"
+              >
                 Add review to product
               </label>
             </div>
@@ -445,7 +604,10 @@ const HireOwnerToStore = () => {
                 type="checkbox"
                 id="VIEW_FORUM"
               />
-              <label className="form-check-label" for="flexSwitchCheckChecked">
+              <label
+                className="form-check-label"
+                htmlFor="flexSwitchCheckChecked"
+              >
                 View forum
               </label>
             </div>
@@ -455,7 +617,10 @@ const HireOwnerToStore = () => {
                 type="checkbox"
                 id="REPLY_TO_FORUM"
               />
-              <label className="form-check-label" for="flexSwitchCheckDefault">
+              <label
+                className="form-check-label"
+                htmlFor="flexSwitchCheckDefault"
+              >
                 Reply to forum
               </label>
             </div>
@@ -465,7 +630,10 @@ const HireOwnerToStore = () => {
                 type="checkbox"
                 id="CLOSE_STORE"
               />
-              <label className="form-check-label" for="flexSwitchCheckChecked">
+              <label
+                className="form-check-label"
+                htmlFor="flexSwitchCheckChecked"
+              >
                 Close store
               </label>
             </div>
@@ -475,7 +643,10 @@ const HireOwnerToStore = () => {
                 type="checkbox"
                 id="OPEN_STORE"
               />
-              <label className="form-check-label" for="flexSwitchCheckChecked">
+              <label
+                className="form-check-label"
+                htmlFor="flexSwitchCheckChecked"
+              >
                 Open store
               </label>
             </div>
@@ -485,7 +656,10 @@ const HireOwnerToStore = () => {
                 type="checkbox"
                 id="INFO_OF_MANAGERS"
               />
-              <label className="form-check-label" for="flexSwitchCheckChecked">
+              <label
+                className="form-check-label"
+                htmlFor="flexSwitchCheckChecked"
+              >
                 Info of managers
               </label>
             </div>

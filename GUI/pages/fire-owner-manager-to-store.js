@@ -1,7 +1,6 @@
 import api from "../components/api";
 import Menu from "../components/menu";
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import createNotification from "../components/norification";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
@@ -9,7 +8,6 @@ import { useCookies } from "react-cookie";
 const FireOwnerToStore = () => {
   const router = useRouter();
   const [usernameFired, setUsernameFired] = useState("");
-
   const [cookies, setCookie, removeCookie] = useCookies([
     "username",
     "password",
@@ -19,25 +17,28 @@ const FireOwnerToStore = () => {
 
   const onHiringOfficial = async (e) => {
     e.preventDefault();
-    if (newOfficialInput.username != "" && newOfficialInput.storename != "") {
+    console.log(usernameFired);
+    if (usernameFired !== "") {
       await api
         .post(
-          `owner/fire/?userId=${usernameFired}&storeId=${window.location.href.split("?").pop().slice(0, -1)}` 
+          `/store/permissions/delete/?storeId=${window.location.href
+            .split("?")
+            .pop()
+            .slice(0, -1)}&userIdRemoving=${
+            cookies.userId
+          }&UserAffectedId=${usernameFired}`
         )
         .then((res) => {
           const { data } = res;
-            if (data.success) {
-              console.log(data);
-              createNotification("success", "User fired successfully", () =>
-                router.push("/dashboard")
-              )();
+          if (data.success) {
+            createNotification("success", "User fired successfully", () =>
+              router.push("/dashboard")
+            )();
           } else {
-            //const { data } = res;
-            console.log(data);
-            createNotification("error", "failure firing user!")();
+            createNotification("error", data.reason)();
           }
         })
-        .catch((err) => console.log("err"));
+        .catch((err) => console.log(err));
     } else {
       createNotification(
         "error",
@@ -49,11 +50,9 @@ const FireOwnerToStore = () => {
   return (
     <>
       <Menu />
-
       <div className="card-header">
         <h3>Fire new owner fron the store</h3>
       </div>
-
       <div className="container">
         <div className="row" style={{ display: "flex", width: "50%" }}>
           <input
@@ -64,7 +63,7 @@ const FireOwnerToStore = () => {
             onChange={(e) => setUsernameFired(e.target.value)}
           />
         </div>
-        
+
         <br />
         <div className="row m-1" style={{ display: "flex", width: "15%" }}>
           <button
