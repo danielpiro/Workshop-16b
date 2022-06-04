@@ -224,13 +224,13 @@ public class InventoryManager  implements InventoryProtector {
 
     @Override
     public float getPriceOfCartAfterDiscount(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) throws StorePolicyViolatedException {
-        checksIfStorePoliciesMet( ProductAmount, externalConnectionHolder, userInfo);
+        //checksIfStorePoliciesMet( ProductAmount, externalConnectionHolder, userInfo);
         return calculatePriceWithDiscount(ProductAmount,externalConnectionHolder,userInfo);
     }
 
     @Override
     public float getPriceOfCartBeforeDiscount(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) throws StorePolicyViolatedException {
-        checksIfStorePoliciesMet( ProductAmount, externalConnectionHolder, userInfo);
+        //checksIfStorePoliciesMet( ProductAmount, externalConnectionHolder, userInfo);
         return calculatePriceWithoutDiscount(ProductAmount);
     }
 
