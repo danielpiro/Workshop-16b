@@ -43,7 +43,7 @@ const ChangePolicy = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-
+      //get all the existing policies in the store...
     };
     fetchData();
   }, []);
@@ -55,12 +55,12 @@ const ChangePolicy = () => {
 
   const onCreatePredicate1 = (e) => {
     e.preventDefault();
-    console.log("creating new predicate");
+    console.log("creating new predicate"); //Create one pred policy from pred1 values...
   };
 
   const onCreatePredicate2 = (e) => {
     e.preventDefault();
-    console.log("creating new predicate");
+    console.log("creating new predicate"); //Create one pred policy from pred2 values...
   };
 
   return (
