@@ -77,7 +77,7 @@ const ChangePolicy = () => {
     fetchData();
   }, []);
 
-  const onUpdatePolicy = (e) => { //for combined policy 
+  const onUpdatePolicy = async (e) => { //for combined policy 
     e.preventDefault();
     console.log("creating combined policy");
     let storeID = window.location.href.split("?").pop();
@@ -98,7 +98,7 @@ const ChangePolicy = () => {
         })
   };
 
-  const onCreatePredicate1 = (e) => { //for policy #1 in page
+  const onCreatePredicate1 = async (e) => { //for policy #1 in page
     e.preventDefault();
     console.log("creating new predicate #1"); //Create one pred policy from pred1 values...
     let storeID = window.location.href.split("?").pop();
@@ -130,7 +130,7 @@ const ChangePolicy = () => {
         })
   };
 
-  const onCreatePredicate2 = (e) => { //for policy #2 in page
+  const onCreatePredicate2 = async (e) => { //for policy #2 in page
     e.preventDefault();
     console.log("creating new predicate #2"); //Create one pred policy from pred2 values...
     let storeID = window.location.href.split("?").pop();
@@ -162,7 +162,7 @@ const ChangePolicy = () => {
         })
   };
 
-  const onDeletePolicy = (e) => {
+  const onDeletePolicy = async (e) => {
     e.preventDefault();
     console.log("Deleting a policy");
     let storeID = window.location.href.split("?").pop();
