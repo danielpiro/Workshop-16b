@@ -3,7 +3,6 @@ package com.example.demo.Controllers.model;
 import lombok.*;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @ToString
@@ -16,7 +15,8 @@ public class realTimeNotification {
     private String date;
 
 
-    public realTimeNotification(String sender, String subject, String title, String body, String date){
+    public realTimeNotification(String receiverName,String sender, String subject, String title, String body, String date){
+        this.receiverName = receiverName;
         this.senderName=sender;
         this.subject=subject;
         this.title=title;

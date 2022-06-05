@@ -58,14 +58,17 @@ public class NotificationManager {//todo add tests
 
 
     public void sendNotificationTo(List<String> userIds,  StoreNotification storeNotification) throws UserException, SupplyManagementException, NoPermissionException, IOException {
-        receiver.sendNotificationTo( userIds, storeNotification);
-        notificationController.getInstance().receivePublicMessage(new realTimeNotification(storeNotification.getSentFrom().getStoreName(),storeNotification.getSubject().toString(),storeNotification.getTitle(),storeNotification.getBody(),new SimpleDateFormat(pattern).format( Calendar.getInstance().getTime())));
-        notificationController.getInstance().recievePrivateMessage(new realTimeNotification(storeNotification.getSentFrom().getStoreName(),storeNotification.getSubject().toString(),storeNotification.getTitle(),storeNotification.getBody(),new SimpleDateFormat(pattern).format( Calendar.getInstance().getTime())));
+        receiver.sendNotificationTo(userIds, storeNotification);
+        for (String userId : userIds) {
+            notificationController.getInstance().receivePublicMessage(new realTimeNotification(userId,storeNotification.getSentFrom().getStoreName(), storeNotification.getSubject().toString(), storeNotification.getTitle(), storeNotification.getBody(), new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
+        }
     }
     public void sendNotificationTo(String userId,  StoreNotification storeNotification) throws UserException {
         List<String> userIds = new ArrayList<>();
         userIds.add(userId);
         receiver.sendNotificationTo( userIds, storeNotification);
+        notificationController.getInstance().recievePrivateMessage(new realTimeNotification(userId,storeNotification.getSentFrom().getStoreName(), storeNotification.getSubject().toString(), storeNotification.getTitle(), storeNotification.getBody(), new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
+
     }
     public void sendComplaintTo(String senderId, ComplaintNotification ComplaintNotification) throws UserException {
         receiver.sendComplaintToAdmins( senderId,ComplaintNotification);
