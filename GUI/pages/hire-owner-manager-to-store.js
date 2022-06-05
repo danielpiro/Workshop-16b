@@ -182,7 +182,7 @@ const HireOwnerToStore = () => {
         };
         //console.log(newOwner)
         await api
-          .post(`/owner/`, newOwner)
+          .post(`/owner/create`, newOwner)
           .then((res) => {
             const { data } = res;
             console.log(data);
@@ -293,7 +293,7 @@ const HireOwnerToStore = () => {
                 type="checkbox"
                 id="VIEW_STORE_HISTORY"
                 disabled={!permission.viewStoreHistory}
-                checked={permission.viewStoreHistory}
+                //checked={permission.viewStoreHistory}
               />
               <label
                 className="form-check-label"
@@ -308,7 +308,7 @@ const HireOwnerToStore = () => {
                 type="checkbox"
                 id="EDIT_EXISTING_PRODUCT"
                 disabled={!permission.editExistingProduct}
-                checked={permission.editExistingProduct}
+                //checked={permission.editExistingProduct}
               />
               <label
                 className="form-check-label"
@@ -323,7 +323,7 @@ const HireOwnerToStore = () => {
                 type="checkbox"
                 id="ADD_NEW_PRODUCT"
                 disabled={!permission.addNewProduct}
-                checked={permission.addNewProduct}
+                //checked={permission.addNewProduct}
               />
               <label
                 className="form-check-label"
@@ -338,7 +338,7 @@ const HireOwnerToStore = () => {
                 type="checkbox"
                 id="EDIT_PRODUCT"
                 disabled={!permission.editProduct}
-                checked={permission.editProduct}
+                //checked={permission.editProduct}
               />
               <label
                 className="form-check-label"
@@ -353,7 +353,7 @@ const HireOwnerToStore = () => {
                 type="checkbox"
                 id="REMOVE_PRODUCT"
                 disabled={!permission.removeProduct}
-                checked={permission.removeProduct}
+                //checked={permission.removeProduct}
               />
               <label
                 className="form-check-label"
@@ -368,7 +368,7 @@ const HireOwnerToStore = () => {
                 type="checkbox"
                 id="EDIT_STORE_POLICY"
                 disabled={!permission.editStorePolicy}
-                checked={permission.editStorePolicy}
+                //checked={permission.editStorePolicy}
               />
               <label
                 className="form-check-label"
@@ -383,7 +383,7 @@ const HireOwnerToStore = () => {
                 type="checkbox"
                 id="EDIT_STORE_DISCOUNT"
                 disabled={!permission.editStoreDiscount}
-                checked={permission.editStoreDiscount}
+                //checked={permission.editStoreDiscount}
               />
               <label
                 className="form-check-label"
@@ -398,7 +398,7 @@ const HireOwnerToStore = () => {
                 type="checkbox"
                 id="ADD_REVIEW_TO_PRODUCT"
                 disabled={!permission.addReviewToProduct}
-                checked={permission.addReviewToProduct}
+                //checked={permission.addReviewToProduct}
               />
               <label
                 className="form-check-label"
@@ -413,7 +413,7 @@ const HireOwnerToStore = () => {
                 type="checkbox"
                 id="VIEW_FORUM"
                 disabled={!permission.viewForum}
-                checked={permission.viewForum}
+                //checked={permission.viewForum}
               />
               <label
                 className="form-check-label"
@@ -428,7 +428,7 @@ const HireOwnerToStore = () => {
                 type="checkbox"
                 id="REPLY_TO_FORUM"
                 disabled={!permission.ReplyToForum}
-                checked={permission.ReplyToForum}
+                //checked={permission.ReplyToForum}
               />
               <label
                 className="form-check-label"
@@ -443,7 +443,7 @@ const HireOwnerToStore = () => {
                 type="checkbox"
                 id="CLOSE_STORE"
                 disabled={!permission.closeStore}
-                checked={permission.closeStore}
+                //checked={permission.closeStore}
               />
               <label
                 className="form-check-label"
@@ -458,7 +458,7 @@ const HireOwnerToStore = () => {
                 type="checkbox"
                 id="OPEN_STORE"
                 disabled={!permission.openStore}
-                checked={permission.openStore}
+                //checked={permission.openStore}
               />
               <label
                 className="form-check-label"
@@ -473,7 +473,7 @@ const HireOwnerToStore = () => {
                 type="checkbox"
                 id="INFO_OF_MANAGERS"
                 disabled={!permission.infoOfManagers}
-                checked={permission.infoOfManagers}
+                //checked={permission.infoOfManagers}
               />
               <label
                 className="form-check-label"
