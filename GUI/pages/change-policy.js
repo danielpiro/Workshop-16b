@@ -1,5 +1,8 @@
 import Menu from "../components/menu";
 import { useEffect, useState } from "react";
+import api from "../components/api";
+import createNotification from "../components/norification";
+import { useCookies } from "react-cookie";
 
 const ChangePolicy = () => {
   const [policyType, setPolicyType] = useState("PolicyType");
@@ -7,11 +10,13 @@ const ChangePolicy = () => {
   const [preds, setPreds] = useState({
     pred1: "Choose predicate #1",
     pred2: "Choose predicate #2",
+    predToDelete: "Choose predicate to delete",
   });
   const [predsFeatures1, setPredsFeature1] = useState({
     allowORforbid: "Allow/Forbid",
     minPrice: "",
     maxPrice: "",
+    category: "Category",
     minQunatity: "",
     maxQunatity: "",
     productShouldBeInCart: "",
@@ -27,6 +32,7 @@ const ChangePolicy = () => {
     allowORforbid: "Allow/Forbid",
     minPrice: "",
     maxPrice: "",
+    category: "Category",
     minQunatity: "",
     maxQunatity: "",
     productShouldBeInCart: "",
@@ -39,35 +45,148 @@ const ChangePolicy = () => {
   });
   const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   const daysOfMonth = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
-  const [policies, setPolicies] = useState(["Create new predicate", "Choose Existing predicate"]);
+  const categories = ["Other", "Appliances", "Apps$Games", "Handmade", "Baby"];
+  const [policies, setPolicies] = useState(["Create new predicate"]);
+
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "username",
+    "password",
+    "userId",
+    "type",
+  ]);
 
   useEffect(() => {
     const fetchData = async () => {
       //get all the existing policies in the store...
+      let storeID = window.location.href.split("?").pop();
+      if(storeID.charAt(storeID.length-1) === '#'){
+        storeID = storeID.slice(0, -1);
+      }
+      return await api
+        .get(`Store/Polices?storeId=${storeID}`)
+        .then((res) => {
+          const { data } = res;
+          if (data.success) {
+            console.log(data);
+            // Add each policy to policies...
+          } else {
+            createNotification("error", data.reason)();
+          }
+        })
     };
     fetchData();
   }, []);
 
-  const onUpdatePolicy = (e) => {
+  const onUpdatePolicy = (e) => { //for combined policy 
     e.preventDefault();
-    console.log(policyType);
+    console.log("creating combined policy");
+    let storeID = window.location.href.split("?").pop();
+    if(storeID.charAt(storeID.length-1) === '#'){
+      storeID = storeID.slice(0, -1);
+    }
+    return await api
+        .post(`/policy/combine?storeId=${storeID}&userId=${cookies.userId}&typeOfCombination=${combinationType}
+                &policyID1=${preds.pred1}&policyID2=${preds.pred2}`)
+        .then((res) => {
+          const { data } = res;
+          if (data.success) {
+            console.log(data);
+            // Add each policy to policies...
+          } else {
+            createNotification("error", data.reason)();
+          }
+        })
   };
 
-  const onCreatePredicate1 = (e) => {
+  const onCreatePredicate1 = (e) => { //for policy #1 in page
     e.preventDefault();
-    console.log("creating new predicate"); //Create one pred policy from pred1 values...
+    console.log("creating new predicate #1"); //Create one pred policy from pred1 values...
+    let storeID = window.location.href.split("?").pop();
+    if(storeID.charAt(storeID.length-1) === '#'){
+      storeID = storeID.slice(0, -1);
+    }
+    const mockPolicy = {
+      numOfProducts: 0,
+      categories: [],
+      products: [],
+      productsAmount: 0,
+      userIds: [],
+      startAge: 0,
+      endAge: 0,
+      startTime: "23:00",
+      endTime: "23:59",
+      price: 0,
+    }
+    return await api
+        .post(`/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfCombination=${combinationType}` , mockPolicy)
+        .then((res) => {
+          const { data } = res;
+          if (data.success) {
+            console.log(data);
+            // Add new policy to policies...
+          } else {
+            createNotification("error", data.reason)();
+          }
+        })
   };
 
-  const onCreatePredicate2 = (e) => {
+  const onCreatePredicate2 = (e) => { //for policy #2 in page
     e.preventDefault();
-    console.log("creating new predicate"); //Create one pred policy from pred2 values...
+    console.log("creating new predicate #2"); //Create one pred policy from pred2 values...
+    let storeID = window.location.href.split("?").pop();
+    if(storeID.charAt(storeID.length-1) === '#'){
+      storeID = storeID.slice(0, -1);
+    }
+    const mockPolicy = {
+      numOfProducts: 0,
+      categories: [],
+      products: [],
+      productsAmount: 0,
+      userIds: [],
+      startAge: 0,
+      endAge: 0,
+      startTime: "23:00",
+      endTime: "23:59",
+      price: 0,
+    }
+    return await api
+        .post(`/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfCombination=${combinationType}` , mockPolicy)
+        .then((res) => {
+          const { data } = res;
+          if (data.success) {
+            console.log(data);
+            // Add new policy to policies...
+          } else {
+            createNotification("error", data.reason)();
+          }
+        })
   };
+
+  const onDeletePolicy = (e) => {
+    e.preventDefault();
+    console.log("Deleting a policy");
+    let storeID = window.location.href.split("?").pop();
+    if(storeID.charAt(storeID.length-1) === '#'){
+      storeID = storeID.slice(0, -1);
+    }
+    return await api
+        .post(`/policy/delete?storeId=${storeID}&userId=${cookies.userId}&policyID=${preds.predToDelete}`)
+        .then((res) => {
+          const { data } = res;
+          if (data.success) {
+            console.log(data);
+            // Add new policy to policies...
+          } else {
+            createNotification("error", data.reason)();
+          }
+        })
+  }
 
   return (
     <>
       <Menu />
       <div className="text-center my-5">
-        <h3>Change Policy</h3>
+        <h3>Change/Create Policy</h3>
       </div>
 
       <div className="container">
@@ -93,6 +212,11 @@ const ChangePolicy = () => {
                 <li>
                   <a className="dropdown-item" onClick={() => setPolicyType("Total cart price")}>
                     Total cart price
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" onClick={() => setPolicyType("Category")}>
+                    Category
                   </a>
                 </li>
                 <li>
@@ -305,6 +429,88 @@ const ChangePolicy = () => {
                       }))
                     }
                   />
+                </div>
+              </div>
+              <div
+                style={{
+                  display: policyType == "Category" ? "block" : "none",
+                }}
+              >
+                <div className="dropdown m-1">
+                  <button
+                    className="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    {predsFeatures1.allowORforbid}
+                  </button>
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton1"
+                  >
+                    <li>
+                      <a
+                        className="dropdown-item"
+                        href="#"
+                        onClick={(e) =>
+                          setPredsFeature1((prevState) => ({
+                            ...prevState,
+                            allowORforbid: "Allow",
+                          }))
+                        }
+                      >
+                        Allow
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        className="dropdown-item"
+                        href="#"
+                        onClick={(e) =>
+                          setPredsFeature1((prevState) => ({
+                            ...prevState,
+                            allowORforbid: "Forbid",
+                          }))
+                        }
+                      >
+                        Forbid
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div className="dropdown m-1">
+                  <button
+                    className="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    {predsFeatures1.category}
+                  </button>
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton1"
+                  >
+                    {categories.map((cat) => {
+                      return (
+                        <li>
+                          <a className="dropdown-item"
+                             onClick={(e) =>
+                              setPredsFeature1((prevState) => ({
+                                ...prevState,
+                                category: cat,
+                              }))
+                            }
+                          >
+                            {cat}
+                          </a>
+                        </li>
+                      )
+                    })} 
+                  </ul>
                 </div>
               </div>
               <div
@@ -887,6 +1093,88 @@ const ChangePolicy = () => {
               </div>
               <div
                 style={{
+                  display: policyType == "Category" ? "block" : "none",
+                }}
+              >
+                <div className="dropdown m-1">
+                  <button
+                    className="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    {predsFeatures2.allowORforbid}
+                  </button>
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton1"
+                  >
+                    <li>
+                      <a
+                        className="dropdown-item"
+                        href="#"
+                        onClick={(e) =>
+                          setPredsFeature2((prevState) => ({
+                            ...prevState,
+                            allowORforbid: "Allow",
+                          }))
+                        }
+                      >
+                        Allow
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        className="dropdown-item"
+                        href="#"
+                        onClick={(e) =>
+                          setPredsFeature2((prevState) => ({
+                            ...prevState,
+                            allowORforbid: "Forbid",
+                          }))
+                        }
+                      >
+                        Forbid
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div className="dropdown m-1">
+                  <button
+                    className="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    {predsFeatures2.category}
+                  </button>
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton1"
+                  >
+                    {categories.map((cat) => {
+                      return (
+                        <li>
+                          <a className="dropdown-item"
+                             onClick={(e) =>
+                              setPredsFeature2((prevState) => ({
+                                ...prevState,
+                                category: cat,
+                              }))
+                            }
+                          >
+                            {cat}
+                          </a>
+                        </li>
+                      )
+                    })} 
+                  </ul>
+                </div>
+              </div>
+              <div
+                style={{
                   display: policyType == "Quantity in cart" ? "block" : "none",
                 }}
               >
@@ -1424,6 +1712,52 @@ const ChangePolicy = () => {
             onClick={onUpdatePolicy}
           >
             Update New Policy
+          </button>
+        </div>
+
+        <div className="row m-1">
+          <div className="text-center my-5">
+            <h3>Delete Policy</h3>
+          </div>
+        
+          <div className="dropdown m-1 text-center">
+            <button
+              className="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {preds.predToDelete}
+            </button>
+            <ul
+              className="dropdown-menu"
+              aria-labelledby="dropdownMenuButton1"
+            >
+              {policies.map((policy) => {
+                return (
+                  <li>
+                    <a className="dropdown-item"
+                      onClick={() =>
+                        setPreds((prevState) => ({
+                          ...prevState,
+                          pred1: policy,
+                        }))
+                      }
+                    >
+                      {policy}
+                    </a>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+          <button
+            className="btn btn-primary mr-lg-3"
+            style={{ width: "100%" }}
+            onClick={onDeletePolicy}
+          >
+            Delete a Policy
           </button>
         </div>
       </div>
