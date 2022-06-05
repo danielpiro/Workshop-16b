@@ -2,8 +2,8 @@ package com.example.demo.Controllers.model;
 
 import lombok.*;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @ToString
@@ -23,7 +23,4 @@ public class realTimeNotification {
         this.body=body;
         this.date=date;
     }
-
 }
-
-   // NotificationSubject subject, String title, String body

@@ -181,16 +181,8 @@ const Menu = () => {
                     className="notifications-button nav-item"
                     key="notifications"
                   >
-                    <Link href="#">
-                      <a
-                        className="nav-link ms-4"
-                        onClick={createNotification(
-                          "info",
-                          "Will be implemented next milestone..."
-                        )}
-                      >
-                        Notifications
-                      </a>
+                    <Link href="/notifications-page">
+                      <a className="nav-link ms-4">Notifications</a>
                     </Link>
                   </li>
                   <li className="statistics-button nav-item" key="stats">
@@ -403,16 +395,8 @@ const Menu = () => {
                     </Link>
                   </li>
                   <li className="notifications-button nav-item">
-                    <Link href="#">
-                      <a
-                        className="nav-link ms-4"
-                        onClick={createNotification(
-                          "info",
-                          "Will be implemented next milestone..."
-                        )}
-                      >
-                        Notifications
-                      </a>
+                    <Link href="/notifications-page">
+                      <a className="nav-link ms-4">Notifications</a>
                     </Link>
                   </li>
                   <li className="logout-button nav-item">

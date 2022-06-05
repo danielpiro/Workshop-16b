@@ -4,6 +4,7 @@ import CartItem from "../components/cart-item.js";
 import { useCookies } from "react-cookie";
 import api from "../components/api";
 import createNotification from "../components/norification";
+import sendNotification from "../components/send-notification";
 
 const shoppingCart = () => {
   const [cart, setCart] = useState([]);
@@ -75,6 +76,13 @@ const shoppingCart = () => {
           createNotification("success", "Purchase was successfull")();
           fetchCart();
         } else {
+          const notification = {
+            senderName: cookies.userId,
+            subject: "PaymentFailed",
+            title: "title",
+            body: "",
+          };
+          sendNotification(notification);
           createNotification("error", data.reason)();
         }
       })

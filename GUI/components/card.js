@@ -1,7 +1,6 @@
 import api from "./api";
 import createNotification from "./norification";
 import { useCookies } from "react-cookie";
-import { WebSocket } from "./websocket";
 
 const Card = ({ value, title, price, quantity, category, storeId }) => {
   const [cookies, setCookie, removeCookie] = useCookies([
@@ -24,27 +23,16 @@ const Card = ({ value, title, price, quantity, category, storeId }) => {
       amount: 1,
     };
     return await api
-      .post(`/cart/?user_Id=${cookies.userId}`)
+      .post(`/cart/product/?auctionOrBid=${false}`, obj)
       .then((res) => {
         const { data } = res;
         if (data.success) {
-          const prop = {
-            message: "added to cart now",
-            id: cookies.userId,
-          };
-          WebSocket(prop);
+          createNotification("success", "Added product successfully")();
+        } else {
+          createNotification("error", data.reason)();
         }
       })
-      .then(() =>
-        api.post(`/cart/product/?auctionOrBid=${false}`, obj).then((res) => {
-          const { data } = res;
-          if (data.success) {
-            createNotification("success", "Added product successfully")();
-          } else {
-            createNotification("error", data.reason)();
-          }
-        })
-      )
+
       .catch((err) => console.log(err));
   };
   return (
@@ -56,7 +44,6 @@ const Card = ({ value, title, price, quantity, category, storeId }) => {
       </h5>
       <h5 className="card-category text-center mb-2">Category: {category}</h5>
       <h5 className="card-price text-center mb-4">Price: {price}$</h5>
-
       <div className="d-flex justify-content-center">
         <button
           className="add-cart-buttom btn btn-outline-primary w-25 mb-3"

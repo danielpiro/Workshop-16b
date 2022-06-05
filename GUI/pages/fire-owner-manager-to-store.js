@@ -4,6 +4,7 @@ import { useState } from "react";
 import createNotification from "../components/norification";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
+import sendNotification from "../components/send-notification";
 
 const FireOwnerToStore = () => {
   const router = useRouter();
@@ -31,6 +32,13 @@ const FireOwnerToStore = () => {
         .then((res) => {
           const { data } = res;
           if (data.success) {
+            const notification = {
+              senderName: cookies.userId,
+              subject: "StoreAppointment",
+              title: "title",
+              body: window.location.href.split("?").pop().slice(0, -1),
+            };
+            sendNotification(notification);
             createNotification("success", "User fired successfully", () =>
               router.push("/dashboard")
             )();

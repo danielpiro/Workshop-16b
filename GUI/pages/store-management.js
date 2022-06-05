@@ -23,6 +23,13 @@ const StoreManagement = () => {
       .then((res) => {
         const { data } = res;
         if (data.success) {
+          const notification = {
+            senderName: cookies.userId,
+            subject: "StoreDeleted",
+            title: "title",
+            body: id,
+          };
+          sendNotification(notification);
           createNotification(
             "success",
             "Remove " + id + " successfully",
