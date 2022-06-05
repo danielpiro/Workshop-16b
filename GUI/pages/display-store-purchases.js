@@ -21,8 +21,12 @@ const DisplayStorePurchases = () => {
 
   useEffect( async () => {
     setIsLoading(!isLoading);
+      let storeID = window.location.href.split("?").pop();
+      if(storeID.charAt(storeID.length-1) === '#'){
+        storeID = storeID.slice(0, -1);
+      }
       await api
-        .get(`/history/store/?storeId=${window.location.href.split("?").pop()}&userId=${cookies.userId}`)
+        .get(`/history/store/?storeId=${storeID}&userId=${cookies.userId}`)
         .then((res) => {
             const { data } = res;
             console.log(data)

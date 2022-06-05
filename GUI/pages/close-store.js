@@ -22,11 +22,13 @@ const CloseStore = () => {
   const onCloseStore = async (e) => {
     e.preventDefault();
     setIsLoading(!isLoading);
+    let storeID = window.location.href.split("?").pop();
+    if(storeID.charAt(storeID.length-1) === '#'){
+      storeID = storeID.slice(0, -1);
+    }
     await api
       .post(
-        `/store/unfreeze/?storeId=${window.location.href
-          .split("?")
-          .pop()}&userId=${cookies.userId}`
+        `/store/unfreeze/?storeId=${storeID}&userId=${cookies.userId}`
       )
       .then((res) => {
         const { data } = res;
@@ -48,11 +50,13 @@ const CloseStore = () => {
   const onReOpenStore = async (e) => {
     e.preventDefault();
     setIsLoading(!isLoading);
+    let storeID = window.location.href.split("?").pop();
+    if(storeID.charAt(storeID.length-1) === '#'){
+      storeID = storeID.slice(0, -1);
+    }
     await api
       .post(
-        `/store/freeze/?storeId=${window.location.href
-          .split("?")
-          .pop()}&userId=${cookies.userId}`
+        `/store/freeze/?storeId=${storeID}&userId=${cookies.userId}`
       )
       .then((res) => {
         const { data } = res;
