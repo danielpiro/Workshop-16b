@@ -24,7 +24,8 @@ const FireOwnerToStore = () => {
           `/store/permissions/delete/?storeId=${window.location.href
             .split("?")
             .pop()
-            .slice(0, -1)}&userIdRemoving=${
+            //.slice(0, -1)
+          }&userIdRemoving=${
             cookies.userId
           }&UserAffectedId=${usernameFired}`
         )
