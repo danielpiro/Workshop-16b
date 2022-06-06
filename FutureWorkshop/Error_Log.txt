@@ -7751,3 +7751,359 @@ Jun 01, 2022 11:23:38 AM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
 Jun 01, 2022 11:23:38 AM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
+Jun 06, 2022 7:23:34 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: cant delete, no Policy with this Id
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user44 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user44 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User user00 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user1 already exists in the system - failed to sign up
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user null is null - failed to sign up
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user0 password's is null - failed to sign up
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user4 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user44 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:39 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user12 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user44 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user1 could not reserve items in cart
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user1 is already logged in
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user10 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user1 failed login
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user1 is already logged in
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user22 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user44 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user12 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user1... doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user10 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: failed to logout because user100 is null
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user22 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist

@@ -133,7 +133,8 @@ public class BigController {
         if (checkIfUserHaveRoleInStore(whosBeingDeleted)) {
             throw new NoPermissionException("cant delete user with store role");
         }
-        ReturnValue rv = new ReturnValue(true, "", getUserController().deleteUser(isDeleting, whosBeingDeleted));
+        getUserController().deleteUser(isDeleting, whosBeingDeleted);
+        ReturnValue rv = new ReturnValue(true, "", null);
         return rv;
     }
 
@@ -142,7 +143,8 @@ public class BigController {
     public ReturnValue signup(@RequestParam String user_name,
                               @RequestParam String password) throws UserException {
         my_log.info("user " + user_name + " is trying to sign up");
-        ReturnValue rv = new ReturnValue(true, "", getUserController().sign_up(user_name, password));
+        getUserController().sign_up(user_name, password);
+        ReturnValue rv = new ReturnValue(true, "", null);
         return rv;
     }
 
