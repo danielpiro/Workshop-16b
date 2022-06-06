@@ -178,7 +178,6 @@ const Discounts = () => {
                 })}
               </ul>
             </div>
-
             <div className="dropdown m-1">
               <button className="btn btn-secondary dropdown-toggle" type="button"
                 id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
