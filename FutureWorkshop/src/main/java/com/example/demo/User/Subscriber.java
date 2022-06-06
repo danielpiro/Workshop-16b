@@ -1,14 +1,22 @@
 package com.example.demo.User;
 
 
+import com.example.demo.Controllers.model.realTimeNotification;
+import com.example.demo.Controllers.notificationController;
 import com.example.demo.NotificationsManagement.ComplaintNotification;
 import com.example.demo.NotificationsManagement.StoreNotification;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
+
+
 public class Subscriber extends User {
+    String pattern = "MM/dd/yyyy HH:mm:ss";
+
     private String password;
     private boolean logged_in = false;
     private List<String> Queries; //3.5
@@ -41,6 +49,11 @@ public class Subscriber extends User {
 
     public void setLogged_in(boolean logged_in) {
             this.logged_in = logged_in;
+            if(this.logged_in && getStoreNotifications().size()>0){
+                for(int i =0; i<getStoreNotifications().size();i++){
+                    notificationController.getInstance().recievePrivateMessage(new realTimeNotification(this.name,getStoreNotifications().get(i).getSentFrom().getStoreName(), getStoreNotifications().get(i).getSubject().toString(), getStoreNotifications().get(i).getTitle(), getStoreNotifications().get(i).getBody(), new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
+                }
+            }
 
     }
     public void AddQuery(String s){this.getQueries().add(s);}
@@ -59,7 +72,12 @@ public class Subscriber extends User {
     }
 
     public void addComplaint(ComplaintNotification complaintNotification){ getComplaintNotifications().add(complaintNotification);}
-    public void addNotification(StoreNotification storeNotification){ getStoreNotifications().add(storeNotification);}
+    public void addNotification(StoreNotification storeNotification){
+        if(isLogged_in())
+            notificationController.getInstance().recievePrivateMessage(new realTimeNotification(this.name,storeNotification.getSentFrom().getStoreName(), storeNotification.getSubject().toString(), storeNotification.getTitle(), storeNotification.getBody(), new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
+         else
+        getStoreNotifications().add(storeNotification);
+    }
 
     public Object getLock (){
         return lock;

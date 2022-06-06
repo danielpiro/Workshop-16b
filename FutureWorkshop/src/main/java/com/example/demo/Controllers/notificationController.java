@@ -6,6 +6,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
 @Controller
@@ -30,8 +31,13 @@ public class notificationController {
     @MessageMapping("/private-message")
     public realTimeNotification recievePrivateMessage(@Payload realTimeNotification message){
         simpMessagingTemplate.convertAndSendToUser(message.getReceiverName(),"/private",message);
-        System.out.println(message.toString());
+        System.out.println(message.getReceiverName());
         return message;
+    }
+    @Scheduled(fixedRate = 3000)
+    public void sendMessages(){
+        simpMessagingTemplate.convertAndSendToUser("/chatroom/public","/user","Hello ");
+
     }
 
 }
