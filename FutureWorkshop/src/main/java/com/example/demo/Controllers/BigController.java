@@ -126,7 +126,7 @@ public class BigController {
         ReturnValue rv = new ReturnValue(true, "",  getUserController().getRegisteredUsersNum());
         return rv;
     }
-    @DeleteMapping("/users")
+
 
 
         @DeleteMapping("/users")

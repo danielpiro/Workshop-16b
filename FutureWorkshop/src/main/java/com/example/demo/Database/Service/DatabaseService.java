@@ -1,19 +1,21 @@
 package com.example.demo.Database.Service;
 import com.example.demo.CustomExceptions.Exception.ResourceNotFoundException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
-import com.example.demo.Database.DTOobjects.ProductDTO;
-import com.example.demo.Database.DTOobjects.ReviewDTO;
+import com.example.demo.Database.DTOobjects.Cart.ShoppingBasketDTO;
+import com.example.demo.Database.DTOobjects.Store.ProductDTO;
+import com.example.demo.Database.DTOobjects.Store.ReviewDTO;
+import com.example.demo.Database.Repositories.BasketRepository;
 import com.example.demo.Database.Repositories.ProductRepository;
 import com.example.demo.Database.Repositories.ReviewRepository;
+import com.example.demo.ShoppingCart.ShoppingBasket;
+import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
@@ -26,6 +28,9 @@ public class DatabaseService {
 
     @Autowired
     private ReviewRepository reviewRepository;
+
+    @Autowired
+    private BasketRepository basketRepository;
 
     public DatabaseService(){
         super();
@@ -92,5 +97,41 @@ public class DatabaseService {
         reviewRepository.deleteByProductId(productId);
 
     }
+
+
+    public ShoppingCart getShoppingCart(String userId){
+
+
+        List<ShoppingBasketDTO> allBaskets= basketRepository.findByUserId(userId);
+
+        ShoppingCart sc = new ShoppingCart(userId);
+
+        for (ShoppingBasketDTO entry : allBaskets){
+            sc.addProduct(entry.getProductID(),entry.getStoreId(),entry.getProdAmount());
+        }
+
+        return sc;
+    }
+
+    public void saveShoppingCart(ShoppingCart shoppingCart){
+
+        deleteShoppingCart(shoppingCart.getUserId());
+
+        for (Map.Entry<String,ShoppingBasket>  sb :shoppingCart.basketCases.entrySet()){
+            for(Map.Entry<String,Integer> entry: sb.getValue().productAmount.entrySet()){
+                ShoppingBasketDTO toSave = new ShoppingBasketDTO(sb.getKey(),shoppingCart.getUserId(),entry.getKey(),entry.getValue());
+                basketRepository.save(toSave);
+
+            }
+
+        }
+
+
+    }
+
+    public void deleteShoppingCart(String userId){
+        basketRepository.deleteByUserId(userId);
+    }
+
 
 }

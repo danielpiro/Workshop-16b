@@ -2,7 +2,7 @@ package com.example.demo.Store;
 
 
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
-import com.example.demo.Database.DTOobjects.ProductDTO;
+import com.example.demo.Database.DTOobjects.Store.ProductDTO;
 import com.example.demo.Mock.MockProductReturn;
 import com.example.demo.Store.BuyinfOptions.BuyOption;
 import com.example.demo.Store.BuyinfOptions.ImmediateBuy;

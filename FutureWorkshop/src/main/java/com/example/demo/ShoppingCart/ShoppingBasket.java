@@ -57,6 +57,11 @@ public class ShoppingBasket {
         this.productAmount = new HashMap<>();
     }
 
+    public ShoppingBasket(String store) {
+        Store = store;
+        this.productAmount = new HashMap<>();
+    }
+
     public int removeProduct(String productID, int amount) {
         if (productAmount.containsKey(productID)) {
             int currentAmount = productAmount.get(productID);

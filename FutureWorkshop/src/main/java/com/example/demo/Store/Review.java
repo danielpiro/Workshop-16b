@@ -1,6 +1,6 @@
 package com.example.demo.Store;
 
-import com.example.demo.Database.DTOobjects.ReviewDTO;
+import com.example.demo.Database.DTOobjects.Store.ReviewDTO;
 
 public class Review {
     private float rating;

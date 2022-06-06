@@ -1,12 +1,9 @@
 package com.example.demo.Database.Repositories;
 
-import com.example.demo.Database.DTOobjects.ReviewDTO;
-import com.example.demo.Store.Review;
-import org.hibernate.sql.Select;
+import com.example.demo.Database.DTOobjects.Store.ReviewDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
