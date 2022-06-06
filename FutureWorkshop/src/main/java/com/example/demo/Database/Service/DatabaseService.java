@@ -40,13 +40,13 @@ public class DatabaseService {
 
         //save all the reviews of the product
         for (Review r : p.getReviews()){
-            saveReview(r,productId);
+            saveReviewByProduct(r,productId);
         }
 
         return productRepository.saveAndFlush(p.productToDTO());
     }
 
-    public ReviewDTO saveReview (Review r,String productId){
+    public ReviewDTO saveReviewByProduct(Review r, String productId){
 
         //save the review with reference to its product
         ReviewDTO reviewDTO = r.reviewToDTO();

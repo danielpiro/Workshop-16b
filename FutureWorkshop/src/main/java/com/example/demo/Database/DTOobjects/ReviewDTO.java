@@ -31,6 +31,7 @@ public class ReviewDTO {
     @Column(name="product_id")
     private String productId;
 
+
     @Column(name="store_id")
     private String storeId;
 
