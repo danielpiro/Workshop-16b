@@ -5,6 +5,7 @@ import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
 import com.example.demo.History.PurchaseHistory;
+
 import com.example.demo.Mock.*;
 import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
 import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
@@ -22,6 +23,7 @@ import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.ProductsCategories;
+import com.example.demo.Store.Review;
 import com.example.demo.Store.Store;
 import com.example.demo.Store.StorePurchase.Discounts.Discount;
 import com.example.demo.Store.StorePurchase.Policies.Policy;
@@ -54,16 +56,18 @@ public class BigController {
     private UserController us;
     private PolicyBuilder policyBuilder;
     Log my_log = Log.getLogger();
+    private DatabaseService databaseService;
 
 
     //    public BigController(UserController us , StoreController sc) throws IOException {
 //        this.us = us;
 //        this.sc = sc;
 //    }
-    public BigController() throws IOException, UserException, NoPermissionException, SupplyManagementException {
+    public BigController(DatabaseService databaseService) throws IOException, UserException, NoPermissionException, SupplyManagementException {
         this.us = new UserController();
         this.sc = new StoreController();
         this.policyBuilder = new PolicyBuilder();
+        this.databaseService = databaseService;
         initiateExternalConnections();
         NotificationManager.buildNotificationManager(us);
         initializeSystem();
@@ -90,7 +94,7 @@ public class BigController {
 
     }
 
-
+   
     /**
      * @param user_id
      * @param payment
@@ -126,6 +130,9 @@ public class BigController {
         return rv;
     }
     @DeleteMapping("/users")
+
+
+        @DeleteMapping("/users")
     public ReturnValue deleteUser(@RequestParam String isDeleting,
                                   @RequestParam String whosBeingDeleted) throws NoPermissionException, UserException {
         my_log.info("user" + isDeleting + "is trying to delete user" + whosBeingDeleted);

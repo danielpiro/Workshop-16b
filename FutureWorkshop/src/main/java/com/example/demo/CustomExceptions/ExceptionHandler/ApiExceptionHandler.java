@@ -34,7 +34,8 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(value = { NoSuchElementException.class , CantPurchaseException.class,IllegalArgumentException.class,
-            NoPermissionException.class, UserException.class, UserDeleted.class, SupplyManagementException.class, NotifyException.class, ExternalServiceDoesNotExist.class})
+            NoPermissionException.class, UserException.class, UserDeleted.class, SupplyManagementException.class, NotifyException.class, ExternalServiceDoesNotExist.class,
+            ResourceNotFoundException.class})
     public ReturnValue handleElementDoesntExist (Exception e){
         ReturnValue rv = new ReturnValue(
                 false,
