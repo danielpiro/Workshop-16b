@@ -160,20 +160,20 @@ const HireOwnerToStore = () => {
         storeID = storeID.slice(0, -1);
       }
       let newOwnerPermissions = [];
-      if (newOfficialInput.ownerORmanager == "Owner") {
-        if (permission.viewStoreHistory) newOwnerPermissions.push("VIEW_STORE_HISTORY");
-        if (permission.editExistingProduct) newOwnerPermissions.push("EDIT_EXISTING_PRODUCT");
-        if (permission.addNewProduct) newOwnerPermissions.push("ADD_NEW_PRODUCT");
-        if (permission.editProduct) newOwnerPermissions.push("EDIT_PRODUCT");
-        if (permission.removeProduct) newOwnerPermissions.push("REMOVE_PRODUCT");
-        if (permission.editStorePolicy) newOwnerPermissions.push("EDIT_STORE_POLICY");
-        if (permission.editStoreDiscount) newOwnerPermissions.push("EDIT_STORE_DISCOUNT");
-        if (permission.addReviewToProduct) newOwnerPermissions.push("ADD_REVIEW_TO_PRODUCT");
-        if (permission.viewForum) newOwnerPermissions.push("VIEW_FORUM");
-        if (permission.ReplyToForum) newOwnerPermissions.push("REPLY_TO_FORUM");
-        if (permission.closeStore) newOwnerPermissions.push("CLOSE_STORE");
-        if (permission.openStore) newOwnerPermissions.push("OPEN_STORE");
-        if (permission.infoOfManagers) newOwnerPermissions.push("INFO_OF_MANAGERS");
+      if (newOfficialInput.ownerORmanager === "Owner") {
+        if (document.getElementById("VIEW_STORE_HISTORY").checked === true) newOwnerPermissions.push("VIEW_STORE_HISTORY");
+        if (document.getElementById("EDIT_EXISTING_PRODUCT").checked === true) newOwnerPermissions.push("EDIT_EXISTING_PRODUCT");
+        if (document.getElementById("ADD_NEW_PRODUCT").checked === true) newOwnerPermissions.push("ADD_NEW_PRODUCT");
+        if (document.getElementById("EDIT_PRODUCT").checked === true) newOwnerPermissions.push("EDIT_PRODUCT");
+        if (document.getElementById("REMOVE_PRODUCT").checked === true) newOwnerPermissions.push("REMOVE_PRODUCT");
+        if (document.getElementById("EDIT_STORE_POLICY").checked === true) newOwnerPermissions.push("EDIT_STORE_POLICY");
+        if (document.getElementById("EDIT_STORE_DISCOUNT").checked === true) newOwnerPermissions.push("EDIT_STORE_DISCOUNT");
+        if (document.getElementById("ADD_REVIEW_TO_PRODUCT").checked === true) newOwnerPermissions.push("ADD_REVIEW_TO_PRODUCT");
+        if (document.getElementById("VIEW_FORUM").checked === true) newOwnerPermissions.push("VIEW_FORUM");
+        if (document.getElementById("REPLY_TO_FORUM").checked === true) newOwnerPermissions.push("REPLY_TO_FORUM");
+        if (document.getElementById("CLOSE_STORE").checked === true) newOwnerPermissions.push("CLOSE_STORE");
+        if (document.getElementById("OPEN_STORE").checked === true) newOwnerPermissions.push("OPEN_STORE");
+        if (document.getElementById("INFO_OF_MANAGERS").checked === true) newOwnerPermissions.push("INFO_OF_MANAGERS");
         const newOwner = {
           storeId: storeID,
           userIdGiving: cookies.username,
@@ -185,6 +185,7 @@ const HireOwnerToStore = () => {
           .post(`/owner/create`, newOwner)
           .then((res) => {
             const { data } = res;
+            console.log(newOwner);
             console.log(data);
             if (data.success) {
               createNotification("success", "Hired owner successfully", () =>

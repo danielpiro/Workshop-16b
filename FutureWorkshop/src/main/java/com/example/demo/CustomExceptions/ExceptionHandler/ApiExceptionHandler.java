@@ -60,6 +60,7 @@ public class ApiExceptionHandler {
     }
     @ExceptionHandler(value = { JsonProcessingException.class })
     public ReturnValue handleInternalProblem (Exception e){
+        e.printStackTrace();
         ReturnValue rv = new ReturnValue(
                 false,
                 "internal problem" ,

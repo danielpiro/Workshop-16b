@@ -477,10 +477,15 @@ public class BigController {
         return rv;
     }
 
-    @PostMapping(value = "/owner", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(value = "/owner/create", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ReturnValue createOwner(@Valid @RequestBody MockSmallPermission mockPermission) throws NoPermissionException, UserException, NotifyException {
         if (getUserController().checkIfUserExists(mockPermission.getUserIdGiving()) && getUserController().checkIfUserExists(mockPermission.getUserGettingPermissionId()) && getUserController().checkIfUserIsLoggedIn(mockPermission.getUserIdGiving())) {
-            getStoreController().createOwner(mockPermission.getStoreId(), mockPermission.getUserIdGiving(), mockPermission.getUserGettingPermissionId(), mockPermission.getPermissions());
+            List<Permission> permissions = new ArrayList<>();
+            for (String perString :
+                    mockPermission.getPermissions()) {
+                permissions.add(Permission.valueOf(perString));
+            }
+            getStoreController().createOwner(mockPermission.getStoreId(), mockPermission.getUserIdGiving(), mockPermission.getUserGettingPermissionId(), permissions);
         } else
             throw new IllegalArgumentException("couldn't give permission because the given userId doesn't exist or is not logged in");
         ReturnValue rv = new ReturnValue(true, "", null);
@@ -794,13 +799,13 @@ public class BigController {
         Policy policy;
         userExistsAndLoggedIn(userId);
         switch (typeOfPolicy) {
-            case "CartPolicy":
+            case "CartPolicy": //quantity in cart
                 policy = policyBuilder.newCartPolicy(mockPolicy.getNumOfProducts());
                 break;
-            case "CategoryPolicy":
+            case "CategoryPolicy": //category
                 policy = policyBuilder.newCategoryPolicy(mockPolicy.getCategories());
                 break;
-            case "ProductWithoutAmountPolicy":
+            case "ProductWithoutAmountPolicy": //product should be in cart
                 //todo get products from guy
                 List<PurchasableProduct> lp = new LinkedList<>();
                 for (Product p : getProductById(storeId, mockPolicy.getProducts())) {
@@ -809,7 +814,7 @@ public class BigController {
                 }
                 policy = policyBuilder.newProductWithoutAmountPolicy(lp);
                 break;
-            case "ProductWithAmountPolicy":
+            case "ProductWithAmountPolicy": //product should be in cart with minimum quantity
                 HashMap<PurchasableProduct, Integer> mp = new HashMap<>();
                 for (String s : mockPolicy.getProductsAmount().keySet()) {
 
@@ -819,22 +824,22 @@ public class BigController {
                 }
                 policy = policyBuilder.newProductWithAmountPolicy(mp);
                 break;
-            case "UserIdPolicy":
+            case "UserIdPolicy": //specific user
                 policy = policyBuilder.newUserIdPolicy(mockPolicy.getUserIds());
                 break;
-            case "UseAgePolicy":
+            case "UseAgePolicy": //age
                 policy = policyBuilder.newUseAgePolicy(mockPolicy.getStartAge(), mockPolicy.getEndAge());
                 break;
-            case "OnHoursOfTheDayPolicy":
+            case "OnHoursOfTheDayPolicy": //hour of day
                 policy = policyBuilder.newOnHoursOfTheDayPolicy(mockPolicy.getStartTime(), mockPolicy.getEndTime());
                 break;
-            case "OnDaysOfTheWeekPolicy":
+            case "OnDaysOfTheWeekPolicy": //day of week
                 policy = policyBuilder.newOnDaysOfTheWeekPolicy(mockPolicy.getStartTime(), mockPolicy.getEndTime());
                 break;
-            case "OnDayOfMonthPolicy":
+            case "OnDayOfMonthPolicy": //day of month
                 policy = policyBuilder.newOnDayOfMonthPolicy(mockPolicy.getStartTime(), mockPolicy.getEndTime());
                 break;
-            case "PricePredicate":
+            case "PricePredicate": //total cart price
                 policy = policyBuilder.newPricePredicate(mockPolicy.getPrice());
                 break;
             default:
