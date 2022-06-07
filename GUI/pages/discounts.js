@@ -38,26 +38,34 @@ const Discounts = () => {
   const [precDiscount2, setPrecDiscount2] = useState({
     precentage: "",
     category: "Select a category",
-
+    minPrice: "",
+    productName: "",
+    minAmountOfProduct: "",
   });
   const [condDiscount1, setCondDiscount1] = useState({
-    precentage: "",
-
+    policy: "Select conditional discount policy",
   });
   const [condDiscount2, setCondDiscount2] = useState({
-    precentage: "",
-
+    policy: "Select conditional discount policy",
   });
 
   const onCreateCombinedDiscount = (e) => {
     e.preventDefault();
   };
 
-  const onCreateDiscount1 = (e) => {
+  const onCreatePrecentageDiscount1 = (e) => {
     e.preventDefault();
   };
 
-  const onCreateDiscount2 = (e) => {
+  const onCreatePrecentageDiscount2 = (e) => {
+    e.preventDefault();
+  };
+
+  const onCreateConditionalDiscount1 = (e) => {
+    e.preventDefault();
+  };
+
+  const onCreateConditionalDiscount2 = (e) => {
     e.preventDefault();
   };
 
@@ -154,230 +162,240 @@ const Discounts = () => {
           <div className="col m-2">
             <div hidden={preds.pred1 !== "Create new precentage discount" && preds.pred2 !== "Create new precentage discount"}>
               <h5><u>Select Precentage Discount Type</u></h5>
-              <div className="dropdown m-1">
-                <button className="btn btn-secondary dropdown-toggle" type="button"
-                  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    {discountType1}
-                </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  {discountTypes.map((disType) => {
-                    return (
-                      <li>
-                        <a className="dropdown-item" onClick={() => setDiscountType1(disType)}>{disType}</a>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
+                <div className="input-group mb-3">
+                  <div className="dropdown m-1">
+                    <button className="btn btn-secondary dropdown-toggle" type="button"
+                      id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        {discountType1}
+                    </button>
+                    <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      {discountTypes.map((disType) => {
+                        return (
+                          <li>
+                            <a className="dropdown-item" onClick={() => setDiscountType1(disType)}>{disType}</a>
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </div>
+                  <div className="dropdown m-1">
+                    <button className="btn btn-secondary dropdown-toggle" type="button"
+                      id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        {operator1}
+                    </button>
+                    <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      {operators.map((oper) => {
+                        return (
+                          <li>
+                            <a className="dropdown-item" onClick={() => setOperator1(oper)}>{oper}</a>
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </div>
+                  <div className="dropdown m-1">
+                    <button className="btn btn-secondary dropdown-toggle" type="button"
+                      id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        {discountType2}
+                    </button>
+                    <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      {discountTypes.map((disType) => {
+                        return (
+                          <li>
+                            <a className="dropdown-item" onClick={() => setDiscountType2(disType)}>{disType}</a>
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </div>
+                </div>
               
-              <div className="dropdown m-1">
-                <button className="btn btn-secondary dropdown-toggle" type="button"
-                  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    {operator1}
-                </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  {operators.map((oper) => {
-                    return (
-                      <li>
-                        <a className="dropdown-item" onClick={() => setOperator1(oper)}>{oper}</a>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
-              <div className="dropdown m-1">
-                <button className="btn btn-secondary dropdown-toggle" type="button"
-                  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    {discountType2}
-                </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  {discountTypes.map((disType) => {
-                    return (
-                      <li>
-                        <a className="dropdown-item" onClick={() => setDiscountType2(disType)}>{disType}</a>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
+                <div className="input-group mb-3">
+                  <div className="dropdown m-1">
+                    <button className="btn btn-secondary dropdown-toggle" type="button"
+                      id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        {operator2}
+                    </button>
+                    <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      {operators.map((oper) => {
+                        return (
+                          <li>
+                            <a className="dropdown-item" onClick={() => setOperator2(oper)}>{oper}</a>
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </div>
 
-              <div className="dropdown m-1">
-                <button className="btn btn-secondary dropdown-toggle" type="button"
-                  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    {operator2}
-                </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  {operators.map((oper) => {
-                    return (
-                      <li>
-                        <a className="dropdown-item" onClick={() => setOperator2(oper)}>{oper}</a>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
+                  <div className="dropdown m-1">
+                    <button className="btn btn-secondary dropdown-toggle" type="button"
+                      id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        {discountType3}
+                    </button>
+                    <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      {discountTypes.map((disType) => {
+                        return (
+                          <li>
+                            <a className="dropdown-item" onClick={() => setDiscountType3(disType)}>{disType}</a>
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </div>
+                </div>
+              
+                <div className="input-group mb-3">
+                  <div className="dropdown m-1">
+                    <button className="btn btn-secondary dropdown-toggle" type="button"
+                      id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        {operator3}
+                    </button>
+                    <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      {operators.map((oper) => {
+                        return (
+                          <li>
+                            <a className="dropdown-item" onClick={() => setOperator3(oper)}>{oper}</a>
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </div>
 
-              <div className="dropdown m-1">
-                <button className="btn btn-secondary dropdown-toggle" type="button"
-                  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    {discountType3}
-                </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  {discountTypes.map((disType) => {
-                    return (
-                      <li>
-                        <a className="dropdown-item" onClick={() => setDiscountType3(disType)}>{disType}</a>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
-
-              <div className="dropdown m-1">
-                <button className="btn btn-secondary dropdown-toggle" type="button"
-                  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    {operator3}
-                </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  {operators.map((oper) => {
-                    return (
-                      <li>
-                        <a className="dropdown-item" onClick={() => setOperator3(oper)}>{oper}</a>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
-
-              <div className="dropdown m-1">
-                <button className="btn btn-secondary dropdown-toggle" type="button"
-                  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    {discountType4}
-                </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  {discountTypes.map((disType) => {
-                    return (
-                      <li>
-                        <a className="dropdown-item" onClick={() => setDiscountType4(disType)}>{disType}</a>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
+                  <div className="dropdown m-1">
+                    <button className="btn btn-secondary dropdown-toggle" type="button"
+                      id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        {discountType4}
+                    </button>
+                    <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      {discountTypes.map((disType) => {
+                        return (
+                          <li>
+                            <a className="dropdown-item" onClick={() => setDiscountType4(disType)}>{disType}</a>
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </div>
+                </div>
             </div>
 
             <div hidden={preds.pred1 !== "Create new conditional discount" && preds.pred2 !== "Create new conditional discount"}>
             <h5><u>Select Conditional Discount Type</u></h5>
-              <div className="dropdown m-1">
-                <button className="btn btn-secondary dropdown-toggle" type="button"
-                  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    {discountType1}
-                </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  {policyTypes.map((disType) => {
-                    return (
-                      <li>
-                        <a className="dropdown-item" onClick={() => setDiscountType1(disType)}>{disType}</a>
-                      </li>
-                    )
-                  })}
-                </ul>
+              <div className="input-group mb-3">
+                <div className="dropdown m-1">
+                  <button className="btn btn-secondary dropdown-toggle" type="button"
+                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                      {discountType1}
+                  </button>
+                  <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    {policyTypes.map((disType) => {
+                      return (
+                        <li>
+                          <a className="dropdown-item" onClick={() => setDiscountType1(disType)}>{disType}</a>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+                
+                <div className="dropdown m-1">
+                  <button className="btn btn-secondary dropdown-toggle" type="button"
+                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                      {operator1}
+                  </button>
+                  <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    {operators.map((oper) => {
+                      return (
+                        <li>
+                          <a className="dropdown-item" onClick={() => setOperator1(oper)}>{oper}</a>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+                <div className="dropdown m-1">
+                  <button className="btn btn-secondary dropdown-toggle" type="button"
+                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                      {discountType2}
+                  </button>
+                  <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    {policyTypes.map((disType) => {
+                      return (
+                        <li>
+                          <a className="dropdown-item" onClick={() => setDiscountType2(disType)}>{disType}</a>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              </div>
+              <div className="input-group mb-3">
+                <div className="dropdown m-1">
+                  <button className="btn btn-secondary dropdown-toggle" type="button"
+                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                      {operator2}
+                  </button>
+                  <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    {operators.map((oper) => {
+                      return (
+                        <li>
+                          <a className="dropdown-item" onClick={() => setOperator2(oper)}>{oper}</a>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+
+                <div className="dropdown m-1">
+                  <button className="btn btn-secondary dropdown-toggle" type="button"
+                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                      {discountType3}
+                  </button>
+                  <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    {policyTypes.map((disType) => {
+                      return (
+                        <li>
+                          <a className="dropdown-item" onClick={() => setDiscountType3(disType)}>{disType}</a>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
               </div>
               
-              <div className="dropdown m-1">
-                <button className="btn btn-secondary dropdown-toggle" type="button"
-                  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    {operator1}
-                </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  {operators.map((oper) => {
-                    return (
-                      <li>
-                        <a className="dropdown-item" onClick={() => setOperator1(oper)}>{oper}</a>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
-              <div className="dropdown m-1">
-                <button className="btn btn-secondary dropdown-toggle" type="button"
-                  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    {discountType2}
-                </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  {policyTypes.map((disType) => {
-                    return (
-                      <li>
-                        <a className="dropdown-item" onClick={() => setDiscountType2(disType)}>{disType}</a>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
+              <div className="input-group mb-3">
+                <div className="dropdown m-1">
+                  <button className="btn btn-secondary dropdown-toggle" type="button"
+                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                      {operator3}
+                  </button>
+                  <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    {operators.map((oper) => {
+                      return (
+                        <li>
+                          <a className="dropdown-item" onClick={() => setOperator3(oper)}>{oper}</a>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
 
-              <div className="dropdown m-1">
-                <button className="btn btn-secondary dropdown-toggle" type="button"
-                  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    {operator2}
-                </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  {operators.map((oper) => {
-                    return (
-                      <li>
-                        <a className="dropdown-item" onClick={() => setOperator2(oper)}>{oper}</a>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
-
-              <div className="dropdown m-1">
-                <button className="btn btn-secondary dropdown-toggle" type="button"
-                  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    {discountType3}
-                </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  {policyTypes.map((disType) => {
-                    return (
-                      <li>
-                        <a className="dropdown-item" onClick={() => setDiscountType3(disType)}>{disType}</a>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
-
-              <div className="dropdown m-1">
-                <button className="btn btn-secondary dropdown-toggle" type="button"
-                  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    {operator3}
-                </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  {operators.map((oper) => {
-                    return (
-                      <li>
-                        <a className="dropdown-item" onClick={() => setOperator3(oper)}>{oper}</a>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
-
-              <div className="dropdown m-1">
-                <button className="btn btn-secondary dropdown-toggle" type="button"
-                  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    {discountType4}
-                </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  {policyTypes.map((disType) => {
-                    return (
-                      <li>
-                        <a className="dropdown-item" onClick={() => setDiscountType4(disType)}>{disType}</a>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
+                <div className="dropdown m-1">
+                  <button className="btn btn-secondary dropdown-toggle" type="button"
+                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                      {discountType4}
+                  </button>
+                  <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    {policyTypes.map((disType) => {
+                      return (
+                        <li>
+                          <a className="dropdown-item" onClick={() => setDiscountType4(disType)}>{disType}</a>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              </div>  
             </div>
           </div>
           
@@ -385,9 +403,11 @@ const Discounts = () => {
             <div className="row" hidden={preds.pred1 !== "Create new precentage discount"}>
               <h5><u>Create precentage discount #1</u></h5>
               <div className="input-group mb-3">
-                <span className="input-group-text" id="basic-addon1" hidden={discountType1 === "DiscountType"}>Enter Discount Precentage</span>
+                <span className="input-group-text" id="basic-addon1" hidden={discountType1 === "DiscountType" && discountType2 === "DiscountType" && discountType3 === "DiscountType" && discountType4 === "DiscountType"}>
+                  Enter Discount Precentage
+                </span>
                 <input type="text" className="form-control" placeholder="0-100"
-                  aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountType1 === "DiscountType"}
+                  aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountType1 === "DiscountType" && discountType2 === "DiscountType" && discountType3 === "DiscountType" && discountType4 === "DiscountType"}
                   onChange={(e) =>
                     setPrecDiscount1((prevState) => ({
                       ...prevState,
@@ -486,16 +506,18 @@ const Discounts = () => {
                 </div>
               </div>
               <button className="btn btn-primary mr-lg-3 m-2" style={{ width: "50%" }}
-              onClick={onCreateDiscount1}>
+              onClick={onCreatePrecentageDiscount1}>
                 Create Discount #1
               </button>
             </div>
             <div className="row" hidden={preds.pred2 !== "Create new precentage discount"}>
             <h5><u>Create precentage discount #2</u></h5>
               <div className="input-group mb-3">
-                <span className="input-group-text" id="basic-addon1" hidden={discountType1 === "DiscountType"}>Enter Discount Precentage</span>
+                <span className="input-group-text" id="basic-addon1" hidden={discountType1 === "DiscountType" && discountType2 === "DiscountType" && discountType3 === "DiscountType" && discountType4 === "DiscountType"}>
+                  Enter Discount Precentage
+                </span>
                 <input type="text" className="form-control" placeholder="0-100"
-                  aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountType1 === "DiscountType"}
+                  aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountType1 === "DiscountType" && discountType2 === "DiscountType" && discountType3 === "DiscountType" && discountType4 === "DiscountType"}
                   onChange={(e) =>
                     setPrecDiscount2((prevState) => ({
                       ...prevState,
@@ -514,7 +536,7 @@ const Discounts = () => {
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    {precDiscount1.category}
+                    {precDiscount2.category}
                   </button>
                   <ul
                     className="dropdown-menu"
@@ -594,55 +616,71 @@ const Discounts = () => {
                 </div>
               </div>
               <button className="btn btn-primary mr-lg-3 m-2" style={{ width: "50%" }}
-              onClick={onCreateDiscount2}>
+              onClick={onCreatePrecentageDiscount2}>
                 Create Discount #2
               </button>
             </div>
 
             <div className="row" hidden={preds.pred1 !== "Create new conditional discount"}>
               <h5><u>Create conditional discount #1</u></h5>
-              <input type="text" className="form-control m-1" placeholder="Enter discount precentage"
-                aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountType3 === "DiscountType"}
-                onChange={(e) =>
-                  setCondDiscount1((prevState) => ({
-                    ...prevState,
-                    precentage: e.target.value,
-                  }))
-                }
-              />
-              <div>
-                Category
-              </div>
-              <div>
-                Price
-              </div>
-              <div>
-                Product With Amount
-              </div>
-              <div>
-                Product Without Amount
-              </div>
+              <div className="dropdown m-1">
+              <button className="btn btn-secondary dropdown-toggle" type="button"
+                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  {condDiscount1.policy}
+              </button>
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                {policyTypes.map((pol) => {
+                  return (
+                    <li>
+                      <a className="dropdown-item"
+                        onClick={() =>
+                          setCondDiscount1((prevState) => ({
+                            ...prevState,
+                            policy: pol,
+                          }))
+                        }
+                      >
+                        {pol}
+                      </a>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+              
               <button className="btn btn-primary mr-lg-3 m-2" style={{ width: "50%" }}
-              onClick={onCreateDiscount1}>
+              onClick={onCreateConditionalDiscount1}>
                 Create Discount #1
               </button>
             </div>
             <div className="row" hidden={preds.pred2 !== "Create new conditional discount"}>
               <h5><u>Create conditional conditional #2</u></h5>
-              <input type="text" className="form-control m-1" placeholder="Enter discount precentage"
-                aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountType4 === "DiscountType"}
-                onChange={(e) =>
-                  setCondDiscount2((prevState) => ({
-                    ...prevState,
-                    precentage: e.target.value,
-                  }))
-                }
-              />
-              <div>
-                <h2>To be continued...</h2>
-              </div>
+              <div className="dropdown m-1">
+              <button className="btn btn-secondary dropdown-toggle" type="button"
+                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  {condDiscount1.policy}
+              </button>
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                {policyTypes.map((pol) => {
+                  return (
+                    <li>
+                      <a className="dropdown-item"
+                        onClick={() =>
+                          setCondDiscount1((prevState) => ({
+                            ...prevState,
+                            policy: pol,
+                          }))
+                        }
+                      >
+                        {pol}
+                      </a>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
               <button className="btn btn-primary mr-lg-3 m-2" style={{ width: "50%" }}
-              onClick={onCreateDiscount1}>
+              onClick={onCreateConditionalDiscount2}>
                 Create Discount #2
               </button>
             </div>
