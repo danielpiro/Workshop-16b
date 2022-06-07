@@ -354,7 +354,10 @@ public ReturnValue sendComplaintToAdmins(@RequestParam String senderId,@RequestP
         }
 
 
-    @PostMapping("/store/product/delete")
+
+
+
+        @PostMapping("/store/product/delete")
     public ReturnValue deleteProductFromStore(@RequestParam String storeId,
                                               @RequestParam String userId,
                                               @RequestParam String productId) throws NoPermissionException, SupplyManagementException, UserException, NotifyException, IOException {

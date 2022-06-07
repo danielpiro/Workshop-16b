@@ -531,7 +531,7 @@ public class UserController implements NotificationReceiver {
                 // my_log.warning("trying to send a complaint to a user " + s + " which is not an admin");
               //  throw new UserException("trying to send a complaint to a user " + s + " which is not an admin");
             //}
-                get_subscriber(s.getName()).addComplaint(complaintNotification.getDeepCopy(),senderId);
+                get_subscriber(s.getName()).addComplaint(complaintNotification.getDeepCopy());
         }
     }
     public void readStoreNotification(String userid,int storeNotificaionId) throws UserException {

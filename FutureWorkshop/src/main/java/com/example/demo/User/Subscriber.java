@@ -18,7 +18,6 @@ public class Subscriber extends User {
     private List<String> Queries; //3.5
     private List<StoreNotification> storeNotifications;
     private List<ComplaintNotification> complaintNotifications;
-    private HashMap<String,ComplaintNotification> AdminComplaints;
     private Object lock = new Object();
 
     public Subscriber(String user_name, String password){
@@ -29,7 +28,6 @@ public class Subscriber extends User {
         lock = new Object();
         storeNotifications = new ArrayList<>();
         complaintNotifications = new ArrayList<>();
-        AdminComplaints = new LinkedHashMap<>();
     }
 
     public String getName()
@@ -51,12 +49,8 @@ public class Subscriber extends User {
                 for(int i =0; i<getStoreNotifications().size();i++){
                     notificationController.getInstance().sendNotification(new realTimeNotification(this.name,getStoreNotifications().get(i).getSentFrom().getStoreName(), getStoreNotifications().get(i).getSubject().toString(), getStoreNotifications().get(i).getTitle(), getStoreNotifications().get(i).getBody(), new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
                 }
+                storeNotifications = new ArrayList<>();
             }
-        if(this.logged_in && getAdminComplaints().size()>0){
-            for(String sender: getAdminComplaints().keySet()){
-                notificationController.getInstance().sendNotification(new realTimeNotification(this.name,sender, getAdminComplaints().get(sender).getSubject().toString(),getAdminComplaints().get(sender).getTitle(), getAdminComplaints().get(sender).getBody(), new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
-            }
-        }
 
     }
     public void AddQuery(String s){this.getQueries().add(s);}
@@ -74,13 +68,8 @@ public class Subscriber extends User {
         return complaintNotifications;
     }
 
-    public void addComplaint(ComplaintNotification complaintNotification,String senderId) {
-        if (isLogged_in())
-            notificationController.getInstance().sendNotification(new realTimeNotification(this.name, senderId, complaintNotification.getSubject().toString(), complaintNotification.getTitle(), complaintNotification.getBody(), new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
-        else {
-            getAdminComplaints().put(senderId, complaintNotification);
+    public void addComplaint(ComplaintNotification complaintNotification) {
             getComplaintNotifications().add(complaintNotification);
-        }
     }
 
     public void addNotification(StoreNotification storeNotification){
@@ -94,7 +83,4 @@ public class Subscriber extends User {
         return lock;
     }
 
-    public HashMap<String, ComplaintNotification> getAdminComplaints() {
-        return AdminComplaints;
-    }
 }
