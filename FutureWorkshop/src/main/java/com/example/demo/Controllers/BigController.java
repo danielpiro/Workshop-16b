@@ -17,7 +17,9 @@ import com.example.demo.ExternalConnections.Payment.PaymentNames;
 import com.example.demo.ExternalConnections.Payment.Visa;
 import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.History.History;
+import com.example.demo.NotificationsManagement.ComplaintNotification;
 import com.example.demo.NotificationsManagement.NotificationManager;
+import com.example.demo.NotificationsManagement.NotificationSubject;
 import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
@@ -455,9 +457,20 @@ public class BigController {
         ReturnValue rv = new ReturnValue(true, "", null);
         return rv;
     }
+//    public void sendComplaintToAdmins(String senderId, ComplaintNotification complaintNotification) throws UserException {
+// String sentFrom, NotificationSubject subject, String title, String body
+@PostMapping("/complaints")
+public ReturnValue sendComplaintToAdmins(@RequestParam String senderId,@RequestParam String subject,@RequestParam String title,@RequestParam String body) throws UserException {
+            getUserController().sendComplaintToAdmins(senderId,new ComplaintNotification(senderId, NotificationSubject.valueOf(subject),title,body));
+            ReturnValue rv = new ReturnValue(true, "", null);
+            return rv;
+        }
 
 
-    @PostMapping("/store/product/delete")
+
+
+
+        @PostMapping("/store/product/delete")
     public ReturnValue deleteProductFromStore(@RequestParam String storeId,
                                               @RequestParam String userId,
                                               @RequestParam String productId) throws NoPermissionException, SupplyManagementException, UserException, NotifyException, IOException {

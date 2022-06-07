@@ -6,31 +6,38 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Controller;
 
-@RestController
-public class NotificationController {
+@Controller
+public class notificationController {
+
+    private static notificationController single_instance = null;
+
+   public static notificationController getInstance(){
+       if(single_instance==null)
+           single_instance = new notificationController();
+       return single_instance;
+   }
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
-    private static NotificationController single_instance = null;
-
-    public static NotificationController getInstance() {
-        if (single_instance == null)
-            single_instance = new NotificationController();
-        return single_instance;
-    }
 
     @MessageMapping("/message")
     @SendTo("/chatroom/public")
-    public realTimeNotification receivePublicMessage(@Payload realTimeNotification message) {
-        System.out.println(message);
+    public realTimeNotification receivePublicMessage(@Payload realTimeNotification message){
         return message;
     }
 
     @MessageMapping("/private-message")
-    public realTimeNotification recievePrivateMessage(@Payload realTimeNotification message) {
-        System.out.println(message);
-        simpMessagingTemplate.convertAndSendToUser(message.getReceiverName(), "/private", message);
+    public realTimeNotification sendNotification(@Payload realTimeNotification message){
+        simpMessagingTemplate.convertAndSendToUser(message.getReceiverName(),"/private",message);
+        System.out.println(message.getReceiverName());
         return message;
     }
+    @Scheduled(fixedRate = 3000)
+    public void sendMessages(){
+        simpMessagingTemplate.convertAndSendToUser("/chatroom/public","/user","Hello ");
+
+    }
+
 }

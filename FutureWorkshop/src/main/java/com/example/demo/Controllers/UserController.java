@@ -524,15 +524,15 @@ public class UserController implements NotificationReceiver {
              my_log.warning("the sender " + senderId + " is not online");
             throw new UserException("the sender " + senderId + " is not online");
         }
-//        for (String s : adminIds) {
-//            if (!checkIfUserExists(s))
-//                throw new UserException("user " +s + " doesn't exist");
-//            if (!checkIfAdmin(s)) {
-//                 my_log.warning("trying to send a complaint to a user " + s + " which is not an admin");
-//                throw new UserException("trying to send a complaint to a user " + s + " which is not an admin");
-//            }
-//                get_subscriber(s).addComplaint(complaintNotification.getDeepCopy());
-//        }
+      for (Subscriber s : getSystemAdmins()) {
+            //if (!checkIfUserExists(s))
+              //  throw new UserException("user " +s + " doesn't exist");
+            //if (!checkIfAdmin(s)) {
+                // my_log.warning("trying to send a complaint to a user " + s + " which is not an admin");
+              //  throw new UserException("trying to send a complaint to a user " + s + " which is not an admin");
+            //}
+                get_subscriber(s.getName()).addComplaint(complaintNotification.getDeepCopy());
+        }
     }
     public void readStoreNotification(String userid,int storeNotificaionId) throws UserException {
         my_log.info("user "+userid+" wants to read store notification with id "+ storeNotificaionId);
@@ -586,8 +586,7 @@ public class UserController implements NotificationReceiver {
     }
 
     public List<ComplaintNotification> getAdminComplaintNotifications(String userId) throws UserException { //Abed changes
-        my_log.info("getting store notifications for user "+userId);
-        my_log.info("getting store notifications for user "+userId);
+        my_log.info("getting complaint notifications for user "+userId);
         if(get_subscriber(userId)==null){
             my_log.warning("user "+userId +" does not exist - failed to get notifications");
             throw new UserException("user "+userId +" does not exist - failed to get notifications");
