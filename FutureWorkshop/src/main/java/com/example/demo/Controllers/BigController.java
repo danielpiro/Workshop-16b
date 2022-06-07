@@ -480,12 +480,12 @@ public class BigController {
     @PostMapping(value = "/owner/create", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ReturnValue createOwner(@Valid @RequestBody MockSmallPermission mockPermission) throws NoPermissionException, UserException, NotifyException {
         if (getUserController().checkIfUserExists(mockPermission.getUserIdGiving()) && getUserController().checkIfUserExists(mockPermission.getUserGettingPermissionId()) && getUserController().checkIfUserIsLoggedIn(mockPermission.getUserIdGiving())) {
-            List<Permission> permissions = new ArrayList<>();
-            for (String perString :
-                    mockPermission.getPermissions()) {
-                permissions.add(Permission.valueOf(perString));
-            }
-            getStoreController().createOwner(mockPermission.getStoreId(), mockPermission.getUserIdGiving(), mockPermission.getUserGettingPermissionId(), permissions);
+//            List<Permission> permissions = new ArrayList<>();
+//            for (String perString :
+//                    mockPermission.getPermissions()) {
+//                permissions.add(Permission.valueOf(perString));
+//            }
+            getStoreController().createOwner(mockPermission.getStoreId(), mockPermission.getUserIdGiving(), mockPermission.getUserGettingPermissionId(), mockPermission.getPermissions());
         } else
             throw new IllegalArgumentException("couldn't give permission because the given userId doesn't exist or is not logged in");
         ReturnValue rv = new ReturnValue(true, "", null);

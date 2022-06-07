@@ -10,7 +10,7 @@ const ChangePolicy = () => {
   const [preds, setPreds] = useState({
     pred1: "Choose predicate #1",
     pred2: "Choose predicate #2",
-    predToDelete: "Choose predicate to delete",
+    predToDelete: "Choose existing predicate to delete",
   });
   const [predsFeatures1, setPredsFeature1] = useState({
     allowORforbid: "Allow/Forbid",
@@ -191,7 +191,9 @@ const ChangePolicy = () => {
 
       <div className="container">
         <div className="row">
-          <div className="col d-flex justify-content-center">
+          <div className="col">
+            <h4><u>Select policy type</u></h4>
+            
             <div className="dropdown m-1">
               <button
                 className="btn btn-secondary dropdown-toggle"
@@ -210,53 +212,53 @@ const ChangePolicy = () => {
                   <a className="dropdown-item" onClick={() => setPolicyType("PolicyType")}></a>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={() => setPolicyType("Total cart price")}>
-                    Total cart price
+                  <a className="dropdown-item" onClick={() => setPolicyType("PricePredicate")}>
+                    Price Policy
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={() => setPolicyType("Category")}>
-                    Category
+                  <a className="dropdown-item" onClick={() => setPolicyType("CategoryPolicy")}>
+                    Category Policy
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={() => setPolicyType("Quantity in cart")}>
-                    Quantity in cart
+                  <a className="dropdown-item" onClick={() => setPolicyType("CartPolicy")}>
+                    Cart Policy
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={() => setPolicyType("Product should be in cart")}>
-                    Product should be in cart
+                  <a className="dropdown-item" onClick={() => setPolicyType("ProductWithoutAmountPolicy")}>
+                    Product Without Amount Policy
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={() => setPolicyType("Product should be in cart with minimum quantity")}>
-                    Product should be in cart with minimum quantity
+                  <a className="dropdown-item" onClick={() => setPolicyType("ProductWithAmountPolicy")}>
+                    Product With Amount Policy
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={() => setPolicyType("Day Of Month")}>
-                    Day Of Month
+                  <a className="dropdown-item" onClick={() => setPolicyType("OnDayOfMonthPolicy")}>
+                    On Day Of Month Policy
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={() => setPolicyType("Day Of Week")}>
-                    Day Of Week
+                  <a className="dropdown-item" onClick={() => setPolicyType("OnDaysOfTheWeekPolicy")}>
+                    On Days Of The Week Policy
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={() => setPolicyType("Hour Of Day")}>
-                    Hour Of Day
+                  <a className="dropdown-item" onClick={() => setPolicyType("OnHoursOfTheDayPolicy")}>
+                    On Hours Of The Day Policy
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={() => setPolicyType("Specific user")}>
-                    Specific user
+                  <a className="dropdown-item" onClick={() => setPolicyType("UserIdPolicy")}>
+                    UserId Policy
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={() => setPolicyType("Age")}>
-                    Age
+                  <a className="dropdown-item" onClick={() => setPolicyType("UseAgePolicy")}>
+                    Age Policy
                   </a>
                 </li>
               </ul>
@@ -389,7 +391,7 @@ const ChangePolicy = () => {
               </h4>
               <div
                 style={{
-                  display: policyType == "Total cart price" ? "block" : "none",
+                  display: policyType == "PricePredicate" ? "block" : "none",
                 }}
               >
                 <div className="input-group mb-3">
@@ -433,7 +435,7 @@ const ChangePolicy = () => {
               </div>
               <div
                 style={{
-                  display: policyType == "Category" ? "block" : "none",
+                  display: policyType == "CategoryPolicy" ? "block" : "none",
                 }}
               >
                 <div className="dropdown m-1">
@@ -515,7 +517,7 @@ const ChangePolicy = () => {
               </div>
               <div
                 style={{
-                  display: policyType == "Quantity in cart" ? "block" : "none",
+                  display: policyType == "CartPolicy" ? "block" : "none",
                 }}
               >
                 <div className="input-group mb-3">
@@ -560,7 +562,7 @@ const ChangePolicy = () => {
               <div
                 style={{
                   display:
-                    policyType == "Product should be in cart"
+                    policyType == "ProductWithoutAmountPolicy"
                       ? "block"
                       : "none",
                 }}
@@ -589,7 +591,7 @@ const ChangePolicy = () => {
                 style={{
                   display:
                     policyType ==
-                    "Product should be in cart with minimum quantity"
+                    "ProductWithAmountPolicy"
                       ? "block"
                       : "none",
                 }}
@@ -635,7 +637,7 @@ const ChangePolicy = () => {
               </div>
               <div
                 style={{
-                  display: policyType == "Day Of Month" ? "block" : "none",
+                  display: policyType == "OnDayOfMonthPolicy" ? "block" : "none",
                 }}
               >
                 <div className="dropdown m-1">
@@ -717,7 +719,7 @@ const ChangePolicy = () => {
               </div>
               <div
                 style={{
-                  display: policyType == "Day Of Week" ? "block" : "none",
+                  display: policyType == "OnDaysOfTheWeekPolicy" ? "block" : "none",
                 }}
               >
                 <div className="dropdown m-1">
@@ -795,7 +797,7 @@ const ChangePolicy = () => {
               </div>
               <div
                 style={{
-                  display: policyType == "Hour Of Day" ? "block" : "none",
+                  display: policyType == "OnHoursOfTheDayPolicy" ? "block" : "none",
                 }}
               >
                 <div className="dropdown">
@@ -884,7 +886,7 @@ const ChangePolicy = () => {
               </div>
               <div
                 style={{
-                  display: policyType == "Specific user" ? "block" : "none",
+                  display: policyType == "UserIdPolicy" ? "block" : "none",
                 }}
               >
                 <div className="dropdown">
@@ -952,7 +954,7 @@ const ChangePolicy = () => {
                   />
                 </div>
               </div>
-              <div style={{ display: policyType == "Age" ? "block" : "none" }}>
+              <div style={{ display: policyType == "UseAgePolicy" ? "block" : "none" }}>
                 <div className="dropdown">
                   <button
                     className="btn btn-secondary dropdown-toggle"
@@ -1049,7 +1051,7 @@ const ChangePolicy = () => {
               </h4>
               <div
                 style={{
-                  display: policyType == "Total cart price" ? "block" : "none",
+                  display: policyType == "PricePredicate" ? "block" : "none",
                 }}
               >
                 <div className="input-group mb-3">
@@ -1093,7 +1095,7 @@ const ChangePolicy = () => {
               </div>
               <div
                 style={{
-                  display: policyType == "Category" ? "block" : "none",
+                  display: policyType == "CategoryPolicy" ? "block" : "none",
                 }}
               >
                 <div className="dropdown m-1">
@@ -1175,7 +1177,7 @@ const ChangePolicy = () => {
               </div>
               <div
                 style={{
-                  display: policyType == "Quantity in cart" ? "block" : "none",
+                  display: policyType == "CartPolicy" ? "block" : "none",
                 }}
               >
                 <div className="input-group mb-3">
@@ -1220,7 +1222,7 @@ const ChangePolicy = () => {
               <div
                 style={{
                   display:
-                    policyType == "Product should be in cart"
+                    policyType == "ProductWithoutAmountPolicy"
                       ? "block"
                       : "none",
                 }}
@@ -1249,7 +1251,7 @@ const ChangePolicy = () => {
                 style={{
                   display:
                     policyType ==
-                    "Product should be in cart with minimum quantity"
+                    "ProductWithAmountPolicy"
                       ? "block"
                       : "none",
                 }}
@@ -1295,7 +1297,7 @@ const ChangePolicy = () => {
               </div>
               <div
                 style={{
-                  display: policyType == "Day Of Month" ? "block" : "none",
+                  display: policyType == "OnDayOfMonthPolicy" ? "block" : "none",
                 }}
               >
                 <div className="dropdown m-1">
@@ -1377,7 +1379,7 @@ const ChangePolicy = () => {
               </div>
               <div
                 style={{
-                  display: policyType == "Day Of Week" ? "block" : "none",
+                  display: policyType == "OnDaysOfTheWeekPolicy" ? "block" : "none",
                 }}
               >
                 <div className="dropdown m-1">
@@ -1459,7 +1461,7 @@ const ChangePolicy = () => {
               </div>
               <div
                 style={{
-                  display: policyType == "Hour Of Day" ? "block" : "none",
+                  display: policyType == "OnHoursOfTheDayPolicy" ? "block" : "none",
                 }}
               >
                 <div className="dropdown">
@@ -1548,7 +1550,7 @@ const ChangePolicy = () => {
               </div>
               <div
                 style={{
-                  display: policyType == "Specific user" ? "block" : "none",
+                  display: policyType == "UserIdPolicy" ? "block" : "none",
                 }}
               >
                 <div className="dropdown">
@@ -1616,7 +1618,7 @@ const ChangePolicy = () => {
                   />
                 </div>
               </div>
-              <div style={{ display: policyType == "Age" ? "block" : "none" }}>
+              <div style={{ display: policyType == "UseAgePolicy" ? "block" : "none" }}>
                 <div className="dropdown">
                   <button
                     className="btn btn-secondary dropdown-toggle"
