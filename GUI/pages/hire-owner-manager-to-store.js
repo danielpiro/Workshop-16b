@@ -174,18 +174,19 @@ const HireOwnerToStore = () => {
         if (document.getElementById("CLOSE_STORE").checked === true) newOwnerPermissions.push("CLOSE_STORE");
         if (document.getElementById("OPEN_STORE").checked === true) newOwnerPermissions.push("OPEN_STORE");
         if (document.getElementById("INFO_OF_MANAGERS").checked === true) newOwnerPermissions.push("INFO_OF_MANAGERS");
-        const newOwner = {
-          storeId: storeID,
-          userIdGiving: cookies.username,
-          userGettingPermission: newOfficialInput.username,
-          permissions: newOwnerPermissions,
-        };
+        // const newOwner = {
+        //   storeId: storeID,
+        //   userIdGiving: cookies.username,
+        //   UserGettingPermissionId: newOfficialInput.username,
+        //   permissions: newOwnerPermissions.toString(),
+        // };
         //console.log(newOwner)
         await api
-          .post(`/owner/create`, newOwner)
+          .post(`/owner/create/?storeId=${storeID}&userIdGiving=${cookies.username}&UserGettingPermissionId=${newOfficialInput.username.trim()}
+                &permissions=${newOwnerPermissions.toString()}`)
           .then((res) => {
             const { data } = res;
-            console.log(newOwner);
+            //console.log(newOwner);
             console.log(data);
             if (data.success) {
               createNotification("success", "Hired owner successfully", () =>

@@ -25,6 +25,6 @@ public class MockSmallPermission {
     private String UserGettingPermissionId;
 
     @NotNull
-    private List<Permission> permissions;
+    private List<String> permissions;
 
 }

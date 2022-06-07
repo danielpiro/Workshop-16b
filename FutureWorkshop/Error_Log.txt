@@ -7031,3 +7031,21 @@ Jun 04, 2022 5:22:06 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user aaa doesn't exist
 Jun 04, 2022 5:22:06 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user aaa failed login
+Jun 07, 2022 7:59:02 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user aaa                 doesn't exist
+Jun 07, 2022 8:03:45 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: failed to logout because abc is null
+Jun 07, 2022 8:04:37 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user aaa                 doesn't exist
+Jun 07, 2022 8:05:57 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user aaa                 doesn't exist
+Jun 07, 2022 8:10:47 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user aaa                 doesn't exist
+Jun 07, 2022 8:10:47 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user aaa                 doesn't exist
+Jun 07, 2022 8:10:47 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user aaa                 doesn't exist
+Jun 07, 2022 8:12:19 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user aaa                 doesn't exist
+Jun 07, 2022 8:12:19 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user aaa                 doesn't exist

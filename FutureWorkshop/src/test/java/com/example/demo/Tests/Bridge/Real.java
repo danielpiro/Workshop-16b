@@ -27,6 +27,7 @@ import com.example.demo.User.Guest;
 
 import javax.naming.NoPermissionException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -411,7 +412,8 @@ public class Real   {
     /** User requirement - II.4.4 */
     public boolean addNewStoreOwner(String storeId, String userIdGiving, String UserGettingPermissionId, List<Permission> permissions){
         try {
-            bigController.createOwner(new MockSmallPermission(storeId, userIdGiving,UserGettingPermissionId,permissions));
+            List<String> s = new ArrayList<>();//todo to fix
+            bigController.createOwner(storeId, userIdGiving,UserGettingPermissionId,"TO FIX");
             return true;
         }
         catch (NoPermissionException | UserException | NotifyException e) {

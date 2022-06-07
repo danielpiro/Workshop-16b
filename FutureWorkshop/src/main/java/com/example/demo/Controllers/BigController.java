@@ -477,15 +477,15 @@ public class BigController {
         return rv;
     }
 
-    @PostMapping(value = "/owner/create", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ReturnValue createOwner(@Valid @RequestBody MockSmallPermission mockPermission) throws NoPermissionException, UserException, NotifyException {
-        if (getUserController().checkIfUserExists(mockPermission.getUserIdGiving()) && getUserController().checkIfUserExists(mockPermission.getUserGettingPermissionId()) && getUserController().checkIfUserIsLoggedIn(mockPermission.getUserIdGiving())) {
-//            List<Permission> permissions = new ArrayList<>();
-//            for (String perString :
-//                    mockPermission.getPermissions()) {
-//                permissions.add(Permission.valueOf(perString));
-//            }
-            getStoreController().createOwner(mockPermission.getStoreId(), mockPermission.getUserIdGiving(), mockPermission.getUserGettingPermissionId(), mockPermission.getPermissions());
+    @PostMapping(value = "/owner/create")
+    public ReturnValue createOwner(@RequestParam String storeId, @RequestParam String userIdGiving, @RequestParam String UserGettingPermissionId, @RequestParam String permissions) throws NoPermissionException, UserException, NotifyException {
+        if (getUserController().checkIfUserExists(userIdGiving) && getUserController().checkIfUserExists(UserGettingPermissionId.trim()) && getUserController().checkIfUserIsLoggedIn(userIdGiving)) {
+            List<Permission> finalPermissions = new ArrayList<>();
+            List<String> permissionsList = Arrays.asList(permissions.split(","));
+            for (String perString : permissionsList) {
+                finalPermissions.add(Permission.valueOf(perString));
+            }
+            getStoreController().createOwner(storeId, userIdGiving, UserGettingPermissionId, finalPermissions);
         } else
             throw new IllegalArgumentException("couldn't give permission because the given userId doesn't exist or is not logged in");
         ReturnValue rv = new ReturnValue(true, "", null);
