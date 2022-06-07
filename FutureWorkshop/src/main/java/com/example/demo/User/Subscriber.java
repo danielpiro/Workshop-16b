@@ -49,12 +49,12 @@ public class Subscriber extends User {
             this.logged_in = logged_in;
             if(this.logged_in && getStoreNotifications().size()>0){
                 for(int i =0; i<getStoreNotifications().size();i++){
-                    notificationController.getInstance().recievePrivateMessage(new realTimeNotification(this.name,getStoreNotifications().get(i).getSentFrom().getStoreName(), getStoreNotifications().get(i).getSubject().toString(), getStoreNotifications().get(i).getTitle(), getStoreNotifications().get(i).getBody(), new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
+                    notificationController.getInstance().sendNotification(new realTimeNotification(this.name,getStoreNotifications().get(i).getSentFrom().getStoreName(), getStoreNotifications().get(i).getSubject().toString(), getStoreNotifications().get(i).getTitle(), getStoreNotifications().get(i).getBody(), new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
                 }
             }
         if(this.logged_in && getAdminComplaints().size()>0){
             for(String sender: getAdminComplaints().keySet()){
-                notificationController.getInstance().recievePrivateMessage(new realTimeNotification(this.name,sender, getAdminComplaints().get(sender).getSubject().toString(),getAdminComplaints().get(sender).getTitle(), getAdminComplaints().get(sender).getBody(), new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
+                notificationController.getInstance().sendNotification(new realTimeNotification(this.name,sender, getAdminComplaints().get(sender).getSubject().toString(),getAdminComplaints().get(sender).getTitle(), getAdminComplaints().get(sender).getBody(), new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
             }
         }
 
@@ -76,7 +76,7 @@ public class Subscriber extends User {
 
     public void addComplaint(ComplaintNotification complaintNotification,String senderId) {
         if (isLogged_in())
-            notificationController.getInstance().recievePrivateMessage(new realTimeNotification(this.name, senderId, complaintNotification.getSubject().toString(), complaintNotification.getTitle(), complaintNotification.getBody(), new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
+            notificationController.getInstance().sendNotification(new realTimeNotification(this.name, senderId, complaintNotification.getSubject().toString(), complaintNotification.getTitle(), complaintNotification.getBody(), new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
         else {
             getAdminComplaints().put(senderId, complaintNotification);
             getComplaintNotifications().add(complaintNotification);
@@ -85,7 +85,7 @@ public class Subscriber extends User {
 
     public void addNotification(StoreNotification storeNotification){
         if(isLogged_in())
-            notificationController.getInstance().recievePrivateMessage(new realTimeNotification(this.name,storeNotification.getSentFrom().getStoreName(), storeNotification.getSubject().toString(), storeNotification.getTitle(), storeNotification.getBody(), new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
+            notificationController.getInstance().sendNotification(new realTimeNotification(this.name,storeNotification.getSentFrom().getStoreName(), storeNotification.getSubject().toString(), storeNotification.getTitle(), storeNotification.getBody(), new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
          else
         getStoreNotifications().add(storeNotification);
     }
