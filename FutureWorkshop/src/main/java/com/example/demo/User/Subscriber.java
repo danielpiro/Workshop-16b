@@ -85,4 +85,6 @@ public class Subscriber extends User {
         return lock;
     }
 
+    public void resetNotification(){this.storeNotifications = new ArrayList<>();}
+
 }
