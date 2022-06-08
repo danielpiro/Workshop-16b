@@ -7047,3 +7047,7 @@ Jun 07, 2022 8:21:41 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user admin is already logged in
 Jun 07, 2022 9:15:43 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user aaaa doesn't exist
+Jun 08, 2022 7:22:17 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: failed to logout - user aaaa is not logged in
+Jun 08, 2022 7:53:42 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user admin failed login

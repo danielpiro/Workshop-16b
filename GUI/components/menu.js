@@ -4,6 +4,7 @@ import { useState } from "react";
 import createNotification from "./norification";
 import api from "./api";
 import { useRouter } from "next/router";
+import { disconnect } from "./websocket";
 
 const Menu = () => {
   const [cookies, setCookie, removeCookie] = useCookies([
@@ -72,6 +73,7 @@ const Menu = () => {
       .then((res) => {
         const { data } = res;
         if (data.success) {
+          //disconnect();
           return createNotification(
             "success",
             `${cookies.userId} logged out successfully`,
@@ -93,6 +95,7 @@ const Menu = () => {
       .then((res) => {
         const { data } = res;
         if (data.success) {
+          // disconnect();
           return createNotification(
             "success",
             `${cookies.username} logged out successfully`,

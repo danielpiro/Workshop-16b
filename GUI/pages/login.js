@@ -51,10 +51,10 @@ const Login = () => {
             path: "/",
             sameSite: true,
           });
-          WebSocket(cookies.userId);
           createNotification("success", "Logged in successfully", () =>
             router.push("/dashboard")
           )();
+          WebSocket(loginInput.username);
         } else {
           createNotification("error", data.reason)();
         }

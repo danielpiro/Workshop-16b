@@ -37,6 +37,8 @@ import com.example.demo.User.Subscriber;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -47,7 +49,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 
-
+@EnableScheduling
 @CrossOrigin(maxAge = 3600)
 @RestController
 @EnableWebMvc
@@ -566,8 +568,10 @@ public class BigController {
     }
 
     @PostMapping("/in/dashboard")
-    public ReturnValue isInDashboard(@RequestParam String userId) {
+    public ReturnValue isInDashboard(@RequestParam String userId) throws InterruptedException {
         for (int i = 0; i < us.get_subscriber(userId).getStoreNotifications().size(); i++) {
+            //remove before stress test
+            Thread.sleep(3000);
             NotificationController.getInstance().sendNotification(new realTimeNotification(userId, us.get_subscriber(userId).getStoreNotifications().get(i).getSentFrom().getStoreName(), us.get_subscriber(userId).getStoreNotifications().get(i).getSubject().toString(), us.get_subscriber(userId).getStoreNotifications().get(i).getTitle(), us.get_subscriber(userId).getStoreNotifications().get(i).getBody(), new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(Calendar.getInstance().getTime())));
         }
         us.get_subscriber(userId).resetNotification();

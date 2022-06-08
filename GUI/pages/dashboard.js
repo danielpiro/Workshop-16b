@@ -11,7 +11,6 @@ const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(0);
   const [searchBy, setSearchBy] = useState("");
-  const [single, setSingle] = useState(true);
   const [cookies, setCookie, removeCookie] = useCookies([
     "username",
     "password",
@@ -28,22 +27,23 @@ const Dashboard = () => {
           setIsLoading(!isLoading);
           setProducts(data.value);
         }
-      }).then(async () => {
-        return await api
-        .post(`/in/dashboard/?userId=${cookies.userId}`)
-        .then((res) => {
-          const { data } = res;
-          if (!data.success) {
-            console.log("cannot update server that user in dashboard");
-          }
-        })
+      })
+      .then(() => {
+        return api
+          .post(`/in/dashboard/?userId=${cookies.userId}`)
+          .then((res) => {
+            const { data } = res;
+            if (!data.success) {
+              console.log("cannot update server that user in dashboard");
+            }
+          });
       })
       .catch((err) => console.log(err));
   };
 
   useEffect(() => {
     setIsLoading(!isLoading);
-      fetchData();
+    fetchData();
   }, []);
 
   const onNext = (e) => {
