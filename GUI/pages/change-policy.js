@@ -26,7 +26,8 @@ const ChangePolicy = () => {
     startHourOfDay: "",
     endHourOfDay: "",
     specificUser: "",
-    age: "",
+    minAge: "",
+    maxAge: "",
   });
   const [predsFeatures2, setPredsFeature2] = useState({
     allowORforbid: "Allow/Forbid",
@@ -41,7 +42,8 @@ const ChangePolicy = () => {
     dayOfWeek: "Day Of Week",
     hourOfDay: "Hour Of Day",
     specificUser: "",
-    age: "",
+    minAge: "",
+    maxAge: "",
   });
   const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   const daysOfMonth = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
@@ -68,7 +70,10 @@ const ChangePolicy = () => {
           const { data } = res;
           if (data.success) {
             console.log(data);
-            // Add each policy to policies...
+            //fill policies list:
+            data.value.map((pol) => {
+              policies.push(pol);
+            })
           } else {
             createNotification("error", data.reason)();
           }
@@ -105,57 +110,67 @@ const ChangePolicy = () => {
     if(storeID.charAt(storeID.length-1) === '#'){
       storeID = storeID.slice(0, -1);
     }
-    const mockPolicy = {
-      numOfProducts: 0,
-      categories: [],
-      products: [],
-      productsAmount: 0,
-      userIds: [],
-      startAge: 0,
-      endAge: 0,
-      startTime: "23:00",
-      endTime: "23:59",
-      price: 0,
-    }
+    // const mockPolicy = {
+    //   numOfProducts: predsFeatures1.minQunatity,
+    //   categories: predsFeatures1.category,
+    //   products: predsFeatures1.productShouldBeInCart,
+    //   productsAmount: predsFeatures1.minQunatity,
+    //   userIds: predsFeatures1.specificUser,
+    //   startAge: predsFeatures1.minAge,
+    //   endAge: predsFeatures2.maxAge,
+    //   startTime: predsFeatures1.startHourOfDay,
+    //   endTime: predsFeatures1.endHourOfDay,
+    //   price: predsFeatures1.price,
+    // }
     return await api
-        .post(`/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfCombination=${combinationType}` , mockPolicy)
+        .post(`/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfPolicy=${policyType}
+              &numOfProducts=${predsFeatures1.minQunatity}&categories=${predsFeatures1.category}&products=${predsFeatures1.productShouldBeInCart}
+              &productsAmount=${predsFeatures1.minQunatity}&userIds=${predsFeatures1.specificUser}&startAge=${predsFeatures1.minAge}
+              &endAge=${predsFeatures1.maxAge}&startTime=${predsFeatures1.startHourOfDay}&endTime=${predsFeatures1.endHourOfDay}&price=${predsFeatures1.minPrice}`)
+        //.post(`/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfCombination=${combinationType}` , mockPolicy)
         .then((res) => {
           const { data } = res;
           if (data.success) {
             console.log(data);
             // Add new policy to policies...
+            policies.push(data.value);
           } else {
             createNotification("error", data.reason)();
           }
         })
   };
 
-  const onCreatePredicate2 = async (e) => { //for policy #2 in page
+  const onCreatePredicate2 = async (e) => { //for policy #1 in page
     e.preventDefault();
-    console.log("creating new predicate #2"); //Create one pred policy from pred2 values...
+    console.log("creating new predicate #2"); //Create one pred policy from pred1 values...
     let storeID = window.location.href.split("?").pop();
     if(storeID.charAt(storeID.length-1) === '#'){
       storeID = storeID.slice(0, -1);
     }
-    const mockPolicy = {
-      numOfProducts: 0,
-      categories: [],
-      products: [],
-      productsAmount: 0,
-      userIds: [],
-      startAge: 0,
-      endAge: 0,
-      startTime: "23:00",
-      endTime: "23:59",
-      price: 0,
-    }
+    // const mockPolicy = {
+    //   numOfProducts: predsFeatures1.minQunatity,
+    //   categories: predsFeatures1.category,
+    //   products: predsFeatures1.productShouldBeInCart,
+    //   productsAmount: predsFeatures1.minQunatity,
+    //   userIds: predsFeatures1.specificUser,
+    //   startAge: predsFeatures1.minAge,
+    //   endAge: predsFeatures2.maxAge,
+    //   startTime: predsFeatures1.startHourOfDay,
+    //   endTime: predsFeatures1.endHourOfDay,
+    //   price: predsFeatures1.price,
+    // }
     return await api
-        .post(`/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfCombination=${combinationType}` , mockPolicy)
+        .post(`/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfPolicy=${policyType}
+              &numOfProducts=${predsFeatures2.minQunatity}&categories=${predsFeatures2.category}&products=${predsFeatures2.productShouldBeInCart}
+              &productsAmount=${predsFeatures2.minQunatity}&userIds=${predsFeatures2.specificUser}&startAge=${predsFeatures2.minAge}
+              &endAge=${predsFeatures2.maxAge}&startTime=${predsFeatures2.startHourOfDay}&endTime=${predsFeatures2.endHourOfDay}&price=${predsFeatures2.minPrice}`)
+        //.post(`/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfCombination=${combinationType}` , mockPolicy)
         .then((res) => {
           const { data } = res;
           if (data.success) {
             console.log(data);
             // Add new policy to policies...
+            policies.push(data.value);
           } else {
             createNotification("error", data.reason)();
           }
@@ -266,7 +281,7 @@ const ChangePolicy = () => {
           </div>
           <div className="col">
             <h4>
-              <u>Create policy</u>
+              <u>Create policy (Combined)</u>
             </h4>
             <div className="dropdown m-1">
               <button
@@ -1002,19 +1017,38 @@ const ChangePolicy = () => {
                 <br />
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
-                    Age
+                    MinAge
                   </span>
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Enter username"
+                    placeholder="Enter min age"
                     aria-label="specificUser"
                     aria-describedby="basic-addon1"
-                    value={predsFeatures1.age}
+                    value={predsFeatures1.minAge}
                     onChange={(e) =>
                       setPredsFeature1((prevState) => ({
                         ...prevState,
-                        age: e.target.value,
+                        minAge: e.target.value,
+                      }))
+                    }
+                  />
+                </div>
+                <div className="input-group mb-3">
+                  <span className="input-group-text" id="basic-addon1">
+                    MaxAge
+                  </span>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Enter max age"
+                    aria-label="specificUser"
+                    aria-describedby="basic-addon1"
+                    value={predsFeatures1.maxAge}
+                    onChange={(e) =>
+                      setPredsFeature1((prevState) => ({
+                        ...prevState,
+                        maxAge: e.target.value,
                       }))
                     }
                   />
@@ -1666,19 +1700,38 @@ const ChangePolicy = () => {
                 <br />
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
-                    Age
+                    MinAge
                   </span>
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Enter username"
+                    placeholder="Enter min age"
                     aria-label="specificUser"
                     aria-describedby="basic-addon1"
-                    value={predsFeatures2.age}
+                    value={predsFeatures2.minAge}
                     onChange={(e) =>
                       setPredsFeature2((prevState) => ({
                         ...prevState,
-                        age: e.target.value,
+                        minAge: e.target.value,
+                      }))
+                    }
+                  />
+                </div>
+                <div className="input-group mb-3">
+                  <span className="input-group-text" id="basic-addon1">
+                    MaxAge
+                  </span>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Enter max age"
+                    aria-label="specificUser"
+                    aria-describedby="basic-addon1"
+                    value={predsFeatures2.maxAge}
+                    onChange={(e) =>
+                      setPredsFeature2((prevState) => ({
+                        ...prevState,
+                        maxAge: e.target.value,
                       }))
                     }
                   />
