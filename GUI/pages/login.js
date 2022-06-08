@@ -3,6 +3,7 @@ import api from "../components/api";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
 import createNotification from "../components/norification";
+import WebSocket from "../components/websocket";
 
 const Login = () => {
   const [loginInput, setLoginInput] = useState({
@@ -50,7 +51,7 @@ const Login = () => {
             path: "/",
             sameSite: true,
           });
-
+          WebSocket(cookies.userId);
           createNotification("success", "Logged in successfully", () =>
             router.push("/dashboard")
           )();

@@ -4,6 +4,7 @@ import Script from "next/script";
 import "../styles/signin.css";
 import "../styles/form-validation.css";
 import { NotificationContainer } from "react-notifications";
+
 const MyApp = ({ Component, pageProps }) => {
   return (
     <>

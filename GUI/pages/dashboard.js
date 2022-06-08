@@ -3,6 +3,7 @@ import SearchBar from "../components/search-bar";
 import { useState, useEffect } from "react";
 import Card from "../components/card";
 import api from "../components/api";
+import { useCookies } from "react-cookie";
 
 const Dashboard = () => {
   const [products, setProducts] = useState([]);
@@ -10,6 +11,28 @@ const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(0);
   const [searchBy, setSearchBy] = useState("");
+  const [single, setSingle] = useState(true);
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "username",
+    "password",
+    "userId",
+    "type",
+  ]);
+
+  const isInDashboard = async () => {
+    console.log(cookies.userId);
+    return await api
+      .post(`/in/dashboard/?userId=${cookies.userId}`)
+      .then((res) => {
+        const { data } = res;
+        if (data.success) {
+          console.log("notift bk");
+        } else {
+          console.log("didnt notify");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
   useEffect(() => {
     setIsLoading(!isLoading);
     const fetchData = async () => {
@@ -25,6 +48,10 @@ const Dashboard = () => {
         .catch((err) => console.log(err));
     };
     fetchData();
+    if (single) {
+      isInDashboard();
+      setSingle(false);
+    }
   }, []);
 
   const onNext = (e) => {

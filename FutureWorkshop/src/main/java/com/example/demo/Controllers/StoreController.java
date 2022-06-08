@@ -97,10 +97,6 @@ public class StoreController {
     }
 
     public void deleteStore(String userId, String storeId) throws NoPermissionException {
-        if(!IdGenerator.getInstance().checkIfAdmin(userId)){
-            Log.getLogger().warning(userId+" is not admin  and cant delete store");
-            throw new NoPermissionException("only admin can delete store");
-        }
         stores.remove(storeId);
         Log.getLogger().info("store deleted, storeId: "+storeId+" by users: "+userId);
     }

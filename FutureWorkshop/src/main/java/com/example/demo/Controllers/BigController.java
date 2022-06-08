@@ -1,5 +1,6 @@
 package com.example.demo.Controllers;
 
+import com.example.demo.Controllers.model.realTimeNotification;
 import com.example.demo.CustomExceptions.Exception.NotifyException;
 import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
@@ -33,7 +34,6 @@ import com.example.demo.StorePermission.Permission;
 import com.example.demo.StorePermission.StoreRoles;
 import com.example.demo.User.Guest;
 import com.example.demo.User.Subscriber;
-//import com.example.demo.dto.AdminDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
@@ -43,6 +43,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import javax.naming.NoPermissionException;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -62,7 +63,7 @@ public class BigController {
 //        this.us = us;
 //        this.sc = sc;
 //    }
-    public BigController() throws IOException, UserException, NoPermissionException, SupplyManagementException {
+    public BigController() throws IOException, UserException, NoPermissionException, SupplyManagementException, InterruptedException {
         this.us = new UserController();
         this.sc = new StoreController();
         this.policyBuilder = new PolicyBuilder();
@@ -87,7 +88,7 @@ public class BigController {
         return rv;
     }
 
-    private List<String> initializeUsers() throws UserException {
+    private List<String> initializeUsers() throws UserException, InterruptedException {
         return getUserController().initialize();
     }
 
@@ -149,7 +150,7 @@ public class BigController {
 
     @PostMapping("/users/login")
     public ReturnValue login(@RequestParam String userNameLogin,
-                             @RequestParam String password) throws UserException {
+                             @RequestParam String password) throws UserException, InterruptedException {
         ReturnValue rv = new ReturnValue(true, "", getUserController().login(userNameLogin, password));
         return rv;
     }
@@ -157,13 +158,13 @@ public class BigController {
     @PostMapping("/guest/login")
     public ReturnValue login(@RequestParam String guestId,
                              @RequestParam String userNameLogin,
-                             @RequestParam String password) throws UserException {
+                             @RequestParam String password) throws UserException, InterruptedException {
         ReturnValue rv = new ReturnValue(true, "", getUserController().login(guestId, userNameLogin, password));
         return rv;
     }
 
     @PostMapping("/users/logout")
-    public ReturnValue logout(@RequestParam String user_name) throws UserException {
+    public ReturnValue logout(@RequestParam String user_name) throws UserException, InterruptedException {
 
         ReturnValue rv = new ReturnValue(true, "", getUserController().logout(user_name));
         return rv;
@@ -457,20 +458,17 @@ public class BigController {
         ReturnValue rv = new ReturnValue(true, "", null);
         return rv;
     }
-//    public void sendComplaintToAdmins(String senderId, ComplaintNotification complaintNotification) throws UserException {
+
+    //    public void sendComplaintToAdmins(String senderId, ComplaintNotification complaintNotification) throws UserException {
 // String sentFrom, NotificationSubject subject, String title, String body
-@PostMapping("/complaints")
-public ReturnValue sendComplaintToAdmins(@RequestParam String senderId,@RequestParam String subject,@RequestParam String title,@RequestParam String body) throws UserException {
-            getUserController().sendComplaintToAdmins(senderId,new ComplaintNotification(senderId, NotificationSubject.valueOf(subject),title,body));
-            ReturnValue rv = new ReturnValue(true, "", null);
-            return rv;
-        }
+    @PostMapping("/complaints")
+    public ReturnValue sendComplaintToAdmins(@RequestParam String senderId, @RequestParam String subject, @RequestParam String title, @RequestParam String body) throws UserException {
+        getUserController().sendComplaintToAdmins(senderId, new ComplaintNotification(senderId, NotificationSubject.valueOf(subject), title, body));
+        ReturnValue rv = new ReturnValue(true, "", null);
+        return rv;
+    }
 
-
-
-
-
-        @PostMapping("/store/product/delete")
+    @PostMapping("/store/product/delete")
     public ReturnValue deleteProductFromStore(@RequestParam String storeId,
                                               @RequestParam String userId,
                                               @RequestParam String productId) throws NoPermissionException, SupplyManagementException, UserException, NotifyException, IOException {
@@ -567,8 +565,16 @@ public ReturnValue sendComplaintToAdmins(@RequestParam String senderId,@RequestP
 
     }
 
+    @PostMapping("/in/dashboard")
+    public ReturnValue isInDashboard(@RequestParam String userId) {
+        for (int i = 0; i < us.get_subscriber(userId).getStoreNotifications().size(); i++) {
+            NotificationController.getInstance().sendNotification(new realTimeNotification(userId, us.get_subscriber(userId).getStoreNotifications().get(i).getSentFrom().getStoreName(), us.get_subscriber(userId).getStoreNotifications().get(i).getSubject().toString(), us.get_subscriber(userId).getStoreNotifications().get(i).getTitle(), us.get_subscriber(userId).getStoreNotifications().get(i).getBody(), new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(Calendar.getInstance().getTime())));
+        }
+        return new ReturnValue(true, "", null);
+    }
+
     @PutMapping("/initializeSystem")
-    public ReturnValue initializeSystem() throws UserException, SupplyManagementException, NoPermissionException {
+    public ReturnValue initializeSystem() throws UserException, SupplyManagementException, NoPermissionException, InterruptedException {
         List<String> users = initializeUsers();
         initializeStores(users);
         ReturnValue rv = new ReturnValue(true, "", users);
@@ -708,6 +714,9 @@ public ReturnValue sendComplaintToAdmins(@RequestParam String senderId,@RequestP
     @PostMapping("/store/delete")
     public ReturnValue deleteStore(@RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException {
         userExistsAndLoggedIn(userId);
+        if (!us.checkIfAdmin(userId)) {
+            throw new NoPermissionException("User is not admin");
+        }
         getStoreController().deleteStore(userId, storeId);
         ReturnValue rv = new ReturnValue(true, "", null);
         return rv;

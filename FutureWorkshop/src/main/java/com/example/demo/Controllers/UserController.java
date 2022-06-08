@@ -48,7 +48,7 @@ public class UserController implements NotificationReceiver {
         registeredUsers = 0;
     }
 
-    public List<String> initialize() throws UserException {
+    public List<String> initialize() throws UserException, InterruptedException {
         Guest g1= addGuest();
         Guest g2= addGuest();
         Guest g3= addGuest();
@@ -275,7 +275,7 @@ public class UserController implements NotificationReceiver {
         }
     }
 
-    public boolean login(String guestId,String user_name, String password) throws UserException {
+    public boolean login(String guestId,String user_name, String password) throws UserException, InterruptedException {
         my_log.info("user "+ user_name+ " is trying to login");
         if(getGuest(guestId)==null)
             throw new UserException("guest "+guestId+ " does not exist in the system");
@@ -308,7 +308,7 @@ public class UserController implements NotificationReceiver {
         throw new UserException("user "+user_name + " failed login");
     }
 
-    public boolean login(String user_name, String password) throws UserException {
+    public boolean login(String user_name, String password) throws UserException, InterruptedException {
         my_log.info("user "+ user_name+ " is trying to login");
         if (checkIfUserExists(user_name)) {
             synchronized (get_subscriber(user_name).getLock()) {
@@ -337,7 +337,7 @@ public class UserController implements NotificationReceiver {
         throw new UserException("user "+user_name + " failed login");
     }
 
-    public boolean logout(String user_name) throws UserException {
+    public boolean logout(String user_name) throws UserException, InterruptedException {
         my_log.info("user "+ user_name+ " is trying to logout");
             if (get_subscriber(user_name) == null) {
                  my_log.warning("failed to logout because " +user_name + " is null");

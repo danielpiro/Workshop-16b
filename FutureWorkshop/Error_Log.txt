@@ -7037,3 +7037,13 @@ Jun 05, 2022 3:55:34 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user aaaa failed login
 Jun 05, 2022 4:21:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: aaaa is not admin  and cant delete store
+Jun 07, 2022 7:55:50 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: admin is not admin  and cant delete store
+Jun 07, 2022 7:55:55 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: admin is not admin  and cant delete store
+Jun 07, 2022 8:18:00 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: failed to logout - user admin is not logged in
+Jun 07, 2022 8:21:41 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user admin is already logged in
+Jun 07, 2022 9:15:43 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user aaaa doesn't exist

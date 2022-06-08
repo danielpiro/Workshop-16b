@@ -54,8 +54,6 @@ public class NotificationManager {//todo add tests
 
     public void sendNotificationTo(List<String> userIds,  StoreNotification storeNotification) throws UserException {
         receiver.sendNotificationTo( userIds, storeNotification);
-       NotificationController.getInstance().receivePublicMessage(new realTimeNotification(storeNotification.getSentFrom().getStoreName(),storeNotification.getSubject().toString(),storeNotification.getTitle(),storeNotification.getBody(),new SimpleDateFormat(pattern).format( Calendar.getInstance().getTime())));
-       NotificationController.getInstance().recievePrivateMessage(new realTimeNotification(storeNotification.getSentFrom().getStoreName(),storeNotification.getSubject().toString(),storeNotification.getTitle(),storeNotification.getBody(),new SimpleDateFormat(pattern).format( Calendar.getInstance().getTime())));
     }
     public void sendNotificationTo(String userId,  StoreNotification storeNotification) throws UserException {
         List<String> userIds = new ArrayList<>();
