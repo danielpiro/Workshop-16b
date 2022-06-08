@@ -19,39 +19,31 @@ const Dashboard = () => {
     "type",
   ]);
 
-  const isInDashboard = async () => {
-    console.log(cookies.userId);
-    return await api
-      .post(`/in/dashboard/?userId=${cookies.userId}`)
+  const fetchData = async () => {
+    await api
+      .get("/products/all")
       .then((res) => {
         const { data } = res;
         if (data.success) {
-          console.log("notift bk");
-        } else {
-          console.log("didnt notify");
+          setIsLoading(!isLoading);
+          setProducts(data.value);
         }
+      }).then(async () => {
+        return await api
+        .post(`/in/dashboard/?userId=${cookies.userId}`)
+        .then((res) => {
+          const { data } = res;
+          if (!data.success) {
+            console.log("cannot update server that user in dashboard");
+          }
+        })
       })
       .catch((err) => console.log(err));
   };
+
   useEffect(() => {
     setIsLoading(!isLoading);
-    const fetchData = async () => {
-      await api
-        .get("/products/all")
-        .then((res) => {
-          const { data } = res;
-          if (data.success) {
-            setIsLoading(!isLoading);
-            setProducts(data.value);
-          }
-        })
-        .catch((err) => console.log(err));
-    };
-    fetchData();
-    if (single) {
-      isInDashboard();
-      setSingle(false);
-    }
+      fetchData();
   }, []);
 
   const onNext = (e) => {

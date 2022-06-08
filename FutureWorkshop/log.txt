@@ -39804,3 +39804,211 @@ Jun 07, 2022 10:57:34 PM com.example.demo.GlobalSystemServices.Log info
 INFO: new store opened, storeId: StoreID_10 by users: [aaaa]
 Jun 07, 2022 10:59:03 PM com.example.demo.GlobalSystemServices.Log info
 INFO: sending store notification for some users
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : amit
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : guy
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : pam123
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : alex12
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : ronn
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : delphin
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : alan
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : rotman
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : dashy
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : crim
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : karma
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : damon
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : tjhaly
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : spart
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : yoav
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : pamaj
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : spratt
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user amit is trying to login
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user guy is trying to login
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user pam123 is trying to login
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user alex12 is trying to login
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user ronn is trying to login
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user rotman is trying to login
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user dashy is trying to login
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user crim is trying to login
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user karma is trying to login
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user damon is trying to login
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user tjhaly is trying to login
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user spart is trying to login
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user yoav is trying to login
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user delphin is trying to login
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user alan is trying to login
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user pamaj is trying to login
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user spratt is trying to login
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_0 by users: [amit]
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user amit recording purchase into history
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user amit recording purchase into history
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_1 by users: [guy]
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user guy recording purchase into history
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user guy recording purchase into history
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_2 by users: [pam123]
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user pam123 recording purchase into history
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user pam123 recording purchase into history
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_3 by users: [alex12]
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user alex12 recording purchase into history
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user alex12 recording purchase into history
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_4 by users: [ronn]
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user ronn recording purchase into history
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user ronn recording purchase into history
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_5 by users: [delphin]
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user delphin recording purchase into history
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user delphin recording purchase into history
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_6 by users: [alan]
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user alan recording purchase into history
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user alan recording purchase into history
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_7 by users: [rotman]
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user rotman recording purchase into history
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user rotman recording purchase into history
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_8 by users: [dashy]
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user dashy recording purchase into history
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user dashy recording purchase into history
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_9 by users: [crim]
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user crim recording purchase into history
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user crim recording purchase into history
+יוני 08, 2022 12:09:58 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+יוני 08, 2022 12:10:30 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user admin is trying to login
+יוני 08, 2022 12:10:46 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user admin is trying to logout
+יוני 08, 2022 12:10:46 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user admin successfully logged out
+יוני 08, 2022 12:10:50 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to sign up
+יוני 08, 2022 12:10:50 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : aaaa
+יוני 08, 2022 12:10:52 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user admin is trying to login
+יוני 08, 2022 12:10:57 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_10 by users: [admin]
+יוני 08, 2022 12:11:04 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+יוני 08, 2022 12:11:04 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: aaaa by: admin in store:StoreID_10
+יוני 08, 2022 12:11:15 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user admin is trying to logout
+יוני 08, 2022 12:11:15 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user admin successfully logged out
+יוני 08, 2022 12:11:19 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to login
+יוני 08, 2022 12:15:01 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to logout
+יוני 08, 2022 12:15:01 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa successfully logged out
+יוני 08, 2022 12:15:04 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user admin is trying to login
+יוני 08, 2022 12:15:31 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+יוני 08, 2022 12:15:36 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user admin is trying to logout
+יוני 08, 2022 12:15:36 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user admin successfully logged out
+יוני 08, 2022 12:15:45 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to login
+יוני 08, 2022 12:17:34 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to logout
+יוני 08, 2022 12:17:34 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa successfully logged out
+יוני 08, 2022 12:17:38 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user admin is trying to login
+יוני 08, 2022 12:17:47 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: store deleted, storeId: StoreID_10 by users: admin
+יוני 08, 2022 12:17:52 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user admin is trying to logout
+יוני 08, 2022 12:17:52 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user admin successfully logged out
+יוני 08, 2022 12:17:56 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to login
+יוני 08, 2022 12:18:53 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_11 by users: [aaaa]
+יוני 08, 2022 12:22:19 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+יוני 08, 2022 12:22:20 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+יוני 08, 2022 12:22:26 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to logout
+יוני 08, 2022 12:22:26 אחה״צ com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa successfully logged out
