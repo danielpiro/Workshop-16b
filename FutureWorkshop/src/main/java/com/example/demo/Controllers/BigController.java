@@ -485,7 +485,7 @@ public class BigController {
             for (String perString : permissionsList) {
                 finalPermissions.add(Permission.valueOf(perString));
             }
-            getStoreController().createOwner(storeId, userIdGiving, UserGettingPermissionId, finalPermissions);
+            getStoreController().createOwner(storeId, userIdGiving, UserGettingPermissionId.trim(), finalPermissions);
         } else
             throw new IllegalArgumentException("couldn't give permission because the given userId doesn't exist or is not logged in");
         ReturnValue rv = new ReturnValue(true, "", null);

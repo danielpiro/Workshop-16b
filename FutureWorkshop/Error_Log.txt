@@ -7049,3 +7049,7 @@ Jun 07, 2022 8:12:19 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user aaa                 doesn't exist
 Jun 07, 2022 8:12:19 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: can't send store notification because user aaa                 doesn't exist
+Jun 08, 2022 4:50:45 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user aaa                 doesn't exist
+Jun 08, 2022 4:50:45 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user aaa                 doesn't exist
