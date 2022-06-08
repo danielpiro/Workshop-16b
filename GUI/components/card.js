@@ -52,15 +52,6 @@ const Card = ({ value, title, price, quantity, category, storeId }) => {
         >
           Add to cart
         </button>
-        <button
-          className="add-cart-buttom btn btn-outline-primary w-25 mb-3 ms-3"
-          data-bs-toggle="modal"
-          data-bs-target="#productDetails"
-          value={value}
-          onClick={onClickBid}
-        >
-          Bid
-        </button>
       </div>
     </div>
   );

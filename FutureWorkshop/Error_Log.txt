@@ -7051,3 +7051,9 @@ Jun 08, 2022 7:22:17 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: failed to logout - user aaaa is not logged in
 Jun 08, 2022 7:53:42 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user admin failed login
+Jun 08, 2022 9:53:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: invalid complaint notification id
+Jun 08, 2022 10:17:50 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user admin is already logged in
+Jun 08, 2022 10:18:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user aaaa failed login

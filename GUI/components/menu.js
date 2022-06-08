@@ -73,7 +73,6 @@ const Menu = () => {
       .then((res) => {
         const { data } = res;
         if (data.success) {
-          //disconnect();
           return createNotification(
             "success",
             `${cookies.userId} logged out successfully`,
@@ -95,7 +94,6 @@ const Menu = () => {
       .then((res) => {
         const { data } = res;
         if (data.success) {
-          // disconnect();
           return createNotification(
             "success",
             `${cookies.username} logged out successfully`,
@@ -157,27 +155,9 @@ const Menu = () => {
                       <a className="nav-link ms-4">Admin Actions</a>
                     </Link>
                   </li>
-                  <li className="my-bids-button nav-item" key="bids">
-                    <Link href="#">
-                      <a
-                        className="nav-link ms-4"
-                        onClick={createNotification(
-                          "info",
-                          "Will be implemented next milestone..."
-                        )}
-                      >
-                        My Bids
-                      </a>
-                    </Link>
-                  </li>
                   <li className="history-button nav-item" key="history">
                     <Link href="/user-history">
                       <a className="nav-link ms-4">History</a>
-                    </Link>
-                  </li>
-                  <li className="notify-admins-button nav-item" key="notify">
-                    <Link href="/notify-admins">
-                      <a className="nav-link ms-4">Notify Admins</a>
                     </Link>
                   </li>
                   <li
@@ -231,19 +211,6 @@ const Menu = () => {
                     <li className="store-management-button nav-item">
                       <Link href="/stores">
                         <a className="nav-link ms-4">Stores</a>
-                      </Link>
-                    </li>
-                    <li className="my-bids-button nav-item">
-                      <Link href="#">
-                        <a
-                          className="nav-link ms-4"
-                          onClick={createNotification(
-                            "info",
-                            "Will be implemented next milestone..."
-                          )}
-                        >
-                          My Bids
-                        </a>
                       </Link>
                     </li>
                     <li className="history-button nav-item">
@@ -374,19 +341,6 @@ const Menu = () => {
                       <a className="nav-link ms-4">Stores</a>
                     </Link>
                   </li>
-                  <li className="my-bids-button nav-item">
-                    <Link href="#">
-                      <a
-                        className="nav-link ms-4"
-                        onClick={createNotification(
-                          "info",
-                          "Will be implemented next milestone..."
-                        )}
-                      >
-                        My Bids
-                      </a>
-                    </Link>
-                  </li>
                   <li className="history-button nav-item">
                     <Link href="/user-history">
                       <a className="nav-link ms-4">History</a>
@@ -397,13 +351,8 @@ const Menu = () => {
                       <a className="nav-link ms-4">Notify Admins</a>
                     </Link>
                   </li>
-                  <li className="notifications-button nav-item">
-                    <Link href="/notifications-page">
-                      <a className="nav-link ms-4">Notifications</a>
-                    </Link>
-                  </li>
                   <li className="logout-button nav-item">
-                    <a href="#" className="nav-link ms-4" onClick={logout}>
+                    <a href="" className="nav-link ms-4" onClick={logout}>
                       Logout
                     </a>
                   </li>

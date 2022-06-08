@@ -5,6 +5,7 @@ import com.example.demo.CustomExceptions.Exception.NotifyException;
 import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
+import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.History.PurchaseHistory;
 import com.example.demo.Mock.*;
 import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
@@ -42,6 +43,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import javax.annotation.processing.Generated;
 import javax.naming.NoPermissionException;
 import javax.validation.Valid;
 import java.io.IOException;
@@ -461,6 +463,15 @@ public class BigController {
         return rv;
     }
 
+    private List<Object> parseComplaints(List<ComplaintNotification> complaintNotifications) throws JsonProcessingException {
+        List<Object> notifiParsed = new ArrayList<>();
+        ObjectMapper objectMapper = new ObjectMapper();
+        for (ComplaintNotification cn : complaintNotifications) {
+            String json = String.format("{\"sentFrom\":\"%s\",\"subject\":\"%s\",\"Title\":\"%s\",\"Body\":\"%s\",\"read\":\"%s\",\"id\":\"%s\"}", cn.getSentFrom(), cn.getSubject(),cn.getTitle(),cn.getBody(),cn.isRead(),cn.getId());
+            notifiParsed.add(objectMapper.readTree(json));
+        }
+        return notifiParsed;
+    }
     //    public void sendComplaintToAdmins(String senderId, ComplaintNotification complaintNotification) throws UserException {
 // String sentFrom, NotificationSubject subject, String title, String body
     @PostMapping("/complaints")
@@ -798,11 +809,11 @@ public class BigController {
     }
 
     @GetMapping("/notification/complaint")
-    public ReturnValue readComplaintNotification(@RequestParam String userId,
-                                                 @RequestParam int complaintNotificaionId) throws UserException {
+    public ReturnValue readComplaintNotification(@RequestParam String userId) throws UserException, JsonProcessingException {
         userExistsAndLoggedIn(userId);
-        getUserController().readComplaintNotification(userId, complaintNotificaionId);
-        ReturnValue rv = new ReturnValue(true, "", null);
+        List<ComplaintNotification> cn = us.getComplaintNotifications(userId);
+        List<Object> complaintsParsed = parseComplaints(cn);
+        ReturnValue rv = new ReturnValue(true, "",complaintsParsed);
         return rv;
     }
 

@@ -5,6 +5,7 @@ import api from "../../../components/api";
 import createNotification from "../../../components/norification";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
+import { ReactSearchAutocomplete } from "react-search-autocomplete";
 
 const StoreEdit = () => {
   const [products, setProducts] = useState([]);
@@ -77,6 +78,19 @@ const StoreEdit = () => {
         }
       })
       .catch((err) => console.log(err));
+  };
+  const categories = [
+    { id: 1, name: "Other" },
+    { id: 2, name: "Appliances" },
+    { id: 3, name: "Apps$Games" },
+    { id: 4, name: "Handmade" },
+    { id: 5, name: "Baby" },
+  ];
+  const onHandleSelect = (item) => {
+    return setNewProduct((prevState) => ({
+      ...prevState,
+      category: item.name,
+    }));
   };
   return (
     <>
@@ -163,79 +177,12 @@ const StoreEdit = () => {
                     />
                   </div>
                   <div className="text-center">
-                    <div className="me-5">Category:</div>
-
-                    <div className="dropdown">
-                      <button
-                        className="btn btn-primary dropdown-toggle"
-                        type="button"
-                        id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        {newProduct.category}
-                      </button>
-                      <ul
-                        className="dropdown-menu"
-                        aria-labelledby="dropdownMenuButton1"
-                      >
-                        <li>
-                          <a
-                            className="dropdown-item"
-                            href="#"
-                            onClick={(e) =>
-                              setNewProduct((prevState) => ({
-                                ...prevState,
-                                category: "Other",
-                              }))
-                            }
-                          >
-                            Other
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            className="dropdown-item"
-                            href="#"
-                            onClick={(e) =>
-                              setNewProduct((prevState) => ({
-                                ...prevState,
-                                category: "Appliances",
-                              }))
-                            }
-                          >
-                            Appliances
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            className="dropdown-item"
-                            href="#"
-                            onClick={(e) =>
-                              setNewProduct((prevState) => ({
-                                ...prevState,
-                                category: "Apps$Games",
-                              }))
-                            }
-                          >
-                            Apps$Games
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            className="dropdown-item"
-                            href="#"
-                            onClick={(e) =>
-                              setNewProduct((prevState) => ({
-                                ...prevState,
-                                category: "Handmade",
-                              }))
-                            }
-                          >
-                            Handmade
-                          </a>
-                        </li>
-                      </ul>
+                    Category:
+                    <div className="ms-3 w-50">
+                      <ReactSearchAutocomplete
+                        items={categories}
+                        onSelect={onHandleSelect}
+                      />
                     </div>
                   </div>
                   <div className="text-center">
