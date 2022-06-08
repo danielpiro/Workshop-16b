@@ -36,7 +36,7 @@ public class NotificationController {
 
     @MessageMapping("/private-message")
     public realTimeNotification sendNotification(@Payload realTimeNotification message) {
-        simpMessagingTemplate.convertAndSendToUser(message.getReceiverName(), "/private", message);
+        simpMessagingTemplate.convertAndSendToUser(message.getReceiverName(), "/private", message.getReceiverName().concat("\n"+"sender: "+message.getSenderName()+"\n"+"title: "+message.getTitle()+"\n"+"body: "+message.getBody()+"\n"+"date: "+message.getDate()));
         System.out.println(message.getReceiverName());
         return message;
     }
