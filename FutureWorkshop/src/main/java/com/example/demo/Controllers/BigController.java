@@ -56,10 +56,7 @@ public class BigController {
     Log my_log = Log.getLogger();
 
 
-    //    public BigController(UserController us , StoreController sc) throws IOException {
-//        this.us = us;
-//        this.sc = sc;
-//    }
+  
     public BigController() throws IOException, UserException, NoPermissionException, SupplyManagementException {
         this.us = new UserController();
         this.sc = new StoreController();
