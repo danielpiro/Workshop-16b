@@ -7,6 +7,7 @@ import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.ExternalConnections.ExternalConnectionHolder;
 import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.ShoppingCart.ShoppingCart;
+import org.springframework.scheduling.annotation.Async;
 
 public abstract class User {
     public String name;

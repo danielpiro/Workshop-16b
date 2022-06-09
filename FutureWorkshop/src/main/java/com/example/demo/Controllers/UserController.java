@@ -15,10 +15,13 @@ import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.User.Encryption;
 import com.example.demo.User.Guest;
 import com.example.demo.User.Subscriber;
+import org.springframework.scheduling.annotation.Async;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 
 public class UserController implements NotificationReceiver {
@@ -590,17 +593,27 @@ public class UserController implements NotificationReceiver {
         return null;
     }
 
-    public int getOnlineUsersNum() {
-        return onlineUsers;
+    // TODO: 09/06/2022 dan this is working example for simple variables
+    @Async
+    public CompletableFuture<Integer> getOnlineUsersNum() {
+        return CompletableFuture.completedFuture(onlineUsers);
     }
 
     public int getRegisteredUsersNum() {
         return registeredUsers;
     }
 
-    public float getPriceOfCartAfterDiscount(String user_id, ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException, UserException {
-        if ((getGuest(user_id) != null))
-            return get_subscriber(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder);
+    // TODO: 09/06/2022 dan this example with outside function also work
+    @Async
+    public CompletableFuture<Float> getPriceOfCartAfterDiscount(String user_id, ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException, UserException {
+        if ((getGuest(user_id) != null)){
+            CompletableFuture<Float> floatCompletableFuture = CompletableFuture.completedFuture(get_subscriber(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder));
+            while (true){
+                if (floatCompletableFuture.isDone()){
+                    return floatCompletableFuture;
+                }
+            }
+        }
         if (get_subscriber(user_id) == null) {
             throw new UserException("User " + user_id + " doesn't exist");
         }
@@ -608,12 +621,19 @@ public class UserController implements NotificationReceiver {
             my_log.warning("user " + user_id + " is not logged in");
             throw new UserException("User " + user_id + " is not logged in");
         }
-        return get_subscriber(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder);
+        CompletableFuture<Float> floatCompletableFuture = CompletableFuture.completedFuture(get_subscriber(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder));
+        while (true){
+            if (floatCompletableFuture.isDone()){
+                return floatCompletableFuture;
+            }
+        }
     }
 
-    public float getPriceOfCartBeforeDiscount(String user_id, ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException, UserException {
-        if ((getGuest(user_id) != null))
-            return get_subscriber(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder);
+    @Async
+    public CompletableFuture<Float> getPriceOfCartBeforeDiscount(String user_id, ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException, UserException {
+        if ((getGuest(user_id) != null)){
+            return CompletableFuture.completedFuture(get_subscriber(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder));
+        }
         if (get_subscriber(user_id) == null) {
             throw new UserException("User " + user_id + " doesn't exist");
         }
@@ -621,7 +641,8 @@ public class UserController implements NotificationReceiver {
             my_log.warning("user " + user_id + " is not logged in");
             throw new UserException("User " + user_id + " is not logged in");
         }
-        return get_subscriber(user_id).getPriceOfCartBeforeDiscount(externalConnectionHolder);
+        return CompletableFuture.completedFuture(get_subscriber(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder));
     }
+
 
 }

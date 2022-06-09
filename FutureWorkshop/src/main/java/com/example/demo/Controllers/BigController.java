@@ -50,6 +50,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @EnableScheduling
 @CrossOrigin(maxAge = 3600)
@@ -106,22 +108,29 @@ public class BigController {
      */
     @PostMapping("/cart/price")
     public ReturnValue getPriceOfCartDiscount(@RequestParam String user_id, @RequestParam PaymentNames payment,
-                                              @RequestParam DeliveryNames delivery) throws StorePolicyViolatedException, UserException, JsonProcessingException {
+                                              @RequestParam DeliveryNames delivery) throws StorePolicyViolatedException, UserException, JsonProcessingException, ExecutionException, InterruptedException {
         ObjectMapper objectMapper = new ObjectMapper();
-        float afterDiscount = getUserController().getPriceOfCartAfterDiscount(user_id, new ExternalConnectionHolder(delivery, payment));
-        float beforeDiscount = getUserController().getPriceOfCartBeforeDiscount(user_id, new ExternalConnectionHolder(delivery, payment));
-        String json = String.format("{\"priceBeforeDiscount\":\"%s\",\"priceAfterDiscount\":\"%s\"}", beforeDiscount, afterDiscount);
-
-        ReturnValue rv = new ReturnValue(true, "", objectMapper.readTree(json));
-        return rv;
+        CompletableFuture<Float> priceOfCartAfterDiscount = getUserController().getPriceOfCartAfterDiscount(user_id, new ExternalConnectionHolder(delivery, payment));
+        CompletableFuture<Float> priceOfCartBeforeDiscount = getUserController().getPriceOfCartBeforeDiscount(user_id, new ExternalConnectionHolder(delivery, payment));
+        while (true){
+            if (priceOfCartAfterDiscount.isDone() && priceOfCartBeforeDiscount.isDone()){
+                float afterDiscount = priceOfCartAfterDiscount.get();
+                float beforeDiscount = priceOfCartBeforeDiscount.get();
+                String json = String.format("{\"priceBeforeDiscount\":\"%s\",\"priceAfterDiscount\":\"%s\"}", beforeDiscount, afterDiscount);
+                return new ReturnValue(true, "", objectMapper.readTree(json));
+            }
+        }
     }
 
 
     @GetMapping("/online/amount")
-    public ReturnValue getOnlineUsersNum() throws UserException {
-
-        ReturnValue rv = new ReturnValue(true, "", getUserController().getOnlineUsersNum());
-        return rv;
+    public ReturnValue getOnlineUsersNum() throws ExecutionException, InterruptedException {
+        CompletableFuture<Integer> onlineUsersNum = getUserController().getOnlineUsersNum();
+        while (true) {
+            if (onlineUsersNum.isDone()) {
+                 return new ReturnValue(true, "", onlineUsersNum.get());
+            }
+        }
     }
 
     @GetMapping("/registered/amount")
@@ -467,11 +476,12 @@ public class BigController {
         List<Object> notifiParsed = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
         for (ComplaintNotification cn : complaintNotifications) {
-            String json = String.format("{\"sentFrom\":\"%s\",\"subject\":\"%s\",\"Title\":\"%s\",\"Body\":\"%s\",\"read\":\"%s\",\"id\":\"%s\"}", cn.getSentFrom(), cn.getSubject(),cn.getTitle(),cn.getBody(),cn.isRead(),cn.getId());
+            String json = String.format("{\"sentFrom\":\"%s\",\"subject\":\"%s\",\"Title\":\"%s\",\"Body\":\"%s\",\"read\":\"%s\",\"id\":\"%s\"}", cn.getSentFrom(), cn.getSubject(), cn.getTitle(), cn.getBody(), cn.isRead(), cn.getId());
             notifiParsed.add(objectMapper.readTree(json));
         }
         return notifiParsed;
     }
+
     //    public void sendComplaintToAdmins(String senderId, ComplaintNotification complaintNotification) throws UserException {
 // String sentFrom, NotificationSubject subject, String title, String body
     @PostMapping("/complaints")
@@ -813,7 +823,7 @@ public class BigController {
         userExistsAndLoggedIn(userId);
         List<ComplaintNotification> cn = us.getComplaintNotifications(userId);
         List<Object> complaintsParsed = parseComplaints(cn);
-        ReturnValue rv = new ReturnValue(true, "",complaintsParsed);
+        ReturnValue rv = new ReturnValue(true, "", complaintsParsed);
         return rv;
     }
 
