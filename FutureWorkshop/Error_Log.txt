@@ -7053,3 +7053,7 @@ Jun 08, 2022 4:50:45 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user aaa                 doesn't exist
 Jun 08, 2022 4:50:45 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: can't send store notification because user aaa                 doesn't exist
+Jun 09, 2022 4:15:30 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user amit is already logged in
+Jun 09, 2022 5:17:09 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: cant delete, no Policy with this Id

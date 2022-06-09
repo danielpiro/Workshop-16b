@@ -796,16 +796,17 @@ public class BigController {
 
     @PostMapping("/policy/add")
     public ReturnValue addNewPolicy(@RequestParam String storeId, @RequestParam String userId, @RequestParam String typeOfPolicy,
-                                    @RequestParam Integer numOfProducts, @RequestParam String categories, @RequestParam String products,
-                                    @RequestParam Integer productsAmount, @RequestParam String userIds, @RequestParam Integer startAge,
-                                    @RequestParam Integer endAge, @RequestParam String startTime, @RequestParam String endTime,
-                                    @RequestParam Integer price) throws Exception {
+                                    @RequestParam String numOfProducts, @RequestParam String categories, @RequestParam String products,
+                                    @RequestParam String productsAmount, @RequestParam String userIds, @RequestParam String startAge,
+                                    @RequestParam String endAge, @RequestParam String startTime, @RequestParam String endTime,
+                                    @RequestParam String price) throws Exception {
     //public ReturnValue addNewPolicy(@RequestParam String storeId, @RequestParam String userId, @RequestParam String typeOfPolicy, @RequestBody MockPolicy mockPolicy) throws Exception {
         Policy policy;
         userExistsAndLoggedIn(userId);
+
         switch (typeOfPolicy) {
             case "CartPolicy": //quantity in cart
-                policy = policyBuilder.newCartPolicy(numOfProducts);
+                policy = policyBuilder.newCartPolicy(Integer.parseInt(numOfProducts));
                 break;
             case "CategoryPolicy": //category
                 List<ProductsCategories> categoriesList = new ArrayList<>();
@@ -834,7 +835,7 @@ public class BigController {
                 List<Product> productsList2 = store2.getProductsNameContains(products);
                 HashMap<PurchasableProduct, Integer> mp = new HashMap<>();
                 for (Product p : productsList2){
-                    mp.put(p, productsAmount);
+                    mp.put(p, Integer.valueOf(productsAmount));
                 }
                 policy = policyBuilder.newProductWithAmountPolicy(mp);
                 break;
@@ -843,7 +844,7 @@ public class BigController {
                 policy = policyBuilder.newUserIdPolicy(userIdsList);
                 break;
             case "UseAgePolicy": //age
-                policy = policyBuilder.newUseAgePolicy(startAge, endAge);
+                policy = policyBuilder.newUseAgePolicy(Integer.parseInt(startAge), Integer.parseInt(endAge));
                 break;
             case "OnHoursOfTheDayPolicy": //hour of day
                 policy = policyBuilder.newOnHoursOfTheDayPolicy(LocalDateTime.parse(startTime), LocalDateTime.parse(endTime));
@@ -855,7 +856,7 @@ public class BigController {
                 policy = policyBuilder.newOnDayOfMonthPolicy(LocalDateTime.parse(startTime), LocalDateTime.parse(endTime));
                 break;
             case "PricePredicate": //total cart price
-                policy = policyBuilder.newPricePredicate(price);
+                policy = policyBuilder.newPricePredicate(Integer.parseInt(price));
                 break;
             default:
                 throw new IllegalStateException("Unexpected type of policy: " + typeOfPolicy);
@@ -882,7 +883,7 @@ public class BigController {
             case "Or":
                 policy = policyBuilder.OrGatePolicy(getPolicy(storeId, policyID1), getPolicy(storeId, policyID2));
                 break;
-            case "Cond":
+            case "Xor": //Cond
                 policy = policyBuilder.ConditioningGatePolicy(getPolicy(storeId, policyID1), getPolicy(storeId, policyID2));
                 break;
             default:
