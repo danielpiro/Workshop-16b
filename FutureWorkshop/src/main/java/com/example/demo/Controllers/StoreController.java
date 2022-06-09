@@ -349,4 +349,8 @@ public class StoreController {
         }
         return null;
     }
+
+    public Store getStoreById(String storeId) {
+        return stores.get(storeId);
+    }
 }

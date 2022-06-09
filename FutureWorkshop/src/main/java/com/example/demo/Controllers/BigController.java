@@ -797,7 +797,7 @@ public class BigController {
     @PostMapping("/policy/add")
     public ReturnValue addNewPolicy(@RequestParam String storeId, @RequestParam String userId, @RequestParam String typeOfPolicy,
                                     @RequestParam Integer numOfProducts, @RequestParam String categories, @RequestParam String products,
-                                    @RequestParam String productsAmount, @RequestParam String userIds, @RequestParam Integer startAge,
+                                    @RequestParam Integer productsAmount, @RequestParam String userIds, @RequestParam Integer startAge,
                                     @RequestParam Integer endAge, @RequestParam String startTime, @RequestParam String endTime,
                                     @RequestParam Integer price) throws Exception {
     //public ReturnValue addNewPolicy(@RequestParam String storeId, @RequestParam String userId, @RequestParam String typeOfPolicy, @RequestBody MockPolicy mockPolicy) throws Exception {
@@ -816,24 +816,26 @@ public class BigController {
                 policy = policyBuilder.newCategoryPolicy(categoriesList);
                 break;
             case "ProductWithoutAmountPolicy": //product should be in cart
-                //todo get products from guy
+                Store store = sc.getStoreById(storeId);
+                List<Product> productsList = store.getProductsNameContains(products); //Arrays.asList(products.split(","));
                 List<PurchasableProduct> lp = new LinkedList<>();
-                List<String> productsList = Arrays.asList(products.split(","));
-                for (Product p : getProductById(storeId, productsList)) {
+                List<String> productsListIds = new ArrayList<>();
+                for (Product p : productsList){
+                    productsListIds.add(p.getId());
+                }
+                for (Product p : getProductById(storeId, productsListIds)) {
                     PurchasableProduct pp = p;
                     lp.add(pp);
                 }
                 policy = policyBuilder.newProductWithoutAmountPolicy(lp);
                 break;
             case "ProductWithAmountPolicy": //product should be in cart with minimum quantity
+                Store store2 = sc.getStoreById(storeId);
+                List<Product> productsList2 = store2.getProductsNameContains(products);
                 HashMap<PurchasableProduct, Integer> mp = new HashMap<>();
-                //TODO: Parse this hashmap!
-//                for (String s : mockPolicy.getProductsAmount().keySet()) {
-//
-//                    Product product = (Product) getProductById(storeId, s).getValue();
-//                    PurchasableProduct pp = product;
-//                    mp.put(pp, mockPolicy.getProductsAmount().get(s));
-//                }
+                for (Product p : productsList2){
+                    mp.put(p, productsAmount);
+                }
                 policy = policyBuilder.newProductWithAmountPolicy(mp);
                 break;
             case "UserIdPolicy": //specific user

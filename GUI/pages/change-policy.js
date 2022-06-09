@@ -13,40 +13,37 @@ const ChangePolicy = () => {
     predToDelete: "Choose existing predicate to delete",
   });
   const [predsFeatures1, setPredsFeature1] = useState({
-    allowORforbid: "Allow/Forbid",
+    //allowORforbid: "Allow/Forbid",
     minPrice: "",
-    maxPrice: "",
     category: "Category",
     minQunatity: "",
-    maxQunatity: "",
     productShouldBeInCart: "",
     productShouldBeInCartMinQunatity: "",
-    dayOfMonth: "Day Of Month",
-    dayOfWeek: "Day Of Week",
-    startHourOfDay: "",
-    endHourOfDay: "",
+    dayOfMonth: "01",
+    dayOfWeek: "Sunday",
+    startHourOfDay: "00:00",
+    endHourOfDay: "00:00",
     specificUser: "",
     minAge: "",
     maxAge: "",
   });
   const [predsFeatures2, setPredsFeature2] = useState({
-    allowORforbid: "Allow/Forbid",
+    //allowORforbid: "Allow/Forbid",
     minPrice: "",
-    maxPrice: "",
     category: "Category",
     minQunatity: "",
-    maxQunatity: "",
     productShouldBeInCart: "",
     productShouldBeInCartMinQunatity: "",
-    dayOfMonth: "Day Of Month",
-    dayOfWeek: "Day Of Week",
-    hourOfDay: "Hour Of Day",
+    dayOfMonth: "01",
+    dayOfWeek: "Sunday",
+    startHourOfDay: "00:00",
+    endHourOfDay: "00:00",
     specificUser: "",
     minAge: "",
     maxAge: "",
   });
   const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  const daysOfMonth = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
+  const daysOfMonth = ["01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"];
   const categories = ["Other", "Appliances", "Apps$Games", "Handmade", "Baby"];
   const [policies, setPolicies] = useState(["Create new predicate"]);
 
@@ -110,30 +107,26 @@ const ChangePolicy = () => {
     if(storeID.charAt(storeID.length-1) === '#'){
       storeID = storeID.slice(0, -1);
     }
-    // const mockPolicy = {
-    //   numOfProducts: predsFeatures1.minQunatity,
-    //   categories: predsFeatures1.category,
-    //   products: predsFeatures1.productShouldBeInCart,
-    //   productsAmount: predsFeatures1.minQunatity,
-    //   userIds: predsFeatures1.specificUser,
-    //   startAge: predsFeatures1.minAge,
-    //   endAge: predsFeatures2.maxAge,
-    //   startTime: predsFeatures1.startHourOfDay,
-    //   endTime: predsFeatures1.endHourOfDay,
-    //   price: predsFeatures1.price,
-    // }
+    const defaultYear = "2022";
+    const defaultMonth = "01";   
+    const startLocalDateTime = `${defaultYear}-${defaultMonth}-${predsFeatures1.dayOfMonth}T${predsFeatures1.startHourOfDay}`;
+    const endLocalDateTime = `${defaultYear}-${defaultMonth}-${predsFeatures1.dayOfMonth}T${predsFeatures1.endHourOfDay}`;
+    console.log(`/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfPolicy=${policyType}
+    &numOfProducts=${predsFeatures1.minQunatity}&categories=${predsFeatures1.category}&products=${predsFeatures1.productShouldBeInCart}
+    &productsAmount=${predsFeatures1.minQunatity}&userIds=${predsFeatures1.specificUser}&startAge=${predsFeatures1.minAge}
+    &endAge=${predsFeatures1.maxAge}&startTime=${startLocalDateTime}&endTime=${endLocalDateTime}&price=${predsFeatures1.minPrice}`);
+
     return await api
         .post(`/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfPolicy=${policyType}
               &numOfProducts=${predsFeatures1.minQunatity}&categories=${predsFeatures1.category}&products=${predsFeatures1.productShouldBeInCart}
               &productsAmount=${predsFeatures1.minQunatity}&userIds=${predsFeatures1.specificUser}&startAge=${predsFeatures1.minAge}
-              &endAge=${predsFeatures1.maxAge}&startTime=${predsFeatures1.startHourOfDay}&endTime=${predsFeatures1.endHourOfDay}&price=${predsFeatures1.minPrice}`)
+              &endAge=${predsFeatures1.maxAge}&startTime=${startLocalDateTime}&endTime=${endLocalDateTime}&price=${predsFeatures1.minPrice}`)
         //.post(`/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfCombination=${combinationType}` , mockPolicy)
         .then((res) => {
           const { data } = res;
           if (data.success) {
             console.log(data);
-            // Add new policy to policies...
-            policies.push(data.value);
+            policies.push(data.value); // Add new policy to policies...
           } else {
             createNotification("error", data.reason)();
           }
@@ -147,23 +140,16 @@ const ChangePolicy = () => {
     if(storeID.charAt(storeID.length-1) === '#'){
       storeID = storeID.slice(0, -1);
     }
-    // const mockPolicy = {
-    //   numOfProducts: predsFeatures1.minQunatity,
-    //   categories: predsFeatures1.category,
-    //   products: predsFeatures1.productShouldBeInCart,
-    //   productsAmount: predsFeatures1.minQunatity,
-    //   userIds: predsFeatures1.specificUser,
-    //   startAge: predsFeatures1.minAge,
-    //   endAge: predsFeatures2.maxAge,
-    //   startTime: predsFeatures1.startHourOfDay,
-    //   endTime: predsFeatures1.endHourOfDay,
-    //   price: predsFeatures1.price,
-    // }
+    const defaultYear = "2022";
+    const defaultMonth = "01";
+    const startLocalDateTime = `${defaultYear}-${defaultMonth}-${predsFeatures2.dayOfMonth}T${predsFeatures2.startHourOfDay}`;
+    const endLocalDateTime = `${defaultYear}-${defaultMonth}-${predsFeatures2.dayOfMonth}T${predsFeatures2.endHourOfDay}`;
+
     return await api
         .post(`/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfPolicy=${policyType}
               &numOfProducts=${predsFeatures2.minQunatity}&categories=${predsFeatures2.category}&products=${predsFeatures2.productShouldBeInCart}
               &productsAmount=${predsFeatures2.minQunatity}&userIds=${predsFeatures2.specificUser}&startAge=${predsFeatures2.minAge}
-              &endAge=${predsFeatures2.maxAge}&startTime=${predsFeatures2.startHourOfDay}&endTime=${predsFeatures2.endHourOfDay}&price=${predsFeatures2.minPrice}`)
+              &endAge=${predsFeatures2.maxAge}&startTime=${startLocalDateTime}&endTime=${endLocalDateTime}&price=${predsFeatures2.minPrice}`)
         //.post(`/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfCombination=${combinationType}` , mockPolicy)
         .then((res) => {
           const { data } = res;
@@ -428,75 +414,12 @@ const ChangePolicy = () => {
                     }
                   />
                 </div>
-                <div className="input-group mb-3">
-                  <span className="input-group-text" id="basic-addon1">
-                    Max Price
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter price in NIS"
-                    aria-label="MaxPrice"
-                    aria-describedby="basic-addon1"
-                    value={predsFeatures1.maxPrice}
-                    onChange={(e) =>
-                      setPredsFeature1((prevState) => ({
-                        ...prevState,
-                        maxPrice: e.target.value,
-                      }))
-                    }
-                  />
-                </div>
               </div>
               <div
                 style={{
                   display: policyType == "CategoryPolicy" ? "block" : "none",
                 }}
               >
-                <div className="dropdown m-1">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    {predsFeatures1.allowORforbid}
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow",
-                          }))
-                        }
-                      >
-                        Allow
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Forbid",
-                          }))
-                        }
-                      >
-                        Forbid
-                      </a>
-                    </li>
-                  </ul>
-                </div>
                 <div className="dropdown m-1">
                   <button
                     className="btn btn-secondary dropdown-toggle"
@@ -550,25 +473,6 @@ const ChangePolicy = () => {
                       setPredsFeature1((prevState) => ({
                         ...prevState,
                         minQunatity: e.target.value,
-                      }))
-                    }
-                  />
-                </div>
-                <div className="input-group mb-3">
-                  <span className="input-group-text" id="basic-addon1">
-                    Max Quantity
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter maximum quantity"
-                    aria-label="MaxQuantity"
-                    aria-describedby="basic-addon1"
-                    value={predsFeatures1.maxQunatity}
-                    onChange={(e) =>
-                      setPredsFeature1((prevState) => ({
-                        ...prevState,
-                        maxQunatity: e.target.value,
                       }))
                     }
                   />
@@ -655,50 +559,7 @@ const ChangePolicy = () => {
                   display: policyType == "OnDayOfMonthPolicy" ? "block" : "none",
                 }}
               >
-                <div className="dropdown m-1">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    {predsFeatures1.allowORforbid}
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow",
-                          }))
-                        }
-                      >
-                        Allow
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Forbid",
-                          }))
-                        }
-                      >
-                        Forbid
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+                
                 <div className="dropdown m-1">
                   <button
                     className="btn btn-secondary dropdown-toggle"
@@ -745,46 +606,6 @@ const ChangePolicy = () => {
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    {predsFeatures1.allowORforbid}
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <a className="dropdown-item"
-                         onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow",
-                          }))
-                        }
-                      >
-                        Allow
-                      </a>
-                    </li>
-                    <li>
-                      <a className="dropdown-item"
-                         onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Forbid",
-                          }))
-                        }
-                      >
-                        Forbid
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div className="dropdown m-1">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
                     {predsFeatures1.dayOfWeek}
                   </button>
                   <ul
@@ -815,51 +636,6 @@ const ChangePolicy = () => {
                   display: policyType == "OnHoursOfTheDayPolicy" ? "block" : "none",
                 }}
               >
-                <div className="dropdown">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    {predsFeatures1.allowORforbid}
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow",
-                          }))
-                        }
-                      >
-                        Allow
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Forbid",
-                          }))
-                        }
-                      >
-                        Forbid
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <br />
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
                     Start Hour
@@ -904,51 +680,6 @@ const ChangePolicy = () => {
                   display: policyType == "UserIdPolicy" ? "block" : "none",
                 }}
               >
-                <div className="dropdown">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    {predsFeatures1.allowORforbid}
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow",
-                          }))
-                        }
-                      >
-                        Allow
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Forbid",
-                          }))
-                        }
-                      >
-                        Forbid
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <br />
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
                     Username
@@ -970,51 +701,6 @@ const ChangePolicy = () => {
                 </div>
               </div>
               <div style={{ display: policyType == "UseAgePolicy" ? "block" : "none" }}>
-                <div className="dropdown">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    {predsFeatures1.allowORforbid}
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow",
-                          }))
-                        }
-                      >
-                        Allow
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Forbid",
-                          }))
-                        }
-                      >
-                        Forbid
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <br />
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
                     MinAge
@@ -1107,75 +793,12 @@ const ChangePolicy = () => {
                     }
                   />
                 </div>
-                <div className="input-group mb-3">
-                  <span className="input-group-text" id="basic-addon1">
-                    Max Price
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter price in NIS"
-                    aria-label="MaxPrice"
-                    aria-describedby="basic-addon1"
-                    value={predsFeatures2.maxPrice}
-                    onChange={(e) =>
-                      setPredsFeature2((prevState) => ({
-                        ...prevState,
-                        maxPrice: e.target.value,
-                      }))
-                    }
-                  />
-                </div>
               </div>
               <div
                 style={{
                   display: policyType == "CategoryPolicy" ? "block" : "none",
                 }}
               >
-                <div className="dropdown m-1">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    {predsFeatures2.allowORforbid}
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow",
-                          }))
-                        }
-                      >
-                        Allow
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Forbid",
-                          }))
-                        }
-                      >
-                        Forbid
-                      </a>
-                    </li>
-                  </ul>
-                </div>
                 <div className="dropdown m-1">
                   <button
                     className="btn btn-secondary dropdown-toggle"
@@ -1229,25 +852,6 @@ const ChangePolicy = () => {
                       setPredsFeature2((prevState) => ({
                         ...prevState,
                         minQunatity: e.target.value,
-                      }))
-                    }
-                  />
-                </div>
-                <div className="input-group mb-3">
-                  <span className="input-group-text" id="basic-addon1">
-                    Max Quantity
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter maximum quantity"
-                    aria-label="MaxQuantity"
-                    aria-describedby="basic-addon1"
-                    value={predsFeatures2.maxQunatity}
-                    onChange={(e) =>
-                      setPredsFeature2((prevState) => ({
-                        ...prevState,
-                        maxQunatity: e.target.value,
                       }))
                     }
                   />
@@ -1342,50 +946,6 @@ const ChangePolicy = () => {
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    {predsFeatures2.allowORforbid}
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow",
-                          }))
-                        }
-                      >
-                        Allow
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Forbid",
-                          }))
-                        }
-                      >
-                        Forbid
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div className="dropdown m-1">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
                     {predsFeatures1.dayOfMonth}
                   </button>
                   <ul
@@ -1424,50 +984,6 @@ const ChangePolicy = () => {
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    {predsFeatures2.allowORforbid}
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow",
-                          }))
-                        }
-                      >
-                        Allow
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Forbid",
-                          }))
-                        }
-                      >
-                        Forbid
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div className="dropdown m-1">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
                     {predsFeatures2.dayOfWeek}
                   </button>
                   <ul
@@ -1498,51 +1014,6 @@ const ChangePolicy = () => {
                   display: policyType == "OnHoursOfTheDayPolicy" ? "block" : "none",
                 }}
               >
-                <div className="dropdown">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    {predsFeatures2.allowORforbid}
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow",
-                          }))
-                        }
-                      >
-                        Allow
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Forbid",
-                          }))
-                        }
-                      >
-                        Forbid
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <br />
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
                     Start Hour
@@ -1587,51 +1058,6 @@ const ChangePolicy = () => {
                   display: policyType == "UserIdPolicy" ? "block" : "none",
                 }}
               >
-                <div className="dropdown">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    {predsFeatures2.allowORforbid}
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow",
-                          }))
-                        }
-                      >
-                        Allow
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Forbid",
-                          }))
-                        }
-                      >
-                        Forbid
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <br />
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
                     Username
@@ -1653,51 +1079,6 @@ const ChangePolicy = () => {
                 </div>
               </div>
               <div style={{ display: policyType == "UseAgePolicy" ? "block" : "none" }}>
-                <div className="dropdown">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    {predsFeatures2.allowORforbid}
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow",
-                          }))
-                        }
-                      >
-                        Allow
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Forbid",
-                          }))
-                        }
-                      >
-                        Forbid
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <br />
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
                     MinAge

@@ -2,14 +2,21 @@ import Menu from "../components/menu";
 import { useState } from "react";
 
 const Discounts = () => {
-  const [discountType1, setDiscountType1] = useState("DiscountType");
-  const [discountType2, setDiscountType2] = useState("DiscountType");
-  const [discountType3, setDiscountType3] = useState("DiscountType");
-  const [discountType4, setDiscountType4] = useState("DiscountType");
+  const [discountTypePercentage1, setDiscountTypePercentage1] = useState("DiscountType");
+  const [discountTypePercentage2, setDiscountTypePercentage2] = useState("DiscountType");
+  const [discountTypePercentage3, setDiscountTypePercentage3] = useState("DiscountType");
+  const [discountTypePercentage4, setDiscountTypePercentage4] = useState("DiscountType");
+  const [discountTypeCond1, setDiscountTypeCond1] = useState("DiscountType");
+  const [discountTypeCond2, setDiscountTypeCond2] = useState("DiscountType");
+  const [discountTypeCond3, setDiscountTypeCond3] = useState("DiscountType");
+  const [discountTypeCond4, setDiscountTypeCond4] = useState("DiscountType");
   const discountTypes = ["Category", "Price", "Product With Amount", "Product Without Amount"];
-  const [operator1, setOperator1] = useState("And/Or/Xor/None");
-  const [operator2, setOperator2] = useState("And/Or/Xor/None");
-  const [operator3, setOperator3] = useState("And/Or/Xor/None");
+  const [operatorPercentage1, setOperatorPercentage1] = useState("And/Or/Xor/None");
+  const [operatorPercentage2, setOperatorPercentage2] = useState("And/Or/Xor/None");
+  const [operatorPercentage3, setOperatorPercentage3] = useState("And/Or/Xor/None");
+  const [operatorCond1, setOperatorCond1] = useState("And/Or/Xor/None");
+  const [operatorCond2, setOperatorCond2] = useState("And/Or/Xor/None");
+  const [operatorCond3, setOperatorCond3] = useState("And/Or/Xor/None");
   const operators = ["And", "Or", "Xor", "None"];
   const [combinationType, setCombinationType] = useState("Max/Addition");
   const combinationTypes = ["Max", "Addition"];
@@ -17,6 +24,7 @@ const Discounts = () => {
   // const allowForbidOptions = ["Allow", "Forbid"];
   const [discount, setDiscount] = useState("Create new discount");
   const discounts = ["Create new precentage discount", "Create new conditional discount"];
+  const [policies, setPolicies] = useState(["..."]);
   const [policyType, setPolicyType] = useState("Select Policy Type");
   const policyTypes = ["CartPolicy", "CategoryPolicy", "ProductWithoutAmountPolicy", "ProductWithAmountPolicy", "UserIdPolicy",
                       "UseAgePolicy", "OnHoursOfTheDayPolicy", "OnDaysOfTheWeekPolicy", "OnDayOfMonthPolicy", "PricePredicate"];
@@ -44,9 +52,11 @@ const Discounts = () => {
   });
   const [condDiscount1, setCondDiscount1] = useState({
     policy: "Select conditional discount policy",
+    discount: "Select discount",
   });
   const [condDiscount2, setCondDiscount2] = useState({
     policy: "Select conditional discount policy",
+    discount: "Select discount",
   });
 
   const onCreateCombinedDiscount = (e) => {
@@ -163,16 +173,17 @@ const Discounts = () => {
             <div hidden={preds.pred1 !== "Create new precentage discount" && preds.pred2 !== "Create new precentage discount"}>
               <h5><u>Select Precentage Discount Type</u></h5>
                 <div className="input-group mb-3">
+                  {/* <h2>(((</h2> */}
                   <div className="dropdown m-1">
                     <button className="btn btn-secondary dropdown-toggle" type="button"
                       id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        {discountType1}
+                        {discountTypePercentage1}
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                       {discountTypes.map((disType) => {
                         return (
                           <li>
-                            <a className="dropdown-item" onClick={() => setDiscountType1(disType)}>{disType}</a>
+                            <a className="dropdown-item" onClick={() => setDiscountTypePercentage1(disType)}>{disType}</a>
                           </li>
                         )
                       })}
@@ -181,13 +192,13 @@ const Discounts = () => {
                   <div className="dropdown m-1">
                     <button className="btn btn-secondary dropdown-toggle" type="button"
                       id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        {operator1}
+                        {operatorPercentage1}
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                       {operators.map((oper) => {
                         return (
                           <li>
-                            <a className="dropdown-item" onClick={() => setOperator1(oper)}>{oper}</a>
+                            <a className="dropdown-item" onClick={() => setOperatorPercentage1(oper)}>{oper}</a>
                           </li>
                         )
                       })}
@@ -196,31 +207,32 @@ const Discounts = () => {
                   <div className="dropdown m-1">
                     <button className="btn btn-secondary dropdown-toggle" type="button"
                       id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        {discountType2}
+                        {discountTypePercentage2}
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                       {discountTypes.map((disType) => {
                         return (
                           <li>
-                            <a className="dropdown-item" onClick={() => setDiscountType2(disType)}>{disType}</a>
+                            <a className="dropdown-item" onClick={() => setDiscountTypePercentage2(disType)}>{disType}</a>
                           </li>
                         )
                       })}
                     </ul>
                   </div>
+                  {/* <h2>)</h2> */}
                 </div>
               
                 <div className="input-group mb-3">
                   <div className="dropdown m-1">
                     <button className="btn btn-secondary dropdown-toggle" type="button"
                       id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        {operator2}
+                        {operatorPercentage2}
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                       {operators.map((oper) => {
                         return (
                           <li>
-                            <a className="dropdown-item" onClick={() => setOperator2(oper)}>{oper}</a>
+                            <a className="dropdown-item" onClick={() => setOperatorPercentage2(oper)}>{oper}</a>
                           </li>
                         )
                       })}
@@ -230,31 +242,32 @@ const Discounts = () => {
                   <div className="dropdown m-1">
                     <button className="btn btn-secondary dropdown-toggle" type="button"
                       id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        {discountType3}
+                        {discountTypePercentage3}
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                       {discountTypes.map((disType) => {
                         return (
                           <li>
-                            <a className="dropdown-item" onClick={() => setDiscountType3(disType)}>{disType}</a>
+                            <a className="dropdown-item" onClick={() => setDiscountTypePercentage3(disType)}>{disType}</a>
                           </li>
                         )
                       })}
                     </ul>
                   </div>
+                  {/* <h2>)</h2> */}
                 </div>
               
                 <div className="input-group mb-3">
                   <div className="dropdown m-1">
                     <button className="btn btn-secondary dropdown-toggle" type="button"
                       id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        {operator3}
+                        {operatorPercentage3}
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                       {operators.map((oper) => {
                         return (
                           <li>
-                            <a className="dropdown-item" onClick={() => setOperator3(oper)}>{oper}</a>
+                            <a className="dropdown-item" onClick={() => setOperatorPercentage3(oper)}>{oper}</a>
                           </li>
                         )
                       })}
@@ -264,18 +277,19 @@ const Discounts = () => {
                   <div className="dropdown m-1">
                     <button className="btn btn-secondary dropdown-toggle" type="button"
                       id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        {discountType4}
+                        {discountTypePercentage4}
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                       {discountTypes.map((disType) => {
                         return (
                           <li>
-                            <a className="dropdown-item" onClick={() => setDiscountType4(disType)}>{disType}</a>
+                            <a className="dropdown-item" onClick={() => setDiscountTypePercentage4(disType)}>{disType}</a>
                           </li>
                         )
                       })}
                     </ul>
                   </div>
+                  {/* <h2>)</h2> */}
                 </div>
             </div>
 
@@ -285,13 +299,13 @@ const Discounts = () => {
                 <div className="dropdown m-1">
                   <button className="btn btn-secondary dropdown-toggle" type="button"
                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                      {discountType1}
+                      {discountTypeCond1}
                   </button>
                   <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     {policyTypes.map((disType) => {
                       return (
                         <li>
-                          <a className="dropdown-item" onClick={() => setDiscountType1(disType)}>{disType}</a>
+                          <a className="dropdown-item" onClick={() => setDiscountTypeCond1(disType)}>{disType}</a>
                         </li>
                       )
                     })}
@@ -301,13 +315,13 @@ const Discounts = () => {
                 <div className="dropdown m-1">
                   <button className="btn btn-secondary dropdown-toggle" type="button"
                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                      {operator1}
+                      {operatorCond1}
                   </button>
                   <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     {operators.map((oper) => {
                       return (
                         <li>
-                          <a className="dropdown-item" onClick={() => setOperator1(oper)}>{oper}</a>
+                          <a className="dropdown-item" onClick={() => setOperatorCond1(oper)}>{oper}</a>
                         </li>
                       )
                     })}
@@ -316,13 +330,13 @@ const Discounts = () => {
                 <div className="dropdown m-1">
                   <button className="btn btn-secondary dropdown-toggle" type="button"
                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                      {discountType2}
+                      {discountTypeCond2}
                   </button>
                   <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     {policyTypes.map((disType) => {
                       return (
                         <li>
-                          <a className="dropdown-item" onClick={() => setDiscountType2(disType)}>{disType}</a>
+                          <a className="dropdown-item" onClick={() => setDiscountTypeCond2(disType)}>{disType}</a>
                         </li>
                       )
                     })}
@@ -333,13 +347,13 @@ const Discounts = () => {
                 <div className="dropdown m-1">
                   <button className="btn btn-secondary dropdown-toggle" type="button"
                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                      {operator2}
+                      {operatorCond2}
                   </button>
                   <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     {operators.map((oper) => {
                       return (
                         <li>
-                          <a className="dropdown-item" onClick={() => setOperator2(oper)}>{oper}</a>
+                          <a className="dropdown-item" onClick={() => setOperatorCond2(oper)}>{oper}</a>
                         </li>
                       )
                     })}
@@ -349,13 +363,13 @@ const Discounts = () => {
                 <div className="dropdown m-1">
                   <button className="btn btn-secondary dropdown-toggle" type="button"
                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                      {discountType3}
+                      {discountTypeCond3}
                   </button>
                   <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     {policyTypes.map((disType) => {
                       return (
                         <li>
-                          <a className="dropdown-item" onClick={() => setDiscountType3(disType)}>{disType}</a>
+                          <a className="dropdown-item" onClick={() => setDiscountTypeCond3(disType)}>{disType}</a>
                         </li>
                       )
                     })}
@@ -367,13 +381,13 @@ const Discounts = () => {
                 <div className="dropdown m-1">
                   <button className="btn btn-secondary dropdown-toggle" type="button"
                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                      {operator3}
+                      {operatorCond3}
                   </button>
                   <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     {operators.map((oper) => {
                       return (
                         <li>
-                          <a className="dropdown-item" onClick={() => setOperator3(oper)}>{oper}</a>
+                          <a className="dropdown-item" onClick={() => setOperatorCond3(oper)}>{oper}</a>
                         </li>
                       )
                     })}
@@ -383,13 +397,13 @@ const Discounts = () => {
                 <div className="dropdown m-1">
                   <button className="btn btn-secondary dropdown-toggle" type="button"
                     id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                      {discountType4}
+                      {discountTypeCond4}
                   </button>
                   <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     {policyTypes.map((disType) => {
                       return (
                         <li>
-                          <a className="dropdown-item" onClick={() => setDiscountType4(disType)}>{disType}</a>
+                          <a className="dropdown-item" onClick={() => setDiscountTypeCond4(disType)}>{disType}</a>
                         </li>
                       )
                     })}
@@ -400,14 +414,16 @@ const Discounts = () => {
           </div>
           
           <div className="col m-2">
-            <div className="row" hidden={preds.pred1 !== "Create new precentage discount"}>
+            <div className="row" hidden={preds.pred1 !== "Create new precentage discount"}> 
               <h5><u>Create precentage discount #1</u></h5>
               <div className="input-group mb-3">
-                <span className="input-group-text" id="basic-addon1" hidden={discountType1 === "DiscountType" && discountType2 === "DiscountType" && discountType3 === "DiscountType" && discountType4 === "DiscountType"}>
+                <span className="input-group-text" id="basic-addon1" hidden={discountTypePercentage1 === "DiscountType" && 
+                        discountTypePercentage2 === "DiscountType" && discountTypePercentage3 === "DiscountType" && discountTypePercentage4 === "DiscountType"}>
                   Enter Discount Precentage
                 </span>
                 <input type="text" className="form-control" placeholder="0-100"
-                  aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountType1 === "DiscountType" && discountType2 === "DiscountType" && discountType3 === "DiscountType" && discountType4 === "DiscountType"}
+                  aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountTypePercentage1 === "DiscountType" && 
+                        discountTypePercentage2 === "DiscountType" && discountTypePercentage3 === "DiscountType" && discountTypePercentage4 === "DiscountType"}
                   onChange={(e) =>
                     setPrecDiscount1((prevState) => ({
                       ...prevState,
@@ -417,7 +433,7 @@ const Discounts = () => {
                 />
               </div>
               
-              <div hidden={discountType1 !== "Category" && discountType2 !== "Category" && discountType3 !== "Category" && discountType4 !== "Category"}>
+              <div hidden={discountTypePercentage1 !== "Category" && discountTypePercentage2 !== "Category" && discountTypePercentage3 !== "Category" && discountTypePercentage4 !== "Category"}>
               <div className="dropdown m-1">
                   <button
                     className="btn btn-secondary dropdown-toggle"
@@ -437,7 +453,7 @@ const Discounts = () => {
                         <li>
                           <a className="dropdown-item"
                              onClick={(e) =>
-                              setPredsFeature1((prevState) => ({
+                              setPrecDiscount1((prevState) => ({
                                 ...prevState,
                                 category: cat,
                               }))
@@ -451,11 +467,11 @@ const Discounts = () => {
                   </ul>
                 </div>
               </div>
-              <div hidden={discountType1 !== "Price" && discountType2 !== "Price" && discountType3 !== "Price" && discountType4 !== "Price"}>
+              <div hidden={discountTypePercentage1 !== "Price" && discountTypePercentage2 !== "Price" && discountTypePercentage3 !== "Price" && discountTypePercentage4 !== "Price"}>
                 <div className="input-group mb-3">
-                  <span className="input-group-text" id="basic-addon1" hidden={discountType1 === "DiscountType"}>Min Price For Dicount</span>
+                  <span className="input-group-text" id="basic-addon1" hidden={discountTypePercentage1 === "DiscountType"}>Min Price For Dicount</span>
                   <input type="text" className="form-control" placeholder="Price"
-                    aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountType1 === "DiscountType"}
+                    aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountTypePercentage1 === "DiscountType"}
                     onChange={(e) =>
                       setPrecDiscount1((prevState) => ({
                         ...prevState,
@@ -465,11 +481,11 @@ const Discounts = () => {
                   />
                 </div>
               </div>
-              <div hidden={discountType1 !== "Product With Amount" && discountType2 !== "Product With Amount" && discountType3 !== "Product With Amount" && discountType4 !== "Product With Amount"}>
+              <div hidden={discountTypePercentage1 !== "Product With Amount" && discountTypePercentage2 !== "Product With Amount" && discountTypePercentage3 !== "Product With Amount" && discountTypePercentage4 !== "Product With Amount"}>
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">Product Name</span>
-                  <input type="text" className="form-control" placeholder="Product Name"
-                    aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountType1 === "DiscountType"}
+                  <input type="text" className="form-control" placeholder="Product Name With Amount"
+                    aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountTypePercentage1 === "DiscountType"}
                     onChange={(e) =>
                       setPrecDiscount1((prevState) => ({
                         ...prevState,
@@ -481,7 +497,7 @@ const Discounts = () => {
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">Min Amount Of Product In Cart</span>
                   <input type="text" className="form-control" placeholder="Amount"
-                    aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountType1 === "DiscountType"}
+                    aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountTypePercentage1 === "DiscountType"}
                     onChange={(e) =>
                       setPrecDiscount1((prevState) => ({
                         ...prevState,
@@ -491,11 +507,12 @@ const Discounts = () => {
                   />
                 </div>
               </div>
-              <div hidden={discountType1 !== "Product Without Amount" && discountType2 !== "Product Without Amount" && discountType3 !== "Product Without Amount" && discountType4 !== "Product Without Amount"}>
+              <div hidden={discountTypePercentage1 !== "Product Without Amount" && discountTypePercentage2 !== "Product Without Amount" && 
+                      discountTypePercentage3 !== "Product Without Amount" && discountTypePercentage4 !== "Product Without Amount"}>
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">Product Name</span>
-                  <input type="text" className="form-control" placeholder="Product Name"
-                    aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountType1 === "DiscountType"}
+                  <input type="text" className="form-control" placeholder="Product Name Without Amount"
+                    aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountTypePercentage1 === "DiscountType"}
                     onChange={(e) =>
                       setPrecDiscount1((prevState) => ({
                         ...prevState,
@@ -513,11 +530,13 @@ const Discounts = () => {
             <div className="row" hidden={preds.pred2 !== "Create new precentage discount"}>
             <h5><u>Create precentage discount #2</u></h5>
               <div className="input-group mb-3">
-                <span className="input-group-text" id="basic-addon1" hidden={discountType1 === "DiscountType" && discountType2 === "DiscountType" && discountType3 === "DiscountType" && discountType4 === "DiscountType"}>
+                <span className="input-group-text" id="basic-addon1" hidden={discountTypePercentage1 === "DiscountType" && discountTypePercentage2 === "DiscountType" &&
+                       discountTypePercentage3 === "DiscountType" && discountTypePercentage4 === "DiscountType"}>
                   Enter Discount Precentage
                 </span>
                 <input type="text" className="form-control" placeholder="0-100"
-                  aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountType1 === "DiscountType" && discountType2 === "DiscountType" && discountType3 === "DiscountType" && discountType4 === "DiscountType"}
+                  aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountTypePercentage1 === "DiscountType" && 
+                        discountTypePercentage2 === "DiscountType" && discountTypePercentage3 === "DiscountType" && discountTypePercentage4 === "DiscountType"}
                   onChange={(e) =>
                     setPrecDiscount2((prevState) => ({
                       ...prevState,
@@ -527,7 +546,7 @@ const Discounts = () => {
                 />
               </div>
               
-              <div hidden={discountType1 !== "Category" && discountType2 !== "Category" && discountType3 !== "Category" && discountType4 !== "Category"}>
+              <div hidden={discountTypePercentage1 !== "Category" && discountTypePercentage2 !== "Category" && discountTypePercentage3 !== "Category" && discountTypePercentage4 !== "Category"}>
               <div className="dropdown m-1">
                   <button
                     className="btn btn-secondary dropdown-toggle"
@@ -547,7 +566,7 @@ const Discounts = () => {
                         <li>
                           <a className="dropdown-item"
                              onClick={(e) =>
-                              setPredsFeature2((prevState) => ({
+                              setPrecDiscount2((prevState) => ({
                                 ...prevState,
                                 category: cat,
                               }))
@@ -561,11 +580,11 @@ const Discounts = () => {
                   </ul>
                 </div>
               </div>
-              <div hidden={discountType1 !== "Price" && discountType2 !== "Price" && discountType3 !== "Price" && discountType4 !== "Price"}>
+              <div hidden={discountTypePercentage1 !== "Price" && discountTypePercentage2 !== "Price" && discountTypePercentage3 !== "Price" && discountTypePercentage4 !== "Price"}>
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">Min Price For Dicount</span>
                   <input type="text" className="form-control" placeholder="Price"
-                    aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountType1 === "DiscountType"}
+                    aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountTypePercentage1 === "DiscountType"}
                     onChange={(e) =>
                       setPrecDiscount2((prevState) => ({
                         ...prevState,
@@ -575,11 +594,11 @@ const Discounts = () => {
                   />
                 </div>
               </div>
-              <div hidden={discountType1 !== "Product With Amount" && discountType2 !== "Product With Amount" && discountType3 !== "Product With Amount" && discountType4 !== "Product With Amount"}>
+              <div hidden={discountTypePercentage1 !== "Product With Amount" && discountTypePercentage2 !== "Product With Amount" && discountTypePercentage3 !== "Product With Amount" && discountTypePercentage4 !== "Product With Amount"}>
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">Product Name</span>
-                  <input type="text" className="form-control" placeholder="Product Name"
-                    aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountType1 === "DiscountType"}
+                  <input type="text" className="form-control" placeholder="Product Name With Amount"
+                    aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountTypePercentage1 === "DiscountType"}
                     onChange={(e) =>
                       setPrecDiscount2((prevState) => ({
                         ...prevState,
@@ -591,7 +610,7 @@ const Discounts = () => {
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">Min Amount Of Product In Cart</span>
                   <input type="text" className="form-control" placeholder="Amount"
-                    aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountType1 === "DiscountType"}
+                    aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountTypePercentage1 === "DiscountType"}
                     onChange={(e) =>
                       setPrecDiscount2((prevState) => ({
                         ...prevState,
@@ -601,11 +620,12 @@ const Discounts = () => {
                   />
                 </div>
               </div>
-              <div hidden={discountType1 !== "Product Without Amount" && discountType2 !== "Product Without Amount" && discountType3 !== "Product Without Amount" && discountType4 !== "Product Without Amount"}>
+              <div hidden={discountTypePercentage1 !== "Product Without Amount" && discountTypePercentage2 !== "Product Without Amount" && 
+                      discountTypePercentage3 !== "Product Without Amount" && discountTypePercentage4 !== "Product Without Amount"}>
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">Product Name</span>
-                  <input type="text" className="form-control" placeholder="Product Name"
-                    aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountType1 === "DiscountType"}
+                  <input type="text" className="form-control" placeholder="Product Name Without Amount"
+                    aria-label="Precentage" aria-describedby="basic-addon1" hidden={discountTypePercentage1 === "DiscountType"}
                     onChange={(e) =>
                       setPrecDiscount2((prevState) => ({
                         ...prevState,
@@ -629,7 +649,7 @@ const Discounts = () => {
                   {condDiscount1.policy}
               </button>
               <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                {policyTypes.map((pol) => {
+                {policies.map((pol) => {
                   return (
                     <li>
                       <a className="dropdown-item"
@@ -641,6 +661,30 @@ const Discounts = () => {
                         }
                       >
                         {pol}
+                      </a>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+            <div className="dropdown m-1">
+              <button className="btn btn-secondary dropdown-toggle" type="button"
+                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  {condDiscount1.discount}
+              </button>
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                {discounts.map((dis) => {
+                  return (
+                    <li>
+                      <a className="dropdown-item"
+                        onClick={() =>
+                          setCondDiscount1((prevState) => ({
+                            ...prevState,
+                            discount: dis,
+                          }))
+                        }
+                      >
+                        {dis}
                       </a>
                     </li>
                   )
@@ -661,7 +705,7 @@ const Discounts = () => {
                   {condDiscount1.policy}
               </button>
               <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                {policyTypes.map((pol) => {
+                {policies.map((pol) => {
                   return (
                     <li>
                       <a className="dropdown-item"
@@ -673,6 +717,30 @@ const Discounts = () => {
                         }
                       >
                         {pol}
+                      </a>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+            <div className="dropdown m-1">
+              <button className="btn btn-secondary dropdown-toggle" type="button"
+                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  {condDiscount2.discount}
+              </button>
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                {discounts.map((dis) => {
+                  return (
+                    <li>
+                      <a className="dropdown-item"
+                        onClick={() =>
+                          setCondDiscount2((prevState) => ({
+                            ...prevState,
+                            discount: dis,
+                          }))
+                        }
+                      >
+                        {dis}
                       </a>
                     </li>
                   )
