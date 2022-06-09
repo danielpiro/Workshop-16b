@@ -133,5 +133,8 @@ public class DatabaseService {
         basketRepository.deleteByUserId(userId);
     }
 
+    public void deleteReviewBody (String body){
+        reviewRepository.deleteByBody(body);
+    }
 
 }

@@ -4,6 +4,7 @@ import com.example.demo.Database.DTOobjects.Cart.ShoppingBasketDTO;
 import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.ShoppingCart.ShoppingBasket;
 import com.example.demo.ShoppingCart.ShoppingCart;
+import com.example.demo.Store.Review;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -77,5 +78,13 @@ class DatabaseServiceTest {
         sc.addProduct("product2","store2",2);
 
         databaseService.saveShoppingCart(sc);
+    }
+
+
+    @Test
+    void forGuy() {
+        databaseService.deleteReviewBody("now");
+
+
     }
 }

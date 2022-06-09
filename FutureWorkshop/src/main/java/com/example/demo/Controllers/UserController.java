@@ -16,13 +16,14 @@ import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.User.Guest;
 import com.example.demo.User.Message;
 import com.example.demo.User.Subscriber;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-
+import java.util.concurrent.CompletableFuture;
 
 
 public class UserController implements NotificationReceiver {
@@ -576,7 +577,11 @@ public class UserController implements NotificationReceiver {
             return "guest";
         return null;
     }
-    public int getOnlineUsersNum(){return  onlineUsers;}
+
+    public int getOnlineUsersNum(){
+
+        return  onlineUsers;
+    }
 
     public int getRegisteredUsersNum(){return registeredUsers;}
 

@@ -24,6 +24,10 @@ public interface ReviewRepository extends JpaRepository<ReviewDTO,Long> {
     List<ReviewDTO> findByProductId(String ProductId);
 
 
+    @Transactional
+    @Modifying
+    void deleteByBody(String body);
+
 
 
 

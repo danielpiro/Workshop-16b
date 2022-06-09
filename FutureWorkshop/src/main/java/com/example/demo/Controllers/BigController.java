@@ -36,6 +36,7 @@ import com.example.demo.User.Subscriber;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -44,6 +45,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 
 
 @CrossOrigin(maxAge = 3600)
@@ -113,8 +115,9 @@ public class BigController {
     }
 
 
-        @GetMapping("/online/amount")
+    @GetMapping("/online/amount")
     public ReturnValue getOnlineUsersNum() throws UserException {
+
 
         ReturnValue rv = new ReturnValue(true, "", getUserController().getOnlineUsersNum());
         return rv;
