@@ -35,6 +35,7 @@ import com.example.demo.User.Subscriber;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -614,16 +615,20 @@ public class BigController {
     }
 
     @GetMapping("/store/all")
-    public ReturnValue getAllStores() throws JsonProcessingException {
+    public ReturnValue getAllStores() throws JsonProcessingException, InterruptedException {
         List<Store> allStores = getStoreController().getAllStores();
         List<Object> stores = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
+        System.out.printf(" start thread"+ Thread.currentThread().getId()+" "+ Thread.currentThread().getName()+"\n");
+        //Thread.sleep(5000);
+
         for (var store : allStores) {
             stores.add(
                     objectMapper.readTree(
                             String.format("{\"storeId\":\"%s\",\"storeName\":\"%s\",\"storeState\":\"%s\",\"storeRating\":\"%s\"}",store.getId(),store.getStoreName(),store.getStoreState(),store.getStoreRating())));
         }
         ReturnValue rv = new ReturnValue(true, "", stores);
+        //System.out.printf(" end thread"+ Thread.currentThread().getId()+"\n");
         return rv;
     }
 

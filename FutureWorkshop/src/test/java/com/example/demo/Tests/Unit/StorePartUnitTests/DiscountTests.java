@@ -17,6 +17,7 @@ import com.example.demo.Store.StorePurchase.predicates.PredImplementions.compsit
 import com.example.demo.Store.StorePurchase.predicates.PredImplementions.compsite.DiscountPredicateOr;
 import com.example.demo.Store.StorePurchase.predicates.PredImplementions.compsite.PolicyPredicateAnd;
 import com.example.demo.Store.StorePurchase.predicates.PredImplementions.compsite.PolicyPredicateXor;
+import org.apache.tomcat.util.json.ParseException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -547,6 +548,20 @@ public class DiscountTests {
             e.printStackTrace();
             fail();
         }
+    }
+
+    @Test
+    void temp() throws ParseException, SupplyManagementException {
+        String onlyCategory = "{\"type1\":{\"type\": \"category\",\"data1\":[Baby,\"Appliances\"]}}";
+        String onlyPrice = "{\"type1\":{\"type\": \"price\",\"data1\":1}}";
+        String productWithoutAmount = "{\"type1\":{\"type\": \"productWithoutAmount\",\"data1\":[\"p1\",\"p2\"]}}";
+        String productWithAmount = "{\"type1\":{\"type\": \"productWithAmount\",\"data1\":[[\"p1\",2],[\"p2\",3]]}}";
+        String AlwaysTrue = "{\"type1\":{\"type\": \"AlwaysTrue\"}}";
+
+        String PriceAndCategory = "{\"type1\":{\"type\": \"price\",\"data1\":1} , \"op1\":\"And\" , \"type2\":{\"type\": \"category\",\"data1\":[Baby,\"Appliances\"]}}";
+
+        DiscountPredicate dp= new DiscountBuilder().parseProductPredicate(PriceAndCategory);
+        System.out.println(dp);
     }
 
 }

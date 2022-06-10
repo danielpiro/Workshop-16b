@@ -12,7 +12,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.concurrent.Executor;
 
 @SpringBootApplication
-@EnableAsync
+//@EnableAsync
 public class DemoApplication {
 
 	public static void main(String[] args) {
