@@ -62,10 +62,10 @@ const CartItem = ({
   };
   const onInc = async (e) => {
     e.preventDefault();
-    if (amount + 1 > quantity) {
+    if (amount === quantity) {
       return createNotification(
         "error",
-        "Cannot add more , reached quantity stock limit"
+        "Cannot add more , reached max stock limit"
       )();
     }
     const obj = {
@@ -104,17 +104,25 @@ const CartItem = ({
             </p>
           </div>
         </div>
-        <div className="col-sm-4">
-          <button className="btn btn-primary" onClick={onRemove}>
-            Remove
-          </button>
-          <button className="btn btn-primary ms-3" onClick={onDec}>
-            -
-          </button>
-          <button className="btn btn-primary ms-3" onClick={onInc}>
-            +
-          </button>
-          <div className="text-center mt-3">{amount}</div>
+        <div className="col-sm-4 mt-4">
+          <div className="text-center">
+            <input
+              className="input-group-text text-center w-25"
+              disabled="true"
+              value={amount}
+            />
+          </div>
+          <div className="mt-5">
+            <button className="btn btn-primary" onClick={onRemove}>
+              Remove
+            </button>
+            <button className="btn btn-primary ms-3" onClick={onDec}>
+              -
+            </button>
+            <button className="btn btn-primary ms-3" onClick={onInc}>
+              +
+            </button>
+          </div>
         </div>
       </div>
     </>

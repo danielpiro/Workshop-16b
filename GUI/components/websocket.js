@@ -4,7 +4,10 @@ import createNotification from "./norification";
 
 var stompClient = null;
 
-const WebSocket = (user) => {
+const WebSocket = (user, isConnected) => {
+  if (!isConnected) {
+    return stompClient?.disconnect();
+  }
   const connect = () => {
     const Sock = new SockJS("http://localhost:9191/ws");
     stompClient = over(Sock);
@@ -16,11 +19,11 @@ const WebSocket = (user) => {
   };
 
   const onMessageReceived = (payload) => {
-    createNotification("info", payload.body)();
+    createNotification("socket", payload.body)();
   };
 
   const onPrivateMessage = (payload) => {
-    createNotification("info", payload.body)();
+    createNotification("socket", payload.body)();
   };
   connect();
 };

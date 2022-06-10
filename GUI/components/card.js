@@ -9,11 +9,6 @@ const Card = ({ value, title, price, quantity, category, storeId }) => {
     "userId",
     "type",
   ]);
-  const onClickBid = (e) => {
-    e.preventDefault();
-    createNotification("info", "Will be implemented next milestone...")();
-  };
-
   const addProduct = async (e) => {
     e.preventDefault();
     const obj = {
@@ -32,7 +27,6 @@ const Card = ({ value, title, price, quantity, category, storeId }) => {
           createNotification("error", data.reason)();
         }
       })
-
       .catch((err) => console.log(err));
   };
   return (

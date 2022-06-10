@@ -605,14 +605,9 @@ public class UserController implements NotificationReceiver {
 
     // TODO: 09/06/2022 dan this example with outside function also work
     @Async
-    public CompletableFuture<Float> getPriceOfCartAfterDiscount(String user_id, ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException, UserException {
+    public CompletableFuture<Float> getPriceOfCartAfterDiscount(String user_id, ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException, UserException, InterruptedException {
         if ((getGuest(user_id) != null)){
-            CompletableFuture<Float> floatCompletableFuture = CompletableFuture.completedFuture(get_subscriber(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder));
-            while (true){
-                if (floatCompletableFuture.isDone()){
-                    return floatCompletableFuture;
-                }
-            }
+           return CompletableFuture.completedFuture(getGuest(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder));
         }
         if (get_subscriber(user_id) == null) {
             throw new UserException("User " + user_id + " doesn't exist");
@@ -621,12 +616,7 @@ public class UserController implements NotificationReceiver {
             my_log.warning("user " + user_id + " is not logged in");
             throw new UserException("User " + user_id + " is not logged in");
         }
-        CompletableFuture<Float> floatCompletableFuture = CompletableFuture.completedFuture(get_subscriber(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder));
-        while (true){
-            if (floatCompletableFuture.isDone()){
-                return floatCompletableFuture;
-            }
-        }
+        return CompletableFuture.completedFuture(get_subscriber(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder));
     }
 
     @Async

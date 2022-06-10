@@ -110,27 +110,21 @@ public class BigController {
     public ReturnValue getPriceOfCartDiscount(@RequestParam String user_id, @RequestParam PaymentNames payment,
                                               @RequestParam DeliveryNames delivery) throws StorePolicyViolatedException, UserException, JsonProcessingException, ExecutionException, InterruptedException {
         ObjectMapper objectMapper = new ObjectMapper();
+        System.out.println("current thread func" + Thread.currentThread().getId());
         CompletableFuture<Float> priceOfCartAfterDiscount = getUserController().getPriceOfCartAfterDiscount(user_id, new ExternalConnectionHolder(delivery, payment));
         CompletableFuture<Float> priceOfCartBeforeDiscount = getUserController().getPriceOfCartBeforeDiscount(user_id, new ExternalConnectionHolder(delivery, payment));
-        while (true){
-            if (priceOfCartAfterDiscount.isDone() && priceOfCartBeforeDiscount.isDone()){
-                float afterDiscount = priceOfCartAfterDiscount.get();
-                float beforeDiscount = priceOfCartBeforeDiscount.get();
-                String json = String.format("{\"priceBeforeDiscount\":\"%s\",\"priceAfterDiscount\":\"%s\"}", beforeDiscount, afterDiscount);
-                return new ReturnValue(true, "", objectMapper.readTree(json));
-            }
-        }
+        float afterDiscount = priceOfCartAfterDiscount.get();
+        float beforeDiscount = priceOfCartBeforeDiscount.get();
+        String json = String.format("{\"priceBeforeDiscount\":\"%s\",\"priceAfterDiscount\":\"%s\"}", beforeDiscount, afterDiscount);
+        return new ReturnValue(true, "", objectMapper.readTree(json));
+
     }
 
 
     @GetMapping("/online/amount")
     public ReturnValue getOnlineUsersNum() throws ExecutionException, InterruptedException {
         CompletableFuture<Integer> onlineUsersNum = getUserController().getOnlineUsersNum();
-        while (true) {
-            if (onlineUsersNum.isDone()) {
-                 return new ReturnValue(true, "", onlineUsersNum.get());
-            }
-        }
+        return new ReturnValue(true, "", onlineUsersNum.get());
     }
 
     @GetMapping("/registered/amount")

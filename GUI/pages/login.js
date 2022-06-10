@@ -54,7 +54,7 @@ const Login = () => {
           createNotification("success", "Logged in successfully", () =>
             router.push("/dashboard")
           )();
-          WebSocket(loginInput.username);
+          WebSocket(loginInput.username, true);
         } else {
           createNotification("error", data.reason)();
         }

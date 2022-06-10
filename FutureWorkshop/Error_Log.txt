@@ -7057,3 +7057,17 @@ Jun 08, 2022 10:17:50 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user admin is already logged in
 Jun 08, 2022 10:18:25 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user aaaa failed login
+Jun 10, 2022 5:38:10 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user admin is already logged in
+Jun 10, 2022 5:38:59 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user aaaa is not logged in
+Jun 10, 2022 5:53:33 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user aaacould not remove product ProductID_34 because the item does not exist in the basket
+Jun 10, 2022 5:53:33 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user aaacould not remove product ProductID_33 because the item does not exist in the basket
+Jun 10, 2022 5:53:33 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user aaacould not remove product ProductID_33 because the item does not exist in the basket
+Jun 10, 2022 5:53:33 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user aaacould not remove product ProductID_33 because the item does not exist in the basket
+Jun 10, 2022 5:53:33 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user aaacould not remove product ProductID_33 because the item does not exist in the basket
