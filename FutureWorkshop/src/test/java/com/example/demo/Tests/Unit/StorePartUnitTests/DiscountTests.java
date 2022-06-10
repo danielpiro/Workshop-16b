@@ -22,6 +22,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.transaction.NotSupportedException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -560,7 +561,14 @@ public class DiscountTests {
 
         String PriceAndCategory = "{\"type1\":{\"type\": \"price\",\"data1\":1} , \"op1\":\"And\" , \"type2\":{\"type\": \"category\",\"data1\":[Baby,\"Appliances\"]}}";
 
-        DiscountPredicate dp= new DiscountBuilder().parseProductPredicate(PriceAndCategory);
+        PercentageDiscount pd = new DiscountBuilder().newPercentageDiscount(5,PriceAndCategory);
+
+        String onlyCart = "{\"type1\":{\"type\": \"cart\",\"data1\": 3}}";
+        String onlyUserId = "{\"type1\":{\"type\": \"userId\",\"data1\": [\"id1\",\"id2\",\"id3\"]}}";
+        String onlyUserAge = "{\"type1\":{\"type\": \"userAge\",\"data1\": 7,\"data2\": 10}}";
+        String onlyOnHoursOfTheDay = "{\"type1\":{\"type\": \"OnHoursOfTheDay\",\"data1\": "+ LocalDateTime.now() +",\"data2\": "+LocalDateTime.now()+"}}";
+        PolicyPredicate dp= new DiscountBuilder().parsePolicyPredicate(PriceAndCategory);
+
         System.out.println(dp);
     }
 
