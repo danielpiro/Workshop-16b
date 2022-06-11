@@ -624,8 +624,7 @@ public class BigController {
         List<Store> allStores = getStoreController().getAllStores();
         List<Object> stores = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
-        System.out.printf(" start thread"+ Thread.currentThread().getId()+" "+ Thread.currentThread().getName()+"\n");
-        //Thread.sleep(5000);
+
 
         for (var store : allStores) {
             stores.add(
@@ -633,7 +632,6 @@ public class BigController {
                             String.format("{\"storeId\":\"%s\",\"storeName\":\"%s\",\"storeState\":\"%s\",\"storeRating\":\"%s\"}",store.getId(),store.getStoreName(),store.getStoreState(),store.getStoreRating())));
         }
         ReturnValue rv = new ReturnValue(true, "", stores);
-        //System.out.printf(" end thread"+ Thread.currentThread().getId()+"\n");
         return rv;
     }
 
@@ -892,16 +890,16 @@ public class BigController {
     public String addNewConditionalPercentageDiscount(@RequestParam String storeId,@RequestParam String userId,@RequestParam float percentage,@RequestParam String predicateOnProducts,@RequestParam String predicateOnCart) throws NoPermissionException, UserException, SupplyManagementException, ParseException {// use policyBuilder to create policy
         return addNewDiscount(storeId, userId, new DiscountBuilder().newConditionalDiscount(percentage,predicateOnCart,predicateOnProducts));
     }
-    @PostMapping("/Discount/NewAdditionDiscount")
-    public String addNewAdditionDiscount(@RequestParam String storeId,@RequestParam String userId, @RequestParam String discountId1,@RequestParam String discountId2) throws UserException, NotSupportedException {
-        if (!getUserController().checkIfUserExists(userId) || !getUserController().checkIfUserIsLoggedIn(userId)) {
-            my_log.warning("User doesn't exist or is not logged in or is not logged in");
-            return null;
-        }
-        Discount d1 = sc.getDiscount(storeId,userId,discountId1);
-        Discount d2 = sc.getDiscount(storeId,userId,discountId2);
-        return sc.addNewDiscount(storeId,userId, new AdditionDiscount(d1,d2));
-    }
+//    @PostMapping("/Discount/NewAdditionDiscount")
+//    public String addNewAdditionDiscount(@RequestParam String storeId,@RequestParam String userId, @RequestParam String discountId1,@RequestParam String discountId2) throws UserException, NotSupportedException {
+//        if (!getUserController().checkIfUserExists(userId) || !getUserController().checkIfUserIsLoggedIn(userId)) {
+//            my_log.warning("User doesn't exist or is not logged in or is not logged in");
+//            return null;
+//        }
+//        Discount d1 = sc.getDiscount(storeId,userId,discountId1);
+//        Discount d2 = sc.getDiscount(storeId,userId,discountId2);
+//        return sc.addNewDiscount(storeId,userId, new AdditionDiscount(d1,d2));
+//    }
     @PostMapping("/Discount/NewMaxDiscount")
     public String addNewMaxDiscount(@RequestParam String storeId,@RequestParam String userId,@RequestParam String discountId1,@RequestParam String discountId2) throws UserException, NotSupportedException, NoPermissionException {
         if (!getUserController().checkIfUserExists(userId) || !getUserController().checkIfUserIsLoggedIn(userId)) {
