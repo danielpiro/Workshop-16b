@@ -76,6 +76,7 @@ const ChangePolicy = () => {
             createNotification("error", data.reason)();
           }
         })
+        .catch((err) => createNotification("error", err)());
     };
     fetchData();
   }, []);
@@ -181,6 +182,7 @@ const ChangePolicy = () => {
             createNotification("error", data.reason)();
           }
         })
+        .catch((err) => createNotification("error", err)());
   }
 
   return (

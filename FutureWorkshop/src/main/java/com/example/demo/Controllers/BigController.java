@@ -951,7 +951,7 @@ public class BigController {
         ReturnValue rv = new ReturnValue(true, "",null);
         return rv;
     }
-    @PostMapping("/Discount/getAll")
+    @GetMapping("/Discount/getAll")
     public ReturnValue getAllDiscounts(@RequestParam String storeId,@RequestParam String userId) throws NoPermissionException, JsonProcessingException {
         List<String> discountsIds = new ArrayList<>();
         for (Discount discount: sc.getDiscounts(storeId,userId)){

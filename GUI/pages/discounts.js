@@ -1,5 +1,8 @@
 import Menu from "../components/menu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import api from "../components/api";
+import createNotification from "../components/norification";
+import { useCookies } from "react-cookie";
 
 const Discounts = () => {
   const [discountTypePercentage1, setDiscountTypePercentage1] = useState("DiscountType");
@@ -10,7 +13,7 @@ const Discounts = () => {
   const [discountTypeCond2, setDiscountTypeCond2] = useState("DiscountType");
   const [discountTypeCond3, setDiscountTypeCond3] = useState("DiscountType");
   const [discountTypeCond4, setDiscountTypeCond4] = useState("DiscountType");
-  const discountTypes = ["Category", "Price", "Product With Amount", "Product Without Amount"];
+  const discountTypes = ["Category", "Price", "Product With Amount", "Product Without Amount", "Always True"];
   const [operatorPercentage1, setOperatorPercentage1] = useState("And/Or/Xor/None");
   const [operatorPercentage2, setOperatorPercentage2] = useState("And/Or/Xor/None");
   const [operatorPercentage3, setOperatorPercentage3] = useState("And/Or/Xor/None");
@@ -35,6 +38,7 @@ const Discounts = () => {
   const [preds, setPreds] = useState({
     pred1: "Choose discount #1",
     pred2: "Choose discount #2",
+    predToDelete: "Choose discount to delete",
   });
   const [precDiscount1, setPrecDiscount1] = useState({
     precentage: "",
@@ -59,32 +63,205 @@ const Discounts = () => {
     discount: "Select discount",
   });
 
-  const onCreateCombinedDiscount = (e) => {
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "username",
+    "password",
+    "userId",
+    "type",
+  ]);
+
+  const onCreateCombinedDiscount = async (e) => {
     e.preventDefault();
+    let storeID = window.location.href.split("?").pop();
+    if(storeID.charAt(storeID.length-1) === '#'){
+      storeID = storeID.slice(0, -1);
+    }
+
+    if(combinationType === "Max"){
+      return await api
+        .post(`/Discount/NewMaxDiscount?storeId=${storeID}&userId=${cookies.userId}&discountId1=${preds.pred1}&discountId2=${preds.pred2}`)
+        .then((res) => {
+          const { data } = res;
+          if (data.success) {
+            console.log(data);
+            discounts.push(data.value);
+            createNotification("success", "Max Combined discount has been created successfully")();
+          } else {
+            createNotification("error", data.reason)();
+          }
+        })
+        .catch((err) => createNotification("error", err)())
+    }
+    else if(combinationType === "Addition"){
+      return await api
+        .post(`/Discount/NewAdditionDiscount?storeId=${storeID}&userId=${cookies.userId}&discountId1=${preds.pred1}&discountId2=${preds.pred2}`)
+        .then((res) => {
+          const { data } = res;
+          if (data.success) {
+            console.log(data);
+            discounts.push(data.value);
+            createNotification("success", "Addition Combined discount has been created successfully")();
+          } else {
+            createNotification("error", data.reason)();
+          }
+        })
+        .catch((err) => createNotification("error", err)())
+    }
+    else {
+      createNotification("error", "Combination type hasn't been chosen")();
+    }
   };
 
-  const onCreatePrecentageDiscount1 = (e) => {
+  const onCreatePrecentageDiscount1 = async (e) => {
     e.preventDefault();
+    let storeID = window.location.href.split("?").pop();
+    if(storeID.charAt(storeID.length-1) === '#'){
+      storeID = storeID.slice(0, -1);
+    }
+
+    return await api
+        .post(`/Discount/PercentageDiscount?storeId=${storeID}&userId=${cookies.userId}&percentage=${precDiscount1.precentage}&predicateOnProducts=${""}`)
+        .then((res) => {
+          const { data } = res;
+          if (data.success) {
+            console.log(data);
+            discounts.push(data.value);
+            createNotification("success", "Percentage discount #1 has been created successfully")();
+          } else {
+            createNotification("error", data.reason)();
+          }
+        })
+        .catch((err) => createNotification("error", err)())
   };
 
-  const onCreatePrecentageDiscount2 = (e) => {
+  const onCreatePrecentageDiscount2 = async (e) => {
     e.preventDefault();
+    let storeID = window.location.href.split("?").pop();
+    if(storeID.charAt(storeID.length-1) === '#'){
+      storeID = storeID.slice(0, -1);
+    }
+
+    return await api
+        .post(`/Discount/PercentageDiscount?storeId=${storeID}&userId=${cookies.userId}&percentage=${precDiscount2.precentage}&predicateOnProducts=${""}`)
+        .then((res) => {
+          const { data } = res;
+          if (data.success) {
+            console.log(data);
+            discounts.push(data.value);
+            createNotification("success", "Percentage discount #2 has been created successfully")();
+          } else {
+            createNotification("error", data.reason)();
+          }
+        })
+        .catch((err) => createNotification("error", err)())
   };
 
-  const onCreateConditionalDiscount1 = (e) => {
+  const onCreateConditionalDiscount1 = async (e) => {
     e.preventDefault();
+    let storeID = window.location.href.split("?").pop();
+    if(storeID.charAt(storeID.length-1) === '#'){
+      storeID = storeID.slice(0, -1);
+    }
+
+    return await api
+        .post(`/Discount/ConditionalPercentageDiscount?storeId=${storeID}&userId=${cookies.userId}&percentage=${condDiscount1.precentage}&predicateOnProducts=${""}`)
+        .then((res) => {
+          const { data } = res;
+          if (data.success) {
+            console.log(data);
+            discounts.push(data.value);
+            createNotification("success", "Conditional discount #1 has been created successfully")();
+          } else {
+            createNotification("error", data.reason)();
+          }
+        })
+        .catch((err) => createNotification("error", err)())
   };
 
-  const onCreateConditionalDiscount2 = (e) => {
+  const onCreateConditionalDiscount2 = async (e) => {
     e.preventDefault();
+    let storeID = window.location.href.split("?").pop();
+    if(storeID.charAt(storeID.length-1) === '#'){
+      storeID = storeID.slice(0, -1);
+    }
+
+    return await api
+        .post(`/Discount/ConditionalPercentageDiscount?storeId=${storeID}&userId=${cookies.userId}&percentage=${condDiscount2.precentage}&predicateOnProducts=${""}`)
+        .then((res) => {
+          const { data } = res;
+          if (data.success) {
+            console.log(data);
+            discounts.push(data.value);
+            createNotification("success", "Conditional discount #2 has been created successfully")();
+          } else {
+            createNotification("error", data.reason)();
+          }
+        })
+        .catch((err) => createNotification("error", err)())
   };
 
-  // useEffect(() => {
-  //   const fetchApi = async () => {
-      
-  //   };
-  //   fetchApi();
-  // }, []);
+  const onDeleteDiscount = async (e) => {
+    e.preventDefault();
+    console.log("Deleting a discount");
+    let storeID = window.location.href.split("?").pop();
+    if(storeID.charAt(storeID.length-1) === '#'){
+      storeID = storeID.slice(0, -1);
+    }
+
+    return await api
+      .post(`/Discount/deleteDiscount?storeId=${storeID}&userId=${cookies.userId}&discountId=${preds.predToDelete}`)
+      .then((res) => {
+        const { data } = res;
+        if (data.success) {
+          console.log(data);
+          discounts = discounts.filter((disc) => disc !== preds.predToDelete)
+          createNotification("success", "Discount has been deleted successfully")();
+        } else {
+          createNotification("error", data.reason)();
+        }
+      })
+      .catch((err) => createNotification("error", err)())
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      //get all the existing policies in the store...
+      let storeID = window.location.href.split("?").pop();
+      if(storeID.charAt(storeID.length-1) === '#'){
+        storeID = storeID.slice(0, -1);
+      }
+      return await api
+        .get(`Store/Polices?storeId=${storeID}`)
+        .then((res) => {
+          const { data } = res;
+          if (data.success) {
+            console.log(data);
+            data.value.map((pol) => { //fill policies list:
+              policies.push(`ID=${pol.PolicyId}`);
+            })
+          } else {
+            createNotification("error", data.reason)();
+          }
+        })
+        .then(async () => {
+          return await api
+            .get(`/Discount/getAll?storeId=${storeID}&userId=${cookies.userId}`)
+            .then((res) => {
+              const { data } = res;
+              if (data.success) {
+                console.log(data);
+                data.value.DiscountIds.slice(1,-1).split(',').map((disc) => {
+                  discounts.push(disc);
+                });
+              } else {
+                createNotification("error", data.reason)();
+              }
+            });
+        })
+        .catch((err) => createNotification("error", `fail ${err}`)());
+    };
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -753,6 +930,52 @@ const Discounts = () => {
               </button>
             </div>
           </div>
+        </div>
+
+        <div className="row m-1">
+          <div className="text-center my-5">
+            <h3>Delete Policy</h3>
+          </div>
+        
+          <div className="dropdown m-1 text-center">
+            <button
+              className="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {preds.predToDelete}
+            </button>
+            <ul
+              className="dropdown-menu"
+              aria-labelledby="dropdownMenuButton1"
+            >
+              {discounts.map((disc) => {
+                return (
+                  <li>
+                    <a className="dropdown-item"
+                      onClick={() =>
+                        setPreds((prevState) => ({
+                          ...prevState,
+                          predToDelete: disc,
+                        }))
+                      }
+                    >
+                      {disc}
+                    </a>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+          <button
+            className="btn btn-primary mr-lg-3"
+            style={{ width: "100%" }}
+            onClick={onDeleteDiscount}
+          >
+            Delete a Policy
+          </button>
         </div>
       </div>
     </>
