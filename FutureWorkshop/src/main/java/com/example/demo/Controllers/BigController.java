@@ -36,6 +36,7 @@ import com.example.demo.User.Guest;
 import com.example.demo.User.Subscriber;
 //import com.example.demo.dto.AdminDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.tomcat.util.json.ParseException;
 import org.springframework.http.MediaType;
@@ -901,55 +902,70 @@ public class BigController {
     }
 
 
-    private String addNewDiscount(String storeId, String userId, Discount discount) throws NoPermissionException, UserException {// use policyBuilder to create policy
+    private ReturnValue addNewDiscount(String storeId, String userId, Discount discount) throws NoPermissionException, UserException {// use policyBuilder to create policy
         if (!getUserController().checkIfUserExists(userId) || !getUserController().checkIfUserIsLoggedIn(userId)) {
             my_log.warning("User doesn't exist or is not logged in or is not logged in");
             return null;
         }
-        return sc.addNewDiscount(storeId, userId, discount);
+        ReturnValue rv = new ReturnValue(true, "", sc.addNewDiscount(storeId, userId, discount));
+        return rv;
     }
     @PostMapping("/Discount/PercentageDiscount")
-    public String addNewPercentageDiscount(@RequestParam String storeId,@RequestParam String userId,@RequestParam float percentage,@RequestParam String predicateOnProducts) throws NoPermissionException, UserException, SupplyManagementException, ParseException {// use policyBuilder to create policy
+    public ReturnValue addNewPercentageDiscount(@RequestParam String storeId,@RequestParam String userId,@RequestParam float percentage,@RequestParam String predicateOnProducts) throws NoPermissionException, UserException, SupplyManagementException, ParseException {// use policyBuilder to create policy
         return addNewDiscount(storeId, userId, new DiscountBuilder().newPercentageDiscount(percentage,predicateOnProducts));
     }
     @PostMapping("/Discount/ConditionalPercentageDiscount")
-    public String addNewConditionalPercentageDiscount(@RequestParam String storeId,@RequestParam String userId,@RequestParam float percentage,@RequestParam String predicateOnProducts,@RequestParam String predicateOnCart) throws NoPermissionException, UserException, SupplyManagementException, ParseException {// use policyBuilder to create policy
+    public ReturnValue addNewConditionalPercentageDiscount(@RequestParam String storeId,@RequestParam String userId,@RequestParam float percentage,@RequestParam String predicateOnProducts,@RequestParam String predicateOnCart) throws NoPermissionException, UserException, SupplyManagementException, ParseException {// use policyBuilder to create policy
         return addNewDiscount(storeId, userId, new DiscountBuilder().newConditionalDiscount(percentage,predicateOnCart,predicateOnProducts));
     }
 //    @PostMapping("/Discount/NewAdditionDiscount")
-//    public String addNewAdditionDiscount(@RequestParam String storeId,@RequestParam String userId, @RequestParam String discountId1,@RequestParam String discountId2) throws UserException, NotSupportedException {
+//    public ReturnValue addNewAdditionDiscount(@RequestParam String storeId,@RequestParam String userId, @RequestParam String discountId1,@RequestParam String discountId2) throws UserException, NotSupportedException {
 //        if (!getUserController().checkIfUserExists(userId) || !getUserController().checkIfUserIsLoggedIn(userId)) {
 //            my_log.warning("User doesn't exist or is not logged in or is not logged in");
 //            return null;
 //        }
 //        Discount d1 = sc.getDiscount(storeId,userId,discountId1);
 //        Discount d2 = sc.getDiscount(storeId,userId,discountId2);
-//        return sc.addNewDiscount(storeId,userId, new AdditionDiscount(d1,d2));
+
+//
+//        ReturnValue rv = new ReturnValue(true, "", sc.addNewDiscount(storeId,userId, new AdditionDiscount(d1,d2)));
+//        return rv;
 //    }
     @PostMapping("/Discount/NewMaxDiscount")
-    public String addNewMaxDiscount(@RequestParam String storeId,@RequestParam String userId,@RequestParam String discountId1,@RequestParam String discountId2) throws UserException, NotSupportedException, NoPermissionException {
+    public ReturnValue addNewMaxDiscount(@RequestParam String storeId,@RequestParam String userId,@RequestParam String discountId1,@RequestParam String discountId2) throws UserException, NotSupportedException, NoPermissionException {
         if (!getUserController().checkIfUserExists(userId) || !getUserController().checkIfUserIsLoggedIn(userId)) {
             my_log.warning("User doesn't exist or is not logged in or is not logged in");
             return null;
         }
         Discount d1 = sc.getDiscount(storeId,userId,discountId1);
         Discount d2 = sc.getDiscount(storeId,userId,discountId2);
-        return sc.addNewDiscount(storeId,userId, new MaxDiscount(d1,d2));
+        ReturnValue rv = new ReturnValue(true, "", sc.addNewDiscount(storeId,userId, new MaxDiscount(d1,d2)));
+        return rv;
     }
     @PostMapping("/Discount/deleteDiscount")
-    public void deleteDiscount(@RequestParam String storeId,@RequestParam String userId,@RequestParam String discountId) throws NoPermissionException, UserException {
+    public ReturnValue deleteDiscount(@RequestParam String storeId,@RequestParam String userId,@RequestParam String discountId) throws NoPermissionException, UserException {
         if (!getUserController().checkIfUserExists(userId) || !getUserController().checkIfUserIsLoggedIn(userId)) {
             my_log.warning("User doesn't exist or is not logged in or is not logged in");
         }
         sc.deleteDiscount(storeId, userId, discountId);
+        ReturnValue rv = new ReturnValue(true, "",null);
+        return rv;
     }
     @PostMapping("/Discount/getAll")
-    public List<String> getAllDiscounts(@RequestParam String storeId,@RequestParam String userId) throws NoPermissionException {
+    public ReturnValue<List<String>> getAllDiscounts(@RequestParam String storeId,@RequestParam String userId) throws NoPermissionException, JsonProcessingException {
         List<String> discountsIds = new ArrayList<>();
         for (Discount discount: sc.getDiscounts(storeId,userId)){
             discountsIds.add(discount.getDiscountId());
         }
-        return discountsIds;
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode output = objectMapper.readTree(
+                String.format("{\"DiscountIds\":\"%s\"}",discountsIds));
+
+        ReturnValue rv = new ReturnValue(true, "",output);
+        return rv;
+
+
+
     }
 
     private boolean checkIfUserHaveRoleInStore(String userId) {
