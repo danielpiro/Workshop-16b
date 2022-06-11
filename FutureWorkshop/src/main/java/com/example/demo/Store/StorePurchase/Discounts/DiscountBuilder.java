@@ -28,11 +28,11 @@ public class DiscountBuilder {
         PercentageDiscount percentageDiscount = new PercentageDiscount(discountPercent,parseProductPredicate(productPredicateJson));
         return new ConditionalPercentageDiscount(percentageDiscount, parsePolicyPredicate(cartPredicateJson));
     }
-    public AdditionDiscount newAdditionDiscount(  PercentageDiscount first,   PercentageDiscount second){
+    public AdditionDiscount newAdditionDiscount(  ComposableDiscounts first,   ComposableDiscounts second){
         return newAdditionDiscount(first,second);
     }
 
-    public MaxDiscount newMaxDiscount( PercentageDiscount first,   PercentageDiscount second){
+    public MaxDiscount newMaxDiscount( ComposableDiscounts first,   ComposableDiscounts second){
         return newMaxDiscount(first,second);
     }
 
@@ -157,7 +157,7 @@ public class DiscountBuilder {
         return categoriesList;
     }
 
-    public PolicyPredicate parsePolicyPredicate(String predicateJson) throws ParseException, SupplyManagementException {
+    private PolicyPredicate parsePolicyPredicate(String predicateJson) throws ParseException, SupplyManagementException {
 
         PolicyPredicate outputPred;
         JsonObject gson = new JsonParser().parse(predicateJson).getAsJsonObject();
@@ -172,7 +172,7 @@ public class DiscountBuilder {
         JsonElement op1 = gson.get("op1");
         JsonElement type2 = gson.get("type2");
         if(op1== null || type2== null){
-            return outputPred;
+            return predicate1;
         }
         PolicyPredicate predicate2 = parseOnePolicyPredicate(type2.getAsJsonObject());
         outputPred =parseOperatorForTwoPolicyPredicates(outputPred,predicate2,op1);
@@ -230,7 +230,7 @@ public class DiscountBuilder {
             case "productWithAmount":
                 return getProductWithAmountPredicate(predicateJson);
 
-            case "UserId":
+            case "userId":
                 JsonElement userIdsJsonList = predicateJson.get("data1");
 
                 Iterator<JsonElement> userIdIterator = userIdsJsonList.getAsJsonArray().iterator();
@@ -241,7 +241,7 @@ public class DiscountBuilder {
                 }
                 return new UserPredicate(userIds, PredicateUserType.OnUserId);
 
-            case "UseAge":
+            case "userAge":
                 JsonElement startJson = predicateJson.get("data1");
                 JsonElement endAgeJson = predicateJson.get("data2");
                 return new UserPredicate(PredicateUserType.UserAge,startJson.getAsInt(),endAgeJson.getAsInt());
@@ -265,9 +265,9 @@ public class DiscountBuilder {
                 String endMonthDate = endMonthDateJson.getAsString();
                 return new TimePredicate(LocalDateTime.parse(startMonthDate),LocalDateTime.parse(endMonthDate), PredicateTimeType.OnDayOfMonth);
 
-            case "Price":
+            case "price":
                 return getPricePredicate(predicateJson);
-            case ("Always"):
+            case ("AlwaysTrue"):
                 return new AlwaysTrue();
             default:
                 throw new ParseException("no predicate with this type");

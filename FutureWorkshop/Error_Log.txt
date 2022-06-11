@@ -8107,3 +8107,5 @@ Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user user2 doesn't exist
 Jun 06, 2022 7:23:40 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING:  user userOwnerToDestroy doesn't exist
+Jun 11, 2022 8:39:24 AM com.example.demo.GlobalSystemServices.Log warning
+WARNING: cant delete, no Policy with this Id

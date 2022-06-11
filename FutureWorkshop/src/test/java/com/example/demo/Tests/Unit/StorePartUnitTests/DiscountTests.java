@@ -566,8 +566,11 @@ public class DiscountTests {
         String onlyCart = "{\"type1\":{\"type\": \"cart\",\"data1\": 3}}";
         String onlyUserId = "{\"type1\":{\"type\": \"userId\",\"data1\": [\"id1\",\"id2\",\"id3\"]}}";
         String onlyUserAge = "{\"type1\":{\"type\": \"userAge\",\"data1\": 7,\"data2\": 10}}";
-        String onlyOnHoursOfTheDay = "{\"type1\":{\"type\": \"OnHoursOfTheDay\",\"data1\": "+ LocalDateTime.now() +",\"data2\": "+LocalDateTime.now()+"}}";
-        PolicyPredicate dp= new DiscountBuilder().parsePolicyPredicate(PriceAndCategory);
+        String onlyOnHoursOfTheDay = "{\"type1\":{\"type\": \"OnHoursOfTheDay\",\"data1\": \""+ LocalDateTime.now() +"\",\"data2\": \""+LocalDateTime.now()+"\"} }";
+        String onlyOnDaysOfTheWeek = "{\"type1\":{\"type\": \"OnDaysOfTheWeek\",\"data1\": \""+ LocalDateTime.now() +"\",\"data2\": \""+LocalDateTime.now()+"\"} }";
+        String onlyOnDayOfMonth = "{\"type1\":{\"type\": \"OnDayOfMonth\",\"data1\": \""+ LocalDateTime.now() +"\",\"data2\": \""+LocalDateTime.now()+"\"} }";
+        String OnDayOfMonthAndUserAgeOrCart = "{\"type1\":{\"type\": \"OnDayOfMonth\",\"data1\": \""+ LocalDateTime.now() +"\",\"data2\": \""+LocalDateTime.now()+"\"},\"op1\":\"And\",\"type2\":{\"type\": \"userAge\",\"data1\": 7,\"data2\": 10},\"op2\":\"Or\",\"type3\":{\"type\": \"cart\",\"data1\": 3} }";
+        ConditionalPercentageDiscount dp= new DiscountBuilder().newConditionalDiscount(5,OnDayOfMonthAndUserAgeOrCart,PriceAndCategory);
 
         System.out.println(dp);
     }

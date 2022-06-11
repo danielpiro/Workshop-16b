@@ -169,7 +169,14 @@ public class InventoryManager  implements InventoryProtector {
     public List<Discount> getDiscounts(){
         return discounts;
     }
-
+    public Discount getDiscount(String discountId1) {
+        for (Discount d: discounts){
+            if(d.getDiscountId().equals(discountId1)){
+                return d;
+            }
+        }
+        throw new IllegalArgumentException("no discount with this id");
+    }
     @Override
     public String getProductName(String productID) {
         return products.get(productID).getName();
@@ -250,4 +257,6 @@ public class InventoryManager  implements InventoryProtector {
         }
         return true;
     }
+
+
 }
