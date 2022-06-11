@@ -90,7 +90,7 @@ public class DiscountBuilder {
         throw  new ParseException("no operator with this type");
     }
 
-    private DiscountPredicate parseOneDiscountPredicate(JsonObject predicateJson ) throws SupplyManagementException, ParseException {
+    private DiscountPredicate parseOneDiscountPredicate(JsonObject predicateJson ) throws SupplyManagementException, ParseException { //TODO: Amit
         JsonElement type = predicateJson.get("type");
         switch (type.getAsString()){
             case ("category"):
@@ -212,7 +212,7 @@ public class DiscountBuilder {
         throw  new ParseException("no operator with this type");
     }
 
-    private PolicyPredicate parseOnePolicyPredicate(JsonObject predicateJson) throws SupplyManagementException, ParseException {
+    private PolicyPredicate parseOnePolicyPredicate(JsonObject predicateJson) throws SupplyManagementException, ParseException { //TODO: Amit
         JsonElement type = predicateJson.get("type");
         switch (type.getAsString()){
             case "cart":
