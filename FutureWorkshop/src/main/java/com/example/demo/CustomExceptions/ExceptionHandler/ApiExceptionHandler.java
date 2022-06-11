@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.naming.NoPermissionException;
+import java.text.ParseException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.NoSuchElementException;
@@ -34,7 +35,7 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(value = { NoSuchElementException.class , CantPurchaseException.class,IllegalArgumentException.class,
-            NoPermissionException.class, UserException.class, UserDeleted.class, SupplyManagementException.class, NotifyException.class, ExternalServiceDoesNotExist.class})
+            NoPermissionException.class, UserException.class, UserDeleted.class, SupplyManagementException.class, NotifyException.class, ExternalServiceDoesNotExist.class,ParseException.class})
     public ReturnValue handleElementDoesntExist (Exception e){
         ReturnValue rv = new ReturnValue(
                 false,
@@ -54,10 +55,9 @@ public class ApiExceptionHandler {
                 "the store policy was violated" ,
                 e.getMessage()
         );
-
         return rv;
-
     }
+    
     @ExceptionHandler(value = { JsonProcessingException.class })
     public ReturnValue handleInternalProblem (Exception e){
         ReturnValue rv = new ReturnValue(
@@ -66,7 +66,6 @@ public class ApiExceptionHandler {
                 e.getMessage()
         );
         return rv;
-
     }
 
 
