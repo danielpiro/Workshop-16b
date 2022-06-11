@@ -29,8 +29,8 @@ const Discounts = () => {
   const discounts = ["Create new precentage discount", "Create new conditional discount"];
   const [policies, setPolicies] = useState(["..."]);
   const [policyType, setPolicyType] = useState("Select Policy Type");
-  const policyTypes = ["CartPolicy", "CategoryPolicy", "ProductWithoutAmountPolicy", "ProductWithAmountPolicy", "UserIdPolicy",
-                      "UseAgePolicy", "OnHoursOfTheDayPolicy", "OnDaysOfTheWeekPolicy", "OnDayOfMonthPolicy", "PricePredicate"];
+  const policyTypes = ["cart", "category", "productWithoutAmount", "productWithAmount", "userId",
+                      "userAge", "OnHoursOfTheDay", "OnDaysOfTheWeek", "OnDayOfMonth", "price", "AlwaysTrue"];
   const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   const daysOfMonth = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
   const categories = ["Other", "Appliances", "Apps$Games", "Handmade", "Baby"];
@@ -44,6 +44,7 @@ const Discounts = () => {
     precentage: "",
     category: "Select a category",
     minPrice: "",
+    productNameWithoutAmount: "",
     productName: "",
     minAmountOfProduct: "",
   });
@@ -51,6 +52,7 @@ const Discounts = () => {
     precentage: "",
     category: "Select a category",
     minPrice: "",
+    productNameWithoutAmount: "",
     productName: "",
     minAmountOfProduct: "",
   });
@@ -118,9 +120,86 @@ const Discounts = () => {
     if(storeID.charAt(storeID.length-1) === '#'){
       storeID = storeID.slice(0, -1);
     }
+    let percentageProductPredicate = "";
+    //Zero Operator Product Predicate
+    if((operatorPercentage1 === "And/Or/Xor/None" || operatorPercentage1 === "None") &&
+      (operatorPercentage2 === "And/Or/Xor/None" || operatorPercentage2 === "None") &&
+      (operatorPercentage3 === "And/Or/Xor/None" || operatorPercentage3 === "None")) {
+        if(discountTypePercentage1 === "Category") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount1.category}]}}`;
+        else if(discountTypePercentage1 === "Price") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: ${precDiscount1.minPrice}}}`;
+        else if(discountTypePercentage1 === "Product Without Amount") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount1.productNameWithoutAmount}]}}`;
+        else if(discountTypePercentage1 === "Product With Amount") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount1.productName},${precDiscount1.minAmountOfProduct}]}}`;
+        else percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}}}`; //Always True
+    }
+    //One Operator Product Predicate
+    else if((operatorPercentage1 !== "And/Or/Xor/None" && operatorPercentage1 !== "None") &&
+      (operatorPercentage2 === "And/Or/Xor/None" || operatorPercentage2 === "None") &&
+      (operatorPercentage3 === "And/Or/Xor/None" || operatorPercentage3 === "None")) {
+        if(discountTypePercentage1 === "Category") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount1.category}]} , op1: ${operatorPercentage1} , `;
+        else if(discountTypePercentage1 === "Price") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: ${precDiscount1.minPrice}} , op1: ${operatorPercentage1} , `;
+        else if(discountTypePercentage1 === "Product Without Amount") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount1.productNameWithoutAmount}]} , op1: ${operatorPercentage1} , `;
+        else if(discountTypePercentage1 === "Product With Amount") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount1.productName},${precDiscount1.minAmountOfProduct}]} , op1: ${operatorPercentage1} , `;
+        else percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}} , op1: ${operatorPercentage1} , `; //Always True
+
+        if(discountTypePercentage2 === "Category") percentageProductPredicate=`type2: {type: ${discountTypePercentage2}, data2: [${precDiscount1.category}]}}`;
+        else if(discountTypePercentage2 === "Price") percentageProductPredicate=`type2: {type: ${discountTypePercentage2}, data2: ${precDiscount1.minPrice}}}`;
+        else if(discountTypePercentage2 === "Product Without Amount") percentageProductPredicate=`type2: {type: ${discountTypePercentage2}, data2: [${precDiscount1.productNameWithoutAmount}]}}`;
+        else if(discountTypePercentage2 === "Product With Amount") percentageProductPredicate=`type2: {type: ${discountTypePercentage2}, data2: [${precDiscount1.productName},${precDiscount1.minAmountOfProduct}]}}`;
+        else percentageProductPredicate=`type2: {type: ${discountTypePercentage2}}}`; //Always True
+    }
+    //Two Operator Product Predicate
+    else if((operatorPercentage1 !== "And/Or/Xor/None" && operatorPercentage1 !== "None") &&
+     (operatorPercentage2 !== "And/Or/Xor/None" && operatorPercentage2 !== "None") &&
+     (operatorPercentage3 === "And/Or/Xor/None" && operatorPercentage3 === "None")) {
+        if(discountTypePercentage1 === "Category") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount1.category}]} , op1: ${operatorPercentage1} , `;
+        else if(discountTypePercentage1 === "Price") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: ${precDiscount1.minPrice}} , op1: ${operatorPercentage1} , `;
+        else if(discountTypePercentage1 === "Product Without Amount") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount1.productNameWithoutAmount}]} , op1: ${operatorPercentage1} , `;
+        else if(discountTypePercentage1 === "Product With Amount") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount1.productName},${precDiscount1.minAmountOfProduct}]} , op1: ${operatorPercentage1} , `;
+        else percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}} , op1: ${operatorPercentage1} , `; //Always True
+
+        if(discountTypePercentage2 === "Category") percentageProductPredicate=`type2: {type: ${discountTypePercentage2}, data2: [${precDiscount1.category}]} , op2: ${operatorPercentage2} , `;
+        else if(discountTypePercentage2 === "Price") percentageProductPredicate=`type2: {type: ${discountTypePercentage2}, data2: ${precDiscount1.minPrice}} , op2: ${operatorPercentage2} , `;
+        else if(discountTypePercentage2 === "Product Without Amount") percentageProductPredicate=`type2: {type: ${discountTypePercentage2}, data2: [${precDiscount1.productNameWithoutAmount}]} , op2: ${operatorPercentage2} , `;
+        else if(discountTypePercentage2 === "Product With Amount") percentageProductPredicate=`type2: {type: ${discountTypePercentage2}, data2: [${precDiscount1.productName},${precDiscount1.minAmountOfProduct}]} , op2: ${operatorPercentage2} , `;
+        else percentageProductPredicate=`type2: {type: ${discountTypePercentage2}} , op2: ${operatorPercentage2} , `; //Always True
+
+        if(discountTypePercentage3 === "Category") percentageProductPredicate=`type3: {type: ${discountTypePercentage3}, data3: [${precDiscount1.category}]}}`;
+        else if(discountTypePercentage3 === "Price") percentageProductPredicate=`type3: {type: ${discountTypePercentage3}, data3: ${precDiscount1.minPrice}}}`;
+        else if(discountTypePercentage3 === "Product Without Amount") percentageProductPredicate=`type3: {type: ${discountTypePercentage3}, data3: [${precDiscount1.productNameWithoutAmount}]}}`;
+        else if(discountTypePercentage3 === "Product With Amount") percentageProductPredicate=`type3: {type: ${discountTypePercentage3}, data3: [${precDiscount1.productName},${precDiscount1.minAmountOfProduct}]}}`;
+        else percentageProductPredicate=`type3: {type: ${discountTypePercentage3}}}`; //Always True
+    }
+    //Three Operator Product Predicate
+    else if((operatorPercentage1 !== "And/Or/Xor/None" && operatorPercentage1 !== "None") &&
+      (operatorPercentage2 !== "And/Or/Xor/None" && operatorPercentage2 !== "None") &&
+      (operatorPercentage3 !== "And/Or/Xor/None" && operatorPercentage3 !== "None")) {
+        if(discountTypePercentage1 === "Category") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount1.category}]} , op1: ${operatorPercentage1} , `;
+        else if(discountTypePercentage1 === "Price") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: ${precDiscount1.minPrice}} , op1: ${operatorPercentage1} , `;
+        else if(discountTypePercentage1 === "Product Without Amount") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount1.productNameWithoutAmount}]} , op1: ${operatorPercentage1} , `;
+        else if(discountTypePercentage1 === "Product With Amount") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount1.productName},${precDiscount1.minAmountOfProduct}]} , op1: ${operatorPercentage1} , `;
+        else percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}} , op1: ${operatorPercentage1} , `; //Always True
+
+        if(discountTypePercentage2 === "Category") percentageProductPredicate=`type2: {type: ${discountTypePercentage2}, data2: [${precDiscount1.category}]} , op2: ${operatorPercentage2} , `;
+        else if(discountTypePercentage2 === "Price") percentageProductPredicate=`type2: {type: ${discountTypePercentage2}, data2: ${precDiscount1.minPrice}} , op2: ${operatorPercentage2} , `;
+        else if(discountTypePercentage2 === "Product Without Amount") percentageProductPredicate=`type2: {type: ${discountTypePercentage2}, data2: [${precDiscount1.productNameWithoutAmount}]} , op2: ${operatorPercentage2} , `;
+        else if(discountTypePercentage2 === "Product With Amount") percentageProductPredicate=`type2: {type: ${discountTypePercentage2}, data2: [${precDiscount1.productName},${precDiscount1.minAmountOfProduct}]} , op2: ${operatorPercentage2} , `;
+        else percentageProductPredicate=`type2: {type: ${discountTypePercentage2}} , op2: ${operatorPercentage2} , `; //Always True
+
+        if(discountTypePercentage3 === "Category") percentageProductPredicate=`type3: {type: ${discountTypePercentage3}, data3: [${precDiscount1.category}]} , op3: ${operatorPercentage2} , `;
+        else if(discountTypePercentage3 === "Price") percentageProductPredicate=`type3: {type: ${discountTypePercentage3}, data3: ${precDiscount1.minPrice}} , op3: ${operatorPercentage2} , `;
+        else if(discountTypePercentage3 === "Product Without Amount") percentageProductPredicate=`type3: {type: ${discountTypePercentage3}, data3: [${precDiscount1.productNameWithoutAmount}]} , op3: ${operatorPercentage2} , `;
+        else if(discountTypePercentage3 === "Product With Amount") percentageProductPredicate=`type3: {type: ${discountTypePercentage3}, data3: [${precDiscount1.productName},${precDiscount1.minAmountOfProduct}]} , op3: ${operatorPercentage2} , `;
+        else percentageProductPredicate=`type3: {type: ${discountTypePercentage3}} , op3: ${operatorPercentage2} , `; //Always True
+
+        if(discountTypePercentage4 === "Category") percentageProductPredicate=`type4: {type: ${discountTypePercentage4}, data4: [${precDiscount1.category}]}}`;
+        else if(discountTypePercentage4 === "Price") percentageProductPredicate=`type4: {type: ${discountTypePercentage4}, data4: ${precDiscount1.minPrice}}}`;
+        else if(discountTypePercentage4 === "Product Without Amount") percentageProductPredicate=`type4: {type: ${discountTypePercentage4}, data4: [${precDiscount1.productNameWithoutAmount}]}}`;
+        else if(discountTypePercentage4 === "Product With Amount") percentageProductPredicate=`type4: {type: ${discountTypePercentage4}, data4: [${precDiscount1.productName},${precDiscount1.minAmountOfProduct}]}}`;
+        else percentageProductPredicate=`type4: {type: ${discountTypePercentage4}}}`; //Always True
+    }
 
     return await api
-        .post(`/Discount/PercentageDiscount?storeId=${storeID}&userId=${cookies.userId}&percentage=${precDiscount1.precentage}&predicateOnProducts=${""}`)
+        .post(`/Discount/PercentageDiscount?storeId=${storeID}&userId=${cookies.userId}&percentage=${precDiscount1.precentage}&predicateOnProducts=${percentageProductPredicate}`)
         .then((res) => {
           const { data } = res;
           if (data.success) {
@@ -140,9 +219,86 @@ const Discounts = () => {
     if(storeID.charAt(storeID.length-1) === '#'){
       storeID = storeID.slice(0, -1);
     }
+    let percentageProductPredicate = "";
+    //Zero Operator Product Predicate
+    if((operatorPercentage1 === "And/Or/Xor/None" || operatorPercentage1 === "None") &&
+      (operatorPercentage2 === "And/Or/Xor/None" || operatorPercentage2 === "None") &&
+      (operatorPercentage3 === "And/Or/Xor/None" || operatorPercentage3 === "None")) {
+        if(discountTypePercentage1 === "Category") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount2.category}]}}`;
+        else if(discountTypePercentage1 === "Price") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: ${precDiscount2.minPrice}}}`;
+        else if(discountTypePercentage1 === "Product Without Amount") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount2.productNameWithoutAmount}]}}`;
+        else if(discountTypePercentage1 === "Product With Amount") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount2.productName},${precDiscount2.minAmountOfProduct}]}}`;
+        else percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}}}`; //Always True
+    }
+    //One Operator Product Predicate
+    else if((operatorPercentage1 !== "And/Or/Xor/None" && operatorPercentage1 !== "None") &&
+      (operatorPercentage2 === "And/Or/Xor/None" || operatorPercentage2 === "None") &&
+      (operatorPercentage3 === "And/Or/Xor/None" || operatorPercentage3 === "None")) {
+        if(discountTypePercentage1 === "Category") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount2.category}]} , op1: ${operatorPercentage1} , `;
+        else if(discountTypePercentage1 === "Price") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: ${precDiscount2.minPrice}} , op1: ${operatorPercentage1} , `;
+        else if(discountTypePercentage1 === "Product Without Amount") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount2.productNameWithoutAmount}]} , op1: ${operatorPercentage1} , `;
+        else if(discountTypePercentage1 === "Product With Amount") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount2.productName},${precDiscount2.minAmountOfProduct}]} , op1: ${operatorPercentage1} , `;
+        else percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}} , op1: ${operatorPercentage1} , `; //Always True
+
+        if(discountTypePercentage2 === "Category") percentageProductPredicate=`type2: {type: ${discountTypePercentage2}, data2: [${precDiscount2.category}]}}`;
+        else if(discountTypePercentage2 === "Price") percentageProductPredicate=`type2: {type: ${discountTypePercentage2}, data2: ${precDiscount2.minPrice}}}`;
+        else if(discountTypePercentage2 === "Product Without Amount") percentageProductPredicate=`type2: {type: ${discountTypePercentage2}, data2: [${precDiscount2.productNameWithoutAmount}]}}`;
+        else if(discountTypePercentage2 === "Product With Amount") percentageProductPredicate=`type2: {type: ${discountTypePercentage2}, data2: [${precDiscount2.productName},${precDiscount2.minAmountOfProduct}]}}`;
+        else percentageProductPredicate=`type2: {type: ${discountTypePercentage2}}}`; //Always True
+    }
+    //Two Operator Product Predicate
+    else if((operatorPercentage1 !== "And/Or/Xor/None" && operatorPercentage1 !== "None") &&
+     (operatorPercentage2 !== "And/Or/Xor/None" && operatorPercentage2 !== "None") &&
+     (operatorPercentage3 === "And/Or/Xor/None" && operatorPercentage3 === "None")) {
+        if(discountTypePercentage1 === "Category") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount2.category}]} , op1: ${operatorPercentage1} , `;
+        else if(discountTypePercentage1 === "Price") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: ${precDiscount2.minPrice}} , op1: ${operatorPercentage1} , `;
+        else if(discountTypePercentage1 === "Product Without Amount") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount2.productNameWithoutAmount}]} , op1: ${operatorPercentage1} , `;
+        else if(discountTypePercentage1 === "Product With Amount") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount2.productName},${precDiscount2.minAmountOfProduct}]} , op1: ${operatorPercentage1} , `;
+        else percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}} , op1: ${operatorPercentage1} , `; //Always True
+
+        if(discountTypePercentage2 === "Category") percentageProductPredicate=`type2: {type: ${discountTypePercentage2}, data2: [${precDiscount2.category}]} , op2: ${operatorPercentage2} , `;
+        else if(discountTypePercentage2 === "Price") percentageProductPredicate=`type2: {type: ${discountTypePercentage2}, data2: ${precDiscount2.minPrice}} , op2: ${operatorPercentage2} , `;
+        else if(discountTypePercentage2 === "Product Without Amount") percentageProductPredicate=`type2: {type: ${discountTypePercentage2}, data2: [${precDiscount2.productNameWithoutAmount}]} , op2: ${operatorPercentage2} , `;
+        else if(discountTypePercentage2 === "Product With Amount") percentageProductPredicate=`type2: {type: ${discountTypePercentage2}, data2: [${precDiscount2.productName},${precDiscount2.minAmountOfProduct}]} , op2: ${operatorPercentage2} , `;
+        else percentageProductPredicate=`type2: {type: ${discountTypePercentage2}} , op2: ${operatorPercentage2} , `; //Always True
+
+        if(discountTypePercentage3 === "Category") percentageProductPredicate=`type3: {type: ${discountTypePercentage3}, data3: [${precDiscount2.category}]}}`;
+        else if(discountTypePercentage3 === "Price") percentageProductPredicate=`type3: {type: ${discountTypePercentage3}, data3: ${precDiscount2.minPrice}}}`;
+        else if(discountTypePercentage3 === "Product Without Amount") percentageProductPredicate=`type3: {type: ${discountTypePercentage3}, data3: [${precDiscount2.productNameWithoutAmount}]}}`;
+        else if(discountTypePercentage3 === "Product With Amount") percentageProductPredicate=`type3: {type: ${discountTypePercentage3}, data3: [${precDiscount2.productName},${precDiscount2.minAmountOfProduct}]}}`;
+        else percentageProductPredicate=`type3: {type: ${discountTypePercentage3}}}`; //Always True
+    }
+    //Three Operator Product Predicate
+    else if((operatorPercentage1 !== "And/Or/Xor/None" && operatorPercentage1 !== "None") &&
+      (operatorPercentage2 !== "And/Or/Xor/None" && operatorPercentage2 !== "None") &&
+      (operatorPercentage3 !== "And/Or/Xor/None" && operatorPercentage3 !== "None")) {
+        if(discountTypePercentage1 === "Category") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount2.category}]} , op1: ${operatorPercentage1} , `;
+        else if(discountTypePercentage1 === "Price") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: ${precDiscount2.minPrice}} , op1: ${operatorPercentage1} , `;
+        else if(discountTypePercentage1 === "Product Without Amount") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount2.productNameWithoutAmount}]} , op1: ${operatorPercentage1} , `;
+        else if(discountTypePercentage1 === "Product With Amount") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount2.productName},${precDiscount2.minAmountOfProduct}]} , op1: ${operatorPercentage1} , `;
+        else percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}} , op1: ${operatorPercentage1} , `; //Always True
+
+        if(discountTypePercentage2 === "Category") percentageProductPredicate=`type2: {type: ${discountTypePercentage2}, data2: [${precDiscount2.category}]} , op2: ${operatorPercentage2} , `;
+        else if(discountTypePercentage2 === "Price") percentageProductPredicate=`type2: {type: ${discountTypePercentage2}, data2: ${precDiscount2.minPrice}} , op2: ${operatorPercentage2} , `;
+        else if(discountTypePercentage2 === "Product Without Amount") percentageProductPredicate=`type2: {type: ${discountTypePercentage2}, data2: [${precDiscount2.productNameWithoutAmount}]} , op2: ${operatorPercentage2} , `;
+        else if(discountTypePercentage2 === "Product With Amount") percentageProductPredicate=`type2: {type: ${discountTypePercentage2}, data2: [${precDiscount2.productName},${precDiscount2.minAmountOfProduct}]} , op2: ${operatorPercentage2} , `;
+        else percentageProductPredicate=`type2: {type: ${discountTypePercentage2}} , op2: ${operatorPercentage2} , `; //Always True
+
+        if(discountTypePercentage3 === "Category") percentageProductPredicate=`type3: {type: ${discountTypePercentage3}, data3: [${precDiscount2.category}]} , op3: ${operatorPercentage2} , `;
+        else if(discountTypePercentage3 === "Price") percentageProductPredicate=`type3: {type: ${discountTypePercentage3}, data3: ${precDiscount2.minPrice}} , op3: ${operatorPercentage2} , `;
+        else if(discountTypePercentage3 === "Product Without Amount") percentageProductPredicate=`type3: {type: ${discountTypePercentage3}, data3: [${precDiscount2.productNameWithoutAmount}]} , op3: ${operatorPercentage2} , `;
+        else if(discountTypePercentage3 === "Product With Amount") percentageProductPredicate=`type3: {type: ${discountTypePercentage3}, data3: [${precDiscount2.productName},${precDiscount2.minAmountOfProduct}]} , op3: ${operatorPercentage2} , `;
+        else percentageProductPredicate=`type3: {type: ${discountTypePercentage3}} , op3: ${operatorPercentage2} , `; //Always True
+
+        if(discountTypePercentage4 === "Category") percentageProductPredicate=`type4: {type: ${discountTypePercentage4}, data4: [${precDiscount2.category}]}}`;
+        else if(discountTypePercentage4 === "Price") percentageProductPredicate=`type4: {type: ${discountTypePercentage4}, data4: ${precDiscount2.minPrice}}}`;
+        else if(discountTypePercentage4 === "Product Without Amount") percentageProductPredicate=`type4: {type: ${discountTypePercentage4}, data4: [${precDiscount2.productNameWithoutAmount}]}}`;
+        else if(discountTypePercentage4 === "Product With Amount") percentageProductPredicate=`type4: {type: ${discountTypePercentage4}, data4: [${precDiscount2.productName},${precDiscount2.minAmountOfProduct}]}}`;
+        else percentageProductPredicate=`type4: {type: ${discountTypePercentage4}}}`; //Always True
+    }
 
     return await api
-        .post(`/Discount/PercentageDiscount?storeId=${storeID}&userId=${cookies.userId}&percentage=${precDiscount2.precentage}&predicateOnProducts=${""}`)
+        .post(`/Discount/PercentageDiscount?storeId=${storeID}&userId=${cookies.userId}&percentage=${precDiscount2.precentage}&predicateOnProducts=${percentageProductPredicate}`)
         .then((res) => {
           const { data } = res;
           if (data.success) {
@@ -162,9 +318,10 @@ const Discounts = () => {
     if(storeID.charAt(storeID.length-1) === '#'){
       storeID = storeID.slice(0, -1);
     }
+    let conditionalProductPredicate = `{cond1: {policyId: ${condDiscount1.policy}, discountId: ${condDiscount1.discount}}}`;
 
     return await api
-        .post(`/Discount/ConditionalPercentageDiscount?storeId=${storeID}&userId=${cookies.userId}&percentage=${condDiscount1.precentage}&predicateOnProducts=${""}`)
+        .post(`/Discount/ConditionalPercentageDiscount?storeId=${storeID}&userId=${cookies.userId}&percentage=${condDiscount1.precentage}&predicateOnProducts=${conditionalProductPredicate}`)
         .then((res) => {
           const { data } = res;
           if (data.success) {
@@ -184,9 +341,10 @@ const Discounts = () => {
     if(storeID.charAt(storeID.length-1) === '#'){
       storeID = storeID.slice(0, -1);
     }
+    let conditionalProductPredicate = `{cond2: {policyId: ${condDiscount2.policy}, discountId: ${condDiscount2.discount}}}`;
 
     return await api
-        .post(`/Discount/ConditionalPercentageDiscount?storeId=${storeID}&userId=${cookies.userId}&percentage=${condDiscount2.precentage}&predicateOnProducts=${""}`)
+        .post(`/Discount/ConditionalPercentageDiscount?storeId=${storeID}&userId=${cookies.userId}&percentage=${condDiscount2.precentage}&predicateOnProducts=${conditionalProductPredicate}`)
         .then((res) => {
           const { data } = res;
           if (data.success) {
@@ -693,7 +851,7 @@ const Discounts = () => {
                     onChange={(e) =>
                       setPrecDiscount1((prevState) => ({
                         ...prevState,
-                        productName: e.target.value,
+                        productNameWithoutAmount: e.target.value,
                       }))
                     }
                   />
@@ -806,7 +964,7 @@ const Discounts = () => {
                     onChange={(e) =>
                       setPrecDiscount2((prevState) => ({
                         ...prevState,
-                        productName: e.target.value,
+                        productNameWithoutAmount: e.target.value,
                       }))
                     }
                   />
