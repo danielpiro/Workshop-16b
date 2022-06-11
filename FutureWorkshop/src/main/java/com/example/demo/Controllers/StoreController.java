@@ -201,7 +201,12 @@ public class StoreController {
     }
     public List<Discount> getDiscounts(String storeId,String userId) throws NoPermissionException {
         Store relevantStore =  stores.get(storeId);
-        return relevantStore.getDiscount(userId);
+        return relevantStore.getDiscounts(userId);
+    }
+
+    public Discount getDiscount(String storeId, String userId, String discountId1) {
+        Store relevantStore =  stores.get(storeId);
+        return relevantStore.getDiscount(userId,discountId1);
     }
 
     private boolean checkIfProductExists(String storeId, String productId) throws IOException {
