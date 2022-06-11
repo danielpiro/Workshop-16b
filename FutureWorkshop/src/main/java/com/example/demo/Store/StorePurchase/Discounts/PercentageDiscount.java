@@ -6,11 +6,13 @@ import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.ShoppingCart.UserInfo;
 import com.example.demo.Store.StorePurchase.PurchasableProduct;
 import com.example.demo.Store.StorePurchase.predicates.DiscountPredicate;
+import com.example.demo.Store.StorePurchase.predicates.PolicyPredicate;
+import com.example.demo.Store.StorePurchase.predicates.PredImplementions.AlwaysTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PercentageDiscount implements Discount{//simple discount, for example "discount on all store/category/product/products/price"
+public class PercentageDiscount implements Discount,ComposableDiscounts{//simple discount, for example "discount on all store/category/product/products/price"
     private String id;
     private float discountPercent;
     private DiscountPredicate discountOnPredicate;//discount on what "discount on all store/category/product/products/price"
@@ -53,7 +55,12 @@ public class PercentageDiscount implements Discount{//simple discount, for examp
 
 
 
-    public DiscountPredicate getDiscountOnPredicate() {
+    public DiscountPredicate getDiscountOnProductPredicate() {
         return discountOnPredicate;
+    }
+
+    @Override
+    public PolicyPredicate getDiscountOnCartPredicate() {
+        return new AlwaysTrue();
     }
 }

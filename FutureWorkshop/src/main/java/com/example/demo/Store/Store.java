@@ -272,8 +272,11 @@ public class Store implements getStoreInfo {
         }
         inventoryManager.deleteDiscount(discountId);
     }
-    public List<Discount> getDiscount(String userId) throws NoPermissionException {
+    public List<Discount> getDiscounts(String userId) throws NoPermissionException {
         return inventoryManager.getDiscounts();
+    }
+    public Discount getDiscount(String userId, String discountId1) {
+        return inventoryManager.getDiscount(discountId1);
     }
 
     public List<StoreRoles> getInfoOnManagersOwners(String userId) throws NoPermissionException {
@@ -400,4 +403,6 @@ public class Store implements getStoreInfo {
         return StoreRoles.stream().anyMatch(role ->role.getTitle().equals("manger") &&
                 role.getUserId().equals(userID) );
     }
+
+
 }

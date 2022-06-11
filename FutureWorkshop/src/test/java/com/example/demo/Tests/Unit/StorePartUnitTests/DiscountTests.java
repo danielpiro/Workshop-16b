@@ -17,10 +17,12 @@ import com.example.demo.Store.StorePurchase.predicates.PredImplementions.compsit
 import com.example.demo.Store.StorePurchase.predicates.PredImplementions.compsite.DiscountPredicateOr;
 import com.example.demo.Store.StorePurchase.predicates.PredImplementions.compsite.PolicyPredicateAnd;
 import com.example.demo.Store.StorePurchase.predicates.PredImplementions.compsite.PolicyPredicateXor;
+import org.apache.tomcat.util.json.ParseException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.transaction.NotSupportedException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -547,6 +549,30 @@ public class DiscountTests {
             e.printStackTrace();
             fail();
         }
+    }
+
+    @Test
+    void temp() throws ParseException, SupplyManagementException {
+        String onlyCategory = "{\"type1\":{\"type\": \"category\",\"data1\":[Baby,\"Appliances\"]}}";
+        String onlyPrice = "{\"type1\":{\"type\": \"price\",\"data1\":1}}";
+        String productWithoutAmount = "{\"type1\":{\"type\": \"productWithoutAmount\",\"data1\":[\"p1\",\"p2\"]}}";
+        String productWithAmount = "{\"type1\":{\"type\": \"productWithAmount\",\"data1\":[[\"p1\",2],[\"p2\",3]]}}";
+        String AlwaysTrue = "{\"type1\":{\"type\": \"AlwaysTrue\"}}";
+
+        String PriceAndCategory = "{\"type1\":{\"type\": \"price\",\"data1\":1} , \"op1\":\"And\" , \"type2\":{\"type\": \"category\",\"data1\":[Baby,\"Appliances\"]}}";
+
+        PercentageDiscount pd = new DiscountBuilder().newPercentageDiscount(5,PriceAndCategory);
+
+        String onlyCart = "{\"type1\":{\"type\": \"cart\",\"data1\": 3}}";
+        String onlyUserId = "{\"type1\":{\"type\": \"userId\",\"data1\": [\"id1\",\"id2\",\"id3\"]}}";
+        String onlyUserAge = "{\"type1\":{\"type\": \"userAge\",\"data1\": 7,\"data2\": 10}}";
+        String onlyOnHoursOfTheDay = "{\"type1\":{\"type\": \"OnHoursOfTheDay\",\"data1\": \""+ LocalDateTime.now() +"\",\"data2\": \""+LocalDateTime.now()+"\"} }";
+        String onlyOnDaysOfTheWeek = "{\"type1\":{\"type\": \"OnDaysOfTheWeek\",\"data1\": \""+ LocalDateTime.now() +"\",\"data2\": \""+LocalDateTime.now()+"\"} }";
+        String onlyOnDayOfMonth = "{\"type1\":{\"type\": \"OnDayOfMonth\",\"data1\": \""+ LocalDateTime.now() +"\",\"data2\": \""+LocalDateTime.now()+"\"} }";
+        String OnDayOfMonthAndUserAgeOrCart = "{\"type1\":{\"type\": \"OnDayOfMonth\",\"data1\": \""+ LocalDateTime.now() +"\",\"data2\": \""+LocalDateTime.now()+"\"},\"op1\":\"And\",\"type2\":{\"type\": \"userAge\",\"data1\": 7,\"data2\": 10},\"op2\":\"Or\",\"type3\":{\"type\": \"cart\",\"data1\": 3} }";
+        ConditionalPercentageDiscount dp= new DiscountBuilder().newConditionalDiscount(5,OnDayOfMonthAndUserAgeOrCart,PriceAndCategory);
+
+        System.out.println(dp);
     }
 
 }
