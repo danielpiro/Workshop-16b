@@ -732,7 +732,8 @@ public class BigController {
     @GetMapping("/history/store")
     public ReturnValue getStoreHistory(@RequestParam String storeId, @RequestParam String userId) throws NoPermissionException, UserException {
         userExists(userId);
-        ReturnValue rv = new ReturnValue(true, "", sc.getStoreHistory(storeId, userId));
+        boolean isAdmin = us.checkIfAdmin(userId);
+        ReturnValue rv = new ReturnValue(true, "", sc.getStoreHistory(storeId, userId, isAdmin));
         return rv;
     }
 

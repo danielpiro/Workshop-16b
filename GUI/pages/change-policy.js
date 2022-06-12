@@ -168,10 +168,10 @@ const ChangePolicy = () => {
     if(storeID.charAt(storeID.length-1) === '#'){
       storeID = storeID.slice(0, -1);
     }
-    console.log(`/policy/delete?storeId=${storeID}&userId=${cookies.userId}&policyId=${preds.predToDelete.slice(3)}`);
+    console.log(`/policy/delete?storeId=${storeID}&userId=${cookies.userId}&policyId=${preds.predToDelete}`);
 
     return await api
-        .post(`/policy/delete?storeId=${storeID}&userId=${cookies.userId}&policyId=${preds.predToDelete.slice(3)}`)
+        .post(`/policy/delete?storeId=${storeID}&userId=${cookies.userId}&policyId=${preds.predToDelete}`)
         .then((res) => {
           const { data } = res;
           if (data.success) {

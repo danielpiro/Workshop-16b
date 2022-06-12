@@ -13,6 +13,7 @@ const UserHistory = () => {
     "userId",
     "type",
   ]);
+
   const fetch = async () => {
     setIsLoading(!isLoading);
     return await api
@@ -22,6 +23,7 @@ const UserHistory = () => {
         if (data.success) {
           setPurchases(data.value);
           setIsLoading(!isLoading);
+          console.log(data);
           createNotification(
             "success",
             "Displaying all user's purchases successfully"

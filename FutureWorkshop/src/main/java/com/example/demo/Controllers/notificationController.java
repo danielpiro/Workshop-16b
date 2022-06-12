@@ -29,7 +29,10 @@ public class notificationController {
 
     @MessageMapping("/private-message")
     public realTimeNotification recievePrivateMessage(@Payload realTimeNotification message){
-        simpMessagingTemplate.convertAndSendToUser(message.getReceiverName(),"/private",message);
+        if(simpMessagingTemplate != null){
+            simpMessagingTemplate.convertAndSendToUser(message.getReceiverName(),"/private",message);
+        }
+
         System.out.println(message.toString());
         return message;
     }

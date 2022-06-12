@@ -331,10 +331,11 @@ public class Store implements getStoreInfo {
     public Product getProduct(String productId) throws Exception {
         return inventoryManager.getProduct(productId);
     }
-    public List<PurchaseHistory> getStoreHistory(String userId) throws NoPermissionException {
-         if(!checkPermission(userId, Permission.VIEW_STORE_HISTORY)){
-             throw new NoPermissionException("the user don't have this permission");
-         }
+    public List<PurchaseHistory> getStoreHistory(String userId, boolean isAdmin) throws NoPermissionException {
+        if(!checkPermission(userId, Permission.VIEW_STORE_HISTORY) && !isAdmin){
+            throw new NoPermissionException("the user don't have this permission and is not an admin");
+        }
+
         return History.getInstance().getStoreHistory(storeId);
     }
     public List<PurchaseHistory> getStoreHistory(String userIdRequesting, String userId) throws NoPermissionException {

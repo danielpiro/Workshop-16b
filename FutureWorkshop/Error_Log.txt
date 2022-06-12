@@ -7057,3 +7057,19 @@ Jun 09, 2022 4:15:30 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user amit is already logged in
 Jun 09, 2022 5:17:09 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: cant delete, no Policy with this Id
+Jun 12, 2022 3:36:44 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user GuestID_9 doesn't exist
+Jun 12, 2022 3:36:44 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist
+Jun 12, 2022 3:37:11 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user could not remove product ProductID_16 because the item does not exist in the basket
+Jun 12, 2022 3:39:00 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user GuestID_9 doesn't exist
+Jun 12, 2022 3:39:00 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist
+Jun 12, 2022 3:46:43 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: abc is not admin  and cant delete store
+Jun 12, 2022 4:37:18 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user fire doesn't exist
+Jun 12, 2022 4:37:18 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user fire failed login

@@ -125,11 +125,11 @@ const Discounts = () => {
     if((operatorPercentage1 === "And/Or/Xor/None" || operatorPercentage1 === "None") &&
       (operatorPercentage2 === "And/Or/Xor/None" || operatorPercentage2 === "None") &&
       (operatorPercentage3 === "And/Or/Xor/None" || operatorPercentage3 === "None")) {
-        if(discountTypePercentage1 === "Category") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount1.category}]}}`;
-        else if(discountTypePercentage1 === "Price") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: ${precDiscount1.minPrice}}}`;
-        else if(discountTypePercentage1 === "Product Without Amount") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount1.productNameWithoutAmount}]}}`;
-        else if(discountTypePercentage1 === "Product With Amount") percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}, data1: [${precDiscount1.productName},${precDiscount1.minAmountOfProduct}]}}`;
-        else percentageProductPredicate=`{type1: {type: ${discountTypePercentage1}}}`; //Always True
+        if(discountTypePercentage1 === "Category") percentageProductPredicate=`{type1:{type:${discountTypePercentage1},data1:[${precDiscount1.category}]}}`;
+        else if(discountTypePercentage1 === "Price") percentageProductPredicate=`{type1:{type:${discountTypePercentage1},data1: ${precDiscount1.minPrice}}}`;
+        else if(discountTypePercentage1 === "Product Without Amount") percentageProductPredicate=`{type1:{type:${discountTypePercentage1},data1:[${precDiscount1.productNameWithoutAmount}]}}`;
+        else if(discountTypePercentage1 === "Product With Amount") percentageProductPredicate=`{type1:{type:${discountTypePercentage1}, data1:[${precDiscount1.productName},${precDiscount1.minAmountOfProduct}]}}`;
+        else percentageProductPredicate=`{type1:{type:${discountTypePercentage1}}}`; //Always True
     }
     //One Operator Product Predicate
     else if((operatorPercentage1 !== "And/Or/Xor/None" && operatorPercentage1 !== "None") &&
@@ -201,9 +201,9 @@ const Discounts = () => {
     return await api
         .post(`/Discount/PercentageDiscount?storeId=${storeID}&userId=${cookies.userId}&percentage=${precDiscount1.precentage}&predicateOnProducts=${percentageProductPredicate}`)
         .then((res) => {
+          console.log(data);
           const { data } = res;
           if (data.success) {
-            console.log(data);
             discounts.push(data.value);
             createNotification("success", "Percentage discount #1 has been created successfully")();
           } else {

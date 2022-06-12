@@ -271,9 +271,9 @@ public class StoreController {
         }
         return filtered;
     }
-    public List<PurchaseHistory> getStoreHistory(String storeId, String userId) throws NoPermissionException{
+    public List<PurchaseHistory> getStoreHistory(String storeId, String userId, boolean isAdmin) throws NoPermissionException{
         Store relevantStore = stores.get(storeId);
-        return relevantStore.getStoreHistory(userId);
+        return relevantStore.getStoreHistory(userId, isAdmin);
     }
     public List<PurchaseHistory> getStoreHistory(String userIdRequesting, String storeId, String userId) throws NoPermissionException {
         Store relevantStore = stores.get(storeId);
