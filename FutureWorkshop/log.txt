@@ -47622,3 +47622,585 @@ Jun 12, 2022 8:00:57 PM com.example.demo.GlobalSystemServices.Log info
 INFO: sending store notification for some users
 Jun 12, 2022 8:00:57 PM com.example.demo.GlobalSystemServices.Log info
 INFO: new owner created, userId: temp2 by: aaaa in store:StoreID_10
+Jun 12, 2022 8:35:03 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to logout
+Jun 12, 2022 8:35:03 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa successfully logged out
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : amit
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : guy
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : pam123
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : alex12
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : ronn
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : delphin
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : alan
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : rotman
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : dashy
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : crim
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : karma
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : damon
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : tjhaly
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : spart
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : yoav
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : pamaj
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : spratt
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user amit is trying to login
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy is trying to login
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user pam123 is trying to login
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user alex12 is trying to login
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user ronn is trying to login
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user rotman is trying to login
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user dashy is trying to login
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user crim is trying to login
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user karma is trying to login
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user damon is trying to login
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user tjhaly is trying to login
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user spart is trying to login
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user yoav is trying to login
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user delphin is trying to login
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user alan is trying to login
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user pamaj is trying to login
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user spratt is trying to login
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_0 by users: [amit]
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user amit recording purchase into history
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user amit recording purchase into history
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_1 by users: [guy]
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy recording purchase into history
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy recording purchase into history
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_2 by users: [pam123]
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user pam123 recording purchase into history
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user pam123 recording purchase into history
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_3 by users: [alex12]
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user alex12 recording purchase into history
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user alex12 recording purchase into history
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_4 by users: [ronn]
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user ronn recording purchase into history
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user ronn recording purchase into history
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_5 by users: [delphin]
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user delphin recording purchase into history
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user delphin recording purchase into history
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_6 by users: [alan]
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user alan recording purchase into history
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user alan recording purchase into history
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_7 by users: [rotman]
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user rotman recording purchase into history
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user rotman recording purchase into history
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_8 by users: [dashy]
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user dashy recording purchase into history
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user dashy recording purchase into history
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_9 by users: [crim]
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user crim recording purchase into history
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user crim recording purchase into history
+Jun 12, 2022 8:35:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+Jun 12, 2022 8:35:19 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to sign up
+Jun 12, 2022 8:35:19 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : aaaa
+Jun 12, 2022 8:35:24 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user asd is trying to sign up
+Jun 12, 2022 8:35:24 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : asd
+Jun 12, 2022 8:35:25 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to login
+Jun 12, 2022 8:35:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_10 by users: [aaaa]
+Jun 12, 2022 8:35:52 PM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+Jun 12, 2022 8:35:52 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: asd by: aaaa in store:StoreID_10
+Jun 12, 2022 8:37:08 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to logout
+Jun 12, 2022 8:37:08 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa successfully logged out
+Jun 12, 2022 8:37:14 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user asd2 is trying to sign up
+Jun 12, 2022 8:37:14 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : asd2
+Jun 12, 2022 8:37:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to login
+Jun 12, 2022 8:37:25 PM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+Jun 12, 2022 8:37:25 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: asd2 by: aaaa in store:StoreID_10
+Jun 12, 2022 8:41:00 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to logout
+Jun 12, 2022 8:41:00 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa successfully logged out
+Jun 12, 2022 8:41:07 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user asd3 is trying to sign up
+Jun 12, 2022 8:41:07 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : asd3
+Jun 12, 2022 8:41:09 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to login
+Jun 12, 2022 8:41:18 PM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+Jun 12, 2022 8:41:18 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: asd3 by: aaaa in store:StoreID_10
+Jun 12, 2022 8:41:33 PM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+Jun 12, 2022 8:49:36 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to logout
+Jun 12, 2022 8:49:36 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa successfully logged out
+Jun 12, 2022 8:49:59 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to login
+Jun 12, 2022 8:50:18 PM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : amit
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : guy
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : pam123
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : alex12
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : ronn
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : delphin
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : alan
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : rotman
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : dashy
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : crim
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : karma
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : damon
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : tjhaly
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : spart
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : yoav
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : pamaj
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : spratt
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user amit is trying to login
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy is trying to login
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user pam123 is trying to login
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user alex12 is trying to login
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user ronn is trying to login
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user rotman is trying to login
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user dashy is trying to login
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user crim is trying to login
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user karma is trying to login
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user damon is trying to login
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user tjhaly is trying to login
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user spart is trying to login
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user yoav is trying to login
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user delphin is trying to login
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user alan is trying to login
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user pamaj is trying to login
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user spratt is trying to login
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_0 by users: [amit]
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user amit recording purchase into history
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user amit recording purchase into history
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_1 by users: [guy]
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy recording purchase into history
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy recording purchase into history
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_2 by users: [pam123]
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user pam123 recording purchase into history
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user pam123 recording purchase into history
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_3 by users: [alex12]
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user alex12 recording purchase into history
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user alex12 recording purchase into history
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_4 by users: [ronn]
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user ronn recording purchase into history
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user ronn recording purchase into history
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_5 by users: [delphin]
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user delphin recording purchase into history
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user delphin recording purchase into history
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_6 by users: [alan]
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user alan recording purchase into history
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user alan recording purchase into history
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_7 by users: [rotman]
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user rotman recording purchase into history
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user rotman recording purchase into history
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_8 by users: [dashy]
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user dashy recording purchase into history
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user dashy recording purchase into history
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_9 by users: [crim]
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user crim recording purchase into history
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user crim recording purchase into history
+Jun 12, 2022 8:50:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+Jun 12, 2022 8:50:43 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to login
+Jun 12, 2022 8:50:46 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to sign up
+Jun 12, 2022 8:50:46 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : aaaa
+Jun 12, 2022 8:50:46 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to login
+Jun 12, 2022 8:50:48 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to logout
+Jun 12, 2022 8:50:48 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa successfully logged out
+Jun 12, 2022 8:50:52 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user asd is trying to sign up
+Jun 12, 2022 8:50:52 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : asd
+Jun 12, 2022 8:50:53 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to login
+Jun 12, 2022 8:50:56 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_10 by users: [aaaa]
+Jun 12, 2022 8:51:03 PM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+Jun 12, 2022 8:51:03 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: asd by: aaaa in store:StoreID_10
+Jun 12, 2022 8:51:04 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to logout
+Jun 12, 2022 8:51:04 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa successfully logged out
+Jun 12, 2022 8:51:18 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user asd is trying to login
+Jun 12, 2022 8:52:09 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user asd is trying to logout
+Jun 12, 2022 8:52:09 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user asd successfully logged out
+Jun 12, 2022 8:52:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user asd2 is trying to sign up
+Jun 12, 2022 8:52:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : asd2
+Jun 12, 2022 8:52:19 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to login
+Jun 12, 2022 8:52:28 PM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+Jun 12, 2022 8:52:28 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: asd2 by: aaaa in store:StoreID_10
+Jun 12, 2022 8:52:29 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to logout
+Jun 12, 2022 8:52:29 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa successfully logged out
+Jun 12, 2022 8:52:32 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user asd2 is trying to login
+Jun 12, 2022 8:53:35 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user asd2 is trying to logout
+Jun 12, 2022 8:53:35 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user asd2 successfully logged out
+Jun 12, 2022 8:53:38 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to login
+Jun 12, 2022 8:53:48 PM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+Jun 12, 2022 8:54:28 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to login
+Jun 12, 2022 8:54:31 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user asd2 is trying to login
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: Visa connected
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment Visato external connections
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: MasterCard connected
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: adding payment MasterCardto external connections
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: FedEx connected
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery FedExto external connections
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: UPS connected
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: adding delivery UPSto external connections
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : amit
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : guy
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : pam123
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : alex12
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : ronn
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : delphin
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : alan
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : rotman
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : dashy
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : crim
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : karma
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : damon
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : tjhaly
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : spart
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : yoav
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : pamaj
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : spratt
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user amit is trying to login
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy is trying to login
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user pam123 is trying to login
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user alex12 is trying to login
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user ronn is trying to login
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user rotman is trying to login
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user dashy is trying to login
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user crim is trying to login
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user karma is trying to login
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user damon is trying to login
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user tjhaly is trying to login
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user spart is trying to login
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user yoav is trying to login
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user delphin is trying to login
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user alan is trying to login
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user pamaj is trying to login
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user spratt is trying to login
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_0 by users: [amit]
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user amit recording purchase into history
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user amit recording purchase into history
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_1 by users: [guy]
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy recording purchase into history
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user guy recording purchase into history
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_2 by users: [pam123]
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user pam123 recording purchase into history
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user pam123 recording purchase into history
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_3 by users: [alex12]
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user alex12 recording purchase into history
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user alex12 recording purchase into history
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_4 by users: [ronn]
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user ronn recording purchase into history
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user ronn recording purchase into history
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_5 by users: [delphin]
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user delphin recording purchase into history
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user delphin recording purchase into history
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_6 by users: [alan]
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user alan recording purchase into history
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user alan recording purchase into history
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_7 by users: [rotman]
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user rotman recording purchase into history
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user rotman recording purchase into history
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_8 by users: [dashy]
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user dashy recording purchase into history
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user dashy recording purchase into history
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_9 by users: [crim]
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user crim recording purchase into history
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user crim recording purchase into history
+Jun 12, 2022 8:56:42 PM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+Jun 12, 2022 8:56:54 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to sign up
+Jun 12, 2022 8:56:54 PM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : aaaa
+Jun 12, 2022 8:56:57 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user admin is trying to login
+Jun 12, 2022 8:56:59 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new store opened, storeId: StoreID_10 by users: [admin]
+Jun 12, 2022 8:57:07 PM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+Jun 12, 2022 8:57:07 PM com.example.demo.GlobalSystemServices.Log info
+INFO: new owner created, userId: aaaa by: admin in store:StoreID_10
+Jun 12, 2022 8:57:13 PM com.example.demo.GlobalSystemServices.Log info
+INFO: store deleted, storeId: StoreID_10 by users: admin
+Jun 12, 2022 8:57:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user admin is trying to logout
+Jun 12, 2022 8:57:15 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user admin successfully logged out
+Jun 12, 2022 8:57:25 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to login
+Jun 12, 2022 8:58:36 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa is trying to logout
+Jun 12, 2022 8:58:36 PM com.example.demo.GlobalSystemServices.Log info
+INFO: user aaaa successfully logged out

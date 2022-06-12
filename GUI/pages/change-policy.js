@@ -42,8 +42,48 @@ const ChangePolicy = () => {
     minAge: "",
     maxAge: "",
   });
-  const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  const daysOfMonth = ["01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"];
+  const daysOfWeek = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const daysOfMonth = [
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29",
+    "30",
+    "31",
+  ];
   const categories = ["Other", "Appliances", "Apps$Games", "Handmade", "Baby"];
   const [policies, setPolicies] = useState(["Create new predicate"]);
 
@@ -58,7 +98,7 @@ const ChangePolicy = () => {
     const fetchData = async () => {
       //get all the existing policies in the store...
       let storeID = window.location.href.split("?").pop();
-      if(storeID.charAt(storeID.length-1) === '#'){
+      if (storeID.charAt(storeID.length - 1) === "#") {
         storeID = storeID.slice(0, -1);
       }
       return await api
@@ -71,7 +111,7 @@ const ChangePolicy = () => {
             data.value.map((pol) => {
               policies.push(`ID=${pol.PolicyId}`);
               //policies.push(`ID=${pol.PolicyId} / Desc.=${pol.PolicyDescription.split('=')[1]}=${pol.PolicyDescription.split('=')[2].slice(0,-1)}`);
-            })
+            });
           } else {
             createNotification("error", data.reason)();
           }
@@ -81,63 +121,80 @@ const ChangePolicy = () => {
     fetchData();
   }, []);
 
-  const onUpdatePolicy = async (e) => { //for combined policy 
+  const onUpdatePolicy = async (e) => {
+    //for combined policy
     e.preventDefault();
     console.log("creating combined policy");
     let storeID = window.location.href.split("?").pop();
-    if(storeID.charAt(storeID.length-1) === '#'){
+    if (storeID.charAt(storeID.length - 1) === "#") {
       storeID = storeID.slice(0, -1);
     }
     const polID1 = preds.pred1.split("/")[0].slice(3);
     const polID2 = preds.pred2.split("/")[0].slice(3);
-    console.log(`/policy/combine?storeId=${storeID}&userId=${cookies.userId}&typeOfCombination=${combinationType}&policyID1=${polID1}&policyID2=${polID2}`)
+    console.log(
+      `/policy/combine?storeId=${storeID}&userId=${cookies.userId}&typeOfCombination=${combinationType}&policyID1=${polID1}&policyID2=${polID2}`
+    );
     return await api
-        .post(`/policy/combine?storeId=${storeID}&userId=${cookies.userId}&typeOfCombination=${combinationType}&policyID1=${polID1}&policyID2=${polID2}`)
-        .then((res) => {
-          const { data } = res;
-          if (data.success) {
-            console.log(data);
-            // Add each policy to policies...
-            policies.push(`ID=${data.value} / Desc.= Combination of ${polID1} & ${polID2}`);
-            createNotification("success", "Policy has been created successfully")();
-          } else {
-            createNotification("error", data.reason)();
-          }
-        })
+      .post(
+        `/policy/combine?storeId=${storeID}&userId=${cookies.userId}&typeOfCombination=${combinationType}&policyID1=${polID1}&policyID2=${polID2}`
+      )
+      .then((res) => {
+        const { data } = res;
+        if (data.success) {
+          console.log(data);
+          // Add each policy to policies...
+          policies.push(
+            `ID=${data.value} / Desc.= Combination of ${polID1} & ${polID2}`
+          );
+          createNotification(
+            "success",
+            "Policy has been created successfully"
+          )();
+        } else {
+          createNotification("error", data.reason)();
+        }
+      });
   };
 
-  const onCreatePredicate1 = async (e) => { //for policy #1 in page
+  const onCreatePredicate1 = async (e) => {
+    //for policy #1 in page
     e.preventDefault();
     console.log("creating new predicate #1"); //Create one pred policy from pred1 values...
     let storeID = window.location.href.split("?").pop();
-    if(storeID.charAt(storeID.length-1) === '#'){
+    if (storeID.charAt(storeID.length - 1) === "#") {
       storeID = storeID.slice(0, -1);
     }
     const defaultYear = "2022";
-    const defaultMonth = "01";   
+    const defaultMonth = "01";
     const startLocalDateTime = `${defaultYear}-${defaultMonth}-${predsFeatures1.dayOfMonth}T${predsFeatures1.startHourOfDay}`;
     const endLocalDateTime = `${defaultYear}-${defaultMonth}-${predsFeatures1.dayOfMonth}T${predsFeatures1.endHourOfDay}`;
 
     return await api
-        .post(`/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfPolicy=${policyType}&numOfProducts=${predsFeatures1.minQunatity}&categories=${predsFeatures1.category}&products=${predsFeatures1.productShouldBeInCart}&productsAmount=${predsFeatures1.minQunatity}&userIds=${predsFeatures1.specificUser}&startAge=${predsFeatures1.minAge}&endAge=${predsFeatures1.maxAge}&startTime=${startLocalDateTime}&endTime=${endLocalDateTime}&price=${predsFeatures1.minPrice}`)
-        //.post(`/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfCombination=${combinationType}` , mockPolicy)
-        .then((res) => {
-          const { data } = res;
-          if (data.success) {
-            console.log(data);
-            policies.push(data.value); // Add new policy to policies...
-            createNotification("success", "Policy has been created successfully")();
-          } else {
-            createNotification("error", data.reason)();
-          }
-        })
+      .post(
+        `/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfPolicy=${policyType}&numOfProducts=${predsFeatures1.minQunatity}&categories=${predsFeatures1.category}&products=${predsFeatures1.productShouldBeInCart}&productsAmount=${predsFeatures1.minQunatity}&userIds=${predsFeatures1.specificUser}&startAge=${predsFeatures1.minAge}&endAge=${predsFeatures1.maxAge}&startTime=${startLocalDateTime}&endTime=${endLocalDateTime}&price=${predsFeatures1.minPrice}`
+      )
+      //.post(`/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfCombination=${combinationType}` , mockPolicy)
+      .then((res) => {
+        const { data } = res;
+        if (data.success) {
+          console.log(data);
+          policies.push(data.value); // Add new policy to policies...
+          createNotification(
+            "success",
+            "Policy has been created successfully"
+          )();
+        } else {
+          createNotification("error", data.reason)();
+        }
+      });
   };
 
-  const onCreatePredicate2 = async (e) => { //for policy #1 in page
+  const onCreatePredicate2 = async (e) => {
+    //for policy #1 in page
     e.preventDefault();
     console.log("creating new predicate #2"); //Create one pred policy from pred1 values...
     let storeID = window.location.href.split("?").pop();
-    if(storeID.charAt(storeID.length-1) === '#'){
+    if (storeID.charAt(storeID.length - 1) === "#") {
       storeID = storeID.slice(0, -1);
     }
     const defaultYear = "2022";
@@ -146,44 +203,56 @@ const ChangePolicy = () => {
     const endLocalDateTime = `${defaultYear}-${defaultMonth}-${predsFeatures2.dayOfMonth}T${predsFeatures2.endHourOfDay}`;
 
     return await api
-        .post(`/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfPolicy=${policyType}&numOfProducts=${predsFeatures2.minQunatity}&categories=${predsFeatures2.category}&products=${predsFeatures2.productShouldBeInCart}&productsAmount=${predsFeatures2.minQunatity}&userIds=${predsFeatures2.specificUser}&startAge=${predsFeatures2.minAge}&endAge=${predsFeatures2.maxAge}&startTime=${startLocalDateTime}&endTime=${endLocalDateTime}&price=${predsFeatures2.minPrice}`)
-        //.post(`/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfCombination=${combinationType}` , mockPolicy)
-        .then((res) => {
-          const { data } = res;
-          if (data.success) {
-            console.log(data);
-            // Add new policy to policies...
-            policies.push(data.value);
-            createNotification("success", "Policy has been created successfully")();
-          } else {
-            createNotification("error", data.reason)();
-          }
-        })
+      .post(
+        `/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfPolicy=${policyType}&numOfProducts=${predsFeatures2.minQunatity}&categories=${predsFeatures2.category}&products=${predsFeatures2.productShouldBeInCart}&productsAmount=${predsFeatures2.minQunatity}&userIds=${predsFeatures2.specificUser}&startAge=${predsFeatures2.minAge}&endAge=${predsFeatures2.maxAge}&startTime=${startLocalDateTime}&endTime=${endLocalDateTime}&price=${predsFeatures2.minPrice}`
+      )
+      //.post(`/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfCombination=${combinationType}` , mockPolicy)
+      .then((res) => {
+        const { data } = res;
+        if (data.success) {
+          console.log(data);
+          // Add new policy to policies...
+          policies.push(data.value);
+          createNotification(
+            "success",
+            "Policy has been created successfully"
+          )();
+        } else {
+          createNotification("error", data.reason)();
+        }
+      });
   };
 
   const onDeletePolicy = async (e) => {
     e.preventDefault();
     console.log("Deleting a policy");
     let storeID = window.location.href.split("?").pop();
-    if(storeID.charAt(storeID.length-1) === '#'){
+    if (storeID.charAt(storeID.length - 1) === "#") {
       storeID = storeID.slice(0, -1);
     }
-    console.log(`/policy/delete?storeId=${storeID}&userId=${cookies.userId}&policyId=${preds.predToDelete}`);
+    console.log(
+      `/policy/delete?storeId=${storeID}&userId=${cookies.userId}&policyId=${preds.predToDelete}`
+    );
 
     return await api
-        .post(`/policy/delete?storeId=${storeID}&userId=${cookies.userId}&policyId=${preds.predToDelete}`)
-        .then((res) => {
-          const { data } = res;
-          if (data.success) {
-            console.log(data);
-            policies = policies.filter((pol) => pol !== preds.predToDelete)
-            createNotification("success", "Policy has been deleted successfully")();
-          } else {
-            createNotification("error", data.reason)();
-          }
-        })
-        .catch((err) => createNotification("error", err)());
-  }
+      .post(
+        `/policy/delete?storeId=${storeID}&userId=${cookies.userId}&policyId=${preds.predToDelete}`
+      )
+      .then((res) => {
+        const { data } = res;
+        if (data.success) {
+          console.log(data);
+          policies = policies.filter((pol) => pol !== preds.predToDelete);
+          createNotification(
+            "success",
+            "Policy has been deleted successfully"
+          )();
+        } else {
+          createNotification("error", data.reason)();
+        }
+      })
+      .catch((err) => createNotification("error", err)());
+  };
 
   return (
     <>
@@ -195,8 +264,10 @@ const ChangePolicy = () => {
       <div className="container">
         <div className="row">
           <div className="col">
-            <h4><u>Select policy type</u></h4>
-            
+            <h4>
+              <u>Select policy type</u>
+            </h4>
+
             <div className="dropdown m-1">
               <button
                 className="btn btn-secondary dropdown-toggle"
@@ -212,55 +283,88 @@ const ChangePolicy = () => {
                 aria-labelledby="dropdownMenuButton1"
               >
                 <li>
-                  <a className="dropdown-item" onClick={() => setPolicyType("PolicyType")}></a>
+                  <a
+                    className="dropdown-item"
+                    onClick={() => setPolicyType("PolicyType")}
+                  ></a>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={() => setPolicyType("PricePredicate")}>
+                  <a
+                    className="dropdown-item"
+                    onClick={() => setPolicyType("PricePredicate")}
+                  >
                     Price Policy
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={() => setPolicyType("CategoryPolicy")}>
+                  <a
+                    className="dropdown-item"
+                    onClick={() => setPolicyType("CategoryPolicy")}
+                  >
                     Category Policy
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={() => setPolicyType("CartPolicy")}>
+                  <a
+                    className="dropdown-item"
+                    onClick={() => setPolicyType("CartPolicy")}
+                  >
                     Cart Policy
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={() => setPolicyType("ProductWithoutAmountPolicy")}>
+                  <a
+                    className="dropdown-item"
+                    onClick={() => setPolicyType("ProductWithoutAmountPolicy")}
+                  >
                     Product Without Amount Policy
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={() => setPolicyType("ProductWithAmountPolicy")}>
+                  <a
+                    className="dropdown-item"
+                    onClick={() => setPolicyType("ProductWithAmountPolicy")}
+                  >
                     Product With Amount Policy
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={() => setPolicyType("OnDayOfMonthPolicy")}>
+                  <a
+                    className="dropdown-item"
+                    onClick={() => setPolicyType("OnDayOfMonthPolicy")}
+                  >
                     On Day Of Month Policy
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={() => setPolicyType("OnDaysOfTheWeekPolicy")}>
+                  <a
+                    className="dropdown-item"
+                    onClick={() => setPolicyType("OnDaysOfTheWeekPolicy")}
+                  >
                     On Days Of The Week Policy
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={() => setPolicyType("OnHoursOfTheDayPolicy")}>
+                  <a
+                    className="dropdown-item"
+                    onClick={() => setPolicyType("OnHoursOfTheDayPolicy")}
+                  >
                     On Hours Of The Day Policy
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={() => setPolicyType("UserIdPolicy")}>
+                  <a
+                    className="dropdown-item"
+                    onClick={() => setPolicyType("UserIdPolicy")}
+                  >
                     UserId Policy
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={() => setPolicyType("UseAgePolicy")}>
+                  <a
+                    className="dropdown-item"
+                    onClick={() => setPolicyType("UseAgePolicy")}
+                  >
                     Age Policy
                   </a>
                 </li>
@@ -288,7 +392,8 @@ const ChangePolicy = () => {
                 {policies.map((policy) => {
                   return (
                     <li>
-                      <a className="dropdown-item"
+                      <a
+                        className="dropdown-item"
                         onClick={() =>
                           setPreds((prevState) => ({
                             ...prevState,
@@ -299,7 +404,7 @@ const ChangePolicy = () => {
                         {policy}
                       </a>
                     </li>
-                  )
+                  );
                 })}
               </ul>
             </div>
@@ -318,37 +423,52 @@ const ChangePolicy = () => {
                 aria-labelledby="dropdownMenuButton1"
               >
                 <li>
-                  <a className="dropdown-item"
-                     onClick={() => {
+                  <a
+                    className="dropdown-item"
+                    onClick={() => {
                       setCombinationType("None of the above");
                       setPreds((prevState) => ({
                         ...prevState,
                         pred2: "",
-                        }))
-                      }  
-                    }
+                      }));
+                    }}
                   >
                     None of the above
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={() => setCombinationType("And")}>
+                  <a
+                    className="dropdown-item"
+                    onClick={() => setCombinationType("And")}
+                  >
                     And
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={() => setCombinationType("Or")}>
+                  <a
+                    className="dropdown-item"
+                    onClick={() => setCombinationType("Or")}
+                  >
                     Or
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={() => setCombinationType("Xor")}>
+                  <a
+                    className="dropdown-item"
+                    onClick={() => setCombinationType("Xor")}
+                  >
                     Xor
                   </a>
                 </li>
               </ul>
             </div>
-            <div className="dropdown m-1" style={{display: combinationType=="None of the above"? "none" : "block"}}>
+            <div
+              className="dropdown m-1"
+              style={{
+                display:
+                  combinationType == "None of the above" ? "none" : "block",
+              }}
+            >
               <button
                 className="btn btn-secondary dropdown-toggle"
                 type="button"
@@ -365,7 +485,8 @@ const ChangePolicy = () => {
                 {policies.map((policy) => {
                   return (
                     <li>
-                      <a className="dropdown-item"
+                      <a
+                        className="dropdown-item"
                         onClick={() =>
                           setPreds((prevState) => ({
                             ...prevState,
@@ -376,7 +497,7 @@ const ChangePolicy = () => {
                         {policy}
                       </a>
                     </li>
-                  )
+                  );
                 })}
               </ul>
             </div>
@@ -439,8 +560,9 @@ const ChangePolicy = () => {
                     {categories.map((cat) => {
                       return (
                         <li>
-                          <a className="dropdown-item"
-                             onClick={(e) =>
+                          <a
+                            className="dropdown-item"
+                            onClick={(e) =>
                               setPredsFeature1((prevState) => ({
                                 ...prevState,
                                 category: cat,
@@ -450,8 +572,8 @@ const ChangePolicy = () => {
                             {cat}
                           </a>
                         </li>
-                      )
-                    })} 
+                      );
+                    })}
                   </ul>
                 </div>
               </div>
@@ -511,10 +633,7 @@ const ChangePolicy = () => {
               <div
                 style={{
                   display:
-                    policyType ==
-                    "ProductWithAmountPolicy"
-                      ? "block"
-                      : "none",
+                    policyType == "ProductWithAmountPolicy" ? "block" : "none",
                 }}
               >
                 <div className="input-group mb-3">
@@ -558,10 +677,10 @@ const ChangePolicy = () => {
               </div>
               <div
                 style={{
-                  display: policyType == "OnDayOfMonthPolicy" ? "block" : "none",
+                  display:
+                    policyType == "OnDayOfMonthPolicy" ? "block" : "none",
                 }}
               >
-                
                 <div className="dropdown m-1">
                   <button
                     className="btn btn-secondary dropdown-toggle"
@@ -579,8 +698,9 @@ const ChangePolicy = () => {
                     {daysOfMonth.map((day) => {
                       return (
                         <li>
-                          <a className="dropdown-item"
-                             onClick={(e) =>
+                          <a
+                            className="dropdown-item"
+                            onClick={(e) =>
                               setPredsFeature1((prevState) => ({
                                 ...prevState,
                                 dayOfMonth: day,
@@ -590,14 +710,15 @@ const ChangePolicy = () => {
                             {day}
                           </a>
                         </li>
-                      )
-                    })} 
+                      );
+                    })}
                   </ul>
                 </div>
               </div>
               <div
                 style={{
-                  display: policyType == "OnDaysOfTheWeekPolicy" ? "block" : "none",
+                  display:
+                    policyType == "OnDaysOfTheWeekPolicy" ? "block" : "none",
                 }}
               >
                 <div className="dropdown m-1">
@@ -617,8 +738,9 @@ const ChangePolicy = () => {
                     {daysOfWeek.map((day) => {
                       return (
                         <li>
-                          <a className="dropdown-item"
-                             onClick={(e) =>
+                          <a
+                            className="dropdown-item"
+                            onClick={(e) =>
                               setPredsFeature1((prevState) => ({
                                 ...prevState,
                                 dayOfWeek: day,
@@ -628,14 +750,15 @@ const ChangePolicy = () => {
                             {day}
                           </a>
                         </li>
-                      )
-                    })} 
+                      );
+                    })}
                   </ul>
                 </div>
               </div>
               <div
                 style={{
-                  display: policyType == "OnHoursOfTheDayPolicy" ? "block" : "none",
+                  display:
+                    policyType == "OnHoursOfTheDayPolicy" ? "block" : "none",
                 }}
               >
                 <div className="input-group mb-3">
@@ -702,7 +825,11 @@ const ChangePolicy = () => {
                   />
                 </div>
               </div>
-              <div style={{ display: policyType == "UseAgePolicy" ? "block" : "none" }}>
+              <div
+                style={{
+                  display: policyType == "UseAgePolicy" ? "block" : "none",
+                }}
+              >
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
                     MinAge
@@ -747,8 +874,7 @@ const ChangePolicy = () => {
               className="row m-1"
               style={{
                 display:
-                preds.pred1 == "Create new predicate" &&
-                combinationType != ""
+                  preds.pred1 == "Create new predicate" && combinationType != ""
                     ? "block"
                     : "none",
               }}
@@ -818,8 +944,9 @@ const ChangePolicy = () => {
                     {categories.map((cat) => {
                       return (
                         <li>
-                          <a className="dropdown-item"
-                             onClick={(e) =>
+                          <a
+                            className="dropdown-item"
+                            onClick={(e) =>
                               setPredsFeature2((prevState) => ({
                                 ...prevState,
                                 category: cat,
@@ -829,8 +956,8 @@ const ChangePolicy = () => {
                             {cat}
                           </a>
                         </li>
-                      )
-                    })} 
+                      );
+                    })}
                   </ul>
                 </div>
               </div>
@@ -890,10 +1017,7 @@ const ChangePolicy = () => {
               <div
                 style={{
                   display:
-                    policyType ==
-                    "ProductWithAmountPolicy"
-                      ? "block"
-                      : "none",
+                    policyType == "ProductWithAmountPolicy" ? "block" : "none",
                 }}
               >
                 <div className="input-group mb-3">
@@ -937,7 +1061,8 @@ const ChangePolicy = () => {
               </div>
               <div
                 style={{
-                  display: policyType == "OnDayOfMonthPolicy" ? "block" : "none",
+                  display:
+                    policyType == "OnDayOfMonthPolicy" ? "block" : "none",
                 }}
               >
                 <div className="dropdown m-1">
@@ -957,8 +1082,9 @@ const ChangePolicy = () => {
                     {daysOfMonth.map((day) => {
                       return (
                         <li>
-                          <a className="dropdown-item"
-                             onClick={(e) =>
+                          <a
+                            className="dropdown-item"
+                            onClick={(e) =>
                               setPredsFeature2((prevState) => ({
                                 ...prevState,
                                 dayOfMonth: day,
@@ -968,14 +1094,15 @@ const ChangePolicy = () => {
                             {day}
                           </a>
                         </li>
-                      )
+                      );
                     })}
                   </ul>
                 </div>
               </div>
               <div
                 style={{
-                  display: policyType == "OnDaysOfTheWeekPolicy" ? "block" : "none",
+                  display:
+                    policyType == "OnDaysOfTheWeekPolicy" ? "block" : "none",
                 }}
               >
                 <div className="dropdown m-1">
@@ -995,8 +1122,9 @@ const ChangePolicy = () => {
                     {daysOfWeek.map((day) => {
                       return (
                         <li>
-                          <a className="dropdown-item"
-                             onClick={(e) =>
+                          <a
+                            className="dropdown-item"
+                            onClick={(e) =>
                               setPredsFeature2((prevState) => ({
                                 ...prevState,
                                 dayOfWeek: day,
@@ -1006,14 +1134,15 @@ const ChangePolicy = () => {
                             {day}
                           </a>
                         </li>
-                      )
-                    })} 
+                      );
+                    })}
                   </ul>
                 </div>
               </div>
               <div
                 style={{
-                  display: policyType == "OnHoursOfTheDayPolicy" ? "block" : "none",
+                  display:
+                    policyType == "OnHoursOfTheDayPolicy" ? "block" : "none",
                 }}
               >
                 <div className="input-group mb-3">
@@ -1080,7 +1209,11 @@ const ChangePolicy = () => {
                   />
                 </div>
               </div>
-              <div style={{ display: policyType == "UseAgePolicy" ? "block" : "none" }}>
+              <div
+                style={{
+                  display: policyType == "UseAgePolicy" ? "block" : "none",
+                }}
+              >
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
                     MinAge
@@ -1125,8 +1258,7 @@ const ChangePolicy = () => {
               className="row m-1"
               style={{
                 display:
-                preds.pred2 == "Create new predicate" &&
-                combinationType != ""
+                  preds.pred2 == "Create new predicate" && combinationType != ""
                     ? "block"
                     : "none",
               }}
@@ -1157,7 +1289,7 @@ const ChangePolicy = () => {
           <div className="text-center my-5">
             <h3>Delete Policy</h3>
           </div>
-        
+
           <div className="dropdown m-1 text-center">
             <button
               className="btn btn-secondary dropdown-toggle"
@@ -1168,14 +1300,12 @@ const ChangePolicy = () => {
             >
               {preds.predToDelete}
             </button>
-            <ul
-              className="dropdown-menu"
-              aria-labelledby="dropdownMenuButton1"
-            >
+            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               {policies.map((policy) => {
                 return (
                   <li>
-                    <a className="dropdown-item"
+                    <a
+                      className="dropdown-item"
                       onClick={() =>
                         setPreds((prevState) => ({
                           ...prevState,
@@ -1186,7 +1316,7 @@ const ChangePolicy = () => {
                       {policy}
                     </a>
                   </li>
-                )
+                );
               })}
             </ul>
           </div>

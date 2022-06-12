@@ -7101,3 +7101,9 @@ Jun 12, 2022 7:56:48 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: invalid password for user dd
 Jun 12, 2022 7:57:01 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user aaaa already exists in the system - failed to sign up
+Jun 12, 2022 8:50:43 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user aaaa doesn't exist
+Jun 12, 2022 8:50:43 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user aaaa failed login
+Jun 12, 2022 8:54:28 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user aaaa is already logged in

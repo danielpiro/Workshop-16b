@@ -601,7 +601,7 @@ public class BigController {
     public ReturnValue isInDashboard(@RequestParam String userId) throws InterruptedException {
         for (int i = 0; i < us.get_subscriber(userId).getStoreNotifications().size(); i++) {
             //remove before stress test
-            Thread.sleep(3000);
+            Thread.sleep(2000);
             NotificationController.getInstance().sendNotification(new realTimeNotification(userId, us.get_subscriber(userId).getStoreNotifications().get(i).getSentFrom().getStoreName(), us.get_subscriber(userId).getStoreNotifications().get(i).getSubject().toString(), us.get_subscriber(userId).getStoreNotifications().get(i).getTitle(), us.get_subscriber(userId).getStoreNotifications().get(i).getBody(), new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(Calendar.getInstance().getTime())));
         }
         us.get_subscriber(userId).resetNotification();

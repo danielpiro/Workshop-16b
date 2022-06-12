@@ -23,6 +23,7 @@ const WebSocket = (user, isConnected) => {
   };
 
   const onPrivateMessage = (payload) => {
+    console.log(payload);
     createNotification("socket", payload.body)();
   };
   connect();
