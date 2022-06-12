@@ -57,7 +57,7 @@ public class ApiExceptionHandler {
         );
         return rv;
     }
-    
+
     @ExceptionHandler(value = { JsonProcessingException.class })
     public ReturnValue handleInternalProblem (Exception e){
         ReturnValue rv = new ReturnValue(
