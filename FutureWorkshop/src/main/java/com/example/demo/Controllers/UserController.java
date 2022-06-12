@@ -164,8 +164,10 @@ public class UserController implements NotificationReceiver {
     }
 
     public void removeProduct(String user_id, String productID, String storeID, int amount) throws UserException {
-        if ((getGuest(user_id) != null))
+        if ((getGuest(user_id) != null)){
             getGuest(user_id).removeProduct(productID, storeID, amount);
+            return;
+        }
         else if (get_subscriber(user_id) == null && getGuest(user_id) == null) {
             my_log.warning("User " + user_id + " doesn't exist");
             throw new UserException("User " + user_id + " doesn't exist");
@@ -622,7 +624,7 @@ public class UserController implements NotificationReceiver {
     @Async
     public CompletableFuture<Float> getPriceOfCartBeforeDiscount(String user_id, ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException, UserException {
         if ((getGuest(user_id) != null)){
-            return CompletableFuture.completedFuture(get_subscriber(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder));
+            return CompletableFuture.completedFuture(getGuest(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder));
         }
         if (get_subscriber(user_id) == null) {
             throw new UserException("User " + user_id + " doesn't exist");

@@ -19,60 +19,51 @@ const DisplayStorePurchases = () => {
     "type",
   ]);
 
-  useEffect( async () => {
+  useEffect(async () => {
     setIsLoading(!isLoading);
-      let storeID = window.location.href.split("?").pop();
-      if(storeID.charAt(storeID.length-1) === '#'){
-        storeID = storeID.slice(0, -1);
-      }
-      await api
-        .get(`/history/store/?storeId=${storeID}&userId=${cookies.userId}`)
-        .then((res) => {
-            const { data } = res;
-            console.log(data)
-            if (data.success) {
-                setPurchases(data.value);
-                //setIsLoading(!isLoading);
-                createNotification(
-                "success",
-                "Displaying all user's purchases successfully"
-                )();
-          }
-        })
-        .catch((err) => createNotification("error", data.reason)());
+    let storeID = window.location.href.split("?").pop();
+    if (storeID.charAt(storeID.length - 1) === "#") {
+      storeID = storeID.slice(0, -1);
+    }
+    await api
+      .get(`/history/store/?storeId=${storeID}&userId=${cookies.userId}`)
+      .then((res) => {
+        const { data } = res;
+        console.log(data);
+        if (data.success) {
+          setPurchases(data.value);
+          //setIsLoading(!isLoading);
+          createNotification(
+            "success",
+            "Displaying all user's purchases successfully"
+          )();
+        }
+      })
+      .catch((err) => createNotification("error", data.reason)());
   }, []);
-
-  const getSingleProduct = (id) => {
-    purchases.map((purchase) => {
-      if (purchase.id === id) {
-        return setSinglePurchase(purchase);
-      }
-      return null;
-    });
-  };
 
   return (
     <>
       <Menu />
-      <div className="card-header">
+      <div className="text-center m-5">
         <h3>Display Store Purchases</h3>
       </div>
-      <div
-        className="my-4"
-        style={{ display: "flex", justifyContent: "center" }}
-      >
-        <h3><u>Store Purchases:</u></h3>
-      </div>
       {!isLoading ? (
-        <div style={{ display: "table", width: "100%" }}>
+        <div className="container d-flex justify-content-center">
           <ul className="list-group" style={{ display: "table-cell" }}>
             {purchases.map((purchase) => {
               return (
-                <li className=" list-group-item" key={purchase.id}>
+                <li className=" list-group-item mb-3" key={purchase.id}>
                   <div className="card-body">
-                    <h4 className="card-title text-center">UserID: {purchase.userID}</h4>
-                    <h4 className="card-title text-center">StoreID: {purchase.storeID}</h4>
-                    <h4 className="card-title text-center">PurchaseID: {purchase.purchaseID}</h4>
+                    <h4 className="card-title text-center">
+                      UserID: {purchase.userID}
+                    </h4>
+                    <h4 className="card-title text-center">
+                      StoreID: {purchase.storeID}
+                    </h4>
+                    <h4 className="card-title text-center">
+                      PurchaseID: {purchase.purchaseID}
+                    </h4>
                   </div>
                 </li>
               );

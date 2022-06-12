@@ -1,17 +1,13 @@
 package com.example.demo.Controllers;
 
 import com.example.demo.Controllers.model.realTimeNotification;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
 @Controller
-@EnableScheduling
 public class NotificationController {
 
     private static NotificationController single_instance = null;
@@ -40,13 +36,5 @@ public class NotificationController {
         simpMessagingTemplate.convertAndSendToUser(message.getReceiverName(), "/private", message.getReceiverName().concat("\n"+"sender: "+message.getSenderName()+"\n"+"title: "+message.getTitle()+"\n"+"body: "+message.getBody()+"\n"+"date: "+message.getDate()));
         System.out.println(message.getReceiverName());
     }
-
-//    @Scheduled(fixedRate = 3000)
-//    public void sendMessages() {
-//        System.out.println("in function");
-//        //simpMessagingTemplate.convertAndSend("/chatroom/public" , "hello");
-//        simpMessagingTemplate.convertAndSendToUser("aaaa" ,"/private", "hello from admin");
-//
-//    }
 
 }

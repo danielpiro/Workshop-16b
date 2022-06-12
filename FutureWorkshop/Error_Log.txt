@@ -7071,3 +7071,33 @@ Jun 10, 2022 5:53:33 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user aaacould not remove product ProductID_33 because the item does not exist in the basket
 Jun 10, 2022 5:53:33 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user aaacould not remove product ProductID_33 because the item does not exist in the basket
+Jun 12, 2022 6:44:21 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user GuestID_8 doesn't exist
+Jun 12, 2022 6:44:21 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist
+Jun 12, 2022 6:55:19 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user asd doesn't exist
+Jun 12, 2022 6:55:19 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist
+Jun 12, 2022 7:10:45 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user sub doesn't exist
+Jun 12, 2022 7:10:49 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user sub doesn't exist
+Jun 12, 2022 7:12:59 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user sub doesn't exist
+Jun 12, 2022 7:55:57 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user asd doesn't exist
+Jun 12, 2022 7:55:57 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user asd failed login
+Jun 12, 2022 7:56:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: invalid password for user a1
+Jun 12, 2022 7:56:27 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user a1 failed login
+Jun 12, 2022 7:56:28 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user a1 failed login
+Jun 12, 2022 7:56:31 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user a1 failed login
+Jun 12, 2022 7:56:48 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: invalid password for user dd
+Jun 12, 2022 7:57:01 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user aaaa already exists in the system - failed to sign up

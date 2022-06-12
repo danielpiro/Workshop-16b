@@ -2,6 +2,8 @@ import api from "./api";
 import createNotification from "./norification";
 import { useCookies } from "react-cookie";
 import { useState } from "react";
+import { ReactSearchAutocomplete } from "react-search-autocomplete";
+
 const StoreProduct = ({
   id,
   title,
@@ -38,7 +40,6 @@ const StoreProduct = ({
   };
   const onRemove = async (e) => {
     e.preventDefault();
-    console.log(storeId, id);
     return await api
       .post(
         `/store/product/delete/?storeId=${storeId}&userId=${cookies.userId}&productId=${id}`
@@ -91,6 +92,20 @@ const StoreProduct = ({
     setDetails(originalDetails);
     setIsEdit(!isEdit);
   };
+  const categories = [
+    { id: 1, name: "Other" },
+    { id: 2, name: "Appliances" },
+    { id: 3, name: "Apps$Games" },
+    { id: 4, name: "Handmade" },
+    { id: 5, name: "Baby" },
+  ];
+
+  const onHandleSelect = (item) => {
+    setDetails((prevState) => ({
+      ...prevState,
+      category: item,
+    }));
+  };
 
   return (
     <div className="card-body">
@@ -113,21 +128,18 @@ const StoreProduct = ({
           }
         />
       </form>
-      <form className="text-center">
-        Category:
-        <input
-          className="card-body text-center mb-3 ms-3"
-          value={details.category}
-          type="text"
-          disabled={!isEdit}
-          onChange={(e) =>
-            setDetails((prevState) => ({
-              ...prevState,
-              category: e.target.value,
-            }))
-          }
-        />
-      </form>
+      <div className="input-group">
+        <div className="me-3" hidden={!isEdit}>
+          Category:
+        </div>
+        <div className="mb-3" style={{ width: "85%" }} hidden={!isEdit}>
+          <ReactSearchAutocomplete
+            items={categories}
+            onSelect={onHandleSelect}
+          />
+        </div>
+      </div>
+
       <form className="text-center">
         Quantity:
         <input

@@ -44,10 +44,6 @@ const UserHistory = () => {
       <div className="text-center my-5">
         <h3>View all my purchases</h3>
       </div>
-
-      <div className="text-center my-4">
-        <h1>Purchases</h1>
-      </div>
       {!isLoading ? (
         <div className="d-flex justify-content-center table-borderless">
           <ul className="list-group w-50" style={{ display: "table-cell" }}>

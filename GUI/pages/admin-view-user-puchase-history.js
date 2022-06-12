@@ -69,18 +69,15 @@ const AdminViewUserPurchase = () => {
         </form>
       </div>
 
-      <div
-        className="my-4"
-        style={{ display: "flex", justifyContent: "center" }}
-      >
+      <div className="text-center m-5">
         <h1>Purchases</h1>
       </div>
-      {purchases.length > 0 ? (
-        <div style={{ display: "table", width: "100%" }}>
-          <ul className="list-group" style={{ display: "table-cell" }}>
+      {purchases?.length > 0 ? (
+        <div className="container d-table w-100 justify-content-center">
+          <ul className="list-group d-table-cell">
             {purchases.map((purchase) => {
               return (
-                <li className=" list-group-item" key={purchase.id}>
+                <li className=" list-group-item mb-3" key={purchase.id}>
                   <div className="card-body">
                     <h4 className="card-title text-center">
                       UserID: {purchase.userId}

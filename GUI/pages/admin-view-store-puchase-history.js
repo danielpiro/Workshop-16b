@@ -4,6 +4,7 @@ import api from "../components/api";
 import { useCookies } from "react-cookie";
 import createNotification from "../components/norification";
 import Card from "../components/card";
+import CardShopView from "../components/card-shop-view";
 
 const AdminViewStorePurchaes = () => {
   const [purchases, setPurchases] = useState([]);
@@ -27,7 +28,6 @@ const AdminViewStorePurchaes = () => {
           if (data.success) {
             console.log(data.value);
             setPurchases(data.value);
-            //setIsLoading(!isLoading);
             createNotification(
               "success",
               "Displaying all store's purchases successfully"
@@ -85,12 +85,15 @@ const AdminViewStorePurchaes = () => {
             {purchases.map((product) => {
               return (
                 <li className=" list-group-item" key={product.id}>
-                  <Card
-                    value={product.id}
-                    title={product.name}
-                    price={product.price}
-                    quantity={product.quantity}
-                    category={product.category}
+                  {console.log(product)}
+                  <CardShopView
+                    itemAmount={product.itemAmount}
+                    itemName={product.itemName}
+                    itemPrice={product.itemPrice}
+                    purchaseID={product.purchaseID}
+                    storeID={product.storeID}
+                    timeOfTransaction={product.timeOfTransaction}
+                    userID={product.userID}
                   />
                 </li>
               );

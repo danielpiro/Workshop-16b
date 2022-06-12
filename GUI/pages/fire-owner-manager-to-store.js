@@ -4,7 +4,6 @@ import { useState } from "react";
 import createNotification from "../components/norification";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
-import sendNotification from "../components/send-notification";
 
 const FireOwnerToStore = () => {
   const router = useRouter();
@@ -18,26 +17,20 @@ const FireOwnerToStore = () => {
 
   const onHiringOfficial = async (e) => {
     e.preventDefault();
-    //console.log(usernameFired);
+    console.log(usernameFired);
     if (usernameFired !== "") {
-      let storeID = window.location.href.split("?").pop();
-      if(storeID.charAt(storeID.length-1) === '#'){
-        storeID = storeID.slice(0, -1);
-      }
       await api
         .post(
-          `/store/permissions/delete/?storeId=${storeID}&userIdRemoving=${cookies.userId}&UserAffectedId=${usernameFired}`
+          `/store/permissions/delete/?storeId=${window.location.href
+            .split("?")
+            .pop()
+            .slice(0, -1)}&userIdRemoving=${
+            cookies.userId
+          }&UserAffectedId=${usernameFired}`
         )
         .then((res) => {
           const { data } = res;
           if (data.success) {
-            const notification = {
-              senderName: cookies.userId,
-              subject: "StoreAppointment",
-              title: "title",
-              body: window.location.href.split("?").pop().slice(0, -1),
-            };
-            sendNotification(notification);
             createNotification("success", "User fired successfully", () =>
               router.push("/dashboard")
             )();
@@ -57,21 +50,19 @@ const FireOwnerToStore = () => {
   return (
     <>
       <Menu />
-      <div className="card-header">
+      <div className="text-center m-5">
         <h3>Fire new owner fron the store</h3>
       </div>
-      <div className="container">
-        <div className="row" style={{ display: "flex", width: "50%" }}>
-          <input
-            className="form-control mr-sm-2 m-2"
-            type="search"
-            placeholder="Enter username of the future fired owner/manager"
-            aria-label="Search"
-            onChange={(e) => setUsernameFired(e.target.value)}
-          />
-        </div>
-
-        <br />
+      <div className="container d-flex justify-content-center w-25">
+        <input
+          className="form-control mr-sm-2 m-2"
+          type="search"
+          placeholder="Enter username of the future fired owner/manager"
+          aria-label="Search"
+          onChange={(e) => setUsernameFired(e.target.value)}
+        />
+      </div>
+      <div className="container d-flex justify-content-center">
         <div className="row m-1" style={{ display: "flex", width: "15%" }}>
           <button
             className="btn btn-primary mr-lg-3"

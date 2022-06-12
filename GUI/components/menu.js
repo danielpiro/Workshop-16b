@@ -215,11 +215,6 @@ const Menu = () => {
                         <a className="nav-link ms-4">Stores</a>
                       </Link>
                     </li>
-                    <li className="history-button nav-item">
-                      <Link href="/user-history">
-                        <a className="nav-link ms-4">History</a>
-                      </Link>
-                    </li>
                     <li>
                       <a
                         type="button"
