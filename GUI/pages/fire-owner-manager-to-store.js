@@ -18,16 +18,15 @@ const FireOwnerToStore = () => {
 
   const onHiringOfficial = async (e) => {
     e.preventDefault();
-    console.log(usernameFired);
+    //console.log(usernameFired);
     if (usernameFired !== "") {
+      let storeID = window.location.href.split("?").pop();
+      if(storeID.charAt(storeID.length-1) === '#'){
+        storeID = storeID.slice(0, -1);
+      }
       await api
         .post(
-          `/store/permissions/delete/?storeId=${window.location.href
-            .split("?")
-            .pop()
-            .slice(0, -1)}&userIdRemoving=${
-            cookies.userId
-          }&UserAffectedId=${usernameFired}`
+          `/store/permissions/delete/?storeId=${storeID}&userIdRemoving=${cookies.userId}&UserAffectedId=${usernameFired}`
         )
         .then((res) => {
           const { data } = res;

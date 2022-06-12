@@ -27,7 +27,10 @@ import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.ProductsCategories;
 import com.example.demo.Store.Store;
+import com.example.demo.Store.StorePurchase.Discounts.AdditionDiscount;
 import com.example.demo.Store.StorePurchase.Discounts.Discount;
+import com.example.demo.Store.StorePurchase.Discounts.DiscountBuilder;
+import com.example.demo.Store.StorePurchase.Discounts.MaxDiscount;
 import com.example.demo.Store.StorePurchase.Policies.Policy;
 import com.example.demo.Store.StorePurchase.Policies.PolicyBuilder;
 import com.example.demo.Store.StorePurchase.PurchasableProduct;
@@ -36,15 +39,20 @@ import com.example.demo.StorePermission.StoreRoles;
 import com.example.demo.User.Guest;
 import com.example.demo.User.Subscriber;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.tomcat.util.json.ParseException;
 import org.springframework.http.MediaType;
+
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.annotation.processing.Generated;
 import javax.naming.NoPermissionException;
+import javax.transaction.NotSupportedException;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -142,7 +150,8 @@ public class BigController {
         if (checkIfUserHaveRoleInStore(whosBeingDeleted)) {
             throw new NoPermissionException("cant delete user with store role");
         }
-        ReturnValue rv = new ReturnValue(true, "", getUserController().deleteUser(isDeleting, whosBeingDeleted));
+        getUserController().deleteUser(isDeleting, whosBeingDeleted);
+        ReturnValue rv = new ReturnValue(true, "", null);
         return rv;
     }
 
@@ -151,7 +160,8 @@ public class BigController {
     public ReturnValue signup(@RequestParam String user_name,
                               @RequestParam String password) throws UserException {
         my_log.info("user " + user_name + " is trying to sign up");
-        ReturnValue rv = new ReturnValue(true, "", getUserController().sign_up(user_name, password));
+        getUserController().sign_up(user_name, password);
+        ReturnValue rv = new ReturnValue(true, "", null);
         return rv;
     }
 
@@ -505,10 +515,15 @@ public class BigController {
         return rv;
     }
 
-    @PostMapping(value = "/owner", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ReturnValue createOwner(@Valid @RequestBody MockSmallPermission mockPermission) throws NoPermissionException, UserException, NotifyException {
-        if (getUserController().checkIfUserExists(mockPermission.getUserIdGiving()) && getUserController().checkIfUserExists(mockPermission.getUserGettingPermissionId()) && getUserController().checkIfUserIsLoggedIn(mockPermission.getUserIdGiving())) {
-            getStoreController().createOwner(mockPermission.getStoreId(), mockPermission.getUserIdGiving(), mockPermission.getUserGettingPermissionId(), mockPermission.getPermissions());
+    @PostMapping(value = "/owner/create")
+    public ReturnValue createOwner(@RequestParam String storeId, @RequestParam String userIdGiving, @RequestParam String UserGettingPermissionId, @RequestParam String permissions) throws NoPermissionException, UserException, NotifyException {
+        if (getUserController().checkIfUserExists(userIdGiving) && getUserController().checkIfUserExists(UserGettingPermissionId.trim()) && getUserController().checkIfUserIsLoggedIn(userIdGiving)) {
+            List<Permission> finalPermissions = new ArrayList<>();
+            List<String> permissionsList = Arrays.asList(permissions.split(","));
+            for (String perString : permissionsList) {
+                finalPermissions.add(Permission.valueOf(perString));
+            }
+            getStoreController().createOwner(storeId, userIdGiving, UserGettingPermissionId.trim(), finalPermissions);
         } else
             throw new IllegalArgumentException("couldn't give permission because the given userId doesn't exist or is not logged in");
         ReturnValue rv = new ReturnValue(true, "", null);
@@ -654,10 +669,12 @@ public class BigController {
     }
 
     @GetMapping("/store/all")
-    public ReturnValue getAllStores() throws JsonProcessingException {
+    public ReturnValue getAllStores() throws JsonProcessingException, InterruptedException {
         List<Store> allStores = getStoreController().getAllStores();
         List<Object> stores = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
+
+
         for (var store : allStores) {
             stores.add(
                     objectMapper.readTree(
@@ -761,7 +778,8 @@ public class BigController {
     @GetMapping("/history/store")
     public ReturnValue getStoreHistory(@RequestParam String storeId, @RequestParam String userId) throws NoPermissionException, UserException {
         userExists(userId);
-        ReturnValue rv = new ReturnValue(true, "", sc.getStoreHistory(storeId, userId));
+        boolean isAdmin = us.checkIfAdmin(userId);
+        ReturnValue rv = new ReturnValue(true, "", sc.getStoreHistory(storeId, userId, isAdmin));
         return rv;
     }
 
@@ -832,52 +850,68 @@ public class BigController {
 
 
     @PostMapping("/policy/add")
-    public ReturnValue addNewPolicy(@RequestParam String storeId, @RequestParam String userId, @RequestParam String typeOfPolicy, @RequestBody MockPolicy mockPolicy) throws Exception {
+    public ReturnValue addNewPolicy(@RequestParam String storeId, @RequestParam String userId, @RequestParam String typeOfPolicy,
+                                    @RequestParam String numOfProducts, @RequestParam String categories, @RequestParam String products,
+                                    @RequestParam String productsAmount, @RequestParam String userIds, @RequestParam String startAge,
+                                    @RequestParam String endAge, @RequestParam String startTime, @RequestParam String endTime,
+                                    @RequestParam String price) throws Exception {
+    //public ReturnValue addNewPolicy(@RequestParam String storeId, @RequestParam String userId, @RequestParam String typeOfPolicy, @RequestBody MockPolicy mockPolicy) throws Exception {
         Policy policy;
         userExistsAndLoggedIn(userId);
+
         switch (typeOfPolicy) {
-            case "CartPolicy":
-                policy = policyBuilder.newCartPolicy(mockPolicy.getNumOfProducts());
+            case "CartPolicy": //quantity in cart
+                policy = policyBuilder.newCartPolicy(Integer.parseInt(numOfProducts));
                 break;
-            case "CategoryPolicy":
-                policy = policyBuilder.newCategoryPolicy(mockPolicy.getCategories());
+            case "CategoryPolicy": //category
+                List<ProductsCategories> categoriesList = new ArrayList<>();
+                List<String> tempCategoriesList = Arrays.asList(categories.split(","));
+                for (String cat : tempCategoriesList){
+                    categoriesList.add(ProductsCategories.valueOf(cat));
+                }
+                policy = policyBuilder.newCategoryPolicy(categoriesList);
                 break;
-            case "ProductWithoutAmountPolicy":
-                //todo get products from guy
+            case "ProductWithoutAmountPolicy": //product should be in cart
+                Store store = sc.getStoreById(storeId);
+                List<Product> productsList = store.getProductsNameContains(products); //Arrays.asList(products.split(","));
                 List<PurchasableProduct> lp = new LinkedList<>();
-                for (Product p : getProductById(storeId, mockPolicy.getProducts())) {
+                List<String> productsListIds = new ArrayList<>();
+                for (Product p : productsList){
+                    productsListIds.add(p.getId());
+                }
+                for (Product p : getProductById(storeId, productsListIds)) {
                     PurchasableProduct pp = p;
                     lp.add(pp);
                 }
                 policy = policyBuilder.newProductWithoutAmountPolicy(lp);
                 break;
-            case "ProductWithAmountPolicy":
+            case "ProductWithAmountPolicy": //product should be in cart with minimum quantity
+                Store store2 = sc.getStoreById(storeId);
+                List<Product> productsList2 = store2.getProductsNameContains(products);
                 HashMap<PurchasableProduct, Integer> mp = new HashMap<>();
-                for (String s : mockPolicy.getProductsAmount().keySet()) {
-
-                    Product product = (Product) getProductById(storeId, s).getValue();
-                    PurchasableProduct pp = product;
-                    mp.put(pp, mockPolicy.getProductsAmount().get(s));
+                for (Product p : productsList2){
+                    mp.put(p, Integer.valueOf(productsAmount));
                 }
                 policy = policyBuilder.newProductWithAmountPolicy(mp);
                 break;
-            case "UserIdPolicy":
-                policy = policyBuilder.newUserIdPolicy(mockPolicy.getUserIds());
+            case "UserIdPolicy": //specific user
+                List<String> userIdsList = Arrays.asList(userIds.split(","));
+                policy = policyBuilder.newUserIdPolicy(userIdsList);
                 break;
-            case "UseAgePolicy":
-                policy = policyBuilder.newUseAgePolicy(mockPolicy.getStartAge(), mockPolicy.getEndAge());
+            case "UseAgePolicy": //age
+                policy = policyBuilder.newUseAgePolicy(Integer.parseInt(startAge), Integer.parseInt(endAge));
                 break;
-            case "OnHoursOfTheDayPolicy":
-                policy = policyBuilder.newOnHoursOfTheDayPolicy(mockPolicy.getStartTime(), mockPolicy.getEndTime());
+            case "OnHoursOfTheDayPolicy": //hour of day
+                policy = policyBuilder.newOnHoursOfTheDayPolicy(LocalDateTime.parse(startTime), LocalDateTime.parse(endTime));
                 break;
-            case "OnDaysOfTheWeekPolicy":
-                policy = policyBuilder.newOnDaysOfTheWeekPolicy(mockPolicy.getStartTime(), mockPolicy.getEndTime());
+            case "OnDaysOfTheWeekPolicy": //day of week
+                policy = policyBuilder.newOnDaysOfTheWeekPolicy(LocalDateTime.parse(startTime), LocalDateTime.parse(endTime));
                 break;
-            case "OnDayOfMonthPolicy":
-                policy = policyBuilder.newOnDayOfMonthPolicy(mockPolicy.getStartTime(), mockPolicy.getEndTime());
+            case "OnDayOfMonthPolicy": //day of month
+                policy = policyBuilder.newOnDayOfMonthPolicy(LocalDateTime.parse(startTime), LocalDateTime.parse(endTime));
                 break;
-            case "PricePredicate":
-                policy = policyBuilder.newPricePredicate(mockPolicy.getPrice());
+            case "PricePredicate": //total cart price
+                policy = policyBuilder.newPricePredicate(Integer.parseInt(price));
                 break;
             default:
                 throw new IllegalStateException("Unexpected type of policy: " + typeOfPolicy);
@@ -904,7 +938,7 @@ public class BigController {
             case "Or":
                 policy = policyBuilder.OrGatePolicy(getPolicy(storeId, policyID1), getPolicy(storeId, policyID2));
                 break;
-            case "Cond":
+            case "Xor": //Cond
                 policy = policyBuilder.ConditioningGatePolicy(getPolicy(storeId, policyID1), getPolicy(storeId, policyID2));
                 break;
             default:
@@ -915,19 +949,70 @@ public class BigController {
     }
 
 
-    public String addNewDiscount(String storeId, String userId, Discount discount) throws NoPermissionException, UserException {// use policyBuilder to create policy
+    private ReturnValue addNewDiscount(String storeId, String userId, Discount discount) throws NoPermissionException, UserException {// use policyBuilder to create policy
         if (!getUserController().checkIfUserExists(userId) || !getUserController().checkIfUserIsLoggedIn(userId)) {
             my_log.warning("User doesn't exist or is not logged in or is not logged in");
             return null;
         }
-        return sc.addNewDiscount(storeId, userId, discount);
+        ReturnValue rv = new ReturnValue(true, "", sc.addNewDiscount(storeId, userId, discount));
+        return rv;
     }
+    @PostMapping("/Discount/PercentageDiscount")
+    public ReturnValue addNewPercentageDiscount(@RequestParam String storeId,@RequestParam String userId,@RequestParam float percentage,@RequestParam String predicateOnProducts) throws NoPermissionException, UserException, SupplyManagementException, ParseException {// use policyBuilder to create policy
+        return addNewDiscount(storeId, userId, new DiscountBuilder().newPercentageDiscount(percentage,predicateOnProducts));
+    }
+    @PostMapping("/Discount/ConditionalPercentageDiscount")
+    public ReturnValue addNewConditionalPercentageDiscount(@RequestParam String storeId,@RequestParam String userId,@RequestParam float percentage,@RequestParam String predicateOnProducts,@RequestParam String predicateOnCart) throws NoPermissionException, UserException, SupplyManagementException, ParseException {// use policyBuilder to create policy
+        return addNewDiscount(storeId, userId, new DiscountBuilder().newConditionalDiscount(percentage,predicateOnCart,predicateOnProducts));
+    }
+//    @PostMapping("/Discount/NewAdditionDiscount")
+//    public ReturnValue addNewAdditionDiscount(@RequestParam String storeId,@RequestParam String userId, @RequestParam String discountId1,@RequestParam String discountId2) throws UserException, NotSupportedException {
+//        if (!getUserController().checkIfUserExists(userId) || !getUserController().checkIfUserIsLoggedIn(userId)) {
+//            my_log.warning("User doesn't exist or is not logged in or is not logged in");
+//            return null;
+//        }
+//        Discount d1 = sc.getDiscount(storeId,userId,discountId1);
+//        Discount d2 = sc.getDiscount(storeId,userId,discountId2);
 
-    public void deleteDiscount(String storeId, String userId, String discountId) throws NoPermissionException, UserException {
+//
+//        ReturnValue rv = new ReturnValue(true, "", sc.addNewDiscount(storeId,userId, new AdditionDiscount(d1,d2)));
+//        return rv;
+//    }
+    @PostMapping("/Discount/NewMaxDiscount")
+    public ReturnValue addNewMaxDiscount(@RequestParam String storeId,@RequestParam String userId,@RequestParam String discountId1,@RequestParam String discountId2) throws UserException, NotSupportedException, NoPermissionException {
+        if (!getUserController().checkIfUserExists(userId) || !getUserController().checkIfUserIsLoggedIn(userId)) {
+            my_log.warning("User doesn't exist or is not logged in or is not logged in");
+            return null;
+        }
+        Discount d1 = sc.getDiscount(storeId,userId,discountId1);
+        Discount d2 = sc.getDiscount(storeId,userId,discountId2);
+        ReturnValue rv = new ReturnValue(true, "", sc.addNewDiscount(storeId,userId, new MaxDiscount(d1,d2)));
+        return rv;
+    }
+    @PostMapping("/Discount/deleteDiscount")
+    public ReturnValue deleteDiscount(@RequestParam String storeId,@RequestParam String userId,@RequestParam String discountId) throws NoPermissionException, UserException {
         if (!getUserController().checkIfUserExists(userId) || !getUserController().checkIfUserIsLoggedIn(userId)) {
             my_log.warning("User doesn't exist or is not logged in or is not logged in");
         }
         sc.deleteDiscount(storeId, userId, discountId);
+        ReturnValue rv = new ReturnValue(true, "",null);
+        return rv;
+    }
+    @GetMapping("/Discount/getAll")
+    public ReturnValue getAllDiscounts(@RequestParam String storeId,@RequestParam String userId) throws NoPermissionException, JsonProcessingException {
+        List<String> discountsIds = new ArrayList<>();
+        for (Discount discount: sc.getDiscounts(storeId,userId)){
+            discountsIds.add(discount.getDiscountId());
+        }
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode output = objectMapper.readTree(
+                String.format("{\"DiscountIds\":\"%s\"}",discountsIds));
+
+        ReturnValue rv = new ReturnValue(true, "",output);
+        return rv;
+
+
+
     }
 
     private boolean checkIfUserHaveRoleInStore(String userId) {

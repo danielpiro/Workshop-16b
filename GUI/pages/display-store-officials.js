@@ -23,8 +23,12 @@ const DisplayStoreOfficials = () => {
   useEffect(() => {
     const fetchApi = async () => {
       setIsLoading(!isLoading);
+      let storeID = window.location.href.split("?").pop();
+      if(storeID.charAt(storeID.length-1) === '#'){
+        storeID = storeID.slice(0, -1);
+      }
       await api
-        .get(`/store/allRoles/?storeId=${window.location.href.split("?").pop()}&userIdRequesting=${cookies.userId}`)
+        .get(`/store/allRoles/?storeId=${storeID}&userIdRequesting=${cookies.userId}`)
         .then((res) => {
             const { data } = res;
             if (data.success) {
@@ -44,7 +48,7 @@ const DisplayStoreOfficials = () => {
     fetchApi();
   }, []);
 
-  return ( //TODO!!!
+  return (
     <>
       <Menu />
       <div className="card-header">

@@ -272,8 +272,11 @@ public class Store implements getStoreInfo {
         }
         inventoryManager.deleteDiscount(discountId);
     }
-    public List<Discount> getDiscount(String userId) throws NoPermissionException {
+    public List<Discount> getDiscounts(String userId) throws NoPermissionException {
         return inventoryManager.getDiscounts();
+    }
+    public Discount getDiscount(String userId, String discountId1) {
+        return inventoryManager.getDiscount(discountId1);
     }
 
     public List<StoreRoles> getInfoOnManagersOwners(String userId) throws NoPermissionException {
@@ -328,10 +331,11 @@ public class Store implements getStoreInfo {
     public Product getProduct(String productId) throws Exception {
         return inventoryManager.getProduct(productId);
     }
-    public List<PurchaseHistory> getStoreHistory(String userId) throws NoPermissionException {
-         if(!checkPermission(userId, Permission.VIEW_STORE_HISTORY)){
-             throw new NoPermissionException("the user don't have this permission");
-         }
+    public List<PurchaseHistory> getStoreHistory(String userId, boolean isAdmin) throws NoPermissionException {
+        if(!checkPermission(userId, Permission.VIEW_STORE_HISTORY) && !isAdmin){
+            throw new NoPermissionException("the user don't have this permission and is not an admin");
+        }
+
         return History.getInstance().getStoreHistory(storeId);
     }
     public List<PurchaseHistory> getStoreHistory(String userIdRequesting, String userId) throws NoPermissionException {
@@ -400,4 +404,6 @@ public class Store implements getStoreInfo {
         return StoreRoles.stream().anyMatch(role ->role.getTitle().equals("manger") &&
                 role.getUserId().equals(userID) );
     }
+
+
 }

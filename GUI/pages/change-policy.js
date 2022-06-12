@@ -1,5 +1,8 @@
 import Menu from "../components/menu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import api from "../components/api";
+import createNotification from "../components/norification";
+import { useCookies } from "react-cookie";
 
 const ChangePolicy = () => {
   const [policyType, setPolicyType] = useState("PolicyType");
@@ -7,84 +10,193 @@ const ChangePolicy = () => {
   const [preds, setPreds] = useState({
     pred1: "Choose predicate #1",
     pred2: "Choose predicate #2",
+    predToDelete: "Choose existing predicate to delete",
   });
   const [predsFeatures1, setPredsFeature1] = useState({
-    allowORforbid: "Allow/Forbid",
+    //allowORforbid: "Allow/Forbid",
     minPrice: "",
-    maxPrice: "",
+    category: "Category",
     minQunatity: "",
-    maxQunatity: "",
     productShouldBeInCart: "",
     productShouldBeInCartMinQunatity: "",
-    dayOfMonth: "Day Of Month",
-    dayOfWeek: "Day Of Week",
-    startHourOfDay: "",
-    endHourOfDay: "",
+    dayOfMonth: "01",
+    dayOfWeek: "Sunday",
+    startHourOfDay: "00:00",
+    endHourOfDay: "00:00",
     specificUser: "",
-    age: "",
+    minAge: "",
+    maxAge: "",
   });
   const [predsFeatures2, setPredsFeature2] = useState({
-    allowORforbid: "Allow/Forbid",
+    //allowORforbid: "Allow/Forbid",
     minPrice: "",
-    maxPrice: "",
+    category: "Category",
     minQunatity: "",
-    maxQunatity: "",
     productShouldBeInCart: "",
     productShouldBeInCartMinQunatity: "",
-    dayOfMonth: "Day Of Month",
-    dayOfWeek: "Day Of Week",
-    hourOfDay: "Hour Of Day",
+    dayOfMonth: "01",
+    dayOfWeek: "Sunday",
+    startHourOfDay: "00:00",
+    endHourOfDay: "00:00",
     specificUser: "",
-    age: "",
+    minAge: "",
+    maxAge: "",
   });
+  const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const daysOfMonth = ["01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"];
+  const categories = ["Other", "Appliances", "Apps$Games", "Handmade", "Baby"];
+  const [policies, setPolicies] = useState(["Create new predicate"]);
 
-  const onUpdatePolicy = (e) => {
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "username",
+    "password",
+    "userId",
+    "type",
+  ]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      //get all the existing policies in the store...
+      let storeID = window.location.href.split("?").pop();
+      if(storeID.charAt(storeID.length-1) === '#'){
+        storeID = storeID.slice(0, -1);
+      }
+      return await api
+        .get(`Store/Polices?storeId=${storeID}`)
+        .then((res) => {
+          const { data } = res;
+          if (data.success) {
+            console.log(data);
+            //fill policies list:
+            data.value.map((pol) => {
+              policies.push(`ID=${pol.PolicyId}`);
+              //policies.push(`ID=${pol.PolicyId} / Desc.=${pol.PolicyDescription.split('=')[1]}=${pol.PolicyDescription.split('=')[2].slice(0,-1)}`);
+            })
+          } else {
+            createNotification("error", data.reason)();
+          }
+        })
+        .catch((err) => createNotification("error", err)());
+    };
+    fetchData();
+  }, []);
+
+  const onUpdatePolicy = async (e) => { //for combined policy 
     e.preventDefault();
-    console.log(policyType);
+    console.log("creating combined policy");
+    let storeID = window.location.href.split("?").pop();
+    if(storeID.charAt(storeID.length-1) === '#'){
+      storeID = storeID.slice(0, -1);
+    }
+    const polID1 = preds.pred1.split("/")[0].slice(3);
+    const polID2 = preds.pred2.split("/")[0].slice(3);
+    console.log(`/policy/combine?storeId=${storeID}&userId=${cookies.userId}&typeOfCombination=${combinationType}&policyID1=${polID1}&policyID2=${polID2}`)
+    return await api
+        .post(`/policy/combine?storeId=${storeID}&userId=${cookies.userId}&typeOfCombination=${combinationType}&policyID1=${polID1}&policyID2=${polID2}`)
+        .then((res) => {
+          const { data } = res;
+          if (data.success) {
+            console.log(data);
+            // Add each policy to policies...
+            policies.push(`ID=${data.value} / Desc.= Combination of ${polID1} & ${polID2}`);
+            createNotification("success", "Policy has been created successfully")();
+          } else {
+            createNotification("error", data.reason)();
+          }
+        })
   };
 
-  const onCreatePredicate1 = (e) => {
+  const onCreatePredicate1 = async (e) => { //for policy #1 in page
     e.preventDefault();
-    console.log("creating new predicate");
+    console.log("creating new predicate #1"); //Create one pred policy from pred1 values...
+    let storeID = window.location.href.split("?").pop();
+    if(storeID.charAt(storeID.length-1) === '#'){
+      storeID = storeID.slice(0, -1);
+    }
+    const defaultYear = "2022";
+    const defaultMonth = "01";   
+    const startLocalDateTime = `${defaultYear}-${defaultMonth}-${predsFeatures1.dayOfMonth}T${predsFeatures1.startHourOfDay}`;
+    const endLocalDateTime = `${defaultYear}-${defaultMonth}-${predsFeatures1.dayOfMonth}T${predsFeatures1.endHourOfDay}`;
+
+    return await api
+        .post(`/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfPolicy=${policyType}&numOfProducts=${predsFeatures1.minQunatity}&categories=${predsFeatures1.category}&products=${predsFeatures1.productShouldBeInCart}&productsAmount=${predsFeatures1.minQunatity}&userIds=${predsFeatures1.specificUser}&startAge=${predsFeatures1.minAge}&endAge=${predsFeatures1.maxAge}&startTime=${startLocalDateTime}&endTime=${endLocalDateTime}&price=${predsFeatures1.minPrice}`)
+        //.post(`/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfCombination=${combinationType}` , mockPolicy)
+        .then((res) => {
+          const { data } = res;
+          if (data.success) {
+            console.log(data);
+            policies.push(data.value); // Add new policy to policies...
+            createNotification("success", "Policy has been created successfully")();
+          } else {
+            createNotification("error", data.reason)();
+          }
+        })
   };
 
-  const onCreatePredicate2 = (e) => {
+  const onCreatePredicate2 = async (e) => { //for policy #1 in page
     e.preventDefault();
-    console.log("creating new predicate");
+    console.log("creating new predicate #2"); //Create one pred policy from pred1 values...
+    let storeID = window.location.href.split("?").pop();
+    if(storeID.charAt(storeID.length-1) === '#'){
+      storeID = storeID.slice(0, -1);
+    }
+    const defaultYear = "2022";
+    const defaultMonth = "01";
+    const startLocalDateTime = `${defaultYear}-${defaultMonth}-${predsFeatures2.dayOfMonth}T${predsFeatures2.startHourOfDay}`;
+    const endLocalDateTime = `${defaultYear}-${defaultMonth}-${predsFeatures2.dayOfMonth}T${predsFeatures2.endHourOfDay}`;
+
+    return await api
+        .post(`/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfPolicy=${policyType}&numOfProducts=${predsFeatures2.minQunatity}&categories=${predsFeatures2.category}&products=${predsFeatures2.productShouldBeInCart}&productsAmount=${predsFeatures2.minQunatity}&userIds=${predsFeatures2.specificUser}&startAge=${predsFeatures2.minAge}&endAge=${predsFeatures2.maxAge}&startTime=${startLocalDateTime}&endTime=${endLocalDateTime}&price=${predsFeatures2.minPrice}`)
+        //.post(`/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfCombination=${combinationType}` , mockPolicy)
+        .then((res) => {
+          const { data } = res;
+          if (data.success) {
+            console.log(data);
+            // Add new policy to policies...
+            policies.push(data.value);
+            createNotification("success", "Policy has been created successfully")();
+          } else {
+            createNotification("error", data.reason)();
+          }
+        })
   };
 
-  //TODO: Make sure we got storeID in advance...
-  //TDOO: Check that al the permissions in the system are written
+  const onDeletePolicy = async (e) => {
+    e.preventDefault();
+    console.log("Deleting a policy");
+    let storeID = window.location.href.split("?").pop();
+    if(storeID.charAt(storeID.length-1) === '#'){
+      storeID = storeID.slice(0, -1);
+    }
+    console.log(`/policy/delete?storeId=${storeID}&userId=${cookies.userId}&policyId=${preds.predToDelete}`);
 
-  // useEffect(() => {
-  //   const fetchApi = async () => {
-  //     const response = await axios.get("https://fakestoreapi.com/products");
-  //     setIsLoading(!isLoading);
-  //     setProducts(response.data);
-  //     //TODO: Add logic to check if the user has any permission!
-  //     //setUserPermission("Admin/StoreOwner/StoreManager");
-  //   };
-  //   fetchApi();
-  // }, []);
-
-  // useEffect(() => {
-  //     const fetchPermission = async () => {
-  //       const response = await axios.get("users/getUserPermission");
-  //       setUserPermission(response.data);
-  //     };
-  //     fetchPermission();
-  // }, []);
+    return await api
+        .post(`/policy/delete?storeId=${storeID}&userId=${cookies.userId}&policyId=${preds.predToDelete}`)
+        .then((res) => {
+          const { data } = res;
+          if (data.success) {
+            console.log(data);
+            policies = policies.filter((pol) => pol !== preds.predToDelete)
+            createNotification("success", "Policy has been deleted successfully")();
+          } else {
+            createNotification("error", data.reason)();
+          }
+        })
+        .catch((err) => createNotification("error", err)());
+  }
 
   return (
     <>
       <Menu />
       <div className="text-center my-5">
-        <h3>Change Policy</h3>
+        <h3>Change/Create Policy</h3>
       </div>
 
       <div className="container">
         <div className="row">
-          <div className="col d-flex justify-content-center">
+          <div className="col">
+            <h4><u>Select policy type</u></h4>
+            
             <div className="dropdown m-1">
               <button
                 className="btn btn-secondary dropdown-toggle"
@@ -100,95 +212,56 @@ const ChangePolicy = () => {
                 aria-labelledby="dropdownMenuButton1"
               >
                 <li>
-                  <a
-                    className="dropdown-item"
-                    href="#"
-                    onClick={() => setPolicyType("PolicyType")}
-                  ></a>
+                  <a className="dropdown-item" onClick={() => setPolicyType("PolicyType")}></a>
                 </li>
                 <li>
-                  <a
-                    className="dropdown-item"
-                    href="#"
-                    onClick={() => setPolicyType("Total cart price")}
-                  >
-                    Total cart price
+                  <a className="dropdown-item" onClick={() => setPolicyType("PricePredicate")}>
+                    Price Policy
                   </a>
                 </li>
                 <li>
-                  <a
-                    className="dropdown-item"
-                    href="#"
-                    onClick={() => setPolicyType("Quantity in cart")}
-                  >
-                    Quantity in cart
+                  <a className="dropdown-item" onClick={() => setPolicyType("CategoryPolicy")}>
+                    Category Policy
                   </a>
                 </li>
                 <li>
-                  <a
-                    className="dropdown-item"
-                    href="#"
-                    onClick={() => setPolicyType("Product should be in cart")}
-                  >
-                    Product should be in cart
+                  <a className="dropdown-item" onClick={() => setPolicyType("CartPolicy")}>
+                    Cart Policy
                   </a>
                 </li>
                 <li>
-                  <a
-                    className="dropdown-item"
-                    href="#"
-                    onClick={() =>
-                      setPolicyType(
-                        "Product should be in cart with minimum quantity"
-                      )
-                    }
-                  >
-                    Product should be in cart with minimum quantity
+                  <a className="dropdown-item" onClick={() => setPolicyType("ProductWithoutAmountPolicy")}>
+                    Product Without Amount Policy
                   </a>
                 </li>
                 <li>
-                  <a
-                    className="dropdown-item"
-                    href="#"
-                    onClick={() => setPolicyType("Day Of Month")}
-                  >
-                    Day Of Month
+                  <a className="dropdown-item" onClick={() => setPolicyType("ProductWithAmountPolicy")}>
+                    Product With Amount Policy
                   </a>
                 </li>
                 <li>
-                  <a
-                    className="dropdown-item"
-                    href="#"
-                    onClick={() => setPolicyType("Day Of Week")}
-                  >
-                    Day Of Week
+                  <a className="dropdown-item" onClick={() => setPolicyType("OnDayOfMonthPolicy")}>
+                    On Day Of Month Policy
                   </a>
                 </li>
                 <li>
-                  <a
-                    className="dropdown-item"
-                    href="#"
-                    onClick={() => setPolicyType("Hour Of Day")}
-                  >
-                    Hour Of Day
+                  <a className="dropdown-item" onClick={() => setPolicyType("OnDaysOfTheWeekPolicy")}>
+                    On Days Of The Week Policy
                   </a>
                 </li>
                 <li>
-                  <a
-                    className="dropdown-item"
-                    href="#"
-                    onClick={() => setPolicyType("Specific user")}
-                  >
-                    Specific user
+                  <a className="dropdown-item" onClick={() => setPolicyType("OnHoursOfTheDayPolicy")}>
+                    On Hours Of The Day Policy
                   </a>
                 </li>
                 <li>
-                  <a
-                    className="dropdown-item"
-                    href="#"
-                    onClick={() => setPolicyType("Age")}
-                  >
-                    Age
+                  <a className="dropdown-item" onClick={() => setPolicyType("UserIdPolicy")}>
+                    UserId Policy
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" onClick={() => setPolicyType("UseAgePolicy")}>
+                    Age Policy
                   </a>
                 </li>
               </ul>
@@ -196,7 +269,7 @@ const ChangePolicy = () => {
           </div>
           <div className="col">
             <h4>
-              <u>Create policy</u>
+              <u>Create policy (Combined)</u>
             </h4>
             <div className="dropdown m-1">
               <button
@@ -212,48 +285,22 @@ const ChangePolicy = () => {
                 className="dropdown-menu"
                 aria-labelledby="dropdownMenuButton1"
               >
-                <li>
-                  <a
-                    className="dropdown-item"
-                    href="#"
-                    onClick={() =>
-                      setPreds((prevState) => ({
-                        ...prevState,
-                        pred1: "",
-                      }))
-                    }
-                  >
-                    {/* Empty choice */}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="dropdown-item"
-                    href="#"
-                    onClick={() =>
-                      setPreds((prevState) => ({
-                        ...prevState,
-                        pred1: "Create new predicate",
-                      }))
-                    }
-                  >
-                    Create new predicate
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="dropdown-item"
-                    href="#"
-                    onClick={() =>
-                      setPreds((prevState) => ({
-                        ...prevState,
-                        pred1: "Choose Existing predicate",
-                      }))
-                    }
-                  >
-                    Choose Existing predicate
-                  </a>
-                </li>
+                {policies.map((policy) => {
+                  return (
+                    <li>
+                      <a className="dropdown-item"
+                        onClick={() =>
+                          setPreds((prevState) => ({
+                            ...prevState,
+                            pred1: policy,
+                          }))
+                        }
+                      >
+                        {policy}
+                      </a>
+                    </li>
+                  )
+                })}
               </ul>
             </div>
             <div className="dropdown m-1">
@@ -271,10 +318,8 @@ const ChangePolicy = () => {
                 aria-labelledby="dropdownMenuButton1"
               >
                 <li>
-                  <a
-                    className="dropdown-item"
-                    href="#"
-                    onClick={() => {
+                  <a className="dropdown-item"
+                     onClick={() => {
                       setCombinationType("None of the above");
                       setPreds((prevState) => ({
                         ...prevState,
@@ -287,29 +332,17 @@ const ChangePolicy = () => {
                   </a>
                 </li>
                 <li>
-                  <a
-                    className="dropdown-item"
-                    href="#"
-                    onClick={() => setCombinationType("And")}
-                  >
+                  <a className="dropdown-item" onClick={() => setCombinationType("And")}>
                     And
                   </a>
                 </li>
                 <li>
-                  <a
-                    className="dropdown-item"
-                    href="#"
-                    onClick={() => setCombinationType("Or")}
-                  >
+                  <a className="dropdown-item" onClick={() => setCombinationType("Or")}>
                     Or
                   </a>
                 </li>
                 <li>
-                  <a
-                    className="dropdown-item"
-                    href="#"
-                    onClick={() => setCombinationType("Xor")}
-                  >
+                  <a className="dropdown-item" onClick={() => setCombinationType("Xor")}>
                     Xor
                   </a>
                 </li>
@@ -329,48 +362,22 @@ const ChangePolicy = () => {
                 className="dropdown-menu"
                 aria-labelledby="dropdownMenuButton1"
               >
-                <li>
-                  <a
-                    className="dropdown-item"
-                    href="#"
-                    onClick={() =>
-                      setPreds((prevState) => ({
-                        ...prevState,
-                        pred2: "",
-                      }))
-                    }
-                  >
-                    {/* Empty choice */}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="dropdown-item"
-                    href="#"
-                    onClick={() =>
-                      setPreds((prevState) => ({
-                        ...prevState,
-                        pred2: "Create new predicate",
-                      }))
-                    }
-                  >
-                    Create new predicate
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="dropdown-item"
-                    href="#"
-                    onClick={() =>
-                      setPreds((prevState) => ({
-                        ...prevState,
-                        pred2: "Choose Existing predicate",
-                      }))
-                    }
-                  >
-                    Choose Existing predicate
-                  </a>
-                </li>
+                {policies.map((policy) => {
+                  return (
+                    <li>
+                      <a className="dropdown-item"
+                        onClick={() =>
+                          setPreds((prevState) => ({
+                            ...prevState,
+                            pred2: policy,
+                          }))
+                        }
+                      >
+                        {policy}
+                      </a>
+                    </li>
+                  )
+                })}
               </ul>
             </div>
           </div>
@@ -383,11 +390,11 @@ const ChangePolicy = () => {
               }}
             >
               <h4>
-                <u>Create predicate #1</u>
+                <u>Create Single Predicate Policy #1</u>
               </h4>
               <div
                 style={{
-                  display: policyType == "Total cart price" ? "block" : "none",
+                  display: policyType == "PricePredicate" ? "block" : "none",
                 }}
               >
                 <div className="input-group mb-3">
@@ -409,29 +416,48 @@ const ChangePolicy = () => {
                     }
                   />
                 </div>
-                <div className="input-group mb-3">
-                  <span className="input-group-text" id="basic-addon1">
-                    Max Price
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter price in NIS"
-                    aria-label="MaxPrice"
-                    aria-describedby="basic-addon1"
-                    value={predsFeatures1.maxPrice}
-                    onChange={(e) =>
-                      setPredsFeature1((prevState) => ({
-                        ...prevState,
-                        maxPrice: e.target.value,
-                      }))
-                    }
-                  />
+              </div>
+              <div
+                style={{
+                  display: policyType == "CategoryPolicy" ? "block" : "none",
+                }}
+              >
+                <div className="dropdown m-1">
+                  <button
+                    className="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    {predsFeatures1.category}
+                  </button>
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton1"
+                  >
+                    {categories.map((cat) => {
+                      return (
+                        <li>
+                          <a className="dropdown-item"
+                             onClick={(e) =>
+                              setPredsFeature1((prevState) => ({
+                                ...prevState,
+                                category: cat,
+                              }))
+                            }
+                          >
+                            {cat}
+                          </a>
+                        </li>
+                      )
+                    })} 
+                  </ul>
                 </div>
               </div>
               <div
                 style={{
-                  display: policyType == "Quantity in cart" ? "block" : "none",
+                  display: policyType == "CartPolicy" ? "block" : "none",
                 }}
               >
                 <div className="input-group mb-3">
@@ -453,30 +479,11 @@ const ChangePolicy = () => {
                     }
                   />
                 </div>
-                <div className="input-group mb-3">
-                  <span className="input-group-text" id="basic-addon1">
-                    Max Quantity
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter maximum quantity"
-                    aria-label="MaxQuantity"
-                    aria-describedby="basic-addon1"
-                    value={predsFeatures1.maxQunatity}
-                    onChange={(e) =>
-                      setPredsFeature1((prevState) => ({
-                        ...prevState,
-                        maxQunatity: e.target.value,
-                      }))
-                    }
-                  />
-                </div>
               </div>
               <div
                 style={{
                   display:
-                    policyType == "Product should be in cart"
+                    policyType == "ProductWithoutAmountPolicy"
                       ? "block"
                       : "none",
                 }}
@@ -505,7 +512,7 @@ const ChangePolicy = () => {
                 style={{
                   display:
                     policyType ==
-                    "Product should be in cart with minimum quantity"
+                    "ProductWithAmountPolicy"
                       ? "block"
                       : "none",
                 }}
@@ -551,67 +558,10 @@ const ChangePolicy = () => {
               </div>
               <div
                 style={{
-                  display: policyType == "Day Of Month" ? "block" : "none",
+                  display: policyType == "OnDayOfMonthPolicy" ? "block" : "none",
                 }}
               >
-                <div className="dropdown m-1">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    {predsFeatures1.allowORforbid}
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow/Forbid",
-                          }))
-                        }
-                      >
-                        {/* Allow/Forbid */}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow",
-                          }))
-                        }
-                      >
-                        Allow
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Forbid",
-                          }))
-                        }
-                      >
-                        Forbid
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+                
                 <div className="dropdown m-1">
                   <button
                     className="btn btn-secondary dropdown-toggle"
@@ -626,520 +576,30 @@ const ChangePolicy = () => {
                     className="dropdown-menu"
                     aria-labelledby="dropdownMenuButton1"
                   >
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "Day Of Month",
-                          }))
-                        }
-                      >
-                        {/* Day Of Month */}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "1",
-                          }))
-                        }
-                      >
-                        1
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "2",
-                          }))
-                        }
-                      >
-                        2
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "3",
-                          }))
-                        }
-                      >
-                        3
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "4",
-                          }))
-                        }
-                      >
-                        4
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "5",
-                          }))
-                        }
-                      >
-                        5
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "6",
-                          }))
-                        }
-                      >
-                        6
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "7",
-                          }))
-                        }
-                      >
-                        7
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "8",
-                          }))
-                        }
-                      >
-                        8
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "9",
-                          }))
-                        }
-                      >
-                        9
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "10",
-                          }))
-                        }
-                      >
-                        10
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "11",
-                          }))
-                        }
-                      >
-                        11
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "12",
-                          }))
-                        }
-                      >
-                        12
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "13",
-                          }))
-                        }
-                      >
-                        13
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "14",
-                          }))
-                        }
-                      >
-                        14
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "15",
-                          }))
-                        }
-                      >
-                        15
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "16",
-                          }))
-                        }
-                      >
-                        16
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "17",
-                          }))
-                        }
-                      >
-                        17
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "18",
-                          }))
-                        }
-                      >
-                        18
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "19",
-                          }))
-                        }
-                      >
-                        19
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "20",
-                          }))
-                        }
-                      >
-                        20
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "21",
-                          }))
-                        }
-                      >
-                        21
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "22",
-                          }))
-                        }
-                      >
-                        22
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "23",
-                          }))
-                        }
-                      >
-                        23
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "24",
-                          }))
-                        }
-                      >
-                        24
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "25",
-                          }))
-                        }
-                      >
-                        25
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "26",
-                          }))
-                        }
-                      >
-                        26
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "27",
-                          }))
-                        }
-                      >
-                        27
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "28",
-                          }))
-                        }
-                      >
-                        28
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "29",
-                          }))
-                        }
-                      >
-                        29
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "30",
-                          }))
-                        }
-                      >
-                        30
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "31",
-                          }))
-                        }
-                      >
-                        31
-                      </a>
-                    </li>
+                    {daysOfMonth.map((day) => {
+                      return (
+                        <li>
+                          <a className="dropdown-item"
+                             onClick={(e) =>
+                              setPredsFeature1((prevState) => ({
+                                ...prevState,
+                                dayOfMonth: day,
+                              }))
+                            }
+                          >
+                            {day}
+                          </a>
+                        </li>
+                      )
+                    })} 
                   </ul>
                 </div>
               </div>
               <div
                 style={{
-                  display: policyType == "Day Of Week" ? "block" : "none",
+                  display: policyType == "OnDaysOfTheWeekPolicy" ? "block" : "none",
                 }}
               >
-                <div className="dropdown m-1">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    {predsFeatures1.allowORforbid}
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow/Forbid",
-                          }))
-                        }
-                      >
-                        {/* Allow/Forbid */}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow",
-                          }))
-                        }
-                      >
-                        Allow
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Forbid",
-                          }))
-                        }
-                      >
-                        Forbid
-                      </a>
-                    </li>
-                  </ul>
-                </div>
                 <div className="dropdown m-1">
                   <button
                     className="btn btn-secondary dropdown-toggle"
@@ -1154,185 +614,30 @@ const ChangePolicy = () => {
                     className="dropdown-menu"
                     aria-labelledby="dropdownMenuButton1"
                   >
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfWeek: "Day Of Week",
-                          }))
-                        }
-                      >
-                        {/* Day Of Week */}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfWeek: "Sunday",
-                          }))
-                        }
-                      >
-                        Sunday
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfWeek: "Monday",
-                          }))
-                        }
-                      >
-                        Monday
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfWeek: "Tuesday",
-                          }))
-                        }
-                      >
-                        Tuesday
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfWeek: "Wednesday",
-                          }))
-                        }
-                      >
-                        Wednesday
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfWeek: "Thursday",
-                          }))
-                        }
-                      >
-                        Thursday
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfWeek: "Friday",
-                          }))
-                        }
-                      >
-                        Friday
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            dayOfWeek: "Saturday",
-                          }))
-                        }
-                      >
-                        Saturday
-                      </a>
-                    </li>
+                    {daysOfWeek.map((day) => {
+                      return (
+                        <li>
+                          <a className="dropdown-item"
+                             onClick={(e) =>
+                              setPredsFeature1((prevState) => ({
+                                ...prevState,
+                                dayOfWeek: day,
+                              }))
+                            }
+                          >
+                            {day}
+                          </a>
+                        </li>
+                      )
+                    })} 
                   </ul>
                 </div>
               </div>
               <div
                 style={{
-                  display: policyType == "Hour Of Day" ? "block" : "none",
+                  display: policyType == "OnHoursOfTheDayPolicy" ? "block" : "none",
                 }}
               >
-                <div className="dropdown">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    {predsFeatures1.allowORforbid}
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow/Forbid",
-                          }))
-                        }
-                      >
-                        {/* Allow/Forbid */}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow",
-                          }))
-                        }
-                      >
-                        Allow
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Forbid",
-                          }))
-                        }
-                      >
-                        Forbid
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <br />
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
                     Start Hour
@@ -1374,68 +679,9 @@ const ChangePolicy = () => {
               </div>
               <div
                 style={{
-                  display: policyType == "Specific user" ? "block" : "none",
+                  display: policyType == "UserIdPolicy" ? "block" : "none",
                 }}
               >
-                <div className="dropdown">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    {predsFeatures1.allowORforbid}
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow/Forbid",
-                          }))
-                        }
-                      >
-                        {/* Allow/Forbid */}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow",
-                          }))
-                        }
-                      >
-                        Allow
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Forbid",
-                          }))
-                        }
-                      >
-                        Forbid
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <br />
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
                     Username
@@ -1456,81 +702,41 @@ const ChangePolicy = () => {
                   />
                 </div>
               </div>
-              <div style={{ display: policyType == "Age" ? "block" : "none" }}>
-                <div className="dropdown">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    {predsFeatures1.allowORforbid}
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow/Forbid",
-                          }))
-                        }
-                      >
-                        {/* Allow/Forbid */}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow",
-                          }))
-                        }
-                      >
-                        Allow
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature1((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Forbid",
-                          }))
-                        }
-                      >
-                        Forbid
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <br />
+              <div style={{ display: policyType == "UseAgePolicy" ? "block" : "none" }}>
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
-                    Age
+                    MinAge
                   </span>
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Enter username"
+                    placeholder="Enter min age"
                     aria-label="specificUser"
                     aria-describedby="basic-addon1"
-                    value={predsFeatures1.age}
+                    value={predsFeatures1.minAge}
                     onChange={(e) =>
                       setPredsFeature1((prevState) => ({
                         ...prevState,
-                        age: e.target.value,
+                        minAge: e.target.value,
+                      }))
+                    }
+                  />
+                </div>
+                <div className="input-group mb-3">
+                  <span className="input-group-text" id="basic-addon1">
+                    MaxAge
+                  </span>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Enter max age"
+                    aria-label="specificUser"
+                    aria-describedby="basic-addon1"
+                    value={predsFeatures1.maxAge}
+                    onChange={(e) =>
+                      setPredsFeature1((prevState) => ({
+                        ...prevState,
+                        maxAge: e.target.value,
                       }))
                     }
                   />
@@ -1552,7 +758,7 @@ const ChangePolicy = () => {
                 style={{ width: "100%" }}
                 onClick={onCreatePredicate1}
               >
-                Create Predicate 1
+                Create Predicate #1
               </button>
             </div>
             <div
@@ -1567,7 +773,7 @@ const ChangePolicy = () => {
               </h4>
               <div
                 style={{
-                  display: policyType == "Total cart price" ? "block" : "none",
+                  display: policyType == "PricePredicate" ? "block" : "none",
                 }}
               >
                 <div className="input-group mb-3">
@@ -1589,29 +795,48 @@ const ChangePolicy = () => {
                     }
                   />
                 </div>
-                <div className="input-group mb-3">
-                  <span className="input-group-text" id="basic-addon1">
-                    Max Price
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter price in NIS"
-                    aria-label="MaxPrice"
-                    aria-describedby="basic-addon1"
-                    value={predsFeatures2.maxPrice}
-                    onChange={(e) =>
-                      setPredsFeature2((prevState) => ({
-                        ...prevState,
-                        maxPrice: e.target.value,
-                      }))
-                    }
-                  />
+              </div>
+              <div
+                style={{
+                  display: policyType == "CategoryPolicy" ? "block" : "none",
+                }}
+              >
+                <div className="dropdown m-1">
+                  <button
+                    className="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    {predsFeatures2.category}
+                  </button>
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton1"
+                  >
+                    {categories.map((cat) => {
+                      return (
+                        <li>
+                          <a className="dropdown-item"
+                             onClick={(e) =>
+                              setPredsFeature2((prevState) => ({
+                                ...prevState,
+                                category: cat,
+                              }))
+                            }
+                          >
+                            {cat}
+                          </a>
+                        </li>
+                      )
+                    })} 
+                  </ul>
                 </div>
               </div>
               <div
                 style={{
-                  display: policyType == "Quantity in cart" ? "block" : "none",
+                  display: policyType == "CartPolicy" ? "block" : "none",
                 }}
               >
                 <div className="input-group mb-3">
@@ -1633,30 +858,11 @@ const ChangePolicy = () => {
                     }
                   />
                 </div>
-                <div className="input-group mb-3">
-                  <span className="input-group-text" id="basic-addon1">
-                    Max Quantity
-                  </span>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter maximum quantity"
-                    aria-label="MaxQuantity"
-                    aria-describedby="basic-addon1"
-                    value={predsFeatures2.maxQunatity}
-                    onChange={(e) =>
-                      setPredsFeature2((prevState) => ({
-                        ...prevState,
-                        maxQunatity: e.target.value,
-                      }))
-                    }
-                  />
-                </div>
               </div>
               <div
                 style={{
                   display:
-                    policyType == "Product should be in cart"
+                    policyType == "ProductWithoutAmountPolicy"
                       ? "block"
                       : "none",
                 }}
@@ -1685,7 +891,7 @@ const ChangePolicy = () => {
                 style={{
                   display:
                     policyType ==
-                    "Product should be in cart with minimum quantity"
+                    "ProductWithAmountPolicy"
                       ? "block"
                       : "none",
                 }}
@@ -1731,67 +937,9 @@ const ChangePolicy = () => {
               </div>
               <div
                 style={{
-                  display: policyType == "Day Of Month" ? "block" : "none",
+                  display: policyType == "OnDayOfMonthPolicy" ? "block" : "none",
                 }}
               >
-                <div className="dropdown m-1">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    {predsFeatures2.allowORforbid}
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow/Forbid",
-                          }))
-                        }
-                      >
-                        {/* Allow/Forbid */}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow",
-                          }))
-                        }
-                      >
-                        Allow
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Forbid",
-                          }))
-                        }
-                      >
-                        Forbid
-                      </a>
-                    </li>
-                  </ul>
-                </div>
                 <div className="dropdown m-1">
                   <button
                     className="btn btn-secondary dropdown-toggle"
@@ -1806,520 +954,30 @@ const ChangePolicy = () => {
                     className="dropdown-menu"
                     aria-labelledby="dropdownMenuButton1"
                   >
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "Day Of Month",
-                          }))
-                        }
-                      >
-                        {/* Day Of Month */}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "1",
-                          }))
-                        }
-                      >
-                        1
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "2",
-                          }))
-                        }
-                      >
-                        2
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "3",
-                          }))
-                        }
-                      >
-                        3
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "4",
-                          }))
-                        }
-                      >
-                        4
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "5",
-                          }))
-                        }
-                      >
-                        5
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "6",
-                          }))
-                        }
-                      >
-                        6
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "7",
-                          }))
-                        }
-                      >
-                        7
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "8",
-                          }))
-                        }
-                      >
-                        8
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "9",
-                          }))
-                        }
-                      >
-                        9
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "10",
-                          }))
-                        }
-                      >
-                        10
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "11",
-                          }))
-                        }
-                      >
-                        11
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "12",
-                          }))
-                        }
-                      >
-                        12
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "13",
-                          }))
-                        }
-                      >
-                        13
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "14",
-                          }))
-                        }
-                      >
-                        14
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "15",
-                          }))
-                        }
-                      >
-                        15
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "16",
-                          }))
-                        }
-                      >
-                        16
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "17",
-                          }))
-                        }
-                      >
-                        17
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "18",
-                          }))
-                        }
-                      >
-                        18
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "19",
-                          }))
-                        }
-                      >
-                        19
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "20",
-                          }))
-                        }
-                      >
-                        20
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "21",
-                          }))
-                        }
-                      >
-                        21
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "22",
-                          }))
-                        }
-                      >
-                        22
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "23",
-                          }))
-                        }
-                      >
-                        23
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "24",
-                          }))
-                        }
-                      >
-                        24
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "25",
-                          }))
-                        }
-                      >
-                        25
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "26",
-                          }))
-                        }
-                      >
-                        26
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "27",
-                          }))
-                        }
-                      >
-                        27
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "28",
-                          }))
-                        }
-                      >
-                        28
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "29",
-                          }))
-                        }
-                      >
-                        29
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "30",
-                          }))
-                        }
-                      >
-                        30
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfMonth: "31",
-                          }))
-                        }
-                      >
-                        31
-                      </a>
-                    </li>
+                    {daysOfMonth.map((day) => {
+                      return (
+                        <li>
+                          <a className="dropdown-item"
+                             onClick={(e) =>
+                              setPredsFeature2((prevState) => ({
+                                ...prevState,
+                                dayOfMonth: day,
+                              }))
+                            }
+                          >
+                            {day}
+                          </a>
+                        </li>
+                      )
+                    })}
                   </ul>
                 </div>
               </div>
               <div
                 style={{
-                  display: policyType == "Day Of Week" ? "block" : "none",
+                  display: policyType == "OnDaysOfTheWeekPolicy" ? "block" : "none",
                 }}
               >
-                <div className="dropdown m-1">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    {predsFeatures2.allowORforbid}
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow/Forbid",
-                          }))
-                        }
-                      >
-                        {/* Allow/Forbid */}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow",
-                          }))
-                        }
-                      >
-                        Allow
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Forbid",
-                          }))
-                        }
-                      >
-                        Forbid
-                      </a>
-                    </li>
-                  </ul>
-                </div>
                 <div className="dropdown m-1">
                   <button
                     className="btn btn-secondary dropdown-toggle"
@@ -2334,185 +992,30 @@ const ChangePolicy = () => {
                     className="dropdown-menu"
                     aria-labelledby="dropdownMenuButton1"
                   >
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfWeek: "Day Of Week",
-                          }))
-                        }
-                      >
-                        {/* Day Of Week */}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfWeek: "Sunday",
-                          }))
-                        }
-                      >
-                        Sunday
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfWeek: "Monday",
-                          }))
-                        }
-                      >
-                        Monday
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfWeek: "Tuesday",
-                          }))
-                        }
-                      >
-                        Tuesday
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfWeek: "Wednesday",
-                          }))
-                        }
-                      >
-                        Wednesday
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfWeek: "Thursday",
-                          }))
-                        }
-                      >
-                        Thursday
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfWeek: "Friday",
-                          }))
-                        }
-                      >
-                        Friday
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            dayOfWeek: "Saturday",
-                          }))
-                        }
-                      >
-                        Saturday
-                      </a>
-                    </li>
+                    {daysOfWeek.map((day) => {
+                      return (
+                        <li>
+                          <a className="dropdown-item"
+                             onClick={(e) =>
+                              setPredsFeature2((prevState) => ({
+                                ...prevState,
+                                dayOfWeek: day,
+                              }))
+                            }
+                          >
+                            {day}
+                          </a>
+                        </li>
+                      )
+                    })} 
                   </ul>
                 </div>
               </div>
               <div
                 style={{
-                  display: policyType == "Hour Of Day" ? "block" : "none",
+                  display: policyType == "OnHoursOfTheDayPolicy" ? "block" : "none",
                 }}
               >
-                <div className="dropdown">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    {predsFeatures2.allowORforbid}
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow/Forbid",
-                          }))
-                        }
-                      >
-                        {/* Allow/Forbid */}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow",
-                          }))
-                        }
-                      >
-                        Allow
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Forbid",
-                          }))
-                        }
-                      >
-                        Forbid
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <br />
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
                     Start Hour
@@ -2554,68 +1057,9 @@ const ChangePolicy = () => {
               </div>
               <div
                 style={{
-                  display: policyType == "Specific user" ? "block" : "none",
+                  display: policyType == "UserIdPolicy" ? "block" : "none",
                 }}
               >
-                <div className="dropdown">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    {predsFeatures2.allowORforbid}
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow/Forbid",
-                          }))
-                        }
-                      >
-                        {/* Allow/Forbid */}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow",
-                          }))
-                        }
-                      >
-                        Allow
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Forbid",
-                          }))
-                        }
-                      >
-                        Forbid
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <br />
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
                     Username
@@ -2636,81 +1080,41 @@ const ChangePolicy = () => {
                   />
                 </div>
               </div>
-              <div style={{ display: policyType == "Age" ? "block" : "none" }}>
-                <div className="dropdown">
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    {predsFeatures2.allowORforbid}
-                  </button>
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton1"
-                  >
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow/Forbid",
-                          }))
-                        }
-                      >
-                        {/* Allow/Forbid */}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Allow",
-                          }))
-                        }
-                      >
-                        Allow
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={(e) =>
-                          setPredsFeature2((prevState) => ({
-                            ...prevState,
-                            allowORforbid: "Forbid",
-                          }))
-                        }
-                      >
-                        Forbid
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <br />
+              <div style={{ display: policyType == "UseAgePolicy" ? "block" : "none" }}>
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
-                    Age
+                    MinAge
                   </span>
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Enter username"
+                    placeholder="Enter min age"
                     aria-label="specificUser"
                     aria-describedby="basic-addon1"
-                    value={predsFeatures2.age}
+                    value={predsFeatures2.minAge}
                     onChange={(e) =>
                       setPredsFeature2((prevState) => ({
                         ...prevState,
-                        age: e.target.value,
+                        minAge: e.target.value,
+                      }))
+                    }
+                  />
+                </div>
+                <div className="input-group mb-3">
+                  <span className="input-group-text" id="basic-addon1">
+                    MaxAge
+                  </span>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Enter max age"
+                    aria-label="specificUser"
+                    aria-describedby="basic-addon1"
+                    value={predsFeatures2.maxAge}
+                    onChange={(e) =>
+                      setPredsFeature2((prevState) => ({
+                        ...prevState,
+                        maxAge: e.target.value,
                       }))
                     }
                   />
@@ -2732,7 +1136,7 @@ const ChangePolicy = () => {
                 style={{ width: "100%" }}
                 onClick={onCreatePredicate2}
               >
-                Create Predicate 2
+                Create Single Predicate Policy #2
               </button>
             </div>
           </div>
@@ -2745,7 +1149,53 @@ const ChangePolicy = () => {
             style={{ width: "100%" }}
             onClick={onUpdatePolicy}
           >
-            Update Policy
+            Update New Policy
+          </button>
+        </div>
+
+        <div className="row m-1">
+          <div className="text-center my-5">
+            <h3>Delete Policy</h3>
+          </div>
+        
+          <div className="dropdown m-1 text-center">
+            <button
+              className="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {preds.predToDelete}
+            </button>
+            <ul
+              className="dropdown-menu"
+              aria-labelledby="dropdownMenuButton1"
+            >
+              {policies.map((policy) => {
+                return (
+                  <li>
+                    <a className="dropdown-item"
+                      onClick={() =>
+                        setPreds((prevState) => ({
+                          ...prevState,
+                          predToDelete: policy,
+                        }))
+                      }
+                    >
+                      {policy}
+                    </a>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+          <button
+            className="btn btn-primary mr-lg-3"
+            style={{ width: "100%" }}
+            onClick={onDeletePolicy}
+          >
+            Delete a Policy
           </button>
         </div>
       </div>

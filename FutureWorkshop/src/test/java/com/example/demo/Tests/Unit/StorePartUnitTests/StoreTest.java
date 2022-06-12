@@ -80,7 +80,7 @@ class StoreTest {
                     assertTrue(sr instanceof StoreManager);
                 }
             }
-            store1.getStoreHistory(userId2);
+            store1.getStoreHistory(userId2, false);
             try{
                 store1.createManager(userId2, userId3);
                 fail();
