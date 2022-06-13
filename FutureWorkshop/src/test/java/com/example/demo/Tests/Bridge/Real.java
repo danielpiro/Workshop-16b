@@ -226,7 +226,7 @@ public class Real   {
     public boolean register(String username, String password){
         boolean  ans=false;
         try {
-             ans = (Boolean) getBigController().signup(username, password).getValue();
+             ans = (Boolean) getBigController().signup(username, password).isSuccess();
         }catch (Exception e){
 
         }
@@ -313,7 +313,7 @@ public class Real   {
 
     public ShoppingCart getShoppingCart(String userId){
         try {
-            return (ShoppingCart) bigController.getShoppingCart(userId).getValue();
+            return  bigController.getShoppingCartTests(userId);
         }catch (Exception e){
             return null;
         }
@@ -394,7 +394,7 @@ public class Real   {
             bigController.editProduct(productId,new MockFullProduct( storeId,userId, newName, newPrice,newSupply,   category));
             return true;
         }
-        catch (NoPermissionException | SupplyManagementException | UserException e) {
+        catch ( Exception e) {
             e.printStackTrace();
             return false;
         }
