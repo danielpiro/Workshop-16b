@@ -572,7 +572,7 @@ public class DiscountTests {
         String OnDayOfMonthAndUserAgeOrCart = "{\"type1\":{\"type\": \"OnDayOfMonth\",\"data1\": \""+ LocalDateTime.now() +"\",\"data2\": \""+LocalDateTime.now()+"\"},\"op1\":\"And\",\"type2\":{\"type\": \"userAge\",\"data1\": 7,\"data2\": 10},\"op2\":\"Or\",\"type3\":{\"type\": \"cart\",\"data1\": 3} }";
         ConditionalPercentageDiscount dp= new DiscountBuilder().newConditionalDiscount(5,OnDayOfMonthAndUserAgeOrCart,PriceAndCategory);
 
-        System.out.println(dp);
+        //System.out.println(dp);
     }
 
 }
