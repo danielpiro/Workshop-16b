@@ -26,7 +26,7 @@ public class UserTests {
     }
 
     @org.junit.jupiter.api.Test
-    void guest() throws UserException {
+    void guest() throws UserException, InterruptedException {
         Guest g1 = userController.addGuest();
         Guest g2 = userController.addGuest();
         assertEquals(true, userController.checkIfGuestExists(g1.name));
@@ -42,7 +42,7 @@ public class UserTests {
     }
 
     @org.junit.jupiter.api.Test
-    void notGuest() throws UserException {
+    void notGuest() throws UserException, InterruptedException {
         userController.sign_up("delphin", "rixy");
         assertEquals("delphin", userController.get_subscriber("delphin").name);
         userController.sign_up("lokum", "rixy");

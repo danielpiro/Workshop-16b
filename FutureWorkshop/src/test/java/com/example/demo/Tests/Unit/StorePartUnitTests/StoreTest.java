@@ -155,8 +155,6 @@ class StoreTest {
         } catch (NoPermissionException | SupplyManagementException | NotifyException | UserException e) {
             e.printStackTrace();
             fail();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
     private void setUpBeforePermissionTests(){
@@ -304,7 +302,7 @@ class StoreTest {
         } catch (NoPermissionException | UserException e) {
             e.printStackTrace();
             fail();
-        } catch (NotifyException | SupplyManagementException | IOException e) {
+        } catch (NotifyException e) {
            assertEquals(store1.getThread(userId3).getTitle(),"test");
 
         }

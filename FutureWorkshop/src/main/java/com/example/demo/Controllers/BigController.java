@@ -526,7 +526,9 @@ public class BigController {
             List<Permission> finalPermissions = new ArrayList<>();
             List<String> permissionsList = Arrays.asList(permissions.split(","));
             for (String perString : permissionsList) {
-                finalPermissions.add(Permission.valueOf(perString));
+                if(perString.length() > 0) {
+                    finalPermissions.add(Permission.valueOf(perString));
+                }
             }
             getStoreController().createOwner(storeId, userIdGiving, UserGettingPermissionId.trim(), finalPermissions);
         } else

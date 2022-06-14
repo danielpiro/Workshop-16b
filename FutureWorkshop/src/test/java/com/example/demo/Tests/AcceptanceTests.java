@@ -856,19 +856,13 @@ public class AcceptanceTests {
 //                  -> the user isn't logged in as a store owner.
 //        - Show fail message...
 
-        Object[] s = proxy.getAllProductsAndStores("user1").keySet().toArray();
-        String str = s[0].toString();
+
         // "fail - user has to be at least shop owner and to be logged in"
-        boolean b = false;
-        try{
-            proxy.addNewStoreOwner(str, "user2", "user3",
-                    new ArrayList<>()/*permissions*/); // not logged in
-        }
-        catch (Exception e){
-            b = true;
-            assertTrue(true);
-        }
-        if(!b)
+
+        boolean b = proxy.addNewStoreOwner(storeId, "user2", "user3",
+                new ArrayList<>()/*permissions*/); // not logged in
+
+        if(b)
             fail();
     }
     @Test
@@ -965,15 +959,9 @@ public class AcceptanceTests {
         Object[] s = proxy.getAllProductsAndStores("user1").keySet().toArray();
         String str = s[0].toString();
         // "fail - user has to be at least shop owner and to be logged in"
-        boolean b = false;
-        try{
-            proxy.addNewStoreManager(str, "user2", "user3"); //not logged in
-        }
-        catch (Exception e){
-            b = true;
-            assertTrue(true);
-        }
-        if(!b)
+        boolean b = proxy.addNewStoreManager(str, "user2", "user3"); //not logged in
+
+        if(b)
             fail();
     }
     @Test
@@ -1081,15 +1069,9 @@ public class AcceptanceTests {
 
 
         // "fail - user has to be at least shop owner and to be logged in"
-        boolean b = false;
-        try{
-            proxy.freezeStoreByOwner(storeId, "user2"); //not logged in
-        }
-        catch (Exception e){
-            b = true;
-            assertTrue(true);
-        }
-        if(!b)
+        boolean b = proxy.freezeStoreByOwner(storeId, "user2"); //not logged in
+
+        if(b)
             fail();
     }
     @Test
@@ -1128,15 +1110,9 @@ public class AcceptanceTests {
 
 
         // "fail - user has to be at least shop owner and to be logged in"
-        boolean b = false;
-        try{
-            proxy.unfreezeStoreByOwner(storeId, "user2"); //not logged in
-        }
-        catch (Exception e){
-            b = true;
-            assertTrue(true);
-        }
-        if(!b)
+        boolean b = proxy.unfreezeStoreByOwner(storeId, "user2"); //not logged in
+
+        if(b)
             fail();
     }
     @Test
