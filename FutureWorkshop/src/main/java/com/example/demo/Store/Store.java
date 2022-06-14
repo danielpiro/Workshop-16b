@@ -22,7 +22,6 @@ import com.example.demo.StorePermission.Permission;
 import com.example.demo.StorePermission.StoreRoles;
 
 import javax.naming.NoPermissionException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,14 +32,12 @@ public class Store implements getStoreInfo {
 
     private String storeName;
     private final String storeId;
-    private List<com.example.demo.StorePermission.StoreRoles> StoreRoles;
+    private List<StoreRoles> StoreRoles;
     private InventoryManager inventoryManager;
     private Forum forum;
     private StoreState storeState;
 
-
-
-    private float storeRating; //rating between 1 - 5
+    private Float storeRating; //rating between 1 - 5
     private List<Review> reviews;
 
 
@@ -52,16 +49,13 @@ public class Store implements getStoreInfo {
         inventoryManager = new InventoryManager();
         forum =new Forum();
         storeState = StoreState.ACTIVE;
-        storeRating = 0;
+        storeRating = 0F;
 
     }
 
     private boolean checkPermission(String userId, Permission action){
-        List<StoreRoles> copyStoreRoles;
         synchronized (StoreRoles) {
-            copyStoreRoles = List.copyOf(StoreRoles);
-
-        for (StoreRoles roleUser : copyStoreRoles) {
+        for (StoreRoles roleUser : StoreRoles) {
             if (roleUser.getUserId().equals(userId) &&
                     roleUser.getPermissions().contains(action) ) {
                 return true;
@@ -185,38 +179,56 @@ public class Store implements getStoreInfo {
     }
 
     public void addReviewToStore(float rating, String userId, String title, String body){
-        reviews.add(new Review(rating, userId, title, body));
-        float sum = 0;
-        for (Review rev :
-                reviews) {
-            sum = rev.getRating()+sum;
+        synchronized (reviews) {
+            reviews.add(new Review(rating, userId, title, body));
         }
-        this.storeRating = sum / (reviews.size());
+
+        float sum = 0;
+        synchronized (reviews) {
+            for (Review rev :
+                    reviews) {
+                sum = rev.getRating() + sum;
+            }
+            synchronized (storeRating) {
+                this.storeRating = sum / (reviews.size());
+            }
+        }
     }
 
     public String addNewThreadToForum(String title, String userId){
-        return forum.addNewThread(title, userId);
+        String output;
+        synchronized (forum){
+            output  = forum.addNewThread(title, userId);
+        }
+        return output;
+
     }
     public void RolePostMessageToForum(String threadId, String userId, String message) throws NoPermissionException, NotifyException, UserException {
         if(!checkPermission(userId, Permission.REPLY_TO_FORUM)){
             throw new NoPermissionException("the user don't have this permission");
         }
-        forum.postMessage(threadId, userId, message);
+        synchronized (forum) {
+            forum.postMessage(threadId, userId, message);
+        }
         NotificationManager.getNotificationManager().sendNotificationTo(userId, new StoreNotification(this, NotificationSubject.StoreForum,"someone in store replied to your message","message: "+message));
     }
 
-    public void  userPostMessageToForum(String threadId, String userId, String message) throws NoPermissionException, NotifyException, UserException, SupplyManagementException, IOException {
-        String threadUser =  forum.getUserIdOfTread(threadId);
+    public void  userPostMessageToForum(String threadId, String userId, String message) throws NoPermissionException,  NotifyException,  UserException {
+        String threadUser;
+        synchronized (forum) {
+            threadUser = forum.getUserIdOfTread(threadId);
+        }
         if(!IdGenerator.getInstance().isIdEqual(threadUser, userId)){
             throw new NoPermissionException("only user that created the forum thread can post messages");
         }
-        forum.postMessage(threadId, userId, message);
-
+        synchronized (forum) {
+            forum.postMessage(threadId, userId, message);
+        }
         NotificationManager.getNotificationManager().sendNotificationTo(getRolesIds(), new StoreNotification(this, NotificationSubject.StoreForum,"user post message to forum","message: "+message));
     }
 
 
-    public void deleteProduct(String userId, String productId) throws NoPermissionException, SupplyManagementException, NotifyException, UserException, IOException {
+    public void deleteProduct(String userId, String productId) throws NoPermissionException, SupplyManagementException, NotifyException, UserException {
         if(!checkPermission(userId, Permission.ADD_NEW_PRODUCT)){
             throw new NoPermissionException("the user don't have this permission");
         }
@@ -226,20 +238,24 @@ public class Store implements getStoreInfo {
 
     }
 
-    public void closeStore(String userId) throws NoPermissionException, NotifyException, UserException, SupplyManagementException, IOException {
+    public void closeStore(String userId) throws NoPermissionException, NotifyException, UserException {
         if(!checkPermission(userId, Permission.CLOSE_STORE)){
             throw new NoPermissionException("the user don't have this permission");
         }
-        storeState = StoreState.CLOSED;
+        synchronized (storeState) {
+            storeState = StoreState.CLOSED;
+        }
         StoreNotification sn = new StoreNotification(this,NotificationSubject.StoreState,"your store closed",userId+" closed your store name:"+storeName+" store Id"+storeId);
         NotificationManager.getNotificationManager().sendNotificationTo(getRolesIds(),sn);
     }
 
-    public void openStore(String userId) throws NoPermissionException, NotifyException, UserException, SupplyManagementException, IOException {
+    public void openStore(String userId) throws NoPermissionException, NotifyException, UserException {
         if(!checkPermission(userId, Permission.OPEN_STORE)){
             throw new NoPermissionException("the user don't have this permission");
         }
-        storeState = StoreState.ACTIVE;
+        synchronized (storeState) {
+            storeState = StoreState.ACTIVE;
+        }
         StoreNotification sn = new StoreNotification(this,NotificationSubject.StoreState,"your store opened",userId+" opened your store name:"+storeName+" store Id"+storeId);
         NotificationManager.getNotificationManager().sendNotificationTo(getRolesIds(),sn);
     }
@@ -288,40 +304,62 @@ public class Store implements getStoreInfo {
 
     private List<String> getRolesIds(){
         List<String> rolesIds = new ArrayList<>();
-        for (StoreRoles role : StoreRoles){
-            rolesIds.add(role.getUserId());
+        synchronized (StoreRoles) {
+            for (StoreRoles role : StoreRoles) {
+                rolesIds.add(role.getUserId());
+            }
         }
         return rolesIds;
     }
 
     public List<Product> getAllProducts() {
-        if(storeState == StoreState.ACTIVE)
+        StoreState storeStateOp;
+        synchronized (storeState){
+            storeStateOp = this.storeState;
+        }
+        if(StoreState.ACTIVE == storeStateOp)
             return inventoryManager.getAllProducts((x)->true);
-        return new ArrayList<Product>();
+        return new ArrayList<>();
     }
     public List<Product> getProductsNameContains(String PartialName) {
-        if(storeState == StoreState.ACTIVE)
+        StoreState storeStateOp;
+        synchronized (storeState){
+            storeStateOp = this.storeState;
+        }
+        if(storeStateOp == StoreState.ACTIVE)
             return inventoryManager.getAllProducts(
                     (p)->p.getName().toUpperCase().contains(PartialName.toUpperCase())
             );
         return new ArrayList<Product>();
     }
     public List<Product> getProductsPriceContains(float lowerRange, float upperRange) {
-        if(storeState == StoreState.ACTIVE)
+        StoreState storeStateOp;
+        synchronized (storeState){
+            storeStateOp = this.storeState;
+        }
+        if(storeStateOp == StoreState.ACTIVE)
             return inventoryManager.getAllProducts(
                     (p)->(p.getPrice() >= lowerRange && p.getPrice() <= upperRange)
             );
         return new ArrayList<Product>();
     }
     public List<Product> getAllProductsCategory(List<String> category) {
-        if(storeState == StoreState.ACTIVE)
+        StoreState storeStateOp;
+        synchronized (storeState){
+            storeStateOp = this.storeState;
+        }
+        if(storeStateOp == StoreState.ACTIVE)
             return inventoryManager.getAllProducts(
                     (p)->category.stream().anyMatch(cat ->p.getCategory().toString().equals(cat))
             );
         return new ArrayList<Product>();
     }
     public List<Product> getAllProductsRating(float lower, float upper) {
-        if(storeState == StoreState.ACTIVE)
+        StoreState storeStateOp;
+        synchronized (storeState){
+            storeStateOp = this.storeState;
+        }
+        if(storeStateOp == StoreState.ACTIVE)
             return inventoryManager.getAllProducts(
                     (p)->p.getRating() >= lower && p.getRating() <=upper
             );
@@ -331,11 +369,10 @@ public class Store implements getStoreInfo {
     public Product getProduct(String productId) throws Exception {
         return inventoryManager.getProduct(productId);
     }
-    public List<PurchaseHistory> getStoreHistory(String userId, boolean isAdmin) throws NoPermissionException {
-        if(!checkPermission(userId, Permission.VIEW_STORE_HISTORY) && !isAdmin){
-            throw new NoPermissionException("the user don't have this permission and is not an admin");
-        }
-
+    public List<PurchaseHistory> getStoreHistory(String userId) throws NoPermissionException {
+         if(!checkPermission(userId, Permission.VIEW_STORE_HISTORY)){
+             throw new NoPermissionException("the user don't have this permission");
+         }
         return History.getInstance().getStoreHistory(storeId);
     }
     public List<PurchaseHistory> getStoreHistory(String userIdRequesting, String userId) throws NoPermissionException {
@@ -358,51 +395,62 @@ public class Store implements getStoreInfo {
         return storeId;
     }
     public InventoryProtector getInventoryProtector(){
-        InventoryProtector InProtected = inventoryManager;
-        return InProtected;
+        return inventoryManager;
     }
 
 
     public String getTitle(String userIf) {
-        for(StoreRoles sr:StoreRoles){
-            if(sr.getUserId().equals(userIf)){
-                return sr.getTitle();
+        synchronized (StoreRoles) {
+            for (StoreRoles sr : StoreRoles) {
+                if (sr.getUserId().equals(userIf)) {
+                    return sr.getTitle();
+                }
             }
         }
         return "no title";
     }
     public boolean checkIfUserHaveRoleInStore(String userIf) {
-        for(StoreRoles sr:StoreRoles){
-            if(sr.getUserId().equals(userIf)){
-                return true;
+        synchronized (StoreRoles) {
+            for (StoreRoles sr : StoreRoles) {
+                if (sr.getUserId().equals(userIf)) {
+                    return true;
+                }
             }
         }
         return false;
     }
 
     public List<Permission> getUserPermission(String userId) {
-        for(StoreRoles sr:StoreRoles){
-            if(sr.getUserId().equals(userId)){
-                return sr.getPermissions();
+        synchronized (StoreRoles) {
+            for (StoreRoles sr : StoreRoles) {
+                if (sr.getUserId().equals(userId)) {
+                    return sr.getPermissions();
+                }
             }
         }
         return new ArrayList<>();
     }
 
     public float getStoreRating() {
-        return storeRating;
+        synchronized (storeRating) {
+            return storeRating;
+        }
     }
 
 
     public boolean isUserOwner(String userID) {
-        return StoreRoles.stream().anyMatch(role ->(role.getTitle().equals("owner") ||
-                role.getTitle().equals("original owner")) &&
-                role.getUserId().equals(userID) );
+        synchronized (StoreRoles) {
+            return StoreRoles.stream().anyMatch(role -> (role.getTitle().equals("owner") ||
+                    role.getTitle().equals("original owner")) &&
+                    role.getUserId().equals(userID));
+        }
     }
 
     public boolean isUserManager(String userID) {
-        return StoreRoles.stream().anyMatch(role ->role.getTitle().equals("manger") &&
-                role.getUserId().equals(userID) );
+        synchronized (StoreRoles) {
+            return StoreRoles.stream().anyMatch(role ->role.getTitle().equals("manger") &&
+                    role.getUserId().equals(userID) );
+        }
     }
 
 

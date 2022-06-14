@@ -303,232 +303,15 @@ public class AcceptanceTests {
 
 
 
-    /**
-     *  System requirement - I.5
-     **/
-    // A user bought a product from a store
-    @Disabled
-    @Test
-    void realtime_notification_product_bought_success_case_test() {
-//        - Product purchase was activated - a user logged in and bought a product
-//        - Check that the store manager is logged in (will be true in this case)
-//        - Check the message that just sent (will simulate the realtime message sent)
-
-        fail();
-    }
-    @Disabled
-    @Test
-    void realtime_notification_product_bought_fail_case_test() {
-//        - Product purchase was activated - a user logged in and bought a product
-//        - Check that the store manager is logged in (will be true in this case)
-//        - Check the message that just sent (will simulate the realtime message sent)
-//              -> MESSAGE DIDN'T ARRIVE
-
-        fail();
-    }
-
-    // A store was closed, then re-opened
-    @Disabled
-    @Test
-    void realtime_notification_store_closed_and_opened_success_case_test() {
-//        - Store owner closed his store (after logged in as store owner)
-//        - Check that another store manager (of the same store) is logged in (will be true in this case)
-//        - The store owner close the store
-//        - Check the message that just sent (will simulate the realtime message sent)
-//        - The store owner open the store
-//        - Check that the store manager is logged in (will be true in this case)
-//        - Check the message that just sent (will simulate the realtime message sent)
-
-
-        // "the store has closed successfully"
-//        assertTrue(proxy.freezeStoreByOwner(storeId, "user1"));
-//        List<StoreNotification> userNotifications=proxy.getAllStoreNotificationsOf("user1");
-//
-//        assertTrue(userNotifications.stream().anyMatch(
-//                noti -> noti.getSentFrom().getId().equals(storeId) &&
-//                        noti.getSubject().equals(NotificationSubject.StoreState) &&
-//                        noti.getTitle().contains("your store closed") &&
-//                        !noti.isRead()
-//                )
-//        );
-//
-//        userNotifications=proxy.getAllStoreNotificationsOf("user1");
-//        assertTrue(proxy.unfreezeStoreByOwner(storeId, "user1"));
-//        assertTrue(userNotifications.stream().anyMatch(
-//                noti -> noti.getSentFrom().getId().equals(storeId) &&
-//                        noti.getSubject().equals(NotificationSubject.StoreState) &&
-//                        noti.getTitle().contains("your store opened")&&
-//                        !noti.isRead()
-//                )
-//        );
-    }
-    @Disabled
-    @Test
-    void realtime_notification_store_closed_and_opened_fail_case_test1() {
-//        - Store owner closed his store (after logged in as store owner)
-//        - Check that another store manager (of the same store) is logged in (will be true in this case)
-//        - The store owner close the store
-//        - Check the message that just sent (will simulate the realtime message sent)
-//              -> MESSAGE DIDN'T ARRIVE
-
-        // "the store has closed successfully"
-//        assertTrue(proxy.freezeStoreByOwner(storeId, "user1"));
-//        List<StoreNotification> userNotifications=proxy.getAllStoreNotificationsOf("user1");
-//
-//        assertTrue(userNotifications.stream().anyMatch(
-//                        noti -> noti.getSentFrom().getId().equals(storeId) &&
-//                                noti.getSubject().equals(NotificationSubject.StoreState) &&
-//                                noti.getTitle().contains("your store closed")&&
-//                                !noti.isRead()
-//                )
-//        );
-//
-//
-//        assertTrue(proxy.unfreezeStoreByOwner(storeId, "user1"));
-//        proxy.login("user3", "11111");
-//        userNotifications=proxy.getAllStoreNotificationsOf("user3");
-//        assertFalse(userNotifications.stream().anyMatch(
-//                        noti -> noti.getSentFrom().getId().equals(storeId) &&
-//                                noti.getSubject().equals(NotificationSubject.StoreState) &&
-//                                noti.getTitle().contains("your store opened")&&
-//                                !noti.isRead()
-//                )
-//        );
-    }
-
-    @Test
-    void realtime_notification_store_closed_and_opened_fail_case_test2() {
-//        - Store owner closed his store (after logged in as store owner)
-//        - Check that another store manager (of the same store) is logged in (will be true in this case)
-//        - The store owner close the store
-//        - Check the message that just sent (will simulate the realtime message sent)
-//        - The store owner open the store
-//        - Check that the store manager is logged in (will be true in this case)
-//        - Check the message that just sent (will simulate the realtime message sent)
-//              -> MESSAGE DIDN'T ARRIVE
-
-        // "the store has closed successfully"
-//        proxy.login("user2", "22222");
-//        assertFalse(proxy.freezeStoreByOwner(storeId, "user2"));
-//        List<StoreNotification> userNotifications=proxy.getAllStoreNotificationsOf("user1");
-//
-//        assertFalse(userNotifications.stream().anyMatch(
-//                        noti -> noti.getSentFrom().getId().equals(storeId) &&
-//                                noti.getSubject().equals(NotificationSubject.StoreState) &&
-//                                noti.getTitle().contains("your store closed")&&
-//                                !noti.isRead()
-//                )
-//        );
 
 
 
-    }
 
-    // A user's permissions was removed
-    @Disabled
-    @Test
-    void realtime_notification_user_permission_update_success_case_test() {
-//        - Store owner update one of the store manager permissions (after logged in as store owner)
-//        - Check that the store manager is logged in (will be true in this case)
-//        - Check the message that just sent (will simulate the realtime message sent)
 
-        fail();
-    }
-    @Disabled
-    @Test
-    void realtime_notification_user_permission_update_fail_case_test() {
-//        - Store owner update one of the store manager permissions (after logged in as store owner)
-//        - Check that the store manager is logged in (will be true in this case)
-//        - Check the message that just sent (will simulate the realtime message sent)
-//              -> MESSAGE DIDN'T ARRIVE
 
-        fail();
-    }
 
-    /**
-     *  System requirement - I.6
-     **/
-    // A user bought a product from a store
-    @Disabled
-    @Test
-    void offline_notification_product_bought_success_case_test() {
-//        - Product purchase was activated - a user logged in and bought a product
-//        - Check that the store manager is logged in (will be true in this case)
-//        - Check the message that just sent (will simulate the offline message sent)
 
-        fail();
-    }
-    @Disabled
-    @Test
-    void offline_notification_product_bought_fail_case_test() {
-//        - Product purchase was activated - a user logged in and bought a product
-//        - Check that the store manager is logged in (will be true in this case)
-//        - Check the message that just sent (will simulate the offline message sent)
-//              -> MESSAGE DIDN'T ARRIVE
 
-        fail();
-    }
-
-    // A store was closed, then re-opened
-    @Disabled
-    @Test
-    void offline_notification_store_closed_and_opened_success_case_test() {
-//        - Store owner closed his store (after logged in as store owner)
-//        - Check that another store manager (of the same store) is logged in (will be true in this case)
-//        - The store owner close the store
-//        - Check the message that just sent (will simulate the offline message sent)
-//        - The store owner open the store
-//        - Check that the store manager is logged in (will be true in this case)
-//        - Check the message that just sent (will simulate the offline message sent)
-
-        fail();
-    }
-    @Disabled
-    @Test
-    void offline_notification_store_closed_and_opened_fail_case_test1() {
-//        - Store owner closed his store (after logged in as store owner)
-//        - Check that another store manager (of the same store) is logged in (will be true in this case)
-//        - The store owner close the store
-//        - Check the message that just sent (will simulate the offline message sent)
-//              -> MESSAGE DIDN'T ARRIVE
-
-        fail();
-    }
-    @Disabled
-    @Test
-    void offline_notification_store_closed_and_opened_fail_case_test2() {
-//        - Store owner closed his store (after logged in as store owner)
-//        - Check that another store manager (of the same store) is logged in (will be true in this case)
-//        - The store owner close the store
-//        - Check the message that just sent (will simulate the offline message sent)
-//        - The store owner open the store
-//        - Check that the store manager is logged in (will be true in this case)
-//        - Check the message that just sent (will simulate the offline message sent)
-//              -> MESSAGE DIDN'T ARRIVE
-
-        fail();
-    }
-
-    // A user's permissions was removed
-    @Disabled
-    @Test
-    void offline_notification_user_permission_update_success_case_test() {
-//        - Store owner update one of the store manager permissions (after logged in as store owner)
-//        - Check that the store manager is logged in (will be true in this case)
-//        - Check the message that just sent (will simulate the offline message sent)
-
-        fail();
-    }
-    @Disabled
-    @Test
-    void offline_notification_user_permission_update_fail_case_test() {
-//        - Store owner update one of the store manager permissions (after logged in as store owner)
-//        - Check that the store manager is logged in (will be true in this case)
-//        - Check the message that just sent (will simulate the offline message sent)
-//              -> MESSAGE DIDN'T ARRIVE
-
-        fail();
-    }
 
     @Test
     void search_product_success_case_test() throws Exception {
@@ -921,19 +704,11 @@ public class AcceptanceTests {
 //              -> there is no product in the store with these details.
 //        - Show fail message...
 
-        Object[] s = proxy.getAllProductsAndStores("user1").keySet().toArray();
-        String str = s[0].toString();
+
         // "failed to remove product (check storeName or productName)"
-        boolean b = false;
-        try{
-            proxy.removeProductFromStore(str, "user1", product4);
-        }
-        catch (Exception e){
-            b = true;
-            assertTrue(true);
-        }
-        if(!b)
-            fail();
+        boolean b = proxy.removeProductFromStore(storeId, "user1", "");
+
+        assertTrue(!b);
     }
 
     @Test
@@ -943,15 +718,14 @@ public class AcceptanceTests {
 //        - Editing product in store activated.
 //        - Check that the product is now updated (will be true).
 
-        Object[] s = proxy.getAllProductsAndStores("user1").keySet().toArray();
-        String str = s[0].toString();
+
         String str2 = "";
         for (List<Product> p : proxy.getAllProductsAndStores("user1").values()){
              str2 = p.get(0).getId();
              break;
         }
         // "product was edited in the store successfully"
-        assertTrue(proxy.editProductInStore(str, "user1", str2, 50,
+        assertTrue(proxy.editProductInStore(storeId, "user1", product1, 50,
                                         "prod1", 10.0f, "Other"));
     }
     @Test
@@ -960,20 +734,16 @@ public class AcceptanceTests {
 //              -> user isn't logged in as store owner.
 //        - Show fail message...
 
-        Object[] s = proxy.getAllProductsAndStores("user1").keySet().toArray();
-        String str = s[0].toString();
+
         // "fail - user has to be at least shop owner and to be logged in"
-        boolean b = false;
-        try{
-            proxy.editProductInStore(str, "user2", "ProductID_0", 50,
-                    "prod1", 10.0f, "Other"); // not logged in
-        }
-        catch (Exception e){
-            b = true;
-            assertTrue(true);
-        }
-        if(!b)
-            fail();
+
+
+        boolean b = proxy.editProductInStore(storeId, "user2", product1, 50,
+                "prod1", 10.0f, "Other"); // not logged in
+
+
+        assertTrue(!b);
+
     }
     @Test
     void store_management_edit_product_fail_case_test2() {
@@ -1053,17 +823,10 @@ public class AcceptanceTests {
 //        - Show fail message...
 
         // "fail - product name/price/quantity is not valid"
-        boolean b = false;
-        try{
-            proxy.editProductInStore("store1...", "user1", "ProductID_0", 50,
-                    "prod1", 10.0f, "Other");
-        }
-        catch (Exception e){
-            b = true;
-            assertTrue(true);
-        }
-        if(!b)
-            fail();
+        boolean b =  proxy.editProductInStore("store1...", "user1", "ProductID_0", 50,
+                "prod1", 10.0f, "Other");
+
+        assertTrue(!b);
     }
 
     /**
@@ -1082,10 +845,9 @@ public class AcceptanceTests {
 //        - Adding store owner to the store is activated.
 //        - Check that the new owner has been added (will be true).
 
-        Object[] s = proxy.getAllProductsAndStores("user1").keySet().toArray();
-        String str = s[0].toString();
+
         // "the user is now store owner"
-        assertTrue(proxy.addNewStoreOwner(str, "user1", "user3",
+        assertTrue(proxy.addNewStoreOwner(storeId, "user1", "user3",
                                         new ArrayList<>()/*permissions*/));
     }
     @Test
@@ -1190,10 +952,9 @@ public class AcceptanceTests {
 //        - Adding store manager to the store is activated.
 //        - Check that the new manager has been added (will be true).
 
-        Object[] s = proxy.getAllProductsAndStores("user1").keySet().toArray();
-        String str = s[0].toString();
+
         // "the user is now store manager"
-        assertTrue(proxy.addNewStoreManager(str, "user1", "user3"));
+        assertTrue(proxy.addNewStoreManager(storeId, "user1", "user3"));
     }
     @Test
     void adding_store_manager_fail_case_test1() {
@@ -1308,10 +1069,9 @@ public class AcceptanceTests {
 //        - User closing the store.
 //        - Check that the store is closed (will be true).
 
-        Object[] s = proxy.getAllProductsAndStores("user1").keySet().toArray();
-        String str = s[0].toString();
+
         // "the store has closed successfully"
-        assertTrue(proxy.freezeStoreByOwner(str, "user1"));
+        assertTrue(proxy.freezeStoreByOwner(storeId, "user1"));
     }
     @Test
     void close_store_fail_case_test1() {
@@ -1319,12 +1079,11 @@ public class AcceptanceTests {
 //                  -> the user isn't a store owner.
 //        - Show fail message...
 
-        Object[] s = proxy.getAllProductsAndStores("user1").keySet().toArray();
-        String str = s[0].toString();
+
         // "fail - user has to be at least shop owner and to be logged in"
         boolean b = false;
         try{
-            proxy.freezeStoreByOwner(str, "user2"); //not logged in
+            proxy.freezeStoreByOwner(storeId, "user2"); //not logged in
         }
         catch (Exception e){
             b = true;
@@ -1339,12 +1098,11 @@ public class AcceptanceTests {
 //                  -> the user isn't logged in.
 //        - Show fail message...
 
-        Object[] s = proxy.getAllProductsAndStores("user1").keySet().toArray();
-        String str = s[0].toString();
+
         // "fail - user has to be at least shop owner and to be logged in"
         boolean b = false;
 
-        b=    proxy.freezeStoreByOwner(str, "user22"); //not registered
+        b=    proxy.freezeStoreByOwner(storeId, "user22"); //not registered
         assertFalse(b);
 
     }
@@ -1358,10 +1116,9 @@ public class AcceptanceTests {
 //        - User re-open the store.
 //        - Check that the store is open (will be true).
 
-        Object[] s = proxy.getAllProductsAndStores("user1").keySet().toArray();
-        String str = s[0].toString();
-        proxy.freezeStoreByOwner(str, "user1");
-        assertTrue(proxy.unfreezeStoreByOwner(str, "user1"));
+
+        proxy.freezeStoreByOwner(storeId, "user1");
+        assertTrue(proxy.unfreezeStoreByOwner(storeId, "user1"));
     }
     @Test
     void unfreeze_store_fail_case_test1() {
@@ -1369,12 +1126,11 @@ public class AcceptanceTests {
 //                  -> the user isn't a store owner.
 //        - Show fail message...
 
-        Object[] s = proxy.getAllProductsAndStores("user1").keySet().toArray();
-        String str = s[0].toString();
+
         // "fail - user has to be at least shop owner and to be logged in"
         boolean b = false;
         try{
-            proxy.unfreezeStoreByOwner(str, "user2"); //not logged in
+            proxy.unfreezeStoreByOwner(storeId, "user2"); //not logged in
         }
         catch (Exception e){
             b = true;
@@ -1389,12 +1145,11 @@ public class AcceptanceTests {
 //                  -> the user isn't logged in.
 //        - Show fail message...
 
-        Object[] s = proxy.getAllProductsAndStores("user1").keySet().toArray();
-        String str = s[0].toString();
+
         // "fail - user has to be at least shop owner and to be logged in"
         boolean b = false;
 
-         b=   proxy.unfreezeStoreByOwner(str, "user44"); //not registered
+         b=   proxy.unfreezeStoreByOwner(storeId, "user44"); //not registered
         assertFalse(b);
 
     }
@@ -1407,10 +1162,9 @@ public class AcceptanceTests {
 //        - Check that the user is logged in as store owner.
 //        - Activate presenting all store's official (will show all the officials correctly).
 
-        Object[] s = proxy.getAllProductsAndStores("user1").keySet().toArray();
-        String str = s[0].toString();
+
         // "showing all the officials..."
-        assertTrue(proxy.showStoreOfficials(str, "user1"));
+        assertTrue(proxy.showStoreOfficials(storeId, "user1"));
     }
     @Test
     void show_store_officials_fail_case_test1() { //officials = store owners/store managers
@@ -1418,10 +1172,9 @@ public class AcceptanceTests {
         //          -> the user isn't a store owner.
         //- Show fail message...
 
-        Object[] s = proxy.getAllProductsAndStores("user1").keySet().toArray();
-        String str = s[0].toString();
+
         // "fail - user has to be at least shop owner and to be logged in"
-        assertFalse(proxy.showStoreOfficials(str, "user3")); //not store owner
+        assertFalse(proxy.showStoreOfficials(storeId, "user3")); //not store owner
     }
     @Test
     void show_store_officials_fail_case_test2() { //officials = store owners/store managers
@@ -1429,10 +1182,9 @@ public class AcceptanceTests {
         //          -> the user isn't logged in as store owner.
         //- Show fail message...
 
-        Object[] s = proxy.getAllProductsAndStores("user1").keySet().toArray();
-        String str = s[0].toString();
+
         // "fail - user has to be at least shop owner and to be logged in"
-        assertFalse(proxy.showStoreOfficials(str, "user2")); //not logged in
+        assertFalse(proxy.showStoreOfficials(storeId, "user2")); //not logged in
     }
     @Test
     void show_store_officials_fail_case_test3() { //officials = store owners/store managers
@@ -1457,11 +1209,10 @@ public class AcceptanceTests {
 //        - Check that the user is logged in as store owner.
 //        - Activate presenting all store's purchase history (will show it all correctly).
 
-        Object[] s = proxy.getAllProductsAndStores("user1").keySet().toArray();
-        String str = s[0].toString();
+
         List<PurchaseHistory> list = new ArrayList<>(); //TODO: When purchase done, check this method with few purchases
         // "showing all the purchase history..."
-        assertEquals(list, proxy.showStorePurchaseHistory(str));
+        assertEquals(list, proxy.showStorePurchaseHistory(storeId));
     }
     @Test
     void show_store_purchase_history_fail_case_test() {

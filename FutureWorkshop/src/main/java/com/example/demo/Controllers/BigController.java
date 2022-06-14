@@ -244,6 +244,11 @@ public class BigController {
     }
 
 
+    public ShoppingCart getShoppingCartTests( String user_Id) throws Exception {
+        return getUserController().getShoppingCart(user_Id);
+    }
+
+
 //    public boolean containsStore(String user_id, String storeID) {
 //        return getUserController().containsStore(user_id, storeID);
 //    }
@@ -314,7 +319,7 @@ public class BigController {
         userExistsAndLoggedIn(userId);
         List<String> managers = new ArrayList<>();
         managers.add(userId);
-        ReturnValue rv = new ReturnValue(true, "", getStoreController().openNewStore(storeName, managers));
+        ReturnValue rv = new ReturnValue<String>(true, "", getStoreController().openNewStore(storeName, managers));
         return rv;
 
     }
