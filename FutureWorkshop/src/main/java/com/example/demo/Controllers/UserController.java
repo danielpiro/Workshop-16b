@@ -637,4 +637,19 @@ public class UserController implements NotificationReceiver {
     }
 
 
+    public void initializeLogoutAll() throws UserException, InterruptedException {
+        logout("amit");
+        logout("guy");
+        logout("pam123");
+        logout("alex12");
+        logout("ronn");
+        logout("rotman");
+        logout("dashy");
+        logout("crim");
+        logout("karma");
+        logout("damon");
+        logout("tjhaly");
+        logout("spart");
+        logout("yoav");
+    }
 }

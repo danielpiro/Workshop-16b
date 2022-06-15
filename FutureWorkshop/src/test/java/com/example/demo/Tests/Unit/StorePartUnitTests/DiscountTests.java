@@ -135,6 +135,23 @@ public class DiscountTests {
             fail();
         }
     }
+    @Test
+    void applyPercentageDiscountDoesNotApply(){
+        try {
+            DiscountPredicate p = new PricePredicate(100000);
+            Discount d = new PercentageDiscount(20,p);
+            HashMap<String, Integer> productsAmount = getProductsAmountHashMap();
+            float priceBeforeDiscount = addProductsToCartInventoryManagerAndApplyDiscount(invMan, productsAmount);
+            invMan.purchaseSuccessful(productsAmount,false);
+            invMan.addNewDiscount(d);
+            float priceAfterDiscount = addProductsToCartInventoryManagerAndApplyDiscount(invMan, productsAmount);
+            assertEquals(roundAvoid(priceAfterDiscount,2),roundAvoid(priceBeforeDiscount,2));
+        }
+        catch (SupplyManagementException|StorePolicyViolatedException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
     private float roundAvoid(float value, int places) {
         float scale = (float) Math.pow(10, places);
         return Math.round(value * scale) / scale;

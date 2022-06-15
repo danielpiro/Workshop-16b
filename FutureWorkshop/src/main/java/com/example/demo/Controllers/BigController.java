@@ -105,6 +105,9 @@ public class BigController {
     private List<String> initializeUsers() throws UserException, InterruptedException {
         return getUserController().initialize();
     }
+    private void initializeUsersLogoutAll() throws UserException, InterruptedException {
+         getUserController().initializeLogoutAll();
+    }
 
     /**
      * @param user_id
@@ -619,6 +622,7 @@ public class BigController {
     public ReturnValue initializeSystem() throws UserException, SupplyManagementException, NoPermissionException, InterruptedException {
         List<String> users = initializeUsers();
         initializeStores(users);
+        initializeUsersLogoutAll();
         ReturnValue rv = new ReturnValue(true, "", users);
         return rv;
     }
