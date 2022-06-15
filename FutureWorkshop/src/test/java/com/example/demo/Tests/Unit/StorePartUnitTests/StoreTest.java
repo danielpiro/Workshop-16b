@@ -211,9 +211,9 @@ class StoreTest {
         try {
             setUpBeforePermissionTests();
 
-            store1.removeRoleInHierarchy(userId1,userId4);
+            store1.removeRoleInHierarchy(userId1,userId2);
             List<StoreRoles> storeRoles = store1.getInfoOnManagersOwners(userId1);
-            assertEquals(storeRoles.size(),4);
+            assertEquals(storeRoles.size(),1);
 
         } catch (NoPermissionException | NotifyException | UserException e) {
             e.printStackTrace();
