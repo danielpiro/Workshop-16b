@@ -5,7 +5,6 @@ import com.example.demo.CustomExceptions.Exception.NotifyException;
 import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
-import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.History.PurchaseHistory;
 import com.example.demo.Mock.*;
 import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
@@ -22,12 +21,12 @@ import com.example.demo.History.History;
 import com.example.demo.NotificationsManagement.ComplaintNotification;
 import com.example.demo.NotificationsManagement.NotificationManager;
 import com.example.demo.NotificationsManagement.NotificationSubject;
+import com.example.demo.NotificationsManagement.StoreNotification;
 import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.ProductsCategories;
 import com.example.demo.Store.Store;
-import com.example.demo.Store.StorePurchase.Discounts.AdditionDiscount;
 import com.example.demo.Store.StorePurchase.Discounts.Discount;
 import com.example.demo.Store.StorePurchase.Discounts.DiscountBuilder;
 import com.example.demo.Store.StorePurchase.Discounts.MaxDiscount;
@@ -45,12 +44,9 @@ import org.apache.tomcat.util.json.ParseException;
 import org.springframework.http.MediaType;
 
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import javax.annotation.processing.Generated;
 import javax.naming.NoPermissionException;
 import javax.transaction.NotSupportedException;
 import javax.validation.Valid;
@@ -119,10 +115,9 @@ public class BigController {
                                               @RequestParam DeliveryNames delivery) throws StorePolicyViolatedException, UserException, JsonProcessingException, ExecutionException, InterruptedException {
         ObjectMapper objectMapper = new ObjectMapper();
         System.out.println("current thread func" + Thread.currentThread().getId());
-        CompletableFuture<Float> priceOfCartAfterDiscount = getUserController().getPriceOfCartAfterDiscount(user_id, new ExternalConnectionHolder(delivery, payment));
-        CompletableFuture<Float> priceOfCartBeforeDiscount = getUserController().getPriceOfCartBeforeDiscount(user_id, new ExternalConnectionHolder(delivery, payment));
-        float afterDiscount = priceOfCartAfterDiscount.get();
-        float beforeDiscount = priceOfCartBeforeDiscount.get();
+        float afterDiscount = getUserController().getPriceOfCartAfterDiscount(user_id, new ExternalConnectionHolder(delivery, payment));
+        float beforeDiscount = getUserController().getPriceOfCartBeforeDiscount(user_id, new ExternalConnectionHolder(delivery, payment));
+
         String json = String.format("{\"priceBeforeDiscount\":\"%s\",\"priceAfterDiscount\":\"%s\"}", beforeDiscount, afterDiscount);
         return new ReturnValue(true, "", objectMapper.readTree(json));
 
@@ -131,8 +126,7 @@ public class BigController {
 
     @GetMapping("/online/amount")
     public ReturnValue getOnlineUsersNum() throws ExecutionException, InterruptedException {
-        CompletableFuture<Integer> onlineUsersNum = getUserController().getOnlineUsersNum();
-        return new ReturnValue(true, "", onlineUsersNum.get());
+        return new ReturnValue(true, "", getUserController().getOnlineUsersNum());
     }
 
     @GetMapping("/registered/amount")
@@ -491,6 +485,16 @@ public class BigController {
         return notifiParsed;
     }
 
+    private List<Object> parseStoreNotification(List<StoreNotification> storeNotifications) throws JsonProcessingException {
+        List<Object> notifiParsed = new ArrayList<>();
+        ObjectMapper objectMapper = new ObjectMapper();
+        for (StoreNotification sn : storeNotifications) {
+            String json = String.format("{\"sentFrom\":\"%s\",\"subject\":\"%s\",\"Title\":\"%s\",\"Body\":\"%s\",\"read\":\"%s\",\"id\":\"%s\"}", sn.getSentFrom(), sn.getSubject(), sn.getTitle(), sn.getBody(), sn.isRead(), sn.getId());
+            notifiParsed.add(objectMapper.readTree(json));
+        }
+        return notifiParsed;
+    }
+
     //    public void sendComplaintToAdmins(String senderId, ComplaintNotification complaintNotification) throws UserException {
 // String sentFrom, NotificationSubject subject, String title, String body
     @PostMapping("/complaints")
@@ -606,10 +610,10 @@ public class BigController {
 
     @PostMapping("/in/dashboard")
     public ReturnValue isInDashboard(@RequestParam String userId) throws InterruptedException {
-        for (int i = 0; i < us.get_subscriber(userId).getStoreNotifications().size(); i++) {
+        for (int i = 0; i < us.get_subscriber(userId).getRealTimestoreNotifications().size(); i++) {
             //remove before stress test
             Thread.sleep(2000);
-            NotificationController.getInstance().sendNotification(new realTimeNotification(userId, us.get_subscriber(userId).getStoreNotifications().get(i).getSentFrom().getStoreName(), us.get_subscriber(userId).getStoreNotifications().get(i).getSubject().toString(), us.get_subscriber(userId).getStoreNotifications().get(i).getTitle(), us.get_subscriber(userId).getStoreNotifications().get(i).getBody(), new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(Calendar.getInstance().getTime())));
+            NotificationController.getInstance().sendNotification(new realTimeNotification(userId, us.get_subscriber(userId).getRealTimestoreNotifications().get(i).getSentFrom().getStoreName(), us.get_subscriber(userId).getRealTimestoreNotifications().get(i).getSubject().toString(), us.get_subscriber(userId).getRealTimestoreNotifications().get(i).getTitle(), us.get_subscriber(userId).getRealTimestoreNotifications().get(i).getBody(), new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(Calendar.getInstance().getTime())));
         }
         us.get_subscriber(userId).resetNotification();
         return new ReturnValue(true, "", null);
@@ -842,6 +846,15 @@ public class BigController {
         userExistsAndLoggedIn(userId);
         List<ComplaintNotification> cn = us.getComplaintNotifications(userId);
         List<Object> complaintsParsed = parseComplaints(cn);
+        ReturnValue rv = new ReturnValue(true, "", complaintsParsed);
+        return rv;
+    }
+
+    @GetMapping("/store/notification")
+    public ReturnValue readStoreNotification(@RequestParam String userId) throws UserException, JsonProcessingException {
+        userExistsAndLoggedIn(userId);
+        List<StoreNotification> sn = us.getStoreNotifications(userId);
+        List<Object> complaintsParsed = parseStoreNotification(sn);
         ReturnValue rv = new ReturnValue(true, "", complaintsParsed);
         return rv;
     }

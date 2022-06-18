@@ -16,7 +16,9 @@ public class Subscriber extends User {
     private String password;
     private boolean logged_in = false;
     private List<String> Queries; //3.5
+    private List<StoreNotification> realTimestoreNotifications;
     private List<StoreNotification> storeNotifications;
+
     private List<ComplaintNotification> complaintNotifications;
     private Object lock = new Object();
 
@@ -26,6 +28,7 @@ public class Subscriber extends User {
         this.name = user_name;
         Queries = new ArrayList<>();
         lock = new Object();
+        realTimestoreNotifications = new ArrayList<>();
         storeNotifications = new ArrayList<>();
         complaintNotifications = new ArrayList<>();
     }
@@ -62,6 +65,10 @@ public class Subscriber extends User {
     }
 
 
+    public List<StoreNotification> getRealTimestoreNotifications() {
+        return realTimestoreNotifications;
+    }
+
     public List<StoreNotification> getStoreNotifications() {
         return storeNotifications;
     }
@@ -78,13 +85,14 @@ public class Subscriber extends User {
         if (isLogged_in())
             NotificationController.getInstance().sendNotification(new realTimeNotification(this.name, storeNotification.getSentFrom().getStoreName(), storeNotification.getSubject().toString(), storeNotification.getTitle(), storeNotification.getBody(), new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
         else
-            getStoreNotifications().add(storeNotification);
+            getRealTimestoreNotifications().add(storeNotification);
+        getStoreNotifications().add(storeNotification);
     }
 
     public Object getLock() {
         return lock;
     }
 
-    public void resetNotification(){this.storeNotifications = new ArrayList<>();}
+    public void resetNotification(){this.realTimestoreNotifications = new ArrayList<>();}
 
 }
