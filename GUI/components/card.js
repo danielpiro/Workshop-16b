@@ -1,7 +1,6 @@
 import api from "./api";
 import createNotification from "./norification";
 import { useCookies } from "react-cookie";
-import { useEffect, useState } from "react";
 
 const Card = ({ value, title, price, quantity, category, storeId }) => {
   const [cookies, setCookie, removeCookie] = useCookies([
@@ -10,11 +9,6 @@ const Card = ({ value, title, price, quantity, category, storeId }) => {
     "userId",
     "type",
   ]);
-  const onClickBid = (e) => {
-    e.preventDefault();
-    createNotification("info", "Will be implemented next milestone...")();
-  };
-
   const addProduct = async (e) => {
     e.preventDefault();
     const obj = {
@@ -44,7 +38,6 @@ const Card = ({ value, title, price, quantity, category, storeId }) => {
       </h5>
       <h5 className="card-category text-center mb-2">Category: {category}</h5>
       <h5 className="card-price text-center mb-4">Price: {price}$</h5>
-
       <div className="d-flex justify-content-center">
         <button
           className="add-cart-buttom btn btn-outline-primary w-25 mb-3"
@@ -52,15 +45,6 @@ const Card = ({ value, title, price, quantity, category, storeId }) => {
           onClick={addProduct}
         >
           Add to cart
-        </button>
-        <button
-          className="add-cart-buttom btn btn-outline-primary w-25 mb-3 ms-3"
-          data-bs-toggle="modal"
-          data-bs-target="#productDetails"
-          value={value}
-          onClick={onClickBid}
-        >
-          Bid
         </button>
       </div>
     </div>

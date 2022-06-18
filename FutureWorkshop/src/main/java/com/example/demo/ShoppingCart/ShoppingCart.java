@@ -12,6 +12,7 @@ import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.History.History;
 import com.example.demo.Store.Product;
+import org.springframework.scheduling.annotation.Async;
 
 
 import java.time.LocalDateTime;

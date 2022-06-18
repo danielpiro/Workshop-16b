@@ -24,4 +24,12 @@ public class DiscountPredicateAnd implements DiscountPredicate {
     public boolean predicateStandsForProduct(PurchasableProduct ProductAmount) {
         return left.predicateStandsForProduct(ProductAmount) && right.predicateStandsForProduct(ProductAmount);
     }
+
+    @Override
+    public String toString() {
+        return "DiscountPredicateAnd{" +
+                "left=" + left +
+                ", right=" + right +
+                '}';
+    }
 }

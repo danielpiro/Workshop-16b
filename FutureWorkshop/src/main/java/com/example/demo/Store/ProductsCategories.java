@@ -4,8 +4,6 @@ public enum ProductsCategories {
     Other,
     Appliances,
     Apps$Games,
-
     Handmade,
-
     Baby,
     }

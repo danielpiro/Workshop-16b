@@ -12,10 +12,7 @@ const SearchBarStores = ({ setStoreSearch }) => {
   return (
     <div className="container">
       <nav className="navbar navbar-expand-lg bg-secondery align-items-center justify-content-center rounded-3">
-        <form
-          className="row form-inline"
-          style={{ display: "flex", width: "40%" }}
-        >
+        <form className="row form-inline d-flex w-50">
           <div className="main-search-bar">
             <input
               className="form-control mr-sm-2"

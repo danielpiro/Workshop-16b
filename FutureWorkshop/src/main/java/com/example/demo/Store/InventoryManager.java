@@ -15,18 +15,19 @@ import com.example.demo.Store.StorePurchase.PurchasableProduct;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Predicate;
 
 public class InventoryManager  implements InventoryProtector {
     private ConcurrentHashMap<String, Product> products;
-    private List<Discount> discounts;
-    private List<Policy> policies;
+    private CopyOnWriteArrayList<Discount> discounts;
+    private CopyOnWriteArrayList<Policy> policies;
 
 
     public InventoryManager() {
         this.products = new ConcurrentHashMap<String, Product>();
-        this.discounts = new ArrayList<Discount>();
-        policies = new ArrayList<>();
+        this.discounts = new CopyOnWriteArrayList<>();
+        policies = new CopyOnWriteArrayList<>();
     }
 
     private void checksIfStorePoliciesMet(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) throws StorePolicyViolatedException {
@@ -169,7 +170,14 @@ public class InventoryManager  implements InventoryProtector {
     public List<Discount> getDiscounts(){
         return discounts;
     }
-
+    public Discount getDiscount(String discountId1) {
+        for (Discount d: discounts){
+            if(d.getDiscountId().equals(discountId1)){
+                return d;
+            }
+        }
+        throw new IllegalArgumentException("no discount with this id");
+    }
     @Override
     public String getProductName(String productID) {
         return products.get(productID).getName();
@@ -250,4 +258,6 @@ public class InventoryManager  implements InventoryProtector {
         }
         return true;
     }
+
+
 }

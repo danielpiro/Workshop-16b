@@ -9,8 +9,10 @@ import com.example.demo.Store.StorePurchase.predicates.PolicyPredicate;
 import com.example.demo.Store.StorePurchase.predicates.PredicateProductType;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProductPredicate implements PolicyPredicate, DiscountPredicate {
     HashMap<PurchasableProduct,Integer> products;
@@ -86,8 +88,17 @@ public class ProductPredicate implements PolicyPredicate, DiscountPredicate {
 
     @Override
     public String toString() {
+        List<String> stringProducts = new ArrayList<>();
+        for(Map.Entry<PurchasableProduct,Integer> p : products.entrySet()){
+            if(type.equals(PredicateProductType.WithoutAmount)){
+               stringProducts.add(p.getKey().getId());
+            }
+            else{
+                stringProducts.add("[id: "+p.getKey().getId()+", amount: "+p.getValue()+"]");
+            }
+        }
         return "ProductPredicate{" +
-                "products=" + products +
+                "products=" + stringProducts +
                 ", type=" + type +
                 '}';
     }

@@ -14,18 +14,23 @@
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.1.3",
     "lodash": "^4.17.21",
+    "net": "^1.0.2",
     "next": "12.1.0",
     "react": "17.0.2",
     "react-cookie": "^4.1.1",
     "react-dom": "17.0.2",
     "react-notifications": "^1.7.3",
+    "react-search-autocomplete": "^6.1.3",
     "react-use-websocket": "^3.0.0",
+    "sockjs": "^0.3.24",
     "sockjs-client": "^1.6.0",
+    "stompjs": "^2.3.3",
     "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/sockjs-client": "^1.5.1",
-    "eslint-config-next": "12.1.0"
+    "eslint-config-next": "12.1.0",
+    "react-stomp": "^5.1.0"
   }
 }

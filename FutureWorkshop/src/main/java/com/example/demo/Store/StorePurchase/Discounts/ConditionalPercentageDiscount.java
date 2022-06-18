@@ -10,7 +10,7 @@ import com.example.demo.Store.StorePurchase.predicates.PolicyPredicate;
 
 import java.util.List;
 
-public class ConditionalPercentageDiscount implements Discount {
+public class ConditionalPercentageDiscount implements Discount ,ComposableDiscounts{
     private String id;
     private PercentageDiscount discount;
     PolicyPredicate pred; //discount only if predicate stands on cart " (DiscountPredicate = "purchase is above 200")(PercentageDiscount = " 5% on all fruits") "
@@ -30,9 +30,23 @@ public class ConditionalPercentageDiscount implements Discount {
     }
 
     @Override
+    public DiscountPredicate getDiscountOnProductPredicate() {
+        return discount.getDiscountOnProductPredicate();
+    }
+
+    @Override
+    public PolicyPredicate getDiscountOnCartPredicate() {
+        return pred;
+    }
+
+    @Override
     public String getDiscountId() {
         return id;
     }
 
 
+    @Override
+    public float getDiscountPercentage() {
+        return discount.getDiscountPercentage();
+    }
 }

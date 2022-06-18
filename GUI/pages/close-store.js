@@ -1,111 +1,99 @@
 import Menu from "../components/menu";
-import axios from "axios";
-import { useState, useEffect } from "react";
-import Link from "next/link";
+import { useState } from "react";
+import { useCookies } from "react-cookie";
+import api from "../components/api";
+import createNotification from "../components/norification";
 
 const CloseStore = () => {
-  const [store, setStore] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
-  const [userPermission, setUserPermission] = useState("Admin"); //TODO: Need to change to Guest when logic is ready!
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "username",
+    "password",
+    "userId",
+    "type",
+  ]);
 
-  const onSearch = async (e) => {
+  const onCloseStore = async (e) => {
     e.preventDefault();
     setIsLoading(!isLoading);
-    if(searchValue !== ""){
-      await api
-        .post(
-          `/store/freeze/storeId=${store}?&userId=${""}`
-        )
-        .then((res) => {
-          if (res.status === 200) {
-            const { data } = res;
-            console.log(data);
-            createNotification("success", "Close store done successfully", () =>
-              router.push("/dashboard")
-            )();
-          } else {
-            const { data } = res;
-            console.log(data);
-            createNotification("error", "failure closing store!")();
-          }
-        })
-        .catch((err) => console.log("err"));
+    let storeID = window.location.href.split("?").pop();
+    if (storeID.charAt(storeID.length - 1) === "#") {
+      storeID = storeID.slice(0, -1);
     }
-    else{
-      createNotification("error", "store name is not valid, please try again!")();
-    }
+    await api
+      .post(`/store/unfreeze/?storeId=${storeID}&userId=${cookies.userId}`)
+      .then((res) => {
+        const { data } = res;
+        if (data.success) {
+          createNotification("success", "Close store done successfully")();
+        } else {
+          createNotification(
+            "error",
+            `failure closing store! ${data.reason}`
+          )();
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
-  const onChange = (e) => {
+  const onReOpenStore = async (e) => {
     e.preventDefault();
-    setSearchValue(e.target.value);
-  };
-
-  const onCloseStore = (e) => {
-    e.preventDefault();
-    console.log(e.target.value);
+    setIsLoading(!isLoading);
+    let storeID = window.location.href.split("?").pop();
+    if (storeID.charAt(storeID.length - 1) === "#") {
+      storeID = storeID.slice(0, -1);
+    }
+    await api
+      .post(`/store/freeze/?storeId=${storeID}&userId=${cookies.userId}`)
+      .then((res) => {
+        const { data } = res;
+        if (data.success) {
+          createNotification("success", "Close store done successfully")();
+        } else {
+          createNotification(
+            "error",
+            `failure closing store! ${data.reason}`
+          )();
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
     <>
       <Menu />
-      <div className="container m-auto w-100">
-        <span className="text-center m-3">
-          {" "}
-          <h3>Close store</h3>{" "}
-        </span>
-        <span className="text-center">
-          {" "}
-          <h5>(freezing store actions)</h5>{" "}
-        </span>
-
-        <nav className="navbar navbar-expand-lg bg-secondery d-flex justify-content-center">
-          <form className="row form-inline col-4">
-            <input
-              className="form-control mr-sm-2 m-2"
-              type="search"
-              placeholder="Enter store name"
-              aria-label="Search"
-              onChange={onChange}
-            />
-
+      <div className="text-center m-5">
+        <h3>Freeze/Unfreeze store</h3>
+      </div>
+      <div className="container d-flex justify-content-center">
+        <div className="row">
+          <div className="col">
+            <span className="text-center">
+              <h3>Close store</h3>
+            </span>
+            <span className="text-center">
+              <h5>(Temporary close store actions)</h5>
+            </span>
             <div className="d-flex justify-content-center">
-              <button className="btn btn-primary my-3" onClick={onSearch}>
-                Search
-              </button>
-            </div>
-          </form>
-        </nav>
-        <ul>
-          <div class="card text-center">
-            <div class="card-body">
-              <h3 class="card-title">Store # ...</h3>
-              <p class="card-text">
-                With supporting text below as a natural lead-in to additional
-                content.
-              </p>
-              <button class="btn btn-primary" onClick={onCloseStore}>
-                Close store
+              <button className="btn btn-primary" onClick={onCloseStore}>
+                Temporary close Store
               </button>
             </div>
           </div>
-          {!isLoading ? (
-            store.map((shop) => {
-              return (
-                <div>
-                  <li key={shop.id}>{shop}</li>
-                </div>
-              );
-            })
-          ) : (
-            <div className="container">
-              <div className="d-flex justify-content-center">
-                <div className="spinner-border my-5 me-4" />
-              </div>
+          <div className="col">
+            <span className="text-center">
+              <h3>Re-Open store</h3>
+            </span>
+            <span className="text-center">
+              <h5>(Unfreeze store actions)</h5>
+            </span>
+            <div className="d-flex justify-content-center">
+              <button className="btn btn-primary" onClick={onReOpenStore}>
+                Re-Open Store
+              </button>
             </div>
-          )}
-        </ul>
+          </div>
+        </div>
       </div>
     </>
   );

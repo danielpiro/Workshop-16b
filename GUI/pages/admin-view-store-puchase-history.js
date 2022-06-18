@@ -2,6 +2,9 @@ import Menu from "../components/menu";
 import { useState } from "react";
 import api from "../components/api";
 import { useCookies } from "react-cookie";
+import createNotification from "../components/norification";
+import Card from "../components/card";
+import CardShopView from "../components/card-shop-view";
 
 const AdminViewStorePurchaes = () => {
   const [purchases, setPurchases] = useState([]);
@@ -16,21 +19,21 @@ const AdminViewStorePurchaes = () => {
 
   const searchUsernamePurchases = async (e) => {
     e.preventDefault();
+    setIsLoading(!isLoading);
     if (searchValue !== "") {
-      setIsLoading(!isLoading);
       await api
-        .get(
-          `/history/store/?storeId=${searchValue}&userId=${cookies.userId}` //TODO: ask backend for storeIDs!
-        )
+        .get(`/history/store/?storeId=${searchValue}&userId=${cookies.userId}`)
         .then((res) => {
-          if (res.status === 200) {
-            const { data } = res;
+          const { data } = res;
+          if (data.success) {
+            console.log(data.value);
             setPurchases(data.value);
-            setIsLoading(!isLoading);
             createNotification(
               "success",
               "Displaying all store's purchases successfully"
             )();
+          } else {
+            createNotification("error", data.reason)();
           }
         })
         .catch((err) => console.log(err));
@@ -82,12 +85,15 @@ const AdminViewStorePurchaes = () => {
             {purchases.map((product) => {
               return (
                 <li className=" list-group-item" key={product.id}>
-                  <Card
-                    value={product.id}
-                    title={product.name}
-                    price={product.price}
-                    quantity={product.quantity}
-                    category={product.category}
+                  {console.log(product)}
+                  <CardShopView
+                    itemAmount={product.itemAmount}
+                    itemName={product.itemName}
+                    itemPrice={product.itemPrice}
+                    purchaseID={product.purchaseID}
+                    storeID={product.storeID}
+                    timeOfTransaction={product.timeOfTransaction}
+                    userID={product.userID}
                   />
                 </li>
               );

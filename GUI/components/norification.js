@@ -4,6 +4,9 @@ import "react-notifications/lib/notifications.css";
 const createNotification = (type, message, onNotification = () => {}) => {
   return () => {
     switch (type) {
+      case "socket":
+        NotificationManager.info(message, "Websocket", 5000, onNotification());
+        break;
       case "info":
         NotificationManager.info(message, "Info", 3000, onNotification());
         break;

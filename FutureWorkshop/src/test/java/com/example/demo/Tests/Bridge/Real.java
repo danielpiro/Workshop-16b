@@ -21,6 +21,10 @@ import com.example.demo.Mock.MockFullProduct;
 import com.example.demo.Mock.MockPermission;
 import com.example.demo.Mock.MockSmallPermission;
 import com.example.demo.Mock.MockSmallProduct;
+import com.example.demo.NotificationsManagement.ComplaintNotification;
+import com.example.demo.NotificationsManagement.NotificationManager;
+import com.example.demo.NotificationsManagement.NotificationReceiver;
+import com.example.demo.NotificationsManagement.StoreNotification;
 import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.StorePermission.Permission;
@@ -28,6 +32,7 @@ import com.example.demo.User.Guest;
 
 import javax.naming.NoPermissionException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -43,7 +48,17 @@ public class Real   {
 
 
     public Real() throws IOException {
-        //service = new Service();
+        NotificationManager.buildNotificationManager(new NotificationReceiver() {
+            @Override
+            public void sendNotificationTo(List<String> userIds, StoreNotification storeNotification) throws UserException, UserException {
+
+            }
+
+            @Override
+            public void sendComplaintToAdmins(String senderId, ComplaintNotification complaintNotification) throws UserException {
+
+            }
+        });
     }
 
    public Real(BigController msApp) {
@@ -228,7 +243,7 @@ public class Real   {
     public boolean register(String username, String password){
         boolean  ans=false;
         try {
-             ans = (Boolean) getBigController().signup(username, password).getValue();
+             ans = (Boolean) getBigController().signup(username, password).isSuccess();
         }catch (Exception e){
 
         }
@@ -315,7 +330,7 @@ public class Real   {
 
     public ShoppingCart getShoppingCart(String userId){
         try {
-            return (ShoppingCart) bigController.getShoppingCart(userId).getValue();
+            return  bigController.getShoppingCartTests(userId);
         }catch (Exception e){
             return null;
         }
@@ -383,7 +398,7 @@ public class Real   {
             bigController.deleteProductFromStore(storeId,userId, productId);
             return true;
         }
-        catch (NoPermissionException | SupplyManagementException | UserException | NotifyException e) {
+        catch (NoPermissionException | SupplyManagementException | UserException | NotifyException  |IOException | IllegalArgumentException e) {
             e.printStackTrace();
             return false;
         }
@@ -396,7 +411,7 @@ public class Real   {
             bigController.editProduct(productId,new MockFullProduct( storeId,userId, newName, newPrice,newSupply,   category));
             return true;
         }
-        catch (NoPermissionException | SupplyManagementException | UserException e) {
+        catch ( Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -411,10 +426,17 @@ public class Real   {
     /** User requirement - II.4.4 */
     public boolean addNewStoreOwner(String storeId, String userIdGiving, String UserGettingPermissionId, List<Permission> permissions){
         try {
-            bigController.createOwner(new MockSmallPermission(storeId, userIdGiving,UserGettingPermissionId,permissions));
+            String s  ="";
+            for(Permission p:permissions){
+                s = s+","+p.toString();
+            }
+            if(s.length()>0) {
+                s = s.substring(1);
+            }
+            bigController.createOwner(storeId, userIdGiving,UserGettingPermissionId,s);
             return true;
         }
-        catch (NoPermissionException | UserException | NotifyException e) {
+        catch (NoPermissionException | UserException | NotifyException  |IllegalArgumentException e) {
             e.printStackTrace();
             return false;
         }
@@ -426,7 +448,7 @@ public class Real   {
             bigController.createManager(storeId, userIdGiving, UserGettingPermissionId);
             return true;
         }
-        catch (NoPermissionException | UserException | NotifyException e) {
+        catch (NoPermissionException | UserException | NotifyException | IllegalArgumentException e) {
             e.printStackTrace();
             return false;
         }
@@ -449,7 +471,7 @@ public class Real   {
             bigController.freezeStore(storeId,userId);
             return true;
         }
-        catch (NotifyException|UserException|NoPermissionException e) {
+        catch (NotifyException | UserException | NoPermissionException | SupplyManagementException | IOException | IllegalArgumentException e) {
             e.printStackTrace();
             return false;
         }
@@ -461,7 +483,7 @@ public class Real   {
             bigController.unfreezeStore(storeId,userId);
             return true;
         }
-        catch (NotifyException|UserException|NoPermissionException e) {
+        catch (NotifyException | UserException | NoPermissionException | SupplyManagementException | IOException | IllegalArgumentException e) {
             e.printStackTrace();
             return false;
         }

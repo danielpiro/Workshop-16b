@@ -18,8 +18,8 @@ const UnregisterUser = () => {
     e.preventDefault();
     if (username !== "") {
       return await api
-        .delete(
-          `/users/?isDeleting=${cookies.username}&whosBeingDeleted=${username}`
+        .post(
+          `/users/delete/?isDeleting=${cookies.username}&whosBeingDeleted=${username}`
         )
         .then((res) => {
           const { data } = res;

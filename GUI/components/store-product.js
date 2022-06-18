@@ -2,8 +2,10 @@ import api from "./api";
 import createNotification from "./norification";
 import { useCookies } from "react-cookie";
 import { useState } from "react";
+import { ReactSearchAutocomplete } from "react-search-autocomplete";
+
 const StoreProduct = ({
-  value,
+  id,
   title,
   price,
   quantity,
@@ -11,6 +13,7 @@ const StoreProduct = ({
   products,
   setProducts,
   storeId,
+  fetch,
 }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies([
@@ -20,15 +23,15 @@ const StoreProduct = ({
     "type",
   ]);
   const [details, setDetails] = useState({
-    productName: title,
+    name: title,
     price: price,
-    supply: quantity,
+    quantity: quantity,
     category: category,
   });
   const [originalDetails, setOriginalDetails] = useState({
-    productName: title,
+    name: title,
     price: price,
-    supply: quantity,
+    quantity: quantity,
     category: category,
   });
   const onEdit = async (e) => {
@@ -39,16 +42,16 @@ const StoreProduct = ({
     e.preventDefault();
     return await api
       .post(
-        `/store/product/delete/?storeId=${storeId}&userId=${cookies.userId}&productId=${value}`
+        `/store/product/delete/?storeId=${storeId}&userId=${cookies.userId}&productId=${id}`
       )
       .then((res) => {
         const { data } = res;
         if (data.success) {
-          // const updateProducts = products.filter((item) => item.id !== value);
-          // setProducts(updateProducts);
+          const updateProducts = products.filter((item) => item.id !== id);
+          setProducts(updateProducts);
           createNotification(
             "success",
-            `product ID: ${value} is been removed...`
+            `product ID: ${id} is been removed...`
           )();
         } else {
           createNotification("error", data.reason)();
@@ -61,21 +64,21 @@ const StoreProduct = ({
     const obj = {
       storeId: storeId,
       userId: cookies.userId,
-      productName: details.title,
+      productName: details.name,
       price: details.price,
       supply: details.quantity,
       category: details.category,
     };
-
+    console.log(id);
     return await api
-      .post(`/store/product/?productId=${value}`, obj)
+      .post(`/store/product/?productId=${id}`, obj)
       .then((res) => {
         const { data } = res;
         if (data.success) {
-          // setOriginalDetails(details);
+          setOriginalDetails(details);
           createNotification(
             "success",
-            `product ID: ${value} is been updated...`,
+            `product ID: ${id} is been updated...`,
             () => setIsEdit(!isEdit)
           )();
         } else {
@@ -89,11 +92,25 @@ const StoreProduct = ({
     setDetails(originalDetails);
     setIsEdit(!isEdit);
   };
+  const categories = [
+    { id: 1, name: "Other" },
+    { id: 2, name: "Appliances" },
+    { id: 3, name: "Apps$Games" },
+    { id: 4, name: "Handmade" },
+    { id: 5, name: "Baby" },
+  ];
+
+  const onHandleSelect = (item) => {
+    setDetails((prevState) => ({
+      ...prevState,
+      category: item,
+    }));
+  };
 
   return (
     <div className="card-body">
       <div className="text-center">
-        <h4 className="card-body mb-3">ID: {value}</h4>
+        <h4 className="card-body mb-3">ID: {id}</h4>
       </div>
       <form className="text-center">
         Name:
@@ -101,42 +118,39 @@ const StoreProduct = ({
         <input
           className="card-body text-center mb-3 ms-3"
           type="text"
-          value={details.productName}
+          value={details.name}
           disabled={!isEdit}
           onChange={(e) =>
             setDetails((prevState) => ({
               ...prevState,
-              productName: e.target.value,
+              name: e.target.value,
             }))
           }
         />
       </form>
-      <form className="text-center">
-        Category:
-        <input
-          className="card-body text-center mb-3 ms-3"
-          value={details.category}
-          type="text"
-          disabled={!isEdit}
-          onChange={(e) =>
-            setDetails((prevState) => ({
-              ...prevState,
-              category: e.target.value,
-            }))
-          }
-        />
-      </form>
+      <div className="input-group">
+        <div className="me-3" hidden={!isEdit}>
+          Category:
+        </div>
+        <div className="mb-3" style={{ width: "85%" }} hidden={!isEdit}>
+          <ReactSearchAutocomplete
+            items={categories}
+            onSelect={onHandleSelect}
+          />
+        </div>
+      </div>
+
       <form className="text-center">
         Quantity:
         <input
           className="card-body text-center mb-3 ms-3"
-          value={details.supply}
+          value={details.quantity}
           type="text"
           disabled={!isEdit}
           onChange={(e) =>
             setDetails((prevState) => ({
               ...prevState,
-              supply: e.target.value,
+              quantity: e.target.value,
             }))
           }
         />
@@ -182,7 +196,7 @@ const StoreProduct = ({
               onClick={onCancel}
             >
               Cancel
-            </button>{" "}
+            </button>
           </>
         ) : null}
       </div>

@@ -1,14 +1,18 @@
 package com.example.demo.User;
 
 
+import com.example.demo.Controllers.NotificationController;
+import com.example.demo.Controllers.model.realTimeNotification;
 import com.example.demo.NotificationsManagement.ComplaintNotification;
 import com.example.demo.NotificationsManagement.StoreNotification;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 
 public class Subscriber extends User {
+    String pattern = "MM/dd/yyyy HH:mm:ss";
+
     private String password;
     private boolean logged_in = false;
     private List<String> Queries; //3.5
@@ -16,18 +20,17 @@ public class Subscriber extends User {
     private List<ComplaintNotification> complaintNotifications;
     private Object lock = new Object();
 
-    public Subscriber(String user_name, String password){
+    public Subscriber(String user_name, String password) {
         super(user_name);
         this.password = password;
         this.name = user_name;
-        Queries= new ArrayList<>();
+        Queries = new ArrayList<>();
         lock = new Object();
         storeNotifications = new ArrayList<>();
         complaintNotifications = new ArrayList<>();
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
@@ -40,10 +43,19 @@ public class Subscriber extends User {
     }
 
     public void setLogged_in(boolean logged_in) {
-            this.logged_in = logged_in;
+        this.logged_in = logged_in;
+//        if (this.logged_in && getStoreNotifications().size() > 0) {
+//            for (int i = 0; i < getStoreNotifications().size(); i++) {
+//                NotificationController.getInstance().sendNotification(new realTimeNotification(this.name, getStoreNotifications().get(i).getSentFrom().getStoreName(), getStoreNotifications().get(i).getSubject().toString(), getStoreNotifications().get(i).getTitle(), getStoreNotifications().get(i).getBody(), new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
+//            }
+//            storeNotifications = new ArrayList<>();
+//        }
 
     }
-    public void AddQuery(String s){this.getQueries().add(s);}
+
+    public void AddQuery(String s) {
+        this.getQueries().add(s);
+    }
 
     public List<String> getQueries() {
         return Queries;
@@ -58,10 +70,21 @@ public class Subscriber extends User {
         return complaintNotifications;
     }
 
-    public void addComplaint(ComplaintNotification complaintNotification){ getComplaintNotifications().add(complaintNotification);}
-    public void addNotification(StoreNotification storeNotification){ getStoreNotifications().add(storeNotification);}
+    public void addComplaint(ComplaintNotification complaintNotification) {
+        getComplaintNotifications().add(complaintNotification);
+    }
 
-    public Object getLock (){
+    public void addNotification(StoreNotification storeNotification) {
+        if (isLogged_in())
+            NotificationController.getInstance().sendNotification(new realTimeNotification(this.name, storeNotification.getSentFrom().getStoreName(), storeNotification.getSubject().toString(), storeNotification.getTitle(), storeNotification.getBody(), new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
+        else
+            getStoreNotifications().add(storeNotification);
+    }
+
+    public Object getLock() {
         return lock;
     }
+
+    public void resetNotification(){this.storeNotifications = new ArrayList<>();}
+
 }

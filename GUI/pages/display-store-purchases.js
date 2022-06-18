@@ -3,82 +3,68 @@ import SearchBar from "../components/search-bar";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Card from "../components/card";
+import api from "../components/api";
+import { useCookies } from "react-cookie";
+import createNotification from "../components/norification";
 
 const DisplayStorePurchases = () => {
-  const [products, setProducts] = useState([]);
+  const [purchases, setPurchases] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [singleProduct, setSingleProduct] = useState({});
-  //const [userPermission, setUserPermission] = useState("Admin");
+  const [singlePurchase, setSinglePurchase] = useState({});
 
-  useEffect(() => {
-    const fetchApi = async () => {
-      const response = await axios.get("https://dummyjson.com/products");
-      // const response =
-      //     await api
-      //       .post(
-      //         `/history/store/?storeId=${""}&userId=${""}`
-      //       )
-      //       .then((res) => {
-      //         if (res.status === 200) {
-      //           const { data } = res;
-      //           console.log(data);
-      //           createNotification("success", "Displaying all purchases successfully", () =>
-      //             router.push("/dashboard")
-      //           )();
-      //         } else {
-      //           const { data } = res;
-      //           console.log(data);
-      //           createNotification("error", "failure displaying all purchases!")();
-      //         }
-      //       })
-      //       .catch((err) => console.log("err"));
-      setIsLoading(!isLoading);
-      const { data } = response;
-      setProducts(data.products);
-    };
-    fetchApi();
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "username",
+    "password",
+    "userId",
+    "type",
+  ]);
+
+  useEffect(async () => {
+    setIsLoading(!isLoading);
+    let storeID = window.location.href.split("?").pop();
+    if (storeID.charAt(storeID.length - 1) === "#") {
+      storeID = storeID.slice(0, -1);
+    }
+    await api
+      .get(`/history/store/?storeId=${storeID}&userId=${cookies.userId}`)
+      .then((res) => {
+        const { data } = res;
+        console.log(data);
+        if (data.success) {
+          setPurchases(data.value);
+          //setIsLoading(!isLoading);
+          createNotification(
+            "success",
+            "Displaying all user's purchases successfully"
+          )();
+        }
+      })
+      .catch((err) => createNotification("error", data.reason)());
   }, []);
-
-  const getSingleProduct = (id) => {
-    products.map((product) => {
-      if (product.id === id) {
-        return setSingleProduct(product);
-      }
-      return null;
-    });
-  };
 
   return (
     <>
       <Menu />
-      <div className="card-header">
+      <div className="text-center m-5">
         <h3>Display Store Purchases</h3>
       </div>
-      <div className="my-4">
-        <SearchBar setProducts={setProducts} />{" "}
-        {/*TODO: Check search button and setSearchValue*/}
-      </div>
-      <div
-        className="my-4"
-        style={{ display: "flex", justifyContent: "center" }}
-      ></div>
       {!isLoading ? (
-        <div style={{ display: "table", width: "100%" }}>
+        <div className="container d-flex justify-content-center">
           <ul className="list-group" style={{ display: "table-cell" }}>
-            {products.map((product) => {
+            {purchases.map((purchase) => {
               return (
-                <li className=" list-group-item" key={product.id}>
-                  <Card
-                    value={product.id}
-                    image={product.images[0]}
-                    title={product.title}
-                    category={product.category}
-                    description={product.description}
-                    price={product.price}
-                    discount={product.discountPercentage}
-                    getSingleProduct={getSingleProduct}
-                    singleProduct={singleProduct}
-                  />
+                <li className=" list-group-item mb-3" key={purchase.id}>
+                  <div className="card-body">
+                    <h4 className="card-title text-center">
+                      UserID: {purchase.userID}
+                    </h4>
+                    <h4 className="card-title text-center">
+                      StoreID: {purchase.storeID}
+                    </h4>
+                    <h4 className="card-title text-center">
+                      PurchaseID: {purchase.purchaseID}
+                    </h4>
+                  </div>
                 </li>
               );
             })}

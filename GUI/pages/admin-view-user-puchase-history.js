@@ -17,19 +17,22 @@ const AdminViewUserPurchase = () => {
 
   const searchUsernamePurchases = async (e) => {
     e.preventDefault();
+    setIsLoading(!isLoading);
     if (searchValue !== "") {
-      setIsLoading(!isLoading);
       await api
-        .get(`/history/user/?userId=${cookies.userId}`)
+        .get(`/history/user/?userId=${searchValue}`)
         .then((res) => {
-          if (res.status === 200) {
-            const { data } = res;
+          const { data } = res;
+          if (data.success) {
+            console.log(data.value);
             setPurchases(data.value);
-            setIsLoading(!isLoading);
+            //setIsLoading(!isLoading);
             createNotification(
               "success",
               "Displaying all user's purchases successfully"
             )();
+          } else {
+            createNotification("error", data.reason)();
           }
         })
         .catch((err) => console.log(err));
@@ -50,7 +53,7 @@ const AdminViewUserPurchase = () => {
             <input
               className="form-control mr-sm-2"
               type="search"
-              placeholder="Enter store name"
+              placeholder="Enter username"
               aria-label="Search"
               onChange={(e) => setSearchValue(e.target.value)}
             />
@@ -66,24 +69,26 @@ const AdminViewUserPurchase = () => {
         </form>
       </div>
 
-      <div
-        className="my-4"
-        style={{ display: "flex", justifyContent: "center" }}
-      >
+      <div className="text-center m-5">
         <h1>Purchases</h1>
       </div>
-      {purchases.length > 0 ? (
-        <div style={{ display: "table", width: "100%" }}>
-          <ul className="list-group" style={{ display: "table-cell" }}>
-            {purchases.map((product) => {
+      {purchases?.length > 0 ? (
+        <div className="container d-table w-100 justify-content-center">
+          <ul className="list-group d-table-cell">
+            {purchases.map((purchase) => {
               return (
-                <li className=" list-group-item" key={product.id}>
-                  <Card
-                    value={product.id}
-                    image={product.image}
-                    title={product.title}
-                    description={product.description}
-                  />
+                <li className=" list-group-item mb-3" key={purchase.id}>
+                  <div className="card-body">
+                    <h4 className="card-title text-center">
+                      UserID: {purchase.userId}
+                    </h4>
+                    <h4 className="card-title text-center">
+                      StoreID: {purchase.storeId}
+                    </h4>
+                    <h4 className="card-title text-center">
+                      PurchaseID: {purchase.purchaseId}
+                    </h4>
+                  </div>
                 </li>
               );
             })}

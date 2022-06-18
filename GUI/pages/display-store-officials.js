@@ -1,96 +1,88 @@
 import Menu from "../components/menu";
-import SearchBar from "../components/search-bar";
-import axios from "axios";
 import { useState, useEffect } from "react";
-import Card from "../components/card";
-import Footer from "../components/footer";
+import api from "../components/api";
+import { useCookies } from "react-cookie";
+import createNotification from "../components/norification";
 
 const DisplayStoreOfficials = () => {
-  const [products, setProducts] = useState([]);
+  const [owners, setOwners] = useState([]);
+  const [managers, setManagers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [singleProduct, setSingleProduct] = useState({});
-  //const [userPermission, setUserPermission] = useState("Admin");
-  
+
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "username",
+    "password",
+    "userId",
+    "type",
+  ]);
+
   useEffect(() => {
     const fetchApi = async () => {
-      const response = await axios.get("https://dummyjson.com/products");
-      // const response = 
-      //     await api
-      //       .post(
-      //         `/history/user/?userId=${""}`
-      //       )
-      //       .then((res) => {
-      //         if (res.status === 200) {
-      //           const { data } = res;
-      //           console.log(data);
-      //           createNotification("success", "Displaying all purchases successfully", () =>
-      //             router.push("/dashboard")
-      //           )();
-      //         } else {
-      //           const { data } = res;
-      //           console.log(data);
-      //           createNotification("error", "failure displaying all purchases!")();
-      //         }
-      //       })
-      //       .catch((err) => console.log("err"));
       setIsLoading(!isLoading);
-      const { data } = response;
-      setProducts(data.products);
+      let storeID = window.location.href.split("?").pop();
+      if (storeID.charAt(storeID.length - 1) === "#") {
+        storeID = storeID.slice(0, -1);
+      }
+      await api
+        .get(
+          `/store/allRoles/?storeId=${storeID}&userIdRequesting=${cookies.userId}`
+        )
+        .then((res) => {
+          const { data } = res;
+          if (data.success) {
+            let owners = data.value.owners.slice(1, -1).split(",");
+            let managers = data.value.managers.slice(1, -1).split(",");
+            setOwners(owners);
+            setManagers(managers);
+            createNotification(
+              "success",
+              "Displaying all user's purchases successfully"
+            )();
+          } else {
+            createNotification("error", data.reason)();
+          }
+        })
+        .catch((err) => console.log(err));
     };
     fetchApi();
   }, []);
 
-  const getSingleProduct = (id) => {
-    products.map((product) => {
-      if (product.id === id) {
-        return setSingleProduct(product);
-      }
-      return null;
-    });
-  };
-
   return (
     <>
       <Menu />
-      <div className="card-header">
-        <h3>Display Store Officials</h3>
+      <div className="text-center m-5">
+        <h3>
+          Display Store Officials in {window.location.href.split("?").pop()}
+        </h3>
       </div>
-      <div className="my-4">
-        <SearchBar setProducts={setProducts} /> {/*TODO: Check search button and setSearchValue*/}
-      </div>
-      <div
-        className="my-4"
-        style={{ display: "flex", justifyContent: "center" }}
-      ></div>
-      {!isLoading ? (
-        <div style={{ display: "table", width: "100%" }}>
-          <ul className="list-group" style={{ display: "table-cell" }}>
-            {products.map((product) => {
+      <div className="container d-flex justify-content-center">
+        <div className="row">
+          <div className="col-12 mb-4">
+            <h4>
+              <u>Store Owners:</u>
+            </h4>
+            {owners.map((owner) => {
               return (
-                <li className=" list-group-item" key={product.id}>
-                  <Card
-                    value={product.id}
-                    image={product.images[0]}
-                    title={product.title}
-                    category={product.category}
-                    description={product.description}
-                    price={product.price}
-                    discount={product.discountPercentage}
-                    getSingleProduct={getSingleProduct}
-                    singleProduct={singleProduct}
-                  />
+                <li className=" list-group-item m-1">
+                  <p>{owner}</p>
                 </li>
               );
             })}
-          </ul>
-        </div>
-      ) : (
-        <div className="container h-100 my-6">
-          <div className="row align-items-center justify-content-center">
-            <div className="spinner-border" />
+          </div>
+          <div className="col-12">
+            <h4>
+              <u>Store Managers:</u>
+            </h4>
+            {managers.map((man) => {
+              return (
+                <li className=" list-group-item m-1">
+                  <p>{man}</p>
+                </li>
+              );
+            })}
           </div>
         </div>
-      )}
+      </div>
     </>
   );
 };

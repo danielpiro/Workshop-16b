@@ -47,7 +47,12 @@ public class TimePredicate implements PolicyPredicate {
     }
     public boolean DaysOfTheWeek() {
         int today = LocalDateTime.now().getDayOfWeek().getValue();
-        return today >= StartTime.getDayOfWeek().getValue() &&  today <= endTime.getDayOfWeek().getValue() ;
+        int start = StartTime.getDayOfWeek().getValue();
+        int end =  endTime.getDayOfWeek().getValue();
+        if(start<= end)
+            return today >= StartTime.getDayOfWeek().getValue() &&  today <= endTime.getDayOfWeek().getValue();
+        else
+            return today >= StartTime.getDayOfWeek().getValue() ||  today <= endTime.getDayOfWeek().getValue();
     }
 
     @Override

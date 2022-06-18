@@ -2,38 +2,54 @@ import Menu from "../components/menu";
 import { useState } from "react";
 import api from "../components/api";
 import { useCookies } from "react-cookie";
+import createNotification from "../components/norification";
+import { ReactSearchAutocomplete } from "react-search-autocomplete";
 
 const NotifyAdmins = () => {
-  const [userInput, setUserInput] = useState("");
+  const [userInput, setUserInput] = useState({
+    subject: "",
+    title: "",
+    body: "",
+  });
   const [cookies, setCookie, removeCookie] = useCookies([
     "username",
     "password",
     "userId",
     "type",
   ]);
+  const subjects = [
+    { id: 1, name: "StoreForum" },
+    { id: 2, name: "StoreAppointment" },
+    { id: 3, name: "StoreDeleted" },
+    { id: 4, name: "DeliveryDidntArrive" },
+    { id: 5, name: "PaymentFailed" },
+    { id: 6, name: "ProductShortage" },
+  ];
   const onNotify = async (e) => {
     e.preventDefault();
-
-    if (userInput !== "") {
-      console.log(userInput);
-      return await api
-        .post(
-          `/market/?userId=${cookies.userId}&StoreName=fakeStoreName&complaint=${userInput}` //TODO: Need the real path from backend
-        )
-        .then((res) => {
-          if (res.status === 200) {
-            const { data } = res;
-            console.log(data);
-            createNotification("success", "Notify admin done successfully")();
-          }
-        })
-        .catch((err) => console.log(err));
-    } else {
-      createNotification(
-        "error",
-        "User input cannot be empty , please try again"
-      )();
+    if (
+      userInput.subject === "" ||
+      userInput.body === "" ||
+      userInput.title === ""
+    ) {
+      return createNotification("error", "Please fill all the form fields")();
     }
+    return await api
+      .post(
+        `/complaints/?senderId=${cookies.userId}&subject=${userInput.subject}&title=${userInput.title}&body=${userInput.body}`
+      )
+      .then((res) => {
+        const { data } = res;
+        if (data.success) {
+          createNotification("success", "Send complaint successfully")();
+        } else {
+          createNotification("error", data.reason)();
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+  const handleOnSelect = (item) => {
+    setUserInput((prev) => ({ ...prev, subject: item.name }));
   };
 
   return (
@@ -43,17 +59,45 @@ const NotifyAdmins = () => {
         <h3>Notify Admins</h3>
       </div>
       <div className="container d-flex justify-content-center">
-        <div className="input-group m-2 w-25">
-          <textarea
-            className="form-control"
-            aria-label="With textarea"
-            placeholder="Notify Admin Message..."
-            onChange={(e) => setUserInput(e.target.value)}
-          />
-        </div>
-        <button className="btn btn-primary m-2" onClick={onNotify}>
-          Submit
-        </button>
+        <form>
+          <div className="mb-3">
+            <label htmlFor="exampleInputEmail1" className="form-label">
+              Subject
+            </label>
+            <ReactSearchAutocomplete
+              items={subjects}
+              onSelect={handleOnSelect}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="exampleInputPassword1" className="form-label">
+              Title
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              onChange={(e) =>
+                setUserInput((prev) => ({ ...prev, title: e.target.value }))
+              }
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="exampleInputPassword1" className="form-label">
+              Body
+            </label>
+            <textarea
+              class="form-control"
+              id="exampleFormControlTextarea1"
+              rows="3"
+              onChange={(e) =>
+                setUserInput((prev) => ({ ...prev, body: e.target.value }))
+              }
+            />
+          </div>
+          <button type="submit" className="btn btn-primary" onClick={onNotify}>
+            Submit
+          </button>
+        </form>
       </div>
     </>
   );

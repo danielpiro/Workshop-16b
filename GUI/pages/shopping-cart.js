@@ -8,6 +8,8 @@ import createNotification from "../components/norification";
 const shoppingCart = () => {
   const [cart, setCart] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [priceBefore, setPriceBefore] = useState("");
+  const [priceAfter, setPriceAfter] = useState("");
   const [deliveryAndPaymnetDetails, setDeliveryAndPaymnetDetails] = useState({
     delivery: "Delivery",
     payment: "Payment",
@@ -28,11 +30,26 @@ const shoppingCart = () => {
           setIsLoading(!isLoading);
         }
       })
+      .then(async () => {
+        return await api
+          .post(
+            `/cart/price/?user_id=${cookies.userId}&payment=Visa&delivery=UPS`
+          )
+          .then((res) => {
+            const { data } = res;
+            if (data.success) {
+              setPriceBefore(data.value.priceBeforeDiscount);
+              setPriceAfter(data.value.priceAfterDiscount);
+            } else {
+              createNotification("error", data.reason)();
+            }
+          });
+      })
       .catch((err) => console.log(err));
   };
   useEffect(() => {
     fetchCart();
-  }, [fetchCart]);
+  }, []);
 
   const onBuy = (e) => {
     e.preventDefault();
@@ -55,7 +72,8 @@ const shoppingCart = () => {
       .then((res) => {
         const { data } = res;
         if (data.success) {
-          createNotification("success", "Purcash was successfull")();
+          createNotification("success", "Purchase was successfull")();
+          fetchCart();
         } else {
           createNotification("error", data.reason)();
         }
@@ -86,6 +104,7 @@ const shoppingCart = () => {
                     <ul>
                       {Object.values(item).map((productList) =>
                         productList.map((product) => {
+                          console.log(product);
                           return (
                             <CartItem
                               id={product.id}
@@ -95,6 +114,7 @@ const shoppingCart = () => {
                               price={product.price}
                               storeId={Object.keys(item)[0]}
                               fetchCart={fetchCart}
+                              quantity={product.quantity}
                             />
                           );
                         })
@@ -106,67 +126,64 @@ const shoppingCart = () => {
             </ul>
           </div>
           <div className="col-sm">
-            <form className="row g-3 sticky-sm-top">
-              <div className="text-center">Subtotal: Price from back</div>
-              <div className="text-center">Discount: Price from back</div>
-              <div className="text-center">Total: total to pay</div>
-              <div className="col-12 d-flex justify-content-center mt-3">
-                <div className="form-control">
-                  <h5>Delivery option</h5>
-                  <div className="dropdown">
-                    <button
-                      className="btn btn-secondary dropdown-toggle"
-                      type="button"
-                      id="dropdownMenuButton1"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      {deliveryAndPaymnetDetails.delivery}
-                    </button>
-                    <ul
-                      className="dropdown-menu"
-                      aria-labelledby="dropdownMenuButton1"
-                    >
-                      <li>
-                        <button
-                          className="dropdown-item"
-                          id="UPS"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            return setDeliveryAndPaymnetDetails(
-                              (prevState) => ({
-                                ...prevState,
-                                delivery: e.target.id,
-                              })
-                            );
-                          }}
-                        >
-                          UPS
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          className="dropdown-item"
-                          id="FedEx"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setDeliveryAndPaymnetDetails((prevState) => ({
-                              ...prevState,
-                              delivery: e.target.id,
-                            }));
-                          }}
-                        >
-                          FedEx
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
+            <form className="form-control-plaintext row sticky-sm-top mb-5">
+              <div className="text-center mb-2">
+                <h5>Subtotal: {priceBefore}$</h5>
+              </div>
+              <div className="text-center mb-3">
+                <h5>Total: {priceAfter}$</h5>
+              </div>
+              <div className="d-flex justify-content-center">
+                <div className="dropdown">
+                  <button
+                    className="btn btn-primary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    {deliveryAndPaymnetDetails.delivery}
+                  </button>
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton1"
+                  >
+                    <li>
+                      <button
+                        className="dropdown-item"
+                        id="UPS"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          return setDeliveryAndPaymnetDetails((prevState) => ({
+                            ...prevState,
+                            delivery: e.target.id,
+                          }));
+                        }}
+                      >
+                        UPS
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        className="dropdown-item"
+                        id="FedEx"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setDeliveryAndPaymnetDetails((prevState) => ({
+                            ...prevState,
+                            delivery: e.target.id,
+                          }));
+                        }}
+                      >
+                        FedEx
+                      </button>
+                    </li>
+                  </ul>
                 </div>
-                <div className="form-control">
-                  <h5>Payment type</h5>
+                <div className="d-flex justify-content-center ms-3 mb-3">
                   <div className="dropdown">
                     <button
-                      className="btn btn-secondary dropdown-toggle"
+                      className="btn btn-primary dropdown-toggle"
                       type="button"
                       id="dropdownMenuButton1"
                       data-bs-toggle="dropdown"

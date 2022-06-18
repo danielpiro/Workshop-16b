@@ -18,6 +18,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.naming.NoPermissionException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -79,7 +80,7 @@ class StoreTest {
                     assertTrue(sr instanceof StoreManager);
                 }
             }
-            store1.getStoreHistory(userId2);
+            store1.getStoreHistory(userId2, false);
             try{
                 store1.createManager(userId2, userId3);
                 fail();
@@ -210,9 +211,9 @@ class StoreTest {
         try {
             setUpBeforePermissionTests();
 
-            store1.removeRoleInHierarchy(userId1,userId4);
+            store1.removeRoleInHierarchy(userId1,userId2);
             List<StoreRoles> storeRoles = store1.getInfoOnManagersOwners(userId1);
-            assertEquals(storeRoles.size(),4);
+            assertEquals(storeRoles.size(),1);
 
         } catch (NoPermissionException | NotifyException | UserException e) {
             e.printStackTrace();
