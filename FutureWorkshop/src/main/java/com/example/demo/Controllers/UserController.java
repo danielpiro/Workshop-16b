@@ -266,6 +266,7 @@ public class UserController implements NotificationReceiver {
         synchronized (signUpLock) {
                 Subscriber s = new Subscriber(user_name, password);
                 add_subscriber(s);
+
                 registeredUsers++;
                 return true;
         }

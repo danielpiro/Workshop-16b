@@ -1,10 +1,12 @@
 package com.example.demo.Tests.Unit;
 
 import com.example.demo.Database.DTOobjects.Cart.ShoppingBasketDTO;
+import com.example.demo.Database.DTOobjects.User.UserDTO;
 import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.ShoppingCart.ShoppingBasket;
 import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Review;
+import com.example.demo.User.Subscriber;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 
+import javax.validation.constraints.AssertTrue;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -82,9 +86,25 @@ class DatabaseServiceTest {
 
 
     @Test
-    void forGuy() {
-        databaseService.deleteReviewBody("now");
-
+    void addUser() {
+        Subscriber sb = new Subscriber("dan","rotman");
+        databaseService.saveUser(sb);
 
     }
+
+    @Test
+    void findUser() {
+        Subscriber sb = new Subscriber("dan","rotman");
+        databaseService.saveUser(sb);
+        List<UserDTO> ls = databaseService.findUserbyName("dan");
+        UserDTO user= ls.get(0);
+
+
+        assertTrue(user.getName().equals("dan"));
+
+    }
+
+
+
+
 }

@@ -8,6 +8,7 @@ import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
 import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
+import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.ExternalConnections.Delivery.Delivery;
 import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
 import com.example.demo.ExternalConnections.ExternalConnections;
@@ -84,7 +85,8 @@ public class Real   {
     /** System requirement - I.1 */
     public String openingMarket(){
         try {
-            this.bigController = new BigController();
+            DatabaseService db= new DatabaseService();
+            this.bigController = new BigController(db);
             return "system opened successfully";
         }
         catch (Exception e){
@@ -370,7 +372,7 @@ public class Real   {
             return m;
         }
         catch (Exception e) {
-            
+
             return "";
         }
     }

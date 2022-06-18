@@ -4,6 +4,7 @@ import com.example.demo.CustomExceptions.Exception.NotifyException;
 import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
+import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.History.PurchaseHistory;
 
 import com.example.demo.Mock.*;
@@ -35,6 +36,7 @@ import com.example.demo.User.Subscriber;
 //import com.example.demo.dto.AdminDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.hibernate.dialect.Database;
 import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
@@ -56,6 +58,8 @@ public class BigController {
     private StoreController sc;
     private UserController us;
     private PolicyBuilder policyBuilder;
+    private boolean withDatabase;
+    private DatabaseService databaseService;
     Log my_log = Log.getLogger();
 
 
@@ -63,7 +67,9 @@ public class BigController {
 //        this.us = us;
 //        this.sc = sc;
 //    }
-    public BigController() throws IOException, UserException, NoPermissionException, SupplyManagementException {
+
+
+    public BigController(DatabaseService databaseService) throws IOException, UserException, NoPermissionException, SupplyManagementException {
         this.us = new UserController();
         this.sc = new StoreController();
         this.policyBuilder = new PolicyBuilder();
@@ -71,7 +77,23 @@ public class BigController {
         NotificationManager.buildNotificationManager(us);
         initializeSystem();
         my_log.info("System Started");
+        this.databaseService = databaseService;
+        withDatabase = true;
     }
+
+
+//    public BigController() throws IOException, UserException, NoPermissionException, SupplyManagementException {
+//        this.us = new UserController();
+//        this.sc = new StoreController();
+//        this.policyBuilder = new PolicyBuilder();
+//        initiateExternalConnections();
+//        NotificationManager.buildNotificationManager(us);
+//        initializeSystem();
+//        my_log.info("System Started");
+//        withDatabase = false;
+//    }
+
+
 
     public void initiateExternalConnections() {
         ExternalConnections externalConnections = ExternalConnections.getInstance();
@@ -131,7 +153,7 @@ public class BigController {
     }
 
 
-
+    //todo delete from store?
         @DeleteMapping("/users")
     public ReturnValue deleteUser(@RequestParam String isDeleting,
                                   @RequestParam String whosBeingDeleted) throws NoPermissionException, UserException {
@@ -141,6 +163,8 @@ public class BigController {
             throw new NoPermissionException("cant delete user with store role");
         }
         ReturnValue rv = new ReturnValue(true, "", getUserController().deleteUser(isDeleting, whosBeingDeleted));
+        if(withDatabase && rv.isSuccess())
+            databaseService.deleteUserByName(whosBeingDeleted);
         return rv;
     }
 
@@ -150,6 +174,9 @@ public class BigController {
                               @RequestParam String password) throws UserException {
         my_log.info("user " + user_name + " is trying to sign up");
         ReturnValue rv = new ReturnValue(true, "", getUserController().sign_up(user_name, password));
+        if(withDatabase && rv.isSuccess())
+            databaseService.saveUser(getUserController().get_subscriber(user_name));
+
         return rv;
     }
 
@@ -157,6 +184,9 @@ public class BigController {
     public ReturnValue login(@RequestParam String userNameLogin,
                              @RequestParam String password) throws UserException {
         ReturnValue rv = new ReturnValue(true, "", getUserController().login(userNameLogin, password));
+        if(withDatabase && rv.isSuccess())
+            databaseService.saveUser(getUserController().get_subscriber(userNameLogin));
+
         return rv;
     }
 
@@ -172,6 +202,10 @@ public class BigController {
     public ReturnValue logout(@RequestParam String user_name) throws UserException {
 
         ReturnValue rv = new ReturnValue(true, "", getUserController().logout(user_name));
+
+        if(withDatabase && rv.isSuccess())
+            databaseService.saveUser(getUserController().get_subscriber(user_name));
+
         return rv;
 
     }
@@ -242,6 +276,10 @@ public class BigController {
         getUserController().removeProduct(mockSmallProduct.getUser_id(), mockSmallProduct.getProductID(), mockSmallProduct.getStoreID(), mockSmallProduct.getAmount());
 
         ReturnValue rv = new ReturnValue(true, "", null);
+        if(withDatabase && rv.isSuccess())
+            databaseService.saveShoppingCart(getUserController().get_subscriber(mockSmallProduct.getUser_id()).getShoppingCart());
+
+
         return rv;
     }
 
@@ -253,6 +291,9 @@ public class BigController {
         InventoryProtector inventoryProtector = sc.getInventoryProtector(mockProduct.getStoreID());
         getUserController().addProduct(mockProduct.getUser_id(), mockProduct.getProductID(), mockProduct.getStoreID(), mockProduct.getAmount(), inventoryProtector, auctionOrBid);
         ReturnValue rv = new ReturnValue(true, "", null);
+        if(withDatabase && rv.isSuccess())
+            databaseService.saveShoppingCart(getUserController().get_subscriber(mockProduct.getUser_id()).getShoppingCart());
+
         return rv;
 
     }
@@ -260,7 +301,7 @@ public class BigController {
     public boolean removePaymentService(PaymentNames payment) {
         return ExternalConnections.getInstance().removePayment(payment);
     }
-    //todo add check price
+    //todo database add
     @PostMapping("/cart/purchase")
     public ReturnValue purchaseCart(@RequestParam String user_id,
                                     @RequestParam PaymentNames payment,
@@ -716,12 +757,14 @@ public class BigController {
         }
     }
 
-
+    //todo is it okay if its a different object with just different id? (for front)
     @GetMapping("/history/store")
     public ReturnValue getStoreHistory(@RequestParam String storeId, @RequestParam String userId) throws NoPermissionException, UserException {
         userExistsAndLoggedIn(userId);
 
-        ReturnValue rv = new ReturnValue(true, "", sc.getStoreHistory(storeId, userId));
+        //ReturnValue rv = new ReturnValue(true, "", sc.getStoreHistory(storeId, userId));
+        ReturnValue rv = new ReturnValue(true, "", databaseService.findHistoryByStoreId(storeId));
+
         return rv;
     }
 

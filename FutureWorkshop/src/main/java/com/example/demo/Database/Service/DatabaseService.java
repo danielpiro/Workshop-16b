@@ -2,15 +2,17 @@ package com.example.demo.Database.Service;
 import com.example.demo.CustomExceptions.Exception.ResourceNotFoundException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.Database.DTOobjects.Cart.ShoppingBasketDTO;
+import com.example.demo.Database.DTOobjects.History.HistoryDTO;
 import com.example.demo.Database.DTOobjects.Store.ProductDTO;
 import com.example.demo.Database.DTOobjects.Store.ReviewDTO;
-import com.example.demo.Database.Repositories.BasketRepository;
-import com.example.demo.Database.Repositories.ProductRepository;
-import com.example.demo.Database.Repositories.ReviewRepository;
+import com.example.demo.Database.DTOobjects.User.UserDTO;
+import com.example.demo.Database.Repositories.*;
+import com.example.demo.History.History;
 import com.example.demo.ShoppingCart.ShoppingBasket;
 import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.Review;
+import com.example.demo.User.Subscriber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,12 @@ public class DatabaseService {
 
     @Autowired
     private BasketRepository basketRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private HistoryRepository historyRepository;
 
     public DatabaseService(){
         super();
@@ -136,5 +144,32 @@ public class DatabaseService {
     public void deleteReviewBody (String body){
         reviewRepository.deleteByBody(body);
     }
+
+    @Transactional
+    public UserDTO saveUser(Subscriber sub){
+        UserDTO userDTO = new UserDTO(sub.getName(),sub.getPassword(),sub.isLogged_in());
+        return userRepository.saveAndFlush(userDTO);
+    }
+
+    public void deleteUserByName (String name){
+        userRepository.deleteByName(name);
+    }
+
+    public List<UserDTO> findUserbyName(String name){
+       return userRepository.findByName(name);
+    }
+
+    public List<HistoryDTO> findHistoryByUserId (String userID){
+        return historyRepository.findByUserID(userID);
+    }
+    public List<HistoryDTO> findHistoryByStoreId (String storeID){
+        return historyRepository.findByStoreID(storeID);
+    }
+    public void savePurchaseHistory(HistoryDTO historyDTO){
+        historyRepository.saveAndFlush(historyDTO);
+    }
+
+
+
 
 }
