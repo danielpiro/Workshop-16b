@@ -53,6 +53,6 @@ class SubscriberTest {
         //assertEquals(true, subscriber2.isLogged_in());
         //assertEquals(false, subscriber3.isLogged_in());
       //  NotificationController.getInstance().sendNotification(new realTimeNotification(subscriber.name,"abudi","love of my life","marriage","finaaaaaly",new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
-      //NotificationController.getInstance().sendMessage(new Message(subscriber.getName(), "hi hi hi"));
+      NotificationController.sendMessage(new Message(subscriber.getName(), "hi hi hi"));
     }
 }

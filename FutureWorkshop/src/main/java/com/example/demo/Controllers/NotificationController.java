@@ -19,11 +19,6 @@ public class NotificationController {
     }
 
 
-    @MessageMapping("/message")
-    @SendTo("/chatroom/public")
-    public static realTimeNotification receivePublicMessage(@Payload realTimeNotification message) {
-        return message;
-    }
 
     @MessageMapping("/private-test")
     public static void sendMessage(@Payload Message message) {
