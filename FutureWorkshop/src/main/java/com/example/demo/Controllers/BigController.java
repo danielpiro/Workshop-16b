@@ -1384,7 +1384,6 @@ public class BigController {
 
 
 
-        @PostMapping("/cart")
         public ReturnValue getShoppingCart(@RequestParam String user_Id) throws Exception {
             ShoppingCart shoppingCart = getUserController().getShoppingCart(user_Id);
 
@@ -1419,7 +1418,6 @@ public class BigController {
 //        return getUserController().containsStore(user_id, storeID);
 //    }
 
-        @PostMapping(value = "/cart/delete", consumes = {MediaType.APPLICATION_JSON_VALUE})
         public ReturnValue removeProductFromCart(@Valid @RequestBody MockSmallProduct mockSmallProduct) throws UserException {
 
             getUserController().removeProduct(mockSmallProduct.getUser_id(), mockSmallProduct.getProductID(), mockSmallProduct.getStoreID(), mockSmallProduct.getAmount());
@@ -1429,7 +1427,6 @@ public class BigController {
         }
 
         //auction or bid false for now
-        @PostMapping(value = "/cart/product", consumes = {MediaType.APPLICATION_JSON_VALUE})
         public ReturnValue addProductFromCart(@Valid @RequestBody MockSmallProduct mockProduct,
                                               @RequestParam boolean auctionOrBid) throws UserException {
 
@@ -1443,7 +1440,6 @@ public class BigController {
 
 
         //todo add check price
-        @PostMapping("/cart/purchase")
         public ReturnValue purchaseCart(@RequestParam String user_id,
                                         @RequestParam PaymentNames payment,
                                         @RequestParam DeliveryNames delivery) throws SupplyManagementException, StorePolicyViolatedException, UserException {
@@ -1456,7 +1452,6 @@ public class BigController {
 
 
         /// Store controller
-        @PostMapping(value = "/store", consumes = {MediaType.APPLICATION_JSON_VALUE})
         public ReturnValue addNewProductToStore(@Valid @RequestBody MockFullProduct mockProduct) throws NoPermissionException, SupplyManagementException, UserException {
             userExistsAndLoggedIn(mockProduct.getUserId());
 
@@ -1467,7 +1462,6 @@ public class BigController {
 
         }
 
-        @PostMapping(value = "/permissions/delete", consumes = {MediaType.APPLICATION_JSON_VALUE})
         public ReturnValue removeSomePermissions(@Valid @RequestBody MockPermission mockPermission) throws NoPermissionException, UserException {
             userExistsAndLoggedIn(mockPermission.getUserIdRemoving());
 
@@ -1477,7 +1471,6 @@ public class BigController {
             return rv;
         }
 
-        @PostMapping("/store/open")
         public ReturnValue openNewStore(@RequestParam String userId,
                                         @RequestParam String storeName) throws NoPermissionException, UserException {
             userExistsAndLoggedIn(userId);
@@ -1488,7 +1481,6 @@ public class BigController {
 
         }
 
-        @PostMapping("/store/freeze")
         public ReturnValue unfreezeStore(@RequestParam String storeId,
                                          @RequestParam String userId) throws NoPermissionException, UserException, NotifyException, SupplyManagementException, IOException {
             userExistsAndLoggedIn(userId);
@@ -1498,7 +1490,6 @@ public class BigController {
             return rv;
         }
 
-        @PostMapping("/store/unfreeze")
         public ReturnValue freezeStore(@RequestParam String storeId,
                                        @RequestParam String userId) throws NoPermissionException, UserException, NotifyException, SupplyManagementException, IOException {
 
@@ -1529,7 +1520,6 @@ public class BigController {
             return rv;
         }
 
-        @GetMapping("store/allRoles")
         public ReturnValue getManagersOwnersOfStore(String storeId,
                                                     String userIdRequesting) throws NoPermissionException, UserException, JsonProcessingException {
             userExistsAndLoggedIn(userIdRequesting);
@@ -1551,13 +1541,7 @@ public class BigController {
             return rv;
         }
 
-        /**
-         * @param user
-         * @return store ids and permmitions of user in store (for managers)
-         * @throws NoPermissionException
-         * @throws UserException
-         */
-        @GetMapping("store/manager/permmitions")
+
         public ReturnValue getStoresManagedByUser(@RequestParam String user) throws NoPermissionException, UserException, JsonProcessingException {
             List<Object> storePermissions = getStorePermissionToReturn(user, true);
 
@@ -1565,23 +1549,7 @@ public class BigController {
             return rv;
         }
 
-        /**
-         * @param user
-         * @param storeId
-         * @return store id and permmitions of user in store (for managers)
-         * @throws NoPermissionException
-         * @throws UserException
-         * @throws JsonProcessingException
-         */
 
-
-        /**
-         * @param user
-         * @return store ids and permmitions of user in store (for owners)
-         * @throws NoPermissionException
-         * @throws UserException
-         */
-        @GetMapping("store/owner/permmitions")
         public ReturnValue getStoresOwnedByUser(@RequestParam String user) throws NoPermissionException, UserException, JsonProcessingException {
             List<Object> storePermissions = getStorePermissionToReturn(user, false);
             ReturnValue rv = new ReturnValue(true, "", storePermissions);
@@ -1851,7 +1819,6 @@ public class BigController {
 
 
 
-        @GetMapping("/permission/type")
         public ReturnValue getPermissionType(@RequestParam String username) {
 
             ReturnValue rv = new ReturnValue(true, "", getUserController().getPermissionType(username));
@@ -2049,7 +2016,7 @@ public class BigController {
 
 
 
-        public ReturnValue getAllStoresByStoreName(@RequestParam String userId, @RequestParam String name) throws UserException {
+        public ReturnValue getAllStoresByStoreName( String userId,  String name) throws UserException {
             userExistsAndLoggedIn(userId);
             ReturnValue rv = new ReturnValue(true, "", sc.getAllStoresByStoreName(name));
             return rv;
