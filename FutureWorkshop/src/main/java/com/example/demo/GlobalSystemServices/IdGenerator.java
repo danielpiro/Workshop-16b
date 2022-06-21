@@ -1,5 +1,7 @@
 package com.example.demo.GlobalSystemServices;
 
+import java.util.UUID;
+
 public class IdGenerator {
 
     private static IdGenerator single_instance = null;
@@ -27,6 +29,7 @@ public class IdGenerator {
     private Long DiscountSuffix;
     private int complaintNotificationId;
     private int storeNotificationId;
+    private String sessionId;
 
     private long PurchaseIDSuffix;
     private String PurchaseIDPrefix = "PurchaseID_";
@@ -109,6 +112,9 @@ public class IdGenerator {
     public int getStoreNotificationId(){
         storeNotificationId++;
         return (storeNotificationId -1);
+    }
+    public String getSessionId(){
+        return UUID.randomUUID().toString();
     }
     public String getDiscountId() {
         DiscountSuffix++;

@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 
 public class UserController implements NotificationReceiver {
@@ -272,7 +271,7 @@ public class UserController implements NotificationReceiver {
         }
     }
 
-    public boolean login(String guestId, String user_name, String password) throws UserException, InterruptedException {
+    public String login(String guestId, String user_name, String password) throws UserException, InterruptedException {
         my_log.info("user " + user_name + " is trying to login");
         if (getGuest(guestId) == null)
             throw new UserException("guest " + guestId + " does not exist in the system");
@@ -290,11 +289,11 @@ public class UserController implements NotificationReceiver {
                         get_subscriber(user_name).setShoppingCart(getGuestShoppingCart(guestId));
                         removeGuest(guestId);
                         onlineUsers++;
-                        return true;
+                        return get_subscriber(user_name).getSessionId();
                     }
                 } else {
                     my_log.warning("user " + user_name + " doesn't exist -- failed to login");
-                    return false;
+                    throw new UserException("user " + user_name + " doesn't exist -- failed to login");
                     // ("user has been deleted") // add logger
                 }
             }
@@ -304,7 +303,7 @@ public class UserController implements NotificationReceiver {
         throw new UserException("user " + user_name + " failed login");
     }
 
-    public boolean login(String user_name, String password) throws UserException, InterruptedException {
+    public String login(String user_name, String password) throws UserException, InterruptedException {
         my_log.info("user " + user_name + " is trying to login");
         if (checkIfUserExists(user_name)) {
             synchronized (get_subscriber(user_name).getLock()) {
@@ -318,11 +317,11 @@ public class UserController implements NotificationReceiver {
                     } else if (!get_subscriber(user_name).isLogged_in() && check_password(user_name, password)) {
                         get_subscriber(user_name).setLogged_in(true);
                         onlineUsers++;
-                        return true;
+                        return get_subscriber(user_name).getSessionId();
                     }
                 } else {
                     my_log.warning("user " + user_name + " doesn't exist -- failed to login");
-                    return false;
+                    throw new UserException("user " + user_name + " doesn't exist -- failed to login");
                     // ("user has been deleted") // add logger
                 }
             }
@@ -552,7 +551,7 @@ public class UserController implements NotificationReceiver {
             my_log.warning("user " + userid + " is not online");
             throw new UserException("user " + userid + " is not online");
         }
-        if (storeNotificaionId < 0 || storeNotificaionId > get_subscriber(userid).getStoreNotifications().size() - 1) {
+        if (storeNotificaionId < 0 || storeNotificaionId > get_subscriber(userid).getRealTimestoreNotifications().size() - 1) {
             my_log.warning("invalid store notification id");
             throw new UserException("invalid store notification id");
         }
@@ -566,6 +565,14 @@ public class UserController implements NotificationReceiver {
             throw new UserException("user " + userid + " does not exist");
         }
         return get_subscriber(userid).getComplaintNotifications();
+    }
+
+    public List<StoreNotification> getStoreNotifications(String userid) throws UserException {
+        if (get_subscriber(userid) == null) {
+            my_log.warning("user " + userid + " does not exist");
+            throw new UserException("user " + userid + " does not exist");
+        }
+        return get_subscriber(userid).getStoreNotifications();
     }
 
     public List<ComplaintNotification> getAdminComplaintNotifications(String userId) throws UserException { //Abed changes
@@ -595,21 +602,17 @@ public class UserController implements NotificationReceiver {
         return null;
     }
 
-    // TODO: 09/06/2022 dan this is working example for simple variables
-    @Async
-    public CompletableFuture<Integer> getOnlineUsersNum() {
-        return CompletableFuture.completedFuture(onlineUsers);
+    public Integer getOnlineUsersNum() {
+        return onlineUsers;
     }
 
     public int getRegisteredUsersNum() {
         return registeredUsers;
     }
 
-    // TODO: 09/06/2022 dan this example with outside function also work
-    @Async
-    public CompletableFuture<Float> getPriceOfCartAfterDiscount(String user_id, ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException, UserException, InterruptedException {
+    public Float getPriceOfCartAfterDiscount(String user_id, ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException, UserException, InterruptedException {
         if ((getGuest(user_id) != null)){
-           return CompletableFuture.completedFuture(getGuest(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder));
+           return getGuest(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder);
         }
         if (get_subscriber(user_id) == null) {
             throw new UserException("User " + user_id + " doesn't exist");
@@ -618,13 +621,12 @@ public class UserController implements NotificationReceiver {
             my_log.warning("user " + user_id + " is not logged in");
             throw new UserException("User " + user_id + " is not logged in");
         }
-        return CompletableFuture.completedFuture(get_subscriber(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder));
+        return get_subscriber(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder);
     }
 
-    @Async
-    public CompletableFuture<Float> getPriceOfCartBeforeDiscount(String user_id, ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException, UserException {
+    public Float getPriceOfCartBeforeDiscount(String user_id, ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException, UserException {
         if ((getGuest(user_id) != null)){
-            return CompletableFuture.completedFuture(getGuest(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder));
+            return getGuest(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder);
         }
         if (get_subscriber(user_id) == null) {
             throw new UserException("User " + user_id + " doesn't exist");
@@ -633,23 +635,11 @@ public class UserController implements NotificationReceiver {
             my_log.warning("user " + user_id + " is not logged in");
             throw new UserException("User " + user_id + " is not logged in");
         }
-        return CompletableFuture.completedFuture(get_subscriber(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder));
+        return get_subscriber(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder);
     }
 
 
-    public void initializeLogoutAll() throws UserException, InterruptedException {
-        logout("amit");
-        logout("guy");
-        logout("pam123");
-        logout("alex12");
-        logout("ronn");
-        logout("rotman");
-        logout("dashy");
-        logout("crim");
-        logout("karma");
-        logout("damon");
-        logout("tjhaly");
-        logout("spart");
-        logout("yoav");
-    }
+
 }
+
+
