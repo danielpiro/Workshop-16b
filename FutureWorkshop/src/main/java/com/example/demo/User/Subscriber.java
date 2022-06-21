@@ -2,7 +2,9 @@ package com.example.demo.User;
 
 
 import com.example.demo.Controllers.NotificationController;
+import com.example.demo.Controllers.model.Message;
 import com.example.demo.Controllers.model.realTimeNotification;
+import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.NotificationsManagement.ComplaintNotification;
 import com.example.demo.NotificationsManagement.StoreNotification;
 
@@ -22,6 +24,8 @@ public class Subscriber extends User {
     private List<ComplaintNotification> complaintNotifications;
     private Object lock = new Object();
 
+    private String sessionId;
+
     public Subscriber(String user_name, String password) {
         super(user_name);
         this.password = password;
@@ -31,6 +35,10 @@ public class Subscriber extends User {
         realTimestoreNotifications = new ArrayList<>();
         storeNotifications = new ArrayList<>();
         complaintNotifications = new ArrayList<>();
+    }
+
+    public boolean validateWebSocket(String session_Id) {
+        return session_Id.equals(sessionId);
     }
 
     public String getName() {
@@ -47,6 +55,8 @@ public class Subscriber extends User {
 
     public void setLogged_in(boolean logged_in) {
         this.logged_in = logged_in;
+        if(logged_in)
+            sessionId = IdGenerator.getInstance().getSessionId();
 //        if (this.logged_in && getStoreNotifications().size() > 0) {
 //            for (int i = 0; i < getStoreNotifications().size(); i++) {
 //                NotificationController.getInstance().sendNotification(new realTimeNotification(this.name, getStoreNotifications().get(i).getSentFrom().getStoreName(), getStoreNotifications().get(i).getSubject().toString(), getStoreNotifications().get(i).getTitle(), getStoreNotifications().get(i).getBody(), new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
@@ -59,6 +69,8 @@ public class Subscriber extends User {
     public void AddQuery(String s) {
         this.getQueries().add(s);
     }
+
+    public String getSessionId(){return sessionId;}
 
     public List<String> getQueries() {
         return Queries;
@@ -81,9 +93,13 @@ public class Subscriber extends User {
         getComplaintNotifications().add(complaintNotification);
     }
 
+    public void sendMessage(){
+        NotificationController.sendMessage(new Message(this.name,"sending a real time message to "+this.name));
+
+    }
     public void addNotification(StoreNotification storeNotification) {
         if (isLogged_in())
-            NotificationController.getInstance().sendNotification(new realTimeNotification(this.name, storeNotification.getSentFrom().getStoreName(), storeNotification.getSubject().toString(), storeNotification.getTitle(), storeNotification.getBody(), new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
+            NotificationController.sendNotification(new realTimeNotification(this.name, storeNotification.getSentFrom().getStoreName(), storeNotification.getSubject().toString(), storeNotification.getTitle(), storeNotification.getBody(), new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
         else
             getRealTimestoreNotifications().add(storeNotification);
         getStoreNotifications().add(storeNotification);

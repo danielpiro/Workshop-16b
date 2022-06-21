@@ -392,14 +392,7 @@ public class AcceptanceTests {
     /**
      *  User requirement - II.1.4
      **/
-    @Test
-    void login_success_case_test() {
-//        - Perform Login (entering username and password) & validate login details (will return TRUE)
-//        - Check that the user is logged-in (shopping cart, permissions...).
-//        - Send success message...
 
-        assertTrue(proxy.login("user2", "22222"));
-    }
     @Test
     void login_fail_case_test1() {
 //        - Perform Login (entering username and password) & validate login details
