@@ -26,7 +26,7 @@ public class OriginalStoreOwnerRole extends StoreRoles{
         }
         StoreOwnerRole newManager = new StoreOwnerRole(userId,givePerm);
         createPermissionsTo.add(newManager);
-        newManager.saveInDb(storeId,StoreRoleType.owner,databaseService,givePerm);
+        newManager.saveInDb(this.getUserId(),storeId,StoreRoleType.owner,databaseService,givePerm);
         return newManager;
     }
 
@@ -34,7 +34,7 @@ public class OriginalStoreOwnerRole extends StoreRoles{
     public StoreManager createManager(String userId, String storeId, DatabaseService databaseService) throws NoPermissionException, SQLException {
         StoreManager newStoreManager = new StoreManager(userId);
         createPermissionsTo.add(newStoreManager);
-        newStoreManager.saveInDb(storeId,StoreRoleType.manager,databaseService,newStoreManager.getPermissions());
+        newStoreManager.saveInDb(this.getUserId(),storeId,StoreRoleType.manager,databaseService,newStoreManager.getPermissions());
         return newStoreManager;
     }
 

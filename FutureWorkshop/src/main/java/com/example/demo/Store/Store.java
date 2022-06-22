@@ -31,8 +31,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Store implements getStoreInfo {
-
-
     private String storeName;
     private final String storeId;
     private List<StoreRoles> StoreRoles;

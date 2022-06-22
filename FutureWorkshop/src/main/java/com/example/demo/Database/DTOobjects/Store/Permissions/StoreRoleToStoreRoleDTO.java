@@ -19,4 +19,8 @@ public class StoreRoleToStoreRoleDTO {
     private long givingPermissionId;
     @Column(name = "getting_Permission_Id")
     private long gettingPermissionId;
+    public StoreRoleToStoreRoleDTO(long givingPermissionId, long gettingPermissionId){
+        this.givingPermissionId = givingPermissionId;
+        this.gettingPermissionId = gettingPermissionId;
+    }
 }

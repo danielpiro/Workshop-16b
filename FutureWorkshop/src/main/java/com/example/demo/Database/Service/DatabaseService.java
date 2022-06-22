@@ -5,12 +5,14 @@ import com.example.demo.Database.DTOobjects.Cart.ShoppingBasketDTO;
 import com.example.demo.Database.DTOobjects.History.HistoryDTO;
 import com.example.demo.Database.DTOobjects.Store.Permissions.StoreRoleDTO;
 import com.example.demo.Database.DTOobjects.Store.Permissions.StoreRoleToPermissionDTO;
+import com.example.demo.Database.DTOobjects.Store.Permissions.StoreRoleToStoreRoleDTO;
 import com.example.demo.Database.DTOobjects.Store.ProductDTO;
 import com.example.demo.Database.DTOobjects.Store.ReviewDTO;
 import com.example.demo.Database.DTOobjects.User.UserDTO;
 import com.example.demo.Database.Repositories.*;
 import com.example.demo.Database.Repositories.Permission.StoreRoleRepository;
 import com.example.demo.Database.Repositories.Permission.StoreRoleToPermissionRepository;
+import com.example.demo.Database.Repositories.Permission.StoreRoleToStoreRoleRepository;
 import com.example.demo.History.History;
 import com.example.demo.ShoppingCart.ShoppingBasket;
 import com.example.demo.ShoppingCart.ShoppingCart;
@@ -54,6 +56,8 @@ public class DatabaseService {
     @Autowired
     private StoreRoleToPermissionRepository storeRoleToPermissionRepository;
 
+    @Autowired
+    private StoreRoleToStoreRoleRepository storeRoleToStoreRoleRepository;
     public DatabaseService(){
         super();
     }
@@ -184,21 +188,21 @@ public class DatabaseService {
     }
 
 
-    public void saveStoreRole(StoreRoleDTO storeRoleDTO) {
+    private void saveStoreRole(StoreRoleDTO storeRoleDTO) {
         Optional<StoreRoleDTO> storeRoleDTOOptional = storeRoleRepository.findByUserIdAndStoreId(storeRoleDTO.getUserId(),storeRoleDTO.getStoreId());
         if(storeRoleDTOOptional.isEmpty()) {
             storeRoleRepository.saveAndFlush(storeRoleDTO);
         }
     }
-    public StoreRoleDTO getStoreRole(String userId, String storeId) throws SQLException {
+    private StoreRoleDTO getStoreRole(String userId, String storeId) throws SQLException {
         Optional<StoreRoleDTO> storeRoleDTOOptional = storeRoleRepository.findByUserIdAndStoreId(userId,storeId);
         if(storeRoleDTOOptional.isPresent()){
             return storeRoleDTOOptional.get();
         }
         throw new SQLException("no StoreRole with this data");
     }
-    @Transactional
-    public void saveStoreRolePermission(Long storeRoleId, List<Permission> permissions) {
+
+    private void saveStoreRolePermission(Long storeRoleId, List<Permission> permissions) {
         for (Permission p : permissions) {
             Optional<StoreRoleToPermissionDTO> storeRoleToPermissionDTOOptional = storeRoleToPermissionRepository.findByPermissionIdAndStoreRoleId(p.toString(),storeRoleId);
             if(storeRoleToPermissionDTOOptional.isEmpty()) {
@@ -207,6 +211,30 @@ public class DatabaseService {
             }
         }
 
+    }
+    @Transactional
+    public void saveStoreRolePermissionAndSaveStoreRole
+            (StoreRoleDTO storeRoleDTO, List<Permission> permissions) throws SQLException {
+        saveStoreRole(storeRoleDTO);
+        Long storeRoleId = getStoreRole(storeRoleDTO.getUserId(),storeRoleDTO.getStoreId()).getId();
+        saveStoreRolePermission(storeRoleId,permissions);
+    }
+    @Transactional
+    public void saveStoreRolePermissionAndSaveStoreRoleToStoreRoleAndSaveStoreRole
+            (StoreRoleDTO storeRoleDTO, List<Permission> permissions,String userGiving) throws SQLException {
+        saveStoreRole(storeRoleDTO);
+        Long storeRoleId = getStoreRole(storeRoleDTO.getUserId(),storeRoleDTO.getStoreId()).getId();
+        saveStoreRolePermission(storeRoleId,permissions);
+        saveStoreRoleToStoreRole(storeRoleDTO.getStoreId(),userGiving,storeRoleDTO.getUserId());
+
+    }
+    private void saveStoreRoleToStoreRole(String storeId,String userGivingId,String userGettingId) throws SQLException {
+        long userGiving = getStoreRole(userGivingId,storeId).getId();
+        long userGetting = getStoreRole(userGettingId,storeId).getId();
+        if(storeRoleToStoreRoleRepository.findByGettingPermissionIdAndGivingPermissionId(userGetting,userGiving).isEmpty()) {
+            StoreRoleToStoreRoleDTO storeRoleToStoreRoleDTO = new StoreRoleToStoreRoleDTO(userGiving,userGetting);
+            storeRoleToStoreRoleRepository.saveAndFlush(storeRoleToStoreRoleDTO);
+        }
     }
 
 
