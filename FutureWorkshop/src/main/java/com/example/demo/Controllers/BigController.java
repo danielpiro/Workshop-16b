@@ -82,12 +82,13 @@ public class BigController {
     public BigController(DatabaseService databaseService) throws IOException, UserException, NoPermissionException, SupplyManagementException, InterruptedException {
         this.us = new UserController();
         this.sc = new StoreController();
+        this.databaseService = databaseService;
         this.policyBuilder = new PolicyBuilder();
         initiateExternalConnections();
         NotificationManager.buildNotificationManager(us);
         initializeSystem();
         my_log.info("System Started");
-        this.databaseService = databaseService;
+
         withDatabase = true;
     }
 
