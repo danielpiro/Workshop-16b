@@ -3,6 +3,7 @@ package com.example.demo.Tests;
 
 import com.example.demo.Controllers.BigController;
 import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
+import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.DemoApplication;
 import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
 import com.example.demo.ExternalConnections.Payment.PaymentNames;
@@ -53,9 +54,10 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+@SpringBootTest
 public class AcceptanceTests {
-
+    @Autowired
+    DatabaseService databaseService;
     /*TODO: (Tagged with fail() in the tests)
      * 1) Parallel Use.
      * 2) Logging.
@@ -78,8 +80,8 @@ public class AcceptanceTests {
     //todo i think before all?
     @BeforeEach
     void setUp() throws Exception {
-        proxy = new Real();
-        proxy.openingMarket();
+        proxy = new Real(databaseService);
+        proxy.openingMarket(databaseService);
 
 
 
@@ -149,7 +151,7 @@ public class AcceptanceTests {
 //        if (rv.isSuccess() == true)
 //            fail();
 
-        assertEquals("system opened successfully", proxy.openingMarket());
+        assertEquals("system opened successfully", proxy.openingMarket(databaseService));
     }
 
     @Test

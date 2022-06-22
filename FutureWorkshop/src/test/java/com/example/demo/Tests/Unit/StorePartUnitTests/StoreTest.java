@@ -16,6 +16,7 @@ import com.example.demo.StorePermission.StoreRoles;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.naming.NoPermissionException;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@SpringBootTest
 class StoreTest {
     String userId1 = "userId1";
     String userId2 = "userId2";
@@ -36,12 +37,10 @@ class StoreTest {
     String productId1;
     String productId2;
     String productId3;
-
-    DatabaseService databaseService;
     @Autowired
-    public StoreTest(DatabaseService databaseService) {
-        this.databaseService = databaseService;
-    }
+    DatabaseService databaseService;
+
+
 
     @BeforeEach
     void setUp() {

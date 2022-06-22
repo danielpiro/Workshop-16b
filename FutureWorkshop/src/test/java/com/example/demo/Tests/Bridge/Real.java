@@ -29,6 +29,8 @@ import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.User.Guest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.naming.NoPermissionException;
 import java.io.IOException;
@@ -47,8 +49,9 @@ public class Real   {
 
 
 
-    public Real() throws IOException {
-        NotificationManager.buildNotificationManager(new NotificationReceiver() {
+    public Real(DatabaseService databaseService) throws IOException, SupplyManagementException, NoPermissionException, UserException, InterruptedException {
+        bigController = new BigController(databaseService);
+        NotificationManager.ForTestsOnlyBuildNotificationManager(new NotificationReceiver() {
             @Override
             public void sendNotificationTo(List<String> userIds, StoreNotification storeNotification) throws UserException, UserException {
 
@@ -98,10 +101,10 @@ public class Real   {
     }
 
     /** System requirement - I.1 */
-    public String openingMarket(){
+    public String openingMarket(DatabaseService databaseService){
         try {
-            DatabaseService db= new DatabaseService();
-            this.bigController = new BigController(db);
+
+            this.bigController = new BigController(databaseService);
             return "system opened successfully";
         }
         catch (Exception e){

@@ -48,7 +48,7 @@ public class Store implements getStoreInfo {
     public Store(String storeName, String storeId, List<String> storeOriginalManager, DatabaseService databaseService) {
         this.storeName = storeName;
         this.storeId = storeId;
-        StoreRoles = storeOriginalManager.stream().map(OriginalStoreOwnerRole::new).collect(Collectors.toList());
+        StoreRoles = new ArrayList<>();
         for (String userId :
                 storeOriginalManager) {
             OriginalStoreOwnerRole originalStoreOwnerRole = new OriginalStoreOwnerRole(userId);

@@ -8823,3 +8823,877 @@ Jun 15, 2022 1:13:31 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
 Jun 15, 2022 1:17:41 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user dashy is already logged in
+Jun 22, 2022 12:06:27 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: cant delete, no Policy with this Id
+Jun 22, 2022 12:14:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: cant delete, no Policy with this Id
+Jun 22, 2022 12:15:28 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: cant delete, no Policy with this Id
+Jun 22, 2022 12:17:04 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: cant delete, no Policy with this Id
+Jun 22, 2022 12:18:08 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: cant delete, no Policy with this Id
+Jun 22, 2022 12:19:47 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: cant delete, no Policy with this Id
+Jun 22, 2022 12:21:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: cant delete, no Policy with this Id
+Jun 22, 2022 12:26:06 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: cant delete, no Policy with this Id
+Jun 22, 2022 12:26:45 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: cant delete, no Policy with this Id
+Jun 22, 2022 12:30:17 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: cant delete, no Policy with this Id
+Jun 22, 2022 12:31:21 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: cant delete, no Policy with this Id
+Jun 22, 2022 12:35:37 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: cant delete, no Policy with this Id
+Jun 22, 2022 12:37:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: cant delete, no Policy with this Id
+Jun 22, 2022 12:39:09 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: cant delete, no Policy with this Id
+Jun 22, 2022 12:39:37 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: cant delete, no Policy with this Id
+Jun 22, 2022 12:42:42 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: cant delete, no Policy with this Id
+Jun 22, 2022 12:44:15 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: cant delete, no Policy with this Id
+Jun 22, 2022 12:44:21 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:21 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:21 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:21 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user1 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user1 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user44 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user44 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user3 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user3 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:22 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user1 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user1 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user1 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user1 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User user00 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user1 already exists in the system - failed to sign up
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user null is null - failed to sign up
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user0 password's is null - failed to sign up
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user4 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user44 doesn't exist
+Jun 22, 2022 12:44:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user12 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user44 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user1 could not reserve items in cart
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user1 is already logged in
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user3 doesn't exist
+Jun 22, 2022 12:44:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user3 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user10 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user10 failed login
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user1 failed login
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user1 is already logged in
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user22 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user44 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user12 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user1... doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user10 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: failed to logout because user100 is null
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user22 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user user2 doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:44:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user userOwnerToDestroy doesn't exist
+Jun 22, 2022 12:45:17 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: cant delete, no Policy with this Id
+Jun 22, 2022 12:45:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:45:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user44 doesn't exist
+Jun 22, 2022 12:45:24 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:45:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user44 doesn't exist
+Jun 22, 2022 12:45:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:45:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User user00 doesn't exist
+Jun 22, 2022 12:45:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user1 already exists in the system - failed to sign up
+Jun 22, 2022 12:45:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user null is null - failed to sign up
+Jun 22, 2022 12:45:25 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user0 password's is null - failed to sign up
+Jun 22, 2022 12:45:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user4 doesn't exist
+Jun 22, 2022 12:45:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:45:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user44 doesn't exist
+Jun 22, 2022 12:45:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:45:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user12 doesn't exist
+Jun 22, 2022 12:45:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user44 doesn't exist
+Jun 22, 2022 12:45:26 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user1 could not reserve items in cart
+Jun 22, 2022 12:45:27 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user1 is already logged in
+Jun 22, 2022 12:45:27 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user10 doesn't exist
+Jun 22, 2022 12:45:27 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user10 failed login
+Jun 22, 2022 12:45:27 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user1 failed login
+Jun 22, 2022 12:45:27 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user1 is already logged in
+Jun 22, 2022 12:45:27 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:45:27 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user22 doesn't exist
+Jun 22, 2022 12:45:27 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:45:27 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:45:27 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user44 doesn't exist
+Jun 22, 2022 12:45:27 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:45:27 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:45:27 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user12 doesn't exist
+Jun 22, 2022 12:45:27 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user1... doesn't exist
+Jun 22, 2022 12:45:28 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:45:28 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user10 doesn't exist
+Jun 22, 2022 12:45:28 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:45:28 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:45:28 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: failed to logout because user100 is null
+Jun 22, 2022 12:45:28 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:45:28 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user22 doesn't exist
+Jun 22, 2022 12:45:28 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:45:28 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:45:28 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:46:57 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: cant delete, no Policy with this Id
+Jun 22, 2022 12:47:05 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:47:05 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user44 doesn't exist
+Jun 22, 2022 12:47:05 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:47:05 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user44 doesn't exist
+Jun 22, 2022 12:47:05 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:47:05 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User user00 doesn't exist
+Jun 22, 2022 12:47:06 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user1 already exists in the system - failed to sign up
+Jun 22, 2022 12:47:06 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user null is null - failed to sign up
+Jun 22, 2022 12:47:06 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user0 password's is null - failed to sign up
+Jun 22, 2022 12:47:06 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user4 doesn't exist
+Jun 22, 2022 12:47:06 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:47:06 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user44 doesn't exist
+Jun 22, 2022 12:47:06 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:47:07 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user12 doesn't exist
+Jun 22, 2022 12:47:07 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user44 doesn't exist
+Jun 22, 2022 12:47:07 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user1 could not reserve items in cart
+Jun 22, 2022 12:47:08 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user1 is already logged in
+Jun 22, 2022 12:47:08 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user10 doesn't exist
+Jun 22, 2022 12:47:08 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user10 failed login
+Jun 22, 2022 12:47:08 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user1 failed login
+Jun 22, 2022 12:47:08 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user user1 is already logged in
+Jun 22, 2022 12:47:08 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:47:08 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user22 doesn't exist
+Jun 22, 2022 12:47:08 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:47:09 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:47:09 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user44 doesn't exist
+Jun 22, 2022 12:47:09 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:47:09 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:47:09 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user12 doesn't exist
+Jun 22, 2022 12:47:09 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user1... doesn't exist
+Jun 22, 2022 12:47:09 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:47:09 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user10 doesn't exist
+Jun 22, 2022 12:47:09 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:47:09 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:47:10 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: failed to logout because user100 is null
+Jun 22, 2022 12:47:10 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:47:10 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user user22 doesn't exist
+Jun 22, 2022 12:47:10 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:47:10 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 12:47:10 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
