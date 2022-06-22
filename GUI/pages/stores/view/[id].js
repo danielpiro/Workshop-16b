@@ -4,14 +4,24 @@ import Card from "../../../components/card";
 import api from "../../../components/api";
 import { useRouter } from "next/router";
 import createNotification from "../../../components/norification";
+import { useCookies } from "react-cookie";
 
 const StoreDetails = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "username",
+    "password",
+    "userId",
+    "type",
+    "session",
+  ]);
   const fetch = async () => {
     return await api
-      .get(`/store/products/?storeId=${router.query.id}`)
+      .get(
+        `/store/products/?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${router.query.id}`
+      )
       .then((res) => {
         const { data } = res;
         if (data.success) {

@@ -12,23 +12,32 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class NotificationController {
 
+    private static NotificationController single_instance = null;
     private static SimpMessagingTemplate simpMessagingTemplate;
 
-    public NotificationController(SimpMessagingTemplate simpMessagingTemplate) {
+    private NotificationController(SimpMessagingTemplate simpMessagingTemplate) {
         NotificationController.simpMessagingTemplate = simpMessagingTemplate;
     }
 
+    public static NotificationController getInstance() {
+        if (single_instance == null)
+            single_instance = new NotificationController(simpMessagingTemplate);
+        return single_instance;
+    }
 
 
     @MessageMapping("/private-test")
-    public static void sendMessage(@Payload Message message) {
+    public void sendMessage(@Payload Message message){
+        if (simpMessagingTemplate == null){
+            throw new NullPointerException();
+        }
         simpMessagingTemplate.convertAndSendToUser(message.getReceiverName(), "/private", message.getReceiverName().concat("\n" + message.getBody()));
         System.out.println(message.getReceiverName());
         System.out.println(message.getBody());
     }
 
     @MessageMapping("/private-message")
-    public static void sendNotification(@Payload realTimeNotification message) {
+    public void sendNotification(@Payload realTimeNotification message) {
         simpMessagingTemplate.convertAndSendToUser(message.getReceiverName(), "/private", message.getReceiverName().concat("\n" + "sender: " + message.getSenderName() + "\n" + "title: " + message.getTitle() + "\n" + "body: " + message.getBody() + "\n" + "date: " + message.getDate()));
         System.out.println(message.getReceiverName());
     }

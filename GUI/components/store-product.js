@@ -21,6 +21,7 @@ const StoreProduct = ({
     "password",
     "userId",
     "type",
+    "session",
   ]);
   const [details, setDetails] = useState({
     name: title,
@@ -42,7 +43,7 @@ const StoreProduct = ({
     e.preventDefault();
     return await api
       .post(
-        `/store/product/delete/?storeId=${storeId}&userId=${cookies.userId}&productId=${id}`
+        `/store/product/delete/?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${storeId}&productId=${id}`
       )
       .then((res) => {
         const { data } = res;
@@ -67,11 +68,14 @@ const StoreProduct = ({
       productName: details.name,
       price: details.price,
       supply: details.quantity,
-      category: details.category,
+      category: details.category.name,
     };
     console.log(id);
     return await api
-      .post(`/store/product/?productId=${id}`, obj)
+      .post(
+        `/store/product/?sessionID=${cookies.session}&userId=${cookies.userId}&productId=${id}`,
+        obj
+      )
       .then((res) => {
         const { data } = res;
         if (data.success) {

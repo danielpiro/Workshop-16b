@@ -14,12 +14,15 @@ const StoreManagement = () => {
     "password",
     "userId",
     "type",
+    "session",
   ]);
   const removeStore = async (e) => {
     e.preventDefault();
     const id = Object.keys(router.query)[0];
     return await api
-      .post(`/store/delete/?userId=${cookies.userId}&storeId=${id}`)
+      .post(
+        `/store/delete/?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${id}`
+      )
       .then((res) => {
         const { data } = res;
         if (data.success) {

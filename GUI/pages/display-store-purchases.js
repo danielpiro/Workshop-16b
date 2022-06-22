@@ -17,6 +17,7 @@ const DisplayStorePurchases = () => {
     "password",
     "userId",
     "type",
+    "session",
   ]);
 
   useEffect(async () => {
@@ -26,7 +27,9 @@ const DisplayStorePurchases = () => {
       storeID = storeID.slice(0, -1);
     }
     await api
-      .get(`/history/store/?storeId=${storeID}&userId=${cookies.userId}`)
+      .get(
+        `/history/store/?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${storeID}`
+      )
       .then((res) => {
         const { data } = res;
         console.log(data);

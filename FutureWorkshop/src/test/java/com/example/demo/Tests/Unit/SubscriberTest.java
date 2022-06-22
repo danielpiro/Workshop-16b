@@ -5,7 +5,9 @@ import com.example.demo.Controllers.NotificationController;
 import com.example.demo.Controllers.model.Message;
 import com.example.demo.Controllers.model.realTimeNotification;
 import com.example.demo.User.Subscriber;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -49,10 +51,6 @@ class SubscriberTest {
 
     @org.junit.jupiter.api.Test
     void loggedin() {
-        //assertEquals(false, subscriber.isLogged_in());
-        //assertEquals(true, subscriber2.isLogged_in());
-        //assertEquals(false, subscriber3.isLogged_in());
-      //  NotificationController.getInstance().sendNotification(new realTimeNotification(subscriber.name,"abudi","love of my life","marriage","finaaaaaly",new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
-      NotificationController.sendMessage(new Message(subscriber.getName(), "hi hi hi"));
+      Assertions.assertThrows(NullPointerException.class, () -> NotificationController.getInstance().sendMessage(new Message(subscriber.getName(), "hi hi hi")));
     }
 }

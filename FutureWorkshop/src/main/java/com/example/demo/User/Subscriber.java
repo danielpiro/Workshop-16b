@@ -94,12 +94,12 @@ public class Subscriber extends User {
     }
 
     public void sendMessage(){
-        NotificationController.sendMessage(new Message(this.name,"sending a real time message to "+this.name));
+        NotificationController.getInstance().sendMessage(new Message(this.name,"sending a real time message to "+this.name));
 
     }
     public void addNotification(StoreNotification storeNotification) {
         if (isLogged_in())
-            NotificationController.sendNotification(new realTimeNotification(this.name, storeNotification.getSentFrom().getStoreName(), storeNotification.getSubject().toString(), storeNotification.getTitle(), storeNotification.getBody(), new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
+            NotificationController.getInstance().sendNotification(new realTimeNotification(this.name, storeNotification.getSentFrom().getStoreName(), storeNotification.getSubject().toString(), storeNotification.getTitle(), storeNotification.getBody(), new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
         else
             getRealTimestoreNotifications().add(storeNotification);
         getStoreNotifications().add(storeNotification);

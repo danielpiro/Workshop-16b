@@ -13,6 +13,7 @@ const AdminViewUserPurchase = () => {
     "password",
     "userId",
     "type",
+    "session",
   ]);
 
   const searchUsernamePurchases = async (e) => {
@@ -20,7 +21,9 @@ const AdminViewUserPurchase = () => {
     setIsLoading(!isLoading);
     if (searchValue !== "") {
       await api
-        .get(`/history/user/?userId=${searchValue}`)
+        .get(
+          `/history/user/?sessionID=${cookies.session}&userId=${searchValue}`
+        )
         .then((res) => {
           const { data } = res;
           if (data.success) {

@@ -20,6 +20,7 @@ const DiscountNew = () => {
     "password",
     "userId",
     "type",
+    "session",
   ]);
   //let storeID = window.location.href.split("?").pop();
   let storeID = "";
@@ -63,7 +64,9 @@ const DiscountNew = () => {
         storeID = storeID.slice(0, -1);
       }
       return await api
-        .get(`Store/Polices?storeId=${storeID}`)
+        .get(
+          `Store/Polices?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${storeID}`
+        )
         .then((res) => {
           const { data } = res;
           if (data.success) {
@@ -78,7 +81,9 @@ const DiscountNew = () => {
         })
         .then(async () => {
           return await api
-            .get(`/Discount/getAll?storeId=${storeID}&userId=${cookies.userId}`)
+            .get(
+              `/Discount/getAll?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${storeID}`
+            )
             .then((res) => {
               const { data } = res;
               if (data.success) {
@@ -103,7 +108,7 @@ const DiscountNew = () => {
     if (typeCombDis === "Max") {
       api
         .post(
-          `/Discount/NewMaxDiscount/?storeId=${storeID}&userId=${cookies.userId}&discountId1=${firstCombDis}&discountId2=${secondCombDis}`
+          `/Discount/NewMaxDiscount/?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${storeID}&discountId1=${firstCombDis}&discountId2=${secondCombDis}`
         )
         .then((res) => {
           const { data } = res;
@@ -117,7 +122,7 @@ const DiscountNew = () => {
     } else {
       api
         .post(
-          `/Discount/NewAdditionDiscount/?storeId=${storeID}&userId=${cookies.userId}&discountId1=${firstCombDis}&discountId2=${secondCombDis}`
+          `/Discount/NewAdditionDiscount/?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${storeID}&discountId1=${firstCombDis}&discountId2=${secondCombDis}`
         )
         .then((res) => {
           const { data } = res;

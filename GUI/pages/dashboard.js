@@ -16,11 +16,14 @@ const Dashboard = () => {
     "password",
     "userId",
     "type",
+    "session",
   ]);
 
   const fetchData = async () => {
     await api
-      .get("/products/all")
+      .get(
+        `/products/all/?sessionID=${cookies.session}&userId=${cookies.userId}`
+      )
       .then((res) => {
         const { data } = res;
         if (data.success) {
@@ -30,7 +33,9 @@ const Dashboard = () => {
       })
       .then(() => {
         return api
-          .post(`/in/dashboard/?userId=${cookies.userId}`)
+          .post(
+            `/in/dashboard/?sessionID=${cookies.session}&userId=${cookies.userId}`
+          )
           .then((res) => {
             const { data } = res;
             if (!data.success) {

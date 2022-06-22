@@ -19,10 +19,11 @@ const shoppingCart = () => {
     "password",
     "userId",
     "type",
+    "session",
   ]);
   const fetchCart = async () => {
     return await api
-      .post(`/cart/?user_Id=${cookies.userId}`)
+      .post(`/cart/?sessionID=${cookies.session}&user_Id=${cookies.userId}`)
       .then((res) => {
         const { data } = res;
         if (data.success) {
@@ -33,7 +34,7 @@ const shoppingCart = () => {
       .then(async () => {
         return await api
           .post(
-            `/cart/price/?user_id=${cookies.userId}&payment=Visa&delivery=UPS`
+            `/cart/price/?sessionID=${cookies.session}&user_id=${cookies.userId}&payment=Visa&delivery=UPS`
           )
           .then((res) => {
             const { data } = res;
@@ -67,7 +68,7 @@ const shoppingCart = () => {
     }
     api
       .post(
-        `/cart/purchase/?user_id=${cookies.userId}&payment=${deliveryAndPaymnetDetails.payment}&delivery=${deliveryAndPaymnetDetails.delivery}`
+        `/cart/purchase/?sessionID=${cookies.session}&userId=${cookies.userId}&payment=${deliveryAndPaymnetDetails.payment}&delivery=${deliveryAndPaymnetDetails.delivery}`
       )
       .then((res) => {
         const { data } = res;

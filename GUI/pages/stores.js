@@ -21,13 +21,16 @@ const Stores = () => {
     "password",
     "userId",
     "type",
+    "session",
   ]);
 
   useEffect(() => {
     setIsLoading(!isLoading);
     const fetchData = async () => {
       return await api
-        .get(`store/owner/permmitions?user=${cookies.userId}`)
+        .get(
+          `store/owner/permmitions?sessionID=${cookies.session}&userId=${cookies.userId}`
+        )
         .then((res) => {
           const { data } = res;
           if (data.success) {
@@ -40,7 +43,9 @@ const Stores = () => {
         })
         .then(async () => {
           return await api
-            .get(`store/manager/permmitions?user=${cookies.userId}`)
+            .get(
+              `store/manager/permmitions?sessionID=${cookies.session}&userId=${cookies.userId}`
+            )
             .then((res) => {
               const { data } = res;
               if (data.success) {
@@ -54,7 +59,9 @@ const Stores = () => {
         })
         .then(async () => {
           return await api
-            .get("/store/all")
+            .get(
+              `/store/all/?sessionID=${cookies.session}&userId=${cookies.userId}`
+            )
             .then((res) => {
               const { data } = res;
               if (data.success) {
@@ -70,14 +77,18 @@ const Stores = () => {
               }
             })
             .then(async () => {
-              return await api.get("/store-products/all").then((res) => {
-                const { data } = res;
-                if (data.success) {
-                  setStoreMap(data.value);
-                } else {
-                  createNotification("error", data.reason)();
-                }
-              });
+              return await api
+                .get(
+                  `/store-products/all/?sessionID=${cookies.session}&userId=${cookies.userId}`
+                )
+                .then((res) => {
+                  const { data } = res;
+                  if (data.success) {
+                    setStoreMap(data.value);
+                  } else {
+                    createNotification("error", data.reason)();
+                  }
+                });
             })
             .catch((err) => console.log(err));
         });

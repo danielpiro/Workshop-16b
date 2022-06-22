@@ -46,8 +46,9 @@ public class Real   {
 
 
 
-    public Real() throws IOException {
-        NotificationManager.buildNotificationManager(new NotificationReceiver() {
+    public Real() throws IOException, SupplyManagementException, NoPermissionException, UserException, InterruptedException {
+        this.bigController = new BigController();
+        NotificationManager.ForTestsOnlyBuildNotificationManager(new NotificationReceiver() {
             @Override
             public void sendNotificationTo(List<String> userIds, StoreNotification storeNotification) throws UserException, UserException {
 
@@ -60,9 +61,20 @@ public class Real   {
         });
     }
 
-   public Real(BigController msApp) {
+    public Real(BigController msApp) {
         this.bigController = msApp;
-   }
+        NotificationManager.ForTestsOnlyBuildNotificationManager(new NotificationReceiver() {
+            @Override
+            public void sendNotificationTo(List<String> userIds, StoreNotification storeNotification) throws UserException, UserException {
+
+            }
+
+            @Override
+            public void sendComplaintToAdmins(String senderId, ComplaintNotification complaintNotification) throws UserException {
+
+            }
+        });
+    }
 
    public BigController getBigController() {
         return bigController;
@@ -100,6 +112,16 @@ public class Real   {
     public String openingMarket(){
         try {
             this.bigController = new BigController();
+            NotificationManager.ForTestsOnlyBuildNotificationManager(new NotificationReceiver() {
+                @Override
+                public void sendNotificationTo(List<String> userIds, StoreNotification storeNotification) throws UserException, UserException {
+
+                }
+                @Override
+                public void sendComplaintToAdmins(String senderId, ComplaintNotification complaintNotification) throws UserException {
+
+                }
+            });
             return "system opened successfully";
         }
         catch (Exception e){
@@ -241,7 +263,7 @@ public class Real   {
     public boolean register(String username, String password){
         boolean  ans=false;
         try {
-             ans = (Boolean) getBigController().signup(username, password).isSuccess();
+            ans =  getBigController().signup(username, password).isSuccess();
         }catch (Exception e){
 
         }
@@ -254,8 +276,8 @@ public class Real   {
     /** User requirement - II.1.4 */
     public boolean login(String username, String password)  {
         try {
-            ReturnValue<Boolean> returnValue = getBigController().login(username, password);
-            return returnValue.getValue();
+            getBigController().loginUserApi(username, password);
+            return true;
         }catch (Exception e){
             return false;
         }
@@ -264,8 +286,8 @@ public class Real   {
     /** User requirement - II.1.4 */
     public boolean loginFromGuest(String userId,String username, String password)  {
         try {
-            ReturnValue<Boolean> returnValue = getBigController().login(userId,username, password);
-            return returnValue.getValue();
+            getBigController().loginGuestApi(userId,username, password);
+            return true;
         }catch (Exception e){
             return false;
         }

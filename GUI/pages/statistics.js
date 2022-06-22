@@ -2,17 +2,27 @@ import Menu from "../components/menu";
 import { useState, useEffect } from "react";
 import createNotification from "../components/norification";
 import api from "../components/api";
+import { useCookies } from "react-cookie";
 
 const Statistics = () => {
   const [stats, setStats] = useState({
     subscribers: "",
     loggedInUsers: "",
   });
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "username",
+    "password",
+    "userId",
+    "type",
+    "session",
+  ]);
 
   useEffect(() => {
     const fetchStats = async () => {
       return await api
-        .get("/online/amount")
+        .get(
+          `/online/amount/?sessionID=${cookies.session}&user_id=${cookies.userId}`
+        )
         .then((res) => {
           const { data } = res;
           if (data.success) {
@@ -23,19 +33,23 @@ const Statistics = () => {
           }
         })
         .then(async () => {
-          return await api.get("/registered/amount").then((res) => {
-            const { data } = res;
-            if (data.success) {
-              setStats((prevState) => ({
-                ...prevState,
-                subscribers: data.value,
-              }));
-              createNotification(
-                "success",
-                "Display statistics done successfully"
-              )();
-            }
-          });
+          return await api
+            .get(
+              `/registered/amount/?sessionID=${cookies.session}&user_id=${cookies.userId}`
+            )
+            .then((res) => {
+              const { data } = res;
+              if (data.success) {
+                setStats((prevState) => ({
+                  ...prevState,
+                  subscribers: data.value,
+                }));
+                createNotification(
+                  "success",
+                  "Display statistics done successfully"
+                )();
+              }
+            });
         })
         .catch((err) => console.log(err));
     };

@@ -13,13 +13,14 @@ const UnregisterUser = () => {
     "password",
     "userId",
     "type",
+    "session",
   ]);
   const onUnregistered = async (e) => {
     e.preventDefault();
     if (username !== "") {
       return await api
         .post(
-          `/users/delete/?isDeleting=${cookies.username}&whosBeingDeleted=${username}`
+          `/users/delete/?sessionID=${cookies.session}&isDeleting=${cookies.username}&whosBeingDeleted=${username}`
         )
         .then((res) => {
           const { data } = res;

@@ -12,6 +12,7 @@ const OpenNewStore = () => {
     "password",
     "userId",
     "type",
+    "session",
   ]);
   //const [isLoading, setIsLoading] = useState(false);
   const [openNewStoreInput, setOpenNewStoreInput] = useState({
@@ -26,7 +27,7 @@ const OpenNewStore = () => {
       //openNewStoreInput.additionalStoreOwnerUsername !== ""
       await api
         .post(
-          `/store/open/?userId=${cookies.username}&storeName=${openNewStoreInput.storename}`
+          `/store/open/?sessionID=${cookies.session}&userId=${cookies.username}&storeName=${openNewStoreInput.storename}`
         )
         .then((res) => {
           const { data } = res;

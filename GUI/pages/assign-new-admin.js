@@ -12,6 +12,7 @@ const AssignNewAdmin = () => {
     "password",
     "userId",
     "type",
+    "session",
   ]);
 
   const onAssignAdmin = async (e) => {
@@ -19,7 +20,7 @@ const AssignNewAdmin = () => {
     if (username !== "") {
       await api
         .post(
-          `/users/add/admin/?whoIsAdding=${cookies.userId}&user_toMakeAdmin=${username}`
+          `/users/add/admin/?sessionID=${cookies.session}&whoIsAdding=${cookies.userId}&user_toMakeAdmin=${username}`
         )
         .then((res) => {
           const { data } = res;

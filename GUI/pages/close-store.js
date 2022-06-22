@@ -11,6 +11,7 @@ const CloseStore = () => {
     "password",
     "userId",
     "type",
+    "session",
   ]);
 
   const onCloseStore = async (e) => {
@@ -21,7 +22,9 @@ const CloseStore = () => {
       storeID = storeID.slice(0, -1);
     }
     await api
-      .post(`/store/unfreeze/?storeId=${storeID}&userId=${cookies.userId}`)
+      .post(
+        `/store/unfreeze/?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${storeID}`
+      )
       .then((res) => {
         const { data } = res;
         if (data.success) {
@@ -44,7 +47,9 @@ const CloseStore = () => {
       storeID = storeID.slice(0, -1);
     }
     await api
-      .post(`/store/freeze/?storeId=${storeID}&userId=${cookies.userId}`)
+      .post(
+        `/store/freeze/?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${storeID}`
+      )
       .then((res) => {
         const { data } = res;
         if (data.success) {

@@ -16,6 +16,7 @@ const NotifyAdmins = () => {
     "password",
     "userId",
     "type",
+    "session",
   ]);
   const subjects = [
     { id: 1, name: "StoreForum" },
@@ -36,7 +37,7 @@ const NotifyAdmins = () => {
     }
     return await api
       .post(
-        `/complaints/?senderId=${cookies.userId}&subject=${userInput.subject}&title=${userInput.title}&body=${userInput.body}`
+        `/complaints/?sessionID=${cookies.session}&senderId=${cookies.userId}&subject=${userInput.subject}&title=${userInput.title}&body=${userInput.body}`
       )
       .then((res) => {
         const { data } = res;

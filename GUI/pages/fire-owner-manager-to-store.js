@@ -13,6 +13,7 @@ const FireOwnerToStore = () => {
     "password",
     "userId",
     "type",
+    "session",
   ]);
 
   const onHiringOfficial = async (e) => {
@@ -24,7 +25,7 @@ const FireOwnerToStore = () => {
     if (usernameFired !== "") {
       await api
         .post(
-          `/store/permissions/delete/?storeId=${storeID}&userIdRemoving=${cookies.userId}&UserAffectedId=${usernameFired}`
+          `/store/permissions/delete/?sessionID=${cookies.session}&storeId=${storeID}&userIdRemoving=${cookies.userId}&UserAffectedId=${usernameFired}`
         )
         .then((res) => {
           const { data } = res;
