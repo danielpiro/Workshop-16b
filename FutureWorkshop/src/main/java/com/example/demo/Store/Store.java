@@ -62,6 +62,7 @@ public class Store implements getStoreInfo {
 
     }
 
+
     private boolean checkPermission(String userId, Permission action){
         synchronized (StoreRoles) {
         for (StoreRoles roleUser : StoreRoles) {

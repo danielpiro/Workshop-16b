@@ -4,6 +4,7 @@ package com.example.demo.Tests.Unit.StorePartUnitTests;
 import com.example.demo.CustomExceptions.Exception.NotifyException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
+import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.NotificationsManagement.ComplaintNotification;
 import com.example.demo.NotificationsManagement.NotificationManager;
 import com.example.demo.NotificationsManagement.NotificationReceiver;
@@ -14,6 +15,7 @@ import com.example.demo.StorePermission.StoreManager;
 import com.example.demo.StorePermission.StoreRoles;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.naming.NoPermissionException;
 import java.util.ArrayList;
@@ -35,6 +37,11 @@ class StoreTest {
     String productId2;
     String productId3;
 
+    DatabaseService databaseService;
+    @Autowired
+    public StoreTest(DatabaseService databaseService) {
+        this.databaseService = databaseService;
+    }
 
     @BeforeEach
     void setUp() {

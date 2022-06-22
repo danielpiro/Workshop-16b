@@ -41,6 +41,7 @@ import com.example.demo.User.Subscriber;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.apache.tomcat.util.json.ParseException;
 
@@ -77,7 +78,7 @@ public class BigController {
 //        this.sc = sc;
 //    }
 
-
+    @Autowired
     public BigController(DatabaseService databaseService) throws IOException, UserException, NoPermissionException, SupplyManagementException, InterruptedException {
         this.us = new UserController();
         this.sc = new StoreController();
