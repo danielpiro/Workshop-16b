@@ -3,10 +3,12 @@ import com.example.demo.CustomExceptions.Exception.ResourceNotFoundException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.Database.DTOobjects.Cart.ShoppingBasketDTO;
 import com.example.demo.Database.DTOobjects.History.HistoryDTO;
+import com.example.demo.Database.DTOobjects.Store.Permissions.StoreRoleDTO;
 import com.example.demo.Database.DTOobjects.Store.ProductDTO;
 import com.example.demo.Database.DTOobjects.Store.ReviewDTO;
 import com.example.demo.Database.DTOobjects.User.UserDTO;
 import com.example.demo.Database.Repositories.*;
+import com.example.demo.Database.Repositories.Permission.StoreRoleRepository;
 import com.example.demo.History.History;
 import com.example.demo.ShoppingCart.ShoppingBasket;
 import com.example.demo.ShoppingCart.ShoppingCart;
@@ -39,6 +41,9 @@ public class DatabaseService {
 
     @Autowired
     private HistoryRepository historyRepository;
+
+    @Autowired
+    private StoreRoleRepository storeRoleRepository;
 
     public DatabaseService(){
         super();
@@ -170,6 +175,7 @@ public class DatabaseService {
     }
 
 
-
-
+    public void saveStoreRole(StoreRoleDTO storeRoleDTO) {
+        storeRoleRepository.saveAndFlush(storeRoleDTO);
+    }
 }

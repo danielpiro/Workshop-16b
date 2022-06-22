@@ -1,6 +1,9 @@
 package com.example.demo.StorePermission;
 
 
+import com.example.demo.Database.DTOobjects.Store.Permissions.StoreRoleDTO;
+import com.example.demo.Database.DTOobjects.Store.Permissions.StoreRoleToPermissionDTO;
+import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.GlobalSystemServices.IdGenerator;
 
 import javax.naming.NoPermissionException;
@@ -101,4 +104,9 @@ public abstract class  StoreRoles {
     }
 
     public abstract String getTitle();
+
+    public void saveInDb(String StoreId, StoreRoleType storeRoleType, DatabaseService databaseService){
+        StoreRoleDTO storeRoleDTO = new StoreRoleDTO(userId,StoreId,storeRoleType.toString());
+        databaseService.saveStoreRole(storeRoleDTO);
+    }
 }

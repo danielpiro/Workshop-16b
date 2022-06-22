@@ -1,8 +1,6 @@
 package com.example.demo.Tests.Unit.StorePartUnitTests;
 
 
-import com.example.demo.Controllers.StoreController;
-import com.example.demo.Controllers.UserController;
 import com.example.demo.CustomExceptions.Exception.NotifyException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
@@ -18,7 +16,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.naming.NoPermissionException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -43,7 +40,7 @@ class StoreTest {
     void setUp() {
         List<String> originalOwner = new LinkedList<>();
         originalOwner.add(userId1);
-        store1 =new Store("store1", "s1Id", originalOwner);
+        store1 =new Store("store1", "s1Id", originalOwner, databaseService);
         NotificationReceiver r = new NotificationReceiver() {
             @Override
             public void sendNotificationTo(List<String> userIds, StoreNotification storeNotification) throws UserException, UserException {

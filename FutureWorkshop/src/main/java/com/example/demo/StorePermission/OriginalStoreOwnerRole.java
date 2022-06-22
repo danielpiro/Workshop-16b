@@ -10,6 +10,7 @@ public class OriginalStoreOwnerRole extends StoreRoles{
         super(userId, new ArrayList<>());
         List<Permission> allPerm = Arrays.asList(Permission.values());
         storePermissions.addAll(allPerm);
+        //save role
     }
 
     public StoreOwnerRole createOwner(String userId, List<Permission> givePerm){
@@ -33,6 +34,6 @@ public class OriginalStoreOwnerRole extends StoreRoles{
 
     @Override
     public String getTitle() {
-        return "original owner";
+        return StoreRoleType.original_owner.toString();
     }
 }

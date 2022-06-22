@@ -5,6 +5,7 @@ package com.example.demo.Store;
 import com.example.demo.CustomExceptions.Exception.NotifyException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
+import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.History.History;
 import com.example.demo.History.PurchaseHistory;
@@ -19,6 +20,7 @@ import com.example.demo.Store.StorePurchase.Discounts.Discount;
 import com.example.demo.Store.StorePurchase.Policies.Policy;
 import com.example.demo.StorePermission.OriginalStoreOwnerRole;
 import com.example.demo.StorePermission.Permission;
+import com.example.demo.StorePermission.StoreRoleType;
 import com.example.demo.StorePermission.StoreRoles;
 
 import javax.naming.NoPermissionException;
@@ -40,12 +42,19 @@ public class Store implements getStoreInfo {
     private Float storeRating; //rating between 1 - 5
     private List<Review> reviews;
 
+    private DatabaseService databaseService;
 
 
-    public Store(String storeName, String storeId, List<String> storeOriginalManager) {
+    public Store(String storeName, String storeId, List<String> storeOriginalManager, DatabaseService databaseService) {
         this.storeName = storeName;
         this.storeId = storeId;
         StoreRoles = storeOriginalManager.stream().map(OriginalStoreOwnerRole::new).collect(Collectors.toList());
+        for (String userId :
+                storeOriginalManager) {
+            OriginalStoreOwnerRole originalStoreOwnerRole = new OriginalStoreOwnerRole(userId);
+            StoreRoles.add(originalStoreOwnerRole);
+            originalStoreOwnerRole.saveInDb(storeId, StoreRoleType.original_owner,databaseService);
+        }
         inventoryManager = new InventoryManager();
         forum =new Forum();
         storeState = StoreState.ACTIVE;

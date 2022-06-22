@@ -5,7 +5,7 @@ import com.example.demo.CustomExceptions.Exception.NotifyException;
 import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
-import com.example.demo.GlobalSystemServices.IdGenerator;
+import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.History.PurchaseHistory;
 
 import com.example.demo.Mock.*;
@@ -28,7 +28,6 @@ import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.ProductsCategories;
 import com.example.demo.Store.Store;
-import com.example.demo.Store.StorePurchase.Discounts.AdditionDiscount;
 import com.example.demo.Store.StorePurchase.Discounts.Discount;
 import com.example.demo.Store.StorePurchase.Discounts.DiscountBuilder;
 import com.example.demo.Store.StorePurchase.Discounts.MaxDiscount;
@@ -42,18 +41,13 @@ import com.example.demo.User.Subscriber;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hibernate.dialect.Database;
 import org.springframework.http.MediaType;
 import org.apache.tomcat.util.json.ParseException;
-import org.springframework.http.MediaType;
 
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import javax.annotation.processing.Generated;
 import javax.naming.NoPermissionException;
 import javax.transaction.NotSupportedException;
 import javax.validation.Valid;
@@ -84,7 +78,7 @@ public class BigController {
 //    }
 
 
-    public BigController(DatabaseService databaseService) throws IOException, UserException, NoPermissionException, SupplyManagementException {
+    public BigController(DatabaseService databaseService) throws IOException, UserException, NoPermissionException, SupplyManagementException, InterruptedException {
         this.us = new UserController();
         this.sc = new StoreController();
         this.policyBuilder = new PolicyBuilder();
@@ -361,7 +355,7 @@ public class BigController {
         userExistsAndLoggedIn(userId);
         List<String> managers = new ArrayList<>();
         managers.add(userId);
-        ReturnValue rv = new ReturnValue<String>(true, "", getStoreController().openNewStore(storeName, managers));
+        ReturnValue rv = new ReturnValue<String>(true, "", getStoreController().openNewStore(storeName, managers, databaseService));
         return rv;
 
     }
@@ -616,7 +610,7 @@ public class BigController {
         for (String userId : usersIds) {
             List<String> owner = new ArrayList<>();
             owner.add(userId);
-            String StoreId = sc.openNewStore(userId + " store", owner);
+            String StoreId = sc.openNewStore(userId + " store", owner, databaseService);
             sc.addNewProduct(StoreId, userId, "p1", 1, 1, ProductsCategories.Apps$Games.toString());
             sc.addNewProduct(StoreId, userId, "p2", 2, 2, ProductsCategories.Appliances.toString());
             sc.addNewProduct(StoreId, userId, "p3", 3, 3, ProductsCategories.Other.toString());

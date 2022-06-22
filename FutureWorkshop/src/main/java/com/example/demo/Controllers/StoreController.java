@@ -4,6 +4,7 @@ package com.example.demo.Controllers;
 import com.example.demo.CustomExceptions.Exception.NotifyException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
+import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.History.PurchaseHistory;
@@ -19,7 +20,6 @@ import com.example.demo.StorePermission.StoreRoles;
 import javax.naming.NoPermissionException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -39,7 +39,7 @@ public class StoreController {
         stores = new ConcurrentHashMap<String, Store>();
     }
 
-    public String openNewStore(String name,List<String> owners) throws NoPermissionException {
+    public String openNewStore(String name, List<String> owners, DatabaseService databaseService) throws NoPermissionException {
 
         if (owners.stream().anyMatch(this::checkIfGuest)) {
             Log.getLogger().warning("guest cant open new store");
@@ -47,7 +47,7 @@ public class StoreController {
         }
 
         String newId = IdGenerator.getInstance().getStoreId();
-        Store newStore= new Store(name, newId, owners);
+        Store newStore= new Store(name, newId, owners, databaseService);
 
         stores.put(newId, newStore);
 

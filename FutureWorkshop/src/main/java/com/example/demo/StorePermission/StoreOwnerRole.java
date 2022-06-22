@@ -29,6 +29,6 @@ public class StoreOwnerRole extends StoreRoles{
 
     @Override
     public String getTitle() {
-        return "owner";
+        return StoreRoleType.owner.toString();
     }
 }
