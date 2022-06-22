@@ -19,10 +19,13 @@ public class StoreRoleToPermissionDTO {
     @Column(name = "store_role_id")
     private long storeRoleId;
     @Column(name = "permission_id")
-    private String PermissionId;
+    private String permissionId;
+
+
 
     public StoreRoleToPermissionDTO(long storeRoleId, String permissionId) {
         this.storeRoleId = storeRoleId;
-        PermissionId = permissionId;
+        this.permissionId = permissionId;
+
     }
 }

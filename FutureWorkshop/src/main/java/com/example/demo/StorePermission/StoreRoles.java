@@ -2,11 +2,11 @@ package com.example.demo.StorePermission;
 
 
 import com.example.demo.Database.DTOobjects.Store.Permissions.StoreRoleDTO;
-import com.example.demo.Database.DTOobjects.Store.Permissions.StoreRoleToPermissionDTO;
 import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.GlobalSystemServices.IdGenerator;
 
 import javax.naming.NoPermissionException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,8 +26,8 @@ public abstract class  StoreRoles {
         return userId;
     }
 
-    public abstract StoreOwnerRole createOwner(String userId, List<Permission> givePerm) throws NoPermissionException;
-    public abstract StoreManager createManager(String userId) throws NoPermissionException;
+    public abstract StoreOwnerRole createOwner(String userId, List<Permission> givePerm, String storeId, DatabaseService databaseService) throws NoPermissionException, SQLException;
+    public abstract StoreManager createManager(String userId, String storeId, DatabaseService databaseService) throws NoPermissionException, SQLException;
 
     public List<Permission> getPermissions(){
         return Collections.unmodifiableList(storePermissions);
@@ -105,8 +105,11 @@ public abstract class  StoreRoles {
 
     public abstract String getTitle();
 
-    public void saveInDb(String StoreId, StoreRoleType storeRoleType, DatabaseService databaseService){
+    public void saveInDb(String StoreId, StoreRoleType storeRoleType, DatabaseService databaseService, List<Permission> permissions) throws SQLException {
         StoreRoleDTO storeRoleDTO = new StoreRoleDTO(userId,StoreId,storeRoleType.toString());
         databaseService.saveStoreRole(storeRoleDTO);
+        Long storeRoleId = databaseService.getStoreRole(userId,StoreId).getId();
+        databaseService.saveStoreRolePermission(storeRoleId,permissions);
     }
+
 }

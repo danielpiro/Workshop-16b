@@ -34,6 +34,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.naming.NoPermissionException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +50,7 @@ public class Real   {
 
 
 
-    public Real(DatabaseService databaseService) throws IOException, SupplyManagementException, NoPermissionException, UserException, InterruptedException {
+    public Real(DatabaseService databaseService) throws IOException, SupplyManagementException, NoPermissionException, UserException, InterruptedException, SQLException, NotifyException {
         bigController = new BigController(databaseService);
         NotificationManager.ForTestsOnlyBuildNotificationManager(new NotificationReceiver() {
             @Override
@@ -439,7 +440,7 @@ public class Real   {
             bigController.createOwner(storeId, userIdGiving,UserGettingPermissionId,s);
             return true;
         }
-        catch (NoPermissionException | UserException | NotifyException  |IllegalArgumentException e) {
+        catch (NoPermissionException | UserException | NotifyException | IllegalArgumentException | SQLException e) {
             e.printStackTrace();
             return false;
         }
@@ -451,7 +452,7 @@ public class Real   {
             bigController.createManager(storeId, userIdGiving, UserGettingPermissionId);
             return true;
         }
-        catch (NoPermissionException | UserException | NotifyException | IllegalArgumentException e) {
+        catch (NoPermissionException | UserException | NotifyException | IllegalArgumentException | SQLException e) {
             e.printStackTrace();
             return false;
         }

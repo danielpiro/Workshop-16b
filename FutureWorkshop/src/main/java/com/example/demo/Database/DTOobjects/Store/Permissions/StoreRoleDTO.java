@@ -22,14 +22,14 @@ public class StoreRoleDTO {
     private String userId ;
 
     @Column(name="store_id")
-    private String StoreId ;
+    private String storeId ;
 
     private String type;
 
 
     public StoreRoleDTO(String userId, String storeId, String type) {
         this.userId = userId;
-        StoreId = storeId;
+        this.storeId = storeId;
         this.type = type;
     }
 }

@@ -4,21 +4,27 @@ import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.Database.DTOobjects.Cart.ShoppingBasketDTO;
 import com.example.demo.Database.DTOobjects.History.HistoryDTO;
 import com.example.demo.Database.DTOobjects.Store.Permissions.StoreRoleDTO;
+import com.example.demo.Database.DTOobjects.Store.Permissions.StoreRoleToPermissionDTO;
 import com.example.demo.Database.DTOobjects.Store.ProductDTO;
 import com.example.demo.Database.DTOobjects.Store.ReviewDTO;
 import com.example.demo.Database.DTOobjects.User.UserDTO;
 import com.example.demo.Database.Repositories.*;
 import com.example.demo.Database.Repositories.Permission.StoreRoleRepository;
+import com.example.demo.Database.Repositories.Permission.StoreRoleToPermissionRepository;
 import com.example.demo.History.History;
 import com.example.demo.ShoppingCart.ShoppingBasket;
 import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.Review;
+import com.example.demo.StorePermission.Permission;
+import com.example.demo.StorePermission.StoreRoles;
 import com.example.demo.User.Subscriber;
+import org.hibernate.loader.custom.sql.SQLQueryParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.sql.SQLException;
 import java.util.*;
 
 
@@ -44,6 +50,9 @@ public class DatabaseService {
 
     @Autowired
     private StoreRoleRepository storeRoleRepository;
+
+    @Autowired
+    private StoreRoleToPermissionRepository storeRoleToPermissionRepository;
 
     public DatabaseService(){
         super();
@@ -176,6 +185,29 @@ public class DatabaseService {
 
 
     public void saveStoreRole(StoreRoleDTO storeRoleDTO) {
-        storeRoleRepository.saveAndFlush(storeRoleDTO);
+        Optional<StoreRoleDTO> storeRoleDTOOptional = storeRoleRepository.findByUserIdAndStoreId(storeRoleDTO.getUserId(),storeRoleDTO.getStoreId());
+        if(storeRoleDTOOptional.isEmpty()) {
+            storeRoleRepository.saveAndFlush(storeRoleDTO);
+        }
     }
+    public StoreRoleDTO getStoreRole(String userId, String storeId) throws SQLException {
+        Optional<StoreRoleDTO> storeRoleDTOOptional = storeRoleRepository.findByUserIdAndStoreId(userId,storeId);
+        if(storeRoleDTOOptional.isPresent()){
+            return storeRoleDTOOptional.get();
+        }
+        throw new SQLException("no StoreRole with this data");
+    }
+    @Transactional
+    public void saveStoreRolePermission(Long storeRoleId, List<Permission> permissions) {
+        for (Permission p : permissions) {
+            Optional<StoreRoleToPermissionDTO> storeRoleToPermissionDTOOptional = storeRoleToPermissionRepository.findByPermissionIdAndStoreRoleId(p.toString(),storeRoleId);
+            if(storeRoleToPermissionDTOOptional.isEmpty()) {
+                StoreRoleToPermissionDTO storeRoleToPermissionDTO = new StoreRoleToPermissionDTO(storeRoleId, p.toString());
+                storeRoleToPermissionRepository.saveAndFlush(storeRoleToPermissionDTO);
+            }
+        }
+
+    }
+
+
 }

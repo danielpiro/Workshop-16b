@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.naming.NoPermissionException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -59,7 +60,7 @@ public class ApiExceptionHandler {
         return rv;
     }
 
-    @ExceptionHandler(value = { JsonProcessingException.class })
+    @ExceptionHandler(value = { JsonProcessingException.class , SQLException.class})
     public ReturnValue handleInternalProblem (Exception e){
         e.printStackTrace();
         ReturnValue rv = new ReturnValue(

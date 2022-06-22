@@ -24,6 +24,7 @@ import com.example.demo.StorePermission.StoreRoleType;
 import com.example.demo.StorePermission.StoreRoles;
 
 import javax.naming.NoPermissionException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -45,7 +46,8 @@ public class Store implements getStoreInfo {
     private DatabaseService databaseService;
 
 
-    public Store(String storeName, String storeId, List<String> storeOriginalManager, DatabaseService databaseService) {
+    public Store(String storeName, String storeId, List<String> storeOriginalManager, DatabaseService databaseService) throws SQLException {
+        this.databaseService = databaseService;
         this.storeName = storeName;
         this.storeId = storeId;
         StoreRoles = new ArrayList<>();
@@ -53,7 +55,7 @@ public class Store implements getStoreInfo {
                 storeOriginalManager) {
             OriginalStoreOwnerRole originalStoreOwnerRole = new OriginalStoreOwnerRole(userId);
             StoreRoles.add(originalStoreOwnerRole);
-            originalStoreOwnerRole.saveInDb(storeId, StoreRoleType.original_owner,databaseService);
+            originalStoreOwnerRole.saveInDb(storeId, StoreRoleType.original_owner,databaseService,originalStoreOwnerRole.getPermissions());
         }
         inventoryManager = new InventoryManager();
         forum =new Forum();
@@ -75,7 +77,7 @@ public class Store implements getStoreInfo {
         }
     }
 
-    public void createManager(String userIdGiving, String UserGettingPermission) throws NoPermissionException, NotifyException, UserException {
+    public void createManager(String userIdGiving, String UserGettingPermission) throws NoPermissionException, NotifyException, UserException, SQLException {
         synchronized (StoreRoles) {
             for (StoreRoles roleUser : StoreRoles) {
                 if (roleUser.getUserId().equals(UserGettingPermission)) {
@@ -84,7 +86,7 @@ public class Store implements getStoreInfo {
             }
             for (StoreRoles roleUser : StoreRoles) {
                 if (roleUser.getUserId().equals(userIdGiving)) {
-                    StoreRoles newRole = roleUser.createManager(UserGettingPermission);
+                    StoreRoles newRole = roleUser.createManager(UserGettingPermission,storeId,databaseService);
                     StoreRoles.add(newRole);
                     StoreNotification sn = new StoreNotification(this,NotificationSubject.StoreAppointment,"you got manager role",userIdGiving+" made you manager in store name:"+storeName+" store Id"+storeId);
                     NotificationManager.getNotificationManager().sendNotificationTo(UserGettingPermission,sn);
@@ -94,7 +96,7 @@ public class Store implements getStoreInfo {
             throw new NoPermissionException("the user is not manager/owner");
         }
     }
-    public void createOwner(String userIdGiving, String UserGettingPermission, List<Permission> permissions) throws NoPermissionException, NotifyException, UserException {
+    public void createOwner(String userIdGiving, String UserGettingPermission, List<Permission> permissions) throws NoPermissionException, NotifyException, UserException, SQLException {
         synchronized (StoreRoles) {
             for (StoreRoles roleUser : StoreRoles) {
                 if (roleUser.getUserId().equals(UserGettingPermission)) {
@@ -103,7 +105,7 @@ public class Store implements getStoreInfo {
             }
             for (StoreRoles roleUser : StoreRoles) {
                 if (roleUser.getUserId().equals(userIdGiving)) {
-                    StoreRoles newRole = roleUser.createOwner(UserGettingPermission, permissions);
+                    StoreRoles newRole = roleUser.createOwner(UserGettingPermission, permissions,storeId,databaseService);
                     StoreRoles.add(newRole);
                     StoreNotification sn = new StoreNotification(this,NotificationSubject.StoreAppointment,"you got owner role",userIdGiving+" made you owner in store name:"+storeName+" store Id"+storeId);
                     NotificationManager.getNotificationManager().sendNotificationTo(UserGettingPermission,sn);

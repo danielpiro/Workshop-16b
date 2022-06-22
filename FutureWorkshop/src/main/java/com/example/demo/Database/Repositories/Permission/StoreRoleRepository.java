@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import javax.transaction.Transactional;
 import java.util.Optional;
 
-public interface StoreRoleRepository extends JpaRepository<StoreRoleDTO,String> {
+public interface StoreRoleRepository extends JpaRepository<StoreRoleDTO,Long> {
 
 
   @Transactional
@@ -20,6 +20,12 @@ public interface StoreRoleRepository extends JpaRepository<StoreRoleDTO,String> 
   @Modifying
   @Query
   Optional<StoreRoleDTO> findById(String Id);
+
+
+
+  Optional<StoreRoleDTO> findByUserIdAndStoreId(String userId, String storeId);
+
+
 
 
 }

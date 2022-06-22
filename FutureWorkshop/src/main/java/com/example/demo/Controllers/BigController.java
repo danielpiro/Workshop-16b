@@ -20,9 +20,7 @@ import com.example.demo.ExternalConnections.Payment.PaymentNames;
 import com.example.demo.ExternalConnections.Payment.Visa;
 import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.History.History;
-import com.example.demo.NotificationsManagement.ComplaintNotification;
-import com.example.demo.NotificationsManagement.NotificationManager;
-import com.example.demo.NotificationsManagement.NotificationSubject;
+import com.example.demo.NotificationsManagement.*;
 import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
@@ -53,6 +51,7 @@ import javax.naming.NoPermissionException;
 import javax.transaction.NotSupportedException;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -79,13 +78,19 @@ public class BigController {
 //    }
 
     @Autowired
-    public BigController(DatabaseService databaseService) throws IOException, UserException, NoPermissionException, SupplyManagementException, InterruptedException {
+    public BigController(DatabaseService databaseService) throws IOException, UserException, NoPermissionException, SupplyManagementException, InterruptedException, SQLException, NotifyException {
         this.us = new UserController();
         this.sc = new StoreController();
         this.databaseService = databaseService;
         this.policyBuilder = new PolicyBuilder();
         initiateExternalConnections();
-        NotificationManager.buildNotificationManager(us);
+        //NotificationManager.buildNotificationManager(us);
+        NotificationManager.ForTestsOnlyBuildNotificationManager(new NotificationReceiver() {
+            @Override
+            public void sendNotificationTo(List<String> userIds, StoreNotification storeNotification) throws UserException, UserException {}
+            @Override
+            public void sendComplaintToAdmins(String senderId, ComplaintNotification complaintNotification) throws UserException {}
+        });//todo delete this  !!!for testing only!!!
         initializeSystem();
         my_log.info("System Started");
 
@@ -353,7 +358,7 @@ public class BigController {
 
     @PostMapping("/store/open")
     public ReturnValue openNewStore(@RequestParam String userId,
-                                    @RequestParam String storeName) throws NoPermissionException, UserException {
+                                    @RequestParam String storeName) throws NoPermissionException, UserException, SQLException {
         userExistsAndLoggedIn(userId);
         List<String> managers = new ArrayList<>();
         managers.add(userId);
@@ -559,7 +564,7 @@ public class BigController {
     }
 
     @PostMapping(value = "/owner/create")
-    public ReturnValue createOwner(@RequestParam String storeId, @RequestParam String userIdGiving, @RequestParam String UserGettingPermissionId, @RequestParam String permissions) throws NoPermissionException, UserException, NotifyException {
+    public ReturnValue createOwner(@RequestParam String storeId, @RequestParam String userIdGiving, @RequestParam String UserGettingPermissionId, @RequestParam String permissions) throws NoPermissionException, UserException, NotifyException, SQLException {
         if (getUserController().checkIfUserExists(userIdGiving) && getUserController().checkIfUserExists(UserGettingPermissionId.trim()) && getUserController().checkIfUserIsLoggedIn(userIdGiving)) {
             List<Permission> finalPermissions = new ArrayList<>();
             List<String> permissionsList = Arrays.asList(permissions.split(","));
@@ -576,7 +581,7 @@ public class BigController {
     }
 
     @PostMapping("/manager")
-    public ReturnValue createManager(@RequestParam String storeId, @RequestParam String userIdGiving, @RequestParam String UserGettingPermissionId) throws NoPermissionException, UserException, NotifyException {
+    public ReturnValue createManager(@RequestParam String storeId, @RequestParam String userIdGiving, @RequestParam String UserGettingPermissionId) throws NoPermissionException, UserException, NotifyException, SQLException {
         if (getUserController().checkIfUserExists(userIdGiving) && getUserController().checkIfUserExists(UserGettingPermissionId) && getUserController().checkIfUserIsLoggedIn(userIdGiving)) {
             getStoreController().createManager(storeId, userIdGiving, UserGettingPermissionId);
         } else
@@ -607,12 +612,13 @@ public class BigController {
      * @param usersIds - create stores for users and add products for them
      * @return stores ids
      */
-    private List<String> initializeStores(List<String> usersIds) throws NoPermissionException, SupplyManagementException {
+    private List<String> initializeStores(List<String> usersIds) throws NoPermissionException, SupplyManagementException, SQLException, UserException, NotifyException {
         List<String> output = new ArrayList<>();
+        String owner = usersIds.get(usersIds.size()-1);
         for (String userId : usersIds) {
-            List<String> owner = new ArrayList<>();
-            owner.add(userId);
-            String StoreId = sc.openNewStore(userId + " store", owner, databaseService);
+            List<String> originalOwner = new ArrayList<>();
+            originalOwner.add(userId);
+            String StoreId = sc.openNewStore(userId + " store", originalOwner, databaseService);
             sc.addNewProduct(StoreId, userId, "p1", 1, 1, ProductsCategories.Apps$Games.toString());
             sc.addNewProduct(StoreId, userId, "p2", 2, 2, ProductsCategories.Appliances.toString());
             sc.addNewProduct(StoreId, userId, "p3", 3, 3, ProductsCategories.Other.toString());
@@ -621,6 +627,10 @@ public class BigController {
             History.getInstance().insertRecord(userId, StoreId, "p1-forTest", 1, 2, LocalDateTime.now());
             //addPolicyToStore(userId, StoreId);
             output.add(StoreId);
+            Permission[] permissions = {Permission.REMOVE_PRODUCT,Permission.REPLY_TO_FORUM};
+            sc.createOwner(StoreId,userId,owner,Arrays.asList(permissions));
+            //sc.createManager(StoreId,userId,owner);
+            owner = userId;
         }
         return output;
     }
@@ -654,7 +664,7 @@ public class BigController {
     }
 
     @PutMapping("/initializeSystem")
-    public ReturnValue initializeSystem() throws UserException, SupplyManagementException, NoPermissionException, InterruptedException {
+    public ReturnValue initializeSystem() throws UserException, SupplyManagementException, NoPermissionException, InterruptedException, SQLException, NotifyException {
         List<String> users = initializeUsers();
         initializeStores(users);
         initializeUsersLogoutAll();

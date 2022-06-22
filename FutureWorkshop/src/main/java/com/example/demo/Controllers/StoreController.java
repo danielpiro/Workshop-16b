@@ -19,6 +19,7 @@ import com.example.demo.StorePermission.StoreRoles;
 
 import javax.naming.NoPermissionException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +40,7 @@ public class StoreController {
         stores = new ConcurrentHashMap<String, Store>();
     }
 
-    public String openNewStore(String name, List<String> owners, DatabaseService databaseService) throws NoPermissionException {
+    public String openNewStore(String name, List<String> owners, DatabaseService databaseService) throws NoPermissionException, SQLException {
 
         if (owners.stream().anyMatch(this::checkIfGuest)) {
             Log.getLogger().warning("guest cant open new store");
@@ -132,12 +133,12 @@ public class StoreController {
         Store relevantStore = stores.get(storeId);
         relevantStore.removeSomePermissions(userIdRemoving,UserAffectedId, PerToRemove);
     }
-    public void createOwner(String storeId, String userIdGiving, String UserGettingPermissionId, List<Permission> permissions) throws NoPermissionException, UserException, NotifyException {
+    public void createOwner(String storeId, String userIdGiving, String UserGettingPermissionId, List<Permission> permissions) throws NoPermissionException, UserException, NotifyException, SQLException {
         Store relevantStore = stores.get(storeId);
         relevantStore.createOwner(userIdGiving, UserGettingPermissionId, permissions);
         Log.getLogger().info("new owner created, userId: "+UserGettingPermissionId+" by: "+userIdGiving+" in store:"+ storeId);
     }
-    public void createManager(String storeId, String userIdGiving, String UserGettingPermissionId) throws NoPermissionException, UserException, NotifyException {
+    public void createManager(String storeId, String userIdGiving, String UserGettingPermissionId) throws NoPermissionException, UserException, NotifyException, SQLException {
         Store relevantStore = stores.get(storeId);
         relevantStore.createManager(userIdGiving, UserGettingPermissionId);
         Log.getLogger().info("new owner created, userId: "+UserGettingPermissionId+" by: "+userIdGiving+" in store:"+ storeId);

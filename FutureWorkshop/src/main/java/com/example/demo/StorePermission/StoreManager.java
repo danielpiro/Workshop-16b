@@ -1,5 +1,7 @@
 package com.example.demo.StorePermission;
 
+import com.example.demo.Database.Service.DatabaseService;
+
 import javax.naming.NoPermissionException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +15,12 @@ public class StoreManager extends StoreRoles {
     }
 
     @Override
-    public StoreOwnerRole createOwner(String userId, List<Permission> givePerm) throws NoPermissionException {
+    public StoreOwnerRole createOwner(String userId, List<Permission> givePerm, String storeId, DatabaseService databaseService) throws NoPermissionException {
         throw new NoPermissionException("manager cant give permissions");
     }
 
     @Override
-    public StoreManager createManager(String userId) throws NoPermissionException {
+    public StoreManager createManager(String userId, String storeId, DatabaseService databaseService) throws NoPermissionException {
         throw new NoPermissionException("manager cant give permissions");
     }
 

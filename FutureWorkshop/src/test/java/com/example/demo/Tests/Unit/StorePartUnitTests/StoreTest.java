@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.naming.NoPermissionException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -43,7 +44,7 @@ class StoreTest {
 
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws SQLException {
         List<String> originalOwner = new LinkedList<>();
         originalOwner.add(userId1);
         store1 =new Store("store1", "s1Id", originalOwner, databaseService);
@@ -92,7 +93,7 @@ class StoreTest {
                 e.printStackTrace();
             }
 
-        } catch (NoPermissionException | NotifyException | UserException e) {
+        } catch (NoPermissionException | NotifyException | UserException | SQLException e) {
             e.printStackTrace();
             fail();
         }
@@ -104,7 +105,7 @@ class StoreTest {
         try {
             store1.createOwner(userId2, userId3, new ArrayList<>());
             fail();
-        } catch (NoPermissionException | NotifyException | UserException e) {
+        } catch (NoPermissionException | NotifyException | UserException | SQLException e) {
             e.printStackTrace();
         }
     }
@@ -113,7 +114,7 @@ class StoreTest {
         try {
             store1.createOwner(userId1, userId1, new ArrayList<>());
             fail();
-        } catch (NoPermissionException | NotifyException | UserException e) {
+        } catch (NoPermissionException | NotifyException | UserException | SQLException e) {
             e.printStackTrace();
         }
     }
@@ -155,7 +156,7 @@ class StoreTest {
             }
 
 
-        } catch (NoPermissionException | SupplyManagementException | NotifyException | UserException e) {
+        } catch (NoPermissionException | SupplyManagementException | NotifyException | UserException | SQLException e) {
             e.printStackTrace();
             fail();
         }

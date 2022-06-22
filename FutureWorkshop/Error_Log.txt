@@ -9697,3 +9697,5 @@ Jun 22, 2022 12:47:10 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
 Jun 22, 2022 12:47:10 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
+Jun 22, 2022 1:14:44 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: cant delete, no Policy with this Id
