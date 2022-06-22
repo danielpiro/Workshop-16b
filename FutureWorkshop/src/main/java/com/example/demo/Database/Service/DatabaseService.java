@@ -8,20 +8,20 @@ import com.example.demo.Database.DTOobjects.Store.Permissions.StoreRoleToPermiss
 import com.example.demo.Database.DTOobjects.Store.Permissions.StoreRoleToStoreRoleDTO;
 import com.example.demo.Database.DTOobjects.Store.ProductDTO;
 import com.example.demo.Database.DTOobjects.Store.ReviewDTO;
+import com.example.demo.Database.DTOobjects.Store.StoreDTO;
 import com.example.demo.Database.DTOobjects.User.UserDTO;
 import com.example.demo.Database.Repositories.*;
-import com.example.demo.Database.Repositories.Permission.StoreRoleRepository;
-import com.example.demo.Database.Repositories.Permission.StoreRoleToPermissionRepository;
-import com.example.demo.Database.Repositories.Permission.StoreRoleToStoreRoleRepository;
-import com.example.demo.History.History;
+
+import com.example.demo.Database.Repositories.Store.Permission.StoreRoleRepository;
+import com.example.demo.Database.Repositories.Store.Permission.StoreRoleToPermissionRepository;
+import com.example.demo.Database.Repositories.Store.Permission.StoreRoleToStoreRoleRepository;
+import com.example.demo.Database.Repositories.Store.StoreRepository;
 import com.example.demo.ShoppingCart.ShoppingBasket;
 import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.Review;
 import com.example.demo.StorePermission.Permission;
-import com.example.demo.StorePermission.StoreRoles;
 import com.example.demo.User.Subscriber;
-import org.hibernate.loader.custom.sql.SQLQueryParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,6 +58,8 @@ public class DatabaseService {
 
     @Autowired
     private StoreRoleToStoreRoleRepository storeRoleToStoreRoleRepository;
+    @Autowired
+    private StoreRepository storeRepository;
     public DatabaseService(){
         super();
     }
@@ -212,8 +214,8 @@ public class DatabaseService {
         }
 
     }
-    @Transactional
-    public void saveStoreRolePermissionAndSaveStoreRole
+
+    private void saveStoreRolePermissionAndSaveStoreRole
             (StoreRoleDTO storeRoleDTO, List<Permission> permissions) throws SQLException {
         saveStoreRole(storeRoleDTO);
         Long storeRoleId = getStoreRole(storeRoleDTO.getUserId(),storeRoleDTO.getStoreId()).getId();
@@ -235,6 +237,17 @@ public class DatabaseService {
             StoreRoleToStoreRoleDTO storeRoleToStoreRoleDTO = new StoreRoleToStoreRoleDTO(userGiving,userGetting);
             storeRoleToStoreRoleRepository.saveAndFlush(storeRoleToStoreRoleDTO);
         }
+    }
+
+
+
+    @Transactional
+    public void saveStore(StoreDTO storeDTO,HashMap<StoreRoleDTO, List<Permission>> storeRoleDTOListHashMap) throws SQLException {
+        storeRepository.saveAndFlush(storeDTO);
+        for(Map.Entry<StoreRoleDTO, List<Permission>> entry:storeRoleDTOListHashMap.entrySet()){
+            saveStoreRolePermissionAndSaveStoreRole(entry.getKey(),entry.getValue());
+        }
+
     }
 
 

@@ -2,7 +2,6 @@ package com.example.demo.StorePermission;
 
 
 import com.example.demo.Database.DTOobjects.Store.Permissions.StoreRoleDTO;
-import com.example.demo.Database.Repositories.Permission.StoreRoleRepository;
 import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.GlobalSystemServices.IdGenerator;
 
@@ -110,9 +109,9 @@ public abstract class  StoreRoles {
         StoreRoleDTO storeRoleDTO = new StoreRoleDTO(userId,StoreId,storeRoleType.toString());
         databaseService.saveStoreRolePermissionAndSaveStoreRoleToStoreRoleAndSaveStoreRole(storeRoleDTO,permissions,userIdCreatedMe);
     }
-    public void saveInDb(String StoreId, StoreRoleType storeRoleType, DatabaseService databaseService, List<Permission> permissions) throws SQLException {
-        StoreRoleDTO storeRoleDTO = new StoreRoleDTO(userId,StoreId,storeRoleType.toString());
-        databaseService.saveStoreRolePermissionAndSaveStoreRole(storeRoleDTO,permissions);
-    }
+//    public void saveInDb(String StoreId, StoreRoleType storeRoleType, DatabaseService databaseService, List<Permission> permissions) throws SQLException {
+//        StoreRoleDTO storeRoleDTO = new StoreRoleDTO(userId,StoreId,storeRoleType.toString());
+//        databaseService.saveStoreRolePermissionAndSaveStoreRole(storeRoleDTO,permissions);
+//    }
 
 }

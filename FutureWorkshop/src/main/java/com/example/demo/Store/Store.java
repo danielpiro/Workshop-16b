@@ -5,6 +5,8 @@ package com.example.demo.Store;
 import com.example.demo.CustomExceptions.Exception.NotifyException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
+import com.example.demo.Database.DTOobjects.Store.Permissions.StoreRoleDTO;
+import com.example.demo.Database.DTOobjects.Store.StoreDTO;
 import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.History.History;
@@ -27,6 +29,7 @@ import javax.naming.NoPermissionException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,17 +52,24 @@ public class Store implements getStoreInfo {
         this.storeName = storeName;
         this.storeId = storeId;
         StoreRoles = new ArrayList<>();
-        for (String userId :
-                storeOriginalManager) {
+        HashMap<StoreRoleDTO, List<Permission>> storeRoleDTOListHashMap = new HashMap<>();
+        for (String userId : storeOriginalManager) {
             OriginalStoreOwnerRole originalStoreOwnerRole = new OriginalStoreOwnerRole(userId);
             StoreRoles.add(originalStoreOwnerRole);
-            originalStoreOwnerRole.saveInDb(storeId, StoreRoleType.original_owner,databaseService,originalStoreOwnerRole.getPermissions());
+
+            StoreRoleDTO storeRoleDTO = new StoreRoleDTO(userId,storeId,StoreRoleType.original_owner.toString());
+            storeRoleDTOListHashMap.put(storeRoleDTO,originalStoreOwnerRole.getPermissions());
+            //originalStoreOwnerRole.saveInDb(storeId, StoreRoleType.original_owner,databaseService,originalStoreOwnerRole.getPermissions());
         }
         inventoryManager = new InventoryManager();
         forum =new Forum();
         storeState = StoreState.ACTIVE;
         storeRating = 0F;
-
+        saveStore(storeRoleDTOListHashMap);
+    }
+    private void saveStore(HashMap<StoreRoleDTO, List<Permission>> storeRoleDTOListHashMap) throws SQLException {
+        StoreDTO storeDTO = new StoreDTO(storeId,storeName,storeState.toString(),storeRating);
+        databaseService.saveStore(storeDTO,storeRoleDTOListHashMap);
     }
 
 

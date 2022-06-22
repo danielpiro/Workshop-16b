@@ -6,6 +6,6 @@ import com.example.demo.Store.StorePurchase.PurchasableProduct;
 
 import java.util.List;
 
-public abstract interface DiscountPredicate extends Predicate {
+public  interface DiscountPredicate extends Predicate {
     boolean predicateStandsForProduct(PurchasableProduct ProductAmount);
 }

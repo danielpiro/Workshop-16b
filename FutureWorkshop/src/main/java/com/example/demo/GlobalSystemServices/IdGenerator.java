@@ -6,45 +6,39 @@ public class IdGenerator {
 
 
     private String productPrefix = "ProductID_";
-    private Long productSuffix;
+    private Long productSuffix = 0L;
 
     private String storePrefix = "StoreID_";
-    private Long storeSuffix;
+    private Long storeSuffix= 0L;
 
     private String ForumThreadPrefix = "ForumThreadID_";
-    private Long ForumThreadSuffix;
+    private Long ForumThreadSuffix= 0L;
 
     private String GuestPrefix = "GuestID_";
-    private Long GuestSuffix;
+    private Long GuestSuffix= 0L;
 
     private String AdminPrefix = "AdminID_";
-    private Long AdminSuffix;
+    private Long AdminSuffix= 0L;
 
     private String PolicyPrefix = "PolicyID_";
-    private Long PolicySuffix;
+    private Long PolicySuffix= 0L;
 
     private String DiscountPrefix = "DiscountID_";
-    private Long DiscountSuffix;
-    private int complaintNotificationId;
-    private int storeNotificationId;
+    private Long DiscountSuffix= 0L;
+    private String PredicatePrefix = "PredicateID_";
+    private Long PredicateSuffix= 0L;
+    private int complaintNotificationId = 0;;
+    private int storeNotificationId = 0;
 
-    private long PurchaseIDSuffix;
     private String PurchaseIDPrefix = "PurchaseID_";
+    private long PurchaseIDSuffix = 0L;
+
 
     private IdGenerator(){
-        productSuffix = 0L;
-        storeSuffix = 0L;
-        ForumThreadSuffix = 0L;
-        GuestSuffix = 0L;
-        AdminSuffix = 0L;
-        PolicySuffix = 0L;
-        complaintNotificationId =0;
-        storeNotificationId=0;
-        DiscountSuffix = 0L;
-        PurchaseIDSuffix = 0L;
+
     }
 
-    private IdGenerator(Long productSuffix, Long storeSuffix, Long ForumThreadSuffix, Long guestSuffix, Long AdminSuffix, Long PolicySuffix, Long discountSuffix,long PurchaseIDSuffix) {
+    private IdGenerator(Long productSuffix, Long storeSuffix, Long ForumThreadSuffix, Long guestSuffix, Long AdminSuffix, Long PolicySuffix, Long discountSuffix,long PurchaseIDSuffix, Long PredicateSuffix) {
         this.productSuffix = productSuffix;
         this.storeSuffix = storeSuffix;
         this.ForumThreadSuffix = ForumThreadSuffix;
@@ -53,6 +47,7 @@ public class IdGenerator {
         this.PolicySuffix = PolicySuffix;
         this.DiscountSuffix = discountSuffix;
         this.PurchaseIDSuffix = PurchaseIDSuffix;
+        this.PredicateSuffix = PredicateSuffix;
     }
 
     public static IdGenerator getInstance()
@@ -61,10 +56,10 @@ public class IdGenerator {
             single_instance = new IdGenerator();
         return single_instance;
     }
-    public static IdGenerator getInstance(Long productSuffix, Long storeSuffix, Long ForumThreadSuffix, Long guestSuffix , Long AdminSuffix, Long PolicySuffix, Long discountSuffix,long PurchaseIDSuffix)
+    public static IdGenerator getInstance(Long productSuffix, Long storeSuffix, Long ForumThreadSuffix, Long guestSuffix , Long AdminSuffix, Long PolicySuffix, Long discountSuffix,long PurchaseIDSuffix,Long PredicateSuffix)
     {
         if (single_instance == null)
-            single_instance = new IdGenerator(productSuffix, storeSuffix, ForumThreadSuffix, guestSuffix, AdminSuffix, PolicySuffix, discountSuffix,PurchaseIDSuffix);
+            single_instance = new IdGenerator(productSuffix, storeSuffix, ForumThreadSuffix, guestSuffix, AdminSuffix, PolicySuffix, discountSuffix,PurchaseIDSuffix,PredicateSuffix);
         return single_instance;
     }
 
@@ -117,6 +112,10 @@ public class IdGenerator {
     public String getPurchaseID() {
         PurchaseIDSuffix++;
         return PurchaseIDPrefix+(PurchaseIDSuffix -1);
+    }
+    public String getPredicateID() {
+        PredicateSuffix++;
+        return PredicatePrefix+(PredicateSuffix -1);
     }
     public boolean checkIfAdmin(String userId){
         return userId.startsWith("AdminID_");
