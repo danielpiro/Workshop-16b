@@ -47,7 +47,8 @@ public class Real   {
 
 
 
-    public Real() throws IOException {
+    public Real() throws IOException, InterruptedException, NoPermissionException, UserException, SupplyManagementException {
+
         NotificationManager.buildNotificationManager(new NotificationReceiver() {
             @Override
             public void sendNotificationTo(List<String> userIds, StoreNotification storeNotification) throws UserException, UserException {
@@ -102,6 +103,7 @@ public class Real   {
         try {
             DatabaseService db= new DatabaseService();
             this.bigController = new BigController(db);
+            bigController.setWithDatabase(false);
             return "system opened successfully";
         }
         catch (Exception e){

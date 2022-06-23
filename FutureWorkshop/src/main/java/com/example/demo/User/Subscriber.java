@@ -5,6 +5,7 @@ import com.example.demo.Controllers.NotificationController;
 import com.example.demo.Controllers.model.realTimeNotification;
 import com.example.demo.NotificationsManagement.ComplaintNotification;
 import com.example.demo.NotificationsManagement.StoreNotification;
+import com.example.demo.ShoppingCart.ShoppingCart;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -22,6 +23,15 @@ public class Subscriber extends User {
 
     public Subscriber(String user_name, String password) {
         super(user_name);
+        this.password = password;
+        this.name = user_name;
+        Queries = new ArrayList<>();
+        lock = new Object();
+        storeNotifications = new ArrayList<>();
+        complaintNotifications = new ArrayList<>();
+    }
+    public Subscriber(String user_name, String password, ShoppingCart shoppingCart) {
+        super(user_name,shoppingCart);
         this.password = password;
         this.name = user_name;
         Queries = new ArrayList<>();

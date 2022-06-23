@@ -79,6 +79,7 @@ public class AcceptanceTests {
     @BeforeEach
     void setUp() throws Exception {
         proxy = new Real();
+
         proxy.openingMarket();
 
 
