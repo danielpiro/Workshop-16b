@@ -31,7 +31,7 @@ public class ExternalSupplyService implements SupplyService {
     public boolean cancel_supply(String transaction_id) throws Exception{
 
         String response = HTTPPostClient.send(
-                HTTPPostClient.makeCancelPayParams(transaction_id)
+                HTTPPostClient.makeCancelSupplyParams(transaction_id)
         );
 
         return !response.equals("-1");
