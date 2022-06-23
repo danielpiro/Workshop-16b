@@ -24,7 +24,7 @@ const Card = ({ value, title, price, quantity, category, storeId }) => {
         obj,
         {
           headers: {
-            Auth: cookies.session,
+            Authorization: cookies.session,
           },
         }
       )

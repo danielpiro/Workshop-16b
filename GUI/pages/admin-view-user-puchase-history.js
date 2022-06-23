@@ -23,7 +23,7 @@ const AdminViewUserPurchase = () => {
       await api
         .get(`/history/user/?userId=${searchValue}`, {
           headers: {
-            Auth: cookies.session,
+            Authorization: cookies.session,
           },
         })
         .then((res) => {

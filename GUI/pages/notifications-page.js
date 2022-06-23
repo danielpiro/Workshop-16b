@@ -18,7 +18,7 @@ const notificationPage = () => {
     return await api
       .get(`/notification/complaint/?userId=${cookies.userId}`, {
         headers: {
-          Auth: cookies.session,
+          Authorization: cookies.session,
         },
       })
       .then((res) => {

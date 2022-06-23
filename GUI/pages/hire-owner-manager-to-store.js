@@ -106,7 +106,7 @@ const HireOwnerToStore = () => {
       return await api
         .get(`store/owner/permmitions?userId=${cookies.userId}`, {
           headers: {
-            Auth: cookies.session,
+            Authorization: cookies.session,
           },
         })
         .then((res) => {
@@ -132,7 +132,7 @@ const HireOwnerToStore = () => {
           return await api
             .get(`store/manager/permmitions?userId=${cookies.userId}`, {
               headers: {
-                Auth: cookies.session,
+                Authorization: cookies.session,
               },
             })
             .then((res) => {
@@ -230,7 +230,7 @@ const HireOwnerToStore = () => {
             null,
             {
               headers: {
-                Auth: cookies.session,
+                Authorization: cookies.session,
               },
             }
           )
@@ -255,7 +255,7 @@ const HireOwnerToStore = () => {
             null,
             {
               headers: {
-                Auth: cookies.session,
+                Authorization: cookies.session,
               },
             }
           )

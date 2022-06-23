@@ -24,7 +24,7 @@ const UnregisterUser = () => {
           null,
           {
             headers: {
-              Auth: cookies.session,
+              Authorization: cookies.session,
             },
           }
         )

@@ -25,12 +25,13 @@ const Stores = () => {
   ]);
 
   useEffect(() => {
+    console.log(cookies);
     setIsLoading(!isLoading);
     const fetchData = async () => {
       return await api
         .get(`store/owner/permmitions?userId=${cookies.userId}`, {
           headers: {
-            Auth: cookies.session,
+            Authorization: cookies.session,
           },
         })
         .then((res) => {
@@ -47,7 +48,7 @@ const Stores = () => {
           return await api
             .get(`store/manager/permmitions?userId=${cookies.userId}`, {
               headers: {
-                Auth: cookies.session,
+                Authorization: cookies.session,
               },
             })
             .then((res) => {
@@ -65,7 +66,7 @@ const Stores = () => {
           return await api
             .get(`/store/all/?userId=${cookies.userId}`, {
               headers: {
-                Auth: cookies.session,
+                Authorization: cookies.session,
               },
             })
             .then((res) => {
@@ -86,7 +87,7 @@ const Stores = () => {
               return await api
                 .get(`/store-products/all/?userId=${cookies.userId}`, {
                   headers: {
-                    Auth: cookies.session,
+                    Authorization: cookies.session,
                   },
                 })
                 .then((res) => {

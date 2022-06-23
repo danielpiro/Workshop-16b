@@ -24,7 +24,7 @@ const AssignNewAdmin = () => {
           null,
           {
             headers: {
-              Auth: cookies.session,
+              Authorization: cookies.session,
             },
           }
         )

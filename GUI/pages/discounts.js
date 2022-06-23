@@ -108,6 +108,7 @@ const Discounts = () => {
     "password",
     "userId",
     "type",
+    "session",
   ]);
 
   const onCreateCombinedDiscount = async (e) => {
@@ -120,7 +121,13 @@ const Discounts = () => {
     if (combinationType === "Max") {
       return await api
         .post(
-          `/Discount/NewMaxDiscount?storeId=${storeID}&userId=${cookies.userId}&discountId1=${preds.pred1}&discountId2=${preds.pred2}`
+          `/Discount/NewMaxDiscount?userId=${cookies.userId}&storeId=${storeID}&discountId1=${preds.pred1}&discountId2=${preds.pred2}`,
+          null,
+          {
+            headers: {
+              Authorization: cookies.session,
+            },
+          }
         )
         .then((res) => {
           const { data } = res;
@@ -135,11 +142,17 @@ const Discounts = () => {
             createNotification("error", data.reason)();
           }
         })
-        .catch((err) => createNotification("error", err)());
+        .catch((err) => console.log(err));
     } else if (combinationType === "Addition") {
       return await api
         .post(
-          `/Discount/NewAdditionDiscount?storeId=${storeID}&userId=${cookies.userId}&discountId1=${preds.pred1}&discountId2=${preds.pred2}`
+          `/Discount/NewAdditionDiscount?storeId=${storeID}&userId=${cookies.userId}&discountId1=${preds.pred1}&discountId2=${preds.pred2}`,
+          null,
+          {
+            headers: {
+              Authorization: cookies.session,
+            },
+          }
         )
         .then((res) => {
           const { data } = res;
@@ -154,7 +167,7 @@ const Discounts = () => {
             createNotification("error", data.reason)();
           }
         })
-        .catch((err) => createNotification("error", err)());
+        .catch((err) => console.log(err));
     } else {
       createNotification("error", "Combination type hasn't been chosen")();
     }
@@ -170,7 +183,13 @@ const Discounts = () => {
 
     return await api
       .post(
-        `/Discount/PercentageDiscount?storeId=${storeID}&userId=${cookies.userId}&percentage=${precDiscount1.precentage}&predicateOnProducts=${percentageProductPredicate}`
+        `/Discount/PercentageDiscount?storeId=${storeID}&userId=${cookies.userId}&percentage=${precDiscount1.precentage}&predicateOnProducts=${percentageProductPredicate}`,
+        null,
+        {
+          headers: {
+            Authorization: cookies.session,
+          },
+        }
       )
       .then((res) => {
         console.log(data);
@@ -185,7 +204,7 @@ const Discounts = () => {
           createNotification("error", data.reason)();
         }
       })
-      .catch((err) => createNotification("error", err)());
+      .catch((err) => console.log(err));
   };
 
   const onCreatePrecentageDiscount2 = async (e) => {
@@ -344,7 +363,13 @@ const Discounts = () => {
 
     return await api
       .post(
-        `/Discount/PercentageDiscount?storeId=${storeID}&userId=${cookies.userId}&percentage=${precDiscount2.precentage}&predicateOnProducts=${percentageProductPredicate}`
+        `/Discount/PercentageDiscount?storeId=${storeID}&userId=${cookies.userId}&percentage=${precDiscount2.precentage}&predicateOnProducts=${percentageProductPredicate}`,
+        null,
+        {
+          headers: {
+            Authorization: cookies.session,
+          },
+        }
       )
       .then((res) => {
         const { data } = res;
@@ -359,7 +384,7 @@ const Discounts = () => {
           createNotification("error", data.reason)();
         }
       })
-      .catch((err) => createNotification("error", err)());
+      .catch((err) => console.log(err));
   };
 
   const onCreateConditionalDiscount1 = async (e) => {
@@ -372,7 +397,13 @@ const Discounts = () => {
 
     return await api
       .post(
-        `/Discount/ConditionalPercentageDiscount?storeId=${storeID}&userId=${cookies.userId}&percentage=${condDiscount1.precentage}&predicateOnProducts=${conditionalProductPredicate}`
+        `/Discount/ConditionalPercentageDiscount?storeId=${storeID}&userId=${cookies.userId}&percentage=${condDiscount1.precentage}&predicateOnProducts=${conditionalProductPredicate}`,
+        null,
+        {
+          headers: {
+            Authorization: cookies.session,
+          },
+        }
       )
       .then((res) => {
         const { data } = res;
@@ -387,7 +418,7 @@ const Discounts = () => {
           createNotification("error", data.reason)();
         }
       })
-      .catch((err) => createNotification("error", err)());
+      .catch((err) => console.log(err));
   };
 
   const onCreateConditionalDiscount2 = async (e) => {
@@ -400,7 +431,13 @@ const Discounts = () => {
 
     return await api
       .post(
-        `/Discount/ConditionalPercentageDiscount?storeId=${storeID}&userId=${cookies.userId}&percentage=${condDiscount2.precentage}&predicateOnProducts=${conditionalProductPredicate}`
+        `/Discount/ConditionalPercentageDiscount?storeId=${storeID}&userId=${cookies.userId}&percentage=${condDiscount2.precentage}&predicateOnProducts=${conditionalProductPredicate}`,
+        null,
+        {
+          headers: {
+            Authorization: cookies.session,
+          },
+        }
       )
       .then((res) => {
         const { data } = res;
@@ -415,7 +452,7 @@ const Discounts = () => {
           createNotification("error", data.reason)();
         }
       })
-      .catch((err) => createNotification("error", err)());
+      .catch((err) => console.log(err));
   };
 
   const onDeleteDiscount = async (e) => {
@@ -428,7 +465,13 @@ const Discounts = () => {
 
     return await api
       .post(
-        `/Discount/deleteDiscount?storeId=${storeID}&userId=${cookies.userId}&discountId=${preds.predToDelete}`
+        `/Discount/deleteDiscount?storeId=${storeID}&userId=${cookies.userId}&discountId=${preds.predToDelete}`,
+        null,
+        {
+          headers: {
+            Authorization: cookies.session,
+          },
+        }
       )
       .then((res) => {
         const { data } = res;
@@ -443,7 +486,7 @@ const Discounts = () => {
           createNotification("error", data.reason)();
         }
       })
-      .catch((err) => createNotification("error", err)());
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -454,7 +497,11 @@ const Discounts = () => {
         storeID = storeID.slice(0, -1);
       }
       return await api
-        .get(`Store/Polices?storeId=${storeID}`)
+        .get(`Store/Polices?userId=${cookies.userId}&storeId=${storeID}`, {
+          headers: {
+            Authorization: cookies.session,
+          },
+        })
         .then((res) => {
           const { data } = res;
           if (data.success) {
@@ -469,7 +516,14 @@ const Discounts = () => {
         })
         .then(async () => {
           return await api
-            .get(`/Discount/getAll?storeId=${storeID}&userId=${cookies.userId}`)
+            .get(
+              `/Discount/getAll?storeId=${storeID}&userId=${cookies.userId}`,
+              {
+                headers: {
+                  Authorization: cookies.session,
+                },
+              }
+            )
             .then((res) => {
               const { data } = res;
               if (data.success) {
@@ -484,7 +538,7 @@ const Discounts = () => {
               }
             });
         })
-        .catch((err) => createNotification("error", `fail ${err}`)());
+        .catch((err) => console.log(err));
     };
     fetchData();
   }, []);

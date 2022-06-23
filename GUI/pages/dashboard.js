@@ -23,7 +23,7 @@ const Dashboard = () => {
     await api
       .get(`/products/all/?userId=${cookies.userId}`, {
         headers: {
-          Auth: cookies.session,
+          Authorization: cookies.session,
         },
       })
       .then((res) => {
@@ -37,7 +37,7 @@ const Dashboard = () => {
         return api
           .post(`/in/dashboard/?userId=${cookies.userId}`, null, {
             headers: {
-              Auth: cookies.session,
+              Authorization: cookies.session,
             },
           })
           .then((res) => {

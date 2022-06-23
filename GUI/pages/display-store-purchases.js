@@ -29,7 +29,7 @@ const DisplayStorePurchases = () => {
     await api
       .get(`/history/store/?userId=${cookies.userId}&storeId=${storeID}`, {
         headers: {
-          Auth: cookies.session,
+          Authorization: cookies.session,
         },
       })
       .then((res) => {

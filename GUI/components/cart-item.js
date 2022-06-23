@@ -30,7 +30,7 @@ const CartItem = ({
     return await api
       .post(`/cart/delete/?user_id=${cookies.userId}`, obj, {
         headers: {
-          Auth: cookies.session,
+          Authorization: cookies.session,
         },
       })
       .then((res) => {
@@ -55,7 +55,7 @@ const CartItem = ({
     return await api
       .post(`/cart/delete/?user_id=${cookies.userId}`, obj, {
         headers: {
-          Auth: cookies.session,
+          Authorization: cookies.session,
         },
       })
       .then((res) => {
@@ -89,7 +89,7 @@ const CartItem = ({
         obj,
         {
           headers: {
-            Auth: cookies.session,
+            Authorization: cookies.session,
           },
         }
       )

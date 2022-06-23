@@ -22,7 +22,7 @@ const Statistics = () => {
       return await api
         .get(`/online/amount/?user_id=${cookies.userId}`, {
           headers: {
-            Auth: cookies.session,
+            Authorization: cookies.session,
           },
         })
         .then((res) => {
@@ -38,7 +38,7 @@ const Statistics = () => {
           return await api
             .get(`/registered/amount/?user_id=${cookies.userId}`, {
               headers: {
-                Auth: cookies.session,
+                Authorization: cookies.session,
               },
             })
             .then((res) => {

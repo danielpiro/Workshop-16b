@@ -26,7 +26,7 @@ const AdminViewStorePurchaes = () => {
           `/history/store/?userId=${cookies.userId}&storeId=${searchValue}`,
           {
             headers: {
-              Auth: cookies.session,
+              Authorization: cookies.session,
             },
           }
         )

@@ -22,7 +22,7 @@ const StoreManagement = () => {
     return await api
       .post(`/store/delete/?userId=${cookies.userId}&storeId=${id}`, null, {
         headers: {
-          Auth: cookies.session,
+          Authorization: cookies.session,
         },
       })
       .then((res) => {

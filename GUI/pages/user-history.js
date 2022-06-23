@@ -20,7 +20,7 @@ const UserHistory = () => {
     return await api
       .get(`/history/user/?userId=${cookies.userId}`, {
         headers: {
-          Auth: cookies.session,
+          Authorization: cookies.session,
         },
       })
       .then((res) => {

@@ -30,7 +30,7 @@ const StoreEdit = () => {
         `/store/products/?userId=${cookies.userId}&storeId=${router.query.id}`,
         {
           headers: {
-            Auth: cookies.session,
+            Authorization: cookies.session,
           },
         }
       )
@@ -62,7 +62,7 @@ const StoreEdit = () => {
     return api
       .post(`/store/?userId=${cookies.userId}`, product, {
         headers: {
-          Auth: cookies.session,
+          Authorization: cookies.session,
         },
       })
       .then((res) => {

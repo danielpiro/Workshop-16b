@@ -105,7 +105,7 @@ const ChangePolicy = () => {
       return await api
         .get(`Store/Polices/?userId=${cookies.userId}&storeId=${storeID}`, {
           headers: {
-            Auth: cookies.session,
+            Authorization: cookies.session,
           },
         })
         .then((res) => {
@@ -142,7 +142,7 @@ const ChangePolicy = () => {
         null,
         {
           headers: {
-            Auth: cookies.session,
+            Authorization: cookies.session,
           },
         }
       )
@@ -183,7 +183,7 @@ const ChangePolicy = () => {
         null,
         {
           headers: {
-            Auth: cookies.session,
+            Authorization: cookies.session,
           },
         }
       )
@@ -222,7 +222,7 @@ const ChangePolicy = () => {
         null,
         {
           headers: {
-            Auth: cookies.session,
+            Authorization: cookies.session,
           },
         }
       )
@@ -257,7 +257,7 @@ const ChangePolicy = () => {
         null,
         {
           headers: {
-            Auth: cookies.session,
+            Authorization: cookies.session,
           },
         }
       )

@@ -84,16 +84,20 @@ const Login = () => {
   const onClickGuest = async (e) => {
     e.preventDefault();
     setCookie("type", "guest", { path: "/", sameSite: true });
+    setCookie("username", "guest", { path: "/", sameSite: true });
+    setCookie("password", "", { path: "/", sameSite: true });
     return await api
       .get(`/market/guest`)
       .then((res) => {
         const { data } = res;
         if (data.success) {
-          setCookie("userId", data.value, {
+          console.log(data);
+          const temp = data.value.split("#");
+          setCookie("userId", temp[0], {
             path: "/",
             sameSite: true,
           });
-          setCookie("session", data.value, {
+          setCookie("session", temp[1], {
             path: "/",
             sameSite: true,
           });

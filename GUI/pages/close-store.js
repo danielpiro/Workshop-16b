@@ -27,7 +27,7 @@ const CloseStore = () => {
         null,
         {
           headers: {
-            Auth: cookies.session,
+            Authorization: cookies.session,
           },
         }
       )
@@ -58,7 +58,7 @@ const CloseStore = () => {
         null,
         {
           headers: {
-            Auth: cookies.session,
+            Authorization: cookies.session,
           },
         }
       )

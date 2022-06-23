@@ -47,7 +47,7 @@ const StoreProduct = ({
         null,
         {
           headers: {
-            Auth: cookies.session,
+            Authorization: cookies.session,
           },
         }
       )
@@ -79,7 +79,7 @@ const StoreProduct = ({
     return await api
       .post(`/store/product/?userId=${cookies.userId}&productId=${id}`, obj, {
         headers: {
-          Auth: cookies.session,
+          Authorization: cookies.session,
         },
       })
       .then((res) => {

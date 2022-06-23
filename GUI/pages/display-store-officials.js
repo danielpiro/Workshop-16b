@@ -29,7 +29,7 @@ const DisplayStoreOfficials = () => {
           `/store/allRoles/?storeId=${storeID}&userIdRequesting=${cookies.userId}`,
           {
             headers: {
-              Auth: cookies.session,
+              Authorization: cookies.session,
             },
           }
         )

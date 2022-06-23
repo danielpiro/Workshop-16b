@@ -25,7 +25,7 @@ const shoppingCart = () => {
     return await api
       .post(`/cart/?user_Id=${cookies.userId}`, null, {
         headers: {
-          Auth: cookies.session,
+          Authorization: cookies.session,
         },
       })
       .then((res) => {
@@ -42,7 +42,7 @@ const shoppingCart = () => {
             null,
             {
               headers: {
-                Auth: cookies.session,
+                Authorization: cookies.session,
               },
             }
           )
@@ -82,7 +82,7 @@ const shoppingCart = () => {
         null,
         {
           headers: {
-            Auth: cookies.session,
+            Authorization: cookies.session,
           },
         }
       )

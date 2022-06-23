@@ -23,7 +23,7 @@ const StoreDetails = () => {
         `/store/products/?userId=${cookies.userId}&storeId=${router.query.id}`,
         {
           headers: {
-            Auth: cookies.session,
+            Authorization: cookies.session,
           },
         }
       )
