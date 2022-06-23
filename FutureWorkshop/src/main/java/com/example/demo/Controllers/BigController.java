@@ -6,6 +6,7 @@ import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
 import com.example.demo.Database.Service.DatabaseService;
+import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.History.PurchaseHistory;
 
 import com.example.demo.Mock.*;
@@ -82,6 +83,7 @@ public class BigController {
         this.us = new UserController();
         this.sc = new StoreController();
         this.databaseService = databaseService;
+        IdGenerator.addDatabase(databaseService);
         this.policyBuilder = new PolicyBuilder();
         initiateExternalConnections();
         //NotificationManager.buildNotificationManager(us);

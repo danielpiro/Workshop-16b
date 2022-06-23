@@ -2,6 +2,7 @@ package com.example.demo.Database.Service;
 import com.example.demo.CustomExceptions.Exception.ResourceNotFoundException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.Database.DTOobjects.Cart.ShoppingBasketDTO;
+import com.example.demo.Database.DTOobjects.GlobalServices.IdGeneratorDTO;
 import com.example.demo.Database.DTOobjects.History.HistoryDTO;
 import com.example.demo.Database.DTOobjects.Store.Permissions.StoreRoleDTO;
 import com.example.demo.Database.DTOobjects.Store.Permissions.StoreRoleToPermissionDTO;
@@ -16,6 +17,7 @@ import com.example.demo.Database.Repositories.Store.Permission.StoreRoleReposito
 import com.example.demo.Database.Repositories.Store.Permission.StoreRoleToPermissionRepository;
 import com.example.demo.Database.Repositories.Store.Permission.StoreRoleToStoreRoleRepository;
 import com.example.demo.Database.Repositories.Store.StoreRepository;
+import com.example.demo.Database.Repositories.globalServices.IdGeneratorRepository;
 import com.example.demo.ShoppingCart.ShoppingBasket;
 import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
@@ -60,6 +62,8 @@ public class DatabaseService {
     private StoreRoleToStoreRoleRepository storeRoleToStoreRoleRepository;
     @Autowired
     private StoreRepository storeRepository;
+    @Autowired
+    private IdGeneratorRepository idGeneratorRepository;
     public DatabaseService(){
         super();
     }
@@ -247,8 +251,11 @@ public class DatabaseService {
         for(Map.Entry<StoreRoleDTO, List<Permission>> entry:storeRoleDTOListHashMap.entrySet()){
             saveStoreRolePermissionAndSaveStoreRole(entry.getKey(),entry.getValue());
         }
-
     }
 
+    @Transactional
+    public void saveIdGenerator(List<IdGeneratorDTO> idGeneratorDTO){
+        idGeneratorRepository.saveAllAndFlush(idGeneratorDTO);
+    }
 
 }
