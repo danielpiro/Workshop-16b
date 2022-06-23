@@ -64,9 +64,11 @@ const DiscountNew = () => {
         storeID = storeID.slice(0, -1);
       }
       return await api
-        .get(
-          `Store/Polices?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${storeID}`
-        )
+        .get(`Store/Polices?userId=${cookies.userId}&storeId=${storeID}`, {
+          headers: {
+            Auth: cookies.session,
+          },
+        })
         .then((res) => {
           const { data } = res;
           if (data.success) {
@@ -82,7 +84,12 @@ const DiscountNew = () => {
         .then(async () => {
           return await api
             .get(
-              `/Discount/getAll?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${storeID}`
+              `/Discount/getAll?userId=${cookies.userId}&storeId=${storeID}`,
+              {
+                headers: {
+                  Auth: cookies.session,
+                },
+              }
             )
             .then((res) => {
               const { data } = res;
@@ -108,7 +115,13 @@ const DiscountNew = () => {
     if (typeCombDis === "Max") {
       api
         .post(
-          `/Discount/NewMaxDiscount/?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${storeID}&discountId1=${firstCombDis}&discountId2=${secondCombDis}`
+          `/Discount/NewMaxDiscount/?userId=${cookies.userId}&storeId=${storeID}&discountId1=${firstCombDis}&discountId2=${secondCombDis}`,
+          null,
+          {
+            headers: {
+              Auth: cookies.session,
+            },
+          }
         )
         .then((res) => {
           const { data } = res;
@@ -122,7 +135,13 @@ const DiscountNew = () => {
     } else {
       api
         .post(
-          `/Discount/NewAdditionDiscount/?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${storeID}&discountId1=${firstCombDis}&discountId2=${secondCombDis}`
+          `/Discount/NewAdditionDiscount/?userId=${cookies.userId}&storeId=${storeID}&discountId1=${firstCombDis}&discountId2=${secondCombDis}`,
+          null,
+          {
+            headers: {
+              Auth: cookies.session,
+            },
+          }
         )
         .then((res) => {
           const { data } = res;

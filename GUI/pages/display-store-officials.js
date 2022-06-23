@@ -26,7 +26,12 @@ const DisplayStoreOfficials = () => {
       }
       await api
         .get(
-          `/store/allRoles/?sessionID=${cookies.session}&storeId=${storeID}&userIdRequesting=${cookies.userId}`
+          `/store/allRoles/?storeId=${storeID}&userIdRequesting=${cookies.userId}`,
+          {
+            headers: {
+              Auth: cookies.session,
+            },
+          }
         )
         .then((res) => {
           const { data } = res;

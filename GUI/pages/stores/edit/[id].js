@@ -27,7 +27,12 @@ const StoreEdit = () => {
   const fetch = async () => {
     return await api
       .get(
-        `/store/products/?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${router.query.id}`
+        `/store/products/?userId=${cookies.userId}&storeId=${router.query.id}`,
+        {
+          headers: {
+            Auth: cookies.session,
+          },
+        }
       )
       .then((res) => {
         const { data } = res;
@@ -55,10 +60,11 @@ const StoreEdit = () => {
       category: newProduct.category,
     };
     return api
-      .post(
-        `/store/?sessionID=${cookies.session}&userId=${cookies.userId}`,
-        product
-      )
+      .post(`/store/?userId=${cookies.userId}`, product, {
+        headers: {
+          Auth: cookies.session,
+        },
+      })
       .then((res) => {
         const { data } = res;
         if (data.success) {

@@ -20,9 +20,11 @@ const StoreManagement = () => {
     e.preventDefault();
     const id = Object.keys(router.query)[0];
     return await api
-      .post(
-        `/store/delete/?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${id}`
-      )
+      .post(`/store/delete/?userId=${cookies.userId}&storeId=${id}`, null, {
+        headers: {
+          Auth: cookies.session,
+        },
+      })
       .then((res) => {
         const { data } = res;
         if (data.success) {

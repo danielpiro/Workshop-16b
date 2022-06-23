@@ -23,7 +23,13 @@ const CloseStore = () => {
     }
     await api
       .post(
-        `/store/unfreeze/?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${storeID}`
+        `/store/unfreeze/?userId=${cookies.userId}&storeId=${storeID}`,
+        null,
+        {
+          headers: {
+            Auth: cookies.session,
+          },
+        }
       )
       .then((res) => {
         const { data } = res;
@@ -48,7 +54,13 @@ const CloseStore = () => {
     }
     await api
       .post(
-        `/store/freeze/?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${storeID}`
+        `/store/freeze/?userId=${cookies.userId}&storeId=${storeID}`,
+        null,
+        {
+          headers: {
+            Auth: cookies.session,
+          },
+        }
       )
       .then((res) => {
         const { data } = res;

@@ -20,9 +20,11 @@ const Statistics = () => {
   useEffect(() => {
     const fetchStats = async () => {
       return await api
-        .get(
-          `/online/amount/?sessionID=${cookies.session}&user_id=${cookies.userId}`
-        )
+        .get(`/online/amount/?user_id=${cookies.userId}`, {
+          headers: {
+            Auth: cookies.session,
+          },
+        })
         .then((res) => {
           const { data } = res;
           if (data.success) {
@@ -34,9 +36,11 @@ const Statistics = () => {
         })
         .then(async () => {
           return await api
-            .get(
-              `/registered/amount/?sessionID=${cookies.session}&user_id=${cookies.userId}`
-            )
+            .get(`/registered/amount/?user_id=${cookies.userId}`, {
+              headers: {
+                Auth: cookies.session,
+              },
+            })
             .then((res) => {
               const { data } = res;
               if (data.success) {

@@ -3,7 +3,6 @@ import { useState } from "react";
 import api from "../components/api";
 import { useCookies } from "react-cookie";
 import createNotification from "../components/norification";
-import Card from "../components/card";
 import CardShopView from "../components/card-shop-view";
 
 const AdminViewStorePurchaes = () => {
@@ -24,12 +23,16 @@ const AdminViewStorePurchaes = () => {
     if (searchValue !== "") {
       await api
         .get(
-          `/history/store/?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${searchValue}`
+          `/history/store/?userId=${cookies.userId}&storeId=${searchValue}`,
+          {
+            headers: {
+              Auth: cookies.session,
+            },
+          }
         )
         .then((res) => {
           const { data } = res;
           if (data.success) {
-            console.log(data.value);
             setPurchases(data.value);
             createNotification(
               "success",

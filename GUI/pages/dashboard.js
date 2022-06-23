@@ -21,9 +21,11 @@ const Dashboard = () => {
 
   const fetchData = async () => {
     await api
-      .get(
-        `/products/all/?sessionID=${cookies.session}&userId=${cookies.userId}`
-      )
+      .get(`/products/all/?userId=${cookies.userId}`, {
+        headers: {
+          Auth: cookies.session,
+        },
+      })
       .then((res) => {
         const { data } = res;
         if (data.success) {
@@ -33,9 +35,11 @@ const Dashboard = () => {
       })
       .then(() => {
         return api
-          .post(
-            `/in/dashboard/?sessionID=${cookies.session}&userId=${cookies.userId}`
-          )
+          .post(`/in/dashboard/?userId=${cookies.userId}`, null, {
+            headers: {
+              Auth: cookies.session,
+            },
+          })
           .then((res) => {
             const { data } = res;
             if (!data.success) {

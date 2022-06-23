@@ -28,9 +28,11 @@ const Stores = () => {
     setIsLoading(!isLoading);
     const fetchData = async () => {
       return await api
-        .get(
-          `store/owner/permmitions?sessionID=${cookies.session}&userId=${cookies.userId}`
-        )
+        .get(`store/owner/permmitions?userId=${cookies.userId}`, {
+          headers: {
+            Auth: cookies.session,
+          },
+        })
         .then((res) => {
           const { data } = res;
           if (data.success) {
@@ -43,9 +45,11 @@ const Stores = () => {
         })
         .then(async () => {
           return await api
-            .get(
-              `store/manager/permmitions?sessionID=${cookies.session}&userId=${cookies.userId}`
-            )
+            .get(`store/manager/permmitions?userId=${cookies.userId}`, {
+              headers: {
+                Auth: cookies.session,
+              },
+            })
             .then((res) => {
               const { data } = res;
               if (data.success) {
@@ -59,9 +63,11 @@ const Stores = () => {
         })
         .then(async () => {
           return await api
-            .get(
-              `/store/all/?sessionID=${cookies.session}&userId=${cookies.userId}`
-            )
+            .get(`/store/all/?userId=${cookies.userId}`, {
+              headers: {
+                Auth: cookies.session,
+              },
+            })
             .then((res) => {
               const { data } = res;
               if (data.success) {
@@ -78,9 +84,11 @@ const Stores = () => {
             })
             .then(async () => {
               return await api
-                .get(
-                  `/store-products/all/?sessionID=${cookies.session}&userId=${cookies.userId}`
-                )
+                .get(`/store-products/all/?userId=${cookies.userId}`, {
+                  headers: {
+                    Auth: cookies.session,
+                  },
+                })
                 .then((res) => {
                   const { data } = res;
                   if (data.success) {

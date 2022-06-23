@@ -25,7 +25,13 @@ const FireOwnerToStore = () => {
     if (usernameFired !== "") {
       await api
         .post(
-          `/store/permissions/delete/?sessionID=${cookies.session}&storeId=${storeID}&userIdRemoving=${cookies.userId}&UserAffectedId=${usernameFired}`
+          `/store/permissions/delete/?storeId=${storeID}&userIdRemoving=${cookies.userId}&UserAffectedId=${usernameFired}`,
+          null,
+          {
+            headers: {
+              Auth: cookies.session,
+            },
+          }
         )
         .then((res) => {
           const { data } = res;

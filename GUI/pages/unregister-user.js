@@ -20,7 +20,13 @@ const UnregisterUser = () => {
     if (username !== "") {
       return await api
         .post(
-          `/users/delete/?sessionID=${cookies.session}&isDeleting=${cookies.username}&whosBeingDeleted=${username}`
+          `/users/delete/?isDeleting=${cookies.username}&whosBeingDeleted=${username}`,
+          null,
+          {
+            headers: {
+              Auth: cookies.session,
+            },
+          }
         )
         .then((res) => {
           const { data } = res;

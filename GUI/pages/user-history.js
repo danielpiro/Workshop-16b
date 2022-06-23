@@ -18,9 +18,11 @@ const UserHistory = () => {
   const fetch = async () => {
     setIsLoading(!isLoading);
     return await api
-      .get(
-        `/history/user/?sessionID=${cookies.session}&userId=${cookies.userId}`
-      )
+      .get(`/history/user/?userId=${cookies.userId}`, {
+        headers: {
+          Auth: cookies.session,
+        },
+      })
       .then((res) => {
         const { data } = res;
         if (data.success) {

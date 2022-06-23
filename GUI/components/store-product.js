@@ -43,7 +43,13 @@ const StoreProduct = ({
     e.preventDefault();
     return await api
       .post(
-        `/store/product/delete/?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${storeId}&productId=${id}`
+        `/store/product/delete/?userId=${cookies.userId}&storeId=${storeId}&productId=${id}`,
+        null,
+        {
+          headers: {
+            Auth: cookies.session,
+          },
+        }
       )
       .then((res) => {
         const { data } = res;
@@ -70,12 +76,12 @@ const StoreProduct = ({
       supply: details.quantity,
       category: details.category.name,
     };
-    console.log(id);
     return await api
-      .post(
-        `/store/product/?sessionID=${cookies.session}&userId=${cookies.userId}&productId=${id}`,
-        obj
-      )
+      .post(`/store/product/?userId=${cookies.userId}&productId=${id}`, obj, {
+        headers: {
+          Auth: cookies.session,
+        },
+      })
       .then((res) => {
         const { data } = res;
         if (data.success) {

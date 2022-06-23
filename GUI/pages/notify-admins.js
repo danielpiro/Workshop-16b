@@ -37,7 +37,13 @@ const NotifyAdmins = () => {
     }
     return await api
       .post(
-        `/complaints/?sessionID=${cookies.session}&senderId=${cookies.userId}&subject=${userInput.subject}&title=${userInput.title}&body=${userInput.body}`
+        `/complaints/?senderId=${cookies.userId}&subject=${userInput.subject}&title=${userInput.title}&body=${userInput.body}`,
+        null,
+        {
+          headers: {
+            Auth: cookies.session,
+          },
+        }
       )
       .then((res) => {
         const { data } = res;

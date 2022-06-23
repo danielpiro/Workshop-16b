@@ -92,7 +92,7 @@ public class BigController {
     }
 
     @PostMapping("/users/add/admin")
-    public ReturnValue addSystemAdminApi(@RequestParam String sessionID, @RequestParam String whoIsAdding, @RequestParam String user_toMakeAdmin) throws UserException {
+    public ReturnValue addSystemAdminApi(@RequestHeader("Auth") String sessionID, @RequestParam String whoIsAdding, @RequestParam String user_toMakeAdmin) throws UserException {
         if (!validateSessionID(sessionID, whoIsAdding)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -114,8 +114,8 @@ public class BigController {
      * @throws UserException
      */
     @PostMapping("/cart/price")
-    public ReturnValue getPriceOfCartDiscountApi(@RequestParam String sessionID, @RequestParam String user_id, @RequestParam PaymentNames payment,
-                                              @RequestParam DeliveryNames delivery) throws StorePolicyViolatedException, UserException, JsonProcessingException, ExecutionException, InterruptedException {
+    public ReturnValue getPriceOfCartDiscountApi(@RequestHeader("Auth") String sessionID, @RequestParam String user_id, @RequestParam PaymentNames payment,
+                                              @RequestParam DeliveryNames delivery) throws StorePolicyViolatedException, UserException, JsonProcessingException, InterruptedException {
         if (!validateSessionID(sessionID, user_id)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -129,9 +129,8 @@ public class BigController {
 
     }
 
-
     @GetMapping("/online/amount")
-    public ReturnValue getOnlineUsersNumApi(@RequestParam String sessionID, @RequestParam String user_id) throws ExecutionException, InterruptedException {
+    public ReturnValue getOnlineUsersNumApi(@RequestHeader("Auth") String sessionID, @RequestParam String user_id) throws ExecutionException, InterruptedException {
         if (!validateSessionID(sessionID, user_id)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -139,7 +138,7 @@ public class BigController {
     }
 
     @GetMapping("/registered/amount")
-    public ReturnValue getRegisteredUsersNumApi(@RequestParam String sessionID, @RequestParam String user_id) throws UserException {
+    public ReturnValue getRegisteredUsersNumApi(@RequestHeader("Auth") String sessionID, @RequestParam String user_id) throws UserException {
         if (!validateSessionID(sessionID, user_id)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -148,7 +147,7 @@ public class BigController {
     }
 
     @PostMapping("/users/delete")
-    public ReturnValue deleteUserApi(@RequestParam String sessionID, @RequestParam String isDeleting,
+    public ReturnValue deleteUserApi(@RequestHeader("Auth") String sessionID, @RequestParam String isDeleting,
                                   @RequestParam String whosBeingDeleted) throws NoPermissionException, UserException {
         if (!validateSessionID(sessionID, isDeleting)) {
             return new ReturnValue(false, "Not authorized", null);
@@ -196,7 +195,7 @@ public class BigController {
     }
 
     @PostMapping("/market")
-    public ReturnValue sendComplaintApi(@RequestParam String sessionID, @RequestParam String userId, @RequestParam String StoreName, @RequestParam String complaint) {
+    public ReturnValue sendComplaintApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId, @RequestParam String StoreName, @RequestParam String complaint) {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -214,7 +213,7 @@ public class BigController {
 
 
     @PostMapping("/users")
-    public ReturnValue GuestExitSystemApi(@RequestParam String sessionID, @RequestParam String user_id, @RequestParam String guestId) {
+    public ReturnValue GuestExitSystemApi(@RequestHeader("Auth") String sessionID, @RequestParam String user_id, @RequestParam String guestId) {
         if (!validateSessionID(sessionID, user_id)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -230,7 +229,7 @@ public class BigController {
 
 
     @PostMapping("/cart")
-    public ReturnValue getShoppingCartApi(@RequestParam String sessionID, @RequestParam String user_Id) throws Exception {
+    public ReturnValue getShoppingCartApi(@RequestHeader("Auth") String sessionID, @RequestParam String user_Id) throws Exception {
         if (!validateSessionID(sessionID, user_Id)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -270,7 +269,7 @@ public class BigController {
 //    }
 
     @PostMapping(value = "/cart/delete", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ReturnValue removeProductFromCartApi(@RequestParam String sessionID, @RequestParam String user_id, @Valid @RequestBody MockSmallProduct mockSmallProduct) throws UserException {
+    public ReturnValue removeProductFromCartApi(@RequestHeader("Auth") String sessionID, @RequestParam String user_id, @Valid @RequestBody MockSmallProduct mockSmallProduct) throws UserException {
         if (!validateSessionID(sessionID, user_id)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -282,7 +281,7 @@ public class BigController {
 
     //auction or bid false for now
     @PostMapping(value = "/cart/product", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ReturnValue addProductFromCartApi(@Valid @RequestParam String sessionID, @RequestParam String userId, @RequestBody MockSmallProduct mockProduct,
+    public ReturnValue addProductFromCartApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId, @RequestBody MockSmallProduct mockProduct,
                                           @RequestParam boolean auctionOrBid) throws UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
@@ -300,7 +299,7 @@ public class BigController {
 
     //todo add check price
     @PostMapping("/cart/purchase")
-    public ReturnValue purchaseCartApi(@RequestParam String sessionID, @RequestParam String userId,
+    public ReturnValue purchaseCartApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId,
                                     @RequestParam PaymentNames payment,
                                     @RequestParam DeliveryNames delivery) throws SupplyManagementException, StorePolicyViolatedException, UserException {
 
@@ -315,8 +314,7 @@ public class BigController {
 
     /// Store controller
     @PostMapping(value = "/store", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ReturnValue addNewProductToStoreApi(@Valid
-                                            @RequestParam String sessionID, @RequestParam String userId, @RequestBody MockFullProduct mockProduct) throws NoPermissionException, SupplyManagementException, UserException {
+    public ReturnValue addNewProductToStoreApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId, @RequestBody MockFullProduct mockProduct) throws NoPermissionException, SupplyManagementException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -330,7 +328,7 @@ public class BigController {
     }
 
     @PostMapping(value = "/permissions/delete", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ReturnValue removeSomePermissionsApi(@Valid @RequestParam String sessionID, @RequestParam String userId, @RequestBody MockPermission mockPermission) throws NoPermissionException, UserException {
+    public ReturnValue removeSomePermissionsApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId, @RequestBody MockPermission mockPermission) throws NoPermissionException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -343,7 +341,7 @@ public class BigController {
     }
 
     @PostMapping("/store/open")
-    public ReturnValue openNewStoreApi(@RequestParam String sessionID, @RequestParam String userId,
+    public ReturnValue openNewStoreApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId,
                                     @RequestParam String storeName) throws NoPermissionException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
@@ -357,7 +355,7 @@ public class BigController {
     }
 
     @PostMapping("/store/freeze")
-    public ReturnValue unfreezeStoreApi(@RequestParam String sessionID, @RequestParam String userId, @RequestParam String storeId
+    public ReturnValue unfreezeStoreApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId, @RequestParam String storeId
     ) throws NoPermissionException, UserException, NotifyException, SupplyManagementException, IOException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
@@ -370,7 +368,7 @@ public class BigController {
     }
 
     @PostMapping("/store/unfreeze")
-    public ReturnValue freezeStoreApi(@RequestParam String sessionID, @RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException, NotifyException, SupplyManagementException, IOException {
+    public ReturnValue freezeStoreApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException, NotifyException, SupplyManagementException, IOException {
 
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
@@ -389,7 +387,7 @@ public class BigController {
 //     * @throws UserException
 //     */
 
-    public ReturnValue getInfoOnManagersOwnersForTests( String sessionID, String storeId,
+    public ReturnValue getInfoOnManagersOwnersForTests(String sessionID, String storeId,
                                                         String userIdRequesting) throws NoPermissionException, UserException {
         if (!validateSessionID(sessionID, userIdRequesting)) {
             return new ReturnValue(false, "Not authorized", null);
@@ -402,7 +400,7 @@ public class BigController {
     }
 
     @GetMapping("store/allRoles")
-    public ReturnValue getManagersOwnersOfStoreApi(@RequestParam String sessionID, String storeId,
+    public ReturnValue getManagersOwnersOfStoreApi(@RequestHeader("Auth") String sessionID, String storeId,
                                                 String userIdRequesting) throws NoPermissionException, UserException, JsonProcessingException {
         if (!validateSessionID(sessionID, userIdRequesting)) {
             return new ReturnValue(false, "Not authorized", null);
@@ -433,7 +431,7 @@ public class BigController {
      * @throws UserException
      */
     @GetMapping("store/manager/permmitions")
-    public ReturnValue getStoresManagedByUserApi(@RequestParam String sessionID, @RequestParam String userId) throws NoPermissionException, UserException, JsonProcessingException {
+    public ReturnValue getStoresManagedByUserApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId) throws NoPermissionException, UserException, JsonProcessingException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -452,7 +450,7 @@ public class BigController {
      * @throws JsonProcessingException
      */
     @GetMapping("store/manager/permmitions/OfStore")
-    public ReturnValue getStoresManagedByUserApi(@RequestParam String sessionID, @RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException, JsonProcessingException {
+    public ReturnValue getStoresManagedByUserApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException, JsonProcessingException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -469,7 +467,7 @@ public class BigController {
      * @throws UserException
      */
     @GetMapping("store/owner/permmitions")
-    public ReturnValue getStoresOwnedByUserApi(@RequestParam String sessionID, @RequestParam String userId) throws NoPermissionException, UserException, JsonProcessingException {
+    public ReturnValue getStoresOwnedByUserApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId) throws NoPermissionException, UserException, JsonProcessingException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -487,7 +485,7 @@ public class BigController {
      * @throws JsonProcessingException
      */
     @GetMapping("store/owner/permmitions/OfStore")
-    public ReturnValue getStoresOwnedByUserApi(@RequestParam String sessionID, @RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException, JsonProcessingException {
+    public ReturnValue getStoresOwnedByUserApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException, JsonProcessingException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -525,7 +523,7 @@ public class BigController {
     }
 
     @PostMapping(value = "/store/product", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ReturnValue editProductApi( @RequestParam String sessionID, @RequestParam String userId, @RequestParam String productId, @Valid @RequestBody MockFullProduct mockProduct) throws NoPermissionException, SupplyManagementException, UserException {
+    public ReturnValue editProductApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId, @RequestParam String productId, @Valid @RequestBody MockFullProduct mockProduct) throws NoPermissionException, SupplyManagementException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -558,7 +556,7 @@ public class BigController {
     //    public void sendComplaintToAdmins(String senderId, ComplaintNotification complaintNotification) throws UserException {
 // String sentFrom, NotificationSubject subject, String title, String body
     @PostMapping("/complaints")
-    public ReturnValue sendComplaintToAdminsApi(@RequestParam String sessionID, @RequestParam String senderId, @RequestParam String subject, @RequestParam String title, @RequestParam String body) throws UserException {
+    public ReturnValue sendComplaintToAdminsApi(@RequestHeader("Auth") String sessionID, @RequestParam String senderId, @RequestParam String subject, @RequestParam String title, @RequestParam String body) throws UserException {
         if (!validateSessionID(sessionID, senderId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -568,7 +566,7 @@ public class BigController {
     }
 
     @PostMapping("/store/product/delete")
-    public ReturnValue deleteProductFromStoreApi(@RequestParam String sessionID, @RequestParam String userId, @RequestParam String storeId,
+    public ReturnValue deleteProductFromStoreApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId, @RequestParam String storeId,
                                               @RequestParam String productId) throws NoPermissionException, SupplyManagementException, UserException, NotifyException, IOException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
@@ -580,7 +578,7 @@ public class BigController {
     }
 
     @PostMapping("/store/permissions/delete")
-    public ReturnValue removePermissionToApi(@RequestParam String sessionID, @RequestParam String storeId, @RequestParam String userIdRemoving, @RequestParam String UserAffectedId) throws NoPermissionException, UserException, NotifyException {
+    public ReturnValue removePermissionToApi(@RequestHeader("Auth") String sessionID, @RequestParam String storeId, @RequestParam String userIdRemoving, @RequestParam String UserAffectedId) throws NoPermissionException, UserException, NotifyException {
         if (!validateSessionID(sessionID, userIdRemoving)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -593,7 +591,7 @@ public class BigController {
     }
 
     @PostMapping(value = "/owner/create")
-    public ReturnValue createOwnerApi(@RequestParam String sessionID, @RequestParam String storeId, @RequestParam String userIdGiving, @RequestParam String UserGettingPermissionId, @RequestParam String permissions) throws NoPermissionException, UserException, NotifyException {
+    public ReturnValue createOwnerApi(@RequestHeader("Auth") String sessionID, @RequestParam String storeId, @RequestParam String userIdGiving, @RequestParam String UserGettingPermissionId, @RequestParam String permissions) throws NoPermissionException, UserException, NotifyException {
         if (!validateSessionID(sessionID, userIdGiving)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -613,7 +611,7 @@ public class BigController {
     }
 
     @PostMapping("/manager")
-    public ReturnValue createManagerApi(@RequestParam String sessionID, @RequestParam String storeId, @RequestParam String userIdGiving, @RequestParam String UserGettingPermissionId) throws NoPermissionException, UserException, NotifyException {
+    public ReturnValue createManagerApi(@RequestHeader("Auth") String sessionID, @RequestParam String storeId, @RequestParam String userIdGiving, @RequestParam String UserGettingPermissionId) throws NoPermissionException, UserException, NotifyException {
         if (!validateSessionID(sessionID, userIdGiving)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -627,7 +625,7 @@ public class BigController {
 
 
     @PostMapping(value = "/product", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ReturnValue addReviewToProductApi(@Valid @RequestParam String sessionID, @RequestParam String userId, @RequestBody MockProductReview mockProd) throws NoPermissionException, SupplyManagementException, UserException {
+    public ReturnValue addReviewToProductApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId, @RequestBody MockProductReview mockProd) throws NoPermissionException, SupplyManagementException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -638,7 +636,7 @@ public class BigController {
     }
 
     @PostMapping("/forum/thread")
-    public ReturnValue addNewThreadToForumApi(@RequestParam String sessionID, @RequestParam String storeId, @RequestParam String title, @RequestParam String userId) throws NoPermissionException, UserException {
+    public ReturnValue addNewThreadToForumApi(@RequestHeader("Auth") String sessionID, @RequestParam String storeId, @RequestParam String title, @RequestParam String userId) throws NoPermissionException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -689,7 +687,7 @@ public class BigController {
     }
 
     @PostMapping("/in/dashboard")
-    public ReturnValue isInDashboardApi(@RequestParam String sessionID, @RequestParam String userId) throws InterruptedException {
+    public ReturnValue isInDashboardApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId) throws InterruptedException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -713,7 +711,7 @@ public class BigController {
     }
 
     @PostMapping("/forum/message")
-    public ReturnValue postMessageToForumApi(@RequestParam String sessionID, @RequestParam String storeId, @RequestParam String threadId, @RequestParam String userId, @RequestParam String message) throws NoPermissionException, NotifyException, UserException {
+    public ReturnValue postMessageToForumApi(@RequestHeader("Auth") String sessionID, @RequestParam String storeId, @RequestParam String threadId, @RequestParam String userId, @RequestParam String message) throws NoPermissionException, NotifyException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -731,7 +729,7 @@ public class BigController {
     }
 
     @GetMapping("/store-products/all")
-    public ReturnValue getAllProductsAndStoresWebApi(@RequestParam String sessionID, @RequestParam String userId) throws UserException, SupplyManagementException, NoPermissionException, JsonProcessingException {
+    public ReturnValue getAllProductsAndStoresWebApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId) throws UserException, SupplyManagementException, NoPermissionException, JsonProcessingException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -760,7 +758,7 @@ public class BigController {
     }
 
     @GetMapping("/products/all")
-    public ReturnValue getAllProductsApi(@RequestParam String sessionID, @RequestParam String userId) throws JsonProcessingException {
+    public ReturnValue getAllProductsApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId) throws JsonProcessingException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -778,7 +776,7 @@ public class BigController {
     }
 
     @GetMapping("/store/all")
-    public ReturnValue getAllStoresApi(@RequestParam String sessionID, @RequestParam String userId) throws JsonProcessingException, InterruptedException {
+    public ReturnValue getAllStoresApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId) throws JsonProcessingException, InterruptedException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -798,7 +796,7 @@ public class BigController {
 
 
     @GetMapping("/store/products")
-    public ReturnValue getStoreProductsApi(@RequestParam String sessionID, @RequestParam String userId, @RequestParam String storeId) throws JsonProcessingException {
+    public ReturnValue getStoreProductsApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId, @RequestParam String storeId) throws JsonProcessingException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -820,7 +818,7 @@ public class BigController {
 
 
     @GetMapping("/search/name")
-    public ReturnValue SearchProductsAccordingNameApi(@RequestParam String sessionID, @RequestParam String userId, @RequestParam String productName) throws UserException {
+    public ReturnValue SearchProductsAccordingNameApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId, @RequestParam String productName) throws UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -867,7 +865,7 @@ public class BigController {
 //    }
 
     @PostMapping("/store/delete")
-    public ReturnValue deleteStoreApi(@RequestParam String sessionID, @RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException {
+    public ReturnValue deleteStoreApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -897,7 +895,7 @@ public class BigController {
 
 
     @GetMapping("/history/store")
-    public ReturnValue getStoreHistoryApi(@RequestParam String sessionID, @RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException {
+    public ReturnValue getStoreHistoryApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -908,7 +906,7 @@ public class BigController {
     }
 
     @GetMapping("/history/user")
-    public ReturnValue getUserHistoryApi(@RequestParam String sessionID, @RequestParam String userId) throws NoPermissionException, UserException, JsonProcessingException {
+    public ReturnValue getUserHistoryApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId) throws NoPermissionException, UserException, JsonProcessingException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -921,7 +919,7 @@ public class BigController {
 
 
     @GetMapping("/history/store/user")
-    public ReturnValue getStoreUserHistoryApi(@RequestParam String sessionID, @RequestParam String userId, @RequestParam String userIdRequesting,
+    public ReturnValue getStoreUserHistoryApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId, @RequestParam String userIdRequesting,
                                            @RequestParam String storeId
     ) throws NoPermissionException, UserException, JsonProcessingException {
         if (!validateSessionID(sessionID, userId)) {
@@ -954,13 +952,13 @@ public class BigController {
     }
 
     @GetMapping("/permission/type")
-    public ReturnValue getPermissionTypeApi( @RequestParam String userId) {
+    public ReturnValue getPermissionTypeApi(@RequestParam String userId) {
         ReturnValue rv = new ReturnValue(true, "", getUserController().getPermissionType(userId));
         return rv;
     }
 
     @GetMapping("/notification/complaint")
-    public ReturnValue readComplaintNotificationApi(@RequestParam String sessionID, @RequestParam String userId) throws UserException, JsonProcessingException {
+    public ReturnValue readComplaintNotificationApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId) throws UserException, JsonProcessingException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -972,7 +970,7 @@ public class BigController {
     }
 
     @GetMapping("/store/notification")
-    public ReturnValue readStoreNotificationApi(@RequestParam String sessionID, @RequestParam String userId) throws UserException, JsonProcessingException {
+    public ReturnValue readStoreNotificationApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId) throws UserException, JsonProcessingException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -984,7 +982,7 @@ public class BigController {
     }
 
     @GetMapping("/notification/store/complaint")
-    public ReturnValue readStoreNotificationApi(@RequestParam String sessionID, @RequestParam String userId,
+    public ReturnValue readStoreNotificationApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId,
                                              @RequestParam int storeNotificaionId) throws UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
@@ -997,7 +995,7 @@ public class BigController {
 
 
     @PostMapping("/policy/add")
-    public ReturnValue addNewPolicyApi(@RequestParam String sessionID, @RequestParam String userId, @RequestParam String storeId, @RequestParam String typeOfPolicy,
+    public ReturnValue addNewPolicyApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId, @RequestParam String storeId, @RequestParam String typeOfPolicy,
                                     @RequestParam String numOfProducts, @RequestParam String categories, @RequestParam String products,
                                     @RequestParam String productsAmount, @RequestParam String userIds, @RequestParam String startAge,
                                     @RequestParam String endAge, @RequestParam String startTime, @RequestParam String endTime,
@@ -1072,7 +1070,7 @@ public class BigController {
     }
 
     @PostMapping("/policy/combine")
-    public ReturnValue combineTwoPolicyApi(@RequestParam String sessionID, @RequestParam String userId, @RequestParam String storeId,
+    public ReturnValue combineTwoPolicyApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId, @RequestParam String storeId,
                                         @RequestParam String typeOfCombination,
                                         @RequestParam String policyID1,
                                         @RequestParam String policyID2) throws NoPermissionException, UserException {
@@ -1217,7 +1215,7 @@ public class BigController {
 //    }
 
     @GetMapping("/store/title")
-    public ReturnValue getTitleInStoreApi(@RequestParam String sessionID, @RequestParam String userId, String StoreId) {
+    public ReturnValue getTitleInStoreApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId, String StoreId) {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -1226,7 +1224,7 @@ public class BigController {
     }
 
     @PostMapping("/policy/delete")
-    public ReturnValue deletePolicyApi(@RequestParam String sessionID, @RequestParam String userId, @RequestParam String storeId,
+    public ReturnValue deletePolicyApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId, @RequestParam String storeId,
                                     @RequestParam String policyId) throws NoPermissionException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
@@ -1246,7 +1244,7 @@ public class BigController {
     }
 
     @GetMapping("Store/Polices")
-    public ReturnValue getPolicesApi(@RequestParam String sessionID, @RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException, JsonProcessingException {
+    public ReturnValue getPolicesApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException, JsonProcessingException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -1270,7 +1268,7 @@ public class BigController {
 
 
     @GetMapping("/stores/all")
-    public ReturnValue getAllStoresByStoreNameApi(@RequestParam String sessionID, @RequestParam String userId, @RequestParam String name) throws UserException {
+    public ReturnValue getAllStoresByStoreNameApi(@RequestHeader("Auth") String sessionID, @RequestParam String userId, @RequestParam String name) throws UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }

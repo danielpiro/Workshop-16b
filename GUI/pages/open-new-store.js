@@ -27,7 +27,13 @@ const OpenNewStore = () => {
       //openNewStoreInput.additionalStoreOwnerUsername !== ""
       await api
         .post(
-          `/store/open/?sessionID=${cookies.session}&userId=${cookies.username}&storeName=${openNewStoreInput.storename}`
+          `/store/open/?userId=${cookies.userId}&storeName=${openNewStoreInput.storename}`,
+          null,
+          {
+            headers: {
+              Auth: cookies.session,
+            },
+          }
         )
         .then((res) => {
           const { data } = res;

@@ -20,7 +20,13 @@ const AssignNewAdmin = () => {
     if (username !== "") {
       await api
         .post(
-          `/users/add/admin/?sessionID=${cookies.session}&whoIsAdding=${cookies.userId}&user_toMakeAdmin=${username}`
+          `/users/add/admin/?whoIsAdding=${cookies.userId}&user_toMakeAdmin=${username}`,
+          null,
+          {
+            headers: {
+              Auth: cookies.session,
+            },
+          }
         )
         .then((res) => {
           const { data } = res;

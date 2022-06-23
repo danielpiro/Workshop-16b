@@ -27,9 +27,11 @@ const DisplayStorePurchases = () => {
       storeID = storeID.slice(0, -1);
     }
     await api
-      .get(
-        `/history/store/?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${storeID}`
-      )
+      .get(`/history/store/?userId=${cookies.userId}&storeId=${storeID}`, {
+        headers: {
+          Auth: cookies.session,
+        },
+      })
       .then((res) => {
         const { data } = res;
         console.log(data);

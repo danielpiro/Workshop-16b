@@ -20,10 +20,13 @@ const Card = ({ value, title, price, quantity, category, storeId }) => {
     };
     return await api
       .post(
-        `/cart/product/?sessionID=${cookies.session}&userId=${
-          cookies.userId
-        }&auctionOrBid=${false}`,
-        obj
+        `/cart/product/?userId=${cookies.userId}&auctionOrBid=${false}`,
+        obj,
+        {
+          headers: {
+            Auth: cookies.session,
+          },
+        }
       )
       .then((res) => {
         const { data } = res;

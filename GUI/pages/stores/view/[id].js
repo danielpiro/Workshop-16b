@@ -20,7 +20,12 @@ const StoreDetails = () => {
   const fetch = async () => {
     return await api
       .get(
-        `/store/products/?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${router.query.id}`
+        `/store/products/?userId=${cookies.userId}&storeId=${router.query.id}`,
+        {
+          headers: {
+            Auth: cookies.session,
+          },
+        }
       )
       .then((res) => {
         const { data } = res;

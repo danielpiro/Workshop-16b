@@ -24,7 +24,13 @@ const Menu = () => {
     e.preventDefault();
     return await api
       .post(
-        `/users/signup/?user_name=${registerInput.username}&password=${registerInput.password}`
+        `/users/signup/?user_name=${registerInput.username}&password=${registerInput.password}`,
+        null,
+        {
+          headers: {
+            Auth: cookies.session,
+          },
+        }
       )
       .then((res) => {
         const { data } = res;

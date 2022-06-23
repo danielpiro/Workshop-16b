@@ -16,9 +16,11 @@ const notificationPage = () => {
   const [complaints, setComplaints] = useState([]);
   const fetch = async () => {
     return await api
-      .get(
-        `/notification/complaint/?sessionID=${cookies.session}&userId=${cookies.userId}`
-      )
+      .get(`/notification/complaint/?userId=${cookies.userId}`, {
+        headers: {
+          Auth: cookies.session,
+        },
+      })
       .then((res) => {
         const { data } = res;
         if (data.success) {

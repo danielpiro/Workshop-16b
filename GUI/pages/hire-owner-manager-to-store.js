@@ -104,9 +104,11 @@ const HireOwnerToStore = () => {
     }
     const fetchData = async () => {
       return await api
-        .get(
-          `store/owner/permmitions?sessionID=${cookies.session}&userId=${cookies.userId}`
-        )
+        .get(`store/owner/permmitions?userId=${cookies.userId}`, {
+          headers: {
+            Auth: cookies.session,
+          },
+        })
         .then((res) => {
           const { data } = res;
           if (data.success) {
@@ -128,9 +130,11 @@ const HireOwnerToStore = () => {
         .then(async () => {
           //Added by Amit
           return await api
-            .get(
-              `store/manager/permmitions?sessionID=${cookies.session}&userId=${cookies.userId}`
-            )
+            .get(`store/manager/permmitions?userId=${cookies.userId}`, {
+              headers: {
+                Auth: cookies.session,
+              },
+            })
             .then((res) => {
               const { data } = res;
               if (data.success) {
@@ -219,12 +223,16 @@ const HireOwnerToStore = () => {
         //console.log(newOwner)
         await api
           .post(
-            `/owner/create/?sessionID=${
-              cookies.session
-            }&storeId=${storeID}&userIdGiving=${
+            `/owner/create/?storeId=${storeID}&userIdGiving=${
               cookies.username
             }&UserGettingPermissionId=${newOfficialInput.username.trim()}
-                &permissions=${newOwnerPermissions.toString()}`
+                &permissions=${newOwnerPermissions.toString()}`,
+            null,
+            {
+              headers: {
+                Auth: cookies.session,
+              },
+            }
           )
           .then((res) => {
             const { data } = res;
@@ -243,7 +251,13 @@ const HireOwnerToStore = () => {
       } else if (newOfficialInput.ownerORmanager == "Manager") {
         await api
           .post(
-            `/manager/?sessionID=${cookies.session}&storeId=${storeID}&userIdGiving=${cookies.username}&UserGettingPermissionId=${newOfficialInput.username}`
+            `/manager/?storeId=${storeID}&userIdGiving=${cookies.username}&UserGettingPermissionId=${newOfficialInput.username}`,
+            null,
+            {
+              headers: {
+                Auth: cookies.session,
+              },
+            }
           )
           .then((res) => {
             const { data } = res;

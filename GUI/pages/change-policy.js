@@ -103,9 +103,11 @@ const ChangePolicy = () => {
         storeID = storeID.slice(0, -1);
       }
       return await api
-        .get(
-          `Store/Polices?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${storeID}`
-        )
+        .get(`Store/Polices/?userId=${cookies.userId}&storeId=${storeID}`, {
+          headers: {
+            Auth: cookies.session,
+          },
+        })
         .then((res) => {
           const { data } = res;
           if (data.success) {
@@ -136,7 +138,13 @@ const ChangePolicy = () => {
     const polID2 = preds.pred2.split("/")[0].slice(3);
     return await api
       .post(
-        `/policy/combine?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${storeID}&typeOfCombination=${combinationType}&policyID1=${polID1}&policyID2=${polID2}`
+        `/policy/combine/?userId=${cookies.userId}&storeId=${storeID}&typeOfCombination=${combinationType}&policyID1=${polID1}&policyID2=${polID2}`,
+        null,
+        {
+          headers: {
+            Auth: cookies.session,
+          },
+        }
       )
       .then((res) => {
         const { data } = res;
@@ -171,7 +179,13 @@ const ChangePolicy = () => {
 
     return await api
       .post(
-        `/policy/add?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${storeID}&typeOfPolicy=${policyType}&numOfProducts=${predsFeatures1.minQunatity}&categories=${predsFeatures1.category}&products=${predsFeatures1.productShouldBeInCart}&productsAmount=${predsFeatures1.minQunatity}&userIds=${predsFeatures1.specificUser}&startAge=${predsFeatures1.minAge}&endAge=${predsFeatures1.maxAge}&startTime=${startLocalDateTime}&endTime=${endLocalDateTime}&price=${predsFeatures1.minPrice}`
+        `/policy/add/?userId=${cookies.userId}&storeId=${storeID}&typeOfPolicy=${policyType}&numOfProducts=${predsFeatures1.minQunatity}&categories=${predsFeatures1.category}&products=${predsFeatures1.productShouldBeInCart}&productsAmount=${predsFeatures1.minQunatity}&userIds=${predsFeatures1.specificUser}&startAge=${predsFeatures1.minAge}&endAge=${predsFeatures1.maxAge}&startTime=${startLocalDateTime}&endTime=${endLocalDateTime}&price=${predsFeatures1.minPrice}`,
+        null,
+        {
+          headers: {
+            Auth: cookies.session,
+          },
+        }
       )
       //.post(`/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfCombination=${combinationType}` , mockPolicy)
       .then((res) => {
@@ -204,7 +218,13 @@ const ChangePolicy = () => {
 
     return await api
       .post(
-        `/policy/add?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${storeID}&typeOfPolicy=${policyType}&numOfProducts=${predsFeatures2.minQunatity}&categories=${predsFeatures2.category}&products=${predsFeatures2.productShouldBeInCart}&productsAmount=${predsFeatures2.minQunatity}&userIds=${predsFeatures2.specificUser}&startAge=${predsFeatures2.minAge}&endAge=${predsFeatures2.maxAge}&startTime=${startLocalDateTime}&endTime=${endLocalDateTime}&price=${predsFeatures2.minPrice}`
+        `/policy/add/?userId=${cookies.userId}&storeId=${storeID}&typeOfPolicy=${policyType}&numOfProducts=${predsFeatures2.minQunatity}&categories=${predsFeatures2.category}&products=${predsFeatures2.productShouldBeInCart}&productsAmount=${predsFeatures2.minQunatity}&userIds=${predsFeatures2.specificUser}&startAge=${predsFeatures2.minAge}&endAge=${predsFeatures2.maxAge}&startTime=${startLocalDateTime}&endTime=${endLocalDateTime}&price=${predsFeatures2.minPrice}`,
+        null,
+        {
+          headers: {
+            Auth: cookies.session,
+          },
+        }
       )
       //.post(`/policy/add?storeId=${storeID}&userId=${cookies.userId}&typeOfCombination=${combinationType}` , mockPolicy)
       .then((res) => {
@@ -233,7 +253,13 @@ const ChangePolicy = () => {
 
     return await api
       .post(
-        `/policy/delete?sessionID=${cookies.session}&userId=${cookies.userId}&storeId=${storeID}&policyId=${preds.predToDelete}`
+        `/policy/delete/?userId=${cookies.userId}&storeId=${storeID}&policyId=${preds.predToDelete}`,
+        null,
+        {
+          headers: {
+            Auth: cookies.session,
+          },
+        }
       )
       .then((res) => {
         const { data } = res;

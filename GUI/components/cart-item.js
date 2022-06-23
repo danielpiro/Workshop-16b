@@ -28,10 +28,11 @@ const CartItem = ({
       amount: amount,
     };
     return await api
-      .post(
-        `/cart/delete/?sessionID=${cookies.session}&user_id=${cookies.userId}`,
-        obj
-      )
+      .post(`/cart/delete/?user_id=${cookies.userId}`, obj, {
+        headers: {
+          Auth: cookies.session,
+        },
+      })
       .then((res) => {
         const { data } = res;
         if (data.success) {
@@ -52,10 +53,11 @@ const CartItem = ({
       amount: 1,
     };
     return await api
-      .post(
-        `/cart/delete/?sessionID=${cookies.session}&user_id=${cookies.userId}`,
-        obj
-      )
+      .post(`/cart/delete/?user_id=${cookies.userId}`, obj, {
+        headers: {
+          Auth: cookies.session,
+        },
+      })
       .then((res) => {
         const { data } = res;
         if (data.success) {
@@ -83,10 +85,13 @@ const CartItem = ({
     };
     return await api
       .post(
-        `/cart/product/?sessionID=${cookies.session}&userId=${
-          cookies.userId
-        }&auctionOrBid=${false}`,
-        obj
+        `/cart/product/?userId=${cookies.userId}&auctionOrBid=${false}`,
+        obj,
+        {
+          headers: {
+            Auth: cookies.session,
+          },
+        }
       )
       .then((res) => {
         const { data } = res;
