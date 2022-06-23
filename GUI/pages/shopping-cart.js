@@ -14,6 +14,18 @@ const shoppingCart = () => {
     delivery: "Delivery",
     payment: "Payment",
   });
+  const [values, setValues] = useState({
+    nameHolder: "",
+    address: "",
+    city: "",
+    country: "",
+    zip: "",
+    holder: "",
+    cardNumber: "",
+    expireDate: "",
+    cvv: "",
+    id: "",
+  });
   const [cookies, setCookie, removeCookie] = useCookies([
     "username",
     "password",
@@ -76,9 +88,20 @@ const shoppingCart = () => {
         "Please add product before checkout"
       )();
     }
+    console.log(values);
     api
       .post(
-        `/cart/purchase/?userId=${cookies.userId}&payment=${deliveryAndPaymnetDetails.payment}&delivery=${deliveryAndPaymnetDetails.delivery}`,
+        `/cart/purchase/?userId=${cookies.userId}&payment=${
+          deliveryAndPaymnetDetails.payment
+        }&delivery=${deliveryAndPaymnetDetails.delivery}&nameHolder=${
+          values.nameHolder
+        }&address=${values.address}&city=${values.city}&country=${
+          values.country
+        }&zip=${values.zip}&holder=${values.holder}&cardNumber=${
+          values.cardNumber
+        }&expireDate=${values.expireDate}&cvv=${parseInt(values.cvv)}&id=${
+          values.id
+        }`,
         null,
         {
           headers: {
@@ -89,6 +112,7 @@ const shoppingCart = () => {
       .then((res) => {
         const { data } = res;
         if (data.success) {
+          console.log(data.value);
           createNotification("success", "Purchase was successfull")();
           fetchCart();
         } else {
@@ -149,6 +173,119 @@ const shoppingCart = () => {
               </div>
               <div className="text-center mb-3">
                 <h5>Total: {priceAfter}$</h5>
+              </div>
+              <div className="input-group d-flex justify-content-center">
+                <input
+                  className="input-medium mb-2 me-2"
+                  value={values.address}
+                  placeholder="enter address"
+                  onChange={(e) =>
+                    setValues((prevState) => ({
+                      ...prevState,
+                      address: e.target.value,
+                    }))
+                  }
+                />
+                <input
+                  name="Card number"
+                  className="input-medium mb-2 me-2"
+                  value={values.cardNumber}
+                  placeholder="enter cardNumber"
+                  onChange={(e) =>
+                    setValues((prevState) => ({
+                      ...prevState,
+                      cardNumber: e.target.value,
+                    }))
+                  }
+                />
+                <input
+                  className="input-medium mb-2 me-2"
+                  value={values.city}
+                  placeholder="enter city"
+                  onChange={(e) =>
+                    setValues((prevState) => ({
+                      ...prevState,
+                      city: e.target.value,
+                    }))
+                  }
+                />
+                <input
+                  className="input-medium mb-2 me-2"
+                  value={values.country}
+                  placeholder="enter country"
+                  onChange={(e) =>
+                    setValues((prevState) => ({
+                      ...prevState,
+                      country: e.target.value,
+                    }))
+                  }
+                />
+                <input
+                  className="input-medium mb-2 me-2"
+                  value={values.cvv}
+                  placeholder="enter cvv"
+                  onChange={(e) =>
+                    setValues((prevState) => ({
+                      ...prevState,
+                      cvv: e.target.value,
+                    }))
+                  }
+                />
+                <input
+                  className="input-medium mb-2 me-2"
+                  value={values.expireDate}
+                  placeholder="enter expireDate"
+                  onChange={(e) =>
+                    setValues((prevState) => ({
+                      ...prevState,
+                      expireDate: e.target.value,
+                    }))
+                  }
+                />
+                <input
+                  className="input-medium mb-2 me-2"
+                  value={values.holder}
+                  placeholder="enter holder"
+                  onChange={(e) =>
+                    setValues((prevState) => ({
+                      ...prevState,
+                      holder: e.target.value,
+                    }))
+                  }
+                />
+                <input
+                  className="input-medium mb-2 me-2"
+                  value={values.id}
+                  placeholder="enter id"
+                  onChange={(e) =>
+                    setValues((prevState) => ({
+                      ...prevState,
+                      id: e.target.value,
+                    }))
+                  }
+                />
+                <input
+                  className="input-medium mb-2 me-2"
+                  value={values.nameHolder}
+                  placeholder="enter nameHolder"
+                  onChange={(e) =>
+                    setValues((prevState) => ({
+                      ...prevState,
+                      nameHolder: e.target.value,
+                    }))
+                  }
+                />
+                <input
+                  className="input-medium mb-2 me-2"
+                  value={values.zip}
+                  placeholder="enter zip"
+                  onChange={(e) =>
+                    setValues((prevState) => ({
+                      ...prevState,
+                      zip: e.target.value,
+                    }))
+                  }
+                />
               </div>
               <div className="d-flex justify-content-center">
                 <div className="dropdown">

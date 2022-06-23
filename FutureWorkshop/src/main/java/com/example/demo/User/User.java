@@ -13,7 +13,6 @@ public abstract class User {
     private ShoppingCart shoppingCart;
     private String sessionId;
 
-    private String sessionId;
 
 
     public User(String name){
@@ -41,9 +40,6 @@ public abstract class User {
     public void addProduct(String productID, String storeID, int amount, InventoryProtector inventoryProtector, boolean auctionOrBid) {
      shoppingCart.addProduct(productID,storeID,amount,inventoryProtector,auctionOrBid);
  }
-    public String getCartInventory() {
-     return shoppingCart.getCartInventory();
- }
     public float purchaseCart(ExternalConnectionHolder externalConnectionHolder,String nameHolder, String address, String city, String country, String zip ,
                               String holder, String cardNumber, String expireDate, int cvv, String id) throws Exception {
      float a = shoppingCart.purchaseCart(externalConnectionHolder, nameHolder,  address,  city,  country,  zip ,
@@ -51,27 +47,8 @@ public abstract class User {
      return a;
  }
 
-
-    public float getPriceOfCartBeforeDiscount( ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException {
-    return shoppingCart.getPriceOfCartBeforeDiscount(externalConnectionHolder);
-    }
-
     public String getCartInventory() {
         return shoppingCart.getCartInventory();
-    }
-
-    public float purchaseCart(ExternalConnectionHolder externalConnectionHolder) throws SupplyManagementException, StorePolicyViolatedException, CantPurchaseException {
-        float a = shoppingCart.purchaseCart(externalConnectionHolder);
-        return a;
-    }
-
-    public String getSessionId(){return sessionId;}
-    public void setSessionId(String sId){
-        this.sessionId=sId;
-    }
-
-    public float getPriceOfCartBeforeDiscount(ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException {
-        return shoppingCart.getPriceOfCartBeforeDiscount(externalConnectionHolder);
     }
 
     public float getPriceOfCartAfterDiscount(ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException {

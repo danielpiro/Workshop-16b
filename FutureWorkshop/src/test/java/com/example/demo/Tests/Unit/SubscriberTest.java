@@ -7,7 +7,10 @@ import com.example.demo.Controllers.model.realTimeNotification;
 import com.example.demo.User.Subscriber;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.support.AbstractMessageChannel;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -20,6 +23,12 @@ class SubscriberTest {
     private static Subscriber subscriber;
     private static Subscriber subscriber2;
     private static Subscriber subscriber3;
+    private final SimpMessagingTemplate simpMessagingTemplate = new SimpMessagingTemplate(new AbstractMessageChannel() {
+        @Override
+        protected boolean sendInternal(org.springframework.messaging.Message<?> message, long timeout) {
+            return false;
+        }
+    });
 
     @BeforeEach
     void setUp() throws IOException {
@@ -51,6 +60,8 @@ class SubscriberTest {
 
     @org.junit.jupiter.api.Test
     void loggedin() {
-      Assertions.assertThrows(NullPointerException.class, () -> NotificationController.getInstance().sendMessage(new Message(subscriber.getName(), "hi hi hi")));
+        String hi_hi_hi = new NotificationController(simpMessagingTemplate).sendMessage(new Message(subscriber.name, "hi"));
+        Assertions.assertEquals(hi_hi_hi , "was success");
+
     }
 }

@@ -5,17 +5,14 @@ import com.example.demo.CustomExceptions.Exception.NotifyException;
 import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
+import com.example.demo.ExternalConnections.Old.Delivery.DeliveryNames;
+import com.example.demo.ExternalConnections.Old.Delivery.Payment.PaymentNames;
+import com.example.demo.ExternalConnections.Old.ExternalConnectionHolder;
+import com.example.demo.ExternalConnections.Old.ExternalConnections;
 import com.example.demo.History.PurchaseHistory;
 import com.example.demo.Mock.*;
 import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
-import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
-import com.example.demo.ExternalConnections.Delivery.FedEx;
-import com.example.demo.ExternalConnections.Delivery.UPS;
-import com.example.demo.ExternalConnections.ExternalConnectionHolder;
-import com.example.demo.ExternalConnections.ExternalConnections;
-import com.example.demo.ExternalConnections.Payment.MasterCard;
-import com.example.demo.ExternalConnections.Payment.PaymentNames;
-import com.example.demo.ExternalConnections.Payment.Visa;
+
 import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.History.History;
 import com.example.demo.NotificationsManagement.ComplaintNotification;
@@ -54,7 +51,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 @EnableScheduling
@@ -77,19 +73,19 @@ public class BigController {
         this.us = new UserController();
         this.sc = new StoreController();
         this.policyBuilder = new PolicyBuilder();
-        initiateExternalConnections();
+        //initiateExternalConnections();
         NotificationManager.buildNotificationManager(us);
         initializeSystem();
         my_log.info("System Started");
     }
-
-    public void initiateExternalConnections() {
-        ExternalConnections externalConnections = ExternalConnections.getInstance();
-        externalConnections.addPayment(new Visa());
-        externalConnections.addPayment(new MasterCard());
-        externalConnections.addDelivery(new FedEx());
-        externalConnections.addDelivery(new UPS());
-    }
+//
+//    public void initiateExternalConnections() {
+//        ExternalConnections externalConnections = ExternalConnections.getInstance();
+//        externalConnections.addPayment(new com.example.demo.ExternalConnections.Old.Delivery.Payment.Visa());
+//        externalConnections.addPayment(new com.example.demo.ExternalConnections.Old.Delivery.Payment.MasterCard());
+//        externalConnections.addDelivery(new FedEx());
+//        externalConnections.addDelivery(new UPS());
+//    }
 
     @PostMapping("/users/add/admin")
     public ReturnValue addSystemAdminApi(@RequestHeader("Authorization") String sessionID, @RequestParam String whoIsAdding, @RequestParam String user_toMakeAdmin) throws UserException {
@@ -114,7 +110,7 @@ public class BigController {
      * @throws UserException
      */
     @PostMapping("/cart/price")
-    public ReturnValue getPriceOfCartDiscountApi(@RequestHeader("Authorization") String sessionID, @RequestParam String user_id, @RequestParam PaymentNames payment,
+    public ReturnValue getPriceOfCartDiscountApi(@RequestHeader("Authorization") String sessionID, @RequestParam String user_id, @RequestParam com.example.demo.ExternalConnections.Old.Delivery.Payment.PaymentNames payment,
                                                  @RequestParam DeliveryNames delivery) throws StorePolicyViolatedException, UserException, JsonProcessingException, InterruptedException {
         if (!validateSessionID(sessionID, user_id)) {
             return new ReturnValue(false, "Not authorized", null);
@@ -293,14 +289,14 @@ public class BigController {
 
     }
 
-    public boolean removePaymentService(PaymentNames payment) {
+    public boolean removePaymentService(com.example.demo.ExternalConnections.Old.Delivery.Payment.PaymentNames payment) {
         return ExternalConnections.getInstance().removePayment(payment);
     }
 
     //todo add check price
     @PostMapping("/cart/purchase")
     public ReturnValue purchaseCartApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId,
-                                       @RequestParam PaymentNames payment,
+                                       @RequestParam com.example.demo.ExternalConnections.Old.Delivery.Payment.PaymentNames payment,
                                        @RequestParam DeliveryNames delivery, @RequestParam String nameHolder, @RequestParam String address,@RequestParam  String city, @RequestParam String country,@RequestParam  String zip ,
                                        @RequestParam String holder,@RequestParam  String cardNumber,@RequestParam  String expireDate,@RequestParam  int cvv, @RequestParam String id) throws Exception {
 
@@ -1423,13 +1419,12 @@ public class BigController {
     }
 
 
-    //todo add check price
     public ReturnValue purchaseCart(String user_id,
                                     PaymentNames payment,
-                                    DeliveryNames delivery) throws SupplyManagementException, StorePolicyViolatedException, UserException {
+                                    DeliveryNames delivery, String dann, String ringelblum, String beer_sheva, String israel, String s, String rotman_inc, String s1, String s2, int i, String s3) throws Exception {
 
 
-        float a = getUserController().purchaseCart(user_id, new ExternalConnectionHolder(delivery, payment));
+        float a = getUserController().purchaseCart(user_id, new ExternalConnectionHolder(delivery, payment) , dann , ringelblum , beer_sheva,israel,s,rotman_inc,s1,s2,i,s3);
         ReturnValue rv = new ReturnValue(true, "", a);
         return rv;
     }

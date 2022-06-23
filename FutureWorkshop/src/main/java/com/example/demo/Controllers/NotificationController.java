@@ -7,7 +7,10 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+
+import java.net.http.WebSocket;
 
 @Controller
 public class NotificationController {
@@ -15,7 +18,7 @@ public class NotificationController {
     private static NotificationController single_instance = null;
     private static SimpMessagingTemplate simpMessagingTemplate;
 
-    private NotificationController(SimpMessagingTemplate simpMessagingTemplate) {
+    public NotificationController(SimpMessagingTemplate simpMessagingTemplate) {
         NotificationController.simpMessagingTemplate = simpMessagingTemplate;
     }
 
@@ -26,15 +29,24 @@ public class NotificationController {
     }
 
 
-    @MessageMapping("/private-test")
-    public void sendMessage(@Payload Message message){
-        if (simpMessagingTemplate == null){
-            throw new NullPointerException();
+    public String sendMessage(@Payload Message message){
+        try{
+            simpMessagingTemplate.convertAndSend("/test", message);
+            simpMessagingTemplate.convertAndSendToUser(message.getReceiverName(), "/private", message.getReceiverName().concat("\n" + message.getBody()));
+            System.out.println(message.getReceiverName());
+            System.out.println(message.getBody());
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
-        simpMessagingTemplate.convertAndSendToUser(message.getReceiverName(), "/private", message.getReceiverName().concat("\n" + message.getBody()));
-        System.out.println(message.getReceiverName());
-        System.out.println(message.getBody());
+        return "was success";
+
     }
+    @MessageMapping("/test")
+    private void listenerTest(@Payload Message message) {
+        System.out.println(message);
+    }
+
+
 
     @MessageMapping("/private-message")
     public void sendNotification(@Payload realTimeNotification message) {

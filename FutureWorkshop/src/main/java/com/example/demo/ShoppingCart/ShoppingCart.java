@@ -162,8 +162,9 @@ public class ShoppingCart {
         ExternalConnectionsReal exc = ExternalConnectionsReal.getInstance();
         String supplId= exc.supply(name,address,city,country,zip);
         if(!supplId.equals("-1")){
-
-            if(exc.pay(holder,cardNumber,expireDate,cvv,id).equals("-1")){
+            String pay = exc.pay(holder, cardNumber, expireDate, cvv, id);
+            System.out.println(pay);
+            if(pay.equals("-1")){
                 exc.cancel_supply(supplId);
                 throw new CantPurchaseException("Payment was not approved");
             }

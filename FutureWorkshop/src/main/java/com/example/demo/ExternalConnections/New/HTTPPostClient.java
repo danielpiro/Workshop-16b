@@ -1,6 +1,9 @@
 package com.example.demo.ExternalConnections.New;
 
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -25,7 +28,8 @@ public class HTTPPostClient {
 
         byte[] postDataBytes = postData.toString().getBytes("UTF-8");
 
-
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> stringResponseEntity = restTemplate.postForEntity("https://cs-bgu-wsep.herokuapp.com/", postData, String.class);
         URL url = new URL("https://cs-bgu-wsep.herokuapp.com/");
         URLConnection con = url.openConnection();
         HttpURLConnection http = (HttpURLConnection) con;
@@ -40,7 +44,6 @@ public class HTTPPostClient {
         StringBuilder sb = new StringBuilder();
         for (int c; (c = in.read()) >= 0; )
             sb.append((char) c);
-
         return sb.toString();
     }
 
