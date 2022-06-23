@@ -4,6 +4,7 @@ package com.example.demo.Controllers;
 import com.example.demo.CustomExceptions.Exception.NotifyException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
+import com.example.demo.Database.DTOobjects.Store.StoreDTO;
 import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.GlobalSystemServices.Log;
@@ -36,8 +37,12 @@ public class StoreController {
         this.stores = stores;
     }
 
-    public StoreController(){
+    public StoreController(DatabaseService databaseService) throws SQLException {
         stores = new ConcurrentHashMap<String, Store>();
+        List<StoreDTO> storeDTOList = databaseService.getAllStores();
+        for(StoreDTO storeDTO: storeDTOList){
+            stores.put(storeDTO.getStoreId(),new Store(storeDTO,databaseService));
+        }
     }
 
     public String openNewStore(String name, List<String> owners, DatabaseService databaseService) throws NoPermissionException, SQLException {

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 public interface StoreRoleRepository extends JpaRepository<StoreRoleDTO,Long> {
@@ -21,7 +22,10 @@ public interface StoreRoleRepository extends JpaRepository<StoreRoleDTO,Long> {
   @Query
   Optional<StoreRoleDTO> findById(String Id);
 
-
+  @Transactional
+  @Modifying
+  @Query
+  List<StoreRoleDTO> getByStoreId(String Id);
 
   Optional<StoreRoleDTO> findByUserIdAndStoreId(String userId, String storeId);
 

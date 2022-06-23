@@ -46,25 +46,32 @@ public class Store implements getStoreInfo {
 
     private DatabaseService databaseService;
 
-
+    public Store(StoreDTO storeDto,DatabaseService databaseService) throws SQLException {//build from database
+        this.databaseService = databaseService;
+        this.storeName = storeDto.getStoreName();
+        this.storeId = storeDto.getStoreId();
+        inventoryManager = new InventoryManager();//todo need to load from database inventory manager
+        forum =new Forum();
+        storeState = StoreState.valueOf(storeDto.getStoreState());
+        storeRating = storeDto.getStoreRating();
+        StoreRoles = databaseService.getRolesOfStore(storeDto.getStoreId());
+    }
     public Store(String storeName, String storeId, List<String> storeOriginalManager, DatabaseService databaseService) throws SQLException {
         this.databaseService = databaseService;
         this.storeName = storeName;
         this.storeId = storeId;
+        inventoryManager = new InventoryManager();
+        forum =new Forum();
+        storeState = StoreState.ACTIVE;
+        storeRating = 0F;
         StoreRoles = new ArrayList<>();
         HashMap<StoreRoleDTO, List<Permission>> storeRoleDTOListHashMap = new HashMap<>();
         for (String userId : storeOriginalManager) {
             OriginalStoreOwnerRole originalStoreOwnerRole = new OriginalStoreOwnerRole(userId);
             StoreRoles.add(originalStoreOwnerRole);
-
             StoreRoleDTO storeRoleDTO = new StoreRoleDTO(userId,storeId,StoreRoleType.original_owner.toString());
             storeRoleDTOListHashMap.put(storeRoleDTO,originalStoreOwnerRole.getPermissions());
-            //originalStoreOwnerRole.saveInDb(storeId, StoreRoleType.original_owner,databaseService,originalStoreOwnerRole.getPermissions());
         }
-        inventoryManager = new InventoryManager();
-        forum =new Forum();
-        storeState = StoreState.ACTIVE;
-        storeRating = 0F;
         saveStore(storeRoleDTOListHashMap);
     }
     private void saveStore(HashMap<StoreRoleDTO, List<Permission>> storeRoleDTOListHashMap) throws SQLException {

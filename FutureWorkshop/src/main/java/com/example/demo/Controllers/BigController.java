@@ -81,7 +81,7 @@ public class BigController {
     @Autowired
     public BigController(DatabaseService databaseService) throws IOException, UserException, NoPermissionException, SupplyManagementException, InterruptedException, SQLException, NotifyException {
         this.us = new UserController();
-        this.sc = new StoreController();
+        this.sc = new StoreController(databaseService);
         this.databaseService = databaseService;
         IdGenerator.addDatabase(databaseService);
         this.policyBuilder = new PolicyBuilder();
@@ -93,7 +93,7 @@ public class BigController {
             @Override
             public void sendComplaintToAdmins(String senderId, ComplaintNotification complaintNotification) throws UserException {}
         });//todo delete this  !!!for testing only!!!
-        initializeSystem();
+        //initializeSystem();
         my_log.info("System Started");
 
         withDatabase = true;

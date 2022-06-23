@@ -109,6 +109,10 @@ public abstract class  StoreRoles {
         StoreRoleDTO storeRoleDTO = new StoreRoleDTO(userId,StoreId,storeRoleType.toString());
         databaseService.saveStoreRolePermissionAndSaveStoreRoleToStoreRoleAndSaveStoreRole(storeRoleDTO,permissions,userIdCreatedMe);
     }
+
+    public void addToCreatedList(StoreRoles userToAdd) {
+        createPermissionsTo.add(userToAdd);
+    }
 //    public void saveInDb(String StoreId, StoreRoleType storeRoleType, DatabaseService databaseService, List<Permission> permissions) throws SQLException {
 //        StoreRoleDTO storeRoleDTO = new StoreRoleDTO(userId,StoreId,storeRoleType.toString());
 //        databaseService.saveStoreRolePermissionAndSaveStoreRole(storeRoleDTO,permissions);

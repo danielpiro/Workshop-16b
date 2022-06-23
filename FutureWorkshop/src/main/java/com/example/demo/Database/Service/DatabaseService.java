@@ -22,7 +22,7 @@ import com.example.demo.ShoppingCart.ShoppingBasket;
 import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.Review;
-import com.example.demo.StorePermission.Permission;
+import com.example.demo.StorePermission.*;
 import com.example.demo.User.Subscriber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -225,6 +225,14 @@ public class DatabaseService {
         Long storeRoleId = getStoreRole(storeRoleDTO.getUserId(),storeRoleDTO.getStoreId()).getId();
         saveStoreRolePermission(storeRoleId,permissions);
     }
+    private void saveStoreRoleToStoreRole(String storeId,String userGivingId,String userGettingId) throws SQLException {
+        long userGiving = getStoreRole(userGivingId,storeId).getId();
+        long userGetting = getStoreRole(userGettingId,storeId).getId();
+        if(storeRoleToStoreRoleRepository.findByGettingPermissionIdAndGivingPermissionId(userGetting,userGiving).isEmpty()) {
+            StoreRoleToStoreRoleDTO storeRoleToStoreRoleDTO = new StoreRoleToStoreRoleDTO(userGiving,userGetting);
+            storeRoleToStoreRoleRepository.saveAndFlush(storeRoleToStoreRoleDTO);
+        }
+    }
     @Transactional
     public void saveStoreRolePermissionAndSaveStoreRoleToStoreRoleAndSaveStoreRole
             (StoreRoleDTO storeRoleDTO, List<Permission> permissions,String userGiving) throws SQLException {
@@ -234,13 +242,47 @@ public class DatabaseService {
         saveStoreRoleToStoreRole(storeRoleDTO.getStoreId(),userGiving,storeRoleDTO.getUserId());
 
     }
-    private void saveStoreRoleToStoreRole(String storeId,String userGivingId,String userGettingId) throws SQLException {
-        long userGiving = getStoreRole(userGivingId,storeId).getId();
-        long userGetting = getStoreRole(userGettingId,storeId).getId();
-        if(storeRoleToStoreRoleRepository.findByGettingPermissionIdAndGivingPermissionId(userGetting,userGiving).isEmpty()) {
-            StoreRoleToStoreRoleDTO storeRoleToStoreRoleDTO = new StoreRoleToStoreRoleDTO(userGiving,userGetting);
-            storeRoleToStoreRoleRepository.saveAndFlush(storeRoleToStoreRoleDTO);
+
+    public List<StoreRoles> getRolesOfStore(String storeId) throws SQLException {
+        List<StoreRoleDTO> storeRoleDTOList = storeRoleRepository.getByStoreId(storeId);
+        HashMap<StoreRoles,List<StoreRoleToStoreRoleDTO>> usersStoreRoleCreated = new HashMap<>();
+        HashMap<Long,StoreRoles> userRoleWithDatabaseId = new HashMap<>();
+
+        for (StoreRoleDTO storeRoleDTO:storeRoleDTOList){
+
+            List<StoreRoleToPermissionDTO> permissionDTOS = storeRoleToPermissionRepository.getByStoreRoleId(storeRoleDTO.getId());
+            StoreRoles storeRole;
+            if(storeRoleDTO.getType().equals(StoreRoleType.original_owner.toString())){
+                storeRole = new OriginalStoreOwnerRole(storeRoleDTO.getUserId());
+            }
+            else if(storeRoleDTO.getType().equals(StoreRoleType.owner.toString())){
+                List<Permission> permissions = new ArrayList<>();
+                for(StoreRoleToPermissionDTO storeRoleToPermissionDTO : permissionDTOS){
+                    permissions.add(Permission.valueOf(storeRoleToPermissionDTO.getPermissionId()));
+                }
+                storeRole = new StoreOwnerRole(storeRoleDTO.getUserId(),permissions);
+            }
+            else if(storeRoleDTO.getType().equals(StoreRoleType.manager.toString())){
+                storeRole = new StoreManager(storeRoleDTO.getUserId());
+            }
+            else{
+                throw new SQLException("no store role with this type");
+            }
+            userRoleWithDatabaseId.put(storeRoleDTO.getId(),storeRole);
+
+            List<StoreRoleToStoreRoleDTO> gavePermissionTo = storeRoleToStoreRoleRepository.getByGivingPermissionId(storeRoleDTO.getId());
+            usersStoreRoleCreated.put(storeRole,gavePermissionTo);
         }
+
+        for (StoreRoles storeRole:usersStoreRoleCreated.keySet()){
+            List<StoreRoleToStoreRoleDTO> storeRoleToStoreRoleDTOList = usersStoreRoleCreated.get(storeRole);
+            for(StoreRoleToStoreRoleDTO storeRoleToStoreRoleDTO: storeRoleToStoreRoleDTOList){
+                long databaseId = storeRoleToStoreRoleDTO.getGettingPermissionId();
+                StoreRoles userToAdd = userRoleWithDatabaseId.get(databaseId);
+                storeRole.addToCreatedList(userToAdd);
+            }
+        }
+        return new ArrayList<>(usersStoreRoleCreated.keySet());
     }
 
 
@@ -262,4 +304,7 @@ public class DatabaseService {
         return idGeneratorRepository.findAll();
     }
 
+    public List<StoreDTO> getAllStores() {
+        return storeRepository.findAll();
+    }
 }
