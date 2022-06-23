@@ -4,6 +4,8 @@ import com.example.demo.CustomExceptions.Exception.CantPurchaseException;
 import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
+import com.example.demo.Database.DTOobjects.User.UserDTO;
+import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.ExternalConnections.ExternalConnectionHolder;
 import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.GlobalSystemServices.Log;
@@ -50,6 +52,14 @@ public class UserController implements NotificationReceiver {
         registeredUsers = 0;
     }
 
+    public void initSystem(DatabaseService databaseService){
+
+        for(UserDTO userDTO: databaseService.allUsers()){
+            user_list.add( new Subscriber(userDTO.getName(),userDTO.getPassword(),databaseService.getShoppingCart(userDTO.getName())));
+        }
+
+    }
+
     public List<String> initialize() throws UserException, InterruptedException {
         Guest g1 = addGuest();
         Guest g2 = addGuest();
@@ -89,6 +99,8 @@ public class UserController implements NotificationReceiver {
         login("tjhaly", "asdfdasd");
         login("spart", "sswwwss");
         login("yoav", "yoav123");
+
+        //user_list.get(0).
 
         login(g1.name, "delphin", "1234");
         login(g2.name, "alan", "4321");

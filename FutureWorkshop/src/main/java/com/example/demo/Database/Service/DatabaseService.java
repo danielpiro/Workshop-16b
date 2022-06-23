@@ -83,6 +83,7 @@ public class DatabaseService {
         return productRepository.saveAndFlush(p.productToDTO());
     }
 
+    @Transactional
     public ReviewDTO saveReviewByProduct(Review r, String productId){
 
         //save the review with reference to its product
@@ -92,7 +93,7 @@ public class DatabaseService {
     }
 
 
-
+    @Transactional
     public Product getProductByID(String productID) throws ResourceNotFoundException, SupplyManagementException {
        Optional<ProductDTO> productOpt=  productRepository.findById(productID);
        if(productOpt.isPresent()){
@@ -192,7 +193,9 @@ public class DatabaseService {
     public void savePurchaseHistory(HistoryDTO historyDTO){
         historyRepository.saveAndFlush(historyDTO);
     }
-
+    public List<UserDTO> allUsers(){
+        return userRepository.findAll();
+    }
 
     private void saveStoreRole(StoreRoleDTO storeRoleDTO) {
         Optional<StoreRoleDTO> storeRoleDTOOptional = storeRoleRepository.findByUserIdAndStoreId(storeRoleDTO.getUserId(),storeRoleDTO.getStoreId());

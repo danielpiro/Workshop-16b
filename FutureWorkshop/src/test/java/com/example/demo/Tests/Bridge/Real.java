@@ -104,8 +104,9 @@ public class Real   {
     /** System requirement - I.1 */
     public String openingMarket(DatabaseService databaseService){
         try {
-
+          
             this.bigController = new BigController(databaseService);
+            bigController.setWithDatabase(false);
             return "system opened successfully";
         }
         catch (Exception e){

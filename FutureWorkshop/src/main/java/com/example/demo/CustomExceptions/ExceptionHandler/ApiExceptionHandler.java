@@ -24,7 +24,7 @@ public class ApiExceptionHandler {
     @ExceptionHandler(value = { MissingServletRequestParameterException.class,
                                 MethodArgumentNotValidException.class})
 
-    public ReturnValue handleWrongArgument (){
+    public ReturnValue handleWrongArgument (Exception e){
         ReturnValue rv = new ReturnValue(
                 false,
                 "one of the variables you entered wasn't correct",

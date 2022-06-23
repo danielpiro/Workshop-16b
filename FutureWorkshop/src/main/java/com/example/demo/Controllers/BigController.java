@@ -45,6 +45,9 @@ import org.springframework.http.MediaType;
 import org.apache.tomcat.util.json.ParseException;
 
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -60,10 +63,12 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 @EnableScheduling
+@EnableTransactionManagement
 @CrossOrigin(maxAge = 3600)
 @RestController
 @EnableWebMvc
 @RequestMapping("/api")
+
 public class BigController {
     private StoreController sc;
     private UserController us;
@@ -97,7 +102,12 @@ public class BigController {
         my_log.info("System Started");
 
         withDatabase = true;
+
+        us.initSystem(databaseService);
     }
+
+
+
 
 
 //    public BigController() throws IOException, UserException, NoPermissionException, SupplyManagementException {
@@ -111,7 +121,9 @@ public class BigController {
 //        withDatabase = false;
 //    }
 
-
+    public void setWithDatabase(boolean withDatabase) {
+        this.withDatabase = withDatabase;
+    }
 
     public void initiateExternalConnections() {
         ExternalConnections externalConnections = ExternalConnections.getInstance();
@@ -313,8 +325,7 @@ public class BigController {
         InventoryProtector inventoryProtector = sc.getInventoryProtector(mockProduct.getStoreID());
         getUserController().addProduct(mockProduct.getUser_id(), mockProduct.getProductID(), mockProduct.getStoreID(), mockProduct.getAmount(), inventoryProtector, auctionOrBid);
         ReturnValue rv = new ReturnValue(true, "", null);
-        if(withDatabase && rv.isSuccess())
-            databaseService.saveShoppingCart(getUserController().get_subscriber(mockProduct.getUser_id()).getShoppingCart());
+        databaseService.saveShoppingCart(getUserController().get_subscriber(mockProduct.getUser_id()).getShoppingCart());
 
         return rv;
 
@@ -837,11 +848,11 @@ public class BigController {
     public ReturnValue getStoreHistory(@RequestParam String storeId, @RequestParam String userId) throws NoPermissionException, UserException {
         userExists(userId);
         boolean isAdmin = us.checkIfAdmin(userId);
-        
+
         // databaseService.findHistoryByStoreId(storeId)
 
         ReturnValue rv = new ReturnValue(true, "", sc.getStoreHistory(storeId, userId, isAdmin));
-        
+
         return rv;
     }
 
