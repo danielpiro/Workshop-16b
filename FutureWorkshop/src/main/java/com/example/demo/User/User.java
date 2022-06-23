@@ -12,7 +12,10 @@ public abstract class User {
     public String name;
     private ShoppingCart shoppingCart;
 
- public User(String name){
+    private String sessionId;
+
+
+    public User(String name){
     shoppingCart = new ShoppingCart(name);
 
     }
@@ -58,4 +61,11 @@ public abstract class User {
         return shoppingCart.getPriceOfCartAfterDiscount(externalConnectionHolder);
     }
 
+    public String getSessionId(){return sessionId;}
+    public void setSessionId(String sId){
+        this.sessionId=sId;
     }
+
+
+
+}

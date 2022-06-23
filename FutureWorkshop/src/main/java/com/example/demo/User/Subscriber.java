@@ -24,7 +24,6 @@ public class Subscriber extends User {
     private List<ComplaintNotification> complaintNotifications;
     private Object lock = new Object();
 
-    private String sessionId;
 
     public Subscriber(String user_name, String password) {
         super(user_name);
@@ -38,7 +37,7 @@ public class Subscriber extends User {
     }
 
     public boolean validateWebSocket(String session_Id) {
-        return session_Id.equals(sessionId);
+        return session_Id.equals(getSessionId());
     }
 
     public String getName() {
@@ -56,7 +55,7 @@ public class Subscriber extends User {
     public void setLogged_in(boolean logged_in) {
         this.logged_in = logged_in;
         if(logged_in)
-            sessionId = IdGenerator.getInstance().getSessionId();
+            this.setSessionId(IdGenerator.getInstance().getSessionId());
 //        if (this.logged_in && getStoreNotifications().size() > 0) {
 //            for (int i = 0; i < getStoreNotifications().size(); i++) {
 //                NotificationController.getInstance().sendNotification(new realTimeNotification(this.name, getStoreNotifications().get(i).getSentFrom().getStoreName(), getStoreNotifications().get(i).getSubject().toString(), getStoreNotifications().get(i).getTitle(), getStoreNotifications().get(i).getBody(), new SimpleDateFormat(pattern).format(Calendar.getInstance().getTime())));
@@ -70,7 +69,6 @@ public class Subscriber extends User {
         this.getQueries().add(s);
     }
 
-    public String getSessionId(){return sessionId;}
 
     public List<String> getQueries() {
         return Queries;

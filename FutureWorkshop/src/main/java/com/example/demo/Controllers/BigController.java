@@ -1353,8 +1353,8 @@ public class BigController {
 
 
     public ReturnValue addGuest() {
-
-        ReturnValue rv = new ReturnValue(true, "", getUserController().addGuest().name);
+        String guestName = getUserController().addGuest().name;
+        ReturnValue rv = new ReturnValue(true, "", guestName.concat("#").concat(getUserController().getGuest(guestName).getSessionId()));
         return rv;
     }
 
