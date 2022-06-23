@@ -11,42 +11,43 @@ public class IdGenerator {
     private static DatabaseService database;
     private static IdGenerator single_instance = null;
 
-    private String productPrefix = "ProductID_";
+    private final String productPrefix = "ProductID_";
     private Long productSuffix = 0L;
 
-    private String storePrefix = "StoreID_";
+    private final String storePrefix = "StoreID_";
     private Long storeSuffix= 0L;
 
-    private String ForumThreadPrefix = "ForumThreadID_";
+    private final String ForumThreadPrefix = "ForumThreadID_";
     private Long ForumThreadSuffix= 0L;
 
-    private String GuestPrefix = "GuestID_";
+    private final String GuestPrefix = "GuestID_";
     private Long GuestSuffix= 0L;
 
-    private String AdminPrefix = "AdminID_";
+    private final String AdminPrefix = "AdminID_";
     private Long AdminSuffix= 0L;
 
-    private String PolicyPrefix = "PolicyID_";
+    private final String PolicyPrefix = "PolicyID_";
     private Long PolicySuffix= 0L;
 
-    private String DiscountPrefix = "DiscountID_";
+    private final String DiscountPrefix = "DiscountID_";
     private Long DiscountSuffix= 0L;
-    private String PredicatePrefix = "PredicateID_";
+    private final String PredicatePrefix = "PredicateID_";
     private Long PredicateSuffix= 0L;
-    private String PrefixComplaintNotificationId = "ComplaintNotification_";
+    private final String PrefixComplaintNotificationId = "ComplaintNotification_";
     private int complaintNotificationId = 0;
-    private String PrefixStoreNotificationId = "storeNotificationNotification_";
+    private final String PrefixStoreNotificationId = "storeNotificationNotification_";
     private int storeNotificationId = 0;
 
-    private String PurchaseIDPrefix = "PurchaseID_";
+    private final String PurchaseIDPrefix = "PurchaseID_";
     private long PurchaseIDSuffix = 0L;
 
 
     private IdGenerator(){
-
+        loadData();
     }
     private IdGenerator(DatabaseService databaseService){
         database = databaseService;
+        loadData();
         save();
     }
 
@@ -70,7 +71,7 @@ public class IdGenerator {
     }
     public static IdGenerator addDatabase(DatabaseService databaseService)
     {
-        if (single_instance == null)
+        if (database == null)
             single_instance = new IdGenerator(databaseService);
         return single_instance;
     }
@@ -169,6 +170,45 @@ public class IdGenerator {
         idGeneratorDTOList.add(new IdGeneratorDTO(PurchaseIDPrefix,PurchaseIDSuffix));
 
         database.saveIdGenerator(idGeneratorDTOList);
+    }
+
+    private void loadData(){
+        List<IdGeneratorDTO> DTOList = database.loadIdGenerator();
+        for(IdGeneratorDTO dto: DTOList){
+            switch (dto.getIdPrefix()){
+                case productPrefix:
+                    productSuffix = dto.getSuffix();
+                    break;
+                case storePrefix:
+                    storeSuffix = dto.getSuffix();
+                    break;
+                case GuestPrefix:
+                    GuestSuffix = dto.getSuffix();
+                    break;
+                case AdminPrefix:
+                    AdminSuffix = dto.getSuffix();
+                    break;
+                case PolicyPrefix:
+                    PolicySuffix = dto.getSuffix();
+                    break;
+                case DiscountPrefix:
+                    DiscountSuffix = dto.getSuffix();
+                    break;
+                case PredicatePrefix:
+                    PredicateSuffix = dto.getSuffix();
+                    break;
+                case PrefixComplaintNotificationId:
+                    complaintNotificationId = (int)dto.getSuffix();
+                    break;
+                case PrefixStoreNotificationId:
+                    storeNotificationId = (int)dto.getSuffix();
+                    break;
+                case PurchaseIDPrefix:
+                    PurchaseIDSuffix = dto.getSuffix();
+                    break;
+
+            }
+        }
     }
 
 }

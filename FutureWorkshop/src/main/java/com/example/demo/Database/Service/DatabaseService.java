@@ -258,4 +258,8 @@ public class DatabaseService {
         idGeneratorRepository.saveAllAndFlush(idGeneratorDTO);
     }
 
+    public List<IdGeneratorDTO> loadIdGenerator(){
+        return idGeneratorRepository.findAll();
+    }
+
 }
