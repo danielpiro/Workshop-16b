@@ -4,10 +4,9 @@ package com.example.demo.User;
 import com.example.demo.CustomExceptions.Exception.CantPurchaseException;
 import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
-import com.example.demo.ExternalConnections.ExternalConnectionHolder;
+import com.example.demo.ExternalConnections.Old.ExternalConnectionHolder;
 import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.ShoppingCart.ShoppingCart;
-import org.springframework.scheduling.annotation.Async;
 
 public abstract class User {
     public String name;
@@ -43,8 +42,10 @@ public abstract class User {
     public String getCartInventory() {
      return shoppingCart.getCartInventory();
  }
-    public float purchaseCart(ExternalConnectionHolder externalConnectionHolder) throws SupplyManagementException, StorePolicyViolatedException, CantPurchaseException {
-     float a = shoppingCart.purchaseCart(externalConnectionHolder);
+    public float purchaseCart(ExternalConnectionHolder externalConnectionHolder,String nameHolder, String address, String city, String country, String zip ,
+                              String holder, String cardNumber, String expireDate, int cvv, String id) throws Exception {
+     float a = shoppingCart.purchaseCart(externalConnectionHolder, nameHolder,  address,  city,  country,  zip ,
+              holder,  cardNumber,  expireDate,  cvv,  id);
      return a;
  }
 

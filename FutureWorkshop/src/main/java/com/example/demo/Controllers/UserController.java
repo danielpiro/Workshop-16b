@@ -4,7 +4,7 @@ import com.example.demo.CustomExceptions.Exception.CantPurchaseException;
 import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
-import com.example.demo.ExternalConnections.ExternalConnectionHolder;
+import com.example.demo.ExternalConnections.Old.ExternalConnectionHolder;
 import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.NotificationsManagement.ComplaintNotification;
@@ -15,12 +15,10 @@ import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.User.Encryption;
 import com.example.demo.User.Guest;
 import com.example.demo.User.Subscriber;
-import org.springframework.scheduling.annotation.Async;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.concurrent.CompletableFuture;
 
 
 public class UserController implements NotificationReceiver {
@@ -205,16 +203,19 @@ public class UserController implements NotificationReceiver {
         return get_subscriber(user_id).getCartInventory();
     }
 
-    public float purchaseCart(String user_id, ExternalConnectionHolder externalConnectionHolder) throws SupplyManagementException, StorePolicyViolatedException, CantPurchaseException, UserException {
+    public float purchaseCart(String user_id, ExternalConnectionHolder externalConnectionHolder ,String nameHolder, String address, String city, String country, String zip ,
+                              String holder, String cardNumber, String expireDate, int cvv, String id) throws Exception {
         if ((getGuest(user_id) != null))
-            return getGuest(user_id).purchaseCart(externalConnectionHolder);
+            return getGuest(user_id).purchaseCart(externalConnectionHolder, nameHolder,  address,  city,  country,  zip ,
+                    holder,  cardNumber,  expireDate,  cvv,  id );
         else if (get_subscriber(user_id) == null) {
             throw new UserException("User " + user_id + " doesn't exist");
         } else if (!checkIfUserIsLoggedIn(user_id)) {
             my_log.warning("user " + user_id + " is not logged in");
             throw new UserException("User " + user_id + " is not logged in");
         }
-        return get_subscriber(user_id).purchaseCart(externalConnectionHolder);
+        return get_subscriber(user_id).purchaseCart(externalConnectionHolder, nameHolder,  address,  city,  country,  zip ,
+                holder,  cardNumber,  expireDate,  cvv,  id);
 
     }
 

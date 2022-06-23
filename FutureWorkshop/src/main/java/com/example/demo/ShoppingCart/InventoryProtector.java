@@ -7,8 +7,7 @@ import com.example.demo.CustomExceptions.Exception.CantPurchaseException;
 import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 
-import com.example.demo.ExternalConnections.ExternalConnectionHolder;
-import org.springframework.scheduling.annotation.Async;
+import com.example.demo.ExternalConnections.Old.ExternalConnectionHolder;
 
 import java.util.HashMap;
 

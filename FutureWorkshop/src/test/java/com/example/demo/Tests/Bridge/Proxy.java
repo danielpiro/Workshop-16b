@@ -3,18 +3,12 @@ package com.example.demo.Tests.Bridge;
 
 
 import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
-import com.example.demo.ExternalConnections.Delivery.Delivery;
-import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
-import com.example.demo.ExternalConnections.Payment.Payment;
-import com.example.demo.ExternalConnections.Payment.PaymentNames;
-import com.example.demo.History.PurchaseHistory;
-import com.example.demo.Store.Product;
-import com.example.demo.StorePermission.Permission;
-import com.example.demo.User.Guest;
+import com.example.demo.ExternalConnections.Old.Delivery.Delivery;
+import com.example.demo.ExternalConnections.Old.Delivery.DeliveryNames;
+import com.example.demo.ExternalConnections.Old.Delivery.Payment.Payment;
+import com.example.demo.ExternalConnections.Old.Delivery.Payment.PaymentNames;
 
 import javax.naming.NoPermissionException;
-import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class Proxy  {
