@@ -1,12 +1,12 @@
-package com.example.demo.ExternalConnections;
+package com.example.demo.ExternalConnections.Old;
 
 
 
 import com.example.demo.CustomExceptions.Exception.ExternalServiceDoesNotExist;
-import com.example.demo.ExternalConnections.Delivery.Delivery;
-import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
-import com.example.demo.ExternalConnections.Payment.Payment;
-import com.example.demo.ExternalConnections.Payment.PaymentNames;
+import com.example.demo.ExternalConnections.Old.Delivery.Delivery;
+import com.example.demo.ExternalConnections.Old.Delivery.DeliveryNames;
+import com.example.demo.ExternalConnections.Old.Delivery.Payment.Payment;
+import com.example.demo.ExternalConnections.Old.Delivery.Payment.PaymentNames;
 import com.example.demo.GlobalSystemServices.Log;
 
 import java.util.LinkedList;

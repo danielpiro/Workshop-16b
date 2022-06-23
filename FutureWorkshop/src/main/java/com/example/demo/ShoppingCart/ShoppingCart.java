@@ -6,13 +6,11 @@ package com.example.demo.ShoppingCart;
 import com.example.demo.CustomExceptions.Exception.CantPurchaseException;
 import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
-import com.example.demo.ExternalConnections.ExternalConnectionHolder;
+import com.example.demo.ExternalConnections.New.ExternalConnectionsReal;
+import com.example.demo.ExternalConnections.Old.ExternalConnectionHolder;
 import com.example.demo.Generic.ThreeGenerics;
-import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.History.History;
-import com.example.demo.Store.Product;
-import org.springframework.scheduling.annotation.Async;
 
 
 import java.time.LocalDateTime;
@@ -134,7 +132,8 @@ public class ShoppingCart {
 
 
     //if successfull returns price, else returns -1
-    public float purchaseCart(ExternalConnectionHolder externalConnectionHolder) throws SupplyManagementException, StorePolicyViolatedException, CantPurchaseException {
+    public float purchaseCart(ExternalConnectionHolder externalConnectionHolder ,String name, String address, String city, String country, String zip ,
+                              String holder, String cardNumber, String expireDate, int cvv, String id) throws Exception {
         float total = 0;
         int weight = 10;
         int ans = 0;
@@ -144,6 +143,7 @@ public class ShoppingCart {
 
         //check if we can purchase from store, that items are in inventory and store policies are complied
         try {
+            //reserve
             for (Map.Entry<String, ShoppingBasket> basket : basketCases.entrySet()) {
                 total += basket.getValue().purchase(externalConnectionHolder, userId);
 
@@ -159,7 +159,18 @@ public class ShoppingCart {
         }
         Log.getLogger().info("user " + userId + " total cart value " + total);
 
-        externalConnectionHolder.tryToPurchase(total, weight);
+        ExternalConnectionsReal exc = ExternalConnectionsReal.getInstance();
+        String supplId= exc.supply(name,address,city,country,zip);
+        if(!supplId.equals("-1")){
+
+            if(exc.pay(holder,cardNumber,expireDate,cvv,id).equals("-1")){
+                exc.cancel_supply(supplId);
+                throw new CantPurchaseException("Payment was not approved");
+            }
+        }
+        else
+            throw new CantPurchaseException("Supply was not approved");
+
 
         //if transaction succeeded we need to save it in history.
 

@@ -1,4 +1,4 @@
-package com.example.demo.ExternalConnections.Delivery;
+package com.example.demo.ExternalConnections.Old.Delivery;
 
 public abstract class Delivery {
         protected boolean connected;

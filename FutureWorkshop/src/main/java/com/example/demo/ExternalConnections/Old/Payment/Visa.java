@@ -1,7 +1,7 @@
-package com.example.demo.ExternalConnections.Payment;
+package com.example.demo.ExternalConnections.Old.Delivery.Payment;
 
 
-import com.example.demo.ExternalConnections.ExternalConnections;
+import com.example.demo.ExternalConnections.Old.ExternalConnections;
 import com.example.demo.GlobalSystemServices.Log;
 
 public class Visa extends Payment {

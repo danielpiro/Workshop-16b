@@ -1,4 +1,4 @@
-package com.example.demo.ExternalConnections.Payment;
+package com.example.demo.ExternalConnections.Old.Delivery.Payment;
 
 public abstract class Payment {
     protected boolean connected;

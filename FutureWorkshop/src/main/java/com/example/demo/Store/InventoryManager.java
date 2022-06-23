@@ -3,7 +3,7 @@ package com.example.demo.Store;
 import com.example.demo.CustomExceptions.Exception.CantPurchaseException;
 import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
-import com.example.demo.ExternalConnections.ExternalConnectionHolder;
+import com.example.demo.ExternalConnections.Old.ExternalConnectionHolder;
 import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.ShoppingCart.InventoryProtector;

@@ -1,54 +1,18 @@
 package com.example.demo.Tests;
 
 
-import com.example.demo.Controllers.BigController;
-import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
-import com.example.demo.DemoApplication;
-import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
-import com.example.demo.ExternalConnections.Payment.PaymentNames;
-import com.example.demo.ExternalConnections.Payment.Visa;
+import com.example.demo.ExternalConnections.Old.Delivery.DeliveryNames;
+import com.example.demo.ExternalConnections.Old.Delivery.Payment.PaymentNames;
+import com.example.demo.ExternalConnections.Old.Delivery.Payment.Visa;
 import com.example.demo.History.PurchaseHistory;
-import com.example.demo.NotificationsManagement.NotificationSubject;
-import com.example.demo.NotificationsManagement.StoreNotification;
 import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.StorePermission.Permission;
-import com.example.demo.Tests.Bridge.Proxy;
 import com.example.demo.Tests.Bridge.Real;
-import com.example.demo.User.Guest;
-import com.google.gson.Gson;
-import org.json.JSONObject;
 import org.junit.jupiter.api.*;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.context.junit4.SpringRunner;
-
-
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import org.springframework.test.web.servlet.RequestBuilder;
 
 
 import javax.naming.NoPermissionException;
-import javax.validation.constraints.AssertTrue;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Method;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -232,17 +196,7 @@ public class AcceptanceTests {
 
 
 
-    @Test
-    void remove_payment_service_success_case() {
-//        assertTrue(proxy.AddPayment(new MasterCard()));
 
-        assertTrue(proxy.AddPayment(new Visa()));
-    }
-    @Test
-    void add_payment_service_success_case() {
-//        assertTrue(proxy.AddPayment(new MasterCard()));
-        assertTrue(proxy.AddPayment(new Visa()));
-    }
     @Test
     void remove_delivery_service_success_case() {
         //assertTrue(proxy.removeDelivery("UPS"));

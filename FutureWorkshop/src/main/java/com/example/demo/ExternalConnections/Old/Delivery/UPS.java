@@ -1,7 +1,7 @@
-package com.example.demo.ExternalConnections.Delivery;
+package com.example.demo.ExternalConnections.Old.Delivery;
 
 
-import com.example.demo.ExternalConnections.ExternalConnections;
+import com.example.demo.ExternalConnections.Old.ExternalConnections;
 import com.example.demo.GlobalSystemServices.Log;
 
 public class UPS extends Delivery {

@@ -8,17 +8,16 @@ import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
 import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
-import com.example.demo.ExternalConnections.Delivery.Delivery;
-import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
-import com.example.demo.ExternalConnections.ExternalConnections;
-import com.example.demo.ExternalConnections.Payment.Payment;
-import com.example.demo.ExternalConnections.Payment.PaymentNames;
+import com.example.demo.ExternalConnections.Old.Delivery.Delivery;
+import com.example.demo.ExternalConnections.Old.Delivery.DeliveryNames;
+import com.example.demo.ExternalConnections.Old.ExternalConnections;
+import com.example.demo.ExternalConnections.Old.Delivery.Payment.Payment;
+import com.example.demo.ExternalConnections.Old.Delivery.Payment.PaymentNames;
 import com.example.demo.History.History;
 import com.example.demo.History.PurchaseHistory;
 import com.example.demo.Mock.MockFullProduct;
 
 import com.example.demo.Mock.MockPermission;
-import com.example.demo.Mock.MockSmallPermission;
 import com.example.demo.Mock.MockSmallProduct;
 import com.example.demo.NotificationsManagement.ComplaintNotification;
 import com.example.demo.NotificationsManagement.NotificationManager;
@@ -31,7 +30,6 @@ import com.example.demo.User.Guest;
 
 import javax.naming.NoPermissionException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -357,10 +355,11 @@ public class Real   {
     }
 
     /** User requirement - II.2.5 */
-    public boolean purchaseShoppingCart(String userID,PaymentNames payment,DeliveryNames delivery) throws SupplyManagementException, StorePolicyViolatedException, UserException {
+    public boolean purchaseShoppingCart(String userID,PaymentNames payment,DeliveryNames delivery) throws Exception {
 
         float ans =-1;
-            ans = (Float) bigController.purchaseCart(userID,payment,delivery).getValue();
+            ans = (Float) bigController.purchaseCart(userID,payment,delivery,"dann","ringelblum","beer sheva",
+                        "Israel","8458527","rotman inc","2222333344445555","04/2021",262,"20444444").getValue();
 
         return ans != -1;
     }
@@ -407,7 +406,7 @@ public class Real   {
             return m;
         }
         catch (Exception e) {
-            
+
             return "";
         }
     }
