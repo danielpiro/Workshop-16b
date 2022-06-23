@@ -1,10 +1,7 @@
 package com.example.demo.Controllers;
 
 import com.example.demo.Controllers.model.realTimeNotification;
-import com.example.demo.CustomExceptions.Exception.NotifyException;
-import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
-import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
-import com.example.demo.CustomExceptions.Exception.UserException;
+import com.example.demo.CustomExceptions.Exception.*;
 import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.History.PurchaseHistory;
@@ -84,7 +81,7 @@ public class BigController {
 //    }
 
     @Autowired
-    public BigController(DatabaseService databaseService) throws IOException, UserException, NoPermissionException, SupplyManagementException, InterruptedException, SQLException, NotifyException {
+    public BigController(DatabaseService databaseService) throws IOException, UserException, NoPermissionException, SupplyManagementException, InterruptedException, SQLException, NotifyException, ResourceNotFoundException {
         this.us = new UserController();
         this.sc = new StoreController(databaseService);
         this.databaseService = databaseService;

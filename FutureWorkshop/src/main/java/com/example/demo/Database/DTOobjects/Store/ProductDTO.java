@@ -35,4 +35,5 @@ public class ProductDTO {
     private int reservedSupply = 0;
 
     private ProductsCategories category;
+    private String belongsToStore;
 }

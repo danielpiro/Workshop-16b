@@ -3,6 +3,7 @@ package com.example.demo.Store;
 import com.example.demo.CustomExceptions.Exception.CantPurchaseException;
 import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
+import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.ExternalConnections.ExternalConnectionHolder;
 import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.GlobalSystemServices.Log;
@@ -26,6 +27,11 @@ public class InventoryManager  implements InventoryProtector {
 
     public InventoryManager() {
         this.products = new ConcurrentHashMap<String, Product>();
+        this.discounts = new CopyOnWriteArrayList<>();
+        policies = new CopyOnWriteArrayList<>();
+    }
+    public InventoryManager(ConcurrentHashMap<String,Product> products) {
+        this.products = products;
         this.discounts = new CopyOnWriteArrayList<>();
         policies = new CopyOnWriteArrayList<>();
     }
@@ -77,13 +83,14 @@ public class InventoryManager  implements InventoryProtector {
         return PV;
     }
 
-    public void addProductReview(String productId, String userId,  String title, String body, float rating) throws  SupplyManagementException {
+    public void addProductReview(String productId, String userId, String title, String body, float rating, DatabaseService databaseService) throws  SupplyManagementException {
         Product Op = products.get(productId);
         if(Op == null){
             throw new  SupplyManagementException("no product with this id- "+productId);
         }
         synchronized (Op) {
-            Op.addReview(rating, userId, title, body);
+            Review newReview = Op.addReview(rating, userId, title, body);
+            databaseService.saveReviewByProduct(newReview,productId);
         }
     }
 

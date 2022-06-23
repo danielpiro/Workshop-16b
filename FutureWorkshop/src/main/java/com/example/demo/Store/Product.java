@@ -48,9 +48,9 @@ public class Product implements PurchasableProduct {
         buyOption = new ImmediateBuy();
     }
 
-    public void addReview(float rating, String userId, String title, String body){
-
-            reviews.add(new Review(rating, userId, title, body));
+    public Review addReview(float rating, String userId, String title, String body){
+            Review newReview  = new Review(rating, userId, title, body);
+            reviews.add(newReview);
             float sum = 0;
         synchronized (reviews) {
             for (Review rev : reviews) {
@@ -58,6 +58,7 @@ public class Product implements PurchasableProduct {
             }
             this.rating = sum / (reviews.size());
         }
+        return newReview;
     }
 
     public BuyOption getBuyOption() {
@@ -144,8 +145,8 @@ public class Product implements PurchasableProduct {
         return mpr;
     }
 
-    public ProductDTO productToDTO(){
-        ProductDTO dto  = new ProductDTO(getId(),getName(),getPrice(),getRating(),getSupply(),0,getReservedSupply(),getCategory());
+    public ProductDTO productToDTO(String storeId){
+        ProductDTO dto  = new ProductDTO(getId(),getName(),getPrice(),getRating(),getSupply(),0,getReservedSupply(),getCategory(),storeId);
         return dto;
     }
 

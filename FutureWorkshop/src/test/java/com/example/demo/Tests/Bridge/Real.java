@@ -3,10 +3,7 @@ package com.example.demo.Tests.Bridge;
 
 
 import com.example.demo.Controllers.BigController;
-import com.example.demo.CustomExceptions.Exception.NotifyException;
-import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
-import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
-import com.example.demo.CustomExceptions.Exception.UserException;
+import com.example.demo.CustomExceptions.Exception.*;
 import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
 import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.ExternalConnections.Delivery.Delivery;
@@ -50,7 +47,7 @@ public class Real   {
 
 
 
-    public Real(DatabaseService databaseService) throws IOException, SupplyManagementException, NoPermissionException, UserException, InterruptedException, SQLException, NotifyException {
+    public Real(DatabaseService databaseService) throws IOException, SupplyManagementException, NoPermissionException, UserException, InterruptedException, SQLException, NotifyException, ResourceNotFoundException {
         bigController = new BigController(databaseService);
         NotificationManager.ForTestsOnlyBuildNotificationManager(new NotificationReceiver() {
             @Override

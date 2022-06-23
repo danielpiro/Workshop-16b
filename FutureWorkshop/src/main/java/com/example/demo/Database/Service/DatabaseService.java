@@ -30,6 +30,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 @Service
@@ -69,7 +70,7 @@ public class DatabaseService {
     }
 
     @Transactional
-    public ProductDTO saveProduct(Product p){
+    public ProductDTO saveProduct(Product p,String storeId){
         String productId= p.getId();
 
         //so we dont save twice
@@ -80,7 +81,7 @@ public class DatabaseService {
             saveReviewByProduct(r,productId);
         }
 
-        return productRepository.saveAndFlush(p.productToDTO());
+        return productRepository.saveAndFlush(p.productToDTO(storeId));
     }
 
     @Transactional
@@ -91,10 +92,17 @@ public class DatabaseService {
         reviewDTO.setProductId(productId);
         return reviewRepository.saveAndFlush(reviewDTO);
     }
-
-
     @Transactional
-    public Product getProductByID(String productID) throws ResourceNotFoundException, SupplyManagementException {
+    public ConcurrentHashMap<String,Product> getProductsOfStore(String storeId) throws SupplyManagementException, ResourceNotFoundException {
+        List<ProductDTO> productDTOList = productRepository.getByBelongsToStore(storeId);
+        ConcurrentHashMap<String,Product> products = new ConcurrentHashMap<>();
+        for(ProductDTO productDTO:productDTOList){
+            products.put(productDTO.getId(),getProductByID(productDTO.getId()));
+        }
+        return products;
+    }
+
+    private Product getProductByID(String productID) throws ResourceNotFoundException, SupplyManagementException {
        Optional<ProductDTO> productOpt=  productRepository.findById(productID);
        if(productOpt.isPresent()){
            ProductDTO pDTO = productOpt.get();

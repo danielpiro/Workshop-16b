@@ -2,6 +2,7 @@ package com.example.demo.Tests.Unit.StorePartUnitTests;
 
 
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
+import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
 import com.example.demo.ExternalConnections.ExternalConnectionHolder;
 import com.example.demo.ExternalConnections.Payment.PaymentNames;
@@ -12,15 +13,18 @@ import com.example.demo.Store.ProductsCategories;
 import com.example.demo.Store.Review;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@SpringBootTest
 class InventoryManagerTest {
     InventoryManager invMan = new InventoryManager();
-
+    @Autowired
+    DatabaseService databaseService;
 
     @BeforeEach
     void setUp() {
@@ -111,8 +115,8 @@ class InventoryManagerTest {
     void addProductReviewGood() {
         try {
             String Id = invMan.addNewProduct("t1", 5.5F, 4, "Appliances");
-            invMan.addProductReview(Id,"fakeId", "title", "problem", 3);
-            invMan.addProductReview(Id,"fakeId", "title", "problem", 2);
+            invMan.addProductReview(Id,"fakeId", "title", "problem", 3, databaseService);
+            invMan.addProductReview(Id,"fakeId", "title", "problem", 2, databaseService);
             List<Review> revs = invMan.getProduct(Id).getReviews();
             assertTrue(revs.size() == 2 && revs.get(1).getBody().equals("problem") && invMan.getProduct(Id).getRating() == 2.5);
         } catch (Exception e) {
@@ -124,8 +128,8 @@ class InventoryManagerTest {
     void addProductReviewBad() {
         try {
             String Id = invMan.addNewProduct("t1", 5.5F, 4, "Appliances");
-            invMan.addProductReview(Id,"fakeId", "title", "problem", 3);
-            invMan.addProductReview(Id,"fakeId", "title", "problem", 6);
+            invMan.addProductReview(Id,"fakeId", "title", "problem", 3, databaseService);
+            invMan.addProductReview(Id,"fakeId", "title", "problem", 6, databaseService);
             List<Review> revs = invMan.getProduct(Id).getReviews();
             assertFalse(revs.size() == 2 && revs.get(1).getBody().equals("problem") && invMan.getProduct(Id).getRating() == 2.5);
         } catch (Exception e) {

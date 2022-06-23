@@ -2,6 +2,7 @@ package com.example.demo.Controllers;
 
 
 import com.example.demo.CustomExceptions.Exception.NotifyException;
+import com.example.demo.CustomExceptions.Exception.ResourceNotFoundException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
 import com.example.demo.Database.DTOobjects.Store.StoreDTO;
@@ -37,7 +38,7 @@ public class StoreController {
         this.stores = stores;
     }
 
-    public StoreController(DatabaseService databaseService) throws SQLException {
+    public StoreController(DatabaseService databaseService) throws SQLException, SupplyManagementException, ResourceNotFoundException {
         stores = new ConcurrentHashMap<String, Store>();
         List<StoreDTO> storeDTOList = databaseService.getAllStores();
         for(StoreDTO storeDTO: storeDTOList){

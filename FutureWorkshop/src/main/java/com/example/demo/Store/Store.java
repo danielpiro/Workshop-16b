@@ -3,6 +3,7 @@ package com.example.demo.Store;
 //import org.junit.platform.engine.support.hierarchical.ThrowableCollector;
 
 import com.example.demo.CustomExceptions.Exception.NotifyException;
+import com.example.demo.CustomExceptions.Exception.ResourceNotFoundException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
 import com.example.demo.Database.DTOobjects.Store.Permissions.StoreRoleDTO;
@@ -46,11 +47,11 @@ public class Store implements getStoreInfo {
 
     private DatabaseService databaseService;
 
-    public Store(StoreDTO storeDto,DatabaseService databaseService) throws SQLException {//build from database
+    public Store(StoreDTO storeDto,DatabaseService databaseService) throws SQLException, SupplyManagementException, ResourceNotFoundException {//build from database
         this.databaseService = databaseService;
         this.storeName = storeDto.getStoreName();
         this.storeId = storeDto.getStoreId();
-        inventoryManager = new InventoryManager();//todo need to load from database inventory manager
+        inventoryManager = new InventoryManager(databaseService.getProductsOfStore(storeDto.getStoreId()));//todo need to load from database inventory manager
         forum =new Forum();
         storeState = StoreState.valueOf(storeDto.getStoreState());
         storeRating = storeDto.getStoreRating();
@@ -130,7 +131,7 @@ public class Store implements getStoreInfo {
             throw new NoPermissionException("the user is not manager/owner");
         }
     }
-    private void removeRolesInStoreTo(List<String> RolesIdToRemove){
+    private void removeRolesInStoreTo(List<String> RolesIdToRemove){//todo delete in database
         synchronized (StoreRoles) {
             for (String id : RolesIdToRemove) {
                 for (int i = 0; i < StoreRoles.size(); i++) {
@@ -188,19 +189,32 @@ public class Store implements getStoreInfo {
             throw new NoPermissionException("the user don't have this permission");
         }
         inventoryManager.editProduct(productId, newSupply, newName, newPrice, category);
+        databaseService.saveProduct(inventoryManager.getProduct(productId),storeId);
     }
 
     public String addNewProduct(String userId, String productName, float price, int howMuch, String category) throws NoPermissionException,  SupplyManagementException, SupplyManagementException {
         if(!checkPermission(userId, Permission.ADD_NEW_PRODUCT)){
             throw new NoPermissionException("the user don't have this permission");
         }
-        return inventoryManager.addNewProduct(productName, price, howMuch, category);
+        String productId =  inventoryManager.addNewProduct(productName, price, howMuch, category);
+        databaseService.saveProduct(inventoryManager.getProduct(productId),storeId);
+        return productId;
+
+    }
+    public void deleteProduct(String userId, String productId) throws NoPermissionException, SupplyManagementException, NotifyException, UserException {
+        if(!checkPermission(userId, Permission.ADD_NEW_PRODUCT)){
+            throw new NoPermissionException("the user don't have this permission");
+        }
+        inventoryManager.deleteProduct(productId);
+        databaseService.deleteProductById(productId);
+        StoreNotification sn = new StoreNotification(this,NotificationSubject.StoreDeleted,"your store deleted",userId+" deleted your store name:"+storeName+" store Id"+storeId);
+        NotificationManager.getNotificationManager().sendNotificationTo(getRolesIds(),sn);
 
     }
 
     public void addProductReview(String userId, String productId, String title, String body, float rating) throws  SupplyManagementException {
 
-        inventoryManager.addProductReview(productId, userId, title, body, rating);
+        inventoryManager.addProductReview(productId, userId, title, body, rating,databaseService);
 
         //updateRating();
     }
@@ -255,15 +269,7 @@ public class Store implements getStoreInfo {
     }
 
 
-    public void deleteProduct(String userId, String productId) throws NoPermissionException, SupplyManagementException, NotifyException, UserException {
-        if(!checkPermission(userId, Permission.ADD_NEW_PRODUCT)){
-            throw new NoPermissionException("the user don't have this permission");
-        }
-        inventoryManager.deleteProduct(productId);
-        StoreNotification sn = new StoreNotification(this,NotificationSubject.StoreDeleted,"your store deleted",userId+" deleted your store name:"+storeName+" store Id"+storeId);
-        NotificationManager.getNotificationManager().sendNotificationTo(getRolesIds(),sn);
 
-    }
 
     public void closeStore(String userId) throws NoPermissionException, NotifyException, UserException {
         if(!checkPermission(userId, Permission.CLOSE_STORE)){
