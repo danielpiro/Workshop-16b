@@ -74,6 +74,14 @@ const shoppingCart = () => {
     fetchCart();
   }, []);
 
+  const containsOnlyLetters = (str) =>{
+    return /^[a-zA-Z]+$/.test(str);
+  }
+
+  const containsOnlyDigits = (str) =>{
+    return /^[0-9]+$/.test(str);
+  }
+
   const onBuy = (e) => {
     e.preventDefault();
     if (deliveryAndPaymnetDetails.delivery === "Delivery") {
@@ -81,6 +89,38 @@ const shoppingCart = () => {
     }
     if (deliveryAndPaymnetDetails.payment === "Payment") {
       return createNotification("error", "Please select payment option")();
+    }
+    if(values.address === "" || !containsOnlyLetters(values.address)){
+      return createNotification("error", "Please enter a valid address (letters only)")();
+    }
+    if(values.cardNumber === "" || !containsOnlyDigits(values.cardNumber)){
+      return createNotification("error", "Please enter a valid card number (numbers only)")();
+    }
+    if(values.city === ""){
+      return createNotification("error", "Please enter a city")();
+    }
+    if(values.country === ""){
+      return createNotification("error", "Please enter a country")();
+    }
+    if(values.cvv === "" || !containsOnlyDigits(values.cvv) || values.cvv.length !== 3){
+      return createNotification("error", "Please enter a valid cvv (3 digits)")();
+    }
+    if(values.expireDate === "" || values.expireDate.length !== 7 || values.expireDate.charAt(2) !== '/' 
+        || !containsOnlyDigits(values.expireDate.slice(0,2)) || !containsOnlyDigits(values.expireDate.slice(3))){
+      return createNotification("error", "Please enter a valid expire date (format: MM/YYYY)")();
+    }
+    if(values.holder === ""){
+      return createNotification("error", "Please enter a holder")();
+    }
+    if(values.id === "" || values.id.length !== 9 || !containsOnlyDigits(values.id)){
+      return createNotification("error", "Please enter a valid id (9 digits)")();
+    }
+    if(values.nameHolder === ""){
+      return createNotification("error", "Please enter a valid holder name")();
+    }
+    if(values.zip === "" || !containsOnlyDigits(values.zip)){
+      console.log(values.zip);
+      return createNotification("error", "Please enter a valid zip (numbers only)")();
     }
     if (cart.length === 0) {
       return createNotification(
