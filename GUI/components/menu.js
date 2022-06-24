@@ -24,13 +24,7 @@ const Menu = () => {
     e.preventDefault();
     return await api
       .post(
-        `/users/signup/?user_name=${registerInput.username}&password=${registerInput.password}`,
-        null,
-        {
-          headers: {
-            Authorization: cookies.session,
-          },
-        }
+        `/users/signup/?user_name=${registerInput.username}&password=${registerInput.password}`
       )
       .then((res) => {
         const { data } = res;
@@ -59,6 +53,10 @@ const Menu = () => {
                 sameSite: true,
               });
               setCookie("type", "subscriber", {
+                path: "/",
+                sameSite: true,
+              });
+              setCookie("session", data.value, {
                 path: "/",
                 sameSite: true,
               });

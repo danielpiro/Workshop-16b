@@ -371,7 +371,15 @@ public class BigController {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
-        return unfreezeStore(userId, storeId);
+        return freezeStore(storeId, userId);
+    }
+    @GetMapping("/user/websocket/notification")
+    public ReturnValue getNotification(@RequestHeader("Authorization") String sessionID, @RequestParam String userId) throws UserException {
+        if (!validateSessionID(sessionID, userId)) {
+            return new ReturnValue(false, "Not authorized", null);
+        }
+
+        return new ReturnValue(true , "",getUserController().get_subscriber(userId).getStoreNotifications());
     }
 
 
@@ -760,7 +768,6 @@ public class BigController {
     public HashMap<String, List<Product>> getAllProductsAndStores() {
         return sc.getAllProductsAndStores();
     }
-
     @GetMapping("/products/all")
     public ReturnValue getAllProductsApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId) throws JsonProcessingException, UserException {
         if (!validateSessionID(sessionID, userId)) {
@@ -1460,8 +1467,8 @@ public class BigController {
 
     }
 
-    public ReturnValue unfreezeStore(String storeId,
-                                     String userId) throws NoPermissionException, UserException, NotifyException, SupplyManagementException, IOException {
+    public ReturnValue unfreezeStore(String userId,
+                                     String storeId) throws NoPermissionException, UserException, NotifyException, SupplyManagementException, IOException {
         userExistsAndLoggedIn(userId);
         getStoreController().unfreezeStore(storeId, userId);
 
