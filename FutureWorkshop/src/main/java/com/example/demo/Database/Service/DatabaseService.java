@@ -169,6 +169,9 @@ public class DatabaseService {
     public void savePurchaseHistory(HistoryDTO historyDTO){
         historyRepository.saveAndFlush(historyDTO);
     }
+    public void deleteHistoryDTO(HistoryDTO historyDTO){
+        historyRepository.delete(historyDTO);
+    }
     public List<UserDTO> allUsers(){
         return userRepository.findAll();
     }

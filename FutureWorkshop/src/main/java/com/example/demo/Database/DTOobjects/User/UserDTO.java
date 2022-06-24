@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Objects;
 
 
 @AllArgsConstructor
@@ -27,4 +28,10 @@ public class UserDTO {
     @Column(name = "logged_in")
     private boolean loggedIn = false;
 
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, password, loggedIn);
+    }
 }

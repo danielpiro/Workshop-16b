@@ -56,6 +56,8 @@ public class UserController implements NotificationReceiver {
 
         for(UserDTO userDTO: databaseService.allUsers()){
             user_list.add( new Subscriber(userDTO.getName(),userDTO.getPassword(),databaseService.getShoppingCart(userDTO.getName())));
+            registeredUsers++;
+
         }
 
     }
