@@ -102,7 +102,7 @@ public class BigController {
             @Override
             public void sendComplaintToAdmins(String senderId, ComplaintNotification complaintNotification) throws UserException {}
         });//todo delete this  !!!for testing only!!! notifications doesnt work with this
-        //initializeSystem();
+        initializeSystem();
         my_log.info("System Started");
 
         withDatabase = true;

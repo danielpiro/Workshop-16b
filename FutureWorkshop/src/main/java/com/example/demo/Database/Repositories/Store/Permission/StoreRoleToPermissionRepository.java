@@ -9,5 +9,6 @@ import java.util.Optional;
 public interface StoreRoleToPermissionRepository extends JpaRepository<StoreRoleToPermissionDTO,Long> {
     Optional<StoreRoleToPermissionDTO> findByPermissionIdAndStoreRoleId(String permissionId, Long storeRoleId);
     List<StoreRoleToPermissionDTO> getByStoreRoleId(Long storeRoleId);
+    void deleteByStoreRoleId(long storeRoleId);
 
 }

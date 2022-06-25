@@ -29,6 +29,9 @@ public interface StoreRoleRepository extends JpaRepository<StoreRoleDTO,Long> {
 
   Optional<StoreRoleDTO> findByUserIdAndStoreId(String userId, String storeId);
 
+  @Transactional
+  @Modifying
+  void deleteByUserIdAndStoreId(String userId,String storeId);
 
 
 

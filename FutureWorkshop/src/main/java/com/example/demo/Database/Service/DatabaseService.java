@@ -27,6 +27,7 @@ import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.ProductsCategories;
 import com.example.demo.Store.Review;
+import com.example.demo.Store.Store;
 import com.example.demo.Store.StorePurchase.Policies.Policy;
 import com.example.demo.Store.StorePurchase.Policies.PolicyType;
 import com.example.demo.Store.StorePurchase.PurchasableProduct;
@@ -318,8 +319,18 @@ public class DatabaseService {
         }
         return new ArrayList<>(usersStoreRoleCreated.keySet());
     }
-
-
+    @Transactional
+    public void deleteRole(String StoreId,List<StoreRoles> storeRolesList){
+        for(StoreRoles storeRoles: storeRolesList){
+            Optional<StoreRoleDTO> storeRoleDTO =storeRoleRepository.findByUserIdAndStoreId(storeRoles.getUserId(), StoreId);
+            if(storeRoleDTO.isEmpty()){
+                return;
+            }
+            storeRoleRepository.deleteByUserIdAndStoreId(storeRoles.getUserId(),StoreId);
+            storeRoleToPermissionRepository.deleteByStoreRoleId(storeRoleDTO.get().getId());
+            storeRoleToStoreRoleRepository.deleteByGettingPermissionIdOrGivingPermissionId(storeRoleDTO.get().getId(),storeRoleDTO.get().getId());
+        }
+    }
 
     @Transactional
     public void saveStore(StoreDTO storeDTO,HashMap<StoreRoleDTO, List<Permission>> storeRoleDTOListHashMap) throws SQLException {
@@ -328,7 +339,9 @@ public class DatabaseService {
             saveStoreRolePermissionAndSaveStoreRole(entry.getKey(),entry.getValue());
         }
     }
-
+    public void deleteStore(String userId, String storeId) {
+        storeRepository.deleteById(storeId);
+    }
     @Transactional
     public void saveIdGenerator(List<IdGeneratorDTO> idGeneratorDTO){
         idGeneratorRepository.saveAllAndFlush(idGeneratorDTO);
@@ -393,5 +406,6 @@ public class DatabaseService {
     public void savePolicyComp(PolicyDTO policyDTO){
         policesRepository.saveAndFlush(policyDTO);
     }
+
 
 }

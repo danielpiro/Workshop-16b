@@ -133,17 +133,21 @@ public class Store implements getStoreInfo {
     }
     private void removeRolesInStoreTo(List<String> RolesIdToRemove){//todo delete in database
         synchronized (StoreRoles) {
+            List<StoreRoles> storeRolesList = new ArrayList<>();
             for (String id : RolesIdToRemove) {
                 for (int i = 0; i < StoreRoles.size(); i++) {
+                    StoreRoles candidateToRemove =StoreRoles.get(i);
                     if (IdGenerator.getInstance().isIdEqual(
-                            StoreRoles.get(i).getUserId(),
+                            candidateToRemove.getUserId(),
                             id)
                     ) {
                         StoreRoles.remove(i);
+                        storeRolesList.add(candidateToRemove);
                         break;
                     }
                 }
             }
+            databaseService.deleteRole(storeId,storeRolesList);
         }
     }
     public void removeRoleInHierarchy(String userIdRemoving, String UserAffectedId) throws NoPermissionException, NotifyException, UserException {

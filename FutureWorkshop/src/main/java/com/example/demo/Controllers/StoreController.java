@@ -18,6 +18,7 @@ import com.example.demo.Store.StorePurchase.Policies.Policy;
 import com.example.demo.Store.StoreState;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.StorePermission.StoreRoles;
+import org.hibernate.engine.jdbc.dialect.spi.DatabaseMetaDataDialectResolutionInfoAdapter;
 
 import javax.naming.NoPermissionException;
 import java.io.IOException;
@@ -33,7 +34,7 @@ import java.util.stream.Collectors;
 
 public class StoreController {
     private ConcurrentHashMap<String, Store> stores; // storeId and the store
-
+    private DatabaseService databaseServiceS;
     public StoreController(ConcurrentHashMap<String, Store> stores) {
         this.stores = stores;
     }
@@ -44,6 +45,7 @@ public class StoreController {
         for(StoreDTO storeDTO: storeDTOList){
             stores.put(storeDTO.getStoreId(),new Store(storeDTO,databaseService));
         }
+        databaseServiceS = databaseService;
     }
 
     public String openNewStore(String name, List<String> owners, DatabaseService databaseService) throws NoPermissionException, SQLException {
@@ -105,6 +107,7 @@ public class StoreController {
 
     public void deleteStore(String userId, String storeId) throws NoPermissionException {
         stores.remove(storeId);
+        databaseServiceS.deleteStore( userId, storeId);
         Log.getLogger().info("store deleted, storeId: "+storeId+" by users: "+userId);
     }
 
