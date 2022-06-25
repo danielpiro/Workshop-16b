@@ -218,6 +218,15 @@ public class DatabaseService {
         userRepository.deleteByName(name);
         complaintRepository.deleteByUserID(name);
     }
+    public void saveComplaint(ComplaintDTO complaintDTO) {
+        complaintRepository.saveAndFlush(complaintDTO);
+    }
+    public void deleteComplaint(ComplaintDTO complaintDTO) {
+        complaintRepository.delete(complaintDTO);
+    }
+    public List<ComplaintDTO> findComplaintByUserId (String userID) {
+        return complaintRepository.findByUserID(userID);
+    }
 
     public List<UserDTO> findUserbyName(String name){
        return userRepository.findByName(name);
