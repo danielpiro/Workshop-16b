@@ -407,5 +407,10 @@ public class DatabaseService {
         policesRepository.saveAndFlush(policyDTO);
     }
 
+    @Transactional
+    public List<Policy> loadPoliesForStore(String storeId){
+        return new ArrayList<>();
+    }
+
 
 }

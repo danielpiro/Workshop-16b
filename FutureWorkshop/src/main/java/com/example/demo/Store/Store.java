@@ -47,16 +47,19 @@ public class Store implements getStoreInfo {
 
     private DatabaseService databaseService;
 
-    public Store(StoreDTO storeDto,DatabaseService databaseService) throws SQLException, SupplyManagementException, ResourceNotFoundException {//build from database
+
+    //for loading from database
+    public Store(StoreDTO storeDto,DatabaseService databaseService) throws SQLException, SupplyManagementException, ResourceNotFoundException {
         this.databaseService = databaseService;
         this.storeName = storeDto.getStoreName();
         this.storeId = storeDto.getStoreId();
-        inventoryManager = new InventoryManager(databaseService.getProductsOfStore(storeDto.getStoreId()));//todo need to load from database inventory manager
+        inventoryManager = new InventoryManager(databaseService.getProductsOfStore(storeDto.getStoreId()));
         forum =new Forum();
         storeState = StoreState.valueOf(storeDto.getStoreState());
         storeRating = storeDto.getStoreRating();
         StoreRoles = databaseService.getRolesOfStore(storeDto.getStoreId());
     }
+    //for open new store in runtime
     public Store(String storeName, String storeId, List<String> storeOriginalManager, DatabaseService databaseService) throws SQLException {
         this.databaseService = databaseService;
         this.storeName = storeName;
