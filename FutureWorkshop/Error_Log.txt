@@ -8989,3 +8989,9 @@ Jun 18, 2022 3:37:20 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
 Jun 22, 2022 10:31:44 AM com.example.demo.GlobalSystemServices.Log warning
 WARNING: user dann already exists in the system - failed to sign up
+Jun 25, 2022 11:59:31 AM com.example.demo.GlobalSystemServices.Log warning
+WARNING: the sender dann is not online
+Jun 25, 2022 11:59:39 AM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user dann already exists in the system - failed to sign up
+Jun 25, 2022 12:12:07 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user dann already exists in the system - failed to sign up

@@ -5,6 +5,7 @@ import com.example.demo.Database.DTOobjects.Cart.ShoppingBasketDTO;
 import com.example.demo.Database.DTOobjects.History.HistoryDTO;
 import com.example.demo.Database.DTOobjects.Store.ProductDTO;
 import com.example.demo.Database.DTOobjects.Store.ReviewDTO;
+import com.example.demo.Database.DTOobjects.User.ComplaintDTO;
 import com.example.demo.Database.DTOobjects.User.UserDTO;
 import com.example.demo.Database.Repositories.*;
 import com.example.demo.History.History;
@@ -39,6 +40,9 @@ public class DatabaseService {
 
     @Autowired
     private HistoryRepository historyRepository;
+
+    @Autowired
+    private ComplaintRepository complaintRepository;
 
     public DatabaseService(){
         super();
@@ -152,8 +156,10 @@ public class DatabaseService {
         return userRepository.saveAndFlush(userDTO);
     }
 
+    @Transactional
     public void deleteUserByName (String name){
         userRepository.deleteByName(name);
+        complaintRepository.deleteByUserID(name);
     }
 
     public List<UserDTO> findUserbyName(String name){
@@ -175,6 +181,19 @@ public class DatabaseService {
     public List<UserDTO> allUsers(){
         return userRepository.findAll();
     }
+
+    public void saveComplaint(ComplaintDTO complaintDTO){
+        complaintRepository.saveAndFlush(complaintDTO);
+    }
+    public void deleteComplaint(ComplaintDTO complaintDTO){
+        complaintRepository.delete(complaintDTO);
+    }
+    public List<ComplaintDTO> findComplaintByUserId (String userID){
+        return complaintRepository.findByUserID(userID);
+    }
+
+
+
 
 
 

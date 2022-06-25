@@ -549,8 +549,11 @@ public class BigController {
 // String sentFrom, NotificationSubject subject, String title, String body
     @PostMapping("/complaints")
     public ReturnValue sendComplaintToAdmins(@RequestParam String senderId, @RequestParam String subject, @RequestParam String title, @RequestParam String body) throws UserException {
-        getUserController().sendComplaintToAdmins(senderId, new ComplaintNotification(senderId, NotificationSubject.valueOf(subject), title, body));
+        ComplaintNotification cn = new ComplaintNotification(senderId, NotificationSubject.valueOf(subject), title, body);
+        getUserController().sendComplaintToAdmins(senderId,cn );
         ReturnValue rv = new ReturnValue(true, "", null);
+        if(withDatabase)
+            databaseService.saveComplaint(cn.getDTO(senderId));
         return rv;
     }
 

@@ -30,14 +30,17 @@ public class Subscriber extends User {
         storeNotifications = new ArrayList<>();
         complaintNotifications = new ArrayList<>();
     }
-    public Subscriber(String user_name, String password, ShoppingCart shoppingCart) {
+
+
+
+    public Subscriber(String user_name, String password, ShoppingCart shoppingCart,List<ComplaintNotification> complaintNotifications) {
         super(user_name,shoppingCart);
         this.password = password;
         this.name = user_name;
         Queries = new ArrayList<>();
         lock = new Object();
         storeNotifications = new ArrayList<>();
-        complaintNotifications = new ArrayList<>();
+        complaintNotifications = complaintNotifications;
     }
 
     public String getName() {
@@ -96,5 +99,7 @@ public class Subscriber extends User {
     }
 
     public void resetNotification(){this.storeNotifications = new ArrayList<>();}
+
+
 
 }

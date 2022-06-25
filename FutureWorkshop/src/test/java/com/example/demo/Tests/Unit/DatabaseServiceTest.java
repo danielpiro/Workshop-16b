@@ -2,8 +2,11 @@ package com.example.demo.Tests.Unit;
 
 import com.example.demo.Database.DTOobjects.Cart.ShoppingBasketDTO;
 import com.example.demo.Database.DTOobjects.History.HistoryDTO;
+import com.example.demo.Database.DTOobjects.User.ComplaintDTO;
 import com.example.demo.Database.DTOobjects.User.UserDTO;
 import com.example.demo.Database.Service.DatabaseService;
+import com.example.demo.NotificationsManagement.ComplaintNotification;
+import com.example.demo.NotificationsManagement.NotificationSubject;
 import com.example.demo.ShoppingCart.ShoppingBasket;
 import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Review;
@@ -33,7 +36,7 @@ class DatabaseServiceTest {
 
     @Test
     void getShoppingCart() {
-        ShoppingCart sc = new ShoppingCart("dan");
+        ShoppingCart sc = new ShoppingCart("NotAValidUsername");
 
         sc.addProduct("product1","store1",5);
         sc.addProduct("product2","store1",8);
@@ -55,7 +58,7 @@ class DatabaseServiceTest {
 
 
 
-        ShoppingCart sc2 =databaseService.getShoppingCart("dan");
+        ShoppingCart sc2 =databaseService.getShoppingCart("NotAValidUsername");
 
         assertTrue(sc2.equals(sc));
 
@@ -70,7 +73,7 @@ class DatabaseServiceTest {
     void findUser() {
         Subscriber sb = new Subscriber("NotAValidUsername","rotman");
         UserDTO user =databaseService.saveUser(sb);
-        List<UserDTO> ls = databaseService.findUserbyName("dan");
+        List<UserDTO> ls = databaseService.findUserbyName("NotAValidUsername");
         UserDTO user2= ls.get(0);
 
         databaseService.deleteUserByName("NotAValidUsername");
@@ -78,6 +81,19 @@ class DatabaseServiceTest {
 
     }
 
+    @Test
+    void notifications() {
+
+
+        ComplaintDTO complaint1 = new ComplaintDTO(99999,"Ron Weasley", NotificationSubject.StoreForum,"urgent","what what in the butt",false,"NotAValidUsername");
+        databaseService.saveComplaint(complaint1);
+        List<ComplaintDTO> ls = databaseService.findComplaintByUserId("NotAValidUsername");
+        ComplaintDTO complaint2= ls.get(0);
+
+        databaseService.deleteComplaint(complaint1);
+        assertTrue(complaint2.hashCode()==complaint1.hashCode());
+
+    }
 
 
     @Test
