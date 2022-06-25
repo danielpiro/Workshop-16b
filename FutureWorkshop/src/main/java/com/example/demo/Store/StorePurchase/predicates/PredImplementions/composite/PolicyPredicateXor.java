@@ -1,25 +1,24 @@
-package com.example.demo.Store.StorePurchase.predicates.PredImplementions.compsite;
+package com.example.demo.Store.StorePurchase.predicates.PredImplementions.composite;
 
 import com.example.demo.ExternalConnections.ExternalConnectionHolder;
 import com.example.demo.ShoppingCart.UserInfo;
-import com.example.demo.Store.StorePurchase.Policies.Policy;
 import com.example.demo.Store.StorePurchase.PurchasableProduct;
 import com.example.demo.Store.StorePurchase.predicates.PolicyPredicate;
 
 import java.util.List;
 
-public class PolicyPredicateAnd implements PolicyPredicate {
+public class PolicyPredicateXor implements PolicyPredicate {
     PolicyPredicate p1;
     PolicyPredicate p2;
 
-    public PolicyPredicateAnd(PolicyPredicate p1, PolicyPredicate p2) {
+    public PolicyPredicateXor(PolicyPredicate p1, PolicyPredicate p2) {
         this.p1 = p1;
         this.p2 = p2;
     }
 
     @Override
     public boolean predicateStands(List<PurchasableProduct> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) {
-        return p1.predicateStands(ProductAmount,externalConnectionHolder,userInfo) &&
+        return p1.predicateStands(ProductAmount,externalConnectionHolder,userInfo)^
                 p2.predicateStands(ProductAmount,externalConnectionHolder,userInfo);
     }
 
@@ -33,7 +32,7 @@ public class PolicyPredicateAnd implements PolicyPredicate {
 
     @Override
     public String toString() {
-        return "PolicyPredicateAnd{" +
+        return "PolicyPredicateXor{" +
                 "p1=" + p1 +
                 ", p2=" + p2 +
                 '}';

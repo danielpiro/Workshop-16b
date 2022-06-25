@@ -3,10 +3,7 @@ package com.example.demo.Tests.Bridge;
 
 
 import com.example.demo.Controllers.BigController;
-import com.example.demo.CustomExceptions.Exception.NotifyException;
-import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
-import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
-import com.example.demo.CustomExceptions.Exception.UserException;
+import com.example.demo.CustomExceptions.Exception.*;
 import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
 import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.ExternalConnections.Delivery.Delivery;
@@ -29,9 +26,12 @@ import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.User.Guest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.naming.NoPermissionException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,9 +47,9 @@ public class Real   {
 
 
 
-    public Real() throws IOException, InterruptedException, NoPermissionException, UserException, SupplyManagementException {
-
-        NotificationManager.buildNotificationManager(new NotificationReceiver() {
+    public Real(DatabaseService databaseService) throws IOException, SupplyManagementException, NoPermissionException, UserException, InterruptedException, SQLException, NotifyException, ResourceNotFoundException {
+        bigController = new BigController(databaseService);
+        NotificationManager.ForTestsOnlyBuildNotificationManager(new NotificationReceiver() {
             @Override
             public void sendNotificationTo(List<String> userIds, StoreNotification storeNotification) throws UserException, UserException {
 
@@ -99,10 +99,10 @@ public class Real   {
     }
 
     /** System requirement - I.1 */
-    public String openingMarket(){
+    public String openingMarket(DatabaseService databaseService){
         try {
-            DatabaseService db= new DatabaseService();
-            this.bigController = new BigController(db);
+          
+            this.bigController = new BigController(databaseService);
             bigController.setWithDatabase(false);
             return "system opened successfully";
         }
@@ -438,7 +438,7 @@ public class Real   {
             bigController.createOwner(storeId, userIdGiving,UserGettingPermissionId,s);
             return true;
         }
-        catch (NoPermissionException | UserException | NotifyException  |IllegalArgumentException e) {
+        catch (NoPermissionException | UserException | NotifyException | IllegalArgumentException | SQLException e) {
             e.printStackTrace();
             return false;
         }
@@ -450,7 +450,7 @@ public class Real   {
             bigController.createManager(storeId, userIdGiving, UserGettingPermissionId);
             return true;
         }
-        catch (NoPermissionException | UserException | NotifyException | IllegalArgumentException e) {
+        catch (NoPermissionException | UserException | NotifyException | IllegalArgumentException | SQLException e) {
             e.printStackTrace();
             return false;
         }
