@@ -579,7 +579,7 @@ public class AcceptanceTests {
         // "product was added to the store successfully"
         Object[] s = proxy.getAllProductsAndStores("user1").keySet().toArray();
         String str = s[0].toString();
-        assertFalse(!proxy.addProductToStore(str, "user1", product4,
+        assertFalse(proxy.addProductToStore(str, "user1", product4,
                     5.0f, 1, "Other").isEmpty());
     }
     @Test

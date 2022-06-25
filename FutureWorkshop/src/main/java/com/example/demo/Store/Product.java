@@ -36,7 +36,7 @@ public class Product implements PurchasableProduct {
         buyOption = new ImmediateBuy();
     }
 
-    //todo go over with guy
+
     public Product(String id, String name, float price, int supply,List<Review> reviews,float rating ,String category) throws SupplyManagementException {
         this.id = id;
         this.name = name;

@@ -7,12 +7,16 @@ import com.example.demo.Database.DTOobjects.History.HistoryDTO;
 import com.example.demo.Database.DTOobjects.Store.Permissions.StoreRoleDTO;
 import com.example.demo.Database.DTOobjects.Store.Permissions.StoreRoleToPermissionDTO;
 import com.example.demo.Database.DTOobjects.Store.Permissions.StoreRoleToStoreRoleDTO;
+import com.example.demo.Database.DTOobjects.Store.PolicyDTO;
+import com.example.demo.Database.DTOobjects.Store.Predicates.*;
 import com.example.demo.Database.DTOobjects.Store.ProductDTO;
 import com.example.demo.Database.DTOobjects.Store.ReviewDTO;
 import com.example.demo.Database.DTOobjects.Store.StoreDTO;
 import com.example.demo.Database.DTOobjects.User.UserDTO;
 import com.example.demo.Database.Repositories.*;
 
+import com.example.demo.Database.Repositories.Store.PolicesRepository;
+import com.example.demo.Database.Repositories.Store.Predicate.*;
 import com.example.demo.Database.Repositories.Store.Permission.StoreRoleRepository;
 import com.example.demo.Database.Repositories.Store.Permission.StoreRoleToPermissionRepository;
 import com.example.demo.Database.Repositories.Store.Permission.StoreRoleToStoreRoleRepository;
@@ -21,7 +25,11 @@ import com.example.demo.Database.Repositories.globalServices.IdGeneratorReposito
 import com.example.demo.ShoppingCart.ShoppingBasket;
 import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
+import com.example.demo.Store.ProductsCategories;
 import com.example.demo.Store.Review;
+import com.example.demo.Store.StorePurchase.Policies.Policy;
+import com.example.demo.Store.StorePurchase.Policies.PolicyType;
+import com.example.demo.Store.StorePurchase.PurchasableProduct;
 import com.example.demo.StorePermission.*;
 import com.example.demo.User.Subscriber;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +73,21 @@ public class DatabaseService {
     private StoreRepository storeRepository;
     @Autowired
     private IdGeneratorRepository idGeneratorRepository;
+
+    @Autowired
+    private AllPredicateRepository allPredicateRepository;
+
+    @Autowired
+    private CategoryPredicateRepository categoryPredicateRepository;
+    @Autowired
+    private CompositePredicateRepository compositePredicateRepository;
+    @Autowired
+    private ProductPredicateRepository productPredicateRepository;
+    @Autowired
+    private UserPredicateRepository userPredicateRepository;
+    @Autowired
+    private PolicesRepository policesRepository;
+
     public DatabaseService(){
         super();
     }
@@ -318,4 +341,57 @@ public class DatabaseService {
     public List<StoreDTO> getAllStores() {
         return storeRepository.findAll();
     }
+    @Transactional
+    public void saveAllPredicateDTOPolicy(AllPredicateDTO allPredicateDTO, Policy policy){
+            allPredicateRepository.saveAndFlush(allPredicateDTO);
+            //Optional<AllPredicateDTO> allPredicateDTOWithId = allPredicateRepository.findByCartNumOfProductsAndPredicateType(allPredicateDTO.getCartNumOfProducts(), allPredicateDTO.getPredicateType());
+            policesRepository.saveAndFlush(new PolicyDTO(policy.getPolicyId(), PolicyType.OnePredPolicy.toString(),allPredicateDTO.getId()));
+    }
+    @Transactional
+    public void saveCategoryPredicateDTOPolicy(AllPredicateDTO allPredicateDTO, List<ProductsCategories> categories, Policy policy){
+        allPredicateRepository.save(allPredicateDTO);
+        for(ProductsCategories productsCategory : categories){
+            categoryPredicateRepository.save(new CategoryPredicateDTO(allPredicateDTO.getId(), productsCategory.toString()));
+        }
+        policesRepository.saveAndFlush(new PolicyDTO(policy.getPolicyId(), PolicyType.OnePredPolicy.toString(),allPredicateDTO.getId()));
+
+    }
+    @Transactional
+    public void saveCompositePredicateDTOPolicy(AllPredicateDTO allPredicateDTO, CompositePredicateDTO compositePredicateDTO,PolicyDTO policyDTO){
+        allPredicateRepository.save(allPredicateDTO);
+        compositePredicateRepository.saveAndFlush(compositePredicateDTO);
+        policesRepository.saveAndFlush(policyDTO);
+    }
+    @Transactional
+    public void saveProductPredicateDTOPolicy(AllPredicateDTO allPredicateDTO, List<PurchasableProduct> lp, Policy policy){
+        allPredicateRepository.save(allPredicateDTO);
+        for(PurchasableProduct productPredicate: lp){
+            productPredicateRepository.save(new ProductPredicateDTO(allPredicateDTO.getId(),productPredicate.toString() ));
+        }
+        policesRepository.saveAndFlush(new PolicyDTO(policy.getPolicyId(), PolicyType.OnePredPolicy.toString(),allPredicateDTO.getId()));
+    }
+    @Transactional
+    public void saveProductPredicateDTOPolicy(AllPredicateDTO allPredicateDTO, HashMap<PurchasableProduct,Integer> lp, Policy policy){
+        allPredicateRepository.save(allPredicateDTO);
+        for(PurchasableProduct productPredicate: lp.keySet()){
+            productPredicateRepository.save(new ProductPredicateDTO(allPredicateDTO.getId(),lp.get(productPredicate),productPredicate.toString() ));
+        }
+        policesRepository.saveAndFlush(new PolicyDTO(policy.getPolicyId(), PolicyType.OnePredPolicy.toString(),allPredicateDTO.getId()));
+    }
+    @Transactional
+    public void saveUserPredicateDTOPolicy(AllPredicateDTO allPredicateDTO, List<String> userIds,Policy policy){
+        allPredicateRepository.save(allPredicateDTO);
+        for(String userId: userIds){
+            userPredicateRepository.save(new UserPredicateDTO(allPredicateDTO.getId(), userId));
+        }
+        policesRepository.saveAndFlush(new PolicyDTO(policy.getPolicyId(), PolicyType.OnePredPolicy.toString(),allPredicateDTO.getId()));
+    }
+
+
+
+    @Transactional
+    public void savePolicyComp(PolicyDTO policyDTO){
+        policesRepository.saveAndFlush(policyDTO);
+    }
+
 }
