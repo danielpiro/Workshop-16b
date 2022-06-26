@@ -480,15 +480,15 @@ public class Store implements getStoreInfo {
 
     public boolean isUserOwner(String userID) {
         synchronized (StoreRoles) {
-            return StoreRoles.stream().anyMatch(role -> (role.getTitle().equals("owner") ||
-                    role.getTitle().equals("original owner")) &&
+            return StoreRoles.stream().anyMatch(role -> (role.getTitle().equals(StoreRoleType.owner.toString()) ||
+                    role.getTitle().equals(StoreRoleType.original_owner.toString())) &&
                     role.getUserId().equals(userID));
         }
     }
 
     public boolean isUserManager(String userID) {
         synchronized (StoreRoles) {
-            return StoreRoles.stream().anyMatch(role ->role.getTitle().equals("manger") &&
+            return StoreRoles.stream().anyMatch(role ->role.getTitle().equals(StoreRoleType.manager.toString()) &&
                     role.getUserId().equals(userID) );
         }
     }

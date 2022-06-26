@@ -23,6 +23,7 @@ import com.example.demo.Database.Repositories.Store.Permission.StoreRoleToPermis
 import com.example.demo.Database.Repositories.Store.Permission.StoreRoleToStoreRoleRepository;
 import com.example.demo.Database.Repositories.Store.StoreRepository;
 import com.example.demo.Database.Repositories.globalServices.IdGeneratorRepository;
+import com.example.demo.NotificationsManagement.ComplaintNotification;
 import com.example.demo.ShoppingCart.ShoppingBasket;
 import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
@@ -509,6 +510,10 @@ public class DatabaseService {
             return new UserPredicate(userIds,PredicateUserType.OnUserId);
         }
         else throw new SQLException("no predicate with this type");
+    }
+
+    public List<ComplaintDTO> findAllComplaint(){
+        return complaintRepository.findAll();
     }
 
 

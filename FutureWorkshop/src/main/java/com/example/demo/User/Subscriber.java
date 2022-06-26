@@ -48,7 +48,8 @@ public class Subscriber extends User {
         Queries = new ArrayList<>();
         lock = new Object();
         storeNotifications = new ArrayList<>();
-        complaintNotifications = complaintNotifications;
+        this.complaintNotifications = complaintNotifications;
+        realTimestoreNotifications = new ArrayList<>();
     }
 
     public String getName() {

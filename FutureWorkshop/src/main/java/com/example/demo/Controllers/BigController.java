@@ -99,14 +99,14 @@ public class BigController {
         this.databaseService = databaseService;
         IdGenerator.addDatabase(databaseService);
         this.policyBuilder = new PolicyBuilder();
-        //NotificationManager.buildNotificationManager(us);
-        NotificationManager.ForTestsOnlyBuildNotificationManager(new NotificationReceiver() {
-            @Override
-            public void sendNotificationTo(List<String> userIds, StoreNotification storeNotification) throws UserException, UserException {}
-            @Override
-            public void sendComplaintToAdmins(String senderId, ComplaintNotification complaintNotification) throws UserException {}
-        });//todo delete this  !!!for testing only!!! notifications doesnt work with this
-        initializeSystem();
+        NotificationManager.buildNotificationManager(us);
+//        NotificationManager.ForTestsOnlyBuildNotificationManager(new NotificationReceiver() {
+//            @Override
+//            public void sendNotificationTo(List<String> userIds, StoreNotification storeNotification) throws UserException, UserException {}
+//            @Override
+//            public void sendComplaintToAdmins(String senderId, ComplaintNotification complaintNotification) throws UserException {}
+//        });//todo delete this  !!!for testing only!!! notifications doesnt work with this
+      //initializeSystem();
         my_log.info("System Started");
 
         withDatabase = true;

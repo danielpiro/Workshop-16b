@@ -10079,3 +10079,23 @@ Jun 26, 2022 3:05:09 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
 Jun 26, 2022 3:05:09 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
+Jun 26, 2022 3:53:58 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user guy doesn't exist
+Jun 26, 2022 3:53:58 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user guy failed login
+Jun 26, 2022 4:14:17 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: User doesn't exist or is not logged in
+Jun 26, 2022 4:53:31 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user admin is already logged in
+Jun 26, 2022 4:53:31 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user admin is already logged in
+Jun 26, 2022 5:10:14 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user admin is already logged in
+Jun 26, 2022 5:10:14 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user admin is already logged in
+Jun 26, 2022 5:10:14 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user admin is already logged in
+Jun 26, 2022 5:10:14 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user admin is already logged in
+Jun 26, 2022 5:10:23 PM com.example.demo.GlobalSystemServices.Log warning
+WARNING: user admin is already logged in
