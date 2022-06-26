@@ -840,6 +840,9 @@ public class BigController {
     }
 
     private boolean validateSessionID(String sessionID, String username) throws UserException {
+        //only for local testing, not to be used online
+        if(sessionID.equals("NotValidSessionID"))
+            return true;
         if (us.checkIfUserExists(username)){
             return us.get_subscriber(username).validateWebSocket(sessionID);
         }
