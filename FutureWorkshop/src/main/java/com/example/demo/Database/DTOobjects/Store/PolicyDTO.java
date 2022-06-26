@@ -21,16 +21,20 @@ public class PolicyDTO {
     private String ForeignKeyPolicyId1;
     private String ForeignKeyPolicyId2;
 
-    public PolicyDTO(String policyId, String policyType, long predicateId) {
+    private String belongsToStoreId;
+
+    public PolicyDTO(String belongsToStoreId, String policyId, String policyType, long predicateId ) {
         this.policyId = policyId;
         this.policyType = policyType;
         this.predicateId = predicateId;
+        this.belongsToStoreId = belongsToStoreId;
     }
 
-    public PolicyDTO(String policyId, String policyType, String foreignKeyPolicyId1, String foreignKeyPolicyId2) {
+    public PolicyDTO( String belongsToStoreId,String policyId, String policyType, String foreignKeyPolicyId1, String foreignKeyPolicyId2) {
         this.policyId = policyId;
         this.policyType = policyType;
         ForeignKeyPolicyId1 = foreignKeyPolicyId1;
         ForeignKeyPolicyId2 = foreignKeyPolicyId2;
+        this.belongsToStoreId = belongsToStoreId;
     }
 }

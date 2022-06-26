@@ -53,7 +53,7 @@ public class Store implements getStoreInfo {
         this.databaseService = databaseService;
         this.storeName = storeDto.getStoreName();
         this.storeId = storeDto.getStoreId();
-        inventoryManager = new InventoryManager(databaseService.getProductsOfStore(storeDto.getStoreId()));
+        inventoryManager = new InventoryManager(databaseService.getProductsOfStore(storeDto.getStoreId()),databaseService.loadPoliesForStore(storeDto.getStoreId()));
         forum =new Forum();
         storeState = StoreState.valueOf(storeDto.getStoreState());
         storeRating = storeDto.getStoreRating();

@@ -30,10 +30,10 @@ public class InventoryManager  implements InventoryProtector {
         this.discounts = new CopyOnWriteArrayList<>();
         policies = new CopyOnWriteArrayList<>();
     }
-    public InventoryManager(ConcurrentHashMap<String,Product> products) {
+    public InventoryManager(ConcurrentHashMap<String,Product> products, CopyOnWriteArrayList<Policy> policies) {
         this.products = products;
         this.discounts = new CopyOnWriteArrayList<>();
-        policies = new CopyOnWriteArrayList<>();
+        this.policies = policies;
     }
 
     private void checksIfStorePoliciesMet(HashMap<String, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) throws StorePolicyViolatedException {
