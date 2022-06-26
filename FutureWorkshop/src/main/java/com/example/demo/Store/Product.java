@@ -2,6 +2,7 @@ package com.example.demo.Store;
 
 
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
+import com.example.demo.Database.DTOobjects.Store.ProductDTO;
 import com.example.demo.Mock.MockProductReturn;
 import com.example.demo.Store.BuyinfOptions.BuyOption;
 import com.example.demo.Store.BuyinfOptions.ImmediateBuy;
@@ -35,9 +36,21 @@ public class Product implements PurchasableProduct {
         buyOption = new ImmediateBuy();
     }
 
-    public void addReview(float rating, String userId, String title, String body){
 
-            reviews.add(new Review(rating, userId, title, body));
+    public Product(String id, String name, float price, int supply,List<Review> reviews,float rating ,String category) throws SupplyManagementException {
+        this.id = id;
+        this.name = name;
+        editPrice(price);
+        this.reviews = reviews;
+        editSupply(supply);
+        this.rating = rating;
+        this.category = ProductsCategories.valueOf(category);
+        buyOption = new ImmediateBuy();
+    }
+
+    public Review addReview(float rating, String userId, String title, String body){
+            Review newReview  = new Review(rating, userId, title, body);
+            reviews.add(newReview);
             float sum = 0;
         synchronized (reviews) {
             for (Review rev : reviews) {
@@ -45,6 +58,7 @@ public class Product implements PurchasableProduct {
             }
             this.rating = sum / (reviews.size());
         }
+        return newReview;
     }
 
     public BuyOption getBuyOption() {
@@ -129,6 +143,11 @@ public class Product implements PurchasableProduct {
 
         MockProductReturn mpr = new MockProductReturn(this.getId(),storeId,this.getName(),this.getPrice(),this.getSupply(),this.getCategory().toString(),this.getRating());
         return mpr;
+    }
+
+    public ProductDTO productToDTO(String storeId){
+        ProductDTO dto  = new ProductDTO(getId(),getName(),getPrice(),getRating(),getSupply(),0,getReservedSupply(),getCategory(),storeId);
+        return dto;
     }
 
     public void moveFromSupplyToReserved(int howMuch){

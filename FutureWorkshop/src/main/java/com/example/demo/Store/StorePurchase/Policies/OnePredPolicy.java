@@ -1,6 +1,6 @@
 package com.example.demo.Store.StorePurchase.Policies;
 
-import com.example.demo.ExternalConnections.ExternalConnectionHolder;
+import com.example.demo.ExternalConnections.Old.ExternalConnectionHolder;
 import com.example.demo.ShoppingCart.UserInfo;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.StorePurchase.PurchasableProduct;
@@ -19,6 +19,11 @@ public class OnePredPolicy extends Policy {
         super();
         this.pPredicate = pPredicate;
         }
+
+    public OnePredPolicy(String policyId, PolicyPredicate pPredicate) {
+        super(policyId);
+        this.pPredicate = pPredicate;
+    }
 
     //if ThenPredicate holds function return true you are violating store policy
     public boolean checkIfPolicyStands(HashMap<Product, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo){

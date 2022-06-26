@@ -1,11 +1,10 @@
 package com.example.demo.Tests.Unit.StorePartUnitTests;
 
 
-import com.example.demo.Controllers.StoreController;
-import com.example.demo.Controllers.UserController;
 import com.example.demo.CustomExceptions.Exception.NotifyException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
+import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.NotificationsManagement.ComplaintNotification;
 import com.example.demo.NotificationsManagement.NotificationManager;
 import com.example.demo.NotificationsManagement.NotificationReceiver;
@@ -16,15 +15,17 @@ import com.example.demo.StorePermission.StoreManager;
 import com.example.demo.StorePermission.StoreRoles;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.naming.NoPermissionException;
-import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@SpringBootTest
 class StoreTest {
     String userId1 = "userId1";
     String userId2 = "userId2";
@@ -37,13 +38,16 @@ class StoreTest {
     String productId1;
     String productId2;
     String productId3;
+    @Autowired
+    DatabaseService databaseService;
+
 
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws SQLException {
         List<String> originalOwner = new LinkedList<>();
         originalOwner.add(userId1);
-        store1 =new Store("store1", "s1Id", originalOwner);
+        store1 =new Store("store1", "s1Id", originalOwner, databaseService);
         NotificationReceiver r = new NotificationReceiver() {
             @Override
             public void sendNotificationTo(List<String> userIds, StoreNotification storeNotification) throws UserException, UserException {
@@ -89,7 +93,7 @@ class StoreTest {
                 e.printStackTrace();
             }
 
-        } catch (NoPermissionException | NotifyException | UserException e) {
+        } catch (NoPermissionException | NotifyException | UserException | SQLException e) {
             e.printStackTrace();
             fail();
         }
@@ -101,7 +105,7 @@ class StoreTest {
         try {
             store1.createOwner(userId2, userId3, new ArrayList<>());
             fail();
-        } catch (NoPermissionException | NotifyException | UserException e) {
+        } catch (NoPermissionException | NotifyException | UserException | SQLException e) {
             e.printStackTrace();
         }
     }
@@ -110,7 +114,7 @@ class StoreTest {
         try {
             store1.createOwner(userId1, userId1, new ArrayList<>());
             fail();
-        } catch (NoPermissionException | NotifyException | UserException e) {
+        } catch (NoPermissionException | NotifyException | UserException | SQLException e) {
             e.printStackTrace();
         }
     }
@@ -152,7 +156,7 @@ class StoreTest {
             }
 
 
-        } catch (NoPermissionException | SupplyManagementException | NotifyException | UserException e) {
+        } catch (NoPermissionException | SupplyManagementException | NotifyException | UserException | SQLException e) {
             e.printStackTrace();
             fail();
         }

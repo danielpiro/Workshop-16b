@@ -14,15 +14,32 @@ const shoppingCart = () => {
     delivery: "Delivery",
     payment: "Payment",
   });
+  const [values, setValues] = useState({
+    nameHolder: "",
+    address: "",
+    city: "",
+    country: "",
+    zip: "",
+    holder: "",
+    cardNumber: "",
+    expireDate: "",
+    cvv: "",
+    id: "",
+  });
   const [cookies, setCookie, removeCookie] = useCookies([
     "username",
     "password",
     "userId",
     "type",
+    "session",
   ]);
   const fetchCart = async () => {
     return await api
-      .post(`/cart/?user_Id=${cookies.userId}`)
+      .post(`/cart/?user_Id=${cookies.userId}`, null, {
+        headers: {
+          Authorization: cookies.session,
+        },
+      })
       .then((res) => {
         const { data } = res;
         if (data.success) {
@@ -33,7 +50,13 @@ const shoppingCart = () => {
       .then(async () => {
         return await api
           .post(
-            `/cart/price/?user_id=${cookies.userId}&payment=Visa&delivery=UPS`
+            `/cart/price/?user_id=${cookies.userId}&payment=Visa&delivery=UPS`,
+            null,
+            {
+              headers: {
+                Authorization: cookies.session,
+              },
+            }
           )
           .then((res) => {
             const { data } = res;
@@ -51,6 +74,14 @@ const shoppingCart = () => {
     fetchCart();
   }, []);
 
+  const containsOnlyLetters = (str) =>{
+    return /^[a-zA-Z]+$/.test(str);
+  }
+
+  const containsOnlyDigits = (str) =>{
+    return /^[0-9]+$/.test(str);
+  }
+
   const onBuy = (e) => {
     e.preventDefault();
     if (deliveryAndPaymnetDetails.delivery === "Delivery") {
@@ -59,19 +90,69 @@ const shoppingCart = () => {
     if (deliveryAndPaymnetDetails.payment === "Payment") {
       return createNotification("error", "Please select payment option")();
     }
+    if(values.address === "" || !containsOnlyLetters(values.address)){
+      return createNotification("error", "Please enter a valid address (letters only)")();
+    }
+    if(values.cardNumber === "" || !containsOnlyDigits(values.cardNumber)){
+      return createNotification("error", "Please enter a valid card number (numbers only)")();
+    }
+    if(values.city === ""){
+      return createNotification("error", "Please enter a city")();
+    }
+    if(values.country === ""){
+      return createNotification("error", "Please enter a country")();
+    }
+    if(values.cvv === "" || !containsOnlyDigits(values.cvv) || values.cvv.length !== 3){
+      return createNotification("error", "Please enter a valid cvv (3 digits)")();
+    }
+    if(values.expireDate === "" || values.expireDate.length !== 7 || values.expireDate.charAt(2) !== '/' 
+        || !containsOnlyDigits(values.expireDate.slice(0,2)) || !containsOnlyDigits(values.expireDate.slice(3))){
+      return createNotification("error", "Please enter a valid expire date (format: MM/YYYY)")();
+    }
+    if(values.holder === ""){
+      return createNotification("error", "Please enter a holder")();
+    }
+    if(values.id === "" || values.id.length !== 9 || !containsOnlyDigits(values.id)){
+      return createNotification("error", "Please enter a valid id (9 digits)")();
+    }
+    if(values.nameHolder === ""){
+      return createNotification("error", "Please enter a valid holder name")();
+    }
+    if(values.zip === "" || !containsOnlyDigits(values.zip)){
+      console.log(values.zip);
+      return createNotification("error", "Please enter a valid zip (numbers only)")();
+    }
     if (cart.length === 0) {
       return createNotification(
         "error",
         "Please add product before checkout"
       )();
     }
+    console.log(values);
     api
       .post(
-        `/cart/purchase/?user_id=${cookies.userId}&payment=${deliveryAndPaymnetDetails.payment}&delivery=${deliveryAndPaymnetDetails.delivery}`
+        `/cart/purchase/?userId=${cookies.userId}&payment=${
+          deliveryAndPaymnetDetails.payment
+        }&delivery=${deliveryAndPaymnetDetails.delivery}&nameHolder=${
+          values.nameHolder
+        }&address=${values.address}&city=${values.city}&country=${
+          values.country
+        }&zip=${values.zip}&holder=${values.holder}&cardNumber=${
+          values.cardNumber
+        }&expireDate=${values.expireDate}&cvv=${parseInt(values.cvv)}&id=${
+          values.id
+        }`,
+        null,
+        {
+          headers: {
+            Authorization: cookies.session,
+          },
+        }
       )
       .then((res) => {
         const { data } = res;
         if (data.success) {
+          console.log(data.value);
           createNotification("success", "Purchase was successfull")();
           fetchCart();
         } else {
@@ -132,6 +213,119 @@ const shoppingCart = () => {
               </div>
               <div className="text-center mb-3">
                 <h5>Total: {priceAfter}$</h5>
+              </div>
+              <div className="input-group d-flex justify-content-center">
+                <input
+                  className="input-medium mb-2 me-2"
+                  value={values.address}
+                  placeholder="enter address"
+                  onChange={(e) =>
+                    setValues((prevState) => ({
+                      ...prevState,
+                      address: e.target.value,
+                    }))
+                  }
+                />
+                <input
+                  name="Card number"
+                  className="input-medium mb-2 me-2"
+                  value={values.cardNumber}
+                  placeholder="enter cardNumber"
+                  onChange={(e) =>
+                    setValues((prevState) => ({
+                      ...prevState,
+                      cardNumber: e.target.value,
+                    }))
+                  }
+                />
+                <input
+                  className="input-medium mb-2 me-2"
+                  value={values.city}
+                  placeholder="enter city"
+                  onChange={(e) =>
+                    setValues((prevState) => ({
+                      ...prevState,
+                      city: e.target.value,
+                    }))
+                  }
+                />
+                <input
+                  className="input-medium mb-2 me-2"
+                  value={values.country}
+                  placeholder="enter country"
+                  onChange={(e) =>
+                    setValues((prevState) => ({
+                      ...prevState,
+                      country: e.target.value,
+                    }))
+                  }
+                />
+                <input
+                  className="input-medium mb-2 me-2"
+                  value={values.cvv}
+                  placeholder="enter cvv"
+                  onChange={(e) =>
+                    setValues((prevState) => ({
+                      ...prevState,
+                      cvv: e.target.value,
+                    }))
+                  }
+                />
+                <input
+                  className="input-medium mb-2 me-2"
+                  value={values.expireDate}
+                  placeholder="enter expireDate"
+                  onChange={(e) =>
+                    setValues((prevState) => ({
+                      ...prevState,
+                      expireDate: e.target.value,
+                    }))
+                  }
+                />
+                <input
+                  className="input-medium mb-2 me-2"
+                  value={values.holder}
+                  placeholder="enter holder"
+                  onChange={(e) =>
+                    setValues((prevState) => ({
+                      ...prevState,
+                      holder: e.target.value,
+                    }))
+                  }
+                />
+                <input
+                  className="input-medium mb-2 me-2"
+                  value={values.id}
+                  placeholder="enter id"
+                  onChange={(e) =>
+                    setValues((prevState) => ({
+                      ...prevState,
+                      id: e.target.value,
+                    }))
+                  }
+                />
+                <input
+                  className="input-medium mb-2 me-2"
+                  value={values.nameHolder}
+                  placeholder="enter nameHolder"
+                  onChange={(e) =>
+                    setValues((prevState) => ({
+                      ...prevState,
+                      nameHolder: e.target.value,
+                    }))
+                  }
+                />
+                <input
+                  className="input-medium mb-2 me-2"
+                  value={values.zip}
+                  placeholder="enter zip"
+                  onChange={(e) =>
+                    setValues((prevState) => ({
+                      ...prevState,
+                      zip: e.target.value,
+                    }))
+                  }
+                />
               </div>
               <div className="d-flex justify-content-center">
                 <div className="dropdown">

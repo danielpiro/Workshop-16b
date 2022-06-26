@@ -3,59 +3,28 @@ package com.example.demo.Tests;
 
 import com.example.demo.Controllers.BigController;
 import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
+import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.DemoApplication;
 import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
 import com.example.demo.ExternalConnections.Payment.PaymentNames;
 import com.example.demo.ExternalConnections.Payment.Visa;
 import com.example.demo.History.PurchaseHistory;
-import com.example.demo.NotificationsManagement.NotificationSubject;
-import com.example.demo.NotificationsManagement.StoreNotification;
 import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.StorePermission.Permission;
-import com.example.demo.Tests.Bridge.Proxy;
 import com.example.demo.Tests.Bridge.Real;
-import com.example.demo.User.Guest;
-import com.google.gson.Gson;
-import org.json.JSONObject;
 import org.junit.jupiter.api.*;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.context.junit4.SpringRunner;
-
-
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import org.springframework.test.web.servlet.RequestBuilder;
 
 
 import javax.naming.NoPermissionException;
-import javax.validation.constraints.AssertTrue;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Method;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+@SpringBootTest
 public class AcceptanceTests {
-
+    @Autowired
+    DatabaseService databaseService;
     /*TODO: (Tagged with fail() in the tests)
      * 1) Parallel Use.
      * 2) Logging.
@@ -78,8 +47,8 @@ public class AcceptanceTests {
     //todo i think before all?
     @BeforeEach
     void setUp() throws Exception {
-        proxy = new Real();
-        proxy.openingMarket();
+        proxy = new Real(databaseService);
+        proxy.openingMarket(databaseService);
 
 
 
@@ -149,7 +118,7 @@ public class AcceptanceTests {
 //        if (rv.isSuccess() == true)
 //            fail();
 
-        assertEquals("system opened successfully", proxy.openingMarket());
+        assertEquals("system opened successfully", proxy.openingMarket(databaseService));
     }
 
     @Test
@@ -232,17 +201,7 @@ public class AcceptanceTests {
 
 
 
-    @Test
-    void remove_payment_service_success_case() {
-//        assertTrue(proxy.AddPayment(new MasterCard()));
 
-        assertTrue(proxy.AddPayment(new Visa()));
-    }
-    @Test
-    void add_payment_service_success_case() {
-//        assertTrue(proxy.AddPayment(new MasterCard()));
-        assertTrue(proxy.AddPayment(new Visa()));
-    }
     @Test
     void remove_delivery_service_success_case() {
         //assertTrue(proxy.removeDelivery("UPS"));
@@ -392,14 +351,7 @@ public class AcceptanceTests {
     /**
      *  User requirement - II.1.4
      **/
-    @Test
-    void login_success_case_test() {
-//        - Perform Login (entering username and password) & validate login details (will return TRUE)
-//        - Check that the user is logged-in (shopping cart, permissions...).
-//        - Send success message...
 
-        assertTrue(proxy.login("user2", "22222"));
-    }
     @Test
     void login_fail_case_test1() {
 //        - Perform Login (entering username and password) & validate login details
@@ -577,7 +529,7 @@ public class AcceptanceTests {
         // "product was added to the store successfully"
         Object[] s = proxy.getAllProductsAndStores("user1").keySet().toArray();
         String str = s[0].toString();
-        assertFalse(!proxy.addProductToStore(str, "user1", product4,
+        assertFalse(proxy.addProductToStore(str, "user1", product4,
                     5.0f, 1, "Other").isEmpty());
     }
     @Test

@@ -14,6 +14,7 @@ const DisplayStoreOfficials = () => {
     "password",
     "userId",
     "type",
+    "session",
   ]);
 
   useEffect(() => {
@@ -25,7 +26,12 @@ const DisplayStoreOfficials = () => {
       }
       await api
         .get(
-          `/store/allRoles/?storeId=${storeID}&userIdRequesting=${cookies.userId}`
+          `/store/allRoles/?storeId=${storeID}&userIdRequesting=${cookies.userId}`,
+          {
+            headers: {
+              Authorization: cookies.session,
+            },
+          }
         )
         .then((res) => {
           const { data } = res;

@@ -1,14 +1,13 @@
 package com.example.demo.Tests.Unit;
 
 
-import com.example.demo.ExternalConnections.Delivery.Delivery;
-import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
-import com.example.demo.ExternalConnections.Delivery.UPS;
-import com.example.demo.ExternalConnections.ExternalConnections;
-import com.example.demo.ExternalConnections.Payment.Payment;
-import com.example.demo.ExternalConnections.Payment.PaymentNames;
-import com.example.demo.ExternalConnections.Payment.Visa;
-import org.junit.jupiter.api.BeforeAll;
+import com.example.demo.ExternalConnections.Old.Delivery.Delivery;
+import com.example.demo.ExternalConnections.Old.Delivery.DeliveryNames;
+import com.example.demo.ExternalConnections.Old.Delivery.UPS;
+import com.example.demo.ExternalConnections.Old.ExternalConnections;
+import com.example.demo.ExternalConnections.Old.Delivery.Payment.Payment;
+import com.example.demo.ExternalConnections.Old.Delivery.Payment.PaymentNames;
+import com.example.demo.ExternalConnections.Old.Delivery.Payment.Visa;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

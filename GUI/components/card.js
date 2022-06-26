@@ -8,6 +8,7 @@ const Card = ({ value, title, price, quantity, category, storeId }) => {
     "password",
     "userId",
     "type",
+    "session",
   ]);
   const addProduct = async (e) => {
     e.preventDefault();
@@ -18,7 +19,15 @@ const Card = ({ value, title, price, quantity, category, storeId }) => {
       amount: 1,
     };
     return await api
-      .post(`/cart/product/?auctionOrBid=${false}`, obj)
+      .post(
+        `/cart/product/?userId=${cookies.userId}&auctionOrBid=${false}`,
+        obj,
+        {
+          headers: {
+            Authorization: cookies.session,
+          },
+        }
+      )
       .then((res) => {
         const { data } = res;
         if (data.success) {

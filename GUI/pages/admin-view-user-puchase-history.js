@@ -13,6 +13,7 @@ const AdminViewUserPurchase = () => {
     "password",
     "userId",
     "type",
+    "session",
   ]);
 
   const searchUsernamePurchases = async (e) => {
@@ -20,13 +21,16 @@ const AdminViewUserPurchase = () => {
     setIsLoading(!isLoading);
     if (searchValue !== "") {
       await api
-        .get(`/history/user/?userId=${searchValue}`)
+        .get(`/history/user/?userId=${searchValue}`, {
+          headers: {
+            Authorization: cookies.session,
+          },
+        })
         .then((res) => {
           const { data } = res;
           if (data.success) {
             console.log(data.value);
             setPurchases(data.value);
-            //setIsLoading(!isLoading);
             createNotification(
               "success",
               "Displaying all user's purchases successfully"

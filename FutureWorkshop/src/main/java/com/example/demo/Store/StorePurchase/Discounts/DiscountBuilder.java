@@ -7,7 +7,7 @@ import com.example.demo.Store.StorePurchase.PurchasableProduct;
 import com.example.demo.Store.StorePurchase.predicates.DiscountPredicate;
 import com.example.demo.Store.StorePurchase.predicates.PolicyPredicate;
 import com.example.demo.Store.StorePurchase.predicates.PredImplementions.*;
-import com.example.demo.Store.StorePurchase.predicates.PredImplementions.compsite.*;
+import com.example.demo.Store.StorePurchase.predicates.PredImplementions.composite.*;
 import com.example.demo.Store.StorePurchase.predicates.PredicateTimeType;
 import com.example.demo.Store.StorePurchase.predicates.PredicateUserType;
 import com.google.gson.JsonElement;

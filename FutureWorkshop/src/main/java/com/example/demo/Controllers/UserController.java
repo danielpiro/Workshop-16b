@@ -4,7 +4,10 @@ import com.example.demo.CustomExceptions.Exception.CantPurchaseException;
 import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
-import com.example.demo.ExternalConnections.ExternalConnectionHolder;
+import com.example.demo.Database.DTOobjects.User.ComplaintDTO;
+import com.example.demo.Database.DTOobjects.User.UserDTO;
+import com.example.demo.Database.Service.DatabaseService;
+import com.example.demo.ExternalConnections.Old.ExternalConnectionHolder;
 import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.NotificationsManagement.ComplaintNotification;
@@ -16,12 +19,12 @@ import com.example.demo.User.Encryption;
 import com.example.demo.User.Guest;
 import com.example.demo.User.Subscriber;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 
 public class UserController implements NotificationReceiver {
@@ -47,6 +50,29 @@ public class UserController implements NotificationReceiver {
         add_admin(admin);
         onlineUsers = 0;
         registeredUsers = 0;
+    }
+
+    public void initSystem(DatabaseService databaseService){
+
+        if(databaseService.findUserbyName("admin").size()==0)
+            databaseService.saveUser(admin);
+
+        for(UserDTO userDTO: databaseService.allUsers()) {
+            List<ComplaintNotification> notifications = new LinkedList<>();
+            for (ComplaintDTO cd : databaseService.findComplaintByUserId(userDTO.getName())) {
+                notifications.add(cd.convertToComplaint());
+            }
+            if (userDTO.getName().equals("admin")){
+                Subscriber ad= get_subscriber("admin");
+                for (ComplaintDTO cd : databaseService.findAllComplaint()) {
+                    ad.addComplaint(cd.convertToComplaint());
+                }
+            }
+            else
+                user_list.add( new Subscriber(userDTO.getName(),userDTO.getPassword(),databaseService.getShoppingCart(userDTO.getName()),notifications));
+            registeredUsers++;
+        }
+
     }
 
     public List<String> initialize() throws UserException, InterruptedException {
@@ -88,6 +114,8 @@ public class UserController implements NotificationReceiver {
         login("tjhaly", "asdfdasd");
         login("spart", "sswwwss");
         login("yoav", "yoav123");
+
+        //user_list.get(0).
 
         login(g1.name, "delphin", "1234");
         login(g2.name, "alan", "4321");
@@ -206,16 +234,19 @@ public class UserController implements NotificationReceiver {
         return get_subscriber(user_id).getCartInventory();
     }
 
-    public float purchaseCart(String user_id, ExternalConnectionHolder externalConnectionHolder) throws SupplyManagementException, StorePolicyViolatedException, CantPurchaseException, UserException {
+    public float purchaseCart(String user_id, ExternalConnectionHolder externalConnectionHolder , String nameHolder, String address, String city, String country, String zip ,
+                              String holder, String cardNumber, String expireDate, int cvv, String id) throws Exception {
         if ((getGuest(user_id) != null))
-            return getGuest(user_id).purchaseCart(externalConnectionHolder);
+            return getGuest(user_id).purchaseCart(externalConnectionHolder, nameHolder,  address,  city,  country,  zip ,
+                    holder,  cardNumber,  expireDate,  cvv,  id );
         else if (get_subscriber(user_id) == null) {
             throw new UserException("User " + user_id + " doesn't exist");
         } else if (!checkIfUserIsLoggedIn(user_id)) {
             my_log.warning("user " + user_id + " is not logged in");
             throw new UserException("User " + user_id + " is not logged in");
         }
-        return get_subscriber(user_id).purchaseCart(externalConnectionHolder);
+        return get_subscriber(user_id).purchaseCart(externalConnectionHolder, nameHolder,  address,  city,  country,  zip ,
+                holder,  cardNumber,  expireDate,  cvv,  id);
 
     }
 
@@ -272,7 +303,7 @@ public class UserController implements NotificationReceiver {
         }
     }
 
-    public boolean login(String guestId, String user_name, String password) throws UserException, InterruptedException {
+    public String login(String guestId, String user_name, String password) throws UserException, InterruptedException {
         my_log.info("user " + user_name + " is trying to login");
         if (getGuest(guestId) == null)
             throw new UserException("guest " + guestId + " does not exist in the system");
@@ -290,11 +321,11 @@ public class UserController implements NotificationReceiver {
                         get_subscriber(user_name).setShoppingCart(getGuestShoppingCart(guestId));
                         removeGuest(guestId);
                         onlineUsers++;
-                        return true;
+                        return get_subscriber(user_name).getSessionId();
                     }
                 } else {
                     my_log.warning("user " + user_name + " doesn't exist -- failed to login");
-                    return false;
+                    throw new UserException("user " + user_name + " doesn't exist -- failed to login");
                     // ("user has been deleted") // add logger
                 }
             }
@@ -304,7 +335,7 @@ public class UserController implements NotificationReceiver {
         throw new UserException("user " + user_name + " failed login");
     }
 
-    public boolean login(String user_name, String password) throws UserException, InterruptedException {
+    public String login(String user_name, String password) throws UserException, InterruptedException {
         my_log.info("user " + user_name + " is trying to login");
         if (checkIfUserExists(user_name)) {
             synchronized (get_subscriber(user_name).getLock()) {
@@ -318,11 +349,11 @@ public class UserController implements NotificationReceiver {
                     } else if (!get_subscriber(user_name).isLogged_in() && check_password(user_name, password)) {
                         get_subscriber(user_name).setLogged_in(true);
                         onlineUsers++;
-                        return true;
+                        return get_subscriber(user_name).getSessionId();
                     }
                 } else {
                     my_log.warning("user " + user_name + " doesn't exist -- failed to login");
-                    return false;
+                    throw new UserException("user " + user_name + " doesn't exist -- failed to login");
                     // ("user has been deleted") // add logger
                 }
             }
@@ -434,6 +465,7 @@ public class UserController implements NotificationReceiver {
                     for (Subscriber s : getUser_list()) {
                         if (s.getName().equals(whosBeingDeleted)) {
                             getUser_list().remove(s);
+                            registeredUsers--;
                             return true;
                         }
                     }
@@ -538,7 +570,7 @@ public class UserController implements NotificationReceiver {
             // my_log.warning("trying to send a complaint to a user " + s + " which is not an admin");
             //  throw new UserException("trying to send a complaint to a user " + s + " which is not an admin");
             //}
-            get_subscriber(s.getName()).addComplaint(complaintNotification.getDeepCopy());
+            s.addComplaint(complaintNotification.getDeepCopy());
         }
     }
 
@@ -552,7 +584,7 @@ public class UserController implements NotificationReceiver {
             my_log.warning("user " + userid + " is not online");
             throw new UserException("user " + userid + " is not online");
         }
-        if (storeNotificaionId < 0 || storeNotificaionId > get_subscriber(userid).getStoreNotifications().size() - 1) {
+        if (storeNotificaionId < 0 || storeNotificaionId > get_subscriber(userid).getRealTimestoreNotifications().size() - 1) {
             my_log.warning("invalid store notification id");
             throw new UserException("invalid store notification id");
         }
@@ -566,6 +598,14 @@ public class UserController implements NotificationReceiver {
             throw new UserException("user " + userid + " does not exist");
         }
         return get_subscriber(userid).getComplaintNotifications();
+    }
+
+    public List<StoreNotification> getStoreNotifications(String userid) throws UserException {
+        if (get_subscriber(userid) == null) {
+            my_log.warning("user " + userid + " does not exist");
+            throw new UserException("user " + userid + " does not exist");
+        }
+        return get_subscriber(userid).getStoreNotifications();
     }
 
     public List<ComplaintNotification> getAdminComplaintNotifications(String userId) throws UserException { //Abed changes
@@ -595,21 +635,17 @@ public class UserController implements NotificationReceiver {
         return null;
     }
 
-    // TODO: 09/06/2022 dan this is working example for simple variables
-    @Async
-    public CompletableFuture<Integer> getOnlineUsersNum() {
-        return CompletableFuture.completedFuture(onlineUsers);
+    public Integer getOnlineUsersNum() {
+        return onlineUsers;
     }
 
     public int getRegisteredUsersNum() {
         return registeredUsers;
     }
 
-    // TODO: 09/06/2022 dan this example with outside function also work
-    @Async
-    public CompletableFuture<Float> getPriceOfCartAfterDiscount(String user_id, ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException, UserException, InterruptedException {
+    public Float getPriceOfCartAfterDiscount(String user_id, ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException, UserException, InterruptedException {
         if ((getGuest(user_id) != null)){
-           return CompletableFuture.completedFuture(getGuest(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder));
+           return getGuest(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder);
         }
         if (get_subscriber(user_id) == null) {
             throw new UserException("User " + user_id + " doesn't exist");
@@ -618,13 +654,12 @@ public class UserController implements NotificationReceiver {
             my_log.warning("user " + user_id + " is not logged in");
             throw new UserException("User " + user_id + " is not logged in");
         }
-        return CompletableFuture.completedFuture(get_subscriber(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder));
+        return get_subscriber(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder);
     }
 
-    @Async
-    public CompletableFuture<Float> getPriceOfCartBeforeDiscount(String user_id, ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException, UserException {
+    public Float getPriceOfCartBeforeDiscount(String user_id, ExternalConnectionHolder externalConnectionHolder) throws StorePolicyViolatedException, UserException {
         if ((getGuest(user_id) != null)){
-            return CompletableFuture.completedFuture(getGuest(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder));
+            return getGuest(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder);
         }
         if (get_subscriber(user_id) == null) {
             throw new UserException("User " + user_id + " doesn't exist");
@@ -633,23 +668,11 @@ public class UserController implements NotificationReceiver {
             my_log.warning("user " + user_id + " is not logged in");
             throw new UserException("User " + user_id + " is not logged in");
         }
-        return CompletableFuture.completedFuture(get_subscriber(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder));
+        return get_subscriber(user_id).getPriceOfCartAfterDiscount(externalConnectionHolder);
     }
 
 
-    public void initializeLogoutAll() throws UserException, InterruptedException {
-        logout("amit");
-        logout("guy");
-        logout("pam123");
-        logout("alex12");
-        logout("ronn");
-        logout("rotman");
-        logout("dashy");
-        logout("crim");
-        logout("karma");
-        logout("damon");
-        logout("tjhaly");
-        logout("spart");
-        logout("yoav");
-    }
+
 }
+
+

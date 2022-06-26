@@ -11,11 +11,16 @@ const notificationPage = () => {
     "password",
     "userId",
     "type",
+    "session",
   ]);
   const [complaints, setComplaints] = useState([]);
   const fetch = async () => {
     return await api
-      .get(`/notification/complaint/?userId=${cookies.userId}`)
+      .get(`/notification/complaint/?userId=${cookies.userId}`, {
+        headers: {
+          Authorization: cookies.session,
+        },
+      })
       .then((res) => {
         const { data } = res;
         if (data.success) {
@@ -42,6 +47,7 @@ const notificationPage = () => {
         <div className="row">
           <ul className="list-group">
             {complaints.map((complaint) => {
+              console.log(complaint);
               return (
                 <div className="mb-3">
                   <li>
@@ -49,6 +55,7 @@ const notificationPage = () => {
                       sentFrom={complaint.sentFrom}
                       subject={complaint.subject}
                       Title={complaint.Title}
+                      body={complaint.Body}
                     />
                   </li>
                 </div>

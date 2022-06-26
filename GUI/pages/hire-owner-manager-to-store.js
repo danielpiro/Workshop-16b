@@ -17,6 +17,7 @@ const HireOwnerToStore = () => {
     "password",
     "userId",
     "type",
+    "session",
   ]);
 
   const [permission, setPermissions] = useState({
@@ -38,57 +39,76 @@ const HireOwnerToStore = () => {
   const checkAndSetPermissions = (perm) => {
     switch (perm) {
       case "VIEW_STORE_HISTORY":
-        setPermissions((prevState) => ({...prevState, viewStoreHistory: true,}));
+        setPermissions((prevState) => ({
+          ...prevState,
+          viewStoreHistory: true,
+        }));
         break;
       case "EDIT_EXISTING_PRODUCT":
-        setPermissions((prevState) => ({...prevState, editExistingProduct: true,}));
+        setPermissions((prevState) => ({
+          ...prevState,
+          editExistingProduct: true,
+        }));
         break;
       case "ADD_NEW_PRODUCT":
-        setPermissions((prevState) => ({...prevState, addNewProduct: true,}));
+        setPermissions((prevState) => ({ ...prevState, addNewProduct: true }));
         break;
       case "EDIT_PRODUCT":
-        setPermissions((prevState) => ({...prevState, editProduct: true,}));
+        setPermissions((prevState) => ({ ...prevState, editProduct: true }));
         break;
       case "REMOVE_PRODUCT":
-        setPermissions((prevState) => ({...prevState, removeProduct: true,}));
+        setPermissions((prevState) => ({ ...prevState, removeProduct: true }));
         break;
       case "EDIT_STORE_POLICY":
-        setPermissions((prevState) => ({...prevState, editStorePolicy: true,}));
+        setPermissions((prevState) => ({
+          ...prevState,
+          editStorePolicy: true,
+        }));
         break;
       case "EDIT_STORE_DISCOUNT":
-        setPermissions((prevState) => ({...prevState, editStoreDiscount: true,}));
+        setPermissions((prevState) => ({
+          ...prevState,
+          editStoreDiscount: true,
+        }));
         break;
       case "ADD_REVIEW_TO_PRODUCT":
-        setPermissions((prevState) => ({...prevState, addReviewToProduct: true,}));
+        setPermissions((prevState) => ({
+          ...prevState,
+          addReviewToProduct: true,
+        }));
         break;
       case "VIEW_FORUM":
-        setPermissions((prevState) => ({...prevState, viewForum: true,}));
+        setPermissions((prevState) => ({ ...prevState, viewForum: true }));
         break;
       case "REPLY_TO_FORUM":
-        setPermissions((prevState) => ({...prevState, ReplyToForum: true,}));
+        setPermissions((prevState) => ({ ...prevState, ReplyToForum: true }));
         break;
       case "CLOSE_STORE":
-        setPermissions((prevState) => ({...prevState, closeStore: true,}));
+        setPermissions((prevState) => ({ ...prevState, closeStore: true }));
         break;
       case "OPEN_STORE":
-        setPermissions((prevState) => ({...prevState, openStore: true,}));
+        setPermissions((prevState) => ({ ...prevState, openStore: true }));
         break;
       case "INFO_OF_MANAGERS":
-        setPermissions((prevState) => ({...prevState, infoOfManagers: true,}));
+        setPermissions((prevState) => ({ ...prevState, infoOfManagers: true }));
         break;
       default:
-        createNotification("error","Error loading permissions")();
+        createNotification("error", "Error loading permissions")();
     }
-  }
+  };
 
   useEffect(() => {
     let storeID = window.location.href.split("?").pop();
-    if(storeID.charAt(storeID.length-1) === '#'){
+    if (storeID.charAt(storeID.length - 1) === "#") {
       storeID = storeID.slice(0, -1);
     }
     const fetchData = async () => {
       return await api
-        .get(`store/owner/permmitions?user=${cookies.userId}`)
+        .get(`store/owner/permmitions?userId=${cookies.userId}`, {
+          headers: {
+            Authorization: cookies.session,
+          },
+        })
         .then((res) => {
           const { data } = res;
           if (data.success) {
@@ -98,7 +118,7 @@ const HireOwnerToStore = () => {
                 let perArray = store.permission.slice(1, -1).split(",");
                 perArray.map((per) => {
                   let edittedPer = per.trim();
-                  checkAndSetPermissions(edittedPer)
+                  checkAndSetPermissions(edittedPer);
                   //console.log("after", data.value, permission);
                 });
               }
@@ -110,7 +130,11 @@ const HireOwnerToStore = () => {
         .then(async () => {
           //Added by Amit
           return await api
-            .get(`store/manager/permmitions?user=${cookies.userId}`)
+            .get(`store/manager/permmitions?userId=${cookies.userId}`, {
+              headers: {
+                Authorization: cookies.session,
+              },
+            })
             .then((res) => {
               const { data } = res;
               if (data.success) {
@@ -119,7 +143,7 @@ const HireOwnerToStore = () => {
                     let perArray = store.permission.slice(1, -1).split(",");
                     perArray.map((per) => {
                       let edittedPer = per.trim();
-                      checkAndSetPermissions(edittedPer)
+                      checkAndSetPermissions(edittedPer);
                     });
                   }
                 });
@@ -154,26 +178,42 @@ const HireOwnerToStore = () => {
 
   const onHiringOfficial = async (e) => {
     e.preventDefault();
-    if (newOfficialInput.username != "" && newOfficialInput.ownerORmanager != "") {
+    if (
+      newOfficialInput.username != "" &&
+      newOfficialInput.ownerORmanager != ""
+    ) {
       let storeID = window.location.href.split("?").pop();
-      if(storeID.charAt(storeID.length-1) === '#'){
+      if (storeID.charAt(storeID.length - 1) === "#") {
         storeID = storeID.slice(0, -1);
       }
       let newOwnerPermissions = [];
       if (newOfficialInput.ownerORmanager === "Owner") {
-        if (document.getElementById("VIEW_STORE_HISTORY").checked === true) newOwnerPermissions.push("VIEW_STORE_HISTORY");
-        if (document.getElementById("EDIT_EXISTING_PRODUCT").checked === true) newOwnerPermissions.push("EDIT_EXISTING_PRODUCT");
-        if (document.getElementById("ADD_NEW_PRODUCT").checked === true) newOwnerPermissions.push("ADD_NEW_PRODUCT");
-        if (document.getElementById("EDIT_PRODUCT").checked === true) newOwnerPermissions.push("EDIT_PRODUCT");
-        if (document.getElementById("REMOVE_PRODUCT").checked === true) newOwnerPermissions.push("REMOVE_PRODUCT");
-        if (document.getElementById("EDIT_STORE_POLICY").checked === true) newOwnerPermissions.push("EDIT_STORE_POLICY");
-        if (document.getElementById("EDIT_STORE_DISCOUNT").checked === true) newOwnerPermissions.push("EDIT_STORE_DISCOUNT");
-        if (document.getElementById("ADD_REVIEW_TO_PRODUCT").checked === true) newOwnerPermissions.push("ADD_REVIEW_TO_PRODUCT");
-        if (document.getElementById("VIEW_FORUM").checked === true) newOwnerPermissions.push("VIEW_FORUM");
-        if (document.getElementById("REPLY_TO_FORUM").checked === true) newOwnerPermissions.push("REPLY_TO_FORUM");
-        if (document.getElementById("CLOSE_STORE").checked === true) newOwnerPermissions.push("CLOSE_STORE");
-        if (document.getElementById("OPEN_STORE").checked === true) newOwnerPermissions.push("OPEN_STORE");
-        if (document.getElementById("INFO_OF_MANAGERS").checked === true) newOwnerPermissions.push("INFO_OF_MANAGERS");
+        if (document.getElementById("VIEW_STORE_HISTORY").checked === true)
+          newOwnerPermissions.push("VIEW_STORE_HISTORY");
+        if (document.getElementById("EDIT_EXISTING_PRODUCT").checked === true)
+          newOwnerPermissions.push("EDIT_EXISTING_PRODUCT");
+        if (document.getElementById("ADD_NEW_PRODUCT").checked === true)
+          newOwnerPermissions.push("ADD_NEW_PRODUCT");
+        if (document.getElementById("EDIT_PRODUCT").checked === true)
+          newOwnerPermissions.push("EDIT_PRODUCT");
+        if (document.getElementById("REMOVE_PRODUCT").checked === true)
+          newOwnerPermissions.push("REMOVE_PRODUCT");
+        if (document.getElementById("EDIT_STORE_POLICY").checked === true)
+          newOwnerPermissions.push("EDIT_STORE_POLICY");
+        if (document.getElementById("EDIT_STORE_DISCOUNT").checked === true)
+          newOwnerPermissions.push("EDIT_STORE_DISCOUNT");
+        if (document.getElementById("ADD_REVIEW_TO_PRODUCT").checked === true)
+          newOwnerPermissions.push("ADD_REVIEW_TO_PRODUCT");
+        if (document.getElementById("VIEW_FORUM").checked === true)
+          newOwnerPermissions.push("VIEW_FORUM");
+        if (document.getElementById("REPLY_TO_FORUM").checked === true)
+          newOwnerPermissions.push("REPLY_TO_FORUM");
+        if (document.getElementById("CLOSE_STORE").checked === true)
+          newOwnerPermissions.push("CLOSE_STORE");
+        if (document.getElementById("OPEN_STORE").checked === true)
+          newOwnerPermissions.push("OPEN_STORE");
+        if (document.getElementById("INFO_OF_MANAGERS").checked === true)
+          newOwnerPermissions.push("INFO_OF_MANAGERS");
         // const newOwner = {
         //   storeId: storeID,
         //   userIdGiving: cookies.username,
@@ -182,8 +222,18 @@ const HireOwnerToStore = () => {
         // };
         //console.log(newOwner)
         await api
-          .post(`/owner/create/?storeId=${storeID}&userIdGiving=${cookies.username}&UserGettingPermissionId=${newOfficialInput.username.trim()}
-                &permissions=${newOwnerPermissions.toString()}`)
+          .post(
+            `/owner/create/?storeId=${storeID}&userIdGiving=${
+              cookies.username
+            }&UserGettingPermissionId=${newOfficialInput.username.trim()}
+                &permissions=${newOwnerPermissions.toString()}`,
+            null,
+            {
+              headers: {
+                Authorization: cookies.session,
+              },
+            }
+          )
           .then((res) => {
             const { data } = res;
             //console.log(newOwner);
@@ -201,7 +251,13 @@ const HireOwnerToStore = () => {
       } else if (newOfficialInput.ownerORmanager == "Manager") {
         await api
           .post(
-            `/manager/?storeId=${storeID}&userIdGiving=${cookies.username}&UserGettingPermissionId=${newOfficialInput.username}`
+            `/manager/?storeId=${storeID}&userIdGiving=${cookies.username}&UserGettingPermissionId=${newOfficialInput.username}`,
+            null,
+            {
+              headers: {
+                Authorization: cookies.session,
+              },
+            }
           )
           .then((res) => {
             const { data } = res;
@@ -285,7 +341,10 @@ const HireOwnerToStore = () => {
             </div>
           </div>
 
-          <div className="col m-2" hidden={newOfficialInput.ownerORmanager !== "Owner"}>
+          <div
+            className="col m-2"
+            hidden={newOfficialInput.ownerORmanager !== "Owner"}
+          >
             <h4>
               <u>Permission for new owner</u>
             </h4>

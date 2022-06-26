@@ -1,5 +1,7 @@
 package com.example.demo.Store;
 
+import com.example.demo.Database.DTOobjects.Store.ReviewDTO;
+
 public class Review {
     private float rating;
     private String UserId;
@@ -22,6 +24,7 @@ public class Review {
         Title = title;
         Body = body;
     }
+
 
     public void editTitle(String title){
         Title = title;
@@ -53,6 +56,11 @@ public class Review {
         return UserId;
     }
 
+    public ReviewDTO reviewToDTO(){
+
+        ReviewDTO dto = new ReviewDTO(this.getRating(),this.getUserId(),this.getTitle(),this.getBody());
+        return dto;
+    }
 
 
 }

@@ -56,6 +56,10 @@ const Menu = () => {
                 path: "/",
                 sameSite: true,
               });
+              setCookie("session", data.value, {
+                path: "/",
+                sameSite: true,
+              });
               createNotification(
                 "success",
                 "Upgrade successfully , Thanks for becoming a member"

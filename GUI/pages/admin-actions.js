@@ -1,12 +1,10 @@
 import Menu from "../components/menu";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 const AdminActions = () => {
-
   return (
     <>
-      <Menu /> {/*Should be Admin Only!!!*/}
+      <Menu />
       <div className="text-center my-5">
         <h1>Admin Actions</h1>
       </div>

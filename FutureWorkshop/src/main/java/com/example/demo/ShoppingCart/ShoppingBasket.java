@@ -5,9 +5,8 @@ package com.example.demo.ShoppingCart;
 import com.example.demo.CustomExceptions.Exception.CantPurchaseException;
 import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
-import com.example.demo.ExternalConnections.ExternalConnectionHolder;
+import com.example.demo.ExternalConnections.Old.ExternalConnectionHolder;
 import com.example.demo.Generic.ThreeGenerics;
-import org.springframework.scheduling.annotation.Async;
 
 
 import java.util.HashMap;
@@ -55,6 +54,11 @@ public class ShoppingBasket {
     public ShoppingBasket(String store, InventoryProtector inventoryProtector) {
         Store = store;
         this.iProtector = inventoryProtector;
+        this.productAmount = new HashMap<>();
+    }
+
+    public ShoppingBasket(String store) {
+        Store = store;
         this.productAmount = new HashMap<>();
     }
 

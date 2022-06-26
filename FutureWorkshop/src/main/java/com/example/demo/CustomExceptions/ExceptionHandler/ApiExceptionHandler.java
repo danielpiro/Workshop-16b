@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.naming.NoPermissionException;
+import java.net.ConnectException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -23,7 +25,7 @@ public class ApiExceptionHandler {
     @ExceptionHandler(value = { MissingServletRequestParameterException.class,
                                 MethodArgumentNotValidException.class})
 
-    public ReturnValue handleWrongArgument (){
+    public ReturnValue handleWrongArgument (Exception e){
         ReturnValue rv = new ReturnValue(
                 false,
                 "one of the variables you entered wasn't correct",
@@ -35,7 +37,8 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(value = { NoSuchElementException.class , CantPurchaseException.class,IllegalArgumentException.class,
-            NoPermissionException.class, UserException.class, UserDeleted.class, SupplyManagementException.class, NotifyException.class, ExternalServiceDoesNotExist.class,ParseException.class})
+            NoPermissionException.class, UserException.class, UserDeleted.class, SupplyManagementException.class, NotifyException.class,
+            ExternalServiceDoesNotExist.class,ParseException.class, ConnectException.class})
     public ReturnValue handleElementDoesntExist (Exception e){
         ReturnValue rv = new ReturnValue(
                 false,
@@ -58,7 +61,7 @@ public class ApiExceptionHandler {
         return rv;
     }
 
-    @ExceptionHandler(value = { JsonProcessingException.class })
+    @ExceptionHandler(value = { JsonProcessingException.class , SQLException.class})
     public ReturnValue handleInternalProblem (Exception e){
         e.printStackTrace();
         ReturnValue rv = new ReturnValue(

@@ -15,6 +15,7 @@ const StoreEdit = () => {
     "password",
     "userId",
     "type",
+    "session",
   ]);
   const router = useRouter();
   const [newProduct, setNewProduct] = useState({
@@ -25,7 +26,14 @@ const StoreEdit = () => {
   });
   const fetch = async () => {
     return await api
-      .get(`/store/products/?storeId=${router.query.id}`)
+      .get(
+        `/store/products/?userId=${cookies.userId}&storeId=${router.query.id}`,
+        {
+          headers: {
+            Authorization: cookies.session,
+          },
+        }
+      )
       .then((res) => {
         const { data } = res;
         if (data.success) {
@@ -52,7 +60,11 @@ const StoreEdit = () => {
       category: newProduct.category,
     };
     return api
-      .post("/store", product)
+      .post(`/store/?userId=${cookies.userId}`, product, {
+        headers: {
+          Authorization: cookies.session,
+        },
+      })
       .then((res) => {
         const { data } = res;
         if (data.success) {

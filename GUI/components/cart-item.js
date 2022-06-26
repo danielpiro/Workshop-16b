@@ -16,6 +16,7 @@ const CartItem = ({
     "password",
     "userId",
     "type",
+    "session",
   ]);
 
   const onRemove = async (e) => {
@@ -27,7 +28,11 @@ const CartItem = ({
       amount: amount,
     };
     return await api
-      .post("/cart/delete", obj)
+      .post(`/cart/delete/?user_id=${cookies.userId}`, obj, {
+        headers: {
+          Authorization: cookies.session,
+        },
+      })
       .then((res) => {
         const { data } = res;
         if (data.success) {
@@ -48,7 +53,11 @@ const CartItem = ({
       amount: 1,
     };
     return await api
-      .post("/cart/delete", obj)
+      .post(`/cart/delete/?user_id=${cookies.userId}`, obj, {
+        headers: {
+          Authorization: cookies.session,
+        },
+      })
       .then((res) => {
         const { data } = res;
         if (data.success) {
@@ -75,7 +84,15 @@ const CartItem = ({
       amount: 1,
     };
     return await api
-      .post(`/cart/product/?auctionOrBid=${false}`, obj)
+      .post(
+        `/cart/product/?userId=${cookies.userId}&auctionOrBid=${false}`,
+        obj,
+        {
+          headers: {
+            Authorization: cookies.session,
+          },
+        }
+      )
       .then((res) => {
         const { data } = res;
         if (data.success) {

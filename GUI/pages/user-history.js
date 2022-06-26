@@ -12,12 +12,17 @@ const UserHistory = () => {
     "password",
     "userId",
     "type",
+    "session",
   ]);
 
   const fetch = async () => {
     setIsLoading(!isLoading);
     return await api
-      .get(`/history/user/?userId=${cookies.userId}`)
+      .get(`/history/user/?userId=${cookies.userId}`, {
+        headers: {
+          Authorization: cookies.session,
+        },
+      })
       .then((res) => {
         const { data } = res;
         if (data.success) {

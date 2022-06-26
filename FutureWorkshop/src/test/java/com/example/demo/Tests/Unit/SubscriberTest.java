@@ -1,17 +1,34 @@
 package com.example.demo.Tests.Unit;
 
 
+import com.example.demo.Controllers.NotificationController;
+import com.example.demo.Controllers.model.Message;
+import com.example.demo.Controllers.model.realTimeNotification;
 import com.example.demo.User.Subscriber;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.support.AbstractMessageChannel;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class SubscriberTest {
+    String pattern = "MM/dd/yyyy HH:mm:ss";
     private static Subscriber subscriber;
     private static Subscriber subscriber2;
     private static Subscriber subscriber3;
+    private final SimpMessagingTemplate simpMessagingTemplate = new SimpMessagingTemplate(new AbstractMessageChannel() {
+        @Override
+        protected boolean sendInternal(org.springframework.messaging.Message<?> message, long timeout) {
+            return false;
+        }
+    });
 
     @BeforeEach
     void setUp() throws IOException {
@@ -43,9 +60,8 @@ class SubscriberTest {
 
     @org.junit.jupiter.api.Test
     void loggedin() {
-        assertEquals(false, subscriber.isLogged_in());
-        assertEquals(true, subscriber2.isLogged_in());
-        assertEquals(false, subscriber3.isLogged_in());
+        String hi_hi_hi = new NotificationController(simpMessagingTemplate).sendMessage(new Message(subscriber.name, "hi"));
+        Assertions.assertEquals(hi_hi_hi , "was success");
 
     }
 }

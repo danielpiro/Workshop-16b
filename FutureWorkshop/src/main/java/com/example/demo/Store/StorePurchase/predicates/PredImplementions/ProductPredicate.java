@@ -1,7 +1,7 @@
 package com.example.demo.Store.StorePurchase.predicates.PredImplementions;
 
 
-import com.example.demo.ExternalConnections.ExternalConnectionHolder;
+import com.example.demo.ExternalConnections.Old.ExternalConnectionHolder;
 import com.example.demo.ShoppingCart.UserInfo;
 import com.example.demo.Store.StorePurchase.PurchasableProduct;
 import com.example.demo.Store.StorePurchase.predicates.DiscountPredicate;
@@ -21,7 +21,7 @@ public class ProductPredicate implements PolicyPredicate, DiscountPredicate {
         type = PredicateProductType.WithoutAmount;
         this.products = new HashMap<>();
         for(PurchasableProduct p: products){
-          this.products.put(p,0);
+          this.products.put(p,1);
         }
     }
     public ProductPredicate(HashMap<PurchasableProduct,Integer> products){

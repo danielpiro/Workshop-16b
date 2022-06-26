@@ -21,13 +21,19 @@ const Stores = () => {
     "password",
     "userId",
     "type",
+    "session",
   ]);
 
   useEffect(() => {
+    console.log(cookies);
     setIsLoading(!isLoading);
     const fetchData = async () => {
       return await api
-        .get(`store/owner/permmitions?user=${cookies.userId}`)
+        .get(`store/owner/permmitions?userId=${cookies.userId}`, {
+          headers: {
+            Authorization: cookies.session,
+          },
+        })
         .then((res) => {
           const { data } = res;
           if (data.success) {
@@ -40,7 +46,11 @@ const Stores = () => {
         })
         .then(async () => {
           return await api
-            .get(`store/manager/permmitions?user=${cookies.userId}`)
+            .get(`store/manager/permmitions?userId=${cookies.userId}`, {
+              headers: {
+                Authorization: cookies.session,
+              },
+            })
             .then((res) => {
               const { data } = res;
               if (data.success) {
@@ -54,7 +64,11 @@ const Stores = () => {
         })
         .then(async () => {
           return await api
-            .get("/store/all")
+            .get(`/store/all/?userId=${cookies.userId}`, {
+              headers: {
+                Authorization: cookies.session,
+              },
+            })
             .then((res) => {
               const { data } = res;
               if (data.success) {
@@ -70,14 +84,20 @@ const Stores = () => {
               }
             })
             .then(async () => {
-              return await api.get("/store-products/all").then((res) => {
-                const { data } = res;
-                if (data.success) {
-                  setStoreMap(data.value);
-                } else {
-                  createNotification("error", data.reason)();
-                }
-              });
+              return await api
+                .get(`/store-products/all/?userId=${cookies.userId}`, {
+                  headers: {
+                    Authorization: cookies.session,
+                  },
+                })
+                .then((res) => {
+                  const { data } = res;
+                  if (data.success) {
+                    setStoreMap(data.value);
+                  } else {
+                    createNotification("error", data.reason)();
+                  }
+                });
             })
             .catch((err) => console.log(err));
         });

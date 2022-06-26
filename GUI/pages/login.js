@@ -19,6 +19,7 @@ const Login = () => {
     "password",
     "userId",
     "type",
+    "session",
   ]);
   const router = useRouter();
   useEffect(() => {
@@ -51,6 +52,10 @@ const Login = () => {
             path: "/",
             sameSite: true,
           });
+          setCookie("session", data.value, {
+            path: "/",
+            sameSite: true,
+          });
           createNotification("success", "Logged in successfully", () =>
             router.push("/dashboard")
           )();
@@ -61,10 +66,11 @@ const Login = () => {
       })
       .then(async () => {
         return await api
-          .get(`/permission/type/?username=${loginInput.username}`)
+          .get(`/permission/type/?userId=${loginInput.username}`)
           .then((res) => {
             const { data } = res;
             if (data.success) {
+              console.log(data);
               setCookie("type", data.value, {
                 path: "/",
                 sameSite: true,
@@ -78,12 +84,20 @@ const Login = () => {
   const onClickGuest = async (e) => {
     e.preventDefault();
     setCookie("type", "guest", { path: "/", sameSite: true });
+    setCookie("username", "guest", { path: "/", sameSite: true });
+    setCookie("password", "", { path: "/", sameSite: true });
     return await api
       .get(`/market/guest`)
       .then((res) => {
         const { data } = res;
         if (data.success) {
-          setCookie("userId", data.value, {
+          console.log(data);
+          const temp = data.value.split("#");
+          setCookie("userId", temp[0], {
+            path: "/",
+            sameSite: true,
+          });
+          setCookie("session", temp[1], {
             path: "/",
             sameSite: true,
           });
