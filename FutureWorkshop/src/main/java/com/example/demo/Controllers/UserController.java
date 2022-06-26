@@ -465,6 +465,7 @@ public class UserController implements NotificationReceiver {
                     for (Subscriber s : getUser_list()) {
                         if (s.getName().equals(whosBeingDeleted)) {
                             getUser_list().remove(s);
+                            registeredUsers--;
                             return true;
                         }
                     }
