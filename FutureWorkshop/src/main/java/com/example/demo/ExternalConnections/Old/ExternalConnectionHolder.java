@@ -4,8 +4,8 @@ package com.example.demo.ExternalConnections.Old;
 import com.example.demo.CustomExceptions.Exception.CantPurchaseException;
 import com.example.demo.ExternalConnections.Old.Delivery.Delivery;
 import com.example.demo.ExternalConnections.Old.Delivery.DeliveryNames;
-import com.example.demo.ExternalConnections.Old.Delivery.Payment.Payment;
-import com.example.demo.ExternalConnections.Old.Delivery.Payment.PaymentNames;
+import com.example.demo.ExternalConnections.Old.Payment.Payment;
+import com.example.demo.ExternalConnections.Old.Payment.PaymentNames;
 import com.example.demo.GlobalSystemServices.Log;
 
 public class ExternalConnectionHolder {

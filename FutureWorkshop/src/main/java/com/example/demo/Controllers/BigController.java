@@ -6,7 +6,7 @@ import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
 import com.example.demo.ExternalConnections.Old.Delivery.DeliveryNames;
-import com.example.demo.ExternalConnections.Old.Delivery.Payment.PaymentNames;
+
 import com.example.demo.ExternalConnections.Old.ExternalConnectionHolder;
 import com.example.demo.ExternalConnections.Old.ExternalConnections;
 import com.example.demo.CustomExceptions.Exception.*;
@@ -15,6 +15,7 @@ import com.example.demo.Database.DTOobjects.Store.Predicates.AllPredicateDTO;
 import com.example.demo.Database.DTOobjects.Store.Predicates.CategoryPredicateDTO;
 import com.example.demo.Database.DTOobjects.Store.Predicates.PredicatesTypes;
 import com.example.demo.Database.Service.DatabaseService;
+import com.example.demo.ExternalConnections.Old.Payment.PaymentNames;
 import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.History.PurchaseHistory;
 
@@ -52,7 +53,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.apache.tomcat.util.json.ParseException;
-
+import com.example.demo.ExternalConnections.Old.ExternalConnectionHolder;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.annotation.Async;
@@ -98,7 +99,6 @@ public class BigController {
         this.databaseService = databaseService;
         IdGenerator.addDatabase(databaseService);
         this.policyBuilder = new PolicyBuilder();
-        initiateExternalConnections();
         //NotificationManager.buildNotificationManager(us);
         NotificationManager.ForTestsOnlyBuildNotificationManager(new NotificationReceiver() {
             @Override
@@ -164,14 +164,15 @@ public class BigController {
      * @throws UserException
      */
     @PostMapping("/cart/price")
-    public ReturnValue getPriceOfCartDiscount(@RequestHeader("Authorization") String sessionID, @RequestParam String user_id, @RequestParam com.example.demo.ExternalConnections.Old.Delivery.Payment.PaymentNames payment,
+    public ReturnValue getPriceOfCartDiscount(@RequestHeader("Authorization") String sessionID, @RequestParam String user_id, @RequestParam PaymentNames payment,
                                                  @RequestParam DeliveryNames delivery) throws StorePolicyViolatedException, UserException, JsonProcessingException, InterruptedException {
         if (!validateSessionID(sessionID, user_id)) {
             return new ReturnValue(false, "Not authorized", null);
         }
         ObjectMapper objectMapper = new ObjectMapper();
         System.out.println("current thread func" + Thread.currentThread().getId());
-        float afterDiscount = getUserController().getPriceOfCartAfterDiscount(user_id, new ExternalConnectionHolder(delivery, payment));
+        ExternalConnectionHolder externalConnectionHolder = new ExternalConnectionHolder(delivery, payment);
+        float afterDiscount = getUserController().getPriceOfCartAfterDiscount(user_id, externalConnectionHolder);
         float beforeDiscount = getUserController().getPriceOfCartBeforeDiscount(user_id, new ExternalConnectionHolder(delivery, payment));
 
         String json = String.format("{\"priceBeforeDiscount\":\"%s\",\"priceAfterDiscount\":\"%s\"}", beforeDiscount, afterDiscount);
@@ -359,13 +360,13 @@ public class BigController {
 
     }
 
-    public boolean removePaymentService(com.example.demo.ExternalConnections.Old.Delivery.Payment.PaymentNames payment) {
+    public boolean removePaymentService(PaymentNames payment) {
         return ExternalConnections.getInstance().removePayment(payment);
     }
     //todo database add
     @PostMapping("/cart/purchase")
     public ReturnValue purchaseCart(@RequestHeader("Authorization") String sessionID, @RequestParam String userId,
-                                       @RequestParam com.example.demo.ExternalConnections.Old.Delivery.Payment.PaymentNames payment,
+                                       @RequestParam PaymentNames payment,
                                        @RequestParam DeliveryNames delivery, @RequestParam String nameHolder, @RequestParam String address,@RequestParam  String city, @RequestParam String country,@RequestParam  String zip ,
                                        @RequestParam String holder,@RequestParam  String cardNumber,@RequestParam  String expireDate,@RequestParam  int cvv, @RequestParam String id) throws Exception {
 
@@ -409,7 +410,7 @@ public class BigController {
 
     @PostMapping("/store/open")
     public ReturnValue openNewStore(@RequestHeader("Authorization") String sessionID, @RequestParam String userId,
-                                       @RequestParam String storeName) throws NoPermissionException, UserException {
+                                       @RequestParam String storeName) throws NoPermissionException, UserException, SQLException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -673,7 +674,7 @@ public class BigController {
     }
 
     @PostMapping(value = "/owner/create")
-    public ReturnValue createOwner(@RequestHeader("Authorization") String sessionID, @RequestParam String storeId, @RequestParam String userIdGiving, @RequestParam String UserGettingPermissionId, @RequestParam String permissions) throws NoPermissionException, UserException, NotifyException {
+    public ReturnValue createOwner(@RequestHeader("Authorization") String sessionID, @RequestParam String storeId, @RequestParam String userIdGiving, @RequestParam String UserGettingPermissionId, @RequestParam String permissions) throws NoPermissionException, UserException, NotifyException, SQLException {
         if (!validateSessionID(sessionID, userIdGiving)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -693,7 +694,7 @@ public class BigController {
     }
 
     @PostMapping("/manager")
-    public ReturnValue createManager(@RequestHeader("Authorization") String sessionID, @RequestParam String storeId, @RequestParam String userIdGiving, @RequestParam String UserGettingPermissionId) throws NoPermissionException, UserException, NotifyException {
+    public ReturnValue createManager(@RequestHeader("Authorization") String sessionID, @RequestParam String storeId, @RequestParam String userIdGiving, @RequestParam String UserGettingPermissionId) throws NoPermissionException, UserException, NotifyException, SQLException {
         if (!validateSessionID(sessionID, userIdGiving)) {
             return new ReturnValue(false, "Not authorized", null);
         }

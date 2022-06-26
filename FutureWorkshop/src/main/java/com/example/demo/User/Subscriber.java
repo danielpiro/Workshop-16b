@@ -39,7 +39,7 @@ public class Subscriber extends User {
 
     public boolean validateWebSocket(String session_Id) {
         return session_Id.equals(getSessionId());
-
+    }
 
     public Subscriber(String user_name, String password, ShoppingCart shoppingCart,List<ComplaintNotification> complaintNotifications) {
         super(user_name,shoppingCart);

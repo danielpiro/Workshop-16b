@@ -1,4 +1,4 @@
-package com.example.demo.ExternalConnections.Old.Delivery.Payment;
+package com.example.demo.ExternalConnections.Old.Payment;
 
 
 import com.example.demo.ExternalConnections.Old.ExternalConnections;

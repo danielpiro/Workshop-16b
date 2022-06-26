@@ -6,6 +6,7 @@ import com.example.demo.Store.StorePurchase.Discounts.Discount;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class IdGenerator {
     private static DatabaseService database;

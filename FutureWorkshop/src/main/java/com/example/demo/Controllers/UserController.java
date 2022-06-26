@@ -7,7 +7,7 @@ import com.example.demo.CustomExceptions.Exception.UserException;
 import com.example.demo.Database.DTOobjects.User.ComplaintDTO;
 import com.example.demo.Database.DTOobjects.User.UserDTO;
 import com.example.demo.Database.Service.DatabaseService;
-import com.example.demo.ExternalConnections.ExternalConnectionHolder;
+import com.example.demo.ExternalConnections.Old.ExternalConnectionHolder;
 import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.NotificationsManagement.ComplaintNotification;
@@ -230,7 +230,7 @@ public class UserController implements NotificationReceiver {
         return get_subscriber(user_id).getCartInventory();
     }
 
-    public float purchaseCart(String user_id, ExternalConnectionHolder externalConnectionHolder ,String nameHolder, String address, String city, String country, String zip ,
+    public float purchaseCart(String user_id, ExternalConnectionHolder externalConnectionHolder , String nameHolder, String address, String city, String country, String zip ,
                               String holder, String cardNumber, String expireDate, int cvv, String id) throws Exception {
         if ((getGuest(user_id) != null))
             return getGuest(user_id).purchaseCart(externalConnectionHolder, nameHolder,  address,  city,  country,  zip ,
