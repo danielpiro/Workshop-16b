@@ -7,9 +7,9 @@ import com.example.demo.ShoppingCart.UserInfo;
 import com.example.demo.Store.StorePurchase.PurchasableProduct;
 import com.example.demo.Store.StorePurchase.predicates.DiscountPredicate;
 import com.example.demo.Store.StorePurchase.predicates.PolicyPredicate;
-import com.example.demo.Store.StorePurchase.predicates.PredImplementions.compsite.DiscountPredicateAnd;
-import com.example.demo.Store.StorePurchase.predicates.PredImplementions.compsite.DiscountPredicateXor;
-import com.example.demo.Store.StorePurchase.predicates.PredImplementions.compsite.PolicyPredicateAnd;
+import com.example.demo.Store.StorePurchase.predicates.PredImplementions.composite.DiscountPredicateAnd;
+import com.example.demo.Store.StorePurchase.predicates.PredImplementions.composite.DiscountPredicateXor;
+import com.example.demo.Store.StorePurchase.predicates.PredImplementions.composite.PolicyPredicateAnd;
 
 import javax.transaction.NotSupportedException;
 import java.util.List;

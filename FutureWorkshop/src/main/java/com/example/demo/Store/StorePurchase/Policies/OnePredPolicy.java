@@ -20,6 +20,11 @@ public class OnePredPolicy extends Policy {
         this.pPredicate = pPredicate;
         }
 
+    public OnePredPolicy(String policyId, PolicyPredicate pPredicate) {
+        super(policyId);
+        this.pPredicate = pPredicate;
+    }
+
     //if ThenPredicate holds function return true you are violating store policy
     public boolean checkIfPolicyStands(HashMap<Product, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo){
         List<PurchasableProduct> PurchasableAmount = new ArrayList<>();

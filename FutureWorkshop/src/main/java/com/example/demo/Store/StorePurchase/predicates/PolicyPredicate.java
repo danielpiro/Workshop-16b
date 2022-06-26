@@ -6,7 +6,7 @@ import com.example.demo.Store.StorePurchase.PurchasableProduct;
 
 import java.util.List;
 
-public abstract interface PolicyPredicate extends Predicate{
+public interface PolicyPredicate extends Predicate{
 
     boolean predicateStands(List<PurchasableProduct> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo);
 }

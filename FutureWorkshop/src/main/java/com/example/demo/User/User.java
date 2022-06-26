@@ -17,7 +17,12 @@ public abstract class User {
 
     public User(String name){
     shoppingCart = new ShoppingCart(name);
+    this.name=name;
 
+    }
+    public User(String name,ShoppingCart shoppingCart){
+        this.shoppingCart = shoppingCart;
+        this.name=name;
     }
 
     public ShoppingCart getShoppingCart() {

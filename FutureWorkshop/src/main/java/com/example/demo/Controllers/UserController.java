@@ -4,7 +4,10 @@ import com.example.demo.CustomExceptions.Exception.CantPurchaseException;
 import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
-import com.example.demo.ExternalConnections.Old.ExternalConnectionHolder;
+import com.example.demo.Database.DTOobjects.User.ComplaintDTO;
+import com.example.demo.Database.DTOobjects.User.UserDTO;
+import com.example.demo.Database.Service.DatabaseService;
+import com.example.demo.ExternalConnections.ExternalConnectionHolder;
 import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.NotificationsManagement.ComplaintNotification;
@@ -15,8 +18,11 @@ import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.User.Encryption;
 import com.example.demo.User.Guest;
 import com.example.demo.User.Subscriber;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -44,6 +50,25 @@ public class UserController implements NotificationReceiver {
         add_admin(admin);
         onlineUsers = 0;
         registeredUsers = 0;
+    }
+
+    public void initSystem(DatabaseService databaseService){
+
+        if(databaseService.findUserbyName("admin").size()==0)
+            databaseService.saveUser(admin);
+
+        for(UserDTO userDTO: databaseService.allUsers()){
+            List<ComplaintNotification> notifications = new LinkedList<>();
+            for (ComplaintDTO cd :databaseService.findComplaintByUserId(userDTO.getName())){
+                notifications.add(cd.convertToComplaint());
+            }
+            if(userDTO.getName()=="admin")
+                system_admins.add(new Subscriber(userDTO.getName(),userDTO.getPassword(),databaseService.getShoppingCart(userDTO.getName()),notifications));
+            else
+                user_list.add( new Subscriber(userDTO.getName(),userDTO.getPassword(),databaseService.getShoppingCart(userDTO.getName()),notifications));
+            registeredUsers++;
+        }
+
     }
 
     public List<String> initialize() throws UserException, InterruptedException {
@@ -85,6 +110,8 @@ public class UserController implements NotificationReceiver {
         login("tjhaly", "asdfdasd");
         login("spart", "sswwwss");
         login("yoav", "yoav123");
+
+        //user_list.get(0).
 
         login(g1.name, "delphin", "1234");
         login(g2.name, "alan", "4321");
@@ -538,7 +565,7 @@ public class UserController implements NotificationReceiver {
             // my_log.warning("trying to send a complaint to a user " + s + " which is not an admin");
             //  throw new UserException("trying to send a complaint to a user " + s + " which is not an admin");
             //}
-            get_subscriber(s.getName()).addComplaint(complaintNotification.getDeepCopy());
+            s.addComplaint(complaintNotification.getDeepCopy());
         }
     }
 

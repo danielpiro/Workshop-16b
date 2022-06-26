@@ -2,8 +2,11 @@ package com.example.demo.Controllers;
 
 
 import com.example.demo.CustomExceptions.Exception.NotifyException;
+import com.example.demo.CustomExceptions.Exception.ResourceNotFoundException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
+import com.example.demo.Database.DTOobjects.Store.StoreDTO;
+import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.GlobalSystemServices.Log;
 import com.example.demo.History.PurchaseHistory;
@@ -15,11 +18,12 @@ import com.example.demo.Store.StorePurchase.Policies.Policy;
 import com.example.demo.Store.StoreState;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.StorePermission.StoreRoles;
+import org.hibernate.engine.jdbc.dialect.spi.DatabaseMetaDataDialectResolutionInfoAdapter;
 
 import javax.naming.NoPermissionException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -30,16 +34,21 @@ import java.util.stream.Collectors;
 
 public class StoreController {
     private ConcurrentHashMap<String, Store> stores; // storeId and the store
-
+    private DatabaseService databaseServiceS;
     public StoreController(ConcurrentHashMap<String, Store> stores) {
         this.stores = stores;
     }
 
-    public StoreController(){
+    public StoreController(DatabaseService databaseService) throws SQLException, SupplyManagementException, ResourceNotFoundException {
         stores = new ConcurrentHashMap<String, Store>();
+        List<StoreDTO> storeDTOList = databaseService.getAllStores();
+        for(StoreDTO storeDTO: storeDTOList){
+            stores.put(storeDTO.getStoreId(),new Store(storeDTO,databaseService));
+        }
+        databaseServiceS = databaseService;
     }
 
-    public String openNewStore(String name,List<String> owners) throws NoPermissionException {
+    public String openNewStore(String name, List<String> owners, DatabaseService databaseService) throws NoPermissionException, SQLException {
 
         if (owners.stream().anyMatch(this::checkIfGuest)) {
             Log.getLogger().warning("guest cant open new store");
@@ -47,7 +56,7 @@ public class StoreController {
         }
 
         String newId = IdGenerator.getInstance().getStoreId();
-        Store newStore= new Store(name, newId, owners);
+        Store newStore= new Store(name, newId, owners, databaseService);
 
         stores.put(newId, newStore);
 
@@ -98,6 +107,7 @@ public class StoreController {
 
     public void deleteStore(String userId, String storeId) throws NoPermissionException {
         stores.remove(storeId);
+        databaseServiceS.deleteStore( userId, storeId);
         Log.getLogger().info("store deleted, storeId: "+storeId+" by users: "+userId);
     }
 
@@ -132,12 +142,12 @@ public class StoreController {
         Store relevantStore = stores.get(storeId);
         relevantStore.removeSomePermissions(userIdRemoving,UserAffectedId, PerToRemove);
     }
-    public void createOwner(String storeId, String userIdGiving, String UserGettingPermissionId, List<Permission> permissions) throws NoPermissionException, UserException, NotifyException {
+    public void createOwner(String storeId, String userIdGiving, String UserGettingPermissionId, List<Permission> permissions) throws NoPermissionException, UserException, NotifyException, SQLException {
         Store relevantStore = stores.get(storeId);
         relevantStore.createOwner(userIdGiving, UserGettingPermissionId, permissions);
         Log.getLogger().info("new owner created, userId: "+UserGettingPermissionId+" by: "+userIdGiving+" in store:"+ storeId);
     }
-    public void createManager(String storeId, String userIdGiving, String UserGettingPermissionId) throws NoPermissionException, UserException, NotifyException {
+    public void createManager(String storeId, String userIdGiving, String UserGettingPermissionId) throws NoPermissionException, UserException, NotifyException, SQLException {
         Store relevantStore = stores.get(storeId);
         relevantStore.createManager(userIdGiving, UserGettingPermissionId);
         Log.getLogger().info("new owner created, userId: "+UserGettingPermissionId+" by: "+userIdGiving+" in store:"+ storeId);

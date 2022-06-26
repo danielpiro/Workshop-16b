@@ -1,14 +1,14 @@
-package com.example.demo.Store.StorePurchase.predicates.PredImplementions.compsite;
-
+package com.example.demo.Store.StorePurchase.predicates.PredImplementions.composite;
 
 import com.example.demo.Store.StorePurchase.PurchasableProduct;
 import com.example.demo.Store.StorePurchase.predicates.DiscountPredicate;
 
-public class DiscountPredicateXor implements DiscountPredicate {
+
+public class DiscountPredicateAnd implements DiscountPredicate {
     DiscountPredicate left;
     DiscountPredicate right;
 
-    public DiscountPredicateXor(DiscountPredicate left, DiscountPredicate right) {
+    public DiscountPredicateAnd(DiscountPredicate left, DiscountPredicate right) {
         this.left = left;
         this.right = right;
     }
@@ -17,12 +17,12 @@ public class DiscountPredicateXor implements DiscountPredicate {
 
     @Override
     public boolean predicateStandsForProduct(PurchasableProduct ProductAmount) {
-        return left.predicateStandsForProduct(ProductAmount) ^ right.predicateStandsForProduct(ProductAmount);
+        return left.predicateStandsForProduct(ProductAmount) && right.predicateStandsForProduct(ProductAmount);
     }
 
     @Override
     public String toString() {
-        return "DiscountPredicateXor{" +
+        return "DiscountPredicateAnd{" +
                 "left=" + left +
                 ", right=" + right +
                 '}';

@@ -28,7 +28,7 @@ public class UserPredicate implements PolicyPredicate {
         this.type = type;
     }
 
-    @Override
+
     public boolean predicateStands(List<PurchasableProduct> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) {
         switch (type){
             case OnUserId:

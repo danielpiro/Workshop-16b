@@ -26,6 +26,7 @@ public class ShoppingCart {
     private String userId;
 
 
+
     public ShoppingCart(String userId) {
         this.basketCases = new HashMap<String, ShoppingBasket>();
         this.userId=userId;
@@ -99,6 +100,24 @@ public class ShoppingCart {
         Log.getLogger().info("user: " + userId +" added product: " + productID + " from store: " + storeID + " with amount of: " + amount);
 
 
+
+    }
+
+
+    // to use when we do not have an instance of the store, and need an inventory protector
+    public void addProduct(String productID, String storeID, int amount) {
+
+
+
+
+        if (basketCases.containsKey(storeID))
+            basketCases.get(storeID).addProduct(productID, amount);
+        else {
+            ShoppingBasket sb = new ShoppingBasket(storeID);
+            sb.addProduct(productID, amount);
+            basketCases.put(storeID, sb);
+
+        }
 
     }
 
@@ -249,5 +268,8 @@ public class ShoppingCart {
                 (key, value) -> basketCases.merge( key, value, (v1, v2) ->  v1.addBaskets(v2))
         );
 
+    }
+    public String getUserId() {
+        return userId;
     }
 }

@@ -9,7 +9,15 @@ import com.example.demo.ExternalConnections.Old.Delivery.DeliveryNames;
 import com.example.demo.ExternalConnections.Old.Delivery.Payment.PaymentNames;
 import com.example.demo.ExternalConnections.Old.ExternalConnectionHolder;
 import com.example.demo.ExternalConnections.Old.ExternalConnections;
+import com.example.demo.CustomExceptions.Exception.*;
+import com.example.demo.Database.DTOobjects.Store.PolicyDTO;
+import com.example.demo.Database.DTOobjects.Store.Predicates.AllPredicateDTO;
+import com.example.demo.Database.DTOobjects.Store.Predicates.CategoryPredicateDTO;
+import com.example.demo.Database.DTOobjects.Store.Predicates.PredicatesTypes;
+import com.example.demo.Database.Service.DatabaseService;
+import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.History.PurchaseHistory;
+
 import com.example.demo.Mock.*;
 import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
 
@@ -19,6 +27,7 @@ import com.example.demo.NotificationsManagement.ComplaintNotification;
 import com.example.demo.NotificationsManagement.NotificationManager;
 import com.example.demo.NotificationsManagement.NotificationSubject;
 import com.example.demo.NotificationsManagement.StoreNotification;
+import com.example.demo.NotificationsManagement.*;
 import com.example.demo.ShoppingCart.InventoryProtector;
 import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
@@ -29,7 +38,10 @@ import com.example.demo.Store.StorePurchase.Discounts.DiscountBuilder;
 import com.example.demo.Store.StorePurchase.Discounts.MaxDiscount;
 import com.example.demo.Store.StorePurchase.Policies.Policy;
 import com.example.demo.Store.StorePurchase.Policies.PolicyBuilder;
+import com.example.demo.Store.StorePurchase.Policies.PolicyType;
 import com.example.demo.Store.StorePurchase.PurchasableProduct;
+import com.example.demo.Store.StorePurchase.predicates.PredImplementions.CartPredicate;
+import com.example.demo.Store.StorePurchase.predicates.PredicateTimeType;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.StorePermission.StoreRoles;
 import com.example.demo.User.Guest;
@@ -37,10 +49,14 @@ import com.example.demo.User.Subscriber;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.tomcat.util.json.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.apache.tomcat.util.json.ParseException;
 
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -48,20 +64,25 @@ import javax.naming.NoPermissionException;
 import javax.transaction.NotSupportedException;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 @EnableScheduling
+@EnableTransactionManagement
 @CrossOrigin(maxAge = 3600)
 @RestController
 @EnableWebMvc
-@RequestMapping("/")
+@RequestMapping("/api")
+
 public class BigController {
     private StoreController sc;
     private UserController us;
     private PolicyBuilder policyBuilder;
+    private boolean withDatabase;
+    private DatabaseService databaseService;
     Log my_log = Log.getLogger();
 
 
@@ -69,14 +90,47 @@ public class BigController {
 //        this.us = us;
 //        this.sc = sc;
 //    }
-    public BigController() throws IOException, UserException, NoPermissionException, SupplyManagementException, InterruptedException {
+
+    @Autowired
+    public BigController(DatabaseService databaseService) throws IOException, UserException, NoPermissionException, SupplyManagementException, InterruptedException, SQLException, NotifyException, ResourceNotFoundException {
         this.us = new UserController();
-        this.sc = new StoreController();
+        this.sc = new StoreController(databaseService);
+        this.databaseService = databaseService;
+        IdGenerator.addDatabase(databaseService);
         this.policyBuilder = new PolicyBuilder();
-        //initiateExternalConnections();
-        NotificationManager.buildNotificationManager(us);
+        initiateExternalConnections();
+        //NotificationManager.buildNotificationManager(us);
+        NotificationManager.ForTestsOnlyBuildNotificationManager(new NotificationReceiver() {
+            @Override
+            public void sendNotificationTo(List<String> userIds, StoreNotification storeNotification) throws UserException, UserException {}
+            @Override
+            public void sendComplaintToAdmins(String senderId, ComplaintNotification complaintNotification) throws UserException {}
+        });//todo delete this  !!!for testing only!!! notifications doesnt work with this
         initializeSystem();
         my_log.info("System Started");
+
+        withDatabase = true;
+
+        us.initSystem(databaseService);
+    }
+
+
+
+
+
+//    public BigController() throws IOException, UserException, NoPermissionException, SupplyManagementException {
+//        this.us = new UserController();
+//        this.sc = new StoreController();
+//        this.policyBuilder = new PolicyBuilder();
+//        initiateExternalConnections();
+//        NotificationManager.buildNotificationManager(us);
+//        initializeSystem();
+//        my_log.info("System Started");
+//        withDatabase = false;
+//    }
+
+    public void setWithDatabase(boolean withDatabase) {
+        this.withDatabase = withDatabase;
     }
 //
 //    public void initiateExternalConnections() {
@@ -153,8 +207,9 @@ public class BigController {
         if (checkIfUserHaveRoleInStore(whosBeingDeleted)) {
             throw new NoPermissionException("cant delete user with store role");
         }
-        getUserController().deleteUser(isDeleting, whosBeingDeleted);
-        ReturnValue rv = new ReturnValue(true, "", null);
+        ReturnValue rv = new ReturnValue(true, "", getUserController().deleteUser(isDeleting, whosBeingDeleted));
+        if(withDatabase && rv.isSuccess())
+            databaseService.deleteUserByName(whosBeingDeleted);
         return rv;
     }
 
@@ -163,8 +218,10 @@ public class BigController {
     public ReturnValue signup(@RequestParam String user_name,
                                  @RequestParam String password) throws UserException {
         my_log.info("user " + user_name + " is trying to sign up");
-        getUserController().sign_up(user_name, password);
-        ReturnValue rv = new ReturnValue(true, "", null);
+        ReturnValue rv = new ReturnValue(true, "", getUserController().sign_up(user_name, password));
+        if(withDatabase && rv.isSuccess())
+            databaseService.saveUser(getUserController().get_subscriber(user_name));
+
         return rv;
     }
 
@@ -172,6 +229,9 @@ public class BigController {
     public ReturnValue loginUser(@RequestParam String userNameLogin,
                                     @RequestParam String password) throws UserException, InterruptedException {
         ReturnValue rv = new ReturnValue(true, "", getUserController().login(userNameLogin, password));
+        if(withDatabase && rv.isSuccess())
+            databaseService.saveUser(getUserController().get_subscriber(userNameLogin));
+
         return rv;
     }
 
@@ -186,6 +246,10 @@ public class BigController {
     @PostMapping("/users/logout")
     public ReturnValue logout(@RequestParam String user_name) throws UserException, InterruptedException {
         ReturnValue rv = new ReturnValue(true, "", getUserController().logout(user_name));
+
+        if(withDatabase && rv.isSuccess())
+            databaseService.saveUser(getUserController().get_subscriber(user_name));
+
         return rv;
 
     }
@@ -272,6 +336,10 @@ public class BigController {
         getUserController().removeProduct(mockSmallProduct.getUser_id(), mockSmallProduct.getProductID(), mockSmallProduct.getStoreID(), mockSmallProduct.getAmount());
 
         ReturnValue rv = new ReturnValue(true, "", null);
+        if(withDatabase && rv.isSuccess())
+            databaseService.saveShoppingCart(getUserController().get_subscriber(mockSmallProduct.getUser_id()).getShoppingCart());
+
+
         return rv;
     }
 
@@ -285,6 +353,8 @@ public class BigController {
         InventoryProtector inventoryProtector = sc.getInventoryProtector(mockProduct.getStoreID());
         getUserController().addProduct(mockProduct.getUser_id(), mockProduct.getProductID(), mockProduct.getStoreID(), mockProduct.getAmount(), inventoryProtector, auctionOrBid);
         ReturnValue rv = new ReturnValue(true, "", null);
+        databaseService.saveShoppingCart(getUserController().get_subscriber(mockProduct.getUser_id()).getShoppingCart());
+
         return rv;
 
     }
@@ -292,8 +362,7 @@ public class BigController {
     public boolean removePaymentService(com.example.demo.ExternalConnections.Old.Delivery.Payment.PaymentNames payment) {
         return ExternalConnections.getInstance().removePayment(payment);
     }
-
-    //todo add check price
+    //todo database add
     @PostMapping("/cart/purchase")
     public ReturnValue purchaseCart(@RequestHeader("Authorization") String sessionID, @RequestParam String userId,
                                        @RequestParam com.example.demo.ExternalConnections.Old.Delivery.Payment.PaymentNames payment,
@@ -347,7 +416,7 @@ public class BigController {
         userExistsAndLoggedIn(userId);
         List<String> managers = new ArrayList<>();
         managers.add(userId);
-        ReturnValue rv = new ReturnValue<String>(true, "", getStoreController().openNewStore(storeName, managers));
+        ReturnValue rv = new ReturnValue<String>(true, "", getStoreController().openNewStore(storeName, managers, databaseService));
         return rv;
 
     }
@@ -570,8 +639,11 @@ public class BigController {
         if (!validateSessionID(sessionID, senderId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
-        getUserController().sendComplaintToAdmins(senderId, new ComplaintNotification(senderId, NotificationSubject.valueOf(subject), title, body));
+        ComplaintNotification cn = new ComplaintNotification(senderId, NotificationSubject.valueOf(subject), title, body);
+        getUserController().sendComplaintToAdmins(senderId,cn );
         ReturnValue rv = new ReturnValue(true, "", null);
+        if(withDatabase)
+            databaseService.saveComplaint(cn.getDTO(senderId));
         return rv;
     }
 
@@ -661,12 +733,13 @@ public class BigController {
      * @param usersIds - create stores for users and add products for them
      * @return stores ids
      */
-    private List<String> initializeStores(List<String> usersIds) throws NoPermissionException, SupplyManagementException {
+    private List<String> initializeStores(List<String> usersIds) throws NoPermissionException, SupplyManagementException, SQLException, UserException, NotifyException {
         List<String> output = new ArrayList<>();
+        String owner = usersIds.get(usersIds.size()-1);
         for (String userId : usersIds) {
-            List<String> owner = new ArrayList<>();
-            owner.add(userId);
-            String StoreId = sc.openNewStore(userId + " store", owner);
+            List<String> originalOwner = new ArrayList<>();
+            originalOwner.add(userId);
+            String StoreId = sc.openNewStore(userId + " store", originalOwner, databaseService);
             sc.addNewProduct(StoreId, userId, "p1", 1, 1, ProductsCategories.Apps$Games.toString());
             sc.addNewProduct(StoreId, userId, "p2", 2, 2, ProductsCategories.Appliances.toString());
             sc.addNewProduct(StoreId, userId, "p3", 3, 3, ProductsCategories.Other.toString());
@@ -675,6 +748,10 @@ public class BigController {
             History.getInstance().insertRecord(userId, StoreId, "p1-forTest", 1, 2, LocalDateTime.now());
             //addPolicyToStore(userId, StoreId);
             output.add(StoreId);
+            Permission[] permissions = {Permission.REMOVE_PRODUCT,Permission.REPLY_TO_FORUM};
+            sc.createOwner(StoreId,userId,owner,Arrays.asList(permissions));
+            //sc.createManager(StoreId,userId,owner);
+            owner = userId;
         }
         return output;
     }
@@ -715,8 +792,7 @@ public class BigController {
     }
 
     @PutMapping("/initializeSystem")
-    public ReturnValue initializeSystem() throws UserException, SupplyManagementException, NoPermissionException, InterruptedException {
-
+    public ReturnValue initializeSystem() throws UserException, SupplyManagementException, NoPermissionException, InterruptedException, SQLException, NotifyException {
         List<String> users = initializeUsers();
         initializeStores(users);
         ReturnValue rv = new ReturnValue(true, "", users);
@@ -908,7 +984,7 @@ public class BigController {
         }
     }
 
-
+    //todo is it okay if its a different object with just different id? (for front)
     @GetMapping("/history/store")
     public ReturnValue getStoreHistory(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException {
         if (!validateSessionID(sessionID, userId)) {
@@ -916,7 +992,11 @@ public class BigController {
         }
         userExists(userId);
         boolean isAdmin = us.checkIfAdmin(userId);
+
+        // databaseService.findHistoryByStoreId(storeId)
+
         ReturnValue rv = new ReturnValue(true, "", sc.getStoreHistory(storeId, userId, isAdmin));
+
         return rv;
     }
 
@@ -1021,10 +1101,13 @@ public class BigController {
         }
         Policy policy;
         userExistsAndLoggedIn(userId);
-
+        String policyId;
         switch (typeOfPolicy) {
             case "CartPolicy": //quantity in cart
                 policy = policyBuilder.newCartPolicy(Integer.parseInt(numOfProducts));
+                policyId = sc.addNewPolicy(storeId, userId, policy);
+                AllPredicateDTO cartPredicateDTO= new AllPredicateDTO(PredicatesTypes.CartPredicate.toString(),Integer.parseInt(numOfProducts));
+                databaseService.saveAllPredicateDTOPolicy(storeId, cartPredicateDTO,policy);
                 break;
             case "CategoryPolicy": //category
                 List<ProductsCategories> categoriesList = new ArrayList<>();
@@ -1033,6 +1116,9 @@ public class BigController {
                     categoriesList.add(ProductsCategories.valueOf(cat));
                 }
                 policy = policyBuilder.newCategoryPolicy(categoriesList);
+                policyId = sc.addNewPolicy(storeId, userId, policy);
+                AllPredicateDTO categoryPred = new AllPredicateDTO(PredicatesTypes.CategoryPredicate.toString());
+                databaseService.saveCategoryPredicateDTOPolicy(storeId, categoryPred,categoriesList,policy);
                 break;
             case "ProductWithoutAmountPolicy": //product should be in cart
                 Store store = sc.getStoreById(storeId);
@@ -1047,6 +1133,9 @@ public class BigController {
                     lp.add(pp);
                 }
                 policy = policyBuilder.newProductWithoutAmountPolicy(lp);
+                policyId = sc.addNewPolicy(storeId, userId, policy);
+                AllPredicateDTO productPred = new AllPredicateDTO(PredicatesTypes.ProductPredicate.toString());
+                databaseService.saveProductPredicateDTOPolicy(storeId, productPred,lp,policy);
                 break;
             case "ProductWithAmountPolicy": //product should be in cart with minimum quantity
                 Store store2 = sc.getStoreById(storeId);
@@ -1056,31 +1145,54 @@ public class BigController {
                     mp.put(p, Integer.valueOf(productsAmount));
                 }
                 policy = policyBuilder.newProductWithAmountPolicy(mp);
+                policyId = sc.addNewPolicy(storeId, userId, policy);
+                AllPredicateDTO productPredWith = new AllPredicateDTO(PredicatesTypes.ProductPredicate.toString());
+                databaseService.saveProductPredicateDTOPolicy(storeId, productPredWith,mp,policy);
                 break;
             case "UserIdPolicy": //specific user
                 List<String> userIdsList = Arrays.asList(userIds.split(","));
                 policy = policyBuilder.newUserIdPolicy(userIdsList);
+                policyId = sc.addNewPolicy(storeId, userId, policy);
+                AllPredicateDTO userPredicate = new AllPredicateDTO(PredicatesTypes.UserIdPredicate.toString());
+                databaseService.saveUserPredicateDTOPolicy(storeId, userPredicate,userIdsList,policy);
                 break;
             case "UseAgePolicy": //age
                 policy = policyBuilder.newUseAgePolicy(Integer.parseInt(startAge), Integer.parseInt(endAge));
+                policyId = sc.addNewPolicy(storeId, userId, policy);
+                AllPredicateDTO useAgerPredicate = new AllPredicateDTO(PredicatesTypes.UserAgePredicate.toString());
+                databaseService.saveAllPredicateDTOPolicy(storeId, useAgerPredicate,policy);
                 break;
             case "OnHoursOfTheDayPolicy": //hour of day
                 policy = policyBuilder.newOnHoursOfTheDayPolicy(LocalDateTime.parse(startTime), LocalDateTime.parse(endTime));
+                policyId = sc.addNewPolicy(storeId, userId, policy);
+                AllPredicateDTO TimeHoursPredicateDTO= new AllPredicateDTO(PredicatesTypes.TimePredicate.toString(),startTime, endTime, PredicateTimeType.OnHoursOfTheDay.toString());
+                databaseService.saveAllPredicateDTOPolicy(storeId, TimeHoursPredicateDTO,policy);
                 break;
             case "OnDaysOfTheWeekPolicy": //day of week
                 policy = policyBuilder.newOnDaysOfTheWeekPolicy(LocalDateTime.parse(startTime), LocalDateTime.parse(endTime));
+                policyId = sc.addNewPolicy(storeId, userId, policy);
+                AllPredicateDTO TimeWeekPredicateDTO= new AllPredicateDTO(PredicatesTypes.TimePredicate.toString(),startTime, endTime, PredicateTimeType.OnDaysOfTheWeek.toString());
+                databaseService.saveAllPredicateDTOPolicy(storeId, TimeWeekPredicateDTO,policy);
+
                 break;
             case "OnDayOfMonthPolicy": //day of month
                 policy = policyBuilder.newOnDayOfMonthPolicy(LocalDateTime.parse(startTime), LocalDateTime.parse(endTime));
+                policyId = sc.addNewPolicy(storeId, userId, policy);
+                AllPredicateDTO TimePredicateDTO= new AllPredicateDTO(PredicatesTypes.TimePredicate.toString(),startTime, endTime, PredicateTimeType.OnDayOfMonth.toString());
+                databaseService.saveAllPredicateDTOPolicy(storeId, TimePredicateDTO,policy);
                 break;
             case "PricePredicate": //total cart price
                 policy = policyBuilder.newPricePredicate(Integer.parseInt(price));
+                policyId = sc.addNewPolicy(storeId, userId, policy);
+                AllPredicateDTO pricePredicateDTO= new AllPredicateDTO(PredicatesTypes.pricePredicate.toString(),Float.parseFloat(price));
+                databaseService.saveAllPredicateDTOPolicy(storeId, pricePredicateDTO,policy);
                 break;
             default:
                 throw new IllegalStateException("Unexpected type of policy: " + typeOfPolicy);
         }
 
-        ReturnValue rv = new ReturnValue(true, "", sc.addNewPolicy(storeId, userId, policy));
+
+        ReturnValue rv = new ReturnValue(true, "", policyId);
         return rv;
     }
 
@@ -1095,21 +1207,30 @@ public class BigController {
         }
         userExistsAndLoggedIn(userId);
         Policy policy;
-
+        String policyId;
         switch (typeOfCombination) {
             case "And":
                 policy = policyBuilder.AndGatePolicy(getPolicy(storeId, policyID1), getPolicy(storeId, policyID2));
+                policyId = sc.addNewPolicy(storeId, userId, policy);
+                PolicyDTO andPolicyDTO=new PolicyDTO(storeId, policyId, PolicyType.AndGatePolicy.toString(),policyID1,policyID2);
+                databaseService.savePolicyComp(andPolicyDTO);
                 break;
             case "Or":
                 policy = policyBuilder.OrGatePolicy(getPolicy(storeId, policyID1), getPolicy(storeId, policyID2));
+                policyId = sc.addNewPolicy(storeId, userId, policy);
+                PolicyDTO orPolicyDTO=new PolicyDTO(storeId, policyId, PolicyType.OrGatePolicy.toString(),policyID1,policyID2);
+                databaseService.savePolicyComp(orPolicyDTO);
                 break;
             case "Xor": //Cond
                 policy = policyBuilder.ConditioningGatePolicy(getPolicy(storeId, policyID1), getPolicy(storeId, policyID2));
+                policyId = sc.addNewPolicy(storeId, userId, policy);
+                PolicyDTO condPolicyDTO=new PolicyDTO(storeId, policyId, PolicyType.conditioningPolicy.toString(),policyID1,policyID2);
+                databaseService.savePolicyComp(condPolicyDTO);
                 break;
             default:
                 throw new IllegalStateException("Unexpected type of policy: " + typeOfCombination);
         }
-        ReturnValue rv = new ReturnValue(true, "", sc.addNewPolicy(storeId, userId, policy));
+        ReturnValue rv = new ReturnValue(true, "", policyId);
         return rv;
     }
 

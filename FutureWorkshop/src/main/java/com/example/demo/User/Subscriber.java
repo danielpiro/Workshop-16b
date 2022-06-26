@@ -7,6 +7,7 @@ import com.example.demo.Controllers.model.realTimeNotification;
 import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.NotificationsManagement.ComplaintNotification;
 import com.example.demo.NotificationsManagement.StoreNotification;
+import com.example.demo.ShoppingCart.ShoppingCart;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -38,6 +39,16 @@ public class Subscriber extends User {
 
     public boolean validateWebSocket(String session_Id) {
         return session_Id.equals(getSessionId());
+
+
+    public Subscriber(String user_name, String password, ShoppingCart shoppingCart,List<ComplaintNotification> complaintNotifications) {
+        super(user_name,shoppingCart);
+        this.password = password;
+        this.name = user_name;
+        Queries = new ArrayList<>();
+        lock = new Object();
+        storeNotifications = new ArrayList<>();
+        complaintNotifications = complaintNotifications;
     }
 
     public String getName() {
@@ -107,5 +118,7 @@ public class Subscriber extends User {
     }
 
     public void resetNotification(){this.realTimestoreNotifications = new ArrayList<>();}
+
+
 
 }
