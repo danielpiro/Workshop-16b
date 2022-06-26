@@ -57,7 +57,7 @@ import java.util.concurrent.ExecutionException;
 @CrossOrigin(maxAge = 3600)
 @RestController
 @EnableWebMvc
-@RequestMapping("/api")
+@RequestMapping("/")
 public class BigController {
     private StoreController sc;
     private UserController us;
@@ -88,7 +88,7 @@ public class BigController {
 //    }
 
     @PostMapping("/users/add/admin")
-    public ReturnValue addSystemAdminApi(@RequestHeader("Authorization") String sessionID, @RequestParam String whoIsAdding, @RequestParam String user_toMakeAdmin) throws UserException {
+    public ReturnValue addSystemAdmin(@RequestHeader("Authorization") String sessionID, @RequestParam String whoIsAdding, @RequestParam String user_toMakeAdmin) throws UserException {
         if (!validateSessionID(sessionID, whoIsAdding)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -110,7 +110,7 @@ public class BigController {
      * @throws UserException
      */
     @PostMapping("/cart/price")
-    public ReturnValue getPriceOfCartDiscountApi(@RequestHeader("Authorization") String sessionID, @RequestParam String user_id, @RequestParam com.example.demo.ExternalConnections.Old.Delivery.Payment.PaymentNames payment,
+    public ReturnValue getPriceOfCartDiscount(@RequestHeader("Authorization") String sessionID, @RequestParam String user_id, @RequestParam com.example.demo.ExternalConnections.Old.Delivery.Payment.PaymentNames payment,
                                                  @RequestParam DeliveryNames delivery) throws StorePolicyViolatedException, UserException, JsonProcessingException, InterruptedException {
         if (!validateSessionID(sessionID, user_id)) {
             return new ReturnValue(false, "Not authorized", null);
@@ -126,7 +126,7 @@ public class BigController {
     }
 
     @GetMapping("/online/amount")
-    public ReturnValue getOnlineUsersNumApi(@RequestHeader("Authorization") String sessionID, @RequestParam String user_id) throws ExecutionException, InterruptedException, UserException {
+    public ReturnValue getOnlineUsersNum(@RequestHeader("Authorization") String sessionID, @RequestParam String user_id) throws ExecutionException, InterruptedException, UserException {
         if (!validateSessionID(sessionID, user_id)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -134,7 +134,7 @@ public class BigController {
     }
 
     @GetMapping("/registered/amount")
-    public ReturnValue getRegisteredUsersNumApi(@RequestHeader("Authorization") String sessionID, @RequestParam String user_id) throws UserException {
+    public ReturnValue getRegisteredUsersNum(@RequestHeader("Authorization") String sessionID, @RequestParam String user_id) throws UserException {
         if (!validateSessionID(sessionID, user_id)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -143,7 +143,7 @@ public class BigController {
     }
 
     @PostMapping("/users/delete")
-    public ReturnValue deleteUserApi(@RequestHeader("Authorization") String sessionID, @RequestParam String isDeleting,
+    public ReturnValue deleteUser(@RequestHeader("Authorization") String sessionID, @RequestParam String isDeleting,
                                      @RequestParam String whosBeingDeleted) throws NoPermissionException, UserException {
         if (!validateSessionID(sessionID, isDeleting)) {
             return new ReturnValue(false, "Not authorized", null);
@@ -160,7 +160,7 @@ public class BigController {
 
 
     @PostMapping("/users/signup")
-    public ReturnValue signupApi(@RequestParam String user_name,
+    public ReturnValue signup(@RequestParam String user_name,
                                  @RequestParam String password) throws UserException {
         my_log.info("user " + user_name + " is trying to sign up");
         getUserController().sign_up(user_name, password);
@@ -169,14 +169,14 @@ public class BigController {
     }
 
     @PostMapping("/users/login")
-    public ReturnValue loginUserApi(@RequestParam String userNameLogin,
+    public ReturnValue loginUser(@RequestParam String userNameLogin,
                                     @RequestParam String password) throws UserException, InterruptedException {
         ReturnValue rv = new ReturnValue(true, "", getUserController().login(userNameLogin, password));
         return rv;
     }
 
     @PostMapping("/guest/login")
-    public ReturnValue loginGuestApi(@RequestParam String guestId,
+    public ReturnValue loginGuest(@RequestParam String guestId,
                                      @RequestParam String userNameLogin,
                                      @RequestParam String password) throws UserException, InterruptedException {
         ReturnValue rv = new ReturnValue(true, "", getUserController().login(guestId, userNameLogin, password));
@@ -184,14 +184,14 @@ public class BigController {
     }
 
     @PostMapping("/users/logout")
-    public ReturnValue logoutApi(@RequestParam String user_name) throws UserException, InterruptedException {
+    public ReturnValue logout(@RequestParam String user_name) throws UserException, InterruptedException {
         ReturnValue rv = new ReturnValue(true, "", getUserController().logout(user_name));
         return rv;
 
     }
 
     @PostMapping("/market")
-    public ReturnValue sendComplaintApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String StoreName, @RequestParam String complaint) throws UserException {
+    public ReturnValue sendComplaint(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String StoreName, @RequestParam String complaint) throws UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -201,7 +201,7 @@ public class BigController {
 
 
     @GetMapping("/market/guest")
-    public ReturnValue addGuestApi() {
+    public ReturnValue addGuest() {
         String guestName = getUserController().addGuest().name;
         ReturnValue rv = new ReturnValue(true, "", guestName.concat("#").concat(getUserController().getGuest(guestName).getSessionId()));
         return rv;
@@ -209,7 +209,7 @@ public class BigController {
 
 
     @PostMapping("/users")
-    public ReturnValue GuestExitSystemApi(@RequestHeader("Authorization") String sessionID, @RequestParam String user_id, @RequestParam String guestId) throws UserException {
+    public ReturnValue GuestExitSystem(@RequestHeader("Authorization") String sessionID, @RequestParam String user_id, @RequestParam String guestId) throws UserException {
         if (!validateSessionID(sessionID, user_id)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -219,13 +219,13 @@ public class BigController {
         return rv;
     }
 
-    private Subscriber getSystemAdminApi() {
+    private Subscriber getSystemAdmin() {
         return getUserController().getSystemAdmin();
     }
 
 
     @PostMapping("/cart")
-    public ReturnValue getShoppingCartApi(@RequestHeader("Authorization") String sessionID, @RequestParam String user_Id) throws Exception {
+    public ReturnValue getShoppingCart(@RequestHeader("Authorization") String sessionID, @RequestParam String user_Id) throws Exception {
         if (!validateSessionID(sessionID, user_Id)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -265,7 +265,7 @@ public class BigController {
 //    }
 
     @PostMapping(value = "/cart/delete", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ReturnValue removeProductFromCartApi(@RequestHeader("Authorization") String sessionID, @RequestParam String user_id, @Valid @RequestBody MockSmallProduct mockSmallProduct) throws UserException {
+    public ReturnValue removeProductFromCart(@RequestHeader("Authorization") String sessionID, @RequestParam String user_id, @Valid @RequestBody MockSmallProduct mockSmallProduct) throws UserException {
         if (!validateSessionID(sessionID, user_id)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -277,7 +277,7 @@ public class BigController {
 
     //auction or bid false for now
     @PostMapping(value = "/cart/product", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ReturnValue addProductFromCartApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestBody MockSmallProduct mockProduct,
+    public ReturnValue addProductFromCart(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestBody MockSmallProduct mockProduct,
                                              @RequestParam boolean auctionOrBid) throws UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
@@ -295,7 +295,7 @@ public class BigController {
 
     //todo add check price
     @PostMapping("/cart/purchase")
-    public ReturnValue purchaseCartApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId,
+    public ReturnValue purchaseCart(@RequestHeader("Authorization") String sessionID, @RequestParam String userId,
                                        @RequestParam com.example.demo.ExternalConnections.Old.Delivery.Payment.PaymentNames payment,
                                        @RequestParam DeliveryNames delivery, @RequestParam String nameHolder, @RequestParam String address,@RequestParam  String city, @RequestParam String country,@RequestParam  String zip ,
                                        @RequestParam String holder,@RequestParam  String cardNumber,@RequestParam  String expireDate,@RequestParam  int cvv, @RequestParam String id) throws Exception {
@@ -312,7 +312,7 @@ public class BigController {
 
     /// Store controller
     @PostMapping(value = "/store", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ReturnValue addNewProductToStoreApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestBody MockFullProduct mockProduct) throws NoPermissionException, SupplyManagementException, UserException {
+    public ReturnValue addNewProductToStore(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestBody MockFullProduct mockProduct) throws NoPermissionException, SupplyManagementException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -326,7 +326,7 @@ public class BigController {
     }
 
     @PostMapping(value = "/permissions/delete", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ReturnValue removeSomePermissionsApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestBody MockPermission mockPermission) throws NoPermissionException, UserException {
+    public ReturnValue removeSomePermissions(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestBody MockPermission mockPermission) throws NoPermissionException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -339,7 +339,7 @@ public class BigController {
     }
 
     @PostMapping("/store/open")
-    public ReturnValue openNewStoreApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId,
+    public ReturnValue openNewStore(@RequestHeader("Authorization") String sessionID, @RequestParam String userId,
                                        @RequestParam String storeName) throws NoPermissionException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
@@ -353,7 +353,7 @@ public class BigController {
     }
 
     @PostMapping("/store/freeze")
-    public ReturnValue unfreezeStoreApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId
+    public ReturnValue unfreezeStore(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId
     ) throws NoPermissionException, UserException, NotifyException, SupplyManagementException, IOException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
@@ -366,12 +366,16 @@ public class BigController {
     }
 
     @PostMapping("/store/unfreeze")
-    public ReturnValue freezeStoreApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException, NotifyException, SupplyManagementException, IOException {
-
+    public ReturnValue freezeStore(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException, NotifyException, SupplyManagementException, IOException {
+      
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
-        return freezeStore(storeId, userId);
+        userExistsAndLoggedIn(userId);
+        getStoreController().freezeStore(storeId, userId);
+
+        ReturnValue rv = new ReturnValue(true, "", null);
+        return rv;
     }
     @GetMapping("/user/websocket/notification")
     public ReturnValue getNotification(@RequestHeader("Authorization") String sessionID, @RequestParam String userId) throws UserException {
@@ -406,7 +410,7 @@ public class BigController {
     }
 
     @GetMapping("store/allRoles")
-    public ReturnValue getManagersOwnersOfStoreApi(@RequestHeader("Authorization") String sessionID, String storeId,
+    public ReturnValue getManagersOwnersOfStore(@RequestHeader("Authorization") String sessionID, String storeId,
                                                    String userIdRequesting) throws NoPermissionException, UserException, JsonProcessingException {
         if (!validateSessionID(sessionID, userIdRequesting)) {
             return new ReturnValue(false, "Not authorized", null);
@@ -437,7 +441,7 @@ public class BigController {
      * @throws UserException
      */
     @GetMapping("store/manager/permmitions")
-    public ReturnValue getStoresManagedByUserApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId) throws NoPermissionException, UserException, JsonProcessingException {
+    public ReturnValue getStoresManagedByUser(@RequestHeader("Authorization") String sessionID, @RequestParam String userId) throws NoPermissionException, UserException, JsonProcessingException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -456,7 +460,7 @@ public class BigController {
      * @throws JsonProcessingException
      */
     @GetMapping("store/manager/permmitions/OfStore")
-    public ReturnValue getStoresManagedByUserApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException, JsonProcessingException {
+    public ReturnValue getStoresManagedByUser(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException, JsonProcessingException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -473,7 +477,7 @@ public class BigController {
      * @throws UserException
      */
     @GetMapping("store/owner/permmitions")
-    public ReturnValue getStoresOwnedByUserApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId) throws NoPermissionException, UserException, JsonProcessingException {
+    public ReturnValue getStoresOwnedByUser(@RequestHeader("Authorization") String sessionID, @RequestParam String userId) throws NoPermissionException, UserException, JsonProcessingException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -491,7 +495,7 @@ public class BigController {
      * @throws JsonProcessingException
      */
     @GetMapping("store/owner/permmitions/OfStore")
-    public ReturnValue getStoresOwnedByUserApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException, JsonProcessingException {
+    public ReturnValue getStoresOwnedByUser(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException, JsonProcessingException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -529,7 +533,7 @@ public class BigController {
     }
 
     @PostMapping(value = "/store/product", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ReturnValue editProductApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String productId, @Valid @RequestBody MockFullProduct mockProduct) throws NoPermissionException, SupplyManagementException, UserException {
+    public ReturnValue editProduct(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String productId, @Valid @RequestBody MockFullProduct mockProduct) throws NoPermissionException, SupplyManagementException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -562,7 +566,7 @@ public class BigController {
     //    public void sendComplaintToAdmins(String senderId, ComplaintNotification complaintNotification) throws UserException {
 // String sentFrom, NotificationSubject subject, String title, String body
     @PostMapping("/complaints")
-    public ReturnValue sendComplaintToAdminsApi(@RequestHeader("Authorization") String sessionID, @RequestParam String senderId, @RequestParam String subject, @RequestParam String title, @RequestParam String body) throws UserException {
+    public ReturnValue sendComplaintToAdmins(@RequestHeader("Authorization") String sessionID, @RequestParam String senderId, @RequestParam String subject, @RequestParam String title, @RequestParam String body) throws UserException {
         if (!validateSessionID(sessionID, senderId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -572,7 +576,7 @@ public class BigController {
     }
 
     @PostMapping("/store/product/delete")
-    public ReturnValue deleteProductFromStoreApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId,
+    public ReturnValue deleteProductFromStore(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId,
                                                  @RequestParam String productId) throws NoPermissionException, SupplyManagementException, UserException, NotifyException, IOException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
@@ -584,7 +588,7 @@ public class BigController {
     }
 
     @PostMapping("/store/permissions/delete")
-    public ReturnValue removePermissionToApi(@RequestHeader("Authorization") String sessionID, @RequestParam String storeId, @RequestParam String userIdRemoving, @RequestParam String UserAffectedId) throws NoPermissionException, UserException, NotifyException {
+    public ReturnValue removePermissionTo(@RequestHeader("Authorization") String sessionID, @RequestParam String storeId, @RequestParam String userIdRemoving, @RequestParam String UserAffectedId) throws NoPermissionException, UserException, NotifyException {
         if (!validateSessionID(sessionID, userIdRemoving)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -597,7 +601,7 @@ public class BigController {
     }
 
     @PostMapping(value = "/owner/create")
-    public ReturnValue createOwnerApi(@RequestHeader("Authorization") String sessionID, @RequestParam String storeId, @RequestParam String userIdGiving, @RequestParam String UserGettingPermissionId, @RequestParam String permissions) throws NoPermissionException, UserException, NotifyException {
+    public ReturnValue createOwner(@RequestHeader("Authorization") String sessionID, @RequestParam String storeId, @RequestParam String userIdGiving, @RequestParam String UserGettingPermissionId, @RequestParam String permissions) throws NoPermissionException, UserException, NotifyException {
         if (!validateSessionID(sessionID, userIdGiving)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -617,7 +621,7 @@ public class BigController {
     }
 
     @PostMapping("/manager")
-    public ReturnValue createManagerApi(@RequestHeader("Authorization") String sessionID, @RequestParam String storeId, @RequestParam String userIdGiving, @RequestParam String UserGettingPermissionId) throws NoPermissionException, UserException, NotifyException {
+    public ReturnValue createManager(@RequestHeader("Authorization") String sessionID, @RequestParam String storeId, @RequestParam String userIdGiving, @RequestParam String UserGettingPermissionId) throws NoPermissionException, UserException, NotifyException {
         if (!validateSessionID(sessionID, userIdGiving)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -631,7 +635,7 @@ public class BigController {
 
 
     @PostMapping(value = "/product", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ReturnValue addReviewToProductApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestBody MockProductReview mockProd) throws NoPermissionException, SupplyManagementException, UserException {
+    public ReturnValue addReviewToProduct(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestBody MockProductReview mockProd) throws NoPermissionException, SupplyManagementException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -642,7 +646,7 @@ public class BigController {
     }
 
     @PostMapping("/forum/thread")
-    public ReturnValue addNewThreadToForumApi(@RequestHeader("Authorization") String sessionID, @RequestParam String storeId, @RequestParam String title, @RequestParam String userId) throws NoPermissionException, UserException {
+    public ReturnValue addNewThreadToForum(@RequestHeader("Authorization") String sessionID, @RequestParam String storeId, @RequestParam String title, @RequestParam String userId) throws NoPermissionException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -693,7 +697,7 @@ public class BigController {
     }
 
     @PostMapping("/in/dashboard")
-    public ReturnValue isInDashboardApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId) throws InterruptedException, UserException {
+    public ReturnValue isInDashboard(@RequestHeader("Authorization") String sessionID, @RequestParam String userId) throws InterruptedException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -720,7 +724,7 @@ public class BigController {
     }
 
     @PostMapping("/forum/message")
-    public ReturnValue postMessageToForumApi(@RequestHeader("Authorization") String sessionID, @RequestParam String storeId, @RequestParam String threadId, @RequestParam String userId, @RequestParam String message) throws NoPermissionException, NotifyException, UserException {
+    public ReturnValue postMessageToForum(@RequestHeader("Authorization") String sessionID, @RequestParam String storeId, @RequestParam String threadId, @RequestParam String userId, @RequestParam String message) throws NoPermissionException, NotifyException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -738,7 +742,7 @@ public class BigController {
     }
 
     @GetMapping("/store-products/all")
-    public ReturnValue getAllProductsAndStoresWebApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId) throws UserException, SupplyManagementException, NoPermissionException, JsonProcessingException {
+    public ReturnValue getAllProductsAndStoresWeb(@RequestHeader("Authorization") String sessionID, @RequestParam String userId) throws UserException, SupplyManagementException, NoPermissionException, JsonProcessingException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -769,7 +773,7 @@ public class BigController {
         return sc.getAllProductsAndStores();
     }
     @GetMapping("/products/all")
-    public ReturnValue getAllProductsApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId) throws JsonProcessingException, UserException {
+    public ReturnValue getAllProducts(@RequestHeader("Authorization") String sessionID, @RequestParam String userId) throws JsonProcessingException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -787,7 +791,7 @@ public class BigController {
     }
 
     @GetMapping("/store/all")
-    public ReturnValue getAllStoresApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId) throws JsonProcessingException, InterruptedException, UserException {
+    public ReturnValue getAllStores(@RequestHeader("Authorization") String sessionID, @RequestParam String userId) throws JsonProcessingException, InterruptedException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -807,7 +811,7 @@ public class BigController {
 
 
     @GetMapping("/store/products")
-    public ReturnValue getStoreProductsApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId) throws JsonProcessingException, UserException {
+    public ReturnValue getStoreProducts(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId) throws JsonProcessingException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -829,7 +833,7 @@ public class BigController {
 
 
     @GetMapping("/search/name")
-    public ReturnValue SearchProductsAccordingNameApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String productName) throws UserException {
+    public ReturnValue SearchProductsAccordingName(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String productName) throws UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -876,7 +880,7 @@ public class BigController {
 //    }
 
     @PostMapping("/store/delete")
-    public ReturnValue deleteStoreApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException {
+    public ReturnValue deleteStore(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -906,7 +910,7 @@ public class BigController {
 
 
     @GetMapping("/history/store")
-    public ReturnValue getStoreHistoryApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException {
+    public ReturnValue getStoreHistory(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -917,7 +921,7 @@ public class BigController {
     }
 
     @GetMapping("/history/user")
-    public ReturnValue getUserHistoryApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId) throws NoPermissionException, UserException, JsonProcessingException {
+    public ReturnValue getUserHistory(@RequestHeader("Authorization") String sessionID, @RequestParam String userId) throws NoPermissionException, UserException, JsonProcessingException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -930,7 +934,7 @@ public class BigController {
 
 
     @GetMapping("/history/store/user")
-    public ReturnValue getStoreUserHistoryApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String userIdRequesting,
+    public ReturnValue getStoreUserHistory(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String userIdRequesting,
                                               @RequestParam String storeId
     ) throws NoPermissionException, UserException, JsonProcessingException {
         if (!validateSessionID(sessionID, userId)) {
@@ -963,13 +967,13 @@ public class BigController {
     }
 
     @GetMapping("/permission/type")
-    public ReturnValue getPermissionTypeApi(@RequestParam String userId) {
+    public ReturnValue getPermissionType(@RequestParam String userId) {
         ReturnValue rv = new ReturnValue(true, "", getUserController().getPermissionType(userId));
         return rv;
     }
 
     @GetMapping("/notification/complaint")
-    public ReturnValue readComplaintNotificationApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId) throws UserException, JsonProcessingException {
+    public ReturnValue readComplaintNotification(@RequestHeader("Authorization") String sessionID, @RequestParam String userId) throws UserException, JsonProcessingException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -981,7 +985,7 @@ public class BigController {
     }
 
     @GetMapping("/store/notification")
-    public ReturnValue readStoreNotificationApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId) throws UserException, JsonProcessingException {
+    public ReturnValue readStoreNotification(@RequestHeader("Authorization") String sessionID, @RequestParam String userId) throws UserException, JsonProcessingException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -993,7 +997,7 @@ public class BigController {
     }
 
     @GetMapping("/notification/store/complaint")
-    public ReturnValue readStoreNotificationApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId,
+    public ReturnValue readStoreNotification(@RequestHeader("Authorization") String sessionID, @RequestParam String userId,
                                                 @RequestParam int storeNotificaionId) throws UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
@@ -1006,7 +1010,7 @@ public class BigController {
 
 
     @PostMapping("/policy/add")
-    public ReturnValue addNewPolicyApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId, @RequestParam String typeOfPolicy,
+    public ReturnValue addNewPolicy(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId, @RequestParam String typeOfPolicy,
                                        @RequestParam String numOfProducts, @RequestParam String categories, @RequestParam String products,
                                        @RequestParam String productsAmount, @RequestParam String userIds, @RequestParam String startAge,
                                        @RequestParam String endAge, @RequestParam String startTime, @RequestParam String endTime,
@@ -1081,7 +1085,7 @@ public class BigController {
     }
 
     @PostMapping("/policy/combine")
-    public ReturnValue combineTwoPolicyApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId,
+    public ReturnValue combineTwoPolicy(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId,
                                            @RequestParam String typeOfCombination,
                                            @RequestParam String policyID1,
                                            @RequestParam String policyID2) throws NoPermissionException, UserException {
@@ -1120,7 +1124,7 @@ public class BigController {
     }
 
     @PostMapping("/Discount/PercentageDiscount")
-    public ReturnValue addNewPercentageDiscountApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId, @RequestParam float percentage, @RequestParam String predicateOnProducts) throws NoPermissionException, UserException, SupplyManagementException, ParseException {// use policyBuilder to create policy
+    public ReturnValue addNewPercentageDiscount(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId, @RequestParam float percentage, @RequestParam String predicateOnProducts) throws NoPermissionException, UserException, SupplyManagementException, ParseException {// use policyBuilder to create policy
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -1128,7 +1132,7 @@ public class BigController {
     }
 
     @PostMapping("/Discount/ConditionalPercentageDiscount")
-    public ReturnValue addNewConditionalPercentageDiscountApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId, @RequestParam float percentage, @RequestParam String predicateOnProducts, @RequestParam String predicateOnCart) throws NoPermissionException, UserException, SupplyManagementException, ParseException {// use policyBuilder to create policy
+    public ReturnValue addNewConditionalPercentageDiscount(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId, @RequestParam float percentage, @RequestParam String predicateOnProducts, @RequestParam String predicateOnCart) throws NoPermissionException, UserException, SupplyManagementException, ParseException {// use policyBuilder to create policy
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -1148,7 +1152,7 @@ public class BigController {
 //        return rv;
 //    }
     @PostMapping("/Discount/NewMaxDiscount")
-    public ReturnValue addNewMaxDiscountApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId, @RequestParam String discountId1, @RequestParam String discountId2) throws UserException, NotSupportedException, NoPermissionException {
+    public ReturnValue addNewMaxDiscount(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId, @RequestParam String discountId1, @RequestParam String discountId2) throws UserException, NotSupportedException, NoPermissionException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -1163,7 +1167,7 @@ public class BigController {
     }
 
     @PostMapping("/Discount/deleteDiscount")
-    public ReturnValue deleteDiscountApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId, @RequestParam String discountId) throws NoPermissionException, UserException {
+    public ReturnValue deleteDiscount(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId, @RequestParam String discountId) throws NoPermissionException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -1176,7 +1180,7 @@ public class BigController {
     }
 
     @GetMapping("/Discount/getAll")
-    public ReturnValue getAllDiscountsApi(@RequestHeader("Authorization") String sessionID, @RequestParam String storeId, @RequestParam String userId) throws NoPermissionException, JsonProcessingException, UserException {
+    public ReturnValue getAllDiscounts(@RequestHeader("Authorization") String sessionID, @RequestParam String storeId, @RequestParam String userId) throws NoPermissionException, JsonProcessingException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -1198,35 +1202,8 @@ public class BigController {
         return sc.checkIfUserHaveRoleInAnyStore(userId);
     }
 
-//    @GetMapping("/store/user/OwnerStores")
-//    public ReturnValue getStoreOwnerBuyUser(@RequestParam String userID){
-//        ReturnValue rv = new ReturnValue(true, "", sc.getStoreOwnerBuyUser(userID));
-//        return rv;
-//    }
-//    @GetMapping("/store/user/ManagerStores")
-//    public ReturnValue getStoreManagerBuyUser(@RequestParam String userID){
-//        ReturnValue rv = new ReturnValue(true, "", sc.getStoreManagerBuyUser(userID));
-//        return rv;
-//    }
-//    @GetMapping("/store/user/ManagerOwnerStores")
-//    public ReturnValue getStoreManagerOwnerBuyUser(@RequestParam String userID){
-//        List<Store> managerOf=sc.getStoreManagerBuyUser(userID);
-//        managerOf.addAll(sc.getStoreOwnerBuyUser(userID));
-//        List<Store> managerAndOwnerOf = managerOf;
-//        ReturnValue rv = new ReturnValue(true, "", managerAndOwnerOf);
-//        return rv;
-//    }
-
-//    @GetMapping("/store/user/Permission")
-//    public ReturnValue getUserPermissionInStore(@RequestParam String StoreId,
-//                                                @RequestParam String userId) {
-//
-//        ReturnValue rv = new ReturnValue(true, "", sc.getUserPermission(StoreId, userId));
-//        return rv;
-//    }
-
     @GetMapping("/store/title")
-    public ReturnValue getTitleInStoreApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, String StoreId) throws UserException {
+    public ReturnValue getTitleInStore(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, String StoreId) throws UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -1235,7 +1212,7 @@ public class BigController {
     }
 
     @PostMapping("/policy/delete")
-    public ReturnValue deletePolicyApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId,
+    public ReturnValue deletePolicy(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId,
                                        @RequestParam String policyId) throws NoPermissionException, UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
@@ -1255,7 +1232,7 @@ public class BigController {
     }
 
     @GetMapping("Store/Polices")
-    public ReturnValue getPolicesApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException, JsonProcessingException {
+    public ReturnValue getPolices(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String storeId) throws NoPermissionException, UserException, JsonProcessingException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -1279,7 +1256,7 @@ public class BigController {
 
 
     @GetMapping("/stores/all")
-    public ReturnValue getAllStoresByStoreNameApi(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String name) throws UserException {
+    public ReturnValue getAllStoresByStoreName(@RequestHeader("Authorization") String sessionID, @RequestParam String userId, @RequestParam String name) throws UserException {
         if (!validateSessionID(sessionID, userId)) {
             return new ReturnValue(false, "Not authorized", null);
         }
@@ -1310,691 +1287,4 @@ public class BigController {
     private StoreController getStoreController() {
         return sc;
     }
-
-
-    public ReturnValue addSystemAdmin(String whoIsAdding, String user_toMakeAdmin) throws UserException {
-        getUserController().addSystemAdmin(whoIsAdding, user_toMakeAdmin);
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-    }
-
-
-    public ReturnValue getRegisteredUsersNum() throws UserException {
-
-        ReturnValue rv = new ReturnValue(true, "", getUserController().getRegisteredUsersNum());
-        return rv;
-    }
-
-    public ReturnValue deleteUser(String isDeleting,
-                                  String whosBeingDeleted) throws NoPermissionException, UserException {
-        my_log.info("user" + isDeleting + "is trying to delete user" + whosBeingDeleted);
-        //sc.removeRoleInHierarchy(whosBeingDeleted);
-        if (checkIfUserHaveRoleInStore(whosBeingDeleted)) {
-            throw new NoPermissionException("cant delete user with store role");
-        }
-        getUserController().deleteUser(isDeleting, whosBeingDeleted);
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-    }
-
-
-    public ReturnValue signup(String user_name,
-                              String password) throws UserException {
-        my_log.info("user " + user_name + " is trying to sign up");
-        getUserController().sign_up(user_name, password);
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-    }
-
-
-    public ReturnValue logout(String user_name) throws UserException, InterruptedException {
-
-        ReturnValue rv = new ReturnValue(true, "", getUserController().logout(user_name));
-        return rv;
-
-    }
-
-    public ReturnValue sendComplaint(String userId, String StoreName, String complaint) {
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-    }
-
-
-    public ReturnValue addGuest() {
-
-        ReturnValue rv = new ReturnValue(true, "", getUserController().addGuest().name);
-        return rv;
-    }
-
-
-    public ReturnValue GuestExitSystem(String guestId) {
-        getUserController().GuestExitSystem(guestId);
-
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-    }
-
-
-    public ReturnValue getShoppingCart(String user_Id) throws Exception {
-        ShoppingCart shoppingCart = getUserController().getShoppingCart(user_Id);
-
-        List<Object> products = new ArrayList<>();
-        List<Object> products2 = new ArrayList<>();
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        for (var basket : shoppingCart.basketCases.entrySet()) {
-            for (var pamount : basket.getValue().productAmount.entrySet()) {
-                Product product = sc.getProductById(basket.getKey(), pamount.getKey());
-
-                String json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"price\":\"%s\",\"amount\":\"%d\",\"category\":\"%s\",\"storeId\":\"%s\",\"quantity\":\"%s\"}", product.getId(), product.getName(), product.getPrice(), pamount.getValue(), product.getCategory(), basket.getKey(), product.getSupply());
-                products.add(objectMapper.readTree(json));
-
-            }
-            if (!products.isEmpty()) {
-                products2.add(objectMapper.readTree(String.format("{\"%s\":%s}", basket.getKey(), products)));
-            }
-            products.clear();
-
-        }
-        ReturnValue rv = new ReturnValue(true, "", products2);
-        return rv;
-
-    }
-
-
-//    public boolean containsStore(String user_id, String storeID) {
-//        return getUserController().containsStore(user_id, storeID);
-//    }
-
-    public ReturnValue removeProductFromCart(MockSmallProduct mockSmallProduct) throws UserException {
-
-        getUserController().removeProduct(mockSmallProduct.getUser_id(), mockSmallProduct.getProductID(), mockSmallProduct.getStoreID(), mockSmallProduct.getAmount());
-
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-    }
-
-    //auction or bid false for now
-    public ReturnValue addProductFromCart(MockSmallProduct mockProduct,
-                                          boolean auctionOrBid) throws UserException {
-
-        InventoryProtector inventoryProtector = sc.getInventoryProtector(mockProduct.getStoreID());
-        getUserController().addProduct(mockProduct.getUser_id(), mockProduct.getProductID(), mockProduct.getStoreID(), mockProduct.getAmount(), inventoryProtector, auctionOrBid);
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-
-    }
-
-
-    public ReturnValue purchaseCart(String user_id,
-                                    PaymentNames payment,
-                                    DeliveryNames delivery, String dann, String ringelblum, String beer_sheva, String israel, String s, String rotman_inc, String s1, String s2, int i, String s3) throws Exception {
-
-
-        float a = getUserController().purchaseCart(user_id, new ExternalConnectionHolder(delivery, payment) , dann , ringelblum , beer_sheva,israel,s,rotman_inc,s1,s2,i,s3);
-        ReturnValue rv = new ReturnValue(true, "", a);
-        return rv;
-    }
-
-
-    /// Store controller
-    public ReturnValue addNewProductToStore(MockFullProduct mockProduct) throws NoPermissionException, SupplyManagementException, UserException {
-        userExistsAndLoggedIn(mockProduct.getUserId());
-
-        String ans = getStoreController().addNewProduct(mockProduct.getStoreId(), mockProduct.getUserId(), mockProduct.getProductName(), mockProduct.getPrice(), mockProduct.getSupply(), mockProduct.getCategory());
-
-        ReturnValue rv = new ReturnValue(true, "", ans);
-        return rv;
-
-    }
-
-    public ReturnValue removeSomePermissions(MockPermission mockPermission) throws NoPermissionException, UserException {
-        userExistsAndLoggedIn(mockPermission.getUserIdRemoving());
-
-        sc.removeSomePermissions(mockPermission.getStoreId(), mockPermission.getUserIdRemoving(), mockPermission.getUserAffectedId(), mockPermission.getPerToRemove());
-
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-    }
-
-    public ReturnValue openNewStore(String userId,
-                                    String storeName) throws NoPermissionException, UserException {
-        userExistsAndLoggedIn(userId);
-        List<String> managers = new ArrayList<>();
-        managers.add(userId);
-        ReturnValue rv = new ReturnValue<String>(true, "", getStoreController().openNewStore(storeName, managers));
-        return rv;
-
-    }
-
-    public ReturnValue unfreezeStore(String userId,
-                                     String storeId) throws NoPermissionException, UserException, NotifyException, SupplyManagementException, IOException {
-        userExistsAndLoggedIn(userId);
-        getStoreController().unfreezeStore(storeId, userId);
-
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-    }
-
-    public ReturnValue freezeStore(String storeId,
-                                   String userId) throws NoPermissionException, UserException, NotifyException, SupplyManagementException, IOException {
-
-        userExistsAndLoggedIn(userId);
-        getStoreController().freezeStore(storeId, userId);
-
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-    }
-
-
-//not in use- if front want to use contact guy
-//    /**
-//     * @param storeId the store you want manager info about
-//     * @param userIdRequesting  the requesting user, will make sure you are logged in
-//     *                and that you have permission in the specific store
-//     * @return
-//     * @throws NoPermissionException
-//     * @throws UserException
-//     */
-
-    public ReturnValue getInfoOnManagersOwnersForTests(String storeId,
-                                                       String userIdRequesting) throws NoPermissionException, UserException {
-        userExistsAndLoggedIn(userIdRequesting);
-        List<StoreRoles> storeRoles = getStoreController().getInfoOnManagersOwners(storeId, userIdRequesting);
-
-        ReturnValue rv = new ReturnValue(true, "", storeRoles);
-        return rv;
-    }
-
-    public ReturnValue getManagersOwnersOfStore(String storeId,
-                                                String userIdRequesting) throws NoPermissionException, UserException, JsonProcessingException {
-        userExistsAndLoggedIn(userIdRequesting);
-        List<StoreRoles> storeRoles = getStoreController().getInfoOnManagersOwners(storeId, userIdRequesting);
-        ObjectMapper objectMapper = new ObjectMapper();
-        List<String> managersUsers = new ArrayList<>();
-        List<String> ownersUsers = new ArrayList<>();
-        for (StoreRoles sr : storeRoles) {
-            if (sr.getTitle().equals("manger")) {
-                managersUsers.add(sr.getUserId());
-            } else {
-                ownersUsers.add(sr.getUserId());
-            }
-        }
-
-
-        ReturnValue rv = new ReturnValue(true, "", objectMapper.readTree(
-                String.format("{\"managers\":\"%s\",\"owners\":\"%s\"}", managersUsers, ownersUsers)));
-        return rv;
-    }
-
-
-    public ReturnValue getStoresManagedByUser(String user) throws NoPermissionException, UserException, JsonProcessingException {
-        List<Object> storePermissions = getStorePermissionToReturn(user, true);
-
-        ReturnValue rv = new ReturnValue(true, "", storePermissions);
-        return rv;
-    }
-
-
-    public ReturnValue getStoresOwnedByUser(String user) throws NoPermissionException, UserException, JsonProcessingException {
-        List<Object> storePermissions = getStorePermissionToReturn(user, false);
-        ReturnValue rv = new ReturnValue(true, "", storePermissions);
-        return rv;
-    }
-/*
-
-        /*
-        public ReturnValue getStoresOwnedByUser(String user, String storeId) throws NoPermissionException, UserException, JsonProcessingException {
-            List<Object> storePermissions = getStorePermissionToReturn(user, storeId, false);
-            ReturnValue rv = new ReturnValue(true, "", storePermissions);
-            return rv;
-        }
-*/
-
-
-    public ReturnValue editProduct(String productId, MockFullProduct mockProduct) throws NoPermissionException, SupplyManagementException, UserException {
-        userExistsAndLoggedIn(mockProduct.getUserId());
-        getStoreController().editProduct(mockProduct.getStoreId(), mockProduct.getUserId(), productId, mockProduct.getSupply(), mockProduct.getProductName(), mockProduct.getPrice(), mockProduct.getCategory());
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-    }
-
-
-    //    public void sendComplaintToAdmins(String senderId, ComplaintNotification complaintNotification) throws UserException {
-// String sentFrom, NotificationSubject subject, String title, String body
-    public ReturnValue sendComplaintToAdmins(String senderId, String subject, String title, String body) throws UserException {
-        getUserController().sendComplaintToAdmins(senderId, new ComplaintNotification(senderId, NotificationSubject.valueOf(subject), title, body));
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-    }
-
-    public ReturnValue deleteProductFromStore(String storeId,
-                                              String userId,
-                                              String productId) throws NoPermissionException, SupplyManagementException, UserException, NotifyException, IOException {
-        userExistsAndLoggedIn(userId);
-        getStoreController().deleteProduct(storeId, userId, productId);
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-    }
-
-    public ReturnValue removePermissionTo(String storeId, String userIdRemoving, String UserAffectedId) throws NoPermissionException, UserException, NotifyException {
-        if (getUserController().checkIfUserExists(userIdRemoving) && getUserController().checkIfUserExists(UserAffectedId) && getUserController().checkIfUserIsLoggedIn(userIdRemoving))
-            getStoreController().removeRoleInHierarchy(storeId, userIdRemoving, UserAffectedId);
-        else
-            throw new IllegalArgumentException("couldn't remove permission because the given userId doesn't exist or is not logged in");
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-    }
-
-    public ReturnValue createOwner(String storeId, String userIdGiving, String UserGettingPermissionId, String permissions) throws NoPermissionException, UserException, NotifyException {
-        if (getUserController().checkIfUserExists(userIdGiving) && getUserController().checkIfUserExists(UserGettingPermissionId.trim()) && getUserController().checkIfUserIsLoggedIn(userIdGiving)) {
-            List<Permission> finalPermissions = new ArrayList<>();
-            List<String> permissionsList = Arrays.asList(permissions.split(","));
-            for (String perString : permissionsList) {
-                if (perString.length() > 0) {
-                    finalPermissions.add(Permission.valueOf(perString));
-                }
-            }
-            getStoreController().createOwner(storeId, userIdGiving, UserGettingPermissionId.trim(), finalPermissions);
-        } else
-            throw new IllegalArgumentException("couldn't give permission because the given userId doesn't exist or is not logged in");
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-    }
-
-    public ReturnValue createManager(String storeId, String userIdGiving, String UserGettingPermissionId) throws NoPermissionException, UserException, NotifyException {
-        if (getUserController().checkIfUserExists(userIdGiving) && getUserController().checkIfUserExists(UserGettingPermissionId) && getUserController().checkIfUserIsLoggedIn(userIdGiving)) {
-            getStoreController().createManager(storeId, userIdGiving, UserGettingPermissionId);
-        } else
-            throw new IllegalArgumentException("couldn't give permission because the given userId doesn't exist or is not logged in");
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-    }
-
-
-    public ReturnValue addReviewToProduct(MockProductReview mockProd) throws NoPermissionException, SupplyManagementException, UserException {
-        userExistsAndLoggedIn(mockProd.getUserId());
-        getStoreController().addReviewToProduct(mockProd.getStoreId(), mockProd.getUserId(), mockProd.getProductId(), mockProd.getTitle(), mockProd.getBody(), mockProd.getRating());
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-    }
-
-    public ReturnValue addNewThreadToForum(String storeId, String title, String userId) throws NoPermissionException, UserException {
-        userExistsAndLoggedIn(userId);
-
-
-        ReturnValue rv = new ReturnValue(true, "", getStoreController().addNewThreadToForum(storeId, title, userId));
-        return rv;
-    }
-
-
-    public ReturnValue isInDashboard(String userId) throws InterruptedException {
-        for (int i = 0; i < us.get_subscriber(userId).getStoreNotifications().size(); i++) {
-            //remove before stress test
-            Thread.sleep(1000);
-            NotificationController.getInstance().sendNotification(new realTimeNotification(userId, us.get_subscriber(userId).getStoreNotifications().get(i).getSentFrom().getStoreName(), us.get_subscriber(userId).getStoreNotifications().get(i).getSubject().toString(), us.get_subscriber(userId).getStoreNotifications().get(i).getTitle(), us.get_subscriber(userId).getStoreNotifications().get(i).getBody(), new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(Calendar.getInstance().getTime())));
-        }
-        us.get_subscriber(userId).resetNotification();
-        return new ReturnValue(true, "", null);
-    }
-
-
-    public ReturnValue postMessageToForum(String storeId, String threadId, String userId, String message) throws NoPermissionException, NotifyException, UserException {
-        userExistsAndLoggedIn(userId);
-        getStoreController().RolePostMessageToForum(storeId, threadId, userId, message);
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-
-    }
-
-
-    public ReturnValue getAllProductsAndStoresWeb() throws UserException, SupplyManagementException, NoPermissionException, JsonProcessingException {
-        HashMap<String, List<Product>> allProductsAndStores = getStoreController().getAllProductsAndStores();
-        List<Object> products = new ArrayList<>();
-        List<Object> products2 = new ArrayList<>();
-        ObjectMapper objectMapper = new ObjectMapper();
-        for (var entry : allProductsAndStores.entrySet()) {
-            for (var product : entry.getValue()) {
-                String json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"price\":\"%s\",\"quantity\":\"%s\",\"category\":\"%s\",\"storeId\":\"%s\"}", product.getId(), product.getName(), product.getPrice(), product.getSupply(), product.getCategory(), entry.getKey());
-                products.add(objectMapper.readTree(json));
-            }
-            products2.add(objectMapper.readTree(String.format("{\"%s\":%s}", entry.getKey(), products)));
-            products.clear();
-        }
-        ReturnValue rv = new ReturnValue(true, "", products2);
-        return rv;
-    }
-
-
-    public ReturnValue getAllProducts() throws JsonProcessingException {
-        HashMap<String, List<Product>> allProductsAndStores = getStoreController().getAllProductsAndStores();
-        List<Object> products = new ArrayList<>();
-        ObjectMapper objectMapper = new ObjectMapper();
-        for (var entry : allProductsAndStores.entrySet()) {
-            for (var product : entry.getValue()) {
-                String json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"price\":\"%s\",\"quantity\":\"%s\",\"category\":\"%s\",\"storeId\":\"%s\"}", product.getId(), product.getName(), product.getPrice(), product.getSupply(), product.getCategory(), entry.getKey());
-                products.add(objectMapper.readTree(json));
-            }
-        }
-        ReturnValue rv = new ReturnValue(true, "", products);
-        return rv;
-    }
-
-    public ReturnValue getAllStores() throws JsonProcessingException, InterruptedException {
-        List<Store> allStores = getStoreController().getAllStores();
-        List<Object> stores = new ArrayList<>();
-        ObjectMapper objectMapper = new ObjectMapper();
-
-
-        for (var store : allStores) {
-            stores.add(
-                    objectMapper.readTree(
-                            String.format("{\"storeId\":\"%s\",\"storeName\":\"%s\",\"storeState\":\"%s\",\"storeRating\":\"%s\"}", store.getId(), store.getStoreName(), store.getStoreState(), store.getStoreRating())));
-        }
-        ReturnValue rv = new ReturnValue(true, "", stores);
-        return rv;
-    }
-
-
-    public ReturnValue getStoreProducts(String storeId) throws JsonProcessingException {
-        HashMap<String, List<Product>> allProductsAndStores = getStoreController().getAllProductsAndStores();
-        List<Object> products = new ArrayList<>();
-        ObjectMapper objectMapper = new ObjectMapper();
-        for (var entry : allProductsAndStores.entrySet()) {
-            if (entry.getKey().equals(storeId)) {
-                for (var product : entry.getValue()) {
-                    String json = String.format("{\"id\":\"%s\",\"name\":\"%s\",\"price\":\"%s\",\"quantity\":\"%s\",\"category\":\"%s\",\"storeId\":\"%s\"}", product.getId(), product.getName(), product.getPrice(), product.getSupply(), product.getCategory(), entry.getKey());
-                    products.add(objectMapper.readTree(json));
-                }
-            }
-
-        }
-        ReturnValue rv = new ReturnValue(true, "", products);
-        return rv;
-    }
-
-
-    public ReturnValue SearchProductsAccordingName(String userId, String productName) throws UserException {
-        System.out.println("");
-        if (!IsGuest(userId))
-            userExistsAndLoggedIn(userId);
-
-        ReturnValue rv = new ReturnValue(true, "", getStoreController().SearchProductsAccordingName(productName));
-
-        return rv;
-    }
-
-
-//    @GetMapping(value = "/search/category", consumes = {MediaType.APPLICATION_JSON_VALUE})
-//    public List<Product> SearchProductsAccordingCategory(@RequestParam String userId, @Valid @RequestBody MockCategories mockCategories) throws UserException {
-//
-//        if (!IsGuest(userId))
-//            userExistsAndLoggedIn(userId);
-//        return getStoreController().SearchProductsAccordingCategory(mockCategories.getCategories());
-//
-//    }
-//
-//
-//    @GetMapping("/search/price")
-//    public List<Product> SearchProductsAccordingPrice(@RequestParam String userId, @RequestParam float fromPrice, @RequestParam float toPrice) throws UserException {
-//
-//        if (!IsGuest(userId))
-//            userExistsAndLoggedIn(userId);
-//        return getStoreController().SearchProductsAccordingPrice(fromPrice, toPrice);
-//
-//    }
-//
-//    /**
-//     * @param userId
-//     * @param productRating - the minimum rating of a product
-//     * @return
-//     */
-//    @GetMapping("/search/rating")
-//    public List<Product> SearchProductsAccordingRating(@RequestParam String userId, @RequestParam float productRating) throws UserException {
-//
-//        if (!IsGuest(userId))
-//            userExistsAndLoggedIn(userId);
-//        return getStoreController().SearchProductsAccordingRating(productRating);
-//    }
-
-    public ReturnValue deleteStore(String userId, String storeId) throws NoPermissionException, UserException {
-        userExistsAndLoggedIn(userId);
-        if (!us.checkIfAdmin(userId)) {
-            throw new NoPermissionException("User is not admin");
-        }
-        getStoreController().deleteStore(userId, storeId);
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-
-    }
-
-
-    public ReturnValue getStoreHistory(String storeId, String userId) throws NoPermissionException, UserException {
-        userExists(userId);
-        boolean isAdmin = us.checkIfAdmin(userId);
-        ReturnValue rv = new ReturnValue(true, "", sc.getStoreHistory(storeId, userId, isAdmin));
-        return rv;
-    }
-
-    public ReturnValue getUserHistory(String userId) throws NoPermissionException, UserException, JsonProcessingException {
-        userExists(userId);
-        List<PurchaseHistory> purchaseHistories = History.getInstance().getUserHistory(userId);
-        List<Object> historyParsed = parsePurchaseHistories(purchaseHistories);
-        ReturnValue rv = new ReturnValue(true, "", historyParsed);
-        return rv;
-    }
-
-
-    public ReturnValue getStoreUserHistory(String userIdRequesting,
-                                           String storeId,
-                                           String userId) throws NoPermissionException, UserException, JsonProcessingException {
-        userExistsAndLoggedIn(userId);
-        List<PurchaseHistory> purchaseHistories = sc.getStoreHistory(userIdRequesting, storeId, userId);
-        List<Object> historyParsed = parsePurchaseHistories(purchaseHistories);
-        ReturnValue rv = new ReturnValue(true, "", historyParsed);
-        return rv;
-    }
-
-
-    public ReturnValue getPermissionType(String username) {
-
-        ReturnValue rv = new ReturnValue(true, "", getUserController().getPermissionType(username));
-        return rv;
-    }
-
-    public ReturnValue readComplaintNotification(String userId) throws UserException, JsonProcessingException {
-        userExistsAndLoggedIn(userId);
-        List<ComplaintNotification> cn = us.getComplaintNotifications(userId);
-        List<Object> complaintsParsed = parseComplaints(cn);
-        ReturnValue rv = new ReturnValue(true, "", complaintsParsed);
-        return rv;
-    }
-
-    public ReturnValue readStoreNotification(String userId,
-                                             int storeNotificaionId) throws UserException {
-        userExistsAndLoggedIn(userId);
-        getUserController().readStoreNotification(userId, storeNotificaionId);
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-    }
-
-
-    public ReturnValue addNewPolicy(String storeId, String userId, String typeOfPolicy,
-                                    String numOfProducts, String categories, String products,
-                                    String productsAmount, String userIds, String startAge,
-                                    String endAge, String startTime, String endTime,
-                                    String price) throws Exception {
-        //public ReturnValue addNewPolicy(@RequestParam String storeId, @RequestParam String userId, @RequestParam String typeOfPolicy, @RequestBody MockPolicy mockPolicy) throws Exception {
-        Policy policy;
-        userExistsAndLoggedIn(userId);
-
-        switch (typeOfPolicy) {
-            case "CartPolicy": //quantity in cart
-                policy = policyBuilder.newCartPolicy(Integer.parseInt(numOfProducts));
-                break;
-            case "CategoryPolicy": //category
-                List<ProductsCategories> categoriesList = new ArrayList<>();
-                List<String> tempCategoriesList = Arrays.asList(categories.split(","));
-                for (String cat : tempCategoriesList) {
-                    categoriesList.add(ProductsCategories.valueOf(cat));
-                }
-                policy = policyBuilder.newCategoryPolicy(categoriesList);
-                break;
-            case "ProductWithoutAmountPolicy": //product should be in cart
-                Store store = sc.getStoreById(storeId);
-                List<Product> productsList = store.getProductsNameContains(products); //Arrays.asList(products.split(","));
-                List<PurchasableProduct> lp = new LinkedList<>();
-                List<String> productsListIds = new ArrayList<>();
-                for (Product p : productsList) {
-                    productsListIds.add(p.getId());
-                }
-                for (Product p : getProductById(storeId, productsListIds)) {
-                    PurchasableProduct pp = p;
-                    lp.add(pp);
-                }
-                policy = policyBuilder.newProductWithoutAmountPolicy(lp);
-                break;
-            case "ProductWithAmountPolicy": //product should be in cart with minimum quantity
-                Store store2 = sc.getStoreById(storeId);
-                List<Product> productsList2 = store2.getProductsNameContains(products);
-                HashMap<PurchasableProduct, Integer> mp = new HashMap<>();
-                for (Product p : productsList2) {
-                    mp.put(p, Integer.valueOf(productsAmount));
-                }
-                policy = policyBuilder.newProductWithAmountPolicy(mp);
-                break;
-            case "UserIdPolicy": //specific user
-                List<String> userIdsList = Arrays.asList(userIds.split(","));
-                policy = policyBuilder.newUserIdPolicy(userIdsList);
-                break;
-            case "UseAgePolicy": //age
-                policy = policyBuilder.newUseAgePolicy(Integer.parseInt(startAge), Integer.parseInt(endAge));
-                break;
-            case "OnHoursOfTheDayPolicy": //hour of day
-                policy = policyBuilder.newOnHoursOfTheDayPolicy(LocalDateTime.parse(startTime), LocalDateTime.parse(endTime));
-                break;
-            case "OnDaysOfTheWeekPolicy": //day of week
-                policy = policyBuilder.newOnDaysOfTheWeekPolicy(LocalDateTime.parse(startTime), LocalDateTime.parse(endTime));
-                break;
-            case "OnDayOfMonthPolicy": //day of month
-                policy = policyBuilder.newOnDayOfMonthPolicy(LocalDateTime.parse(startTime), LocalDateTime.parse(endTime));
-                break;
-            case "PricePredicate": //total cart price
-                policy = policyBuilder.newPricePredicate(Integer.parseInt(price));
-                break;
-            default:
-                throw new IllegalStateException("Unexpected type of policy: " + typeOfPolicy);
-        }
-
-        ReturnValue rv = new ReturnValue(true, "", sc.addNewPolicy(storeId, userId, policy));
-        return rv;
-    }
-
-    public ReturnValue combineTwoPolicy(String storeId,
-                                        String userId,
-                                        String typeOfCombination,
-                                        String policyID1,
-                                        String policyID2) throws NoPermissionException, UserException {
-
-        userExistsAndLoggedIn(userId);
-        Policy policy;
-
-        switch (typeOfCombination) {
-            case "And":
-                policy = policyBuilder.AndGatePolicy(getPolicy(storeId, policyID1), getPolicy(storeId, policyID2));
-                break;
-            case "Or":
-                policy = policyBuilder.OrGatePolicy(getPolicy(storeId, policyID1), getPolicy(storeId, policyID2));
-                break;
-            case "Xor": //Cond
-                policy = policyBuilder.ConditioningGatePolicy(getPolicy(storeId, policyID1), getPolicy(storeId, policyID2));
-                break;
-            default:
-                throw new IllegalStateException("Unexpected type of policy: " + typeOfCombination);
-        }
-        ReturnValue rv = new ReturnValue(true, "", sc.addNewPolicy(storeId, userId, policy));
-        return rv;
-    }
-
-
-    public ReturnValue addNewPercentageDiscount(String storeId, String userId, float percentage, String predicateOnProducts) throws NoPermissionException, UserException, SupplyManagementException, ParseException {// use policyBuilder to create policy
-        return addNewDiscount(storeId, userId, new DiscountBuilder().newPercentageDiscount(percentage, predicateOnProducts));
-    }
-
-    public ReturnValue addNewConditionalPercentageDiscount(String storeId, String userId, float percentage, String predicateOnProducts, String predicateOnCart) throws NoPermissionException, UserException, SupplyManagementException, ParseException {// use policyBuilder to create policy
-        return addNewDiscount(storeId, userId, new DiscountBuilder().newConditionalDiscount(percentage, predicateOnCart, predicateOnProducts));
-    }
-
-    public ReturnValue addNewMaxDiscount(String storeId, String userId, String discountId1, String discountId2) throws UserException, NotSupportedException, NoPermissionException {
-        if (!getUserController().checkIfUserExists(userId) || !getUserController().checkIfUserIsLoggedIn(userId)) {
-            my_log.warning("User doesn't exist or is not logged in or is not logged in");
-            return null;
-        }
-        Discount d1 = sc.getDiscount(storeId, userId, discountId1);
-        Discount d2 = sc.getDiscount(storeId, userId, discountId2);
-        ReturnValue rv = new ReturnValue(true, "", sc.addNewDiscount(storeId, userId, new MaxDiscount(d1, d2)));
-        return rv;
-    }
-
-    public ReturnValue deleteDiscount(String storeId, String userId, String discountId) throws NoPermissionException, UserException {
-        if (!getUserController().checkIfUserExists(userId) || !getUserController().checkIfUserIsLoggedIn(userId)) {
-            my_log.warning("User doesn't exist or is not logged in or is not logged in");
-        }
-        sc.deleteDiscount(storeId, userId, discountId);
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-    }
-
-    public ReturnValue getAllDiscounts(String storeId, String userId) throws NoPermissionException, JsonProcessingException {
-        List<String> discountsIds = new ArrayList<>();
-        for (Discount discount : sc.getDiscounts(storeId, userId)) {
-            discountsIds.add(discount.getDiscountId());
-        }
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode output = objectMapper.readTree(
-                String.format("{\"DiscountIds\":\"%s\"}", discountsIds));
-
-        ReturnValue rv = new ReturnValue(true, "", output);
-        return rv;
-
-
-    }
-
-
-    public ReturnValue getTitleInStore(String StoreId, String userId) {
-        ReturnValue rv = new ReturnValue(true, "", sc.getTitle(StoreId, userId));
-        return rv;
-    }
-
-    public ReturnValue deletePolicy(String storeId,
-                                    String userId,
-                                    String policyId) throws NoPermissionException, UserException {
-        userExistsAndLoggedIn(userId);
-        sc.deletePolicy(storeId, userId, policyId);
-        ReturnValue rv = new ReturnValue(true, "", null);
-        return rv;
-    }
-
-
-    public ReturnValue getPolices(String storeId) throws NoPermissionException, UserException, JsonProcessingException {
-        List<Policy> policies = sc.getPolices(storeId);
-        ObjectMapper objectMapper = new ObjectMapper();
-        List<Object> storePolices = new ArrayList<>();
-        for (Policy p : policies) {
-            storePolices.add(
-                    objectMapper.readTree(
-                            String.format("{\"PolicyId\":\"%s\",\"PolicyDescription\":\"%s\"}", p.getPolicyId(), p)));
-        }
-        ReturnValue rv = new ReturnValue(true, "", storePolices);
-        return rv;
-    }
-
-
-    public ReturnValue getAllStoresByStoreName(String userId, String name) throws UserException {
-        userExistsAndLoggedIn(userId);
-        ReturnValue rv = new ReturnValue(true, "", sc.getAllStoresByStoreName(name));
-        return rv;
-    }
-
-
 }
