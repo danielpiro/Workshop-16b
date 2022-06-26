@@ -1,22 +1,26 @@
 package com.example.demo.Tests.Unit;
 
 import com.example.demo.Database.DTOobjects.Cart.ShoppingBasketDTO;
+import com.example.demo.Database.DTOobjects.GlobalServices.IdGeneratorDTO;
 import com.example.demo.Database.DTOobjects.History.HistoryDTO;
 import com.example.demo.Database.DTOobjects.User.ComplaintDTO;
 import com.example.demo.Database.DTOobjects.User.UserDTO;
 import com.example.demo.Database.Service.DatabaseService;
+import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.NotificationsManagement.ComplaintNotification;
 import com.example.demo.NotificationsManagement.NotificationSubject;
 import com.example.demo.ShoppingCart.ShoppingBasket;
 import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Review;
 import com.example.demo.User.Subscriber;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.testng.annotations.AfterTest;
 
 import javax.validation.constraints.AssertTrue;
 import java.time.LocalDateTime;
@@ -31,6 +35,10 @@ class DatabaseServiceTest {
     @Autowired
     DatabaseService databaseService;
 
+    @AfterEach
+    public void deleteDeleteDatabase(){
+        databaseService.clearDatabase();
+    }
 
 
 
@@ -110,8 +118,21 @@ class DatabaseServiceTest {
 
         databaseService.deleteHistoryDTO(his);
         assertTrue(firstHash==secondHash);
+    }
 
+    @Test
+    void saveIdGenerator(){
 
+        //save
+        IdGenerator idGenerator = IdGenerator.getInstance(1L,2L,3L,4L, 5L ,6L, 7L,8L, 9L);
+        IdGenerator.addDatabase(databaseService);
+        idGenerator.getProductId();
+        //override
+
+        IdGenerator.getForTestingOnly(0L,0L,0L,0L, 0L ,0L, 0L,0L, 0L);
+        //load
+        IdGenerator.getInstance().loadData();
+        assertTrue(IdGenerator.getInstance().equals(idGenerator));
 
     }
 

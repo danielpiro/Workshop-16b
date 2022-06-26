@@ -36024,3 +36024,19 @@ Jun 26, 2022 7:35:47 PM com.example.demo.GlobalSystemServices.Log info
 INFO: user delphin is trying to logout
 Jun 26, 2022 7:35:47 PM com.example.demo.GlobalSystemServices.Log info
 INFO: user delphin successfully logged out
+Jun 26, 2022 9:03:54 PM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+Jun 26, 2022 9:49:44 PM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+Jun 26, 2022 9:50:28 PM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+Jun 26, 2022 9:55:28 PM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+Jun 26, 2022 10:05:20 PM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+Jun 26, 2022 10:06:19 PM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+Jun 26, 2022 10:09:01 PM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+Jun 26, 2022 10:15:29 PM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
