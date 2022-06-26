@@ -944,7 +944,7 @@ public class BigController {
                 policy = policyBuilder.newCartPolicy(Integer.parseInt(numOfProducts));
                 policyId = sc.addNewPolicy(storeId, userId, policy);
                 AllPredicateDTO cartPredicateDTO= new AllPredicateDTO(PredicatesTypes.CartPredicate.toString(),Integer.parseInt(numOfProducts));
-                databaseService.saveAllPredicateDTOPolicy(cartPredicateDTO,policy);
+                databaseService.saveAllPredicateDTOPolicy(storeId, cartPredicateDTO,policy);
                 break;
             case "CategoryPolicy": //category
                 List<ProductsCategories> categoriesList = new ArrayList<>();
@@ -955,7 +955,7 @@ public class BigController {
                 policy = policyBuilder.newCategoryPolicy(categoriesList);
                 policyId = sc.addNewPolicy(storeId, userId, policy);
                 AllPredicateDTO categoryPred = new AllPredicateDTO(PredicatesTypes.CategoryPredicate.toString());
-                databaseService.saveCategoryPredicateDTOPolicy(categoryPred,categoriesList,policy);
+                databaseService.saveCategoryPredicateDTOPolicy(storeId, categoryPred,categoriesList,policy);
                 break;
             case "ProductWithoutAmountPolicy": //product should be in cart
                 Store store = sc.getStoreById(storeId);
@@ -972,7 +972,7 @@ public class BigController {
                 policy = policyBuilder.newProductWithoutAmountPolicy(lp);
                 policyId = sc.addNewPolicy(storeId, userId, policy);
                 AllPredicateDTO productPred = new AllPredicateDTO(PredicatesTypes.ProductPredicate.toString());
-                databaseService.saveProductPredicateDTOPolicy(productPred,lp,policy);
+                databaseService.saveProductPredicateDTOPolicy(storeId, productPred,lp,policy);
                 break;
             case "ProductWithAmountPolicy": //product should be in cart with minimum quantity
                 Store store2 = sc.getStoreById(storeId);
@@ -984,45 +984,45 @@ public class BigController {
                 policy = policyBuilder.newProductWithAmountPolicy(mp);
                 policyId = sc.addNewPolicy(storeId, userId, policy);
                 AllPredicateDTO productPredWith = new AllPredicateDTO(PredicatesTypes.ProductPredicate.toString());
-                databaseService.saveProductPredicateDTOPolicy(productPredWith,mp,policy);
+                databaseService.saveProductPredicateDTOPolicy(storeId, productPredWith,mp,policy);
                 break;
             case "UserIdPolicy": //specific user
                 List<String> userIdsList = Arrays.asList(userIds.split(","));
                 policy = policyBuilder.newUserIdPolicy(userIdsList);
                 policyId = sc.addNewPolicy(storeId, userId, policy);
                 AllPredicateDTO userPredicate = new AllPredicateDTO(PredicatesTypes.UserIdPredicate.toString());
-                databaseService.saveUserPredicateDTOPolicy(userPredicate,userIdsList,policy);
+                databaseService.saveUserPredicateDTOPolicy(storeId, userPredicate,userIdsList,policy);
                 break;
             case "UseAgePolicy": //age
                 policy = policyBuilder.newUseAgePolicy(Integer.parseInt(startAge), Integer.parseInt(endAge));
                 policyId = sc.addNewPolicy(storeId, userId, policy);
                 AllPredicateDTO useAgerPredicate = new AllPredicateDTO(PredicatesTypes.UserAgePredicate.toString());
-                databaseService.saveAllPredicateDTOPolicy(useAgerPredicate,policy);
+                databaseService.saveAllPredicateDTOPolicy(storeId, useAgerPredicate,policy);
                 break;
             case "OnHoursOfTheDayPolicy": //hour of day
                 policy = policyBuilder.newOnHoursOfTheDayPolicy(LocalDateTime.parse(startTime), LocalDateTime.parse(endTime));
                 policyId = sc.addNewPolicy(storeId, userId, policy);
                 AllPredicateDTO TimeHoursPredicateDTO= new AllPredicateDTO(PredicatesTypes.TimePredicate.toString(),startTime, endTime, PredicateTimeType.OnHoursOfTheDay.toString());
-                databaseService.saveAllPredicateDTOPolicy(TimeHoursPredicateDTO,policy);
+                databaseService.saveAllPredicateDTOPolicy(storeId, TimeHoursPredicateDTO,policy);
                 break;
             case "OnDaysOfTheWeekPolicy": //day of week
                 policy = policyBuilder.newOnDaysOfTheWeekPolicy(LocalDateTime.parse(startTime), LocalDateTime.parse(endTime));
                 policyId = sc.addNewPolicy(storeId, userId, policy);
                 AllPredicateDTO TimeWeekPredicateDTO= new AllPredicateDTO(PredicatesTypes.TimePredicate.toString(),startTime, endTime, PredicateTimeType.OnDaysOfTheWeek.toString());
-                databaseService.saveAllPredicateDTOPolicy(TimeWeekPredicateDTO,policy);
+                databaseService.saveAllPredicateDTOPolicy(storeId, TimeWeekPredicateDTO,policy);
 
                 break;
             case "OnDayOfMonthPolicy": //day of month
                 policy = policyBuilder.newOnDayOfMonthPolicy(LocalDateTime.parse(startTime), LocalDateTime.parse(endTime));
                 policyId = sc.addNewPolicy(storeId, userId, policy);
                 AllPredicateDTO TimePredicateDTO= new AllPredicateDTO(PredicatesTypes.TimePredicate.toString(),startTime, endTime, PredicateTimeType.OnDayOfMonth.toString());
-                databaseService.saveAllPredicateDTOPolicy(TimePredicateDTO,policy);
+                databaseService.saveAllPredicateDTOPolicy(storeId, TimePredicateDTO,policy);
                 break;
             case "PricePredicate": //total cart price
                 policy = policyBuilder.newPricePredicate(Integer.parseInt(price));
                 policyId = sc.addNewPolicy(storeId, userId, policy);
                 AllPredicateDTO pricePredicateDTO= new AllPredicateDTO(PredicatesTypes.pricePredicate.toString(),Float.parseFloat(price));
-                databaseService.saveAllPredicateDTOPolicy(pricePredicateDTO,policy);
+                databaseService.saveAllPredicateDTOPolicy(storeId, pricePredicateDTO,policy);
                 break;
             default:
                 throw new IllegalStateException("Unexpected type of policy: " + typeOfPolicy);
@@ -1047,19 +1047,19 @@ public class BigController {
             case "And":
                 policy = policyBuilder.AndGatePolicy(getPolicy(storeId, policyID1), getPolicy(storeId, policyID2));
                 policyId = sc.addNewPolicy(storeId, userId, policy);
-                PolicyDTO andPolicyDTO=new PolicyDTO(policyId, PolicyType.AndGatePolicy.toString(),policyID1,policyID2);
+                PolicyDTO andPolicyDTO=new PolicyDTO(storeId, policyId, PolicyType.AndGatePolicy.toString(),policyID1,policyID2);
                 databaseService.savePolicyComp(andPolicyDTO);
                 break;
             case "Or":
                 policy = policyBuilder.OrGatePolicy(getPolicy(storeId, policyID1), getPolicy(storeId, policyID2));
                 policyId = sc.addNewPolicy(storeId, userId, policy);
-                PolicyDTO orPolicyDTO=new PolicyDTO(policyId, PolicyType.OrGatePolicy.toString(),policyID1,policyID2);
+                PolicyDTO orPolicyDTO=new PolicyDTO(storeId, policyId, PolicyType.OrGatePolicy.toString(),policyID1,policyID2);
                 databaseService.savePolicyComp(orPolicyDTO);
                 break;
             case "Xor": //Cond
                 policy = policyBuilder.ConditioningGatePolicy(getPolicy(storeId, policyID1), getPolicy(storeId, policyID2));
                 policyId = sc.addNewPolicy(storeId, userId, policy);
-                PolicyDTO condPolicyDTO=new PolicyDTO(policyId, PolicyType.conditioningPolicy.toString(),policyID1,policyID2);
+                PolicyDTO condPolicyDTO=new PolicyDTO(storeId, policyId, PolicyType.conditioningPolicy.toString(),policyID1,policyID2);
                 databaseService.savePolicyComp(condPolicyDTO);
                 break;
             default:

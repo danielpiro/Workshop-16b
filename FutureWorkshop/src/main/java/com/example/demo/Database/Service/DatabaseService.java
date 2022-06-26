@@ -29,9 +29,10 @@ import com.example.demo.Store.Product;
 import com.example.demo.Store.ProductsCategories;
 import com.example.demo.Store.Review;
 import com.example.demo.Store.Store;
-import com.example.demo.Store.StorePurchase.Policies.Policy;
-import com.example.demo.Store.StorePurchase.Policies.PolicyType;
+import com.example.demo.Store.StorePurchase.Policies.*;
 import com.example.demo.Store.StorePurchase.PurchasableProduct;
+import com.example.demo.Store.StorePurchase.predicates.*;
+import com.example.demo.Store.StorePurchase.predicates.PredImplementions.*;
 import com.example.demo.StorePermission.*;
 import com.example.demo.User.Subscriber;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,10 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 
 @Service
@@ -374,18 +377,18 @@ public class DatabaseService {
         return storeRepository.findAll();
     }
     @Transactional
-    public void saveAllPredicateDTOPolicy(AllPredicateDTO allPredicateDTO, Policy policy){
+    public void saveAllPredicateDTOPolicy(String storeId,AllPredicateDTO allPredicateDTO, Policy policy){
             allPredicateRepository.saveAndFlush(allPredicateDTO);
             //Optional<AllPredicateDTO> allPredicateDTOWithId = allPredicateRepository.findByCartNumOfProductsAndPredicateType(allPredicateDTO.getCartNumOfProducts(), allPredicateDTO.getPredicateType());
-            policesRepository.saveAndFlush(new PolicyDTO(policy.getPolicyId(), PolicyType.OnePredPolicy.toString(),allPredicateDTO.getId()));
+            policesRepository.saveAndFlush(new PolicyDTO(storeId,policy.getPolicyId(), PolicyType.OnePredPolicy.toString(),allPredicateDTO.getId()));
     }
     @Transactional
-    public void saveCategoryPredicateDTOPolicy(AllPredicateDTO allPredicateDTO, List<ProductsCategories> categories, Policy policy){
+    public void saveCategoryPredicateDTOPolicy(String storeId,AllPredicateDTO allPredicateDTO, List<ProductsCategories> categories, Policy policy){
         allPredicateRepository.save(allPredicateDTO);
         for(ProductsCategories productsCategory : categories){
             categoryPredicateRepository.save(new CategoryPredicateDTO(allPredicateDTO.getId(), productsCategory.toString()));
         }
-        policesRepository.saveAndFlush(new PolicyDTO(policy.getPolicyId(), PolicyType.OnePredPolicy.toString(),allPredicateDTO.getId()));
+        policesRepository.saveAndFlush(new PolicyDTO(storeId,policy.getPolicyId(), PolicyType.OnePredPolicy.toString(),allPredicateDTO.getId()));
 
     }
     @Transactional
@@ -395,28 +398,28 @@ public class DatabaseService {
         policesRepository.saveAndFlush(policyDTO);
     }
     @Transactional
-    public void saveProductPredicateDTOPolicy(AllPredicateDTO allPredicateDTO, List<PurchasableProduct> lp, Policy policy){
-        allPredicateRepository.save(allPredicateDTO);
+    public void saveProductPredicateDTOPolicy(String storeId,AllPredicateDTO allPredicateDTO, List<PurchasableProduct> lp, Policy policy){
+        allPredicateRepository.save(allPredicateDTO);//todo bug need fixing
         for(PurchasableProduct productPredicate: lp){
-            productPredicateRepository.save(new ProductPredicateDTO(allPredicateDTO.getId(),productPredicate.toString() ));
+            productPredicateRepository.save(new ProductPredicateDTO(allPredicateDTO.getId(),PredicateProductType.Products_Above_Amount.toString() ));
         }
-        policesRepository.saveAndFlush(new PolicyDTO(policy.getPolicyId(), PolicyType.OnePredPolicy.toString(),allPredicateDTO.getId()));
+        policesRepository.saveAndFlush(new PolicyDTO(storeId,policy.getPolicyId(), PolicyType.OnePredPolicy.toString(),allPredicateDTO.getId()));
     }
     @Transactional
-    public void saveProductPredicateDTOPolicy(AllPredicateDTO allPredicateDTO, HashMap<PurchasableProduct,Integer> lp, Policy policy){
-        allPredicateRepository.save(allPredicateDTO);
+    public void saveProductPredicateDTOPolicy(String storeId, AllPredicateDTO allPredicateDTO, HashMap<PurchasableProduct,Integer> lp, Policy policy){
+        allPredicateRepository.save(allPredicateDTO);//todo bug need fixing
         for(PurchasableProduct productPredicate: lp.keySet()){
-            productPredicateRepository.save(new ProductPredicateDTO(allPredicateDTO.getId(),lp.get(productPredicate),productPredicate.toString() ));
+            productPredicateRepository.save(new ProductPredicateDTO(allPredicateDTO.getId(),lp.get(productPredicate),PredicateProductType.WithoutAmount.toString() ));
         }
-        policesRepository.saveAndFlush(new PolicyDTO(policy.getPolicyId(), PolicyType.OnePredPolicy.toString(),allPredicateDTO.getId()));
+        policesRepository.saveAndFlush(new PolicyDTO(storeId,policy.getPolicyId(), PolicyType.OnePredPolicy.toString(),allPredicateDTO.getId()));
     }
     @Transactional
-    public void saveUserPredicateDTOPolicy(AllPredicateDTO allPredicateDTO, List<String> userIds,Policy policy){
+    public void saveUserPredicateDTOPolicy(String storeId, AllPredicateDTO allPredicateDTO, List<String> userIds,Policy policy){
         allPredicateRepository.save(allPredicateDTO);
         for(String userId: userIds){
             userPredicateRepository.save(new UserPredicateDTO(allPredicateDTO.getId(), userId));
         }
-        policesRepository.saveAndFlush(new PolicyDTO(policy.getPolicyId(), PolicyType.OnePredPolicy.toString(),allPredicateDTO.getId()));
+        policesRepository.saveAndFlush(new PolicyDTO(storeId, policy.getPolicyId(), PolicyType.OnePredPolicy.toString(),allPredicateDTO.getId()));
     }
 
 
@@ -424,6 +427,88 @@ public class DatabaseService {
     @Transactional
     public void savePolicyComp(PolicyDTO policyDTO){
         policesRepository.saveAndFlush(policyDTO);
+    }
+
+    @Transactional
+    public CopyOnWriteArrayList<Policy> loadPoliesForStore(String storeId) throws SQLException {
+        CopyOnWriteArrayList<Policy> output = new CopyOnWriteArrayList<>();
+        List<PolicyDTO> policyDTOS = policesRepository.getByBelongsToStoreId(storeId);
+        for(PolicyDTO policyDTO: policyDTOS){
+            output.add(loadPolicyTree(policyDTO.getPolicyId()));
+        }
+        return output;
+    }
+    private Policy loadPolicyTree(String PolicyId) throws SQLException {
+        PolicyDTO policyDTO = policesRepository.getById(PolicyId);
+        PolicyType type = PolicyType.valueOf(policyDTO.getPolicyType());
+        if(type.equals(PolicyType.OnePredPolicy)){
+            PolicyPredicate predicate = loadPredicate(policyDTO.getPredicateId());
+            return new OnePredPolicy(policyDTO.getPolicyId(),predicate);
+        }
+        else if(type.equals(PolicyType.AndGatePolicy)){
+            Policy policy1 = loadPolicyTree(policyDTO.getForeignKeyPolicyId1());
+            Policy policy2 = loadPolicyTree(policyDTO.getForeignKeyPolicyId2());
+            return new AndGatePolicy(policy1,policy2);
+        }
+        else if(type.equals(PolicyType.OrGatePolicy)){
+            Policy policy1 = loadPolicyTree(policyDTO.getForeignKeyPolicyId1());
+            Policy policy2 = loadPolicyTree(policyDTO.getForeignKeyPolicyId2());
+            return new OrGatePolicy(policy1,policy2);
+        }
+        else if(type.equals(PolicyType.conditioningPolicy)){
+            Policy policy1 = loadPolicyTree(policyDTO.getForeignKeyPolicyId1());
+            Policy policy2 = loadPolicyTree(policyDTO.getForeignKeyPolicyId2());
+            return new conditioningPolicy(policy1,policy2);
+        }
+        else throw new SQLException("no policy with this type");
+    }
+    private PolicyPredicate loadPredicate(long PredicateId) throws SQLException {
+        AllPredicateDTO allPredicateDTO =  allPredicateRepository.getById(PredicateId);
+        if(allPredicateDTO.getPredicateType().equals(PredicatesTypes.AlwaysTrue.toString())){
+            return new AlwaysTrue();
+        }
+        else if (allPredicateDTO.getPredicateType().equals(PredicatesTypes.ProductPredicate.toString())) {
+            return new AlwaysTrue();//todo fix
+//
+//            List<ProductPredicateDTO> productPredicateDTOList =productPredicateRepository.getByProductIdForeignKey(allPredicateDTO.getId());
+//            if(productPredicateDTOList.get(0).getPredicateProductType().equals(PredicateProductType.Products_Above_Amount.toString())){
+//                HashMap<PurchasableProduct,Integer> products= new HashMap<>();
+//                for(ProductPredicateDTO productPredicateDTO: productPredicateDTOList){
+//                    products.put(new Product(productPredicateDTO.))
+//                }
+//            }
+//
+//            return new ProductPredicate()
+        }
+        else if (allPredicateDTO.getPredicateType().equals(PredicatesTypes.TimePredicate.toString())) {
+            return new TimePredicate(LocalDateTime.parse(allPredicateDTO.getStartTime()),LocalDateTime.parse(allPredicateDTO.getEndTime()), PredicateTimeType.valueOf(allPredicateDTO.getTimeType()));
+        }
+        else if (allPredicateDTO.getPredicateType().equals(PredicatesTypes.pricePredicate.toString())) {
+            return new PricePredicate(allPredicateDTO.getPrice());
+        }
+        else if (allPredicateDTO.getPredicateType().equals(PredicatesTypes.CartPredicate.toString())) {
+            return  new CartPredicate(allPredicateDTO.getCartNumOfProducts());
+        }
+        else if (allPredicateDTO.getPredicateType().equals(PredicatesTypes.CategoryPredicate.toString())) {
+            List<ProductsCategories> productsCategories = new ArrayList<>();
+            List<CategoryPredicateDTO> categoryPredicateDTOS= categoryPredicateRepository.getByBelongsToPredicateId(allPredicateDTO.getId());
+            for(CategoryPredicateDTO categoryPredicateDTO: categoryPredicateDTOS){
+                productsCategories.add(ProductsCategories.valueOf(categoryPredicateDTO.getCategory()));
+            }
+            return new CategoryPredicate(productsCategories);
+        }
+        else if (allPredicateDTO.getPredicateType().equals(PredicatesTypes.UserAgePredicate.toString())) {
+            return new UserPredicate(PredicateUserType.UserAge,allPredicateDTO.getStartAge(),allPredicateDTO.getEndAge());
+        }
+        else if (allPredicateDTO.getPredicateType().equals(PredicatesTypes.UserIdPredicate.toString())) {
+            List<String> userIds = new ArrayList<>();
+            List<UserPredicateDTO> userPredicateDTOS = userPredicateRepository.getByPredicateId(allPredicateDTO.getId());
+            for(UserPredicateDTO userPredicateDTO: userPredicateDTOS){
+                userIds.add(userPredicateDTO.getUserId());
+            }
+            return new UserPredicate(userIds,PredicateUserType.OnUserId);
+        }
+        else throw new SQLException("no predicate with this type");
     }
 
 

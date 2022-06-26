@@ -16,6 +16,10 @@ public abstract class Policy {
         this.policyId = IdGenerator.getInstance().getPolicyId();
     }
 
+    public Policy(String policyId) {
+        this.policyId = policyId;
+    }
+
     public abstract boolean checkIfPolicyStands(HashMap<Product, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo);
     public String getPolicyId(){
         return policyId;

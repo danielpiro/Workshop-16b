@@ -35,7 +35,7 @@ public class testStoreDatabase {
     @Test
     void bla(){
         AllPredicateDTO categoryPred = new AllPredicateDTO(PredicatesTypes.CategoryPredicate.toString());
-        databaseService.saveCategoryPredicateDTOPolicy(categoryPred, new ArrayList<>(), new Policy() {
+        databaseService.saveCategoryPredicateDTOPolicy("test",categoryPred, new ArrayList<>(), new Policy() {
             @Override
             public boolean checkIfPolicyStands(HashMap<Product, Integer> ProductAmount, ExternalConnectionHolder externalConnectionHolder, UserInfo userInfo) {
                 return false;

@@ -21,7 +21,7 @@ public class ProductPredicate implements PolicyPredicate, DiscountPredicate {
         type = PredicateProductType.WithoutAmount;
         this.products = new HashMap<>();
         for(PurchasableProduct p: products){
-          this.products.put(p,0);
+          this.products.put(p,1);
         }
     }
     public ProductPredicate(HashMap<PurchasableProduct,Integer> products){
