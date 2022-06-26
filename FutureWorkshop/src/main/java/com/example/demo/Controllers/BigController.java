@@ -1412,4 +1412,8 @@ public class BigController {
     private StoreController getStoreController() {
         return sc;
     }
+
+    public void clearDatabase() {
+        databaseService.clearDatabase();
+    }
 }

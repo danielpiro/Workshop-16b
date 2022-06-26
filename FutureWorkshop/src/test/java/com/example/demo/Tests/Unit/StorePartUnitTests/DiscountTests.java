@@ -2,9 +2,10 @@ package com.example.demo.Tests.Unit.StorePartUnitTests;
 
 import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
+import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.ExternalConnections.Old.Delivery.DeliveryNames;
 import com.example.demo.ExternalConnections.Old.ExternalConnectionHolder;
-import com.example.demo.ExternalConnections.Old.Delivery.Payment.PaymentNames;
+import com.example.demo.ExternalConnections.Old.Payment.PaymentNames;
 import com.example.demo.ShoppingCart.UserInfo;
 import com.example.demo.Store.InventoryManager;
 import com.example.demo.Store.ProductsCategories;
@@ -29,8 +30,12 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+@SpringBootTest
 public class DiscountTests {
+    @Autowired
+    DatabaseService databaseService;
     InventoryManager invMan =  new InventoryManager();
     String userId1 = "userId1";
     String Product1Id;

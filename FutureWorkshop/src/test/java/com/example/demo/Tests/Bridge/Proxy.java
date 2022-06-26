@@ -5,8 +5,9 @@ package com.example.demo.Tests.Bridge;
 import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
 import com.example.demo.ExternalConnections.Old.Delivery.Delivery;
 import com.example.demo.ExternalConnections.Old.Delivery.DeliveryNames;
-import com.example.demo.ExternalConnections.Old.Delivery.Payment.Payment;
-import com.example.demo.ExternalConnections.Old.Delivery.Payment.PaymentNames;
+import com.example.demo.ExternalConnections.Old.Payment.Payment;
+import com.example.demo.ExternalConnections.Old.Payment.PaymentNames;
+
 
 import javax.naming.NoPermissionException;
 import java.util.concurrent.ExecutionException;
