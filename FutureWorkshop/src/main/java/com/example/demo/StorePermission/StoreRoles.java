@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class  StoreRoles {
     private String userId ;
@@ -117,5 +118,18 @@ public abstract class  StoreRoles {
 //        StoreRoleDTO storeRoleDTO = new StoreRoleDTO(userId,StoreId,storeRoleType.toString());
 //        databaseService.saveStoreRolePermissionAndSaveStoreRole(storeRoleDTO,permissions);
 //    }
+
+
+
+    public boolean equals(StoreRoles that) {
+        for(Permission permission:storePermissions){
+            if(that.getPermissions().stream().noneMatch(p-> permission.toString().equals(p.toString()))){
+                return false;
+            }
+        }
+
+        return userId.equals(that.userId) ;
+    }
+
 
 }

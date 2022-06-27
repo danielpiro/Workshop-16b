@@ -36040,3 +36040,11 @@ Jun 26, 2022 10:09:01 PM com.example.demo.GlobalSystemServices.Log info
 INFO: System Started
 Jun 26, 2022 10:15:29 PM com.example.demo.GlobalSystemServices.Log info
 INFO: System Started
+Jun 27, 2022 9:25:57 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+Jun 27, 2022 9:25:59 AM com.example.demo.GlobalSystemServices.Log info
+INFO: sending store notification for some users
+Jun 27, 2022 9:28:11 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+Jun 27, 2022 9:28:26 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started

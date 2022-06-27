@@ -10863,3 +10863,7 @@ Jun 26, 2022 7:35:45 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
 Jun 26, 2022 7:35:45 PM com.example.demo.GlobalSystemServices.Log warning
 WARNING: User doesn't exist or is not logged in
+Jun 27, 2022 9:25:59 AM com.example.demo.GlobalSystemServices.Log warning
+WARNING:  user testOwner1 doesn't exist
+Jun 27, 2022 9:25:59 AM com.example.demo.GlobalSystemServices.Log warning
+WARNING: can't send store notification because user testOwner1 doesn't exist

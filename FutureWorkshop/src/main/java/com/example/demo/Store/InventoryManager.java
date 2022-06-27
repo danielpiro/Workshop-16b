@@ -267,5 +267,14 @@ public class InventoryManager  implements InventoryProtector {
         return true;
     }
 
+    public boolean equals(InventoryManager that){
+        for(Product product:products.values()){
+            if(that.getAllProducts(x->true).stream().noneMatch(p->product.equals(product))){
+                return false;
+            }
+        }
+        return true;
+    }
+
 
 }

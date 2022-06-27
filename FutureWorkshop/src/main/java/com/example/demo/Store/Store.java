@@ -28,10 +28,7 @@ import com.example.demo.StorePermission.StoreRoles;
 
 import javax.naming.NoPermissionException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Store implements getStoreInfo {
@@ -491,6 +488,20 @@ public class Store implements getStoreInfo {
             return StoreRoles.stream().anyMatch(role ->role.getTitle().equals(StoreRoleType.manager.toString()) &&
                     role.getUserId().equals(userID) );
         }
+    }
+
+
+    public boolean equals(Store store) {
+        for(StoreRoles storeRole:StoreRoles){
+            if(!storeRole.equals(storeRole)){
+                return false;
+            }
+        }
+        return storeName.equals(store.storeName) &&
+                storeId.equals(store.storeId) &&
+                inventoryManager.equals(store.inventoryManager) &&
+                storeState == store.storeState &&
+                storeRating.equals(store.storeRating);
     }
 
 

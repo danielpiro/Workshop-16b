@@ -1,17 +1,25 @@
 package com.example.demo.Tests.Unit;
 
+import com.example.demo.CustomExceptions.Exception.NotifyException;
+import com.example.demo.CustomExceptions.Exception.ResourceNotFoundException;
+import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
+import com.example.demo.CustomExceptions.Exception.UserException;
 import com.example.demo.Database.DTOobjects.Cart.ShoppingBasketDTO;
 import com.example.demo.Database.DTOobjects.GlobalServices.IdGeneratorDTO;
 import com.example.demo.Database.DTOobjects.History.HistoryDTO;
+import com.example.demo.Database.DTOobjects.Store.Permissions.StoreRoleDTO;
+import com.example.demo.Database.DTOobjects.Store.StoreDTO;
 import com.example.demo.Database.DTOobjects.User.ComplaintDTO;
 import com.example.demo.Database.DTOobjects.User.UserDTO;
 import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.GlobalSystemServices.IdGenerator;
-import com.example.demo.NotificationsManagement.ComplaintNotification;
-import com.example.demo.NotificationsManagement.NotificationSubject;
+import com.example.demo.NotificationsManagement.*;
 import com.example.demo.ShoppingCart.ShoppingBasket;
 import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Review;
+import com.example.demo.Store.Store;
+import com.example.demo.StorePermission.Permission;
+import com.example.demo.StorePermission.StoreRoleType;
 import com.example.demo.User.Subscriber;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -22,10 +30,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.testng.annotations.AfterTest;
 
+import javax.naming.NoPermissionException;
 import javax.validation.constraints.AssertTrue;
+import java.sql.Array;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -36,6 +46,7 @@ class DatabaseServiceTest {
     DatabaseService databaseService;
 
     @AfterEach
+    @BeforeEach
     public void deleteDeleteDatabase(){
         databaseService.clearDatabase();
     }
@@ -133,6 +144,47 @@ class DatabaseServiceTest {
         //load
         IdGenerator.getInstance().loadData();
         assertTrue(IdGenerator.getInstance().equals(idGenerator));
+
+    }
+
+    @Test
+    void saveStore() throws SQLException, NoPermissionException, UserException, NotifyException, SupplyManagementException, ResourceNotFoundException {
+        NotificationManager.ForTestsOnlyBuildNotificationManager(new NotificationReceiver() {
+            @Override
+            public void sendNotificationTo(List<String> userIds, StoreNotification storeNotification) throws UserException, UserException {}
+            @Override
+            public void sendComplaintToAdmins(String senderId, ComplaintNotification complaintNotification) throws UserException {}
+        });
+        //create store
+        List<String> originalOwner = new ArrayList<>();
+        originalOwner.add("testOriginalOwner");
+        Store store= new Store("testName","testID", originalOwner,databaseService);
+        List<Permission> permissions = new ArrayList<>();
+        permissions.add(Permission.ADD_NEW_PRODUCT);
+        permissions.add(Permission.EDIT_PRODUCT);
+        store.createOwner("testOriginalOwner","testOwner1",permissions);
+        StoreDTO storeDTO = new StoreDTO(store.getId(), store.getStoreName(), store.getStoreState().toString(),store.getStoreRating());
+
+
+        HashMap<StoreRoleDTO, List<Permission>> storeRoleDTOListHashMap = new HashMap<>();
+        storeRoleDTOListHashMap.put(new StoreRoleDTO("testOriginalOwner",store.getId(), StoreRoleType.original_owner.toString()), Arrays.asList(Permission.values()));
+        storeRoleDTOListHashMap.put(new StoreRoleDTO("testOwner1",store.getId(), StoreRoleType.owner.toString()),permissions);
+
+
+        databaseService.saveStore(storeDTO,storeRoleDTOListHashMap);
+
+        //store load
+        List<Store> stores = new ArrayList<>();
+        List<StoreDTO> storeDTOList = databaseService.getAllStores();
+        for(StoreDTO LoadedStoreDTO: storeDTOList){
+           stores.add( new Store(LoadedStoreDTO,databaseService));
+        }
+
+        if(stores.size() != 1){
+            fail();
+        }
+        Store loadStore = stores.get(0);
+        assertTrue(loadStore.equals(store));
 
     }
 
