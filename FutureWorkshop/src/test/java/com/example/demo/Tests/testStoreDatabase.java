@@ -8,7 +8,7 @@ import com.example.demo.CustomExceptions.Exception.UserException;
 import com.example.demo.Database.DTOobjects.Store.Predicates.AllPredicateDTO;
 import com.example.demo.Database.DTOobjects.Store.Predicates.PredicatesTypes;
 import com.example.demo.Database.Service.DatabaseService;
-import com.example.demo.ExternalConnections.ExternalConnectionHolder;
+import com.example.demo.ExternalConnections.Old.ExternalConnectionHolder;
 import com.example.demo.ShoppingCart.UserInfo;
 import com.example.demo.Store.Product;
 import com.example.demo.Store.StorePurchase.Policies.Policy;

@@ -6,6 +6,7 @@ import com.example.demo.Store.StorePurchase.Discounts.Discount;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public class IdGenerator {
@@ -80,6 +81,12 @@ public class IdGenerator {
     {
         if (single_instance == null)
             single_instance = new IdGenerator(productSuffix, storeSuffix, ForumThreadSuffix, guestSuffix, AdminSuffix, PolicySuffix, discountSuffix,PurchaseIDSuffix,PredicateSuffix);
+        return single_instance;
+    }
+    public static IdGenerator getForTestingOnly(Long productSuffix, Long storeSuffix, Long ForumThreadSuffix, Long guestSuffix , Long AdminSuffix, Long PolicySuffix, Long discountSuffix,long PurchaseIDSuffix,Long PredicateSuffix)
+    {
+
+        single_instance = new IdGenerator(productSuffix, storeSuffix, ForumThreadSuffix, guestSuffix, AdminSuffix, PolicySuffix, discountSuffix,PurchaseIDSuffix,PredicateSuffix);
         return single_instance;
     }
 
@@ -176,7 +183,7 @@ public class IdGenerator {
         database.saveIdGenerator(idGeneratorDTOList);
     }
 
-    private void loadData(){
+    public void loadData(){
         List<IdGeneratorDTO> DTOList = database.loadIdGenerator();
         for(IdGeneratorDTO dto: DTOList){
             switch (dto.getIdPrefix()){
@@ -214,5 +221,21 @@ public class IdGenerator {
             }
         }
     }
+
+
+    public boolean equals(IdGenerator that) {
+        return complaintNotificationId == that.complaintNotificationId &&
+                storeNotificationId == that.storeNotificationId &&
+                PurchaseIDSuffix == that.PurchaseIDSuffix &&
+                productSuffix.equals(that.productSuffix) &&
+                storeSuffix.equals(that.storeSuffix) &&
+                ForumThreadSuffix.equals(that.ForumThreadSuffix) &&
+                GuestSuffix.equals(that.GuestSuffix) &&
+                AdminSuffix.equals(that.AdminSuffix) &&
+                PolicySuffix.equals(that.PolicySuffix) &&
+                DiscountSuffix.equals(that.DiscountSuffix) &&
+                PredicateSuffix.equals(that.PredicateSuffix);
+    }
+
 
 }

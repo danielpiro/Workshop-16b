@@ -19,6 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Predicate;
 
+
 public class InventoryManager  implements InventoryProtector {
     private ConcurrentHashMap<String, Product> products;
     private CopyOnWriteArrayList<Discount> discounts;
@@ -262,6 +263,15 @@ public class InventoryManager  implements InventoryProtector {
         Product pro =  products.get(productId);
         if(pro == null){
             return false;
+        }
+        return true;
+    }
+
+    public boolean equals(InventoryManager that){
+        for(Product product:products.values()){
+            if(that.getAllProducts(x->true).stream().noneMatch(p->product.equals(product))){
+                return false;
+            }
         }
         return true;
     }

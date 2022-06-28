@@ -11,6 +11,7 @@ import com.example.demo.Store.StorePurchase.PurchasableProduct;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class Product implements PurchasableProduct {
     private final String id;
@@ -150,8 +151,18 @@ public class Product implements PurchasableProduct {
         return dto;
     }
 
-    public void moveFromSupplyToReserved(int howMuch){
-
-
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Float.compare(product.price, price) == 0 &&
+                Float.compare(product.rating, rating) == 0 &&
+                supply == product.supply &&
+                reservedSupply == product.reservedSupply &&
+                id.equals(product.id) &&
+                name.equals(product.name);
     }
+
+
 }

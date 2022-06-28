@@ -516,5 +516,23 @@ public class DatabaseService {
         return complaintRepository.findAll();
     }
 
-
+    public void clearDatabase(){
+        productRepository.deleteAll();
+        reviewRepository.deleteAll();
+        basketRepository.deleteAll();
+        userRepository.deleteAll();
+        historyRepository.deleteAll();
+        complaintRepository.deleteAll();
+        storeRoleRepository.deleteAll();
+        storeRoleToPermissionRepository.deleteAll();
+        storeRoleToStoreRoleRepository.deleteAll();
+        storeRepository.deleteAll();
+        idGeneratorRepository.deleteAll();
+        allPredicateRepository.deleteAll();
+        categoryPredicateRepository.deleteAll();
+        complaintRepository.deleteAll();
+        productRepository.deleteAll();
+        userPredicateRepository.deleteAll();
+        policesRepository.deleteAll();
+    }
 }

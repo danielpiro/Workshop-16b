@@ -5,15 +5,17 @@ import com.example.demo.Controllers.BigController;
 import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
 import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.DemoApplication;
-import com.example.demo.ExternalConnections.Delivery.DeliveryNames;
-import com.example.demo.ExternalConnections.Payment.PaymentNames;
-import com.example.demo.ExternalConnections.Payment.Visa;
+
+import com.example.demo.ExternalConnections.Old.Delivery.DeliveryNames;
+import com.example.demo.ExternalConnections.Old.Payment.PaymentNames;
 import com.example.demo.History.PurchaseHistory;
 import com.example.demo.ShoppingCart.ShoppingCart;
 import com.example.demo.Store.Product;
 import com.example.demo.StorePermission.Permission;
 import com.example.demo.Tests.Bridge.Real;
 import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 
 import javax.naming.NoPermissionException;
@@ -44,17 +46,14 @@ public class AcceptanceTests {
     private String product4;
 
 
-    //todo i think before all?
+    @AfterEach
+    void tearDown(){
+      proxy.clearDatabase();
+    }
     @BeforeEach
     void setUp() throws Exception {
         proxy = new Real(databaseService);
         proxy.openingMarket(databaseService);
-
-
-
-
-
-
 //
 //        admin: user AdminID_0, password BigBoss
 //        user1: store owner of store1 (store original owner)
@@ -84,11 +83,7 @@ public class AcceptanceTests {
          product4 = proxy.addProductToStore(storeId, "user1", "p3", 20.0f, 15, "Other");
     }
 
-    @AfterEach
-    void tearDown() {
-//        proxy.setUsers(new ArrayList<>());
-//        proxy.setStores(new ArrayList<>());
-    }
+
 
     @Test
     void pass_sanity_test_success_case() {
@@ -162,7 +157,8 @@ public class AcceptanceTests {
     @Test
     void guest_login_cart_invariant() {
         String guest = proxy.getGuest();
-
+        String [] guestId = guest.split("#");
+        guest =guestId[0];
         proxy.increaseProductQuantityInShoppingCart(guest,product1,storeId,5,false);
         ShoppingCart sc = proxy.getShoppingCart(guest);
         String ans1 = sc.getCartInventory();
@@ -202,16 +198,8 @@ public class AcceptanceTests {
 
 
 
-    @Test
-    void remove_delivery_service_success_case() {
-        //assertTrue(proxy.removeDelivery("UPS"));
-        assertTrue(proxy.removeDelivery(DeliveryNames.FedEx));
-    }
-    @Test
-    void add_delivery_service_success_case() {
-        //assertTrue(proxy.removeDelivery("UPS"));
-        assertTrue(proxy.removeDelivery(DeliveryNames.FedEx));
-    }
+
+
 
     /**
      *  System requirement - I.3
@@ -241,24 +229,24 @@ public class AcceptanceTests {
     /**
      *  System requirement - I.4
      **/
-    @Test
-    void delivery_success_case_test() {
-//        -Check that the delivery service connection is valid
-//        -Check delivery details
-//        -Check delivery service answer
-
-        //"Delivery done successfully"
-        assertTrue( proxy.delivery(DeliveryNames.FedEx, 2)>=0);
-    }
-    @Test
-    void delivery_fail_case_test() {
-//        -Check that the delivery service connection is valid
-//        -Check delivery details
-//        -Check delivery service answer
-//              -> payment service returns an invalid answer (= the delivery can't be done)
-
-        assertNotEquals(0, proxy.delivery(DeliveryNames.FedEx, -2));
-    }
+//    @Test
+//    void delivery_success_case_test() {
+////        -Check that the delivery service connection is valid
+////        -Check delivery details
+////        -Check delivery service answer
+//
+//        //"Delivery done successfully"
+//        assertTrue( proxy.delivery(DeliveryNames.FedEx, 2)>=0);
+//    }
+//    @Test
+//    void delivery_fail_case_test() {
+////        -Check that the delivery service connection is valid
+////        -Check delivery details
+////        -Check delivery service answer
+////              -> payment service returns an invalid answer (= the delivery can't be done)
+//
+//        assertNotEquals(0, proxy.delivery(DeliveryNames.FedEx, -2));
+//    }
 
 
 

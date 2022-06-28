@@ -5,9 +5,9 @@ import com.example.demo.ExternalConnections.Old.Delivery.Delivery;
 import com.example.demo.ExternalConnections.Old.Delivery.DeliveryNames;
 import com.example.demo.ExternalConnections.Old.Delivery.UPS;
 import com.example.demo.ExternalConnections.Old.ExternalConnections;
-import com.example.demo.ExternalConnections.Old.Delivery.Payment.Payment;
-import com.example.demo.ExternalConnections.Old.Delivery.Payment.PaymentNames;
-import com.example.demo.ExternalConnections.Old.Delivery.Payment.Visa;
+import com.example.demo.ExternalConnections.Old.Payment.Payment;
+import com.example.demo.ExternalConnections.Old.Payment.PaymentNames;
+import com.example.demo.ExternalConnections.Old.Payment.Visa;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

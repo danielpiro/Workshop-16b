@@ -5,11 +5,13 @@ package com.example.demo.Tests.Bridge;
 import com.example.demo.Controllers.BigController;
 import com.example.demo.CustomExceptions.Exception.*;
 import com.example.demo.CustomExceptions.ExceptionHandler.ReturnValue;
+import com.example.demo.Database.Service.DatabaseService;
 import com.example.demo.ExternalConnections.Old.Delivery.Delivery;
 import com.example.demo.ExternalConnections.Old.Delivery.DeliveryNames;
 import com.example.demo.ExternalConnections.Old.ExternalConnections;
-import com.example.demo.ExternalConnections.Old.Delivery.Payment.Payment;
-import com.example.demo.ExternalConnections.Old.Delivery.Payment.PaymentNames;
+import com.example.demo.ExternalConnections.Old.Payment.Payment;
+import com.example.demo.ExternalConnections.Old.Payment.PaymentNames;
+import com.example.demo.GlobalSystemServices.IdGenerator;
 import com.example.demo.History.History;
 import com.example.demo.History.PurchaseHistory;
 import com.example.demo.Mock.MockFullProduct;
@@ -110,7 +112,7 @@ public class Real   {
     /** System requirement - I.1 */
     public String openingMarket(DatabaseService databaseService){
         try {
-          
+            IdGenerator.getInstance(0L,0L,0L,0L,0L,0L,0L,0,0L);
             this.bigController = new BigController(databaseService);
             bigController.setWithDatabase(false);
             return "system opened successfully";
@@ -245,8 +247,8 @@ public class Real   {
 //    }
 
     /** User requirement - II.1.2 */
-    public String getOutFromTheSystem(String name){
-        ReturnValue<String> returnValue = getBigController().GuestExitSystem(name);
+    public String getOutFromTheSystem(String name) throws UserException {
+        ReturnValue<String> returnValue = getBigController().GuestExitSystem("NotValidSessionID",name,name);
         return returnValue.getValue();
     }
 
@@ -267,7 +269,7 @@ public class Real   {
     /** User requirement - II.1.4 */
     public boolean login(String username, String password)  {
         try {
-            getBigController().loginUserApi(username, password);
+            getBigController().loginUser(username, password);
             return true;
         }catch (Exception e){
             return false;
@@ -277,7 +279,7 @@ public class Real   {
     /** User requirement - II.1.4 */
     public boolean loginFromGuest(String userId,String username, String password)  {
         try {
-            getBigController().loginGuestApi(userId,username, password);
+            getBigController().loginGuest(userId,username, password);
             return true;
         }catch (Exception e){
             return false;
@@ -294,7 +296,7 @@ public class Real   {
     public List<Product> searchProduct(String userId, String productName) {
 
         try {
-            ReturnValue<List<Product>> rv = getBigController().SearchProductsAccordingName(userId, productName);
+            ReturnValue<List<Product>> rv = getBigController().SearchProductsAccordingName("NotValidSessionID",userId, productName);
             return rv.getValue();
         }catch (Exception e){
             return null;
@@ -314,7 +316,7 @@ public class Real   {
         MockSmallProduct msp = new MockSmallProduct(user_id,productID,storeID,amount);
         int ans =-1;
         try {
-             ans = (Integer) bigController.addProductFromCart(msp, auctionOrBid).getValue();
+             ans = (Integer) bigController.addProductFromCart("NotValidSessionID",user_id, msp, auctionOrBid).getValue();
         }catch (Exception e) {
             return false;
         }
@@ -331,7 +333,7 @@ public class Real   {
     public boolean decreaseProductQuantityInShoppingCart(String userId,String productID, String storeID, int amount){
         int ans =-1;
         try {
-             ans = (Integer) bigController.removeProductFromCart( new MockSmallProduct(userId,productID,storeID,amount)).getValue();
+             ans = (Integer) bigController.removeProductFromCart("NotValidSessionID",userId, new MockSmallProduct(userId,productID,storeID,amount)).getValue();
         }catch (Exception e) {
             return false;
         }
@@ -351,7 +353,7 @@ public class Real   {
     public boolean purchaseShoppingCart(String userID,PaymentNames payment,DeliveryNames delivery) throws Exception {
 
         float ans =-1;
-            ans = (Float) bigController.purchaseCart(userID,payment,delivery,"dann","ringelblum","beer sheva",
+            ans = (Float) bigController.purchaseCart("NotValidSessionID",userID,payment,delivery,"dann","ringelblum","beer sheva",
                         "Israel","8458527","rotman inc","2222333344445555","04/2021",262,"20444444").getValue();
 
         return ans != -1;
@@ -371,7 +373,7 @@ public class Real   {
     /** User requirement - II.3.2 */
     public String openStore(String userID, String storeName){
         try {
-            return (String) bigController.openNewStore(userID, storeName).getValue();
+            return (String) bigController.openNewStore("NotValidSessionID",userID, storeName).getValue();
         }
         catch (Exception e){
             return "failed to open store";
@@ -379,7 +381,7 @@ public class Real   {
     }
     public boolean openStore(String userID, String storeName, HashMap<Product, Integer> products){
         try {
-            String storeId = (String) bigController.openNewStore(storeName, userID).getValue();
+            String storeId = (String) bigController.openNewStore("NotValidSessionID",storeName, userID).getValue();
             for (Product p : products.keySet()) {
                 addProductToStore(storeId, userID , p.getName(), p.getPrice(), products.get(p), p.getCategory().toString());
             }
@@ -395,7 +397,7 @@ public class Real   {
     public String addProductToStore(String storeId, String userId, String productName, float price, int supply, String category){
         try {
             MockFullProduct mfp = new MockFullProduct(storeId,userId,productName,price,supply,category);
-            String m = (String) bigController.addNewProductToStore(mfp).getValue();
+            String m = (String) bigController.addNewProductToStore("NotValidSessionID",userId,mfp).getValue();
             return m;
         }
         catch (Exception e) {
@@ -407,7 +409,7 @@ public class Real   {
     /** User requirement - II.4.1 */
     public boolean removeProductFromStore(String storeId,String userId,String productId){
         try {
-            bigController.deleteProductFromStore(storeId,userId, productId);
+            bigController.deleteProductFromStore("NotValidSessionID",storeId,userId, productId);
             return true;
         }
         catch (NoPermissionException | SupplyManagementException | UserException | NotifyException  |IOException | IllegalArgumentException e) {
@@ -420,7 +422,7 @@ public class Real   {
     public boolean editProductInStore(String storeId, String userId, String productId,
                                      int newSupply, String newName, float newPrice, String category){
         try {
-            bigController.editProduct(productId,new MockFullProduct( storeId,userId, newName, newPrice,newSupply,   category));
+            bigController.editProduct("NotValidSessionID",userId,productId,new MockFullProduct( storeId,userId, newName, newPrice,newSupply,   category));
             return true;
         }
         catch ( Exception e) {
@@ -445,7 +447,7 @@ public class Real   {
             if(s.length()>0) {
                 s = s.substring(1);
             }
-            bigController.createOwner(storeId, userIdGiving,UserGettingPermissionId,s);
+            bigController.createOwner("NotValidSessionID",storeId, userIdGiving,UserGettingPermissionId,s);
             return true;
         }
         catch (NoPermissionException | UserException | NotifyException | IllegalArgumentException | SQLException e) {
@@ -457,7 +459,7 @@ public class Real   {
     /** User requirement - II.4.6 */
     public boolean addNewStoreManager(String storeId, String userIdGiving, String UserGettingPermissionId){
         try {
-            bigController.createManager(storeId, userIdGiving, UserGettingPermissionId);
+            bigController.createManager("NotValidSessionID",storeId, userIdGiving, UserGettingPermissionId);
             return true;
         }
         catch (NoPermissionException | UserException | NotifyException | IllegalArgumentException | SQLException e) {
@@ -469,7 +471,7 @@ public class Real   {
     /** User requirement - II.4.7 */
     public boolean changeStoreManagerPermissions(String storeId, String userIdRemoving, String UserAffectedId, List<String> PerToRemove) throws NoPermissionException {
         try {
-            bigController.removeSomePermissions(new MockPermission(storeId, userIdRemoving, UserAffectedId, PerToRemove));
+            bigController.removeSomePermissions("NotValidSessionID",userIdRemoving,new MockPermission(storeId, userIdRemoving, UserAffectedId, PerToRemove));
             return true;
         } catch (UserException e) {
             return false;
@@ -480,7 +482,7 @@ public class Real   {
     /** User requirement - II.4.9 */
     public boolean freezeStoreByOwner(String storeId, String userId){
         try {
-            bigController.freezeStore(storeId,userId);
+            bigController.freezeStore("NotValidSessionID",userId,storeId);
             return true;
         }
         catch (NotifyException | UserException | NoPermissionException | SupplyManagementException | IOException | IllegalArgumentException e) {
@@ -492,7 +494,7 @@ public class Real   {
     /** User requirement - II.4.10 */
     public boolean unfreezeStoreByOwner(String storeId, String userId){//todo tell amit i added this
         try {
-            bigController.unfreezeStore(storeId,userId);
+            bigController.unfreezeStore("NotValidSessionID",userId,storeId);
             return true;
         }
         catch (NotifyException | UserException | NoPermissionException | SupplyManagementException | IOException | IllegalArgumentException e) {
@@ -504,7 +506,7 @@ public class Real   {
     /** User requirement - II.4.11 */
     public boolean showStoreOfficials(String storeId, String userId){
         try {
-            bigController.getInfoOnManagersOwnersForTests(storeId,userId);
+            bigController.getInfoOnManagersOwnersForTests("NotValidSessionID",storeId,userId);
             return true;
         }
         catch (Exception e) {
@@ -537,4 +539,8 @@ public class Real   {
         return bigController.getGuest_list();
     }
 
+    public void clearDatabase() {
+
+        bigController.clearDatabase();
+    }
 }

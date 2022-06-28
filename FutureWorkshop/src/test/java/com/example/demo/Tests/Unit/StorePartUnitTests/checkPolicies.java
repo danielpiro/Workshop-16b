@@ -6,7 +6,7 @@ import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.ExternalConnections.Old.Delivery.DeliveryNames;
 import com.example.demo.ExternalConnections.Old.ExternalConnectionHolder;
-import com.example.demo.ExternalConnections.Old.Delivery.Payment.PaymentNames;
+import com.example.demo.ExternalConnections.Old.Payment.PaymentNames;
 import com.example.demo.ShoppingCart.UserInfo;
 import com.example.demo.Store.InventoryManager;
 import com.example.demo.Store.ProductsCategories;
