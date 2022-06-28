@@ -157,7 +157,8 @@ public class AcceptanceTests {
     @Test
     void guest_login_cart_invariant() {
         String guest = proxy.getGuest();
-
+        String [] guestId = guest.split("#");
+        guest =guestId[0];
         proxy.increaseProductQuantityInShoppingCart(guest,product1,storeId,5,false);
         ShoppingCart sc = proxy.getShoppingCart(guest);
         String ans1 = sc.getCartInventory();
@@ -197,16 +198,8 @@ public class AcceptanceTests {
 
 
 
-    @Test
-    void remove_delivery_service_success_case() {
-        //assertTrue(proxy.removeDelivery("UPS"));
-        assertTrue(proxy.removeDelivery(DeliveryNames.FedEx));
-    }
-    @Test
-    void add_delivery_service_success_case() {
-        //assertTrue(proxy.removeDelivery("UPS"));
-        assertTrue(proxy.removeDelivery(DeliveryNames.FedEx));
-    }
+
+
 
     /**
      *  System requirement - I.3
