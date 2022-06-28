@@ -5,6 +5,7 @@ import com.example.demo.CustomExceptions.Exception.NotifyException;
 import com.example.demo.CustomExceptions.Exception.StorePolicyViolatedException;
 import com.example.demo.CustomExceptions.Exception.SupplyManagementException;
 import com.example.demo.CustomExceptions.Exception.UserException;
+import com.example.demo.ExternalConnections.New.ExternalConnectionsReal;
 import com.example.demo.ExternalConnections.Old.Delivery.DeliveryNames;
 
 import com.example.demo.ExternalConnections.Old.ExternalConnectionHolder;
@@ -93,20 +94,19 @@ public class BigController {
 //    }
 
     @Autowired
-    public BigController(DatabaseService databaseService) throws IOException, UserException, NoPermissionException, SupplyManagementException, InterruptedException, SQLException, NotifyException, ResourceNotFoundException {
+    public BigController(DatabaseService databaseService) throws IOException, UserException, NoPermissionException, SupplyManagementException, InterruptedException, SQLException, NotifyException, ResourceNotFoundException, ExternalServiceDoesNotExist {
         this.us = new UserController();
         this.sc = new StoreController(databaseService);
         this.databaseService = databaseService;
         IdGenerator.addDatabase(databaseService);
         this.policyBuilder = new PolicyBuilder();
         NotificationManager.buildNotificationManager(us);
-//        NotificationManager.ForTestsOnlyBuildNotificationManager(new NotificationReceiver() {
-//            @Override
-//            public void sendNotificationTo(List<String> userIds, StoreNotification storeNotification) throws UserException, UserException {}
-//            @Override
-//            public void sendComplaintToAdmins(String senderId, ComplaintNotification complaintNotification) throws UserException {}
-//        });//todo delete this  !!!for testing only!!! notifications doesnt work with this
+
       //initializeSystem();
+
+        if(!ExternalConnectionsReal.getInstance().handshake())
+            throw new ExternalServiceDoesNotExist("could not initiate connection");
+
         my_log.info("System Started");
 
         withDatabase = true;

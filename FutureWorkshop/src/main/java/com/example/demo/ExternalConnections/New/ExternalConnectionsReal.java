@@ -1,5 +1,7 @@
 package com.example.demo.ExternalConnections.New;
 
+import com.example.demo.CustomExceptions.Exception.ExternalServiceDoesNotExist;
+
 import java.io.IOException;
 import java.net.ConnectException;
 
@@ -22,11 +24,17 @@ public class ExternalConnectionsReal {
 
 
 
-    public boolean handshake() throws Exception {
-        String response = HTTPPostClient.send(HTTPPostClient.makeHandshakeParams());
+    public boolean handshake() throws ExternalServiceDoesNotExist {
+        String response;
+        try {
+            response = HTTPPostClient.send(HTTPPostClient.makeHandshakeParams());
+        }
+        catch (Exception e){
+            throw  new ExternalServiceDoesNotExist("could not send params");
+        }
         boolean success = response.equals("OK");
         if (!success)
-            throw new ConnectException();
+            return false;
 
         return true;
     }

@@ -47,7 +47,7 @@ public class Real   {
 
 
 
-    public Real(DatabaseService databaseService) throws IOException, SupplyManagementException, NoPermissionException, UserException, InterruptedException, SQLException, NotifyException, ResourceNotFoundException {
+    public Real(DatabaseService databaseService) throws IOException, SupplyManagementException, NoPermissionException, UserException, InterruptedException, SQLException, NotifyException, ResourceNotFoundException, ExternalServiceDoesNotExist {
         bigController = new BigController(databaseService);
         NotificationManager.ForTestsOnlyBuildNotificationManager(new NotificationReceiver() {
             @Override
