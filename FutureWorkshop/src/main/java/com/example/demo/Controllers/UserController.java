@@ -55,7 +55,7 @@ public class UserController implements NotificationReceiver {
     public void initSystem(DatabaseService databaseService){
 
         if(databaseService.findUserbyName("admin").size()==0)
-            databaseService.saveUser(admin);
+            databaseService.saveUser(admin,true);
 
         for(UserDTO userDTO: databaseService.allUsers()) {
             List<ComplaintNotification> notifications = new LinkedList<>();
@@ -67,6 +67,14 @@ public class UserController implements NotificationReceiver {
                 for (ComplaintDTO cd : databaseService.findAllComplaint()) {
                     ad.addComplaint(cd.convertToComplaint());
                 }
+            }
+            else if(userDTO.isAdmin()){
+                Subscriber ad= new Subscriber(userDTO.getName(),userDTO.getPassword(),databaseService.getShoppingCart(userDTO.getName()),notifications);
+                for (ComplaintDTO cd : databaseService.findAllComplaint()) {
+                    ad.addComplaint(cd.convertToComplaint());
+                }
+                add_admin(ad);
+                add_subscriber(ad);
             }
             else
                 user_list.add( new Subscriber(userDTO.getName(),userDTO.getPassword(),databaseService.getShoppingCart(userDTO.getName()),notifications));

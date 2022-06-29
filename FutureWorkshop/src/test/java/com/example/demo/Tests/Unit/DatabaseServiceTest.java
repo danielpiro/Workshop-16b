@@ -91,7 +91,7 @@ class DatabaseServiceTest {
     @Test
     void findUser() {
         Subscriber sb = new Subscriber("NotAValidUsername","rotman");
-        UserDTO user =databaseService.saveUser(sb);
+        UserDTO user =databaseService.saveUser(sb,false);
         List<UserDTO> ls = databaseService.findUserbyName("NotAValidUsername");
         UserDTO user2= ls.get(0);
 

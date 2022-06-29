@@ -212,8 +212,8 @@ public class DatabaseService {
     }
 
     @Transactional
-    public UserDTO saveUser(Subscriber sub){
-        UserDTO userDTO = new UserDTO(sub.getName(),sub.getPassword(),sub.isLogged_in());
+    public UserDTO saveUser(Subscriber sub,boolean isAdmin){
+        UserDTO userDTO = new UserDTO(sub.getName(),sub.getPassword(),sub.isLogged_in(),isAdmin);
         return userRepository.saveAndFlush(userDTO);
     }
 

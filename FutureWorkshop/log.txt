@@ -44166,3 +44166,113 @@ Jun 28, 2022 10:44:41 AM com.example.demo.GlobalSystemServices.Log info
 INFO: user delphin is trying to logout
 Jun 28, 2022 10:44:41 AM com.example.demo.GlobalSystemServices.Log info
 INFO: user delphin successfully logged out
+Jun 29, 2022 10:26:54 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+Jun 29, 2022 10:29:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u1 is trying to sign up
+Jun 29, 2022 10:29:48 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : u1
+Jun 29, 2022 10:29:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u1 is trying to login
+Jun 29, 2022 10:29:59 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u1 is trying to logout
+Jun 29, 2022 10:29:59 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u1 successfully logged out
+Jun 29, 2022 10:31:47 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+Jun 29, 2022 10:32:06 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u1 is trying to login
+Jun 29, 2022 10:34:33 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+Jun 29, 2022 10:34:51 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u1 is trying to login
+Jun 29, 2022 10:34:54 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u1 is trying to logout
+Jun 29, 2022 10:34:54 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u1 successfully logged out
+Jun 29, 2022 10:35:13 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u2 is trying to sign up
+Jun 29, 2022 10:35:13 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : u2
+Jun 29, 2022 10:35:20 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u3 is trying to sign up
+Jun 29, 2022 10:35:20 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : u3
+Jun 29, 2022 10:35:30 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u4 is trying to sign up
+Jun 29, 2022 10:35:30 AM com.example.demo.GlobalSystemServices.Log info
+INFO: is trying to sign up with user name : u4
+Jun 29, 2022 10:35:36 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u1 is trying to login
+Jun 29, 2022 10:35:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u1 is trying to logout
+Jun 29, 2022 10:35:43 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u1 successfully logged out
+Jun 29, 2022 10:35:52 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user admin is trying to login
+Jun 29, 2022 10:36:13 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user adminis trying to add u1as admin
+Jun 29, 2022 10:36:30 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user admin is trying to logout
+Jun 29, 2022 10:36:30 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user admin successfully logged out
+Jun 29, 2022 10:37:35 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+Jun 29, 2022 10:37:49 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user admin is trying to login
+Jun 29, 2022 10:37:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user admin is trying to logout
+Jun 29, 2022 10:37:55 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user admin successfully logged out
+Jun 29, 2022 10:38:05 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u1 is trying to login
+Jun 29, 2022 10:52:27 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+Jun 29, 2022 10:52:47 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u1 is trying to login
+Jun 29, 2022 10:52:49 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u1 is trying to logout
+Jun 29, 2022 10:52:49 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u1 successfully logged out
+Jun 29, 2022 10:52:58 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user admin is trying to login
+Jun 29, 2022 10:53:11 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user adminis trying to add u1as admin
+Jun 29, 2022 10:53:16 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user admin is trying to logout
+Jun 29, 2022 10:53:16 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user admin successfully logged out
+Jun 29, 2022 10:53:22 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u1 is trying to login
+Jun 29, 2022 10:53:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u1 is trying to logout
+Jun 29, 2022 10:53:29 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u1 successfully logged out
+Jun 29, 2022 10:53:50 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+Jun 29, 2022 10:53:59 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u1 is trying to login
+Jun 29, 2022 10:54:01 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u1 is trying to login
+Jun 29, 2022 10:54:10 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u2 is trying to login
+Jun 29, 2022 10:54:14 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u2 is trying to logout
+Jun 29, 2022 10:54:14 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u2 successfully logged out
+Jun 29, 2022 10:54:18 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u1 is trying to login
+Jun 29, 2022 10:55:57 AM com.example.demo.GlobalSystemServices.Log info
+INFO: System Started
+Jun 29, 2022 10:56:00 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u2 is trying to login
+Jun 29, 2022 10:56:02 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u2 is trying to logout
+Jun 29, 2022 10:56:02 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u2 successfully logged out
+Jun 29, 2022 10:56:05 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u1 is trying to login
+Jun 29, 2022 10:56:10 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u1 is trying to logout
+Jun 29, 2022 10:56:10 AM com.example.demo.GlobalSystemServices.Log info
+INFO: user u1 successfully logged out

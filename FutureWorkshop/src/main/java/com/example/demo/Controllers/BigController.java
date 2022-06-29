@@ -221,7 +221,7 @@ public class BigController {
         my_log.info("user " + user_name + " is trying to sign up");
         ReturnValue rv = new ReturnValue(true, "", getUserController().sign_up(user_name, password));
         if(withDatabase && rv.isSuccess())
-            databaseService.saveUser(getUserController().get_subscriber(user_name));
+            databaseService.saveUser(getUserController().get_subscriber(user_name), getUserController().checkIfAdmin(user_name));
 
         return rv;
     }
@@ -231,7 +231,7 @@ public class BigController {
                                     @RequestParam String password) throws UserException, InterruptedException {
         ReturnValue rv = new ReturnValue(true, "", getUserController().login(userNameLogin, password));
         if(withDatabase && rv.isSuccess())
-            databaseService.saveUser(getUserController().get_subscriber(userNameLogin));
+            databaseService.saveUser(getUserController().get_subscriber(userNameLogin),getUserController().checkIfAdmin(userNameLogin));
 
         return rv;
     }
@@ -249,7 +249,7 @@ public class BigController {
         ReturnValue rv = new ReturnValue(true, "", getUserController().logout(user_name));
 
         if(withDatabase && rv.isSuccess())
-            databaseService.saveUser(getUserController().get_subscriber(user_name));
+            databaseService.saveUser(getUserController().get_subscriber(user_name),getUserController().checkIfAdmin(user_name));
 
         return rv;
 

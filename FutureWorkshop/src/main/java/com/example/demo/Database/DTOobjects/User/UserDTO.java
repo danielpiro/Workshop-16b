@@ -28,6 +28,7 @@ public class UserDTO {
     @Column(name = "logged_in")
     private boolean loggedIn = false;
 
+    private boolean isAdmin;
 
 
     @Override
